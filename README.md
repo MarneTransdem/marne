@@ -45,17 +45,21 @@ Marne Transdem est une application web moderne et performante pour une entrepris
 ```bash
 npm run dev
 ```
-L'application sera accessible sur `http://localhost:3000`.
+L'application utilise un serveur Express avec Vite en middleware. Elle est accessible sur `http://localhost:3000`.
 
-### Build pour la production
+### Build et Production
+
+Pour construire et lancer l'application en mode production (idéal pour Cloud Run) :
 
 ```bash
 npm run build
+npm start
 ```
-Les fichiers de production seront générés dans le dossier `dist/`.
+Le serveur écoutera sur le port défini par l'environnement (`PORT`) ou 3000 par défaut.
 
 ## 📁 Structure du Projet
 
+- `server.ts` : Point d'entrée de l'application (Express + Vite).
 - `src/components` : Composants UI réutilisables.
 - `src/pages` : Pages principales et pages SEO locales.
 - `src/lib` : Utilitaires et schémas SEO.

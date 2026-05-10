@@ -1,0 +1,70 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 0. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Helpers ---
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    
+    function incoming() {
+      return request.resource.data;
+    }
+    
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Admin helper - check if user email is the owner's email
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.email == 'contact@marnetransdem.com' && request.auth.token.email_verified == true;
+    }
+
+    // --- Collections ---
+
+    // 1. Quotes
+    match /quotes/{quoteId} {
+      allow create: if isValidQuote(incoming());
+      allow read: if isAdmin();
+      
+      function isValidQuote(data) {
+        return data.keys().hasAll(['fullName', 'phone', 'email', 'fromAddress', 'fromCity', 'fromZip', 'toAddress', 'toCity', 'toZip', 'date', 'housingType', 'surface', 'formula', 'createdAt'])
+          && data.fullName is string && data.fullName.size() >= 2 && data.fullName.size() <= 100
+          && data.phone is string && data.phone.size() >= 8 && data.phone.size() <= 25
+          && data.email is string && data.email.matches('^.+@.+\\..+$')
+          && data.fromAddress is string && data.fromAddress.size() <= 200
+          && data.fromCity is string && data.fromCity.size() <= 100
+          && data.fromZip is string && data.fromZip.size() <= 20
+          && data.toAddress is string && data.toAddress.size() <= 200
+          && data.toCity is string && data.toCity.size() <= 100
+          && data.toZip is string && data.toZip.size() <= 20
+          && data.date is string && data.date.size() <= 50
+          && data.housingType is string && data.housingType.size() <= 50
+          && data.surface is string && data.surface.size() <= 50
+          && data.formula is string && data.formula.size() <= 50
+          && data.createdAt == request.time;
+      }
+    }
+
+    // 2. Messages
+    match /messages/{messageId} {
+      allow create: if isValidMessage(incoming());
+      allow read: if isAdmin();
+
+      function isValidMessage(data) {
+        return data.keys().hasAll(['name', 'phone', 'email', 'subject', 'message', 'createdAt'])
+          && data.name is string && data.name.size() >= 2 && data.name.size() <= 100
+          && data.phone is string && data.phone.size() >= 8 && data.phone.size() <= 25
+          && data.email is string && data.email.matches('^.+@.+\\..+$')
+          && data.subject is string && data.subject.size() <= 100
+          && data.message is string && data.message.size() >= 5 && data.message.size() <= 2000
+          && data.createdAt == request.time;
+      }
+    }
+  }
+}

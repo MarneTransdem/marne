@@ -1,0 +1,61 @@
+{
+  "entities": {
+    "Quote": {
+      "title": "Quote Request",
+      "description": "A relocation quote request from a lead.",
+      "type": "object",
+      "properties": {
+        "fullName": { "type": "string", "description": "Full name of the requester" },
+        "phone": { "type": "string", "description": "Phone number" },
+        "email": { "type": "string", "format": "email", "description": "Email address" },
+        "fromAddress": { "type": "string" },
+        "fromCity": { "type": "string" },
+        "fromZip": { "type": "string" },
+        "fromFloor": { "type": "string" },
+        "fromElevator": { "type": "string" },
+        "fromDifficulties": { "type": "string" },
+        "toAddress": { "type": "string" },
+        "toCity": { "type": "string" },
+        "toZip": { "type": "string" },
+        "toFloor": { "type": "string" },
+        "toElevator": { "type": "string" },
+        "toDifficulties": { "type": "string" },
+        "date": { "type": "string" },
+        "housingType": { "type": "string" },
+        "surface": { "type": "string" },
+        "volume": { "type": "string" },
+        "formula": { "type": "string" },
+        "needsLift": { "type": "string" },
+        "needsPacking": { "type": "string" },
+        "needsStorage": { "type": "string" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["fullName", "phone", "email", "fromAddress", "fromCity", "fromZip", "toAddress", "toCity", "toZip", "date", "housingType", "surface", "formula", "createdAt"]
+    },
+    "Message": {
+      "title": "Contact Message",
+      "description": "A general inquiry from the contact form.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "subject": { "type": "string" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "phone", "email", "subject", "message", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/quotes/{quoteId}": {
+      "schema": "Quote",
+      "description": "Relocation requests"
+    },
+    "/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Contact form messages"
+    }
+  }
+}

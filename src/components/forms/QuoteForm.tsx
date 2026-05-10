@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Check, ArrowRight, Loader2, ChevronLeft, Calculator, RotateCcw } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { db } from '../../lib/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { handleFirestoreError, OperationType } from '../../lib/firestore-errors';
 
 interface FormData {
   // Section A: Coordonnées
@@ -157,7 +160,7 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) {
       // Scroll to the first error
@@ -169,12 +172,22 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
     }
 
     setIsSubmitting(true);
-    // Simulation d'envoi
-    setTimeout(() => {
+    
+    try {
+      const path = 'quotes';
+      await addDoc(collection(db, path), {
+        ...formData,
+        createdAt: serverTimestamp()
+      });
+      
       setIsSubmitting(false);
       setIsSuccess(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 2000);
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
+    } catch (error) {
+      setIsSubmitting(false);
+      handleFirestoreError(error, OperationType.CREATE, 'quotes');
+    }
   };
 
   if (isSuccess) {

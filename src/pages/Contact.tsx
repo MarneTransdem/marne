@@ -1,22 +1,41 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Mail, Phone, MapPin, ArrowRight, Send, CheckCircle2, Info, Building2, Home, Box, Zap, Truck } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowRight, Send, CheckCircle2, Info, Building2, Home, Box, Zap, Truck, Loader2 } from 'lucide-react';
 import { CONTACT, SERVICES, NAVIGATION } from '../constants';
 import { SEO } from '../components/SEO';
 import { Link } from 'react-router-dom';
+import { db } from '../lib/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { handleFirestoreError, OperationType } from '../lib/firestore-errors';
 import { getBreadcrumbSchema, getLocalBusinessSchema, getFAQSchema } from '../lib/schema';
 
 const Contact: React.FC = () => {
   const path = "/contact";
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormState('submitting');
-    // Simulation d'envoi
-    setTimeout(() => {
+    
+    try {
+      const formElement = e.currentTarget as HTMLFormElement;
+      const formData = new FormData(formElement);
+      
+      const payload = {
+        name: formData.get('name'),
+        phone: formData.get('phone'),
+        email: formData.get('email'),
+        subject: formData.get('subject'),
+        message: formData.get('message'),
+        createdAt: serverTimestamp()
+      };
+      
+      await addDoc(collection(db, 'messages'), payload);
       setFormState('success');
-    }, 1500);
+    } catch (error) {
+      setFormState('idle');
+      handleFirestoreError(error, OperationType.CREATE, 'messages');
+    }
   };
 
   const faqs = [
@@ -244,8 +263,17 @@ const Contact: React.FC = () => {
                     disabled={formState === 'submitting'}
                     className="bg-accent text-brand-900 px-12 py-5 rounded-full font-bold text-lg hover:bg-accent-hover transition-all flex items-center justify-center gap-3 shadow-xl shadow-accent/20 disabled:opacity-50"
                   >
-                    {formState === 'submitting' ? 'Envoi en cours...' : 'Envoyer ma demande'}
-                    <Send size={20} />
+                    {formState === 'submitting' ? (
+                      <>
+                        Envoi en cours...
+                        <Loader2 size={20} className="animate-spin" />
+                      </>
+                    ) : (
+                      <>
+                        Envoyer ma demande
+                        <Send size={20} />
+                      </>
+                    )}
                   </button>
                 </form>
               )}
