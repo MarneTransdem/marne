@@ -36,7 +36,7 @@ async function startServer() {
       <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background-color: #ffffff;">
         <div style="background-color: #0c1c3d; padding: 24px; text-align: center;">
           <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.025em;">MARNE TRANSDEM</h1>
-          <p style="color: #60a5fa; margin: 8px 0 0; font-size: 14px; font-weight: 500;">Déménageur Professionnel</p>
+          <p style="color: #F5A400; margin: 8px 0 0; font-size: 14px; font-weight: 500;">Déménageur Professionnel</p>
         </div>
         <div style="padding: 32px; color: #1e293b;">
           <h2 style="color: #0c1c3d; font-size: 20px; margin-top: 0; border-bottom: 2px solid #ef4444; padding-bottom: 12px; display: inline-block;">${title}</h2>
@@ -46,7 +46,7 @@ async function startServer() {
         </div>
         <div style="background-color: #f8fafc; padding: 24px; text-align: center; border-top: 1px solid #e2e8f0;">
           <p style="margin: 0; color: #64748b; font-size: 13px;">© ${new Date().getFullYear()} Marne Transdem. Tous droits réservés.</p>
-          <p style="margin: 8px 0 0; color: #64748b; font-size: 13px;">78 Avenue de la Marne, 94100 Saint-Maur-des-Fossés</p>
+          <p style="margin: 8px 0 0; color: #64748b; font-size: 13px;">43 rue des Maraîchers, 75020 Paris</p>
         </div>
       </div>
     `;
