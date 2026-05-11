@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Check, ArrowRight, Loader2, ChevronLeft, Calculator, RotateCcw } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { db } from '../../lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { handleFirestoreError, OperationType } from '../../lib/firestore-errors';
@@ -81,6 +81,7 @@ export const QuoteForm: React.FC = () => {
   const [estimate, setEstimate] = useState<any>(null);
   
   const [formData, setFormData] = useState<FormData>(INITIAL_DATA);
+  const [searchParams] = useSearchParams();
   
   const mapsLib = useMapsLibrary('places');
   const fromAutocompleteRef = useRef<HTMLInputElement>(null);
@@ -137,6 +138,29 @@ export const QuoteForm: React.FC = () => {
       }
     });
   }, [mapsLib]);
+
+  useEffect(() => {
+    const from = searchParams.get('fromAddress');
+    const fromCity = searchParams.get('fromCity');
+    const fromZip = searchParams.get('fromZip');
+    const to = searchParams.get('toAddress');
+    const toCity = searchParams.get('toCity');
+    const toZip = searchParams.get('toZip');
+    const volume = searchParams.get('volume');
+
+    if (from || to || volume) {
+      setFormData(prev => ({
+        ...prev,
+        fromAddress: from || prev.fromAddress,
+        fromCity: fromCity || prev.fromCity,
+        fromZip: fromZip || prev.fromZip,
+        toAddress: to || prev.toAddress,
+        toCity: toCity || prev.toCity,
+        toZip: toZip || prev.toZip,
+        volume: volume ? `${volume} m³` : prev.volume,
+      }));
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const saved = localStorage.getItem(LOCAL_STORAGE_KEY);

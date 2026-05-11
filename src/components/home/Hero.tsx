@@ -1,10 +1,92 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, Phone, ClipboardCheck, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
 import { CONTACT } from '../../constants';
+import { useMapsLibrary } from '@vis.gl/react-google-maps';
 
 export const Hero: React.FC = () => {
+  const navigate = useNavigate();
+  const [quickForm, setQuickForm] = useState({
+    fromAddress: '',
+    fromCity: '',
+    fromZip: '',
+    toAddress: '',
+    toCity: '',
+    toZip: '',
+    volume: ''
+  });
+
+  const mapsLib = useMapsLibrary('places');
+  const fromRef = useRef<HTMLInputElement>(null);
+  const toRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!mapsLib || !fromRef.current || !toRef.current) return;
+
+    const fromAutocomplete = new google.maps.places.Autocomplete(fromRef.current, {
+      componentRestrictions: { country: 'fr' },
+      fields: ['address_components', 'formatted_address'],
+      types: ['address']
+    });
+
+    const toAutocomplete = new google.maps.places.Autocomplete(toRef.current, {
+      componentRestrictions: { country: 'fr' },
+      fields: ['address_components', 'formatted_address'],
+      types: ['address']
+    });
+
+    fromAutocomplete.addListener('place_changed', () => {
+      const place = fromAutocomplete.getPlace();
+      if (place.address_components) {
+        let city = '';
+        let zip = '';
+        place.address_components.forEach(comp => {
+          if (comp.types.includes('locality')) city = comp.long_name;
+          if (comp.types.includes('postal_code')) zip = comp.long_name;
+        });
+        setQuickForm(prev => ({
+          ...prev,
+          fromAddress: place.formatted_address || '',
+          fromCity: city,
+          fromZip: zip
+        }));
+      }
+    });
+
+    toAutocomplete.addListener('place_changed', () => {
+      const place = toAutocomplete.getPlace();
+      if (place.address_components) {
+        let city = '';
+        let zip = '';
+        place.address_components.forEach(comp => {
+          if (comp.types.includes('locality')) city = comp.long_name;
+          if (comp.types.includes('postal_code')) zip = comp.long_name;
+        });
+        setQuickForm(prev => ({
+          ...prev,
+          toAddress: place.formatted_address || '',
+          toCity: city,
+          toZip: zip
+        }));
+      }
+    });
+  }, [mapsLib]);
+
+  const handleQuickSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const params = new URLSearchParams();
+    if (quickForm.fromAddress) params.set('fromAddress', quickForm.fromAddress);
+    if (quickForm.fromCity) params.set('fromCity', quickForm.fromCity);
+    if (quickForm.fromZip) params.set('fromZip', quickForm.fromZip);
+    if (quickForm.toAddress) params.set('toAddress', quickForm.toAddress);
+    if (quickForm.toCity) params.set('toCity', quickForm.toCity);
+    if (quickForm.toZip) params.set('toZip', quickForm.toZip);
+    if (quickForm.volume) params.set('volume', quickForm.volume);
+    
+    navigate(`/demande-de-devis?${params.toString()}`);
+  };
+
   return (
     <section className="relative min-h-[95vh] flex items-center overflow-hidden bg-white">
       {/* Background elements */}
@@ -62,29 +144,52 @@ export const Hero: React.FC = () => {
                   <h3 className="text-2xl font-bold text-brand-900 mb-2 tracking-tight">Estimation rapide</h3>
                   <p className="text-sm text-slate-400 mb-8 font-light">Recevez une première étude personnalisée.</p>
                   
-                  <div className="space-y-5">
+                  <form onSubmit={handleQuickSubmit} className="space-y-5">
                     <div className="space-y-1.5">
                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Départ</label>
-                      <input disabled className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm outline-none placeholder:text-slate-300" placeholder="Ville ou Code Postal" />
+                      <input 
+                        ref={fromRef}
+                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm outline-none placeholder:text-slate-300 focus:border-accent transition-colors" 
+                        placeholder="Adresse de départ" 
+                        value={quickForm.fromAddress}
+                        onChange={(e) => setQuickForm(prev => ({ ...prev, fromAddress: e.target.value }))}
+                      />
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Arrivée</label>
-                      <input disabled className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm outline-none placeholder:text-slate-300" placeholder="Ville ou Code Postal" />
+                      <input 
+                        ref={toRef}
+                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm outline-none placeholder:text-slate-300 focus:border-accent transition-colors" 
+                        placeholder="Adresse d'arrivée" 
+                        value={quickForm.toAddress}
+                        onChange={(e) => setQuickForm(prev => ({ ...prev, toAddress: e.target.value }))}
+                      />
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Volume (m³)</label>
                       <div className="grid grid-cols-4 gap-3">
                         {['15', '30', '50', '+'].map(v => (
-                          <div key={v} className="bg-slate-50 border border-slate-100 rounded-xl py-2 flex items-center justify-center text-xs font-bold text-slate-400">{v}</div>
+                          <button 
+                            type="button"
+                            key={v} 
+                            onClick={() => setQuickForm(prev => ({ ...prev, volume: v === '+' ? '60' : v }))}
+                            className={`rounded-xl py-2 flex items-center justify-center text-xs font-bold transition-all ${
+                              (quickForm.volume === v || (v === '+' && quickForm.volume === '60'))
+                                ? 'bg-accent text-white border-accent' 
+                                : 'bg-slate-50 border border-slate-100 text-slate-400 hover:border-slate-300'
+                            }`}
+                          >
+                            {v === '+' ? '60+' : v}
+                          </button>
                         ))}
                       </div>
                     </div>
-                  </div>
 
-                  <Link to="/demande-de-devis" className="w-full mt-10 bg-accent text-white py-5 rounded-full font-bold flex items-center justify-center gap-3 hover:bg-accent-hover transition-colors shadow-lg shadow-accent/20">
-                    Demander mon devis gratuit
-                    <ArrowRight size={20} />
-                  </Link>
+                    <button type="submit" className="w-full mt-10 bg-accent text-white py-5 rounded-full font-bold flex items-center justify-center gap-3 hover:bg-accent-hover transition-colors shadow-lg shadow-accent/20 active:scale-[0.98]">
+                      Demander mon devis gratuit
+                      <ArrowRight size={20} />
+                    </button>
+                  </form>
 
                   <div className="mt-8 pt-8 border-t border-slate-50 flex items-center justify-center gap-3">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
