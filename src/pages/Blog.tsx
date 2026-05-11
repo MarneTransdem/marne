@@ -7,6 +7,7 @@ const Blog: React.FC = () => {
   const posts = [
     {
       id: 1,
+      slug: "1",
       title: "10 conseils pour un déménagement sans stress à Paris",
       excerpt: "S'organiser à l'avance est la clé. Découvrez nos meilleures astuces pour anticiper le jour J en toute sérénité.",
       date: "12 Avril 2026",
@@ -15,66 +16,76 @@ const Blog: React.FC = () => {
     },
     {
       id: 2,
-      title: "Comment estimer le volume de son déménagement ?",
-      excerpt: "Calculer son litrage en m3 est essentiel pour choisir le bon camion et obtenir un devis précis. Notre guide complet.",
-      date: "05 Mai 2026",
-      image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1000",
-      category: "Guide"
+      slug: "reims",
+      title: "Comment réussir son déménagement à Reims en 2026 ?",
+      excerpt: "La cité des Sacres est en pleine mutation. Guide complet pour réussir votre installation ou votre départ de Reims.",
+      date: "15 Mai 2026",
+      image: "https://images.unsplash.com/photo-1590059239841-a9c049008985?auto=format&fit=crop&q=80&w=1000",
+      category: "Expertise"
     },
     {
       id: 3,
-      title: "Déménagement d'entreprise : les étapes clés du transfert",
-      excerpt: "Minimisez l'interruption de votre activité avec une logistique de transfert de bureaux rodée et professionnelle.",
-      date: "28 Mars 2026",
-      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1000",
-      category: "Business"
+      slug: "2",
+      title: "Comment estimer le volume de son déménagement ?",
+      excerpt: "Calculer son litrage en m3 est essentiel pour choisir le bon camion. Notre guide complet.",
+      date: "05 Mai 2026",
+      image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1000",
+      category: "Guide"
     }
   ];
 
   return (
-    <div className="bg-slate-50 min-h-screen">
+    <div className="bg-white min-h-screen">
       <SEO 
-        title="Blog & Conseils Déménagement" 
-        description="Retrouvez nos guides et astuces pour réussir votre déménagement à Paris. Préparation, emballage, formalités administratives."
+        title="Blog & Conseils Déménagement | Marne Transdem" 
+        description="Retrouvez nos guides et astuces pour réussir votre déménagement à Paris et dans la Marne. Préparation, emballage, formalités."
       />
       
-      <section className="bg-brand-900 text-white py-24">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">Blog & Conseils</h1>
-            <p className="text-xl text-slate-400">L'expertise Marne Transdem au service de votre projet. Apprenez à préparer votre transition comme un pro.</p>
+      <section className="bg-brand-900 text-white pt-48 pb-24 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 -skew-x-12 translate-x-1/2 pointer-events-none"></div>
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
+          <div className="max-w-4xl">
+            <h1 className="text-5xl md:text-8xl font-black mb-8 leading-[1.1] tracking-tight italic">
+              Le Mag <br/>
+              <span className="text-accent italic underline decoration-accent/20 underline-offset-8 font-sans italic">Transdem</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-slate-400 font-light italic leading-relaxed max-w-2xl">
+              L'expertise Marne Transdem au service de votre mobilité. Conseils, guides et actualités du déménagement à Paris et dans le Grand Est.
+            </p>
           </div>
         </div>
       </section>
 
       <section className="py-24">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {posts.map(post => (
-              <article key={post.id} className="bg-white rounded-[2.5rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all group flex flex-col h-full border border-slate-100">
-                <div className="relative aspect-video overflow-hidden">
-                   <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                   <div className="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+              <article key={post.id} className="group flex flex-col h-full">
+                <Link to={`/blog/${post.slug}`} className="relative aspect-[4/3] rounded-[3rem] overflow-hidden mb-8 shadow-xl hover:shadow-2xl transition-all duration-700 block">
+                   <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+                   <div className="absolute inset-0 bg-brand-900/10 group-hover:bg-transparent transition-colors"></div>
+                   <div className="absolute top-8 left-8 bg-accent text-brand-900 px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-lg">
                       {post.category}
                    </div>
-                </div>
+                </Link>
                 
-                <div className="p-8 flex flex-col flex-grow">
-                   <div className="flex items-center gap-4 text-xs text-slate-400 font-bold uppercase tracking-widest mb-4">
-                      <span className="flex items-center gap-1"><Calendar size={14} /> {post.date}</span>
-                      <span className="flex items-center gap-1"><User size={14} /> Equipe Expert</span>
+                <div className="px-2 flex flex-col flex-grow">
+                   <div className="flex items-center gap-4 text-[10px] text-slate-400 font-black uppercase tracking-widest mb-6">
+                      <span className="flex items-center gap-2"><Calendar size={14} className="text-accent" /> {post.date}</span>
+                      <span className="w-1 h-1 rounded-full bg-slate-300"></span>
+                      <span className="flex items-center gap-2">Equipe Expert</span>
                    </div>
                    
-                   <h2 className="text-2xl font-bold text-brand-900 mb-4 group-hover:text-accent transition-colors leading-tight">
+                   <h2 className="text-2xl md:text-3xl font-black text-brand-900 mb-6 group-hover:text-accent transition-colors leading-tight uppercase italic tracking-tight underline decoration-accent/0 group-hover:decoration-accent/20 underline-offset-4 decoration-2">
                      {post.title}
                    </h2>
-                   <p className="text-slate-600 text-sm leading-relaxed mb-8">
+                   <p className="text-slate-500 text-sm italic font-light leading-relaxed mb-8">
                      {post.excerpt}
                    </p>
                    
-                   <div className="mt-auto pt-6 border-t border-slate-50">
-                      <Link to={`/blog/${post.id}`} className="text-brand-900 font-bold flex items-center gap-2 hover:text-accent transition-colors">
-                        Lire la suite <ArrowRight size={18} />
+                   <div className="mt-auto pt-6 border-t border-slate-100">
+                      <Link to={`/blog/${post.slug}`} className="text-brand-900 font-black flex items-center gap-3 hover:gap-5 transition-all uppercase text-xs tracking-widest group-hover:text-accent">
+                        Lire l'article <ArrowRight size={18} className="text-accent" />
                       </Link>
                    </div>
                 </div>

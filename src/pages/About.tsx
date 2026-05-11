@@ -65,21 +65,21 @@ const About: React.FC = () => {
               <span className="text-xs font-bold uppercase tracking-widest text-white">Qui sommes-nous</span>
             </motion.div>
             
-            <h1 className="text-5xl md:text-7xl font-black mb-8 leading-tight tracking-tight text-white">
+            <h1 className="text-5xl md:text-7xl font-black mb-8 leading-tight tracking-tight text-white italic">
               À propos de <br/>
-              <span className="text-accent underline decoration-white/10 underline-offset-8">Marne Transdem</span>
+              <span className="text-accent underline decoration-white/10 underline-offset-8 italic">Marne Transdem</span>
             </h1>
             
-            <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
-              Entreprise de déménagement basée à Paris, Marne Transdem accompagne les particuliers et les entreprises dans l’organisation de leurs projets de déménagement, de stockage et de manutention.
+            <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed font-light italic">
+              Entreprise de déménagement née d'une double expertise entre Paris et la Marne, nous accompagnons les particuliers et les entreprises dans leurs transitions locales et nationales.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link to="/demande-de-devis" className="bg-accent text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-accent/90 transition-all flex items-center justify-center gap-3 shadow-lg shadow-accent/20">
+              <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover transition-all flex items-center justify-center gap-3 shadow-lg italic">
                 Demander un devis gratuit
                 <ArrowRight size={20} />
               </Link>
-              <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white/10 text-white border border-white/20 px-10 py-5 rounded-full font-bold text-lg hover:bg-white/20 transition-all flex items-center justify-center gap-3">
+              <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white/10 text-white border border-white/20 px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-brand-900 transition-all flex items-center justify-center gap-3 italic">
                 <Phone size={20} className="text-accent" />
                 {CONTACT.phone}
               </a>
@@ -93,13 +93,13 @@ const About: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-bold text-brand-900 mb-8">Une entreprise de déménagement au service de vos projets</h2>
-              <div className="space-y-6 text-slate-600 leading-relaxed text-lg font-light">
+              <h2 className="text-4xl lg:text-5xl font-black text-brand-900 mb-8 uppercase italic underline decoration-accent/10 underline-offset-8">Une expertise <span className="text-accent italic">bi-régionale</span></h2>
+              <div className="space-y-6 text-slate-500 leading-relaxed text-lg font-light italic">
                 <p>
-                  Marne Transdem accompagne ses clients dans leurs projets de déménagement à Paris, en Île-de-France et longue distance selon les besoins. Notre rôle est d’apporter une organisation claire, un accompagnement professionnel et des solutions adaptées à chaque situation : déménagement de particulier, transfert d’entreprise, garde-meuble, monte-meuble, emballage ou fourniture de matériel.
+                  Marne Transdem, c'est avant tout l'alliance de la réactivité parisienne et du professionnalisme champenois. Basée à <span className="font-bold text-brand-900">Paris 20e</span>, notre entreprise puise son nom et ses racines dans <span className="font-bold text-brand-900">la Marne (51)</span>, nous permettant d'offrir une logistique fluide pour les déménagements entre l'Île-de-France et le Grand Est, ainsi qu'au niveau national.
                 </p>
                 <p>
-                  Nous comprenons que chaque déménagement est une étape importante. C'est pourquoi nous mettons tout en œuvre pour que cette transition se déroule dans les meilleures conditions possibles, en respectant vos biens et vos impératifs.
+                  Qu'il s'agisse de transférer un appartement dans le Marais, une maison à Reims ou des bureaux à Châlons, nous appliquons la même rigueur et le même soin à chaque bien confié.
                 </p>
               </div>
             </div>

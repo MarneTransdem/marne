@@ -35,7 +35,21 @@ export const NAVIGATION = [
   { name: 'Services', path: '/services' },
   { name: 'Formules', path: '/formules-demenagement' },
   { name: 'Conseils', path: '/blog' },
+  { name: 'Secteurs', path: '/secteurs-desservis' },
   { name: 'Contact', path: '/contact' },
+];
+
+export const MARNE_CITIES = [
+  { name: 'Reims', path: '/demenagement-reims' },
+  { name: 'Châlons-en-Champagne', path: '/demenagement-chalons-en-champagne' },
+  { name: 'Épernay', path: '/demenagement-epernay' },
+  { name: 'Vitry-le-François', path: '/demenagement-vitry-le-francois' },
+  { name: 'Tinqueux', path: '/demenagement-tinqueux' },
+  { name: 'Cormontreuil', path: '/demenagement-cormontreuil' },
+  { name: 'Bétheny', path: '/demenagement-betheny' },
+  { name: 'Saint-Memmie', path: '/demenagement-saint-memmie' },
+  { name: 'Sézanne', path: '/demenagement-sezanne' },
+  { name: 'Fismes', path: '/demenagement-fismes' },
 ];
 
 export const SERVICES = [

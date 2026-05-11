@@ -81,6 +81,7 @@ const SecteursDesservis: React.FC = () => {
   ];
 
   const departements = [
+    { h: "Marne", d: "Déménagements à Reims, Châlons, Épernay et dans tout le 51 avec une expertise locale.", p: "/demenagement-marne", e: true },
     { h: "Paris", d: "Déménagements d’appartements, studios, logements familiaux, bureaux et commerces avec une attention aux accès.", p: "/demenagement-paris", e: true },
     { h: "Hauts-de-Seine", d: "Déménagements de particuliers et d’entreprises dans les villes résidentielles de l’ouest parisien.", p: "/demenagement-hauts-de-seine", e: true },
     { h: "Seine-Saint-Denis", d: "Déménagements dans les villes proches de Paris pour appartements, maisons et bureaux.", p: "/demenagement-seine-saint-denis", e: true },
@@ -89,6 +90,14 @@ const SecteursDesservis: React.FC = () => {
     { h: "Essonne", d: "Déménagements dans le sud francilien pour maisons, pavillons et projets longue distance.", p: "/demenagement-essonne", e: true },
     { h: "Val-d’Oise", d: "Déménagements dans le nord francilien, entre Paris et les communes de grande couronne.", p: "/demenagement-val-d-oise", e: true },
     { h: "Seine-et-Marne", d: "Déménagements dans l’est francilien pour maisons, familles et transferts immobiliers.", p: "/demenagement-seine-et-marne", e: true }
+  ];
+
+  const villesMarne = [
+    { n: "Reims", p: "/demenagement-reims" },
+    { n: "Châlons", p: "/demenagement-chalons-en-champagne" },
+    { n: "Épernay", p: "/demenagement-epernay" },
+    { n: "Vitry-le-François", p: "/demenagement-vitry-le-francois" },
+    { n: "Tinqueux", p: "/demenagement-tinqueux" }
   ];
 
   const destinationsLongueDistance = [
@@ -190,6 +199,34 @@ const SecteursDesservis: React.FC = () => {
             </div>
             <div className="rounded-[3.5rem] overflow-hidden shadow-2xl relative grayscale-[20%] transition-all h-full transition-all italic transition-all italic">
               <img src="https://images.unsplash.com/photo-1549416878-b9ca35c2d4ac?auto=format&fit=crop&q=80&w=800" alt="Paris Déménagement" className="w-full h-full object-cover italic transition-all grayscale-[10%]" />
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Marne Section */}
+      <section className="py-24 bg-white border-b border-slate-100 font-sans italic">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div className="rounded-[3.5rem] overflow-hidden shadow-2xl relative order-2 lg:order-1">
+              <img src="https://images.unsplash.com/photo-1590059239841-a9c049008985?auto=format&fit=crop&q=80&w=800" alt="Déménagement Marne Reims" className="w-full h-full object-cover" />
+            </div>
+            <div className="space-y-8 order-1 lg:order-2">
+              <h2 className="text-3xl md:text-5xl font-black text-brand-900 uppercase italic underline decoration-accent/20 underline-offset-8">Déménagement dans la Marne</h2>
+              <p className="text-slate-500 text-lg font-light leading-relaxed">
+                Marne Transdem étend son expertise au département de la Marne (51). Nous accompagnons vos projets de mobilité à Reims, Épernay, Châlons-en-Champagne et dans toutes les communes du département.
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-6">
+                {villesMarne.map((item, i) => (
+                  <Link 
+                    key={i} 
+                    to={item.p}
+                    className="flex items-center justify-center p-4 bg-slate-50 rounded-2xl border border-slate-100 group hover:bg-white hover:shadow-xl hover:border-accent transition-all text-center"
+                  >
+                    <span className="font-bold text-brand-900 group-hover:text-accent transition-colors italic uppercase text-[10px] tracking-widest">{item.n}</span>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </div>

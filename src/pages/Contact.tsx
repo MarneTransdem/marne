@@ -31,6 +31,14 @@ const Contact: React.FC = () => {
       };
       
       await addDoc(collection(db, 'messages'), payload);
+
+      // Send Email Notification
+      await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'contact', data: payload })
+      }).catch(err => console.error("Email API Error:", err));
+
       setFormState('success');
     } catch (error) {
       setFormState('idle');
@@ -195,20 +203,22 @@ const Contact: React.FC = () => {
                 <form onSubmit={handleSubmit} className="space-y-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2">
-                      <label htmlFor="name" className="text-[10px] font-black uppercase tracking-widest text-brand-900/60 ml-4">Nom et prénom</label>
+                      <label htmlFor="name" className="text-[10px] font-black uppercase tracking-widest text-brand-900/60 ml-4">Nom et prénom <span className="text-accent">*</span></label>
                       <input 
                         type="text" 
                         id="name" 
+                        name="name"
                         required
                         className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 outline-none focus:border-accent focus:bg-white transition-all font-medium text-brand-900" 
                         placeholder="Jean Dupont"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label htmlFor="phone" className="text-[10px] font-black uppercase tracking-widest text-brand-900/60 ml-4">Téléphone</label>
+                      <label htmlFor="phone" className="text-[10px] font-black uppercase tracking-widest text-brand-900/60 ml-4">Téléphone <span className="text-accent">*</span></label>
                       <input 
                         type="tel" 
                         id="phone" 
+                        name="phone"
                         required
                         className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 outline-none focus:border-accent focus:bg-white transition-all font-medium text-brand-900" 
                         placeholder="01 02 03 04 05"
@@ -217,19 +227,21 @@ const Contact: React.FC = () => {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2">
-                      <label htmlFor="email" className="text-[10px] font-black uppercase tracking-widest text-brand-900/60 ml-4">Email</label>
+                      <label htmlFor="email" className="text-[10px] font-black uppercase tracking-widest text-brand-900/60 ml-4">Email <span className="text-accent">*</span></label>
                       <input 
                         type="email" 
                         id="email" 
+                        name="email"
                         required
                         className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 outline-none focus:border-accent focus:bg-white transition-all font-medium text-brand-900" 
                         placeholder="contact@exemple.com"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label htmlFor="subject" className="text-[10px] font-black uppercase tracking-widest text-brand-900/60 ml-4">Objet de la demande</label>
+                      <label htmlFor="subject" className="text-[10px] font-black uppercase tracking-widest text-brand-900/60 ml-4">Objet de la demande <span className="text-accent">*</span></label>
                       <select 
                         id="subject"
+                        name="subject"
                         required
                         className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 outline-none focus:border-accent focus:bg-white transition-all font-medium text-brand-900 appearance-none"
                       >
@@ -241,9 +253,10 @@ const Contact: React.FC = () => {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="message" className="text-[10px] font-black uppercase tracking-widest text-brand-900/60 ml-4">Message</label>
+                    <label htmlFor="message" className="text-[10px] font-black uppercase tracking-widest text-brand-900/60 ml-4">Message <span className="text-accent">*</span></label>
                     <textarea 
                       id="message" 
+                      name="message"
                       rows={6} 
                       required
                       className="w-full bg-slate-50 border border-slate-100 rounded-3xl px-6 py-4 outline-none focus:border-accent focus:bg-white transition-all font-medium text-brand-900 resize-none" 

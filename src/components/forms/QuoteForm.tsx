@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Check, ArrowRight, Loader2, ChevronLeft, Calculator, RotateCcw } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { db } from '../../lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { handleFirestoreError, OperationType } from '../../lib/firestore-errors';
+import { useMapsLibrary } from '@vis.gl/react-google-maps';
 
 interface FormData {
   // Section A: Coordonnées
@@ -80,6 +81,62 @@ export const QuoteForm: React.FC = () => {
   const [estimate, setEstimate] = useState<any>(null);
   
   const [formData, setFormData] = useState<FormData>(INITIAL_DATA);
+  
+  const mapsLib = useMapsLibrary('places');
+  const fromAutocompleteRef = useRef<HTMLInputElement>(null);
+  const toAutocompleteRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!mapsLib || !fromAutocompleteRef.current || !toAutocompleteRef.current) return;
+
+    const fromAutocomplete = new google.maps.places.Autocomplete(fromAutocompleteRef.current, {
+      componentRestrictions: { country: 'fr' },
+      fields: ['address_components', 'formatted_address'],
+      types: ['address']
+    });
+
+    const toAutocomplete = new google.maps.places.Autocomplete(toAutocompleteRef.current, {
+      componentRestrictions: { country: 'fr' },
+      fields: ['address_components', 'formatted_address'],
+      types: ['address']
+    });
+
+    fromAutocomplete.addListener('place_changed', () => {
+      const place = fromAutocomplete.getPlace();
+      if (place.address_components) {
+        let city = '';
+        let zip = '';
+        place.address_components.forEach(comp => {
+          if (comp.types.includes('locality')) city = comp.long_name;
+          if (comp.types.includes('postal_code')) zip = comp.long_name;
+        });
+        setFormData(prev => ({
+          ...prev,
+          fromAddress: place.formatted_address || prev.fromAddress,
+          fromCity: city || prev.fromCity,
+          fromZip: zip || prev.fromZip
+        }));
+      }
+    });
+
+    toAutocomplete.addListener('place_changed', () => {
+      const place = toAutocomplete.getPlace();
+      if (place.address_components) {
+        let city = '';
+        let zip = '';
+        place.address_components.forEach(comp => {
+          if (comp.types.includes('locality')) city = comp.long_name;
+          if (comp.types.includes('postal_code')) zip = comp.long_name;
+        });
+        setFormData(prev => ({
+          ...prev,
+          toAddress: place.formatted_address || prev.toAddress,
+          toCity: city || prev.toCity,
+          toZip: zip || prev.toZip
+        }));
+      }
+    });
+  }, [mapsLib]);
 
   useEffect(() => {
     const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -179,6 +236,13 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
         ...formData,
         createdAt: serverTimestamp()
       });
+
+      // Send Email Notification
+      await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'quote', data: formData })
+      }).catch(err => console.error("Email API Error:", err));
       
       setIsSubmitting(false);
       setIsSuccess(true);
@@ -250,18 +314,18 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="md:col-span-2 space-y-2">
-                <label className="text-sm font-bold text-brand-900 ml-1">Nom et prénom</label>
-                <input name="fullName" value={formData.fullName} onChange={handleChange} className={`form-input-premium w-full ${errors.fullName ? 'border-red-500 bg-red-50' : ''}`} placeholder="Ex: Jean Dupont" />
+                <label className="text-sm font-bold text-brand-900 ml-1">Nom et prénom <span className="text-accent">*</span></label>
+                <input name="fullName" value={formData.fullName} onChange={handleChange} className={`form-input-premium w-full ${errors.fullName ? 'border-red-500 bg-red-50' : ''}`} placeholder="Ex: Jean Dupont" required />
                 {errors.fullName && <p className="text-red-500 text-xs ml-1 font-medium">{errors.fullName}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 ml-1">Téléphone</label>
-                <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className={`form-input-premium w-full ${errors.phone ? 'border-red-500 bg-red-50' : ''}`} placeholder="06 12 34 56 78" />
+                <label className="text-sm font-bold text-brand-900 ml-1">Téléphone <span className="text-accent">*</span></label>
+                <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className={`form-input-premium w-full ${errors.phone ? 'border-red-500 bg-red-50' : ''}`} placeholder="06 12 34 56 78" required />
                 {errors.phone && <p className="text-red-500 text-xs ml-1 font-medium">{errors.phone}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 ml-1">Email</label>
-                <input type="email" name="email" value={formData.email} onChange={handleChange} className={`form-input-premium w-full ${errors.email ? 'border-red-500 bg-red-50' : ''}`} placeholder="jean.dupont@email.com" />
+                <label className="text-sm font-bold text-brand-900 ml-1">Email <span className="text-accent">*</span></label>
+                <input type="email" name="email" value={formData.email} onChange={handleChange} className={`form-input-premium w-full ${errors.email ? 'border-red-500 bg-red-50' : ''}`} placeholder="jean.dupont@email.com" required />
                 {errors.email && <p className="text-red-500 text-xs ml-1 font-medium">{errors.email}</p>}
               </div>
             </div>
@@ -273,13 +337,21 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
               <h3 className="text-xl md:text-2xl font-bold text-brand-900 tracking-tight">
                 B. Adresse de départ
               </h3>
-              <p className="text-slate-400 mt-1 md:mt-2 font-light text-sm">L'adresse actuelle de votre logement.</p>
+              <p className="text-slate-400 mt-1 md:mt-2 font-light text-sm">L'adresse actuelle de votre logement. Saisie assistée.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="md:col-span-2 space-y-2">
-                <label className="text-sm font-bold text-brand-900 ml-1">Adresse</label>
-                <input name="fromAddress" value={formData.fromAddress} onChange={handleChange} className={`form-input-premium w-full ${errors.fromAddress ? 'border-red-500 bg-red-50' : ''}`} placeholder="Ex: 12 rue de Rivoli" />
+                <label className="text-sm font-bold text-brand-900 ml-1">Adresse exacte <span className="text-accent">*</span></label>
+                <input 
+                  ref={fromAutocompleteRef}
+                  name="fromAddress" 
+                  value={formData.fromAddress} 
+                  onChange={handleChange} 
+                  className={`form-input-premium w-full ${errors.fromAddress ? 'border-red-500 bg-red-50' : ''}`} 
+                  placeholder="Saisissez et sélectionnez votre adresse de départ" 
+                  required
+                />
                 {errors.fromAddress && <p className="text-red-500 text-xs ml-1 font-medium">{errors.fromAddress}</p>}
               </div>
               <div className="space-y-2">
@@ -316,13 +388,21 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
               <h3 className="text-xl md:text-2xl font-bold text-brand-900 tracking-tight">
                 C. Adresse d’arrivée
               </h3>
-              <p className="text-slate-400 mt-1 md:mt-2 font-light text-sm">Où livrons-nous vos biens ?</p>
+              <p className="text-slate-400 mt-1 md:mt-2 font-light text-sm">Où livrons-nous vos biens ? Saisie assistée.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="md:col-span-2 space-y-2">
-                <label className="text-sm font-bold text-brand-900 ml-1">Adresse</label>
-                <input name="toAddress" value={formData.toAddress} onChange={handleChange} className={`form-input-premium w-full ${errors.toAddress ? 'border-red-500 bg-red-50' : ''}`} placeholder="Ex: 45 avenue des Champs-Élysées" />
+                <label className="text-sm font-bold text-brand-900 ml-1">Adresse exacte <span className="text-accent">*</span></label>
+                <input 
+                  ref={toAutocompleteRef}
+                  name="toAddress" 
+                  value={formData.toAddress} 
+                  onChange={handleChange} 
+                  className={`form-input-premium w-full ${errors.toAddress ? 'border-red-500 bg-red-50' : ''}`} 
+                  placeholder="Saisissez et sélectionnez votre adresse d'arrivée" 
+                  required
+                />
                 {errors.toAddress && <p className="text-red-500 text-xs ml-1 font-medium">{errors.toAddress}</p>}
               </div>
               <div className="space-y-2">
@@ -364,13 +444,13 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 ml-1">Date souhaitée</label>
-                <input type="date" name="date" value={formData.date} onChange={handleChange} className={`form-input-premium w-full ${errors.date ? 'border-red-500 bg-red-50' : ''}`} />
+                <label className="text-sm font-bold text-brand-900 ml-1">Date souhaitée <span className="text-accent">*</span></label>
+                <input type="date" name="date" value={formData.date} onChange={handleChange} className={`form-input-premium w-full ${errors.date ? 'border-red-500 bg-red-50' : ''}`} required />
                 {errors.date && <p className="text-red-500 text-xs ml-1 font-medium">{errors.date}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 ml-1">Type de logement</label>
-                <select name="housingType" value={formData.housingType} onChange={handleChange} className={`form-input-premium w-full ${errors.housingType ? 'border-red-500 bg-red-50' : ''}`}>
+                <label className="text-sm font-bold text-brand-900 ml-1">Type de logement <span className="text-accent">*</span></label>
+                <select name="housingType" value={formData.housingType} onChange={handleChange} className={`form-input-premium w-full ${errors.housingType ? 'border-red-500 bg-red-50' : ''}`} required>
                   <option value="">Sélectionner</option>
                   <option value="appartement">Appartement</option>
                   <option value="maison">Maison</option>
@@ -379,8 +459,8 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
                 {errors.housingType && <p className="text-red-500 text-xs ml-1 font-medium">{errors.housingType}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 ml-1">Surface en m²</label>
-                <input type="number" name="surface" value={formData.surface} onChange={handleChange} className={`form-input-premium w-full ${errors.surface ? 'border-red-500 bg-red-50' : ''}`} placeholder="Ex: 45" />
+                <label className="text-sm font-bold text-brand-900 ml-1">Surface en m² <span className="text-accent">*</span></label>
+                <input type="number" name="surface" value={formData.surface} onChange={handleChange} className={`form-input-premium w-full ${errors.surface ? 'border-red-500 bg-red-50' : ''}`} placeholder="Ex: 45" required />
                 {errors.surface && <p className="text-red-500 text-xs ml-1 font-medium">{errors.surface}</p>}
               </div>
               <div className="space-y-2">
@@ -388,8 +468,8 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
                 <input name="volume" value={formData.volume} onChange={handleChange} className="form-input-premium w-full" placeholder="Ex: 25 m³" />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 ml-1">Formule souhaitée</label>
-                <select name="formula" value={formData.formula} onChange={handleChange} className={`form-input-premium w-full ${errors.formula ? 'border-red-500 bg-red-50' : ''}`}>
+                <label className="text-sm font-bold text-brand-900 ml-1">Formule souhaitée <span className="text-accent">*</span></label>
+                <select name="formula" value={formData.formula} onChange={handleChange} className={`form-input-premium w-full ${errors.formula ? 'border-red-500 bg-red-50' : ''}`} required>
                   <option value="">Choisir ma formule</option>
                   <option value="economique">Économique</option>
                   <option value="standard">Standard</option>
@@ -448,7 +528,7 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
                   />
                 </div>
                 <span className="text-sm md:text-base text-slate-500 leading-relaxed font-light">
-                  J’accepte que Marne Transdem me contacte au sujet de ma demande de devis. Vos données sont traitées en toute confidentialité.
+                  J’accepte que Marne Transdem me contacte au sujet de ma demande de devis. Vos données sont traitées en toute confidentialité. <span className="text-accent">*</span>
                 </span>
               </label>
               {errors.consent && <p className="text-red-500 text-sm ml-10 font-bold">{errors.consent}</p>}
