@@ -238,11 +238,19 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
       });
 
       // Send Email Notification
-      await fetch('/api/send-email', {
+      const emailResponse = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ type: 'quote', data: formData })
-      }).catch(err => console.error("Email API Error:", err));
+      });
+
+      if (!emailResponse.ok) {
+        const errData = await emailResponse.json();
+        console.error("Email API Error:", errData);
+        // We still show success for the form submit to Firestore, 
+        // but maybe warn about the notification failure if it's critical.
+        // For now, let's just log it or set a silent error.
+      }
       
       setIsSubmitting(false);
       setIsSuccess(true);

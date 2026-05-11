@@ -33,11 +33,16 @@ const Contact: React.FC = () => {
       await addDoc(collection(db, 'messages'), payload);
 
       // Send Email Notification
-      await fetch('/api/send-email', {
+      const emailResponse = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ type: 'contact', data: payload })
-      }).catch(err => console.error("Email API Error:", err));
+      });
+
+      if (!emailResponse.ok) {
+        const errData = await emailResponse.json();
+        console.error("Email API Error:", errData);
+      }
 
       setFormState('success');
     } catch (error) {

@@ -78,7 +78,7 @@ import SecteursDesservis from './pages/SecteursDesservis';
 
 import { APIProvider } from '@vis.gl/react-google-maps';
 
-const API_KEY = process.env.GOOGLE_MAPS_PLATFORM_KEY || '';
+const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_PLATFORM_KEY || '';
 
 export default function App() {
   return (

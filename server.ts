@@ -3,6 +3,9 @@ import { createServer as createViteServer } from "vite";
 import path from "path";
 import { fileURLToPath } from "url";
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -105,9 +108,15 @@ async function startServer() {
     `;
 
     try {
-      if (!process.env.GMAIL_APP_PASSWORD) {
-        console.warn("GMAIL_APP_PASSWORD is not set. Skipping real email send for demo.");
-        return res.json({ success: true, message: "Simulation réussie (Pas de pass)" });
+      if (!process.env.GMAIL_APP_PASSWORD || !process.env.GMAIL_USER) {
+        console.error("Email Configuration Missing:", {
+          hasUser: !!process.env.GMAIL_USER,
+          hasPass: !!process.env.GMAIL_APP_PASSWORD
+        });
+        return res.status(500).json({ 
+          error: "Configuration email manquante", 
+          details: "Veuillez configurer GMAIL_USER et GMAIL_APP_PASSWORD" 
+        });
       }
 
       // 1. Send Notification to Admin
