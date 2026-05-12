@@ -128,7 +128,7 @@ const DemenagementParticuliers: React.FC = () => {
             </div>
             <div className="relative">
               <div className="aspect-[4/5] rounded-[3rem] bg-slate-200 overflow-hidden shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=1000" alt="Préparation déménagement" className="w-full h-full object-cover" />
+                <img src="/images/demenagement-particulier.webp" alt="Déménageur Marne Transdem pour particuliers" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>

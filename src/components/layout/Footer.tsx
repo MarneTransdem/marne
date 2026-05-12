@@ -72,6 +72,9 @@ export const Footer: React.FC = () => {
                   <Link to="/demenagement-montreuil" className="hover:text-accent transition-colors text-xs">Montreuil</Link>
                   <Link to="/demenagement-vincennes" className="hover:text-accent transition-colors text-xs">Vincennes</Link>
                   <Link to="/demenagement-saint-mande" className="hover:text-accent transition-colors text-xs">Saint-Mandé</Link>
+                  <Link to="/demenagement-charenton-le-pont" className="hover:text-accent transition-colors text-xs">Charenton-le-Pont</Link>
+                  <Link to="/demenagement-saint-maur-des-fosses" className="hover:text-accent transition-colors text-xs">Saint-Maur-des-Fossés</Link>
+                  <Link to="/demenagement-creteil" className="hover:text-accent transition-colors text-xs">Créteil</Link>
                   <Link to="/demenagement-bagnolet" className="hover:text-accent transition-colors text-xs">Bagnolet</Link>
                   <Link to="/demenagement-hauts-de-seine" className="hover:text-accent transition-colors text-xs">Hauts-de-Seine</Link>
                   <Link to="/demenagement-seine-saint-denis" className="hover:text-accent transition-colors text-xs">Seine-Saint-Denis</Link>

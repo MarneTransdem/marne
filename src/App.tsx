@@ -61,9 +61,9 @@ import LocalYvelines from './pages/LocalYvelines';
 import LocalEssonne from './pages/LocalEssonne';
 import LocalValDOise from './pages/LocalValDOise';
 import LocalSeineEtMarne from './pages/LocalSeineEtMarne';
-import LocalMarne from './pages/LocalMarne';
-import LocalReims from './pages/LocalReims';
-import LocalEpernay from './pages/LocalEpernay';
+import CharentonLePont from './pages/CharentonLePont';
+import LocalSaintMaur from './pages/LocalSaintMaur';
+import LocalCreteil from './pages/LocalCreteil';
 import LongueDistance from './pages/LongueDistance';
 import LongueDistanceParisLyon from './pages/LongueDistanceParisLyon';
 import LongueDistanceParisMarseille from './pages/LongueDistanceParisMarseille';
@@ -142,11 +142,9 @@ export default function App() {
                 <Route path="/demenagement-essonne" element={<LocalEssonne />} />
                 <Route path="/demenagement-val-d-oise" element={<LocalValDOise />} />
                 <Route path="/demenagement-seine-et-marne" element={<LocalSeineEtMarne />} />
-                
-                {/* Local Marne */}
-                <Route path="/demenagement-marne" element={<LocalMarne />} />
-                <Route path="/demenagement-reims" element={<LocalReims />} />
-                <Route path="/demenagement-epernay" element={<LocalEpernay />} />
+                <Route path="/demenagement-charenton-le-pont" element={<CharentonLePont />} />
+                <Route path="/demenagement-saint-maur-des-fosses" element={<LocalSaintMaur />} />
+                <Route path="/demenagement-creteil" element={<LocalCreteil />} />
                 
                 {/* Longue Distance */}
                 <Route path="/demenagement-paris-lyon" element={<LongueDistanceParisLyon />} />

@@ -110,6 +110,16 @@ const MonteMeuble: React.FC = () => {
             </p>
           </div>
 
+          <div className="max-w-4xl mx-auto mb-20">
+            <div className="aspect-[16/9] rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100">
+              <img 
+                src="/images/monte-meuble-demenagement.webp" 
+                alt="Location Monte-meuble Marne Transdem Paris" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { t: "Ascenseur absent ou petit", d: "Indispensable quand l'ascenseur ne permet pas le transport des meubles." },

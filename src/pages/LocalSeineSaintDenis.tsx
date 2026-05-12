@@ -522,6 +522,9 @@ const LocalSeineSaintDenis: React.FC = () => {
             <Link to="/demenagement-paris-11" className="hover:text-accent">Paris 11</Link>
             <Link to="/demenagement-montreuil" className="hover:text-accent">Montreuil</Link>
             <Link to="/demenagement-bagnolet" className="hover:text-accent">Bagnolet</Link>
+            <Link to="/demenagement-vincennes" className="hover:text-accent">Vincennes</Link>
+            <Link to="/demenagement-saint-mande" className="hover:text-accent">Saint-Mandé</Link>
+            <Link to="/demenagement-charenton-le-pont" className="hover:text-accent">Charenton</Link>
             <Link to="/demenagement-val-d-oise" className="hover:text-accent">Val-d'Oise</Link>
             <Link to="/demenagement-seine-et-marne" className="hover:text-accent">Seine-et-Marne</Link>
             {["Pantin", "Les Lilas", "Bobigny", "Saint-Denis", "Aubervilliers"].map(c => <span key={c} className="cursor-default">{c}</span>)}

@@ -14,8 +14,8 @@ const Home: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Déménageur Paris & Marne (51) | Devis Gratuit | Marne Transdem" 
-        description="Marne Transdem : expert du déménagement à Paris 20e, en Île-de-France et dans la Marne (Reims, Épernay). Particuliers & Entreprises. Devis gratuit sous 24h."
+        title="Déménageur Paris | Île-de-France | Devis Gratuit | Marne Transdem" 
+        description="Marne Transdem : expert du déménagement à Paris 20e et en Île-de-France. Particuliers & Entreprises. Devis gratuit sous 24h."
         canonical="/"
         schema={[
           getOrganizationSchema(), 
@@ -27,54 +27,6 @@ const Home: React.FC = () => {
       <Hero />
       <ReassuranceBar />
       <ServicesSection />
-
-      {/* Marne & Grand Est Focus Section */}
-      <section className="py-24 bg-white overflow-hidden">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div className="order-2 lg:order-1">
-               <div className="relative group">
-                  <div className="absolute inset-0 bg-accent rounded-[4rem] rotate-3 scale-[1.02] -z-10 opacity-20 group-hover:rotate-1 transition-transform duration-700"></div>
-                  <img 
-                    src="https://images.unsplash.com/photo-1590059239841-a9c049008985?auto=format&fit=crop&q=80&w=1000" 
-                    alt="Déménagement Reims Marne" 
-                    className="rounded-[4rem] shadow-2xl grayscale-[20%] group-hover:grayscale-0 transition-all duration-700"
-                  />
-               </div>
-            </div>
-            <div className="order-1 lg:order-2 space-y-10">
-               <div className="inline-flex items-center gap-3 bg-slate-50 px-5 py-2.5 rounded-full border border-slate-100 shadow-sm">
-                  <div className="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
-                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-900">Expansion Marne (51)</span>
-               </div>
-               <h2 className="text-4xl md:text-6xl font-black text-brand-900 leading-[1.1] tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">
-                 Déménagez à Reims <br/>
-                 <span className="text-accent underline decoration-accent/10 italic">et dans la Marne</span>
-               </h2>
-               <p className="text-lg md:text-xl text-slate-500 font-light italic leading-relaxed max-w-2xl">
-                 Parce que notre nom trouve ses racines dans le 51, Marne Transdem renforce sa présence à <span className="font-bold text-slate-700">Reims</span>, <span className="font-bold text-slate-700">Épernay</span> et <span className="font-bold text-slate-700">Châlons</span>. Profitez de notre logistique experte pour vos trajets Marne-Paris ou au sein du département.
-               </p>
-               <div className="grid grid-cols-2 gap-6 pt-4">
-                  {[
-                    { t: "Expertise Local-Distance", d: "Spécialiste des liaisons Paris-Marne." },
-                    { t: "Grand Reims", d: "Intervention rapide dans toute l'agglomération." }
-                  ].map((item, i) => (
-                    <div key={i} className="space-y-2">
-                       <h4 className="font-black text-brand-900 uppercase text-xs tracking-widest">{item.t}</h4>
-                       <p className="text-slate-400 text-xs italic font-light">{item.d}</p>
-                    </div>
-                  ))}
-               </div>
-               <div className="pt-8">
-                  <Link to="/demenagement-marne" className="inline-flex items-center gap-4 bg-brand-900 text-white px-10 py-5 rounded-full font-black text-lg hover:shadow-2xl transition-all italic tracking-tight group">
-                    Découvrir nos services Marne
-                    <ArrowRight size={22} className="text-accent group-hover:translate-x-2 transition-transform" />
-                  </Link>
-               </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Formulas Section */}
       <section className="py-24 bg-slate-50">
@@ -141,7 +93,7 @@ const Home: React.FC = () => {
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-16">
                 {[
-                   { t: "Expertise Urbaine", d: "Maîtrise des accès complexes à Paris et Reims." },
+                   { t: "Expertise Urbaine", d: "Maîtrise des accès complexes à Paris et sa région." },
                    { t: "Organisation 360°", d: "De l'emballage au remontage, rien n'est laissé au hasard." },
                    { t: "Garanties Totales", d: "Protection de vos biens par des assurances premium." },
                    { t: "Ponctualité Rigoureuse", d: "Le respect de vos délais est notre priorité absolue." }
@@ -163,13 +115,13 @@ const Home: React.FC = () => {
                <div className="absolute -inset-4 bg-accent/20 rounded-[4rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
                <div className="rounded-[4rem] overflow-hidden border border-white/10 shadow-2xl relative">
                   <img 
-                    src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=1000" 
+                    src="/images/marne-transdem.webp" 
                     alt="Déménageur professionnel Paris" 
                     className="w-full aspect-[4/5] object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-transparent to-transparent"></div>
                   <div className="absolute bottom-16 left-16 right-16">
-                     <p className="text-4xl font-black mb-2 italic tracking-tighter uppercase leading-none">Méthode <br/>Transdem</p>
+                     <p className="text-4xl font-black mb-2 italic tracking-tighter uppercase leading-none">Méthode <br/>Marne Transdem</p>
                      <p className="text-accent text-[10px] font-black uppercase tracking-[0.3em]">Excellence Logistique</p>
                   </div>
                </div>
@@ -187,20 +139,17 @@ const Home: React.FC = () => {
             <div className="lg:w-7/12 relative z-10">
               <h2 className="text-4xl md:text-6xl font-black text-brand-900 mb-8 tracking-tighter uppercase italic">Zones <br/><span className="text-accent italic underline decoration-accent/10 underline-offset-8 transition-all font-sans italic">d'intervention</span></h2>
               <p className="text-slate-500 text-lg mb-12 font-light italic leading-relaxed max-w-2xl">
-                De notre base au <span className="font-bold text-slate-700">coeur de Paris 20e</span> à nos antennes dans <span className="font-bold text-slate-700">la Marne</span>, nous couvrons un large territoire pour vos mobilités.
+                De notre base au <span className="font-bold text-slate-700">coeur de Paris 20e</span>, nous couvrons un large territoire pour vos mobilités.
               </p>
               
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 {[
                   { name: 'Paris 20e', path: '/demenagement-paris-20', m: false },
                   { name: 'Paris 16e', path: '/demenagement-paris-16', m: false },
-                  { name: 'Reims (51)', path: '/demenagement-reims', m: true },
                   { name: 'Montreuil', path: '/demenagement-montreuil', m: false },
                   { name: 'Boulogne', path: '/demenagement-boulogne-billancourt', m: false },
-                  { name: 'Épernay (51)', path: '/demenagement-epernay', m: true },
                   { name: 'Neuilly', path: '/demenagement-neuilly-sur-seine', m: false },
-                  { name: 'Vincennes', path: '/demenagement-vincennes', m: false },
-                  { name: 'Marne (51)', path: '/demenagement-marne', m: true }
+                  { name: 'Vincennes', path: '/demenagement-vincennes', m: false }
                 ].map((zone) => (
                   <Link key={zone.name} to={zone.path} className="flex flex-col items-center justify-center p-6 bg-white rounded-3xl border border-slate-100 shadow-sm transition-all hover:border-accent hover:shadow-xl group h-full">
                     <MapPin size={18} className={`${zone.m ? 'text-accent' : 'text-slate-200'} group-hover:text-accent transition-colors mb-3`} />
@@ -217,12 +166,11 @@ const Home: React.FC = () => {
 
             <div className="lg:w-5/12 grid grid-cols-2 gap-6 relative order-first lg:order-last">
               <div className="space-y-6">
-                <img src="https://images.unsplash.com/photo-1513326738677-b964603b136d?auto=format&fit=crop&q=80&w=400" alt="Déménagement Paris" className="rounded-3xl shadow-xl aspect-[3/4] object-cover grayscale-[30%]" />
-                <img src="https://images.unsplash.com/photo-1549144511-f099e773c147?auto=format&fit=crop&q=80&w=400" alt="Tour Eiffel" className="rounded-3xl shadow-xl aspect-square object-cover" />
+                <img src="/images/demenagement-paris.webp" alt="Déménagement Paris" className="rounded-3xl shadow-xl aspect-[3/4] object-cover grayscale-[30%]" />
+                <img src="/images/demenagement-ile-de-france.webp" alt="Déménagement Île-de-France" className="rounded-3xl shadow-xl aspect-square object-cover" />
               </div>
               <div className="pt-12 space-y-6">
-                <img src="https://images.unsplash.com/photo-1590059239841-a9c049008985?auto=format&fit=crop&q=80&w=400" alt="Reims" className="rounded-3xl shadow-xl aspect-square object-cover" />
-                <img src="https://images.unsplash.com/photo-1550340499-a6c60bb828a1?auto=format&fit=crop&q=80&w=400" alt="Paris Streets" className="rounded-3xl shadow-xl aspect-[3/4] object-cover grayscale-[20%]" />
+                <img src="/images/bureau-marne-transdem.webp" alt="Bureau Marne Transdem Paris" className="rounded-3xl shadow-xl aspect-[3/4] object-cover" />
               </div>
             </div>
           </div>

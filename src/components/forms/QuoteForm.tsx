@@ -198,29 +198,13 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     
-    // Coordonnées
+    // Coordonnées (Mandatory)
     if (!formData.fullName.trim()) newErrors.fullName = "Le nom et prénom sont requis";
     if (!formData.phone.trim()) newErrors.phone = "Le téléphone est requis";
     if (!formData.email.trim()) newErrors.email = "L'email est requis";
     else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Email invalide";
     
-    // Départ
-    if (!formData.fromAddress.trim()) newErrors.fromAddress = "L'adresse est requise";
-    if (!formData.fromCity.trim()) newErrors.fromCity = "La ville est requise";
-    if (!formData.fromZip.trim()) newErrors.fromZip = "Le code postal est requis";
-
-    // Arrivée
-    if (!formData.toAddress.trim()) newErrors.toAddress = "L'adresse est requise";
-    if (!formData.toCity.trim()) newErrors.toCity = "La ville est requise";
-    if (!formData.toZip.trim()) newErrors.toZip = "Le code postal est requis";
-    
-    // Déménagement
-    if (!formData.date) newErrors.date = "La date est requise";
-    if (!formData.housingType) newErrors.housingType = "Le type de logement est requis";
-    if (!formData.surface) newErrors.surface = "La surface est requise";
-    if (!formData.formula) newErrors.formula = "La formule est requise";
-
-    // Consentement
+    // Consentement (Mandatory for GDPR)
     if (!formData.consent) newErrors.consent = "Veuillez accepter le consentement pour envoyer";
 
     setErrors(newErrors);
@@ -374,7 +358,7 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="md:col-span-2 space-y-2">
-                <label className="text-sm font-bold text-brand-900 ml-1">Adresse exacte <span className="text-accent">*</span></label>
+                <label className="text-sm font-bold text-brand-900 ml-1">Adresse exacte</label>
                 <input 
                   ref={fromAutocompleteRef}
                   name="fromAddress" 
@@ -382,7 +366,6 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
                   onChange={handleChange} 
                   className={`form-input-premium w-full ${errors.fromAddress ? 'border-red-500 bg-red-50' : ''}`} 
                   placeholder="Saisissez et sélectionnez votre adresse de départ" 
-                  required
                 />
                 {errors.fromAddress && <p className="text-red-500 text-xs ml-1 font-medium">{errors.fromAddress}</p>}
               </div>
@@ -425,7 +408,7 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="md:col-span-2 space-y-2">
-                <label className="text-sm font-bold text-brand-900 ml-1">Adresse exacte <span className="text-accent">*</span></label>
+                <label className="text-sm font-bold text-brand-900 ml-1">Adresse exacte</label>
                 <input 
                   ref={toAutocompleteRef}
                   name="toAddress" 
@@ -433,7 +416,6 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
                   onChange={handleChange} 
                   className={`form-input-premium w-full ${errors.toAddress ? 'border-red-500 bg-red-50' : ''}`} 
                   placeholder="Saisissez et sélectionnez votre adresse d'arrivée" 
-                  required
                 />
                 {errors.toAddress && <p className="text-red-500 text-xs ml-1 font-medium">{errors.toAddress}</p>}
               </div>
@@ -476,13 +458,13 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 ml-1">Date souhaitée <span className="text-accent">*</span></label>
-                <input type="date" name="date" value={formData.date} onChange={handleChange} className={`form-input-premium w-full ${errors.date ? 'border-red-500 bg-red-50' : ''}`} required />
+                <label className="text-sm font-bold text-brand-900 ml-1">Date souhaitée</label>
+                <input type="date" name="date" value={formData.date} onChange={handleChange} className={`form-input-premium w-full ${errors.date ? 'border-red-500 bg-red-50' : ''}`} />
                 {errors.date && <p className="text-red-500 text-xs ml-1 font-medium">{errors.date}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 ml-1">Type de logement <span className="text-accent">*</span></label>
-                <select name="housingType" value={formData.housingType} onChange={handleChange} className={`form-input-premium w-full ${errors.housingType ? 'border-red-500 bg-red-50' : ''}`} required>
+                <label className="text-sm font-bold text-brand-900 ml-1">Type de logement</label>
+                <select name="housingType" value={formData.housingType} onChange={handleChange} className={`form-input-premium w-full ${errors.housingType ? 'border-red-500 bg-red-50' : ''}`}>
                   <option value="">Sélectionner</option>
                   <option value="appartement">Appartement</option>
                   <option value="maison">Maison</option>
@@ -491,8 +473,8 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
                 {errors.housingType && <p className="text-red-500 text-xs ml-1 font-medium">{errors.housingType}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 ml-1">Surface en m² <span className="text-accent">*</span></label>
-                <input type="number" name="surface" value={formData.surface} onChange={handleChange} className={`form-input-premium w-full ${errors.surface ? 'border-red-500 bg-red-50' : ''}`} placeholder="Ex: 45" required />
+                <label className="text-sm font-bold text-brand-900 ml-1">Surface en m²</label>
+                <input type="number" name="surface" value={formData.surface} onChange={handleChange} className={`form-input-premium w-full ${errors.surface ? 'border-red-500 bg-red-50' : ''}`} placeholder="Ex: 45" />
                 {errors.surface && <p className="text-red-500 text-xs ml-1 font-medium">{errors.surface}</p>}
               </div>
               <div className="space-y-2">
@@ -500,8 +482,8 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
                 <input name="volume" value={formData.volume} onChange={handleChange} className="form-input-premium w-full" placeholder="Ex: 25 m³" />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 ml-1">Formule souhaitée <span className="text-accent">*</span></label>
-                <select name="formula" value={formData.formula} onChange={handleChange} className={`form-input-premium w-full ${errors.formula ? 'border-red-500 bg-red-50' : ''}`} required>
+                <label className="text-sm font-bold text-brand-900 ml-1">Formule souhaitée</label>
+                <select name="formula" value={formData.formula} onChange={handleChange} className={`form-input-premium w-full ${errors.formula ? 'border-red-500 bg-red-50' : ''}`}>
                   <option value="">Choisir ma formule</option>
                   <option value="economique">Économique</option>
                   <option value="standard">Standard</option>

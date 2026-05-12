@@ -59,12 +59,13 @@ const SecteursDesservis: React.FC = () => {
     { n: "Vincennes", p: "/demenagement-vincennes", e: true },
     { n: "Saint-Mandé", p: "/demenagement-saint-mande", e: true },
     { n: "Bagnolet", p: "/demenagement-bagnolet", e: true },
-    { n: "Charenton-le-Pont", p: "/demenagement-charenton-le-pont", e: false },
+    { n: "Charenton-le-Pont", p: "/demenagement-charenton-le-pont", e: true },
     { n: "Nogent-sur-Marne", p: "/demenagement-nogent-sur-marne", e: false },
     { n: "Fontenay-sous-Bois", p: "/demenagement-fontenay-sous-bois", e: false },
-    { n: "Créteil", p: "/demenagement-creteil", e: false },
+    { n: "Créteil", p: "/demenagement-creteil", e: true },
     { n: "Maisons-Alfort", p: "/demenagement-maisons-alfort", e: false },
     { n: "Ivry-sur-Seine", p: "/demenagement-ivry-sur-seine", e: false },
+    { n: "Saint-Maur-des-Fossés", p: "/demenagement-saint-maur-des-fosses", e: true },
     { n: "Boulogne-Billancourt", p: "/demenagement-boulogne-billancourt", e: true },
     { n: "Neuilly-sur-Seine", p: "/demenagement-neuilly-sur-seine", e: true },
     { n: "Levallois-Perret", p: "/demenagement-levallois-perret", e: true },
@@ -81,7 +82,6 @@ const SecteursDesservis: React.FC = () => {
   ];
 
   const departements = [
-    { h: "Marne", d: "Déménagements à Reims, Châlons, Épernay et dans tout le 51 avec une expertise locale.", p: "/demenagement-marne", e: true },
     { h: "Paris", d: "Déménagements d’appartements, studios, logements familiaux, bureaux et commerces avec une attention aux accès.", p: "/demenagement-paris", e: true },
     { h: "Hauts-de-Seine", d: "Déménagements de particuliers et d’entreprises dans les villes résidentielles de l’ouest parisien.", p: "/demenagement-hauts-de-seine", e: true },
     { h: "Seine-Saint-Denis", d: "Déménagements dans les villes proches de Paris pour appartements, maisons et bureaux.", p: "/demenagement-seine-saint-denis", e: true },
@@ -92,16 +92,8 @@ const SecteursDesservis: React.FC = () => {
     { h: "Seine-et-Marne", d: "Déménagements dans l’est francilien pour maisons, familles et transferts immobiliers.", p: "/demenagement-seine-et-marne", e: true }
   ];
 
-  const villesMarne = [
-    { n: "Reims", p: "/demenagement-reims" },
-    { n: "Châlons", p: "/demenagement-chalons-en-champagne" },
-    { n: "Épernay", p: "/demenagement-epernay" },
-    { n: "Vitry-le-François", p: "/demenagement-vitry-le-francois" },
-    { n: "Tinqueux", p: "/demenagement-tinqueux" }
-  ];
-
   const destinationsLongueDistance = [
-    "Lyon", "Marseille", "Bordeaux", "Nice", "Toulouse", "Nantes", "Lille", "Strasbourg", "Montpellier", "Rennes"
+    "Lyon", "Marseille", "Bordeaux", "Toulouse", "Nantes", "Lille", "Strasbourg", "Montpellier", "Rennes"
   ];
 
   return (
@@ -197,36 +189,8 @@ const SecteursDesservis: React.FC = () => {
                 ))}
               </div>
             </div>
-            <div className="rounded-[3.5rem] overflow-hidden shadow-2xl relative grayscale-[20%] transition-all h-full transition-all italic transition-all italic">
-              <img src="https://images.unsplash.com/photo-1549416878-b9ca35c2d4ac?auto=format&fit=crop&q=80&w=800" alt="Paris Déménagement" className="w-full h-full object-cover italic transition-all grayscale-[10%]" />
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Marne Section */}
-      <section className="py-24 bg-white border-b border-slate-100 font-sans italic">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div className="rounded-[3.5rem] overflow-hidden shadow-2xl relative order-2 lg:order-1">
-              <img src="https://images.unsplash.com/photo-1590059239841-a9c049008985?auto=format&fit=crop&q=80&w=800" alt="Déménagement Marne Reims" className="w-full h-full object-cover" />
-            </div>
-            <div className="space-y-8 order-1 lg:order-2">
-              <h2 className="text-3xl md:text-5xl font-black text-brand-900 uppercase italic underline decoration-accent/20 underline-offset-8">Déménagement dans la Marne</h2>
-              <p className="text-slate-500 text-lg font-light leading-relaxed">
-                Marne Transdem étend son expertise au département de la Marne (51). Nous accompagnons vos projets de mobilité à Reims, Épernay, Châlons-en-Champagne et dans toutes les communes du département.
-              </p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-6">
-                {villesMarne.map((item, i) => (
-                  <Link 
-                    key={i} 
-                    to={item.p}
-                    className="flex items-center justify-center p-4 bg-slate-50 rounded-2xl border border-slate-100 group hover:bg-white hover:shadow-xl hover:border-accent transition-all text-center"
-                  >
-                    <span className="font-bold text-brand-900 group-hover:text-accent transition-colors italic uppercase text-[10px] tracking-widest">{item.n}</span>
-                  </Link>
-                ))}
-              </div>
+            <div className="rounded-[3.5rem] overflow-hidden shadow-2xl relative grayscale-[20%] transition-all h-full italic">
+                <img src="/images/demenagement-paris.webp" alt="Paris Déménagement" className="w-full h-full object-cover italic transition-all grayscale-[10%]" />
             </div>
           </div>
         </div>
@@ -236,8 +200,8 @@ const SecteursDesservis: React.FC = () => {
       <section className="py-24 font-sans italic transition-all italic">
         <div className="container mx-auto px-4 md:px-6 italic font-sans italic transition-all">
           <div className="text-center mb-16 italic font-sans underline decoration-accent/10 underline-offset-8 italic transition-all">
-            <h2 className="text-3xl md:text-5xl font-black text-brand-900 tracking-tight uppercase italic transition-all italic underline decoration-accent/20 underline-offset-8 italic transition-all font-sans italic">Villes limitrophes <span className="text-accent italic tracking-tight italic italic underline underline-offset-8 transition-all italic">est parisien</span></h2>
-            <p className="text-slate-500 text-lg font-light italic max-w-3xl mx-auto italic italic italic italic transition-all italic transition-all">
+            <h2 className="text-3xl md:text-5xl font-black text-brand-900 tracking-tight uppercase italic transition-all italic underline decoration-accent/20 underline-offset-8 italic transition-all font-sans italic">Villes limitrophes <span className="text-accent italic tracking-tight italic underline underline-offset-8 transition-all italic">est parisien</span></h2>
+            <p className="text-slate-500 text-lg font-light italic max-w-3xl mx-auto italic italic italic transition-all italic transition-all">
               Accompagnement des déménagements dans les communes proches de Paris, notamment autour du Val-de-Marne, de la Seine-Saint-Denis et de l'Est parisien.
             </p>
           </div>

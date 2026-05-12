@@ -113,9 +113,9 @@ const LongueDistance: React.FC = () => {
             <div className="relative group">
                <div className="aspect-[4/5] rounded-[4rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.02]">
                  <img 
-                   src="https://images.unsplash.com/photo-1517672651691-24622a91b550?auto=format&fit=crop&q=80&w=800" 
-                   alt="Déménagement longue distance trajet" 
-                   className="w-full h-full object-cover grayscale-[20%]"
+                   src="/images/demenagement-longue-distance.jpg" 
+                   alt="Déménagement longue distance" 
+                   className="w-full h-full object-cover"
                  />
                </div>
                <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-accent/20 rounded-full blur-3xl -z-0"></div>

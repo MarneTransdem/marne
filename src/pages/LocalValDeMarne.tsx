@@ -39,12 +39,12 @@ const LocalValDeMarne: React.FC = () => {
   const cities = [
     { n: "Vincennes", d: "Déménagements d'appartements, maisons et bureaux à proximité de Paris 12e et 20e.", l: "/demenagement-vincennes" },
     { n: "Saint-Mandé", d: "Accompagnement des projets résidentiels et pros proche de Paris.", l: "/demenagement-saint-mande" },
-    { n: "Charenton-le-Pont", d: "Organisation des déménagements entre Paris, le 94 et les communes voisines." },
+    { n: "Charenton-le-Pont", d: "Organisation des déménagements entre Paris, le 94 et les communes voisines.", l: "/demenagement-charenton-le-pont" },
     { n: "Nogent-sur-Marne", d: "Déménagements de logements familiaux, maisons et locaux professionnels." },
     { n: "Maisons-Alfort", d: "Déménagements de résidences et bureaux avec attention aux accès et étages." },
-    { n: "Créteil", d: "Accompagnement des logements, bureaux et commerces dans le chef-lieu du département." },
+    { n: "Créteil", d: "Accompagnement des logements, bureaux et commerces dans le chef-lieu du département.", l: "/demenagement-creteil" },
     { n: "Ivry-sur-Seine", d: "Déménagements de particuliers et pros à proximité immédiate de Paris 13e." },
-    { n: "Saint-Maur-des-Fossés", d: "Expertise pour les déménagements de maisons et résidences familiales." },
+    { n: "Saint-Maur-des-Fossés", d: "Expertise pour les déménagements de maisons et résidences familiales.", l: "/demenagement-saint-maur-des-fosses" },
     { n: "Fontenay-sous-Bois", d: "Logistique adaptée aux quartiers résidentiels et zones d'activités." },
     { n: "Vitry-sur-Seine", d: "Déménagements urbains pour particuliers et entreprises en plein développement." },
     { n: "Villejuif", d: "Solutions de déménagement pour logements et centres de recherche ou médicaux." },
@@ -525,7 +525,9 @@ const LocalValDeMarne: React.FC = () => {
             <Link to="/demenagement-seine-et-marne" className="hover:text-accent uppercase italic">Seine-et-Marne</Link>
             <Link to="/demenagement-vincennes" className="hover:text-accent uppercase italic">Vincennes</Link>
             <Link to="/demenagement-saint-mande" className="hover:text-accent uppercase italic">Saint-Mandé</Link>
-            {["Charenton", "Nogent", "Créteil", "Maisons-Alfort", "Ivry", "Villejuif", "Fontenay"].map(c => <span key={c} className="cursor-default uppercase italic">{c}</span>)}
+            <Link to="/demenagement-charenton-le-pont" className="hover:text-accent uppercase italic">Charenton</Link>
+            <Link to="/demenagement-saint-maur-des-fosses" className="hover:text-accent uppercase italic">Saint-Maur</Link>
+            {["Nogent", "Créteil", "Maisons-Alfort", "Ivry", "Villejuif", "Fontenay"].map(c => <span key={c} className="cursor-default uppercase italic">{c}</span>)}
           </div>
         </div>
       </section>

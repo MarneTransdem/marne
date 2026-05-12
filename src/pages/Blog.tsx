@@ -15,15 +15,6 @@ const Blog: React.FC = () => {
       category: "Conseils"
     },
     {
-      id: 2,
-      slug: "reims",
-      title: "Comment réussir son déménagement à Reims en 2026 ?",
-      excerpt: "La cité des Sacres est en pleine mutation. Guide complet pour réussir votre installation ou votre départ de Reims.",
-      date: "15 Mai 2026",
-      image: "https://images.unsplash.com/photo-1590059239841-a9c049008985?auto=format&fit=crop&q=80&w=1000",
-      category: "Expertise"
-    },
-    {
       id: 3,
       slug: "2",
       title: "Comment estimer le volume de son déménagement ?",
@@ -38,7 +29,7 @@ const Blog: React.FC = () => {
     <div className="bg-white min-h-screen">
       <SEO 
         title="Blog & Conseils Déménagement | Marne Transdem" 
-        description="Retrouvez nos guides et astuces pour réussir votre déménagement à Paris et dans la Marne. Préparation, emballage, formalités."
+        description="Retrouvez nos guides et astuces pour réussir votre déménagement à Paris et en Île-de-France. Préparation, emballage, formalités."
       />
       
       <section className="bg-brand-900 text-white pt-48 pb-24 relative overflow-hidden">
@@ -50,7 +41,7 @@ const Blog: React.FC = () => {
               <span className="text-accent italic underline decoration-accent/20 underline-offset-8 font-sans italic">Transdem</span>
             </h1>
             <p className="text-xl md:text-2xl text-slate-400 font-light italic leading-relaxed max-w-2xl">
-              L'expertise Marne Transdem au service de votre mobilité. Conseils, guides et actualités du déménagement à Paris et dans le Grand Est.
+              L'expertise Marne Transdem au service de votre mobilité. Conseils, guides et actualités du déménagement à Paris et en Île-de-France.
             </p>
           </div>
         </div>

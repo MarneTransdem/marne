@@ -231,8 +231,8 @@ const GardeMeuble: React.FC = () => {
             </div>
             <div className="aspect-square bg-slate-100 rounded-[3rem] overflow-hidden shadow-2xl relative group">
               <img 
-                src="https://images.unsplash.com/photo-1520038410233-7141be7e6f97?auto=format&fit=crop&q=80" 
-                alt="Transition logistique Paris" 
+                src="/images/garde-meuble.webp" 
+                alt="Box de stockage Marne Transdem" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
             </div>

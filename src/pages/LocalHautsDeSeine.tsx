@@ -510,13 +510,18 @@ const LocalHautsDeSeine: React.FC = () => {
             <Link to="/cartons-demenagement-paris" className="hover:text-white transition-all">Cartons</Link>
             <Link to="/contact" className="hover:text-white transition-all">Contact</Link>
           </div>
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-4 text-[8px] font-black uppercase tracking-[0.15em] text-slate-700 italic pt-8">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-4 text-8px font-black uppercase tracking-0.15em text-slate-700 italic pt-8">
             <Link to="/demenagement-paris-16" className="hover:text-accent">Paris 16</Link>
             <Link to="/demenagement-paris-17" className="hover:text-accent">Paris 17</Link>
+            <Link to="/demenagement-paris-15" className="hover:text-accent">Paris 15</Link>
             <Link to="/demenagement-boulogne-billancourt" className="hover:text-accent">Boulogne</Link>
             <Link to="/demenagement-neuilly-sur-seine" className="hover:text-accent">Neuilly</Link>
             <Link to="/demenagement-levallois-perret" className="hover:text-accent">Levallois</Link>
             <Link to="/demenagement-clichy" className="hover:text-accent">Clichy</Link>
+            <Link to="/demenagement-charenton-le-pont" className="hover:text-accent">Charenton</Link>
+            <Link to="/demenagement-vincennes" className="hover:text-accent">Vincennes</Link>
+            <Link to="/demenagement-saint-mande" className="hover:text-accent">Saint-Mandé</Link>
+            <Link to="/demenagement-saint-maur-des-fosses" className="hover:text-accent">Saint-Maur</Link>
             <Link to="/demenagement-courbevoie" className="hover:text-accent">Courbevoie</Link>
             <Link to="/demenagement-puteaux" className="hover:text-accent">Puteaux</Link>
             <Link to="/demenagement-nanterre" className="hover:text-accent">Nanterre</Link>
@@ -525,7 +530,6 @@ const LocalHautsDeSeine: React.FC = () => {
             <Link to="/demenagement-saint-cloud" className="hover:text-accent">Saint-Cloud</Link>
             <Link to="/demenagement-meudon" className="hover:text-accent">Meudon</Link>
             <Link to="/demenagement-issy-les-moulineaux" className="hover:text-accent">Issy</Link>
-            <Link to="/demenagement-paris-15" className="hover:text-accent">Paris 15</Link>
           </div>
         </div>
       </section>

@@ -71,7 +71,7 @@ const About: React.FC = () => {
             </h1>
             
             <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed font-light italic">
-              Entreprise de déménagement née d'une double expertise entre Paris et la Marne, nous accompagnons les particuliers et les entreprises dans leurs transitions locales et nationales.
+              Entreprise de déménagement basée à Paris, nous accompagnons les particuliers et les entreprises dans leurs transitions locales et nationales.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -93,13 +93,13 @@ const About: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-4xl lg:text-5xl font-black text-brand-900 mb-8 uppercase italic underline decoration-accent/10 underline-offset-8">Une expertise <span className="text-accent italic">bi-régionale</span></h2>
+              <h2 className="text-4xl lg:text-5xl font-black text-brand-900 mb-8 uppercase italic underline decoration-accent/10 underline-offset-8">Une expertise <span className="text-accent italic">francilienne</span></h2>
               <div className="space-y-6 text-slate-500 leading-relaxed text-lg font-light italic">
                 <p>
-                  Marne Transdem, c'est avant tout l'alliance de la réactivité parisienne et du professionnalisme champenois. Basée à <span className="font-bold text-brand-900">Paris 20e</span>, notre entreprise puise son nom et ses racines dans <span className="font-bold text-brand-900">la Marne (51)</span>, nous permettant d'offrir une logistique fluide pour les déménagements entre l'Île-de-France et le Grand Est, ainsi qu'au niveau national.
+                  Basée à <span className="font-bold text-brand-900">Paris 20e</span>, Marne Transdem offre une logistique fluide pour les déménagements en Île-de-France ainsi qu'au niveau national.
                 </p>
                 <p>
-                  Qu'il s'agisse de transférer un appartement dans le Marais, une maison à Reims ou des bureaux à Châlons, nous appliquons la même rigueur et le même soin à chaque bien confié.
+                  Qu'il s'agisse de transférer un appartement dans le Marais ou des bureaux en petite couronne, nous appliquons la même rigueur et le même soin à chaque bien confié.
                 </p>
               </div>
             </div>
@@ -185,6 +185,62 @@ const About: React.FC = () => {
                     <p className="text-sm text-slate-500 font-light leading-relaxed">{step.d}</p>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Notre équipe */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-4 md:px-6 text-center">
+          <div className="mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6 italic tracking-tight uppercase">Notre <span className="text-accent underline decoration-accent/10 underline-offset-8">Équipe</span></h2>
+            <p className="text-slate-500 max-w-2xl mx-auto font-light leading-relaxed">
+              Une équipe à dimension humaine pour un accompagnement de proximité et une logistique sans faille.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-6xl mx-auto">
+            <div className="group space-y-6">
+              <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100">
+                <img 
+                  src="/images/gerant-marne-transdem.webp" 
+                  alt="Le Gérant - Marne Transdem" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 uppercase italic tracking-tight">Le Gérant</h3>
+                <p className="text-accent text-[10px] font-black uppercase tracking-[0.2em]">Direction & Expertise</p>
+              </div>
+            </div>
+            
+            <div className="group space-y-6 md:mt-12">
+              <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100">
+                <img 
+                  src="/images/secretaire-marne-transdem.webp" 
+                  alt="Secrétariat - Marne Transdem" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 uppercase italic tracking-tight">Le Secrétariat</h3>
+                <p className="text-accent text-[10px] font-black uppercase tracking-[0.2em]">Accueil & Gestion</p>
+              </div>
+            </div>
+            
+            <div className="group space-y-6">
+              <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100">
+                <img 
+                  src="/images/bureau-marne-transdem.webp" 
+                  alt="Nos Bureaux - Marne Transdem" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 uppercase italic tracking-tight">Nos Bureaux</h3>
+                <p className="text-accent text-[10px] font-black uppercase tracking-[0.2em]">Paris 20e</p>
               </div>
             </div>
           </div>

@@ -24,19 +24,6 @@ const BlogPost: React.FC = () => {
         <h2>3. Prévoyez un monte-meuble</h2>
         <p>Beaucoup d'immeubles parisiens interdisent l'usage de l'ascenseur pour le déménagement. Un monte-meuble extérieur est souvent plus rapide et sécurisé.</p>
       `
-    },
-    "reims": {
-      title: "Comment réussir son déménagement à Reims en 2026 ?",
-      date: "15 Mai 2026",
-      readTime: "8 min",
-      image: "https://images.unsplash.com/photo-1590059239841-a9c049008985?auto=format&fit=crop&q=80&w=1200",
-      content: `
-        <p>La cité des Sacres est en pleine mutation. Déménager à Reims aujourd'hui nécessite de prendre en compte les nouveaux aménagements urbains et les spécificités du Grand Reims.</p>
-        <h2>Les quartiers les plus prisés de Reims</h2>
-        <p>Que vous choisissiez le dynamisme de Clairmarais, le charme de Saint-Remi ou le calme de Tinqueux, chaque zone a ses contraintes d'accès.</p>
-        <h2>Le budget moyen pour déménager dans la Marne</h2>
-        <p>Les tarifs varient selon la distance et le volume. Un T3 standard en centre-ville de Reims se déménage généralement entre 600€ et 1200€ selon la formule choisie.</p>
-      `
     }
   };
 
@@ -103,7 +90,7 @@ const BlogPost: React.FC = () => {
                <div>
                   <h4 className="text-2xl font-black text-brand-900 mb-4 uppercase italic">L'avis de notre expert</h4>
                   <p className="text-slate-500 font-light italic leading-relaxed">
-                    Chez Marne Transdem, nous croyons qu'un déménagement réussi passe par une information transparente. Nos conseillers sont à votre disposition à Reims et Paris pour répondre à toutes vos questions techniques.
+                    Chez Marne Transdem, nous croyons qu'un déménagement réussi passe par une information transparente. Nos conseillers sont à votre disposition à Paris pour répondre à toutes vos questions techniques.
                   </p>
                   <div className="mt-8 flex flex-col sm:flex-row gap-4">
                      <Link to="/demande-de-devis" className="bg-brand-900 text-white px-8 py-4 rounded-full font-bold text-sm hover:shadow-xl transition-all">
@@ -120,15 +107,15 @@ const BlogPost: React.FC = () => {
       </article>
 
       {/* Recommended Posts */}
-      <section className="py-24 bg-slate-50 border-t border-slate-100">
+       <section className="py-24 bg-slate-50 border-t border-slate-100">
          <div className="container mx-auto px-4 md:px-6">
             <h3 className="text-2xl md:text-4xl font-black text-brand-900 mb-12 uppercase italic underline decoration-accent/20 underline-offset-8">Articles recommandés</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                {/* Simplified recommendation cards */}
-               <Link to="/blog/reims" className="group bg-white p-8 rounded-[3rem] border border-slate-100 hover:border-accent transition-all flex items-center gap-8 shadow-sm hover:shadow-xl">
-                  <img src="https://images.unsplash.com/photo-1590059239841-a9c049008985?auto=format&fit=crop&q=80&w=200" alt="Reims" className="w-24 h-24 rounded-2xl object-cover shrink-0" />
+               <Link to="/blog/2" className="group bg-white p-8 rounded-[3rem] border border-slate-100 hover:border-accent transition-all flex items-center gap-8 shadow-sm hover:shadow-xl">
+                  <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=200" alt="Calcul volume" className="w-24 h-24 rounded-2xl object-cover shrink-0" />
                   <div>
-                    <h4 className="font-black text-brand-900 group-hover:text-accent transition-colors mb-2 uppercase italic leading-tight">Déménager à Reims en 2026</h4>
+                    <h4 className="font-black text-brand-900 group-hover:text-accent transition-colors mb-2 uppercase italic leading-tight">Estimer son volume</h4>
                     <span className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Lire l'article</span>
                   </div>
                </Link>

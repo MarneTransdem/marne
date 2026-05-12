@@ -131,7 +131,7 @@ const LocalParis20: React.FC = () => {
             <div className="relative">
               <div className="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative z-10">
                 <img 
-                  src="https://images.unsplash.com/photo-1550340499-a6c60bb828a1?auto=format&fit=crop&q=80&w=1000" 
+                  src="/images/demenagement-paris.webp" 
                   alt="Rues de Paris 20e arrondissement" 
                   className="w-full h-full object-cover"
                 />
