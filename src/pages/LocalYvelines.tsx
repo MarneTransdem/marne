@@ -37,22 +37,22 @@ const LocalYvelines: React.FC = () => {
   ];
 
   const cities = [
-    { n: "Versailles", d: "Déménagements de maisons, appartements, résidences et bureaux selon le volume et les accès." },
-    { n: "Saint-Germain-en-Laye", d: "Accompagnement des projets de déménagement résidentiels et pros dans l'ouest francilien." },
-    { n: "Mantes-la-Jolie", d: "Organisation des déménagements de particuliers et d'entreprises dans les Yvelines." },
-    { n: "Poissy", d: "Déménagements de logements familiaux, appartements, maisons et locaux professionnels." },
-    { n: "Sartrouville", d: "Déménagements entre Paris, les Yvelines, le Val-d'Oise et les communes voisines." },
-    { n: "Rambouillet", d: "Accompagnement des déménagements de particuliers et projets longue distance depuis le sud 78." },
-    { n: "Houilles", d: "Solutions de proximité pour les familles et actifs travaillant sur Paris ou La Défense." },
-    { n: "Maisons-Laffitte", d: "Déménagements premium pour pavillons, appartements de standing et résidences." },
-    { n: "Chatou", d: "Accompagnement des projets résidentiels dans les boucles de la Seine." },
-    { n: "Le Vésinet", d: "Expertise pour les déménagements de maisons et propriétés avec accès spécifiques." },
-    { n: "Conflans-Sainte-Honorine", d: "Déménagements pour particuliers et entreprises dans le confluent Seine-Oise." },
-    { n: "Montigny-le-Bretonneux", d: "Transferts de bureaux et logements collectifs dans la zone de Saint-Quentin-en-Yvelines." },
-    { n: "Guyancourt", d: "Logistique adaptée aux quartiers d'affaires et résidences de standing." },
-    { n: "Plaisir", d: "Accompagnement des déménagements de maisons et logements familiaux en zone commerciale." },
-    { n: "Vélizy-Villacoublay", d: "Déménagements professionnels et résidentiels à proximité du pôle aéronautique." },
-    { n: "Le Chesnay-Rocquencourt", d: "Services pour appartements et pavillons proche de Versailles." }
+    { n: "Versailles", d: "Déménagements de maisons, appartements, résidences et bureaux selon le volume et les accès.", l: "/demenagement-versailles" },
+    { n: "Vélizy-Villacoublay", d: "Déménagements professionnels et résidentiels à proximité du pôle aéronautique.", l: "/demenagement-velizy-villacoublay" },
+    { n: "Saint-Germain-en-Laye", d: "Accompagnement des projets de déménagement résidentiels et pros dans l'ouest francilien.", l: null },
+    { n: "Mantes-la-Jolie", d: "Organisation des déménagements de particuliers et d'entreprises dans les Yvelines.", l: null },
+    { n: "Poissy", d: "Déménagements de logements familiaux, appartements, maisons et locaux professionnels.", l: null },
+    { n: "Sartrouville", d: "Déménagements entre Paris, les Yvelines, le Val-d'Oise et les communes voisines.", l: null },
+    { n: "Rambouillet", d: "Accompagnement des déménagements de particuliers et projets longue distance depuis le sud 78.", l: null },
+    { n: "Houilles", d: "Solutions de proximité pour les familles et actifs travaillant sur Paris ou La Défense.", l: null },
+    { n: "Maisons-Laffitte", d: "Déménagements premium pour pavillons, appartements de standing et résidences.", l: null },
+    { n: "Chatou", d: "Accompagnement des projets résidentiels dans les boucles de la Seine.", l: null },
+    { n: "Le Vésinet", d: "Expertise pour les déménagements de maisons et propriétés avec accès spécifiques.", l: null },
+    { n: "Conflans-Sainte-Honorine", d: "Déménagements pour particuliers et entreprises dans le confluent Seine-Oise.", l: null },
+    { n: "Montigny-le-Bretonneux", d: "Transferts de bureaux et logements collectifs dans la zone de Saint-Quentin-en-Yvelines.", l: null },
+    { n: "Guyancourt", d: "Logistique adaptée aux quartiers d'affaires et résidences de standing.", l: null },
+    { n: "Plaisir", d: "Accompagnement des déménagements de maisons et logements familiaux en zone commerciale.", l: null },
+    { n: "Le Chesnay-Rocquencourt", d: "Services pour appartements et pavillons proche de Versailles.", l: null }
   ];
 
   return (
@@ -128,7 +128,7 @@ const LocalYvelines: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[3/4] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="https://images.unsplash.com/photo-1549416878-b9ca35c2d4ac?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/demenagement-maison-versailles-78.jpg" 
                   alt="Yvelines Déménagement" 
                   className="w-full h-full object-cover grayscale-[30%]"
                 />
@@ -201,7 +201,7 @@ const LocalYvelines: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-20 items-center font-sans">
             <div className="lg:w-1/2 rounded-[3.5rem] overflow-hidden shadow-2xl relative order-2 lg:order-1 grayscale-[10%]">
-               <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800" alt="Particulier Yvelines" className="w-full h-full object-cover" />
+               <img src="/images/demenagement-maison-yvelines.jpg" alt="Particulier Yvelines" className="w-full h-full object-cover" />
             </div>
             <div className="lg:w-1/2 space-y-8 order-1 lg:order-2 italic font-sans">
               <h2 className="text-3xl md:text-4xl font-black text-brand-900 tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">Déménagement particuliers</h2>
@@ -226,7 +226,7 @@ const LocalYvelines: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row-reverse gap-20 items-center font-sans">
              <div className="lg:w-1/2 rounded-[3.5rem] overflow-hidden shadow-2xl relative grayscale-[10%]">
-                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" alt="Entreprise Yvelines" className="w-full h-full object-cover" />
+                <img src="/images/transfert-entreprise-78-yvelines.jpg" alt="Entreprise Yvelines" className="w-full h-full object-cover" />
              </div>
              <div className="lg:w-1/2 space-y-8 italic font-sans">
                <h2 className="text-3xl md:text-4xl font-black text-brand-900 tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">Transferts professionnels</h2>
@@ -254,12 +254,24 @@ const LocalYvelines: React.FC = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
             {cities.map((city, i) => (
-              <div key={i} className="bg-white/70 p-8 rounded-[2rem] border border-slate-100 flex flex-col justify-between group hover:border-accent hover:shadow-xl transition-all">
-                <div>
-                  <h3 className="font-bold text-brand-900 mb-3 uppercase text-xs italic tracking-widest group-hover:text-accent transition-colors">{city.n}</h3>
-                  <p className="text-slate-400 text-[11px] font-light italic leading-relaxed opacity-80 italic">{city.d}</p>
+              city.l ? (
+                <Link key={i} to={city.l} className="bg-white/70 p-8 rounded-[2rem] border border-slate-100 flex flex-col justify-between group hover:border-accent hover:shadow-xl transition-all">
+                  <div>
+                    <h3 className="font-bold text-brand-900 mb-3 uppercase text-xs italic tracking-widest group-hover:text-accent transition-colors">{city.n}</h3>
+                    <p className="text-slate-400 text-[11px] font-light italic leading-relaxed opacity-80 italic">{city.d}</p>
+                  </div>
+                  <div className="mt-4 flex items-center gap-2 text-accent font-black uppercase text-[10px] tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                    Voir la page <ArrowRight size={10} />
+                  </div>
+                </Link>
+              ) : (
+                <div key={i} className="bg-white/70 p-8 rounded-[2rem] border border-slate-100 flex flex-col justify-between group hover:border-slate-300 transition-all">
+                  <div>
+                    <h3 className="font-bold text-brand-900 mb-3 uppercase text-xs italic tracking-widest opacity-60">{city.n}</h3>
+                    <p className="text-slate-400 text-[11px] font-light italic leading-relaxed opacity-80 italic">{city.d}</p>
+                  </div>
                 </div>
-              </div>
+              )
             ))}
           </div>
         </div>
@@ -392,7 +404,7 @@ const LocalYvelines: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center italic">
              <div className="order-2 lg:order-1 relative grayscale-[20%]">
                 <div className="aspect-video bg-slate-200 rounded-[2.5rem] overflow-hidden shadow-xl border-8 border-white p-2 italic transition-all">
-                   <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=1200" alt="Déménagement longue distance Yvelines" className="w-full h-full object-cover rounded-[2rem] italic" />
+                   <img src="/images/demenagement-longue-distance-camion.jpg" alt="Déménagement longue distance Yvelines" className="w-full h-full object-cover rounded-[2rem] italic" />
                 </div>
                 <div className="absolute top-6 left-6 bg-brand-900 text-white px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest shadow-xl flex items-center gap-2 italic">
                    <Globe size={14} className="text-accent" /> Longue Distance

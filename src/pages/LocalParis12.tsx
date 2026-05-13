@@ -125,7 +125,7 @@ const LocalParis12: React.FC = () => {
             <div className="relative">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10">
                 <img 
-                  src="https://images.unsplash.com/photo-1512418490979-92798ced1381?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/demenagement-paris-12.jpg" 
                   alt="Déménagement Paris 12" 
                   className="w-full h-full object-cover"
                 />
@@ -233,7 +233,7 @@ const LocalParis12: React.FC = () => {
             <div className="relative order-2 lg:order-1">
               <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl">
                 <img 
-                  src="https://images.unsplash.com/photo-1583024026354-14ccbcc2abc4?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/demenagement-appartement-92.jpg" 
                   alt="Déménagement particuliers Paris 12" 
                   className="w-full h-full object-cover"
                 />
@@ -291,7 +291,7 @@ const LocalParis12: React.FC = () => {
             <div className="relative">
               <div className="aspect-[16/9] rounded-[3rem] overflow-hidden shadow-2xl">
                 <img 
-                  src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1000" 
+                  src="/images/demenagement-paris-intra-muros.jpg" 
                   alt="Déménagement entreprises Paris 12" 
                   className="w-full h-full object-cover"
                 />

@@ -92,7 +92,7 @@ const LocalCreteil: React.FC = () => {
             >
               <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white/5">
                 <img 
-                  src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&q=80&w=1200" 
+                  src="/images/demenagement-creteil-camion.jpg" 
                   alt="Déménagement appartement à Créteil avec Marne Transdem" 
                   className="w-full h-full object-cover"
                 />
@@ -201,7 +201,7 @@ const LocalCreteil: React.FC = () => {
             </div>
             <div className="lg:w-1/2 relative">
                <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10">
-                 <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800" alt="Déménageur Créteil" className="w-full h-full object-cover" />
+                 <img src="/images/equipe-demenageur-creteil.jpg" alt="Déménageur Créteil" className="w-full h-full object-cover" />
                </div>
                <div className="absolute -bottom-10 -right-10 w-full h-full border-2 border-accent rounded-[3rem] -z-0"></div>
             </div>
@@ -252,7 +252,7 @@ const LocalCreteil: React.FC = () => {
             </div>
             <div className="lg:w-1/2 relative group">
                <div className="aspect-square rounded-[3.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.02]">
-                 <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800" alt="Transfert entreprise Créteil" className="w-full h-full object-cover" />
+                 <img src="/images/demenagement-appartement-creteil.jpg" alt="Transfert entreprise Créteil" className="w-full h-full object-cover" />
                </div>
                <div className="absolute top-10 left-10 w-full h-full bg-slate-100 rounded-[3.5rem] -z-0"></div>
             </div>

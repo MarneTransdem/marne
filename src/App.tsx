@@ -18,6 +18,7 @@ import FormulasPage from './pages/Formulas';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Legal from './pages/Legal';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import DemenagementParticuliers from './pages/DemenagementParticuliers';
 import DemenagementEntreprises from './pages/DemenagementEntreprises';
 import GardeMeuble from './pages/GardeMeuble';
@@ -53,6 +54,21 @@ import LocalRueilMalmaison from './pages/LocalRueilMalmaison';
 import LocalSaintCloud from './pages/LocalSaintCloud';
 import LocalMeudon from './pages/LocalMeudon';
 import LocalIssyLesMoulineaux from './pages/LocalIssyLesMoulineaux';
+import LocalClamart from './pages/LocalClamart';
+import LocalSevres from './pages/LocalSevres';
+import LocalVanves from './pages/LocalVanves';
+import LocalChatillon from './pages/LocalChatillon';
+import LocalMalakoff from './pages/LocalMalakoff';
+import LocalMontrouge from './pages/LocalMontrouge';
+import LocalBagneux from './pages/LocalBagneux';
+import LocalFontenayAuxRoses from './pages/LocalFontenayAuxRoses';
+import LocalSceaux from './pages/LocalSceaux';
+import LocalBourgLaReine from './pages/LocalBourgLaReine';
+import LocalAntony from './pages/LocalAntony';
+import LocalChatenayMalabry from './pages/LocalChatenayMalabry';
+import LocalLePlessisRobinson from './pages/LocalLePlessisRobinson';
+import LocalVelizyVillacoublay from './pages/LocalVelizyVillacoublay';
+import LocalVersailles from './pages/LocalVersailles';
 import LocalIDF from './pages/LocalIDF';
 import LocalHautsDeSeine from './pages/LocalHautsDeSeine';
 import LocalSeineSaintDenis from './pages/LocalSeineSaintDenis';
@@ -77,6 +93,7 @@ import LongueDistanceParisRennes from './pages/LongueDistanceParisRennes';
 import SecteursDesservis from './pages/SecteursDesservis';
 
 import { APIProvider } from '@vis.gl/react-google-maps';
+import { CookieConsent } from './components/common/CookieConsent';
 
 const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_PLATFORM_KEY || '';
 
@@ -133,6 +150,21 @@ export default function App() {
                 <Route path="/demenagement-rueil-malmaison" element={<LocalRueilMalmaison />} />
                 <Route path="/demenagement-saint-cloud" element={<LocalSaintCloud />} />
                 <Route path="/demenagement-meudon" element={<LocalMeudon />} />
+                <Route path="/demenagement-clamart" element={<LocalClamart />} />
+                <Route path="/demenagement-sevres" element={<LocalSevres />} />
+                <Route path="/demenagement-vanves" element={<LocalVanves />} />
+                <Route path="/demenagement-chatillon" element={<LocalChatillon />} />
+                <Route path="/demenagement-malakoff" element={<LocalMalakoff />} />
+                <Route path="/demenagement-montrouge" element={<LocalMontrouge />} />
+                <Route path="/demenagement-bagneux" element={<LocalBagneux />} />
+                <Route path="/demenagement-fontenay-aux-roses" element={<LocalFontenayAuxRoses />} />
+                <Route path="/demenagement-sceaux" element={<LocalSceaux />} />
+                <Route path="/demenagement-bourg-la-reine" element={<LocalBourgLaReine />} />
+                <Route path="/demenagement-antony" element={<LocalAntony />} />
+                <Route path="/demenagement-chatenay-malabry" element={<LocalChatenayMalabry />} />
+                <Route path="/demenagement-le-plessis-robinson" element={<LocalLePlessisRobinson />} />
+                <Route path="/demenagement-velizy-villacoublay" element={<LocalVelizyVillacoublay />} />
+                <Route path="/demenagement-versailles" element={<LocalVersailles />} />
                 <Route path="/demenagement-issy-les-moulineaux" element={<LocalIssyLesMoulineaux />} />
                 <Route path="/demenagement-ile-de-france" element={<LocalIDF />} />
                 <Route path="/demenagement-hauts-de-seine" element={<LocalHautsDeSeine />} />
@@ -169,10 +201,12 @@ export default function App() {
                 <Route path="/a-propos" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/mentions-legales" element={<Legal />} />
+                <Route path="/politique-de-confidentialite" element={<PrivacyPolicy />} />
               </Routes>
             </PageTransition>
           </main>
           <Footer />
+          <CookieConsent />
           <MobileCTA />
         </BrowserRouter>
       </HelmetProvider>

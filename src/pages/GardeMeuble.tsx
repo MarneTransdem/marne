@@ -50,7 +50,7 @@ const GardeMeuble: React.FC = () => {
 
       {/* 1. Hero Section */}
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-brand-900 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1590685794623-662908f5115c?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-20"></div>
+        <div className="absolute inset-0 bg-[url('/images/demenagement-paris-intra-muros.jpg')] bg-cover bg-center opacity-20"></div>
         <div className="container mx-auto px-4 md:px-6 relative z-10 text-white">
           <div className="max-w-3xl">
             <motion.div

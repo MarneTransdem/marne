@@ -132,7 +132,7 @@ const LocalNanterre: React.FC = () => {
             <div className="relative font-display">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-8 border-slate-50 font-display">
                 <img 
-                  src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/demenagement-92-hauts-de-seine-camion.jpg" 
                   alt="Ville de Nanterre" 
                   className="w-full h-full object-cover"
                 />
@@ -240,7 +240,7 @@ const LocalNanterre: React.FC = () => {
             <div className="relative order-2 lg:order-1 font-display">
               <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl font-display">
                 <img 
-                  src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/demenagement-appartement-92.jpg" 
                   alt="Déménagement particuliers Nanterre" 
                   className="w-full h-full object-cover font-display"
                 />
@@ -298,7 +298,7 @@ const LocalNanterre: React.FC = () => {
             <div className="relative font-display">
               <div className="aspect-[16/9] rounded-[3rem] overflow-hidden shadow-2xl font-display">
                 <img 
-                  src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1000" 
+                  src="/images/transfert-bureau-hauts-de-seine.jpg" 
                   alt="Déménagement entreprises Nanterre" 
                   className="w-full h-full object-cover font-display"
                 />

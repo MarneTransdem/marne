@@ -201,7 +201,7 @@ const LocalSaintMaur: React.FC = () => {
             </div>
             <div className="lg:w-1/2 relative">
                <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10">
-                 <img src="https://images.unsplash.com/photo-1583819385943-802921d610ed?auto=format&fit=crop&q=80&w=800" alt="Equipe de déménageurs Marne Transdem en action" className="w-full h-full object-cover" />
+                 <img src="/images/equipe-demenageur-94.jpg" alt="Equipe de déménageurs Marne Transdem en action" className="w-full h-full object-cover" />
                </div>
                <div className="absolute -bottom-10 -right-10 w-full h-full border-2 border-accent rounded-[3rem] -z-0"></div>
             </div>
@@ -252,7 +252,7 @@ const LocalSaintMaur: React.FC = () => {
             </div>
             <div className="lg:w-1/2 relative group">
                <div className="aspect-square rounded-[3.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.02]">
-                 <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" alt="Locaux professionnels à Saint-Maur-des-Fossés" className="w-full h-full object-cover" />
+                 <img src="/images/demenagement-94-val-de-marne.jpg" alt="Locaux professionnels à Saint-Maur-des-Fossés" className="w-full h-full object-cover" />
                </div>
                <div className="absolute top-10 left-10 w-full h-full bg-slate-100 rounded-[3.5rem] -z-0"></div>
             </div>
@@ -340,7 +340,7 @@ const LocalSaintMaur: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
              <div className="rounded-[3rem] overflow-hidden shadow-2xl">
-               <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&q=80&w=800" alt="Camion de déménagement sur la route" className="w-full h-full object-cover" />
+               <img src="/images/camion-demenagement-val-de-marne.jpg" alt="Camion de déménagement sur la route" className="w-full h-full object-cover" />
              </div>
              <div className="space-y-8">
                <h2 className="text-3xl md:text-5xl font-black text-brand-900 tracking-tight">Depuis Saint-Maur vers toute la France</h2>

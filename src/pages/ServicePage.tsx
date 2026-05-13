@@ -46,7 +46,7 @@ const ServicePage: React.FC = () => {
             <div className="relative">
               <div className="rounded-[40px] overflow-hidden shadow-2xl">
                  <img 
-                  src={`https://images.unsplash.com/photo-1512418490979-92798ced1381?auto=format&fit=crop&q=80&w=1000`} 
+                  src="/images/demenagement-ile-de-france.webp" 
                   alt={service.title} 
                   className="w-full aspect-[4/5] object-cover"
                 />

@@ -186,7 +186,7 @@ const LocalIDF: React.FC = () => {
             <div className="lg:w-1/2 order-2 lg:order-1">
               <div className="relative">
                 <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10">
-                   <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800" alt="Déménagement Particulier IDF" className="w-full h-full object-cover" />
+                   <img src="/images/demenagement-appartement-92.jpg" alt="Déménagement Particulier IDF" className="w-full h-full object-cover" />
                 </div>
                 <div className="absolute -top-6 -left-6 w-24 h-24 bg-accent/20 rounded-full blur-2xl"></div>
               </div>
@@ -215,7 +215,7 @@ const LocalIDF: React.FC = () => {
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row-reverse gap-20 items-center">
              <div className="lg:w-1/2">
                <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative">
-                  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" alt="Déménagement Entreprise IDF" className="w-full h-full object-cover" />
+                  <img src="/images/transfert-bureau-hauts-de-seine.jpg" alt="Déménagement Entreprise IDF" className="w-full h-full object-cover" />
                </div>
              </div>
              <div className="lg:w-1/2 space-y-8">
@@ -288,6 +288,21 @@ const LocalIDF: React.FC = () => {
               { n: "Rueil-Malmaison", l: "/demenagement-rueil-malmaison" },
               { n: "Saint-Cloud", l: "/demenagement-saint-cloud" },
               { n: "Meudon", l: "/demenagement-meudon" },
+              { n: "Clamart", l: "/demenagement-clamart" },
+              { n: "Montrouge", l: "/demenagement-montrouge" },
+              { n: "Bagneux", l: "/demenagement-bagneux" },
+              { n: "Fontenay-aux-Roses", l: "/demenagement-fontenay-aux-roses" },
+              { n: "Sceaux", l: "/demenagement-sceaux" },
+              { n: "Bourg-la-Reine", l: "/demenagement-bourg-la-reine" },
+              { n: "Antony", l: "/demenagement-antony" },
+              { n: "Châtenay-Malabry", l: "/demenagement-chatenay-malabry" },
+              { n: "Le Plessis-Robinson", l: "/demenagement-le-plessis-robinson" },
+              { n: "Vélizy-Villacoublay", l: "/demenagement-velizy-villacoublay" },
+              { n: "Versailles", l: "/demenagement-versailles" },
+              { n: "Châtillon", l: "/demenagement-chatillon" },
+              { n: "Malakoff", l: "/demenagement-malakoff" },
+              { n: "Sèvres", l: "/demenagement-sevres" },
+              { n: "Vanves", l: "/demenagement-vanves" },
               { n: "Issy-les-Moulineaux", l: "/demenagement-issy-les-moulineaux" }
             ].map((city, i) => (
               city.l !== "#" ? (
@@ -417,7 +432,7 @@ const LocalIDF: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
              <div className="order-2 lg:order-1 relative">
                 <div className="aspect-[16/9] bg-slate-200 rounded-[2.5rem] overflow-hidden shadow-xl border-8 border-white p-2">
-                   <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=1200" alt="Déménagement longue distance" className="w-full h-full object-cover rounded-[2rem] grayscale-[30%]" />
+                   <img src="/images/demenagement-longue-distance-camion.jpg" alt="Déménagement longue distance" className="w-full h-full object-cover rounded-[2rem] grayscale-[30%]" />
                 </div>
                 <div className="absolute top-4 right-4 bg-brand-900 text-white px-6 py-2 rounded-full text-xs font-bold shadow-lg flex items-center gap-2">
                    <Globe size={14} className="text-accent" /> Longue Distance
@@ -538,6 +553,24 @@ const LocalIDF: React.FC = () => {
             <Link to="/demenagement-vincennes" className="hover:text-accent transition-all">Vincennes</Link>
             <Link to="/demenagement-saint-mande" className="hover:text-accent transition-all">Saint-Mandé</Link>
             <Link to="/demenagement-bagnolet" className="hover:text-accent transition-all">Bagnolet</Link>
+            <Link to="/demenagement-saint-cloud" className="hover:text-accent transition-all">Saint-Cloud</Link>
+            <Link to="/demenagement-meudon" className="hover:text-accent transition-all">Meudon</Link>
+            <Link to="/demenagement-clamart" className="hover:text-accent transition-all">Clamart</Link>
+            <Link to="/demenagement-sevres" className="hover:text-accent transition-all">Sèvres</Link>
+            <Link to="/demenagement-vanves" className="hover:text-accent transition-all">Vanves</Link>
+            <Link to="/demenagement-chatillon" className="hover:text-accent transition-all">Châtillon</Link>
+            <Link to="/demenagement-malakoff" className="hover:text-accent transition-all">Malakoff</Link>
+            <Link to="/demenagement-montrouge" className="hover:text-accent transition-all">Montrouge</Link>
+            <Link to="/demenagement-bagneux" className="hover:text-accent transition-all">Bagneux</Link>
+            <Link to="/demenagement-fontenay-aux-roses" className="hover:text-accent transition-all">Fontenay</Link>
+            <Link to="/demenagement-sceaux" className="hover:text-accent transition-all">Sceaux</Link>
+            <Link to="/demenagement-bourg-la-reine" className="hover:text-accent transition-all">Bourg-la-Reine</Link>
+            <Link to="/demenagement-antony" className="hover:text-accent transition-all">Antony</Link>
+            <Link to="/demenagement-chatenay-malabry" className="hover:text-accent transition-all">Châtenay</Link>
+            <Link to="/demenagement-le-plessis-robinson" className="hover:text-accent transition-all">Le Plessis</Link>
+            <Link to="/demenagement-velizy-villacoublay" className="hover:text-accent transition-all">Vélizy</Link>
+            <Link to="/demenagement-versailles" className="hover:text-accent transition-all">Versailles</Link>
+            <Link to="/demenagement-issy-les-moulineaux" className="hover:text-accent transition-all">Issy</Link>
             <Link to="/demenagement-hauts-de-seine" className="hover:text-accent transition-all">Hauts-de-Seine</Link>
             <Link to="/demenagement-seine-saint-denis" className="hover:text-accent transition-all">Seine-Saint-Denis</Link>
             <Link to="/demenagement-val-de-marne" className="hover:text-accent transition-all">Val-de-Marne</Link>

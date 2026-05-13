@@ -238,7 +238,7 @@ const LocalParis10: React.FC = () => {
             <div className="relative">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-8 border-slate-50">
                 <img
-                  src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=1000"
+                  src="/images/demenagement-paris-10.jpg"
                   alt="Déménagement Paris 10e - organisation d’un déménagement en appartement"
                   className="w-full h-full object-cover"
                 />
@@ -324,7 +324,7 @@ const LocalParis10: React.FC = () => {
             <div className="relative order-2 lg:order-1">
               <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl">
                 <img
-                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1000"
+                  src="/images/demenagement-appartement-92.jpg"
                   alt="Déménagement de particuliers à Paris 10e"
                   className="w-full h-full object-cover"
                 />
@@ -388,7 +388,7 @@ const LocalParis10: React.FC = () => {
             <div className="relative">
               <div className="aspect-[16/9] rounded-[3rem] overflow-hidden shadow-2xl">
                 <img
-                  src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1000"
+                  src="/images/demenagement-paris-intra-muros.jpg"
                   alt="Transfert de bureaux à Paris 10e"
                   className="w-full h-full object-cover"
                 />

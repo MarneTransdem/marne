@@ -128,7 +128,7 @@ const LocalValDeMarne: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[3/4] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="https://images.unsplash.com/photo-1549416878-b9ca35c2d4ac?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/demenagement-94-val-de-marne.jpg" 
                   alt="Val-de-Marne Déménagement" 
                   className="w-full h-full object-cover grayscale-[10%]"
                 />
@@ -201,7 +201,7 @@ const LocalValDeMarne: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-20 items-center">
             <div className="lg:w-1/2 rounded-[3.5rem] overflow-hidden shadow-2xl relative order-2 lg:order-1">
-               <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800" alt="Particulier Val-de-Marne" className="w-full h-full object-cover" />
+               <img src="/images/camion-demenagement-val-de-marne.jpg" alt="Particulier Val-de-Marne" className="w-full h-full object-cover" />
             </div>
             <div className="lg:w-1/2 space-y-8 order-1 lg:order-2">
               <h2 className="text-3xl md:text-4xl font-black text-brand-900 tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">Déménagement particuliers</h2>
@@ -226,7 +226,7 @@ const LocalValDeMarne: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row-reverse gap-20 items-center">
              <div className="lg:w-1/2 rounded-[3.5rem] overflow-hidden shadow-2xl relative">
-                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" alt="Entreprise Val-de-Marne" className="w-full h-full object-cover" />
+                <img src="/images/equipe-demenageur-94.jpg" alt="Entreprise Val-de-Marne" className="w-full h-full object-cover" />
              </div>
              <div className="lg:w-1/2 space-y-8">
                <h2 className="text-3xl md:text-4xl font-black text-brand-900 tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">Transferts professionnels</h2>
@@ -405,7 +405,7 @@ const LocalValDeMarne: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
              <div className="order-2 lg:order-1 relative">
                 <div className="aspect-video bg-slate-200 rounded-[2.5rem] overflow-hidden shadow-xl border-8 border-white p-2 grayscale-[20%]">
-                   <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=1200" alt="Déménagement longue distance Val-de-Marne" className="w-full h-full object-cover rounded-[2rem]" />
+                   <img src="/images/demenagement-longue-distance-camion.jpg" alt="Déménagement longue distance Val-de-Marne" className="w-full h-full object-cover rounded-[2rem]" />
                 </div>
                 <div className="absolute -bottom-6 -left-6 bg-accent text-brand-900 p-8 rounded-[2.5rem] shadow-xl">
                    <Globe size={40} />

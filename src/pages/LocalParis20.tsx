@@ -131,7 +131,7 @@ const LocalParis20: React.FC = () => {
             <div className="relative">
               <div className="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative z-10">
                 <img 
-                  src="/images/demenagement-paris.webp" 
+                  src="/images/demenagement-paris-20.jpg" 
                   alt="Rues de Paris 20e arrondissement" 
                   className="w-full h-full object-cover"
                 />
@@ -227,7 +227,7 @@ const LocalParis20: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="order-2 lg:order-1 relative">
               <div className="rounded-[3rem] overflow-hidden shadow-2xl relative z-10">
-                <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=1000" alt="Déménagement particuliers" className="w-full h-full object-cover" />
+                <img src="/images/demenagement-appartement-92.jpg" alt="Déménagement particuliers" className="w-full h-full object-cover" />
               </div>
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-accent/5 rounded-full blur-3xl -z-0"></div>
             </div>
@@ -277,7 +277,7 @@ const LocalParis20: React.FC = () => {
             </div>
             <div className="relative">
               <div className="rounded-[3rem] overflow-hidden shadow-2xl relative z-10">
-                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1000" alt="Déménagement entreprises" className="w-full h-full object-cover" />
+                <img src="/images/demenagement-paris-intra-muros.jpg" alt="Déménagement entreprises" className="w-full h-full object-cover" />
               </div>
               <div className="absolute top-0 right-0 w-32 h-32 bg-accent rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl opacity-30"></div>
             </div>

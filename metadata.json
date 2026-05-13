@@ -2,5 +2,7 @@
   "name": "Marne Transdem - Déménagement Paris & Île-de-France",
   "description": "Entreprise de déménagement premium à Paris. Particuliers et entreprises, garde-meuble, monte-meuble. Devis gratuit en ligne.",
   "requestFramePermissions": [],
-  "majorCapabilities": []
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

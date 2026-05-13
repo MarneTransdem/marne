@@ -128,7 +128,7 @@ const LocalCourbevoie: React.FC = () => {
             <div className="relative font-display">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-8 border-slate-50">
                 <img 
-                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/transfert-bureau-hauts-de-seine.jpg" 
                   alt="Déménagement Courbevoie" 
                   className="w-full h-full object-cover"
                 />
@@ -236,7 +236,7 @@ const LocalCourbevoie: React.FC = () => {
             <div className="relative order-2 lg:order-1 font-display">
               <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl">
                 <img 
-                  src="https://images.unsplash.com/photo-1571404118318-0524edebbc2d?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/demenagement-appartement-92.jpg" 
                   alt="Déménagement particuliers Courbevoie" 
                   className="w-full h-full object-cover"
                 />
@@ -294,7 +294,7 @@ const LocalCourbevoie: React.FC = () => {
             <div className="relative font-display">
               <div className="aspect-[16/9] rounded-[3rem] overflow-hidden shadow-2xl font-display">
                 <img 
-                  src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1000" 
+                  src="/images/transfert-bureau-hauts-de-seine.jpg" 
                   alt="Déménagement entreprises Courbevoie" 
                   className="w-full h-full object-cover font-display"
                 />

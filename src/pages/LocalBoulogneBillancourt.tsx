@@ -128,7 +128,7 @@ const LocalBoulogneBillancourt: React.FC = () => {
             <div className="relative">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-8 border-slate-50">
                 <img 
-                  src="https://images.unsplash.com/photo-1549410148-5226fe784be6?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/demenagement-92-hauts-de-seine-camion.jpg" 
                   alt="Déménagement Boulogne-Billancourt" 
                   className="w-full h-full object-cover"
                 />
@@ -236,7 +236,7 @@ const LocalBoulogneBillancourt: React.FC = () => {
             <div className="relative order-2 lg:order-1">
               <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl">
                 <img 
-                  src="https://images.unsplash.com/photo-1571404118318-0524edebbc2d?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/demenagement-appartement-92.jpg" 
                   alt="Déménagement particuliers Boulogne-Billancourt" 
                   className="w-full h-full object-cover"
                 />
@@ -294,7 +294,7 @@ const LocalBoulogneBillancourt: React.FC = () => {
             <div className="relative">
               <div className="aspect-[16/9] rounded-[3rem] overflow-hidden shadow-2xl">
                 <img 
-                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1000" 
+                  src="/images/transfert-bureau-hauts-de-seine.jpg" 
                   alt="Déménagement entreprises Boulogne-Billancourt" 
                   className="w-full h-full object-cover"
                 />

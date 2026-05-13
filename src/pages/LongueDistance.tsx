@@ -185,7 +185,7 @@ const LongueDistance: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-20 items-center">
             <div className="lg:w-1/2 rounded-[3.5rem] overflow-hidden shadow-2xl relative">
-               <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800" alt="Particulier Longue Distance" className="w-full h-full object-cover" />
+               <img src="/images/equipe-demenageur-longue-distance.jpg" alt="Particulier Longue Distance" className="w-full h-full object-cover" />
             </div>
             <div className="lg:w-1/2 space-y-8">
               <h2 className="text-3xl md:text-4xl font-black text-brand-900 tracking-tight uppercase italic">Déménagement de particuliers</h2>
@@ -211,7 +211,7 @@ const LongueDistance: React.FC = () => {
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row-reverse gap-20 items-center">
              <div className="lg:w-1/2">
                <div className="aspect-video bg-slate-100 rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white p-2">
-                  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" alt="Entreprise Longue Distance" className="w-full h-full object-cover rounded-[2rem]" />
+                  <img src="/images/demenagement-longue-distance-camion.jpg" alt="Entreprise Longue Distance" className="w-full h-full object-cover rounded-[2rem]" />
                </div>
              </div>
              <div className="lg:w-1/2 space-y-8">

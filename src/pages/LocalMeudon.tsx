@@ -132,7 +132,7 @@ const LocalMeudon: React.FC = () => {
             <div className="relative font-display">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-8 border-slate-50 font-display">
                 <img 
-                  src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/demenagement-appartement-92.jpg" 
                   alt="Déménagement Meudon" 
                   className="w-full h-full object-cover"
                 />
@@ -444,9 +444,11 @@ const LocalMeudon: React.FC = () => {
             <Link to="/demenagement-saint-cloud" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Saint-Cloud</Link>
             <Link to="/demenagement-paris-15" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic">Déménagement Paris 15e</Link>
             <Link to="/demenagement-hauts-de-seine" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Hauts-de-Seine</Link>
+            <Link to="/demenagement-velizy-villacoublay" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic">Déménagement Vélizy-Villacoublay</Link>
+            <Link to="/demenagement-versailles" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic text-slate-900">Déménagement Versailles</Link>
+            <Link to="/demenagement-clamart" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic text-slate-900">Déménagement Clamart</Link>
             <Link to="/demenagement-ile-de-france" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Île-de-France</Link>
-            <span className="text-slate-300 font-bold text-sm italic font-display uppercase">Déménagement Clamart</span>
-            <span className="text-slate-300 font-bold text-sm italic font-display uppercase">Déménagement Sèvres</span>
+            <Link to="/demenagement-sevres" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic">Déménagement Sèvres</Link>
             <span className="text-slate-300 font-bold text-sm italic font-display uppercase">Déménagement Chaville</span>
             <span className="text-slate-300 font-bold text-sm italic font-display uppercase font-display decoration-accent/20 uppercase underline underline-offset-2">Déménagement Vanves</span>
           </div>

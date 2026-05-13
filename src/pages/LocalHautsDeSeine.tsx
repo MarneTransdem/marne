@@ -50,13 +50,20 @@ const LocalHautsDeSeine: React.FC = () => {
     { n: "Suresnes", d: "Déménagements sur les coteaux ou en centre-ville avec matériel adapté si nécessaire.", l: "/demenagement-suresnes" },
     { n: "Saint-Cloud", d: "Déménagements d'appartements, maisons et résidences avec une expertise des accès complexes.", l: "/demenagement-saint-cloud" },
     { n: "Meudon", d: "Gestion des accès pour maisons et résidences dans un cadre verdoyant.", l: "/demenagement-meudon" },
-    { n: "Montrouge", d: "Déménagements de proximité entre Paris et le sud du département." },
-    { n: "Vanves", d: "Solutions locales pour appartements et studios proches de la Porte de Versailles." },
-    { n: "Malakoff", d: "Organisation de déménagements pour particuliers et petites entreprises locales." },
+    { n: "Montrouge", d: "Déménagements de particuliers et entreprises dans une ville dense aux portes de Paris.", l: "/demenagement-montrouge" },
+    { n: "Bagneux", d: "Déménagements d'appartements et maisons dans une ville résidentielle en mutation.", l: "/demenagement-bagneux" },
+    { n: "Fontenay-aux-Roses", d: "Déménagements de maisons et résidences dans un cadre calme et verdoyant.", l: "/demenagement-fontenay-aux-roses" },
+    { n: "Sceaux", d: "Service premium pour déménagements d'appartements de standing et résidences de qualité.", l: "/demenagement-sceaux" },
+    { n: "Bourg-la-Reine", d: "Déménagements d'appartements, maisons et résidences dans une ville familiale et recherchée.", l: "/demenagement-bourg-la-reine" },
+    { n: "Châtenay-Malabry", d: "Accompagnement des projets résidentiels et familiaux dans une zone verdoyante.", l: "/demenagement-chatenay-malabry" },
+    { n: "Le Plessis-Robinson", d: "Solutions de déménagement premium dans une ville résidentielle et prisée.", l: "/demenagement-le-plessis-robinson" },
+    { n: "Vanves", d: "Solutions locales pour appartements et studios proches de la Porte de Versailles.", l: "/demenagement-vanves" },
+    { n: "Malakoff", d: "Organisation de déménagements pour particuliers et petites entreprises locales.", l: "/demenagement-malakoff" },
     { n: "Rueil-Malmaison", d: "Déménagements de grandes surfaces et transferts de sièges sociaux.", l: "/demenagement-rueil-malmaison" },
-    { n: "Antony", d: "Accompagnement des logements familiaux dans le sud des Hauts-de-Seine." },
-    { n: "Châtillon", d: "Déménagements résidentiels avec une étude précise du stationnement." },
-    { n: "Clamart", d: "Solutions pour maisons et appartements selon la configuration du quartier." },
+    { n: "Antony", d: "Accompagnement des logements familiaux dans le sud des Hauts-de-Seine.", l: "/demenagement-antony" },
+    { n: "Châtillon", d: "Déménagements résidentiels avec une étude précise du stationnement.", l: "/demenagement-chatillon" },
+    { n: "Clamart", d: "Solutions pour maisons et appartements selon la configuration du quartier.", l: "/demenagement-clamart" },
+    { n: "Sèvres", d: "Déménagements d'appartements et maisons avec une gestion des accès caractéristiques.", l: "/demenagement-sevres" },
     { n: "Gennevilliers", d: "Logistique industrielle, transfert d'agences et déménagements de particuliers." }
   ];
 
@@ -133,7 +140,7 @@ const LocalHautsDeSeine: React.FC = () => {
             <div className="relative">
               <div className="aspect-square rounded-[4rem] overflow-hidden shadow-2xl relative z-10">
                 <img 
-                  src="https://images.unsplash.com/photo-1549416878-b9ca35c2d4ac?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/demenagement-appartement-92.jpg" 
                   alt="Hauts-de-Seine Déménagement" 
                   className="w-full h-full object-cover grayscale-[20%]"
                 />
@@ -206,7 +213,7 @@ const LocalHautsDeSeine: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-20 items-center">
             <div className="lg:w-1/2 rounded-[3.5rem] overflow-hidden shadow-2xl relative order-2 lg:order-1">
-               <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800" alt="Particulier 92" className="w-full h-full object-cover" />
+               <img src="/images/demenagement-92-hauts-de-seine-camion.jpg" alt="Particulier 92" className="w-full h-full object-cover" />
                <div className="absolute inset-0 bg-brand-900/10"></div>
             </div>
             <div className="lg:w-1/2 space-y-8 order-1 lg:order-2">
@@ -232,7 +239,7 @@ const LocalHautsDeSeine: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row-reverse gap-20 items-center">
              <div className="lg:w-1/2 rounded-[3.5rem] overflow-hidden shadow-2xl relative">
-                <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=800" alt="Entreprise 92 Business" className="w-full h-full object-cover" />
+                <img src="/images/transfert-bureau-hauts-de-seine.jpg" alt="Entreprise 92 Business" className="w-full h-full object-cover" />
              </div>
              <div className="lg:w-1/2 space-y-8">
                <h2 className="text-3xl md:text-4xl font-black text-brand-900 tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">Transferts professionnels</h2>
@@ -373,7 +380,7 @@ const LocalHautsDeSeine: React.FC = () => {
                  </Link>
                </div>
                <div className="aspect-video bg-white/5 rounded-[2.5rem] overflow-hidden border border-white/10 p-2">
-                  <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=800" alt="Camion Déménagement 92" className="w-full h-full object-cover rounded-[2rem] grayscale-[30%]" />
+                  <img src="/images/demenagement-longue-distance-camion.jpg" alt="Camion Déménagement 92" className="w-full h-full object-cover rounded-[2rem] grayscale-[30%]" />
                </div>
              </div>
           </div>
@@ -401,7 +408,7 @@ const LocalHautsDeSeine: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
              <div className="order-2 lg:order-1 relative">
                 <div className="aspect-video rounded-[3rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 hover:scale-[1.01]">
-                   <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&q=80&w=1200" alt="Longue Distance depuis 92" className="w-full h-full object-cover" />
+                   <img src="/images/demenagement-longue-distance.jpg" alt="Longue Distance depuis 92" className="w-full h-full object-cover" />
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent/20 rounded-full blur-2xl"></div>
              </div>
@@ -529,6 +536,19 @@ const LocalHautsDeSeine: React.FC = () => {
             <Link to="/demenagement-rueil-malmaison" className="hover:text-accent">Rueil</Link>
             <Link to="/demenagement-saint-cloud" className="hover:text-accent">Saint-Cloud</Link>
             <Link to="/demenagement-meudon" className="hover:text-accent">Meudon</Link>
+            <Link to="/demenagement-clamart" className="hover:text-accent">Clamart</Link>
+            <Link to="/demenagement-sevres" className="hover:text-accent">Sèvres</Link>
+            <Link to="/demenagement-vanves" className="hover:text-accent">Vanves</Link>
+            <Link to="/demenagement-chatillon" className="hover:text-accent">Châtillon</Link>
+            <Link to="/demenagement-malakoff" className="hover:text-accent">Malakoff</Link>
+            <Link to="/demenagement-montrouge" className="hover:text-accent">Montrouge</Link>
+            <Link to="/demenagement-bagneux" className="hover:text-accent">Bagneux</Link>
+            <Link to="/demenagement-fontenay-aux-roses" className="hover:text-accent">Fontenay</Link>
+            <Link to="/demenagement-sceaux" className="hover:text-accent">Sceaux</Link>
+            <Link to="/demenagement-bourg-la-reine" className="hover:text-accent">Bourg-la-Reine</Link>
+            <Link to="/demenagement-antony" className="hover:text-accent">Antony</Link>
+            <Link to="/demenagement-chatenay-malabry" className="hover:text-accent">Châtenay-Malabry</Link>
+            <Link to="/demenagement-le-plessis-robinson" className="hover:text-accent">Le Plessis-Robinson</Link>
             <Link to="/demenagement-issy-les-moulineaux" className="hover:text-accent">Issy</Link>
           </div>
         </div>

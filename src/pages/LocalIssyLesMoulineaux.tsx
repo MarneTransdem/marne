@@ -128,7 +128,7 @@ const LocalIssyLesMoulineaux: React.FC = () => {
             <div className="relative">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-8 border-slate-50">
                 <img 
-                  src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/demenagement-92-hauts-de-seine-camion.jpg" 
                   alt="Déménagement Issy-les-Moulineaux" 
                   className="w-full h-full object-cover"
                 />
@@ -236,7 +236,7 @@ const LocalIssyLesMoulineaux: React.FC = () => {
             <div className="relative order-2 lg:order-1 font-display">
               <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl">
                 <img 
-                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/demenagement-appartement-92.jpg" 
                   alt="Déménagement particuliers Issy-les-Moulineaux" 
                   className="w-full h-full object-cover"
                 />

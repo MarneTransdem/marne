@@ -79,7 +79,7 @@ const Home: React.FC = () => {
 
       {/* Why Choose Us */}
       <section className="py-24 bg-brand-900 text-white overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1541819172233-ea843c08cd49?auto=format&fit=crop&q=80&w=2000')] bg-cover bg-center opacity-5"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-[url('/images/demenagement-paris-intra-muros.jpg')] bg-cover bg-center opacity-5"></div>
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="space-y-12">

@@ -78,7 +78,22 @@ const SecteursDesservis: React.FC = () => {
     { n: "Suresnes", p: "/demenagement-suresnes", e: true },
     { n: "Rueil-Malmaison", p: "/demenagement-rueil-malmaison", e: true },
     { n: "Saint-Cloud", p: "/demenagement-saint-cloud", e: true },
-    { n: "Meudon", p: "/demenagement-meudon", e: true }
+    { n: "Meudon", p: "/demenagement-meudon", e: true },
+    { n: "Clamart", p: "/demenagement-clamart", e: true },
+    { n: "Châtillon", p: "/demenagement-chatillon", e: true },
+    { n: "Malakoff", p: "/demenagement-malakoff", e: true },
+    { n: "Montrouge", p: "/demenagement-montrouge", e: true },
+    { n: "Bagneux", p: "/demenagement-bagneux", e: true },
+    { n: "Fontenay-aux-Roses", p: "/demenagement-fontenay-aux-roses", e: true },
+    { n: "Sceaux", p: "/demenagement-sceaux", e: true },
+    { n: "Bourg-la-Reine", p: "/demenagement-bourg-la-reine", e: true },
+    { n: "Antony", p: "/demenagement-antony", e: true },
+    { n: "Châtenay-Malabry", p: "/demenagement-chatenay-malabry", e: true },
+    { n: "Le Plessis-Robinson", p: "/demenagement-le-plessis-robinson", e: true },
+    { n: "Vélizy-Villacoublay", p: "/demenagement-velizy-villacoublay", e: true },
+    { n: "Versailles", p: "/demenagement-versailles", e: true },
+    { n: "Sèvres", p: "/demenagement-sevres", e: true },
+    { n: "Vanves", p: "/demenagement-vanves", e: true }
   ];
 
   const departements = [

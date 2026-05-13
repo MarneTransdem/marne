@@ -270,7 +270,7 @@ const Cartons: React.FC = () => {
             </div>
             <div className="aspect-video bg-slate-100 rounded-[3rem] overflow-hidden shadow-2xl relative">
               <img 
-                src="https://images.unsplash.com/photo-1577705998148-6da4f3963bc8?auto=format&fit=crop&q=80" 
+                src="/images/cartons-demenagement-paris.jpg" 
                 alt="Préparation de cartons Paris" 
                 className="w-full h-full object-cover"
               />

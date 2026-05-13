@@ -1,0 +1,676 @@
+import React from 'react';
+import { motion } from 'motion/react';
+import { 
+  Building2, 
+  Home, 
+  ArrowRight, 
+  ShieldCheck, 
+  Truck, 
+  Plus,
+  Package,
+  Box,
+  Layout,
+  Calculator,
+  Warehouse,
+  ArrowUpCircle,
+  Phone,
+  FileText,
+  MapPin
+} from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { SEO } from '../components/SEO';
+import { CONTACT } from '../constants';
+import { getBreadcrumbSchema, getFAQSchema } from '../lib/schema';
+
+const LocalBagneux: React.FC = () => {
+  const path = "/demenagement-bagneux";
+
+  const faqData = [
+    {
+      q: "Comment organiser un déménagement à Bagneux ?",
+      a: "Un déménagement à Bagneux demande d'anticiper le volume, les accès, les étages, les éventuels ascenseurs, le stationnement et la préparation des cartons. Dans une ville proche de Paris sud, il est important d'évaluer les accès de l'immeuble, les caves, les parkings, les garages et les meubles volumineux. Marne Transdem vous accompagne pour définir une organisation adaptée à votre logement, à vos biens et au niveau d'accompagnement souhaité."
+    },
+    {
+      q: "Marne Transdem intervient-elle à Bagneux et dans les villes proches ?",
+      a: "Oui, Marne Transdem accompagne les projets de déménagement à Bagneux et dans les secteurs proches comme Montrouge, Châtillon, Fontenay-aux-Roses, Bourg-la-Reine, Arcueil, Cachan, Malakoff, Clamart, Paris 14e et plus largement dans les Hauts-de-Seine selon les besoins du projet."
+    },
+    {
+      q: "Peut-on demander un monte-meuble à Bagneux ?",
+      a: "Oui, un monte-meuble peut être envisagé lorsque les meubles volumineux ne passent pas facilement par l'escalier ou l'ascenseur. Sa mise en place dépend de la configuration de la rue, de la façade, des accès et de la faisabilité technique."
+    },
+    {
+      q: "Quelle formule choisir pour un déménagement à Bagneux ?",
+      a: "La formule dépend de votre budget, du temps disponible pour préparer vos cartons et du niveau d'accompagnement souhaité. La formule Économique convient si vous préparez une grande partie de vos affaires, la formule Standard offre un équilibre entre autonomie et accompagnement, et la formule Luxe permet de déléguer davantage selon la prestation choisie."
+    },
+    {
+      q: "Comment obtenir un devis pour un déménagement à Bagneux ?",
+      a: "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L'estimation prend en compte le volume, les adresses, les accès, les étages, la formule souhaitée et les besoins spécifiques comme l'emballage, le garde-meuble ou le monte-meuble."
+    }
+  ];
+
+  return (
+    <div className="bg-slate-50 min-h-screen">
+      <SEO 
+        title="Déménagement Bagneux | Marne Transdem" 
+        description="Préparez votre déménagement à Bagneux avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé." 
+        canonical={path}
+        schema={[
+          getBreadcrumbSchema([
+            { name: "Accueil", item: "/" },
+            { name: "Secteurs", item: "/secteurs-desservis" },
+            { name: "Déménagement Bagneux", item: path }
+          ]),
+          getFAQSchema(faqData)
+        ]}
+      />
+
+      {/* 1. Hero Section */}
+      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-brand-900 overflow-hidden font-display italic">
+        <div className="absolute inset-0 bg-[url('/images/demenagement-paris-intra-muros.jpg')] bg-cover bg-center opacity-20"></div>
+        <div className="container mx-auto px-4 md:px-6 relative z-10 text-white italic font-display">
+          <div className="max-w-4xl italic">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="flex items-center gap-2 mb-6 text-white italic">
+                <span className="h-px w-8 bg-accent italic"></span>
+                <span className="text-accent uppercase font-black tracking-widest text-sm italic">Déménagement local</span>
+              </div>
+              <h1 className="text-5xl md:text-7xl font-black mb-8 leading-[1.1] tracking-tight text-white italic">
+                Déménagement <span className="text-accent italic">Bagneux</span>
+              </h1>
+              <p className="text-xl md:text-2xl text-slate-300 max-w-2xl mb-10 leading-relaxed font-medium italic">
+                Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Bagneux, avec une organisation adaptée aux appartements, maisons et bureaux du sud parisien.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 italic">
+                <Link 
+                  to="/devis-demenagement" 
+                  className="bg-accent text-brand-900 px-8 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-white transition-all shadow-2xl flex items-center justify-center gap-3 active:scale-95 group italic"
+                >
+                  Demander un devis gratuit
+                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform italic" />
+                </Link>
+                <a 
+                  href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}
+                  className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-white/20 transition-all flex items-center justify-center gap-3 italic"
+                >
+                  <Phone size={20} className="text-accent italic" />
+                  {CONTACT.phone}
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Breadcrumbs */}
+      <div className="bg-white border-b border-slate-100 py-4 font-display italic">
+        <div className="container mx-auto px-4 md:px-6 italic">
+          <nav className="flex text-xs font-bold uppercase tracking-widest text-slate-400 italic">
+            <Link to="/" className="hover:text-brand-900 transition-colors italic">Accueil</Link>
+            <span className="mx-3 text-slate-200">/</span>
+            <Link to="/secteurs-desservis" className="hover:text-brand-900 transition-colors italic">Secteurs</Link>
+            <span className="mx-3 text-slate-200">/</span>
+            <span className="text-brand-900 italic">Déménagement Bagneux</span>
+          </nav>
+        </div>
+      </div>
+
+      {/* 2. Introduction locale */}
+      <section className="py-24 bg-white overflow-hidden relative font-display italic">
+        <div className="container mx-auto px-4 md:px-6 italic font-display">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center italic">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-8 italic font-display"
+            >
+              <h2 className="text-3xl md:text-5xl font-black text-brand-900 tracking-tight leading-tight italic">
+                Votre déménagement à Bagneux
+              </h2>
+              <div className="space-y-6 text-lg text-slate-600 leading-relaxed font-medium italic opacity-80 font-display">
+                <p>
+                  Bagneux est une ville résidentielle et urbaine dynamique des Hauts-de-Seine, idéalement située à proximité de Montrouge, Châtillon, Fontenay-aux-Roses, Bourg-la-Reine, Arcueil, Cachan, Malakoff, Clamart et de la Porte d'Orléans à Paris.
+                </p>
+                <p>
+                  Marne Transdem accompagne vos projets à Bagneux, qu'il s'agisse d'un appartement en résidence récente, d'un immeuble ancien, d'un studio ou d'une maison familiale. Nous maîtrisons les contraintes d'accès propres aux logements collectifs avec étages (halls, ascenseurs, escaliers) et anticipons les besoins en stationnement dans les quartiers en pleine évolution.
+                </p>
+                <p>
+                  Pour les professionnels, nous organisons les transferts de bureaux, commerces, cabinets et agences de professions libérales à Bagneux, avec une rigueur garantissant la continuité de votre activité locale dans le sud parisien.
+                </p>
+              </div>
+              <div className="pt-4 flex flex-wrap gap-4 italic font-display">
+                <div className="flex items-center gap-3 bg-slate-50 px-6 py-4 rounded-2xl border border-slate-100 shadow-sm italic">
+                  <MapPin className="text-accent italic" size={24} />
+                  <span className="text-brand-900 font-bold uppercase tracking-wider text-xs italic font-display">Bagneux (92220)</span>
+                </div>
+                <div className="flex items-center gap-3 bg-slate-50 px-6 py-4 rounded-2xl border border-slate-100 shadow-sm italic">
+                  <ShieldCheck className="text-brand-900 italic" size={24} />
+                  <span className="text-brand-900 font-bold uppercase tracking-wider text-xs italic font-display">Expertise locale</span>
+                </div>
+              </div>
+            </motion.div>
+            <div className="relative italic font-display">
+              <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-8 border-slate-50 italic">
+                <img 
+                  src="/images/demenagement-appartement-92.jpg" 
+                  alt="Déménagement Bagneux" 
+                  className="w-full h-full object-cover italic font-display"
+                />
+              </div>
+              <div className="absolute -bottom-10 -right-10 w-full h-full border-2 border-accent rounded-[3rem] -z-0 italic font-display"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Pourquoi un déménagement à Bagneux demande une bonne préparation */}
+      <section className="py-24 bg-slate-50 font-display italic">
+        <div className="container mx-auto px-4 md:px-6 text-center mb-16 px-4 italic font-display">
+          <h2 className="text-4xl font-black text-brand-900 mb-6 tracking-tight italic font-display">Pourquoi un déménagement à Bagneux demande une bonne préparation</h2>
+          <p className="text-slate-600 text-lg max-w-3xl mx-auto font-medium opacity-80 italic font-display">
+            Ville en pleine mutation proche de Paris sud, Bagneux présente des défis logistiques variés que nous anticipons pour vous.
+          </p>
+        </div>
+        <div className="container mx-auto px-4 md:px-6 italic font-display">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 italic font-display">
+            {[
+              {
+                title: "Logistique Paris Sud",
+                desc: "La densité de Bagneux et ses accès vers Paris sud imposent une planification rigoureuse du transport et du stationnement.",
+                icon: Truck
+              },
+              {
+                title: "Diversité du Bâti",
+                desc: "Immeubles récents avec ascenseurs, résidences anciennes ou maisons : chaque adresse demande une analyse technique des accès.",
+                icon: ArrowUpCircle
+              },
+              {
+                title: "Parties Communes",
+                desc: "La protection des halls, des escaliers et des ascenseurs est essentielle pour préserver le cadre de vie et respecter le voisinage.",
+                icon: Building2
+              },
+              {
+                title: "Accès & Annexes",
+                desc: "Nous expertisons les accès caves, garages, parkings ou cours intérieures pour optimiser le temps de manutention.",
+                icon: MapPin
+              },
+              {
+                title: "Protection du Mobilier",
+                desc: "Emballage spécifique pour les meubles volumineux et les objets fragiles afin de garantir leur sécurité durant tout le transfert.",
+                icon: Package
+              },
+              {
+                title: "Monte-Meuble",
+                desc: "Si les accès intérieurs sont trop étroits, nous évaluons la possibilité technique d'installer un monte-meuble extérieur.",
+                icon: ArrowUpCircle
+              }
+            ].map((item, id) => (
+              <div key={id} className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-slate-100 hover:shadow-xl transition-all group italic">
+                <div className="w-16 h-16 bg-slate-50 rounded-2xl mb-6 flex items-center justify-center group-hover:bg-brand-900 transition-colors italic">
+                  <item.icon className="text-brand-900 group-hover:text-accent italic" size={32} />
+                </div>
+                <h3 className="text-xl font-bold text-brand-900 mb-4 tracking-tight leading-tight italic font-display">{item.title}</h3>
+                <p className="text-slate-600 leading-relaxed font-medium text-sm italic opacity-80 italic font-display">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Nos services de déménagement à Bagneux */}
+      <section className="py-24 bg-brand-900 text-white overflow-hidden relative font-display italic">
+        <div className="absolute top-0 left-0 w-1/3 h-full bg-accent opacity-5 skew-x-12 -translate-x-1/2 italic"></div>
+        <div className="container mx-auto px-4 md:px-6 mb-20 text-center relative z-10 px-4 italic font-display">
+          <h2 className="text-4xl md:text-5xl font-black mb-8 tracking-tight italic font-display">Nos services de déménagement à Bagneux</h2>
+          <p className="text-slate-400 text-xl max-w-3xl mx-auto italic font-medium opacity-80 italic font-display">Une expertise complète pour tous vos besoins de mobilité locale.</p>
+        </div>
+        <div className="container mx-auto px-4 md:px-6 relative z-10 italic font-display">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 italic font-display">
+            {[
+              {
+                title: "Déménagement de particuliers",
+                desc: "Appartements, studios, résidences et logements familiaux.",
+                link: "/demenagement-particuliers-paris",
+                icon: Home
+              },
+              {
+                title: "Déménagement d'entreprises",
+                desc: "Bureaux, commerces, cabinets, agences, indépendants et professions libérales.",
+                link: "/demenagement-entreprises-paris",
+                icon: Building2
+              },
+              {
+                title: "Garde-meuble / stockage",
+                desc: "Solution utile pendant une transition, des travaux ou un décalage de dates.",
+                link: "/garde-meuble-paris",
+                icon: Warehouse
+              },
+              {
+                title: "Location monte-meuble",
+                desc: "Solution à envisager pour les accès difficiles selon la faisabilité technique.",
+                link: "/location-monte-meuble-paris",
+                icon: ArrowUpCircle
+              },
+              {
+                title: "Emballage et protection",
+                desc: "Protection premium de vos meubles, objets fragiles et effets personnels.",
+                link: "/emballage-protection-demenagement",
+                icon: Package
+              },
+              {
+                title: "Cartons et matériel",
+                desc: "Préparation efficace avec du matériel professionnel adapté.",
+                link: "/cartons-demenagement-paris",
+                icon: Box
+              },
+              {
+                title: "Formules de déménagement",
+                desc: "Économique, Standard, Luxe : trois niveaux d'accompagnement sur mesure.",
+                link: "/formules-demenagement",
+                icon: Layout
+              },
+              {
+                title: "Calculateur de volume",
+                desc: "Estimation indicative préalable du volume de vos biens avant devis.",
+                link: "/calculateur-volume",
+                icon: Calculator
+              }
+            ].map((service, idx) => (
+              <Link 
+                key={idx} 
+                to={service.link}
+                className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-[2rem] hover:bg-white hover:text-brand-900 transition-all group active:scale-[0.98] italic font-display"
+              >
+                <service.icon size={32} className="text-accent group-hover:text-brand-900 mb-6 italic" />
+                <h3 className="text-xl font-bold mb-4 tracking-tight leading-tight italic font-display">{service.title}</h3>
+                <p className="text-slate-400 group-hover:text-slate-600 text-sm leading-relaxed mb-6 italic opacity-80 italic font-display">{service.desc}</p>
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-accent group-hover:text-brand-900 transition-colors italic font-display">
+                  Détails <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform italic" />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Déménagement de particuliers à Bagneux */}
+      <section className="py-24 bg-white font-display italic">
+        <div className="container mx-auto px-4 md:px-6 italic font-display">
+          <div className="flex flex-col lg:flex-row gap-20 items-center italic font-display">
+            <div className="lg:w-1/2 order-2 lg:order-1 relative italic font-display">
+                <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 hover:scale-[1.02] italic">
+                  <img 
+                    src="/images/demenagement-appartement-92.jpg" 
+                    alt="Déménagement particuliers Bagneux" 
+                    className="w-full h-full object-cover italic font-display"
+                  />
+                </div>
+                <div className="absolute -top-6 -left-6 w-24 h-24 bg-accent/20 rounded-full blur-2xl italic"></div>
+            </div>
+            <div className="lg:w-1/2 order-1 lg:order-2 space-y-8 italic font-display">
+              <h2 className="text-3xl md:text-5xl font-black text-brand-900 tracking-tight leading-tight italic font-display">Déménagement de particuliers à Bagneux</h2>
+              <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-medium italic font-display opacity-80">
+                <p>
+                  Marne Transdem accompagne les familles, actifs, cadres et étudiants pour tout projet de déménagement à Bagneux : appartements en résidences, studios ou maisons de ville.
+                </p>
+                <p>
+                  De Bagneux vers Paris, ou de Paris vers Bagneux, nous gérons chaque étape : tri, cartons, protection du mobilier, transport sécurisé et gestion des accès (étages, ascenseur, garage, parking). Nous adaptons nos formules à vos besoins pour une sérénité totale.
+                </p>
+              </div>
+              <div className="pt-8 italic font-display">
+                <Link 
+                  to="/devis-demenagement" 
+                  className="inline-flex bg-brand-900 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-brand-800 transition-all shadow-xl active:scale-95 group shadow-brand-900/20 italic"
+                >
+                  DEVIS GRATUIT
+                  <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform italic" size={20} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Déménagement d'entreprises à Bagneux */}
+      <section className="py-24 bg-slate-50 overflow-hidden relative font-display italic">
+        <div className="container mx-auto px-4 md:px-6 italic font-display">
+          <div className="max-w-6xl mx-auto flex flex-col lg:flex-row-reverse gap-20 items-center italic font-display">
+             <div className="lg:w-1/2 italic font-display">
+                <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative border-8 border-white p-2 italic font-display">
+                  <img src="/images/transfert-bureau-hauts-de-seine.jpg" alt="Déménagement Entreprise Bagneux" className="w-full h-full object-cover rounded-[2.5rem] italic font-display" />
+                </div>
+             </div>
+             <div className="lg:w-1/2 space-y-8 italic font-display">
+               <h2 className="text-3xl md:text-5xl font-black text-brand-900 tracking-tight leading-tight italic font-display">Déménagement d'entreprises à Bagneux</h2>
+               <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-medium opacity-80 italic font-display">
+                 <p>
+                   Marne Transdem accompagne les professionnels de Bagneux (bureaux, commerces, cabinets, professions libérales) dans leurs transferts d'activité.
+                 </p>
+                 <p>
+                    Mobilier professionnel, matériel informatique, archives : nous organisons votre transfert avec rigueur pour assurer la continuité de vos services. Notre proximité avec Montrouge, Châtillon et Malakoff nous permet une réactivité optimale dans tout le sud des Hauts-de-Seine.
+                 </p>
+               </div>
+               <div className="pt-8 italic font-display">
+                 <Link 
+                   to="/demenagement-entreprises-paris" 
+                   className="inline-flex bg-white border-2 border-brand-900 text-brand-900 px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-brand-900 hover:text-white transition-all active:scale-95 group italic font-display"
+                 >
+                   Organiser un transfert
+                   <Building2 className="ml-3 group-hover:scale-110 transition-transform font-display italic" size={20} />
+                 </Link>
+               </div>
+             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Formules adaptées à votre projet */}
+      <section className="py-24 bg-white relative font-display italic overflow-hidden shadow-sm">
+        <div className="container mx-auto px-4 md:px-6 mb-16 text-center italic font-display">
+          <h2 className="text-4xl md:text-5xl font-black text-brand-900 tracking-tight leading-tight italic font-display">Formules adaptées à votre projet</h2>
+        </div>
+        <div className="container mx-auto px-4 md:px-6 italic font-display">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 italic font-display">
+            {[
+              {
+                name: "Économique",
+                desc: "Vous preparez vos cartons, nous prenons en charge la manutention et le transport local.",
+                icon: Calculator
+              },
+              {
+                name: "Standard",
+                desc: "L'option équilibrée : nous emballons les objets fragiles et protégeons votre mobilier.",
+                icon: Layout
+              },
+              {
+                name: "Luxe",
+                desc: "Sérénité totale : nous gérons la majeure partie de la préparation et de l'emballage sécurisé.",
+                icon: ShieldCheck
+              }
+            ].map((formula, idx) => (
+              <div key={idx} className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-xl hover:shadow-2xl transition-all border-t-8 border-t-accent flex flex-col justify-between italic">
+                <div className="italic font-display">
+                  <formula.icon size={40} className="text-brand-900 mb-6 italic" />
+                  <h4 className="text-2xl font-black text-brand-900 mb-4 italic font-display">{formula.name}</h4>
+                  <p className="text-slate-600 mb-8 font-medium leading-relaxed opacity-80 italic font-display">{formula.desc}</p>
+                </div>
+                <Link 
+                  to="/formules-demenagement" 
+                  className="flex items-center gap-2 text-brand-900 font-black uppercase tracking-widest text-xs hover:text-accent transition-colors italic font-display"
+                >
+                  Détails <ArrowRight size={14} className="italic" />
+                </Link>
+              </div>
+            ))}
+          </div>
+          <div className="mt-16 text-center italic font-display">
+             <Link 
+              to="/formules-demenagement" 
+              className="inline-flex items-center gap-4 bg-brand-900 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-brand-800 transition-all active:scale-95 shadow-2xl group italic font-display"
+             >
+               Plus d'infos sur nos formules <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. Volume, accès, stationnement et monte-meuble */}
+      <section className="py-24 bg-slate-50 font-display italic overflow-hidden shadow-sm">
+        <div className="container mx-auto px-4 md:px-6 italic font-display">
+           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center italic font-display px-4">
+             <div className="rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white italic">
+               <img src="/images/camion-demenagement-val-de-marne.jpg" alt="Logistique à Bagneux" className="w-full h-full object-cover italic font-display" />
+             </div>
+             <div className="space-y-8 italic font-display">
+               <h2 className="text-3xl md:text-5xl font-black text-brand-900 tracking-tight leading-tight italic font-display">Volume, accès et monte-meuble à Bagneux</h2>
+               <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-medium opacity-80 italic font-display">
+                 <p>
+                    Certains déménagements à Bagneux exigent une étude technique des accès urbains : étage, hall d'immeuble, résidence ancienne ou moderne, escalier, cave, parking ou garage souterrain. 
+                 </p>
+                 <p>
+                    Le volume global ainsi que la présence de meubles volumineux (canapés, bibliothèques, pianos) orientent nos choix logistiques. En cas d'accès intérieur trop restreint, une solution monte-meuble extérieur sera proposée si la configuration de l'adresse à Bagneux le permet.
+                 </p>
+               </div>
+               <div className="pt-6 italic font-display">
+                 <Link 
+                    to="/location-monte-meuble-paris" 
+                    className="flex items-center gap-2 text-brand-900 font-bold uppercase tracking-widest hover:text-accent transition-colors italic font-display"
+                  >
+                    Solutions monte-meuble <ArrowRight size={18} className="italic font-display" />
+                 </Link>
+               </div>
+             </div>
+           </div>
+        </div>
+      </section>
+
+      {/* 9. Calculer votre volume avant de demander un devis */}
+      <section className="py-24 bg-brand-900 text-white overflow-hidden relative font-display italic shadow-xl">
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-accent opacity-[0.03] rotate-12 translate-x-1/2 italic"></div>
+        <div className="container mx-auto px-4 md:px-6 relative z-10 italic font-display">
+           <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-20 items-center px-4 italic font-display">
+             <div className="lg:w-2/3 space-y-8 italic">
+                <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight mb-6 italic">Estimez le volume de votre déménagement</h2>
+                <p className="text-slate-300 text-lg font-medium leading-relaxed opacity-80 italic font-display">
+                  Avant de solliciter un devis personnalisé, utilisez notre calculateur de volume pour obtenir une estimation indicative de vos meubles et objets principaux. Cet outil gratuit permet d'affiner votre projet pour Bagneux.
+                </p>
+                <div className="pt-4 italic font-display">
+                  <Link 
+                    to="/calculateur-volume" 
+                    className="inline-flex bg-accent text-brand-900 px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-white transition-all active:scale-95 shadow-2xl group italic font-display font-black flex items-center justify-center gap-3"
+                  >
+                    Lancer le calculateur
+                    <Calculator size={20} className="group-hover:rotate-12 transition-transform italic" />
+                  </Link>
+                </div>
+             </div>
+             <div className="lg:w-1/3 flex justify-center italic">
+                <div className="w-64 h-64 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[3rem] flex items-center justify-center group relative overflow-hidden italic shadow-2xl">
+                    <div className="absolute inset-0 bg-accent opacity-0 group-hover:opacity-10 blur-3xl transition-opacity duration-700 italic"></div>
+                    <Calculator size={100} className="text-accent group-hover:scale-110 transition-transform duration-700 font-display italic" />
+                </div>
+             </div>
+           </div>
+        </div>
+      </section>
+
+      {/* 10. Notre méthode en 4 étapes */}
+      <section className="py-24 bg-white font-display italic shadow-sm overflow-hidden">
+        <div className="container mx-auto px-4 md:px-6 text-center mb-20 px-4 italic font-display">
+          <h2 className="text-4xl md:text-5xl font-black text-brand-900 mb-6 tracking-tight leading-tight italic font-display uppercase tracking-tight">Une méthode fluide et transparente</h2>
+          <p className="text-slate-500 text-xl font-medium max-w-2xl mx-auto italic opacity-70 italic font-display">Nous vous accompagnons pas à pas pour votre déménagement à Bagneux.</p>
+        </div>
+        <div className="container mx-auto px-4 md:px-6 italic font-display px-4">
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 relative overflow-hidden italic font-display">
+             <div className="hidden lg:block absolute top-12 left-[12%] right-[12%] h-[2px] bg-slate-100 -z-10 font-display italic shadow-sm"></div>
+             {[
+               { id: "01", title: "Cadrage du projet", desc: "Étude de votre besoin, de la destination et de votre calendrier." },
+               { id: "02", title: "Audit technique", desc: "Analyse du volume global et expertise des accès urbains à Bagneux." },
+               { id: "03", title: "Cadrage logistique", desc: "Choix de la formule, planification des équipes et emballage." },
+               { id: "04", title: "Actions terrain", desc: "Prise en charge experte de la manutention et transport sécurisé." }
+             ].map((step, idx) => (
+               <div key={idx} className="relative group text-center transform transition-transform hover:-translate-y-2 duration-300 italic">
+                 <div className="w-20 h-20 bg-slate-50 border border-slate-100 rounded-3xl flex items-center justify-center text-3xl font-black text-brand-900 mb-8 mx-auto group-hover:bg-brand-900 group-hover:text-accent transition-all font-display italic">
+                   {step.id}
+                 </div>
+                 <h4 className="text-xl font-bold text-brand-900 mb-4 tracking-tight leading-tight italic font-display">{step.title}</h4>
+                 <p className="text-slate-500 font-medium text-sm leading-relaxed opacity-80 italic font-display">{step.desc}</p>
+               </div>
+             ))}
+           </div>
+        </div>
+      </section>
+
+      {/* 11. Secteurs proches de Bagneux */}
+      <section className="py-24 bg-slate-50 font-display italic overflow-hidden shadow-sm">
+        <div className="container mx-auto px-4 md:px-6 italic font-display px-4">
+          <div className="flex flex-col lg:flex-row gap-20 items-end mb-16 italic font-display">
+            <div className="lg:w-2/3 space-y-6 italic">
+              <span className="text-accent uppercase font-black tracking-widest text-[10px] mb-4 block italic tracking-[0.2em] opacity-80 italic">Réseau Territorial</span>
+              <h2 className="text-4xl md:text-5xl font-black text-brand-900 tracking-tight leading-tight italic font-display">Secteurs proches de Bagneux</h2>
+              <p className="text-slate-600 text-lg font-medium leading-relaxed mt-6 italic font-display opacity-80">
+                Nous intervenons dans toute la zone sud des Hauts-de-Seine et à Paris, assurant une prestation de proximité pour les particuliers et les entreprises.
+              </p>
+            </div>
+            <div className="lg:w-1/3 italic font-display shadow-sm">
+              <Link to="/secteurs-desservis" className="group flex items-center gap-4 text-brand-900 font-black uppercase tracking-widest text-sm italic font-display">
+                Tous nos secteurs <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform font-display italic" />
+              </Link>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 font-display italic">
+            {[
+              { name: "Montrouge", link: "/demenagement-montrouge" },
+              { name: "Châtillon", link: "/demenagement-chatillon" },
+              { name: "Fontenay", link: null },
+              { name: "Bourg-la-Reine", link: null },
+              { name: "Arcueil", link: null },
+              { name: "Cachan", link: null },
+              { name: "Malakoff", link: "/demenagement-malakoff" },
+              { name: "Clamart", link: "/demenagement-clamart" },
+              { name: "Paris 14e", link: "/demenagement-paris-14" },
+              { name: "92 / HDS", link: "/demenagement-92-hauts-de-seine" },
+              { name: "IDF", link: "/demenagement-ile-de-france" }
+            ].map((city, idx) => (
+              city.link ? (
+                <Link 
+                  key={idx} 
+                  to={city.link}
+                  className="bg-white border border-slate-100 p-4 rounded-xl flex items-center justify-between hover:border-brand-900 transition-colors group shadow-sm active:scale-95 transition-all italic"
+                >
+                  <span className="text-xs font-bold text-slate-700 uppercase tracking-widest italic font-display">{city.name}</span>
+                  <Plus size={14} className="text-slate-300 group-hover:text-brand-900 italic" />
+                </Link>
+              ) : (
+                <div key={idx} className="bg-slate-100/50 border border-slate-100 p-4 rounded-xl flex items-center justify-between shadow-sm opacity-60 italic font-display">
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-widest font-display italic">{city.name}</span>
+                  <MapPin size={14} className="text-slate-300 italic" />
+                </div>
+              )
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 12. CTA intermédiaire */}
+      <section className="py-24 bg-white relative overflow-hidden font-display italic shadow-2xl">
+        <div className="container mx-auto px-4 md:px-6 relative z-10 italic font-display px-4">
+          <div className="bg-white rounded-[4rem] p-12 md:p-24 shadow-2xl border border-slate-50 text-center relative overflow-hidden group shadow-brand-900/5 italic flex items-center flex-col shadow-xl">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-accent opacity-[0.05] rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 italic"></div>
+            <div className="max-w-4xl mx-auto space-y-10 relative z-10 italic">
+              <h2 className="text-3xl md:text-6xl font-black text-brand-900 tracking-tight leading-tight italic font-display italic tracking-tight">
+                Vous préparez un déménagement à Bagneux ?
+              </h2>
+              <p className="text-slate-600 text-xl font-medium max-w-3xl mx-auto leading-relaxed italic opacity-80 font-display italic">
+                Sollicitez une estimation personnalisée tenant compte de votre volume, de vos accès et de votre calendrier.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-6 justify-center pt-6 italic font-display">
+                <Link 
+                  to="/devis-demenagement" 
+                  className="bg-brand-900 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-brand-800 transition-all shadow-2xl active:scale-95 group flex items-center justify-center gap-3 shadow-brand-900/20 italic font-display shadow-2xl"
+                >
+                  DÉMARRER MON DEVIS
+                  <FileText size={20} className="group-hover:translate-x-1 transition-transform italic" />
+                </Link>
+                <a 
+                  href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} 
+                  className="bg-brand-50 text-brand-900 border border-brand-100 px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-brand-100 transition-all active:scale-95 flex items-center justify-center gap-3 shadow-xl italic"
+                >
+                  <Phone size={20} className="italic" />
+                  {CONTACT.phone}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 13. FAQ locale */}
+      <section className="py-24 bg-slate-50 font-display italic shadow-sm overflow-hidden font-display px-4">
+        <div className="container mx-auto px-4 md:px-6 italic font-display shadow-sm">
+          <div className="max-w-4xl mx-auto space-y-12 px-4 shadow-sm italic font-display">
+            <div className="text-center mb-16 italic">
+               <span className="text-accent uppercase font-black tracking-widest text-[10px] italic block mb-4 italic tracking-[0.2em] opacity-80 italic font-display">INFOS PRATIQUES</span>
+               <h2 className="text-4xl md:text-5xl font-black text-brand-900 tracking-tight leading-tight italic font-display italic tracking-tight">FAQ Déménagement Bagneux</h2>
+               <p className="text-slate-500 font-medium italic opacity-80 italic font-display">Préparer votre mobilité dans le sud des Hauts-de-Seine.</p>
+            </div>
+            
+            <div className="space-y-6 italic font-display">
+              {faqData.map((faq, idx) => (
+                <div key={idx} className="bg-white rounded-[2.5rem] p-10 shadow-sm border border-slate-100 hover:shadow-xl transition-all group overflow-hidden italic font-display">
+                   <h3 className="text-xl font-bold text-brand-900 mb-6 flex items-start gap-4 tracking-tight leading-tight italic font-display shadow-sm">
+                    <span className="w-10 h-10 bg-brand-50 text-brand-900 rounded-xl flex items-center justify-center shrink-0 text-sm font-black italic">Q</span>
+                    {faq.q}
+                   </h3>
+                   <div className="pl-14 italic font-display">
+                      <p className="text-slate-600 leading-relaxed font-medium italic font-display opacity-80 italic">
+                        {faq.a}
+                      </p>
+                   </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 14. Maillage interne final */}
+      <section className="py-20 bg-brand-900 text-white font-display border-t border-white/5 shadow-2xl font-display italic italic">
+        <div className="container mx-auto px-4 md:px-6 italic font-display">
+           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 font-display italic font-display shadow-sm">
+             <div className="space-y-6 italic font-display shadow-sm">
+                <h4 className="text-accent text-[10px] uppercase font-black tracking-widest italic tracking-[0.2em] opacity-80 font-display italic">Mobilité Premium</h4>
+                <ul className="space-y-4 italic font-display shadow-sm">
+                  <li><Link to="/demenagement-particuliers-paris" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic">Particuliers</Link></li>
+                  <li><Link to="/demenagement-entreprises-paris" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic italic">Entreprises</Link></li>
+                  <li><Link to="/garde-meuble-paris" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic font-display">Garde-meuble</Link></li>
+                  <li><Link to="/location-monte-meuble-paris" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic">Monte-meuble</Link></li>
+                </ul>
+             </div>
+             <div className="space-y-6 italic font-display shadow-sm">
+                <h4 className="text-accent text-[10px] uppercase font-black tracking-widest italic tracking-[0.2em] opacity-80 font-display italic italic font-display">Expertise</h4>
+                <ul className="space-y-4 italic font-display font-display shadow-sm">
+                  <li><Link to="/calculateur-volume" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic">Calculateur volume</Link></li>
+                  <li><Link to="/formules-demenagement" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic">Formules</Link></li>
+                  <li><Link to="/emballage-protection-demenagement" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic">Emballage</Link></li>
+                  <li><Link to="/cartons-demenagement-paris" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic italic">Cartons & Matériel</Link></li>
+                </ul>
+             </div>
+             <div className="space-y-6 font-display italic shadow-sm">
+                <h4 className="text-accent text-[10px] uppercase font-black tracking-widest italic tracking-[0.2em] opacity-80 font-display italic">Territoires</h4>
+                <ul className="space-y-4 italic font-display italic shadow-sm">
+                  <li><Link to="/demenagement-ile-de-france" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic font-display">Île-de-France</Link></li>
+                  <li><Link to="/demenagement-92-hauts-de-seine" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic italic">Hauts-de-Seine</Link></li>
+                  <li><Link to="/longue-distance" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic font-display italic">Longue distance</Link></li>
+                  <li><Link to="/secteurs-desservis" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic">Secteurs desservis</Link></li>
+                </ul>
+             </div>
+             <div className="space-y-6 italic font-display shadow-sm">
+                <h4 className="text-accent text-[10px] uppercase font-black tracking-widest italic tracking-[0.2em] opacity-80 font-display italic italic">Villes Proches</h4>
+                <ul className="space-y-4 italic font-display shadow-sm">
+                  <li><Link to="/demenagement-montrouge" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic italic">Montrouge</Link></li>
+                  <li><Link to="/demenagement-chatillon" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic italic">Châtillon</Link></li>
+                  <li><Link to="/demenagement-clamart" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic">Clamart</Link></li>
+                  <li><Link to="/contact" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic italic font-display">Nous contacter</Link></li>
+                </ul>
+             </div>
+           </div>
+        </div>
+      </section>
+
+      {/* Semantic Text */}
+      <div className="sr-only italic font-display">
+        <p>
+          Marne Transdem, expert du déménagement Bagneux et dans les Hauts-de-Seine (92), vous accompagne pour tous vos projets : transfert de bureaux Bagneux, déménagement appartement en résidence, studio, maison, immeuble ancien, location monte-meuble et garde-meuble. Devis gratuit pour particuliers et entreprises. Proximité Montrouge, Châtillon, Fontenay-aux-Roses, Bourg-la-Reine, Arcueil, Cachan, Malakoff, Clamart et Paris 14e.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default LocalBagneux;

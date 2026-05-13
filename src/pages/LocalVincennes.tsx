@@ -105,7 +105,7 @@ const LocalVincennes: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.02]">
                 <img 
-                  src="https://images.unsplash.com/photo-1596720510619-3333e9d8e578?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/demenagement-94-val-de-marne.jpg" 
                   alt="Vincennes Immobilier" 
                   className="w-full h-full object-cover"
                 />
@@ -196,10 +196,10 @@ const LocalVincennes: React.FC = () => {
             </div>
             <div className="lg:w-1/2 grid grid-cols-2 gap-4">
               <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=600" className="w-full h-full object-cover" alt="Appartement Vincennes" />
+                <img src="/images/demenagement-appartement-94.jpg" className="w-full h-full object-cover" alt="Appartement Vincennes" />
               </div>
               <div className="aspect-square rounded-[3rem] overflow-hidden mt-12 shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=600" className="w-full h-full object-cover" alt="Déménagement Famille" />
+                <img src="/images/equipe-demenageur-94.jpg" className="w-full h-full object-cover" alt="Déménagement Famille" />
               </div>
             </div>
           </div>
@@ -214,7 +214,7 @@ const LocalVincennes: React.FC = () => {
               <div className="relative w-full max-w-md">
                 <div className="absolute -inset-4 bg-accent/20 rounded-[4rem] blur-2xl -z-10 rotate-6"></div>
                 <div className="bg-white p-4 rounded-[3rem] shadow-2xl border border-slate-100">
-                  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=600" className="rounded-[2.5rem] w-full" alt="Bureaux Vincennes" />
+                  <img src="/images/camion-demenagement-val-de-marne.jpg" className="rounded-[2.5rem] w-full" alt="Bureaux Vincennes" />
                 </div>
               </div>
             </div>
