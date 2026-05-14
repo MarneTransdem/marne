@@ -535,7 +535,8 @@ const LocalMontrouge: React.FC = () => {
               { name: "Clamart", link: "/demenagement-clamart" },
               { name: "Issy", link: "/demenagement-issy-les-moulineaux" },
               { name: "92 / HDS", link: "/demenagement-92-hauts-de-seine" },
-              { name: "IDF", link: "/demenagement-ile-de-france" }
+              { name: "IDF", link: "/demenagement-ile-de-france" },
+              { name: "Vaucresson", link: "/demenagement-vaucresson" }
             ].map((city, idx) => (
               city.link ? (
                 <Link 

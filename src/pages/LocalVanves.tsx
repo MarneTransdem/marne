@@ -533,6 +533,7 @@ const LocalVanves: React.FC = () => {
               { name: "Clamart", link: "/demenagement-clamart" },
               { name: "Châtillon", link: null },
               { name: "Boulogne", link: "/demenagement-boulogne-billancourt" },
+              { name: "Vaucresson", link: "/demenagement-vaucresson" },
               { name: "Meudon", link: "/demenagement-meudon" },
               { name: "92 / Hauts-de-Seine", link: "/demenagement-92-hauts-de-seine" },
               { name: "Île-de-France", link: "/demenagement-ile-de-france" }

@@ -562,7 +562,8 @@ const LocalAntony: React.FC = () => {
               { name: "Rungis", link: null },
               { name: "L’Haÿ", link: null },
               { name: "92 / HDS", link: "/demenagement-hauts-de-seine" },
-              { name: "IDF / Région", link: "/demenagement-ile-de-france" }
+              { name: "IDF / Région", link: "/demenagement-ile-de-france" },
+              { name: "Vaucresson", link: "/demenagement-vaucresson" }
             ].map((city, idx) => (
               city.link ? (
                 <Link 

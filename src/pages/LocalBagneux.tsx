@@ -532,6 +532,7 @@ const LocalBagneux: React.FC = () => {
               { name: "Arcueil", link: null },
               { name: "Cachan", link: null },
               { name: "Malakoff", link: "/demenagement-malakoff" },
+              { name: "Vaucresson", link: "/demenagement-vaucresson" },
               { name: "Clamart", link: "/demenagement-clamart" },
               { name: "Paris 14e", link: "/demenagement-paris-14" },
               { name: "92 / HDS", link: "/demenagement-92-hauts-de-seine" },

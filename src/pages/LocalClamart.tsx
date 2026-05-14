@@ -524,6 +524,7 @@ const LocalClamart: React.FC = () => {
               { name: "Meudon", link: "/demenagement-meudon" },
               { name: "Issy-les-Moulineaux", link: "/demenagement-issy-les-moulineaux" },
               { name: "Vanves", link: null },
+              { name: "Vaucresson", link: "/demenagement-vaucresson" },
               { name: "Châtillon", link: null },
               { name: "Malakoff", link: null },
               { name: "Fontenay-aux-Roses", link: null },

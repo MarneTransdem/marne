@@ -21,7 +21,7 @@ const LocalSaintCloud: React.FC = () => {
     },
     { 
       q: "Marne Transdem intervient-elle à Saint-Cloud et dans les villes proches ?", 
-      a: "Oui, Marne Transdem accompagne les projets de déménagement à Saint-Cloud et dans les secteurs proches comme Boulogne-Billancourt, Suresnes, Rueil-Malmaison, Garches, Sèvres, Ville-d’Avray, Meudon, Paris 16e et plus largement dans les Hauts-de-Seine selon les besoins du projet." 
+      a: "Oui, Marne Transdem accompagne les projets de déménagement à Saint-Cloud et dans les secteurs proches comme Boulogne-Billancourt, Suresnes, Rueil-Malmaison, Garches, Chaville, Sèvres, Ville-d’Avray, Meudon, Paris 16e et plus largement dans les Hauts-de-Seine selon les besoins du projet." 
     },
     { 
       q: "Peut-on demander un monte-meuble à Saint-Cloud ?", 
@@ -132,8 +132,8 @@ const LocalSaintCloud: React.FC = () => {
             <div className="relative font-display">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-8 border-slate-50 font-display">
                 <img 
-                  src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800" 
-                  alt="Déménagement Saint-Cloud" 
+                  src="/images/demenagement-saint-cloud-hauts-de-seine.jpg" 
+                  alt="Déménagement Saint-Cloud 92 - Service premium Marne Transdem" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -240,8 +240,8 @@ const LocalSaintCloud: React.FC = () => {
             <div className="relative order-2 lg:order-1 font-display">
               <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl font-display">
                 <img 
-                  src="https://images.unsplash.com/photo-1593642532400-2682810df593?auto=format&fit=crop&q=80&w=800" 
-                  alt="Déménagement particuliers Saint-Cloud" 
+                  src="/images/demenagement-maison-appartement-particulier.jpg" 
+                  alt="Déménagement de particuliers à Saint-Cloud - Solutions Marne Transdem" 
                   className="w-full h-full object-cover font-display"
                 />
               </div>
@@ -298,8 +298,8 @@ const LocalSaintCloud: React.FC = () => {
             <div className="relative font-display">
               <div className="aspect-[16/9] rounded-[3rem] overflow-hidden shadow-2xl font-display">
                 <img 
-                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1000" 
-                  alt="Déménagement entreprises Saint-Cloud" 
+                  src="/images/transfert-bureaux-entreprise-paris.jpg" 
+                  alt="Déménagement d'entreprises et transfert de bureaux à Saint-Cloud" 
                   className="w-full h-full object-cover font-display"
                 />
               </div>
@@ -447,7 +447,13 @@ const LocalSaintCloud: React.FC = () => {
             <Link to="/demenagement-versailles" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Versailles</Link>
             <Link to="/demenagement-ile-de-france" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Île-de-France</Link>
             <Link to="/demenagement-meudon" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Meudon</Link>
-            <span className="text-slate-300 font-bold text-sm italic font-display uppercase">Déménagement Garches</span>
+            <Link to="/demenagement-chaville" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Chaville</Link>
+            <Link to="/demenagement-ville-d-avray" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic text-slate-800">Déménagement Ville-d’Avray</Link>
+            <Link to="/demenagement-vaucresson" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic">Déménagement Vaucresson</Link>
+            <Link to="/demenagement-viroflay" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic">Déménagement Viroflay</Link>
+            <Link to="/demenagement-garches" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic">Déménagement Garches</Link>
+            <Link to="/demenagement-le-chesnay-rocquencourt" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic font-bold">Déménagement Le Chesnay-Rocquencourt</Link>
+            <Link to="/demenagement-marnes-la-coquette" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic font-bold">Déménagement Marnes-la-Coquette</Link>
           </div>
         </div>
       </section>

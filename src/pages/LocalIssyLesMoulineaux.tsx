@@ -128,8 +128,8 @@ const LocalIssyLesMoulineaux: React.FC = () => {
             <div className="relative">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-8 border-slate-50">
                 <img 
-                  src="/images/demenagement-92-hauts-de-seine-camion.jpg" 
-                  alt="Déménagement Issy-les-Moulineaux" 
+                  src="/images/demenagement-issy-les-moulineaux-92.jpg" 
+                  alt="Déménagement Issy-les-Moulineaux 92 - Entreprise Marne Transdem" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -236,8 +236,8 @@ const LocalIssyLesMoulineaux: React.FC = () => {
             <div className="relative order-2 lg:order-1 font-display">
               <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl">
                 <img 
-                  src="/images/demenagement-appartement-92.jpg" 
-                  alt="Déménagement particuliers Issy-les-Moulineaux" 
+                  src="/images/demenagement-maison-appartement-particulier.jpg" 
+                  alt="Déménagement particulier Issy-les-Moulineaux - Appartement et maison" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -294,8 +294,8 @@ const LocalIssyLesMoulineaux: React.FC = () => {
             <div className="relative font-display">
               <div className="aspect-[16/9] rounded-[3rem] overflow-hidden shadow-2xl">
                 <img 
-                  src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1000" 
-                  alt="Déménagement professionnel Issy-les-Moulineaux" 
+                  src="/images/transfert-bureaux-entreprise-paris.jpg" 
+                  alt="Déménagement professionnel Issy-les-Moulineaux - Transfert de bureaux" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -443,6 +443,7 @@ const LocalIssyLesMoulineaux: React.FC = () => {
             <Link to="/demenagement-nanterre" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display italic">Déménagement Nanterre</Link>
             <Link to="/demenagement-suresnes" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display italic">Déménagement Suresnes</Link>
             <Link to="/demenagement-rueil-malmaison" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display italic">Déménagement Rueil-Malmaison</Link>
+            <Link to="/demenagement-vaucresson" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display italic">Déménagement Vaucresson</Link>
             <Link to="/demenagement-saint-cloud" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display italic">Déménagement Saint-Cloud</Link>
             <Link to="/demenagement-meudon" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display italic">Déménagement Meudon</Link>
             <span className="text-slate-300 font-bold text-sm italic font-display">Déménagement Vanves</span>

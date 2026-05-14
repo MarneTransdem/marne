@@ -533,6 +533,7 @@ const LocalFontenayAuxRoses: React.FC = () => {
               { name: "Bourg-la-Reine", link: null },
               { name: "Le Plessis", link: null },
               { name: "Antony", link: null },
+              { name: "Vaucresson", link: "/demenagement-vaucresson" },
               { name: "Malakoff", link: "/demenagement-malakoff" },
               { name: "Paris 14e", link: "/demenagement-paris-14" },
               { name: "92 / HDS", link: "/demenagement-92-hauts-de-seine" },

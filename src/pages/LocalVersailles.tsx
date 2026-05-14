@@ -67,7 +67,7 @@ const LocalVersailles: React.FC = () => {
 
       {/* 1. Hero Section */}
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-brand-900 overflow-hidden italic font-display">
-        <div className="absolute inset-0 bg-[url('/images/demenagement-versailles.jpg')] bg-cover bg-center opacity-20"></div>
+        <div className="absolute inset-0 bg-[url('/images/demenagement-versailles-yvelines-78.jpg')] bg-cover bg-center opacity-20"></div>
         <div className="container mx-auto px-4 md:px-6 relative z-10 text-white">
           <div className="max-w-4xl">
             <motion.div
@@ -158,8 +158,8 @@ const LocalVersailles: React.FC = () => {
             <div className="relative font-display italic">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-8 border-slate-50 shadow-brand-900/10">
                 <img 
-                  src="/images/demenagement-versailles.jpg" 
-                  alt="Déménagement Yvelines Versailles" 
+                  src="/images/demenagement-versailles-yvelines-78.jpg" 
+                  alt="Déménagement Yvelines Versailles - Marne Transdem" 
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>
@@ -306,8 +306,8 @@ const LocalVersailles: React.FC = () => {
             <div className="lg:w-1/2 order-2 lg:order-1 relative italic font-display">
                 <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 hover:scale-[1.02] shadow-brand-900/10 italic">
                   <img 
-                    src="/images/demenagement-appartement-92.jpg" 
-                    alt="Déménagement particuliers Versailles" 
+                    src="/images/demenagement-maison-versailles-78.jpg" 
+                    alt="Déménagement particuliers et familles Versailles - Marne Transdem" 
                     className="w-full h-full object-cover shadow-sm transition-all"
                   />
                 </div>
@@ -343,7 +343,7 @@ const LocalVersailles: React.FC = () => {
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row-reverse gap-20 items-center italic font-display shadow-sm px-4 shadow-brand-900/5">
              <div className="lg:w-1/2 shadow-sm italic">
                 <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative border-8 border-white p-2 shadow-brand-900/10 italic transition-transform hover:scale-[1.02]">
-                  <img src="/images/transfert-bureau-hauts-de-seine.jpg" alt="Déménagement Entreprise Versailles" className="w-full h-full object-cover rounded-[2.5rem] shadow-sm font-display italic" />
+                  <img src="/images/transfert-entreprise-78-yvelines.jpg" alt="Déménagement Entreprise et transfert de bureaux Versailles" className="w-full h-full object-cover rounded-[2.5rem] shadow-sm font-display italic" />
                 </div>
              </div>
              <div className="lg:w-1/2 space-y-8 px-4 font-display italic shadow-sm">
@@ -425,7 +425,7 @@ const LocalVersailles: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 shadow-sm px-4 italic shadow-sm italic font-display">
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center italic font-display shadow-sm">
              <div className="rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white italic shadow-sm shadow-brand-900/10 transition-transform hover:scale-[1.01] shadow-brand-900/5">
-               <img src="/images/camion-demenagement-val-de-marne.jpg" alt="Logistique à Versailles" className="w-full h-full object-cover font-display italic shadow-sm shadow-black/5" />
+               <img src="/images/camion-demenageur-marne-transdem.jpg" alt="Logistique déménagement à Versailles - Camion Marne Transdem" className="w-full h-full object-cover font-display italic shadow-sm shadow-black/5" />
              </div>
              <div className="space-y-8 shadow-sm px-4 shadow-brand-900/10 italic font-display underline-offset-4 italic">
                <h2 className="text-3xl md:text-5xl font-black text-brand-900 tracking-tight leading-tight px-4 uppercase italic shadow-sm">Maîtrise des accès versaillais</h2>
@@ -530,9 +530,12 @@ const LocalVersailles: React.FC = () => {
               { name: "Meudon", link: "/demenagement-meudon" },
               { name: "Sèvres", link: "/demenagement-sevres" },
               { name: "Saint-Cloud", link: "/demenagement-saint-cloud" },
-              { name: "Chaville", link: null },
-              { name: "Viroflay", link: null },
-              { name: "Chesnay", link: null },
+              { name: "Chaville", link: "/demenagement-chaville" },
+              { name: "Ville-d’Avray", link: "/demenagement-ville-d-avray" },
+              { name: "Vaucresson", link: "/demenagement-vaucresson" },
+              { name: "Viroflay", link: "/demenagement-viroflay" },
+              { name: "Marnes-la-Coquette", link: "/demenagement-marnes-la-coquette" },
+              { name: "Le Chesnay", link: "/demenagement-le-chesnay-rocquencourt" },
               { name: "Boulogne", link: "/demenagement-boulogne-billancourt" },
               { name: "Rueil", link: "/demenagement-rueil-malmaison" },
               { name: "78 / Yvelines", link: "/demenagement-yvelines" },

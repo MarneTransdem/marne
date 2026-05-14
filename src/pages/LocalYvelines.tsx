@@ -38,6 +38,8 @@ const LocalYvelines: React.FC = () => {
 
   const cities = [
     { n: "Versailles", d: "Déménagements de maisons, appartements, résidences et bureaux selon le volume et les accès.", l: "/demenagement-versailles" },
+    { n: "Viroflay", d: "Services de déménagement résidentiels et professionnels adaptés aux accès locaux.", l: "/demenagement-viroflay" },
+    { n: "Chaville", d: "Services de déménagement de maisons et résidences, adaptés aux contraintes locales d'accès.", l: "/demenagement-chaville" },
     { n: "Vélizy-Villacoublay", d: "Déménagements professionnels et résidentiels à proximité du pôle aéronautique.", l: "/demenagement-velizy-villacoublay" },
     { n: "Saint-Germain-en-Laye", d: "Accompagnement des projets de déménagement résidentiels et pros dans l'ouest francilien.", l: null },
     { n: "Mantes-la-Jolie", d: "Organisation des déménagements de particuliers et d'entreprises dans les Yvelines.", l: null },
@@ -51,8 +53,9 @@ const LocalYvelines: React.FC = () => {
     { n: "Conflans-Sainte-Honorine", d: "Déménagements pour particuliers et entreprises dans le confluent Seine-Oise.", l: null },
     { n: "Montigny-le-Bretonneux", d: "Transferts de bureaux et logements collectifs dans la zone de Saint-Quentin-en-Yvelines.", l: null },
     { n: "Guyancourt", d: "Logistique adaptée aux quartiers d'affaires et résidences de standing.", l: null },
+    { n: "Vaucresson", d: "Déménagements résidentiels entre les Yvelines et les Hauts-de-Seine.", l: "/demenagement-vaucresson" },
     { n: "Plaisir", d: "Accompagnement des déménagements de maisons et logements familiaux en zone commerciale.", l: null },
-    { n: "Le Chesnay-Rocquencourt", d: "Services pour appartements et pavillons proche de Versailles.", l: null }
+    { n: "Le Chesnay-Rocquencourt", d: "Services pour appartements et pavillons proche de Versailles.", l: "/demenagement-le-chesnay-rocquencourt" }
   ];
 
   return (

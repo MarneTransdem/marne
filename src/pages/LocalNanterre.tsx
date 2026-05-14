@@ -132,8 +132,8 @@ const LocalNanterre: React.FC = () => {
             <div className="relative font-display">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-8 border-slate-50 font-display">
                 <img 
-                  src="/images/demenagement-92-hauts-de-seine-camion.jpg" 
-                  alt="Ville de Nanterre" 
+                  src="/images/demenagement-nanterre-hauts-de-seine.jpg" 
+                  alt="Déménagement Nanterre 92 - Solutions Marne Transdem" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -240,8 +240,8 @@ const LocalNanterre: React.FC = () => {
             <div className="relative order-2 lg:order-1 font-display">
               <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl font-display">
                 <img 
-                  src="/images/demenagement-appartement-92.jpg" 
-                  alt="Déménagement particuliers Nanterre" 
+                  src="/images/demenagement-maison-appartement-particulier.jpg" 
+                  alt="Déménagement particulier à Nanterre - Appartement et maison" 
                   className="w-full h-full object-cover font-display"
                 />
               </div>
@@ -298,8 +298,8 @@ const LocalNanterre: React.FC = () => {
             <div className="relative font-display">
               <div className="aspect-[16/9] rounded-[3rem] overflow-hidden shadow-2xl font-display">
                 <img 
-                  src="/images/transfert-bureau-hauts-de-seine.jpg" 
-                  alt="Déménagement entreprises Nanterre" 
+                  src="/images/transfert-bureaux-entreprise-paris.jpg" 
+                  alt="Déménagement d'entreprise et transfert de bureaux à Nanterre 92" 
                   className="w-full h-full object-cover font-display"
                 />
               </div>
@@ -446,6 +446,7 @@ const LocalNanterre: React.FC = () => {
             <Link to="/demenagement-ile-de-france" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Île-de-France</Link>
             <Link to="/demenagement-suresnes" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Suresnes</Link>
             <Link to="/demenagement-rueil-malmaison" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Rueil-Malmaison</Link>
+            <Link to="/demenagement-vaucresson" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Vaucresson</Link>
             <Link to="/demenagement-saint-cloud" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display">Déménagement Saint-Cloud</Link>
             <span className="text-slate-300 font-bold text-sm italic font-display uppercase">Déménagement Colombes</span>
             <span className="text-slate-300 font-bold text-sm italic font-display uppercase">Déménagement Bezons</span>

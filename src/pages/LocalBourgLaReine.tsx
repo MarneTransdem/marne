@@ -526,6 +526,7 @@ const LocalBourgLaReine: React.FC = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 font-display italic shadow-sm px-4 italic font-display shadow-sm px-4 italic shadow-sm font-display shadow-sm shadow-brand-900/5 italic">
             {[
               { name: "Sceaux", link: "/demenagement-sceaux" },
+              { name: "Vaucresson", link: "/demenagement-vaucresson" },
               { name: "Antony", link: "/demenagement-antony" },
               { name: "Bagneux", link: "/demenagement-bagneux" },
               { name: "Clamart", link: "/demenagement-clamart" },

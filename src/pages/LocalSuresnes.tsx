@@ -132,8 +132,8 @@ const LocalSuresnes: React.FC = () => {
             <div className="relative font-display">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-8 border-slate-50 font-display">
                 <img 
-                  src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800" 
-                  alt="Déménagement Suresnes" 
+                  src="/images/demenagement-suresnes-hauts-de-seine.jpg" 
+                  alt="Déménagement Suresnes 92 - Service premium Marne Transdem" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -240,8 +240,8 @@ const LocalSuresnes: React.FC = () => {
             <div className="relative order-2 lg:order-1 font-display">
               <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl font-display">
                 <img 
-                  src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=800" 
-                  alt="Déménagement particuliers Suresnes" 
+                  src="/images/demenagement-maison-appartement-particulier.jpg" 
+                  alt="Déménagement particulier à Suresnes - Appartement et maison" 
                   className="w-full h-full object-cover font-display"
                 />
               </div>
@@ -298,8 +298,8 @@ const LocalSuresnes: React.FC = () => {
             <div className="relative font-display">
               <div className="aspect-[16/9] rounded-[3rem] overflow-hidden shadow-2xl font-display">
                 <img 
-                  src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1000" 
-                  alt="Déménagement entreprises Suresnes" 
+                  src="/images/transfert-bureaux-entreprise-paris.jpg" 
+                  alt="Déménagement professionnel et transfert de bureaux à Suresnes 92" 
                   className="w-full h-full object-cover font-display"
                 />
               </div>
@@ -448,6 +448,7 @@ const LocalSuresnes: React.FC = () => {
             <Link to="/demenagement-ile-de-france" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Île-de-France</Link>
             <Link to="/demenagement-saint-cloud" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Saint-Cloud</Link>
             <Link to="/demenagement-rueil-malmaison" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Rueil-Malmaison</Link>
+            <Link to="/demenagement-vaucresson" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Vaucresson</Link>
             <span className="text-slate-300 font-bold text-sm italic font-display uppercase font-display decoration-accent/20 uppercase underline">Déménagement La Défense</span>
           </div>
         </div>

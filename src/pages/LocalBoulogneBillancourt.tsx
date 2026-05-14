@@ -128,8 +128,8 @@ const LocalBoulogneBillancourt: React.FC = () => {
             <div className="relative">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-8 border-slate-50">
                 <img 
-                  src="/images/demenagement-92-hauts-de-seine-camion.jpg" 
-                  alt="Déménagement Boulogne-Billancourt" 
+                  src="/images/demenagement-boulogne-billancourt-92.jpg" 
+                  alt="Déménagement Boulogne-Billancourt 92 - Service Marne Transdem" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -236,8 +236,8 @@ const LocalBoulogneBillancourt: React.FC = () => {
             <div className="relative order-2 lg:order-1">
               <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl">
                 <img 
-                  src="/images/demenagement-appartement-92.jpg" 
-                  alt="Déménagement particuliers Boulogne-Billancourt" 
+                  src="/images/demenagement-maison-appartement-particulier.jpg" 
+                  alt="Déménagement particulier Boulogne-Billancourt - Appartement et maison" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -294,8 +294,8 @@ const LocalBoulogneBillancourt: React.FC = () => {
             <div className="relative">
               <div className="aspect-[16/9] rounded-[3rem] overflow-hidden shadow-2xl">
                 <img 
-                  src="/images/transfert-bureau-hauts-de-seine.jpg" 
-                  alt="Déménagement entreprises Boulogne-Billancourt" 
+                  src="/images/transfert-bureaux-entreprise-paris.jpg" 
+                  alt="Déménagement professionnel Boulogne-Billancourt - Transfert de bureaux" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -443,6 +443,7 @@ const LocalBoulogneBillancourt: React.FC = () => {
             <Link to="/demenagement-saint-cloud" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Saint-Cloud</Link>
             <span className="text-slate-300 font-bold text-sm italic">Déménagement Sèvres</span>
             <Link to="/demenagement-meudon" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Meudon</Link>
+            <Link to="/demenagement-vaucresson" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Vaucresson</Link>
             <Link to="/demenagement-neuilly-sur-seine" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Neuilly-sur-Seine</Link>
             <Link to="/demenagement-levallois-perret" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Levallois-Perret</Link>
           </div>

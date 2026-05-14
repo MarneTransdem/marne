@@ -535,7 +535,8 @@ const LocalLePlessisRobinson: React.FC = () => {
               { name: "Vélizy", link: "/demenagement-velizy-villacoublay" },
               { name: "Bourg-la-Reine", link: "/demenagement-bourg-la-reine" },
               { name: "92 / HDS", link: "/demenagement-hauts-de-seine" },
-              { name: "IDF / Région", link: "/demenagement-ile-de-france" }
+              { name: "IDF / Région", link: "/demenagement-ile-de-france" },
+              { name: "Vaucresson", link: "/demenagement-vaucresson" }
             ].map((city, idx) => (
               city.link ? (
                 <Link 

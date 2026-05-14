@@ -91,6 +91,13 @@ const SecteursDesservis: React.FC = () => {
     { n: "Châtenay-Malabry", p: "/demenagement-chatenay-malabry", e: true },
     { n: "Le Plessis-Robinson", p: "/demenagement-le-plessis-robinson", e: true },
     { n: "Vélizy-Villacoublay", p: "/demenagement-velizy-villacoublay", e: true },
+    { n: "Viroflay", p: "/demenagement-viroflay", e: true },
+    { n: "Vaucresson", p: "/demenagement-vaucresson", e: true },
+    { n: "Garches", p: "/demenagement-garches", e: true },
+    { n: "Marnes-la-Coquette", p: "/demenagement-marnes-la-coquette", e: true },
+    { n: "Le Chesnay-Rocquencourt", p: "/demenagement-le-chesnay-rocquencourt", e: true },
+    { n: "Chaville", p: "/demenagement-chaville", e: true },
+    { n: "Ville-d’Avray", p: "/demenagement-ville-d-avray", e: true },
     { n: "Versailles", p: "/demenagement-versailles", e: true },
     { n: "Sèvres", p: "/demenagement-sevres", e: true },
     { n: "Vanves", p: "/demenagement-vanves", e: true }

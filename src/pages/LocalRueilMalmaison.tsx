@@ -132,8 +132,8 @@ const LocalRueilMalmaison: React.FC = () => {
             <div className="relative font-display">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-8 border-slate-50 font-display">
                 <img 
-                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800" 
-                  alt="Déménagement Rueil-Malmaison" 
+                  src="/images/demenagement-rueil-malmaison-92.jpg" 
+                  alt="Déménagement Rueil-Malmaison 92 - Entreprise Marne Transdem" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -240,8 +240,8 @@ const LocalRueilMalmaison: React.FC = () => {
             <div className="relative order-2 lg:order-1 font-display">
               <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl font-display">
                 <img 
-                  src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&q=80&w=800" 
-                  alt="Déménagement particuliers Rueil-Malmaison" 
+                  src="/images/demenagement-maison-appartement-particulier.jpg" 
+                  alt="Déménagement particulier Rueil-Malmaison - Maison et appartement" 
                   className="w-full h-full object-cover font-display"
                 />
               </div>
@@ -298,8 +298,8 @@ const LocalRueilMalmaison: React.FC = () => {
             <div className="relative font-display">
               <div className="aspect-[16/9] rounded-[3rem] overflow-hidden shadow-2xl font-display">
                 <img 
-                  src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1000" 
-                  alt="Déménagement entreprises Rueil-Malmaison" 
+                  src="/images/transfert-bureaux-entreprise-paris.jpg" 
+                  alt="Déménagement professionnel Rueil-Malmaison - Transfert de bureaux" 
                   className="w-full h-full object-cover font-display"
                 />
               </div>
@@ -446,8 +446,10 @@ const LocalRueilMalmaison: React.FC = () => {
             <Link to="/demenagement-hauts-de-seine" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Hauts-de-Seine</Link>
             <Link to="/demenagement-ile-de-france" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Île-de-France</Link>
             <Link to="/demenagement-saint-cloud" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Saint-Cloud</Link>
-            <span className="text-slate-300 font-bold text-sm italic font-display uppercase">Déménagement Garches</span>
-            <span className="text-slate-300 font-bold text-sm italic font-display uppercase">Déménagement Vaucresson</span>
+            <Link to="/demenagement-garches" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Garches</Link>
+            <Link to="/demenagement-vaucresson" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display capitalize first-letter:uppercase">Déménagement Vaucresson</Link>
+            <Link to="/demenagement-le-chesnay-rocquencourt" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display capitalize first-letter:uppercase font-bold">Déménagement Le Chesnay-Rocquencourt</Link>
+            <Link to="/demenagement-marnes-la-coquette" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display capitalize first-letter:uppercase font-bold">Déménagement Marnes-la-Coquette</Link>
             <span className="text-slate-300 font-bold text-sm italic font-display uppercase font-display decoration-accent/20 uppercase underline">Déménagement La Défense</span>
           </div>
         </div>

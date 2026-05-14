@@ -534,6 +534,7 @@ const LocalChatillon: React.FC = () => {
               { name: "Bagneux", link: null },
               { name: "Fontenay", link: null },
               { name: "Vanves", link: "/demenagement-vanves" },
+              { name: "Vaucresson", link: "/demenagement-vaucresson" },
               { name: "Paris 14e", link: "/demenagement-paris-14" },
               { name: "Paris 15e", link: "/demenagement-paris-15" },
               { name: "Issy", link: "/demenagement-issy-les-moulineaux" },

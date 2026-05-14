@@ -449,7 +449,10 @@ const LocalMeudon: React.FC = () => {
             <Link to="/demenagement-clamart" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic text-slate-900">Déménagement Clamart</Link>
             <Link to="/demenagement-ile-de-france" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Île-de-France</Link>
             <Link to="/demenagement-sevres" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic">Déménagement Sèvres</Link>
-            <span className="text-slate-300 font-bold text-sm italic font-display uppercase">Déménagement Chaville</span>
+            <Link to="/demenagement-viroflay" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic">Déménagement Viroflay</Link>
+            <Link to="/demenagement-chaville" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic text-slate-900">Déménagement Chaville</Link>
+            <Link to="/demenagement-vaucresson" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic">Déménagement Vaucresson</Link>
+            <Link to="/demenagement-ville-d-avray" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic text-slate-800">Déménagement Ville-d’Avray</Link>
             <span className="text-slate-300 font-bold text-sm italic font-display uppercase font-display decoration-accent/20 uppercase underline underline-offset-2">Déménagement Vanves</span>
           </div>
         </div>

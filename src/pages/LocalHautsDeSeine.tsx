@@ -61,9 +61,14 @@ const LocalHautsDeSeine: React.FC = () => {
     { n: "Malakoff", d: "Organisation de déménagements pour particuliers et petites entreprises locales.", l: "/demenagement-malakoff" },
     { n: "Rueil-Malmaison", d: "Déménagements de grandes surfaces et transferts de sièges sociaux.", l: "/demenagement-rueil-malmaison" },
     { n: "Antony", d: "Accompagnement des logements familiaux dans le sud des Hauts-de-Seine.", l: "/demenagement-antony" },
+    { n: "Vaucresson", d: "Déménagements résidentiels et professionnels dans une ville calme et verdoyante du 92.", l: "/demenagement-vaucresson" },
+    { n: "Garches", d: "Déménagements de maisons et pavillons dans un cadre résidentiel privilégié.", l: "/demenagement-garches" },
+    { n: "Marnes-la-Coquette", d: "Service premium pour villas, maisons et propriétés d'exception dans un cadre calme.", l: "/demenagement-marnes-la-coquette" },
     { n: "Châtillon", d: "Déménagements résidentiels avec une étude précise du stationnement.", l: "/demenagement-chatillon" },
     { n: "Clamart", d: "Solutions pour maisons et appartements selon la configuration du quartier.", l: "/demenagement-clamart" },
     { n: "Sèvres", d: "Déménagements d'appartements et maisons avec une gestion des accès caractéristiques.", l: "/demenagement-sevres" },
+    { n: "Chaville", d: "Déménagements de particuliers et entreprises dans une ville résidentielle et familiale.", l: "/demenagement-chaville" },
+    { n: "Ville-d’Avray", d: "Déménagements résidentiels et professionnels dans un cadre verdoyant et privilégié.", l: "/demenagement-ville-d-avray" },
     { n: "Gennevilliers", d: "Logistique industrielle, transfert d'agences et déménagements de particuliers." }
   ];
 
@@ -538,6 +543,11 @@ const LocalHautsDeSeine: React.FC = () => {
             <Link to="/demenagement-meudon" className="hover:text-accent">Meudon</Link>
             <Link to="/demenagement-clamart" className="hover:text-accent">Clamart</Link>
             <Link to="/demenagement-sevres" className="hover:text-accent">Sèvres</Link>
+            <Link to="/demenagement-chaville" className="hover:text-accent">Chaville</Link>
+            <Link to="/demenagement-vaucresson" className="hover:text-accent">Vaucresson</Link>
+            <Link to="/demenagement-garches" className="hover:text-accent">Garches</Link>
+            <Link to="/demenagement-marnes-la-coquette" className="hover:text-accent italic">Marnes-la-Coquette</Link>
+            <Link to="/demenagement-ville-d-avray" className="hover:text-accent font-display uppercase italic">Ville-d’Avray</Link>
             <Link to="/demenagement-vanves" className="hover:text-accent">Vanves</Link>
             <Link to="/demenagement-chatillon" className="hover:text-accent">Châtillon</Link>
             <Link to="/demenagement-malakoff" className="hover:text-accent">Malakoff</Link>

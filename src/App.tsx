@@ -68,7 +68,14 @@ import LocalAntony from './pages/LocalAntony';
 import LocalChatenayMalabry from './pages/LocalChatenayMalabry';
 import LocalLePlessisRobinson from './pages/LocalLePlessisRobinson';
 import LocalVelizyVillacoublay from './pages/LocalVelizyVillacoublay';
+import LocalViroflay from './pages/LocalViroflay';
+import LocalChaville from './pages/LocalChaville';
+import LocalVilleDAvray from './pages/LocalVilleDAvray';
 import LocalVersailles from './pages/LocalVersailles';
+import LocalLeChesnayRocquencourt from './pages/LocalLeChesnayRocquencourt';
+import LocalVaucresson from './pages/LocalVaucresson';
+import LocalGarches from './pages/LocalGarches';
+import LocalMarnesLaCoquette from './pages/LocalMarnesLaCoquette';
 import LocalIDF from './pages/LocalIDF';
 import LocalHautsDeSeine from './pages/LocalHautsDeSeine';
 import LocalSeineSaintDenis from './pages/LocalSeineSaintDenis';
@@ -164,7 +171,14 @@ export default function App() {
                 <Route path="/demenagement-chatenay-malabry" element={<LocalChatenayMalabry />} />
                 <Route path="/demenagement-le-plessis-robinson" element={<LocalLePlessisRobinson />} />
                 <Route path="/demenagement-velizy-villacoublay" element={<LocalVelizyVillacoublay />} />
+                <Route path="/demenagement-viroflay" element={<LocalViroflay />} />
+                <Route path="/demenagement-chaville" element={<LocalChaville />} />
+                <Route path="/demenagement-ville-d-avray" element={<LocalVilleDAvray />} />
                 <Route path="/demenagement-versailles" element={<LocalVersailles />} />
+                <Route path="/demenagement-le-chesnay-rocquencourt" element={<LocalLeChesnayRocquencourt />} />
+                <Route path="/demenagement-vaucresson" element={<LocalVaucresson />} />
+                <Route path="/demenagement-garches" element={<LocalGarches />} />
+                <Route path="/demenagement-marnes-la-coquette" element={<LocalMarnesLaCoquette />} />
                 <Route path="/demenagement-issy-les-moulineaux" element={<LocalIssyLesMoulineaux />} />
                 <Route path="/demenagement-ile-de-france" element={<LocalIDF />} />
                 <Route path="/demenagement-hauts-de-seine" element={<LocalHautsDeSeine />} />

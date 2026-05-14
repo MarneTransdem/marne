@@ -298,7 +298,13 @@ const LocalIDF: React.FC = () => {
               { n: "Châtenay-Malabry", l: "/demenagement-chatenay-malabry" },
               { n: "Le Plessis-Robinson", l: "/demenagement-le-plessis-robinson" },
               { n: "Vélizy-Villacoublay", l: "/demenagement-velizy-villacoublay" },
+              { n: "Viroflay", l: "/demenagement-viroflay" },
+              { n: "Vaucresson", l: "/demenagement-vaucresson" },
+              { n: "Chaville", l: "/demenagement-chaville" },
+              { n: "Ville-d’Avray", l: "/demenagement-ville-d-avray" },
               { n: "Versailles", l: "/demenagement-versailles" },
+              { n: "Garches", l: "/demenagement-garches" },
+              { n: "Marnes-la-Coquette", l: "/demenagement-marnes-la-coquette" },
               { n: "Châtillon", l: "/demenagement-chatillon" },
               { n: "Malakoff", l: "/demenagement-malakoff" },
               { n: "Sèvres", l: "/demenagement-sevres" },
@@ -569,6 +575,13 @@ const LocalIDF: React.FC = () => {
             <Link to="/demenagement-chatenay-malabry" className="hover:text-accent transition-all">Châtenay</Link>
             <Link to="/demenagement-le-plessis-robinson" className="hover:text-accent transition-all">Le Plessis</Link>
             <Link to="/demenagement-velizy-villacoublay" className="hover:text-accent transition-all">Vélizy</Link>
+            <Link to="/demenagement-viroflay" className="hover:text-accent transition-all">Viroflay</Link>
+            <Link to="/demenagement-chaville" className="hover:text-accent transition-all">Chaville</Link>
+            <Link to="/demenagement-vaucresson" className="hover:text-accent transition-all">Vaucresson</Link>
+            <Link to="/demenagement-le-chesnay-rocquencourt" className="hover:text-accent transition-all italic">Le Chesnay</Link>
+            <Link to="/demenagement-garches" className="hover:text-accent transition-all">Garches</Link>
+            <Link to="/demenagement-marnes-la-coquette" className="hover:text-accent transition-all italic underline decoration-accent/30 font-bold">Marnes-la-Coquette</Link>
+            <Link to="/demenagement-ville-d-avray" className="hover:text-accent transition-all italic">Ville-d’Avray</Link>
             <Link to="/demenagement-versailles" className="hover:text-accent transition-all">Versailles</Link>
             <Link to="/demenagement-issy-les-moulineaux" className="hover:text-accent transition-all">Issy</Link>
             <Link to="/demenagement-hauts-de-seine" className="hover:text-accent transition-all">Hauts-de-Seine</Link>

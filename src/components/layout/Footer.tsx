@@ -80,6 +80,7 @@ export const Footer: React.FC = () => {
                   <Link to="/demenagement-seine-saint-denis" className="hover:text-accent transition-colors text-xs">Seine-Saint-Denis</Link>
                   <Link to="/demenagement-val-de-marne" className="hover:text-accent transition-colors text-xs">Val-de-Marne</Link>
                   <Link to="/demenagement-yvelines" className="hover:text-accent transition-colors text-xs">Yvelines</Link>
+                  <Link to="/demenagement-garches" className="hover:text-accent transition-colors text-xs font-bold">Garches</Link>
                   <Link to="/demenagement-essonne" className="hover:text-accent transition-colors text-xs">Essonne</Link>
                   <Link to="/demenagement-val-d-oise" className="hover:text-accent transition-colors text-xs">Val-d'Oise</Link>
                   <Link to="/demenagement-seine-et-marne" className="hover:text-accent transition-colors text-xs">Seine-et-Marne</Link>
