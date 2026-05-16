@@ -41,21 +41,27 @@ const LocalYvelines: React.FC = () => {
     { n: "Viroflay", d: "Services de déménagement résidentiels et professionnels adaptés aux accès locaux.", l: "/demenagement-viroflay" },
     { n: "Chaville", d: "Services de déménagement de maisons et résidences, adaptés aux contraintes locales d'accès.", l: "/demenagement-chaville" },
     { n: "Vélizy-Villacoublay", d: "Déménagements professionnels et résidentiels à proximité du pôle aéronautique.", l: "/demenagement-velizy-villacoublay" },
-    { n: "Saint-Germain-en-Laye", d: "Accompagnement des projets de déménagement résidentiels et pros dans l'ouest francilien.", l: null },
-    { n: "Mantes-la-Jolie", d: "Organisation des déménagements de particuliers et d'entreprises dans les Yvelines.", l: null },
-    { n: "Poissy", d: "Déménagements de logements familiaux, appartements, maisons et locaux professionnels.", l: null },
-    { n: "Sartrouville", d: "Déménagements entre Paris, les Yvelines, le Val-d'Oise et les communes voisines.", l: null },
-    { n: "Rambouillet", d: "Accompagnement des déménagements de particuliers et projets longue distance depuis le sud 78.", l: null },
-    { n: "Houilles", d: "Solutions de proximité pour les familles et actifs travaillant sur Paris ou La Défense.", l: null },
-    { n: "Maisons-Laffitte", d: "Déménagements premium pour pavillons, appartements de standing et résidences.", l: null },
-    { n: "Chatou", d: "Accompagnement des projets résidentiels dans les boucles de la Seine.", l: null },
-    { n: "Le Vésinet", d: "Expertise pour les déménagements de maisons et propriétés avec accès spécifiques.", l: null },
-    { n: "Conflans-Sainte-Honorine", d: "Déménagements pour particuliers et entreprises dans le confluent Seine-Oise.", l: null },
+    { n: "Saint-Germain-en-Laye", d: "Accompagnement des projets de déménagement résidentiels et pros dans l'ouest francilien.", l: "/demenagement-saint-germain-en-laye" },
+    { n: "Mantes-la-Jolie", d: "Organisation des déménagements de particuliers et d'entreprises dans les Yvelines.", l: "/demenagement-mantes-la-jolie" },
+    { n: "Poissy", d: "Déménagements de logements familiaux, appartements, maisons et locaux professionnels.", l: "/demenagement-poissy" },
+    { n: "Sartrouville", d: "Déménagements entre Paris, les Yvelines, le Val-d'Oise et les communes voisines.", l: "/demenagement-sartrouville" },
+    { n: "Rambouillet", d: "Accompagnement des déménagements de particuliers et projets longue distance depuis le sud 78.", l: "/demenagement-rambouillet" },
+    { n: "Houilles", d: "Solutions de proximité pour les familles et actifs travaillant sur Paris ou La Défense.", l: "/demenagement-houilles" },
+    { n: "Maisons-Laffitte", d: "Déménagements premium pour pavillons, appartements de standing et résidences.", l: "/demenagement-maisons-laffitte" },
+    { n: "Chatou", d: "Accompagnement des projets résidentiels dans les boucles de la Seine.", l: "/demenagement-chatou" },
+    { n: "Le Vésinet", d: "Expertise pour les déménagements de maisons et propriétés avec accès spécifiques.", l: "/demenagement-le-vesinet" },
+    { n: "Le Pecq", d: "Déménagements résidentiels entre bords de Seine et quartier Saint-Léonard.", l: "/demenagement-le-pecq" },
+    { n: "Marly-le-Roi", d: "Déménagement dans la ville royale, expertise vieux Marly et résidences forestières.", l: "/demenagement-marly-le-roi" },
+    { n: "Croissy-sur-Seine", d: "Déménagements de standing dans la ville des Impressionnistes, bords de Seine.", l: "/demenagement-croissy-sur-seine" },
+    { n: "Conflans-Sainte-Honorine", d: "Expertise pour les déménagements de particuliers et d'entreprises dans le confluent Seine-Oise.", l: "/demenagement-conflans-sainte-honorine" },
     { n: "Montigny-le-Bretonneux", d: "Transferts de bureaux et logements collectifs dans la zone de Saint-Quentin-en-Yvelines.", l: null },
-    { n: "Guyancourt", d: "Logistique adaptée aux quartiers d'affaires et résidences de standing.", l: null },
+    { n: "Guyancourt", d: "Logistique adaptée aux quartiers d'affaires et résidences de standing.", l: "/demenagement-guyancourt" },
     { n: "Vaucresson", d: "Déménagements résidentiels entre les Yvelines et les Hauts-de-Seine.", l: "/demenagement-vaucresson" },
-    { n: "Plaisir", d: "Accompagnement des déménagements de maisons et logements familiaux en zone commerciale.", l: null },
-    { n: "Le Chesnay-Rocquencourt", d: "Services pour appartements et pavillons proche de Versailles.", l: "/demenagement-le-chesnay-rocquencourt" }
+    { n: "Plaisir", d: "Accompagnement des déménagements de maisons et logements familiaux en zone commerciale.", l: "/demenagement-plaisir" },
+    { n: "Le Chesnay-Rocquencourt", d: "Services pour appartements et pavillons proche de Versailles.", l: "/demenagement-le-chesnay-rocquencourt" },
+    { n: "Bougival", d: "Déménagements résidentiels et professionnels en bord de Seine et ouest francilien.", l: "/demenagement-bougival" },
+    { n: "Louveciennes", d: "Services de déménagement pour résidences de standing et pavillons familiaux.", l: "/demenagement-louveciennes" },
+    { n: "La Celle-Saint-Cloud", d: "Déménagements résidentiels et familiaux dans un cadre verdoyant.", l: "/demenagement-la-celle-saint-cloud" }
   ];
 
   return (
@@ -524,7 +530,15 @@ const LocalYvelines: React.FC = () => {
             <Link to="/demenagement-paris-16" className="hover:text-accent uppercase italic italic">Paris 16e</Link>
             <Link to="/demenagement-hauts-de-seine" className="hover:text-accent uppercase italic italic">Hauts-de-Seine</Link>
             <Link to="/demenagement-val-d-oise" className="hover:text-accent uppercase italic italic">Val-d'Oise</Link>
-            {["Versailles", "Saint-Germain", "Mantes", "Poissy", "Sartrouville", "Rambouillet"].map(c => <span key={c} className="cursor-default uppercase italic italic">{c}</span>)}
+            <Link to="/demenagement-versailles" className="hover:text-accent uppercase italic italic">Versailles</Link>
+            <Link to="/demenagement-saint-germain-en-laye" className="hover:text-accent uppercase italic italic">Saint-Germain</Link>
+            <Link to="/demenagement-poissy" className="hover:text-accent uppercase italic italic">Poissy</Link>
+            <Link to="/demenagement-sartrouville" className="hover:text-accent uppercase italic italic">Sartrouville</Link>
+            <Link to="/demenagement-rambouillet" className="hover:text-accent uppercase italic italic">Rambouillet</Link>
+            <Link to="/demenagement-mantes-la-jolie" className="hover:text-accent uppercase italic italic">Mantes-la-Jolie</Link>
+            <Link to="/demenagement-plaisir" className="hover:text-accent uppercase italic italic">Plaisir</Link>
+            <Link to="/demenagement-conflans-sainte-honorine" className="hover:text-accent uppercase italic italic">Conflans-Sainte-Honorine</Link>
+            {["Limay", "Buchelay"].map(c => <span key={c} className="cursor-default uppercase italic italic">{c}</span>)}
           </div>
         </div>
       </section>

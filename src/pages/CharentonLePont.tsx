@@ -292,6 +292,7 @@ const LocalMesh = () => (
     <div className="container mx-auto px-4">
       <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-center">
         <Link to="/demenagement-vincennes" className="text-slate-400 hover:text-accent font-bold text-xs transition-colors italic uppercase">Déménagement Vincennes</Link>
+        <Link to="/demenagement-nogent-sur-marne" className="text-slate-400 hover:text-accent font-bold text-xs transition-colors italic uppercase">Déménagement Nogent-sur-Marne</Link>
         <Link to="/demenagement-saint-mande" className="text-slate-400 hover:text-accent font-bold text-xs transition-colors italic uppercase">Déménagement Saint-Mandé</Link>
         <Link to="/demenagement-saint-maur-des-fosses" className="text-slate-400 hover:text-accent font-bold text-xs transition-colors italic uppercase">Déménagement Saint-Maur</Link>
         <Link to="/demenagement-montreuil" className="text-slate-400 hover:text-accent font-bold text-xs transition-colors italic uppercase">Déménagement Montreuil</Link>

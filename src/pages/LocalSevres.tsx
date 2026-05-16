@@ -34,7 +34,7 @@ const LocalSevres: React.FC = () => {
     },
     {
       q: "Marne Transdem intervient-elle à Sèvres et dans les villes proches ?",
-      a: "Oui, Marne Transdem accompagne les projets de déménagement à Sèvres et dans les secteurs proches comme Saint-Cloud, Meudon, Boulogne-Billancourt, Ville-d'Avray, Chaville, Viroflay, Issy-les-Moulineaux, Paris 16e et plus largement dans les Hauts-de-Seine selon les besoins du projet."
+      a: "Oui, Marne Transdem accompagne les projets de déménagement à Sèvres et dans les secteurs proches comme Saint-Cloud, Meudon, Boulogne-Billancourt, Ville-d'Avray, Le Chesnay-Rocquencourt, Chaville, Viroflay, Issy-les-Moulineaux, Paris 16e et plus largement dans les Hauts-de-Seine selon les besoins du projet."
     },
     {
       q: "Peut-on demander un monte-meuble à Sèvres ?",
@@ -136,7 +136,7 @@ const LocalSevres: React.FC = () => {
               </h2>
               <div className="space-y-6 text-lg text-slate-600 leading-relaxed font-medium">
                 <p>
-                  Sèvres est une ville résidentielle et familiale emblématique des Hauts-de-Seine, idéalement située à proximité de Saint-Cloud, Meudon, Boulogne-Billancourt, Ville-d'Avray, Chaville, Viroflay et Issy-les-Moulineaux. Sa proximité avec Paris 16e en fait un secteur stratégique pour les particuliers et les entreprises.
+                  Sèvres est une ville résidentielle et familiale emblématique des Hauts-de-Seine, idéalement située à proximité de Saint-Cloud, Meudon, Boulogne-Billancourt, Ville-d'Avray, Le Chesnay-Rocquencourt, Chaville, Viroflay et Issy-les-Moulineaux. Sa proximité avec Paris 16e en fait un secteur stratégique pour les particuliers et les entreprises.
                 </p>
                 <p>
                   Marne Transdem vous accompagne pour votre projet à Sèvres, qu'il s'agisse d'un appartement en résidence avec étages, d'un studio, d'une maison familiale ou de locaux professionnels. Nous adaptons notre logistique aux accès parfois pentus ou étroits de la commune (halls, ascenseurs, escaliers, parkings, garages, cours ou jardins).
@@ -539,6 +539,7 @@ const LocalSevres: React.FC = () => {
               { name: "Chaville", link: "/demenagement-chaville" },
               { name: "Viroflay", link: "/demenagement-viroflay" },
               { name: "Vaucresson", link: "/demenagement-vaucresson" },
+              { name: "Louveciennes", link: "/demenagement-louveciennes" },
               { name: "Versailles", link: "/demenagement-versailles" },
               { name: "Issy", link: "/demenagement-issy-les-moulineaux" },
               { name: "Clamart", link: "/demenagement-clamart" },
@@ -665,6 +666,8 @@ const LocalSevres: React.FC = () => {
                   <li><Link to="/demenagement-saint-cloud" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">À Saint-Cloud (proche)</Link></li>
                   <li><Link to="/demenagement-meudon" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">À Meudon (proche)</Link></li>
                   <li><Link to="/demenagement-boulogne-billancourt" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">À Boulogne (proche)</Link></li>
+                  <li><Link to="/demenagement-louveciennes" className="text-slate-400 hover:text-white transition-colors text-sm font-medium font-bold text-accent">À Louveciennes (proche)</Link></li>
+                  <li><Link to="/demenagement-le-chesnay-rocquencourt" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">À Le Chesnay-Rocquencourt (proche)</Link></li>
                   <li><Link to="/contact" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Demande de contact</Link></li>
                 </ul>
              </div>

@@ -451,8 +451,11 @@ const LocalSaintCloud: React.FC = () => {
             <Link to="/demenagement-ville-d-avray" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic text-slate-800">Déménagement Ville-d’Avray</Link>
             <Link to="/demenagement-vaucresson" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic">Déménagement Vaucresson</Link>
             <Link to="/demenagement-viroflay" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic">Déménagement Viroflay</Link>
+            <Link to="/demenagement-louveciennes" className="text-slate-400 hover:text-accent font-black text-sm transition-colors border-b border-accent/20 hover:border-accent font-display uppercase italic font-bold text-accent">Déménagement Louveciennes</Link>
+            <Link to="/demenagement-bougival" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic text-slate-800">Déménagement Bougival</Link>
             <Link to="/demenagement-garches" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic">Déménagement Garches</Link>
             <Link to="/demenagement-le-chesnay-rocquencourt" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic font-bold">Déménagement Le Chesnay-Rocquencourt</Link>
+            <Link to="/demenagement-louveciennes" className="text-slate-400 hover:text-accent font-black text-sm transition-colors border-b border-accent/20 hover:border-accent font-display uppercase italic font-bold text-accent">Déménagement Louveciennes</Link>
             <Link to="/demenagement-marnes-la-coquette" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic font-bold">Déménagement Marnes-la-Coquette</Link>
           </div>
         </div>

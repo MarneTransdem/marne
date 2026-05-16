@@ -33,7 +33,7 @@ const LocalVilleDAvray: React.FC = () => {
     },
     {
       q: "Marne Transdem intervient-elle à Ville-d’Avray et dans les villes proches ?",
-      a: "Oui, Marne Transdem accompagne les projets de déménagement à Ville-d’Avray et dans les secteurs proches comme Saint-Cloud, Sèvres, Chaville, Versailles, Viroflay, Vaucresson, Garches, Marnes-la-Coquette, Boulogne-Billancourt et plus largement en Île-de-France selon les besoins du projet."
+      a: "Oui, Marne Transdem accompagne les projets de déménagement à Ville-d’Avray et dans les secteurs proches comme Saint-Cloud, Sèvres, Chaville, Versailles, Viroflay, Vaucresson, Garches, Marnes-la-Coquette, Le Chesnay-Rocquencourt, Boulogne-Billancourt et plus largement en Île-de-France selon les besoins du projet."
     },
     {
       q: "Peut-on demander un monte-meuble à Ville-d’Avray ?",
@@ -135,7 +135,7 @@ const LocalVilleDAvray: React.FC = () => {
               </h2>
               <div className="space-y-6 text-lg text-slate-600 leading-relaxed font-medium opacity-80 italic font-display">
                 <p>
-                  Ville-d’Avray est une ville résidentielle, familiale et verdoyante des Hauts-de-Seine, idéalement située à proximité de Saint-Cloud, Sèvres, Chaville, Versailles et Viroflay. Ce cadre privilégié de l'ouest parisien attire de nombreuses familles et cadres en quête de calme et de nature.
+                  Ville-d’Avray est une ville résidentielle, familiale et verdoyante des Hauts-de-Seine, idéalement située à proximité de Saint-Cloud, Sèvres, Chaville, Versailles, Le Chesnay-Rocquencourt et Viroflay. Ce cadre privilégié de l'ouest parisien attire de nombreuses familles et cadres en quête de calme et de nature.
                 </p>
                 <p>
                   Marne Transdem accompagne les déménagements à Ville-d’Avray pour les particuliers et les entreprises. Qu'il s'agisse de maisons avec jardins, d'appartements en résidence ou de studios, nous maîtrisons les contraintes d'accès locales : rues arborées, étages sans ascenseur, parkings et cours privées.
@@ -529,6 +529,8 @@ const LocalVilleDAvray: React.FC = () => {
               { name: "Saint-Cloud", link: "/demenagement-saint-cloud" },
               { name: "Sèvres", link: "/demenagement-sevres" },
               { name: "Chaville", link: "/demenagement-chaville" },
+              { name: "Bougival", link: "/demenagement-bougival" },
+              { name: "Louveciennes", link: "/demenagement-louveciennes" },
               { name: "Versailles", link: "/demenagement-versailles" },
               { name: "Viroflay", link: "/demenagement-viroflay" },
               { name: "Vaucresson", link: "/demenagement-vaucresson" },
@@ -656,6 +658,7 @@ const LocalVilleDAvray: React.FC = () => {
                 <h4 className="text-accent text-[10px] uppercase font-black tracking-widest italic tracking-[0.2em] opacity-80 shadow-sm shadow-accent/40 italic font-display shadow-sm italic underline shadow-sm italic">Villes Limitrophes</h4>
                 <ul className="space-y-4 shadow-sm italic shadow-brand-900/20 font-display italic shadow-sm font-display italic font-display shadow-sm font-display shadow-sm font-display italic shadow-sm italic font-display italic shadow-sm font-display italic">
                   <li><Link to="/demenagement-saint-cloud" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none">Saint-Cloud</Link></li>
+                  <li><Link to="/demenagement-louveciennes" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none underline italic font-black">Louveciennes</Link></li>
                   <li><Link to="/demenagement-sevres" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none">Sèvres</Link></li>
                   <li><Link to="/demenagement-chaville" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none italic">Chaville</Link></li>
                   <li><Link to="/contact" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none italic shadow-sm font-display underline-offset-4 italic shadow-sm underline font-display">Contact</Link></li>

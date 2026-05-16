@@ -415,6 +415,7 @@ const LongueDistance: React.FC = () => {
             <Link to="/demenagement-seine-saint-denis" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent italic">Seine-Saint-Denis</Link>
             <Link to="/demenagement-val-de-marne" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent italic">Val-de-Marne</Link>
             <Link to="/demenagement-yvelines" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent italic">Yvelines</Link>
+            <Link to="/demenagement-mantes-la-jolie" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent italic">Mantes-la-Jolie</Link>
             <Link to="/demenagement-essonne" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent italic">Essonne</Link>
             <Link to="/demenagement-val-d-oise" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent italic">Val-d'Oise</Link>
             <Link to="/demenagement-seine-et-marne" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent italic">Seine-et-Marne</Link>

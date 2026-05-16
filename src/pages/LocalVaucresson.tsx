@@ -531,9 +531,13 @@ const LocalVaucresson: React.FC = () => {
               { name: "Marnes-la-Coquette", link: "/demenagement-marnes-la-coquette" },
               { name: "Ville-d’Avray", link: "/demenagement-ville-d-avray" },
               { name: "Saint-Cloud", link: "/demenagement-saint-cloud" },
+              { name: "Le Vésinet", link: "/demenagement-le-vesinet" },
               { name: "Versailles", link: "/demenagement-versailles" },
-              { name: "La Celle-Saint-Cloud", link: null },
-              { name: "Bougival", link: null },
+              { name: "La Celle-Saint-Cloud", link: "/demenagement-la-celle-saint-cloud" },
+              { name: "Louveciennes", link: "/demenagement-louveciennes" },
+              { name: "Bougival", link: "/demenagement-bougival" },
+              { name: "Marly-le-Roi", link: "/demenagement-marly-le-roi" },
+              { name: "Le Pecq", link: "/demenagement-le-pecq" },
               { name: "Rueil-Malmaison", link: "/demenagement-rueil-malmaison" },
               { name: "Le Chesnay", link: "/demenagement-le-chesnay-rocquencourt" },
               { name: "92 / HDS", link: "/demenagement-hauts-de-seine" },
@@ -638,6 +642,7 @@ const LocalVaucresson: React.FC = () => {
                 <h4 className="text-accent text-[10px] uppercase font-black tracking-widest italic tracking-[0.2em] opacity-80 shadow-sm shadow-accent/40 italic font-display shadow-sm italic shadow-sm underline italic">Déménager au 92</h4>
                 <ul className="space-y-4 shadow-sm italic shadow-brand-900/20 font-display italic shadow-sm font-display shadow-sm italic font-display shadow-sm italic shadow-sm font-display italic shadow-sm font-display">
                   <li><Link to="/demenagement-ville-d-avray" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display italic shadow-sm underline-none underline italic">Ville-d’Avray</Link></li>
+                  <li><Link to="/demenagement-louveciennes" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display italic shadow-sm underline-none underline italic font-black">Louveciennes</Link></li>
                   <li><Link to="/demenagement-saint-cloud" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display italic shadow-sm underline-none italic">Saint-Cloud</Link></li>
                   <li><Link to="/demenagement-marnes-la-coquette" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display italic shadow-sm underline-none italic font-bold">Marnes-la-Coquette</Link></li>
                   <li><Link to="/demenagement-rueil-malmaison" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display italic shadow-sm underline-none italic">Rueil-Malmaison</Link></li>

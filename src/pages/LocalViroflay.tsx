@@ -528,6 +528,7 @@ const LocalViroflay: React.FC = () => {
             {[
               { name: "Versailles", link: "/demenagement-versailles" },
               { name: "Meudon", link: "/demenagement-meudon" },
+              { name: "Louveciennes", link: "/demenagement-louveciennes" },
               { name: "Vélizy", link: "/demenagement-velizy-villacoublay" },
               { name: "Sèvres", link: "/demenagement-sevres" },
               { name: "Chaville", link: "/demenagement-chaville" },
@@ -656,6 +657,7 @@ const LocalViroflay: React.FC = () => {
                 <h4 className="text-accent text-[10px] uppercase font-black tracking-widest italic tracking-[0.2em] opacity-80 shadow-sm shadow-accent/40 italic font-display shadow-sm italic underline shadow-sm italic">Villes Proches</h4>
                 <ul className="space-y-4 shadow-sm italic shadow-brand-900/20 font-display italic shadow-sm font-display italic font-display shadow-sm font-display shadow-sm font-display italic shadow-sm italic font-display italic shadow-sm font-display italic">
                   <li><Link to="/demenagement-versailles" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none">Versailles</Link></li>
+                  <li><Link to="/demenagement-louveciennes" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none underline italic font-black">Louveciennes</Link></li>
                   <li><Link to="/demenagement-velizy-villacoublay" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none">Vélizy</Link></li>
                   <li><Link to="/demenagement-meudon" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none italic">Meudon</Link></li>
                   <li><Link to="/contact" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none italic shadow-sm font-display underline-offset-4 italic shadow-sm underline font-display">Contact</Link></li>

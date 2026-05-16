@@ -33,7 +33,7 @@ const LocalChaville: React.FC = () => {
     },
     {
       q: "Marne Transdem intervient-elle à Chaville et dans les villes proches ?",
-      a: "Oui, Marne Transdem accompagne les projets de déménagement à Chaville et dans les secteurs proches comme Sèvres, Meudon, Viroflay, Ville-d’Avray, Saint-Cloud, Vélizy-Villacoublay, Versailles, Boulogne-Billancourt et plus largement en Île-de-France selon les besoins du projet."
+      a: "Oui, Marne Transdem accompagne les projets de déménagement à Chaville et dans les secteurs proches comme Sèvres, Meudon, Viroflay, Ville-d’Avray, Saint-Cloud, Vélizy-Villacoublay, Versailles, Le Chesnay-Rocquencourt, Boulogne-Billancourt et plus largement en Île-de-France selon les besoins du projet."
     },
     {
       q: "Peut-on demander un monte-meuble à Chaville ?",
@@ -135,7 +135,7 @@ const LocalChaville: React.FC = () => {
               </h2>
               <div className="space-y-6 text-lg text-slate-600 leading-relaxed font-medium opacity-80 italic font-display">
                 <p>
-                  Chaville est une ville résidentielle et familiale prisée des Hauts-de-Seine, idéalement située entre Sèvres, Meudon, Viroflay et Versailles. Son cadre de vie, à la lisière de la forêt, en fait un point de passage stratégique entre Paris ouest et les Yvelines.
+                  Chaville est une ville résidentielle et familiale prisée des Hauts-de-Seine, idéalement située entre Sèvres, Meudon, Viroflay, Le Chesnay-Rocquencourt et Versailles. Son cadre de vie, à la lisière de la forêt, en fait un point de passage stratégique entre Paris ouest et les Yvelines.
                 </p>
                 <p>
                   Marne Transdem accompagne les déménagements à Chaville pour les particuliers et les entreprises. Qu'il s'agisse de maisons familiales, d'appartements en résidence ou de studios, nous maîtrisons les contraintes locales : accès d'immeubles avec ascenseurs ou escaliers complexes, zones de stationnement et rues résidentielles.
@@ -530,10 +530,12 @@ const LocalChaville: React.FC = () => {
               { name: "Meudon", link: "/demenagement-meudon" },
               { name: "Versailles", link: "/demenagement-versailles" },
               { name: "Viroflay", link: "/demenagement-viroflay" },
+              { name: "Louveciennes", link: "/demenagement-louveciennes" },
               { name: "Vaucresson", link: "/demenagement-vaucresson" },
               { name: "Vélizy", link: "/demenagement-velizy-villacoublay" },
               { name: "Ville-d’Avray", link: "/demenagement-ville-d-avray" },
               { name: "Saint-Cloud", link: "/demenagement-saint-cloud" },
+              { name: "Bougival", link: "/demenagement-bougival" },
               { name: "Garches", link: "/demenagement-garches" },
               { name: "Le Chesnay", link: "/demenagement-le-chesnay-rocquencourt" },
               { name: "Marnes-la-Coquette", link: "/demenagement-marnes-la-coquette" },
@@ -660,6 +662,8 @@ const LocalChaville: React.FC = () => {
                   <li><Link to="/demenagement-sevres" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none">Sèvres</Link></li>
                   <li><Link to="/demenagement-meudon" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none">Meudon</Link></li>
                   <li><Link to="/demenagement-viroflay" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none italic">Viroflay</Link></li>
+                  <li><Link to="/demenagement-louveciennes" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none italic text-accent font-bold">Louveciennes</Link></li>
+                  <li><Link to="/demenagement-nogent-sur-marne" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none italic">Nogent-sur-Marne</Link></li>
                   <li><Link to="/contact" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none italic shadow-sm font-display underline-offset-4 italic shadow-sm underline font-display">Contact</Link></li>
                 </ul>
              </div>

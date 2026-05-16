@@ -535,9 +535,18 @@ const LocalVersailles: React.FC = () => {
               { name: "Vaucresson", link: "/demenagement-vaucresson" },
               { name: "Viroflay", link: "/demenagement-viroflay" },
               { name: "Marnes-la-Coquette", link: "/demenagement-marnes-la-coquette" },
+              { name: "Louveciennes", link: "/demenagement-louveciennes" },
+              { name: "Le Vésinet", link: "/demenagement-le-vesinet" },
               { name: "Le Chesnay", link: "/demenagement-le-chesnay-rocquencourt" },
+              { name: "La Celle-Saint-Cloud", link: "/demenagement-la-celle-saint-cloud" },
+              { name: "Le Pecq", link: "/demenagement-le-pecq" },
+              { name: "Bougival", link: "/demenagement-bougival" },
               { name: "Boulogne", link: "/demenagement-boulogne-billancourt" },
+              { name: "Nogent-sur-Marne", link: "/demenagement-nogent-sur-marne" },
               { name: "Rueil", link: "/demenagement-rueil-malmaison" },
+              { name: "Rambouillet", link: "/demenagement-rambouillet" },
+              { name: "Mantes-la-Jolie", link: "/demenagement-mantes-la-jolie" },
+              { name: "Plaisir", link: "/demenagement-plaisir" },
               { name: "78 / Yvelines", link: "/demenagement-yvelines" },
               { name: "92 / HDS", link: "/demenagement-hauts-de-seine" },
               { name: "IDF / Région", link: "/demenagement-ile-de-france" }
@@ -659,8 +668,10 @@ const LocalVersailles: React.FC = () => {
                 <h4 className="text-accent text-[10px] uppercase font-black tracking-widest italic tracking-[0.2em] opacity-80 shadow-sm shadow-accent/40 italic font-display shadow-sm italic underline shadow-sm italic">Villes Proches</h4>
                 <ul className="space-y-4 shadow-sm italic shadow-brand-900/20 font-display italic shadow-sm font-display italic font-display shadow-sm font-display shadow-sm font-display italic shadow-sm italic font-display italic shadow-sm">
                   <li><Link to="/demenagement-velizy-villacoublay" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none">Vélizy-Villacoublay</Link></li>
+                  <li><Link to="/demenagement-louveciennes" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none">Louveciennes</Link></li>
                   <li><Link to="/demenagement-meudon" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none">Meudon</Link></li>
                   <li><Link to="/demenagement-boulogne-billancourt" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none italic">Boulogne</Link></li>
+                  <li><Link to="/demenagement-guyancourt" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm underline-none">Guyancourt</Link></li>
                   <li><Link to="/contact" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none italic shadow-sm font-display underline-offset-4 italic shadow-sm underline font-display">Contact</Link></li>
                 </ul>
              </div>

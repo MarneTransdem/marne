@@ -441,12 +441,15 @@ const LocalSuresnes: React.FC = () => {
           <div className="flex flex-wrap justify-center gap-x-12 gap-y-6 text-center text-slate-500 font-display uppercase italic">
             <Link to="/demenagement-puteaux" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Puteaux</Link>
             <Link to="/demenagement-nanterre" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Nanterre</Link>
+            <Link to="/demenagement-nogent-sur-marne" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Nogent-sur-Marne</Link>
             <Link to="/demenagement-boulogne-billancourt" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Boulogne-Billancourt</Link>
             <Link to="/demenagement-courbevoie" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Courbevoie</Link>
             <Link to="/demenagement-paris-16" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Paris 16e</Link>
             <Link to="/demenagement-hauts-de-seine" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Hauts-de-Seine</Link>
             <Link to="/demenagement-ile-de-france" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Île-de-France</Link>
             <Link to="/demenagement-saint-cloud" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Saint-Cloud</Link>
+            <Link to="/demenagement-louveciennes" className="text-slate-400 hover:text-accent font-black text-sm transition-colors border-b border-accent/20 hover:border-accent italic">Déménagement Louveciennes</Link>
+            <Link to="/demenagement-bougival" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Bougival</Link>
             <Link to="/demenagement-rueil-malmaison" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Rueil-Malmaison</Link>
             <Link to="/demenagement-vaucresson" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Vaucresson</Link>
             <span className="text-slate-300 font-bold text-sm italic font-display uppercase font-display decoration-accent/20 uppercase underline">Déménagement La Défense</span>

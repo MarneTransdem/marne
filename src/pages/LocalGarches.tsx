@@ -34,7 +34,7 @@ const LocalGarches: React.FC = () => {
     },
     {
       q: "Marne Transdem intervient-elle à Garches et dans les villes proches ?",
-      a: "Oui, Marne Transdem accompagne les projets de déménagement à Garches et dans les secteurs proches comme Saint-Cloud, Vaucresson, Marnes-la-Coquette, Ville-d’Avray, Rueil-Malmaison, Suresnes, La Celle-Saint-Cloud, Bougival, Boulogne-Billancourt et plus largement en Île-de-France selon les besoins du projet."
+      a: "Oui, Marne Transdem accompagne les projets de déménagement à Garches et dans les secteurs proches comme Saint-Cloud, Vaucresson, Marnes-la-Coquette, Ville-d’Avray, Le Chesnay-Rocquencourt, Rueil-Malmaison, Suresnes, La Celle-Saint-Cloud, Bougival, Boulogne-Billancourt et plus largement en Île-de-France selon les besoins du projet."
     },
     {
       q: "Peut-on demander un monte-meuble à Garches ?",
@@ -136,7 +136,7 @@ const LocalGarches: React.FC = () => {
               </h2>
               <div className="space-y-6 text-lg text-slate-600 leading-relaxed font-medium opacity-80 italic font-display">
                 <p>
-                  Garches est une ville résidentielle, familiale et recherchée des Hauts-de-Seine, offrant un cadre de vie privilégié en Île-de-France. Située à proximité immédiate de Saint-Cloud, Vaucresson, Marnes-la-Coquette et Ville-d’Avray, elle est également proche de Rueil-Malmaison, Suresnes, La Celle-Saint-Cloud et Bougival, tout en restant facilement accessible depuis Paris ouest.
+                  Garches est une ville résidentielle, familiale et recherchée des Hauts-de-Seine, offrant un cadre de vie privilégié en Île-de-France. Située à proximité immédiate de Saint-Cloud, Vaucresson, Marnes-la-Coquette, Le Chesnay-Rocquencourt et Ville-d’Avray, elle est également proche de Rueil-Malmaison, Suresnes, La Celle-Saint-Cloud et Bougival, tout en restant facilement accessible depuis Paris ouest.
                 </p>
                 <p>
                   Marne Transdem accompagne les déménagements à Garches pour les particuliers et les entreprises. Qu'il s'agisse de maisons spacieuses, de pavillons individuels, d'appartements familiaux ou de studios en résidence, nous maîtrisons les contraintes d'accès locales. Nous organisons également les transferts professionnels pour les bureaux, commerces, cabinets professionnels et professions libérales.
@@ -536,11 +536,15 @@ const LocalGarches: React.FC = () => {
               { name: "Vaucresson", link: "/demenagement-vaucresson" },
               { name: "Marnes-la-Coquette", link: "/demenagement-marnes-la-coquette" },
               { name: "Ville-d’Avray", link: "/demenagement-ville-d-avray" },
+              { name: "Le Vésinet", link: "/demenagement-le-vesinet" },
               { name: "Rueil-Malmaison", link: "/demenagement-rueil-malmaison" },
               { name: "Suresnes", link: "/demenagement-suresnes" },
               { name: "Le Chesnay", link: "/demenagement-le-chesnay-rocquencourt" },
-              { name: "La Celle-Saint-Cloud", link: null },
-              { name: "Bougival", link: null },
+              { name: "La Celle-Saint-Cloud", link: "/demenagement-la-celle-saint-cloud" },
+              { name: "Louveciennes", link: "/demenagement-louveciennes" },
+              { name: "Bougival", link: "/demenagement-bougival" },
+              { name: "Marly-le-Roi", link: "/demenagement-marly-le-roi" },
+              { name: "Le Pecq", link: "/demenagement-le-pecq" },
               { name: "Boulogne", link: "/demenagement-boulogne-billancourt" },
               { name: "Levallois", link: "/demenagement-levallois-perret" },
               { name: "Versailles", link: "/demenagement-versailles" },
@@ -646,6 +650,7 @@ const LocalGarches: React.FC = () => {
                 <h4 className="text-accent text-[10px] uppercase font-black tracking-widest italic tracking-[0.2em] opacity-80 shadow-sm shadow-accent/40 italic font-display shadow-sm italic shadow-sm underline italic">Déménager au 92</h4>
                 <ul className="space-y-4 shadow-sm italic shadow-brand-900/20 font-display italic shadow-sm font-display shadow-sm italic font-display shadow-sm italic shadow-sm font-display italic shadow-sm font-display">
                   <li><Link to="/demenagement-saint-cloud" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display italic shadow-sm underline-none underline italic">Saint-Cloud</Link></li>
+                  <li><Link to="/demenagement-louveciennes" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display italic shadow-sm underline-none italic">Louveciennes</Link></li>
                   <li><Link to="/demenagement-vaucresson" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display italic shadow-sm underline-none italic">Vaucresson</Link></li>
                   <li><Link to="/demenagement-marnes-la-coquette" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display italic shadow-sm underline-none italic font-bold">Marnes-la-Coquette</Link></li>
                   <li><Link to="/demenagement-ville-d-avray" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display italic shadow-sm underline-none italic">Ville-d’Avray</Link></li>
@@ -666,6 +671,7 @@ const LocalGarches: React.FC = () => {
                 <ul className="space-y-4 shadow-sm italic shadow-brand-900/20 font-display italic shadow-sm font-display italic font-display shadow-sm font-display shadow-sm font-display italic shadow-sm italic font-display italic shadow-sm font-display italic">
                   <li><Link to="/devis-demenagement" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none underline italic">Demander un devis</Link></li>
                   <li><Link to="/demenagement-ile-de-france" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none italic">Île-de-France</Link></li>
+                  <li><Link to="/demenagement-nogent-sur-marne" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none italic">Nogent-sur-Marne (proche)</Link></li>
                   <li><Link to="/contact" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic underline-none italic shadow-sm font-display underline-offset-4 italic shadow-sm underline font-display">Contactez-nous</Link></li>
                 </ul>
              </div>

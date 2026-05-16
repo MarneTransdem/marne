@@ -511,6 +511,8 @@ const LocalValDOise: React.FC = () => {
             <Link to="/demenagement-seine-saint-denis" className="hover:text-accent uppercase italic italic italic transition-all italic">Seine-Saint-Denis</Link>
             <Link to="/demenagement-seine-et-marne" className="hover:text-accent uppercase italic italic italic transition-all italic">Seine-et-Marne</Link>
             <Link to="/demenagement-yvelines" className="hover:text-accent uppercase italic italic italic transition-all italic transition-all italic underline decoration-accent/10 transition-all font-sans italic">Yvelines</Link>
+            <Link to="/demenagement-houilles" className="hover:text-accent uppercase italic italic italic transition-all italic transition-all italic underline decoration-accent/10 transition-all font-sans italic">Houilles</Link>
+            <Link to="/demenagement-conflans-sainte-honorine" className="hover:text-accent uppercase italic italic italic transition-all italic transition-all italic underline decoration-accent/10 transition-all font-sans italic">Conflans-Sainte-Honorine</Link>
             {["Argenteuil", "Cergy", "Pontoise", "Sarcelles", "FRANCONVILLE", "BEZONS"].map(c => <span key={c} className="cursor-default uppercase italic italic italic italic transition-all italic transition-all italic transition-all italic transition-all italic transition-all italic transition-all">{c}</span>)}
           </div>
         </div>

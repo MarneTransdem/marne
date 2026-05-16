@@ -657,6 +657,7 @@ const LocalBagneux: React.FC = () => {
                   <li><Link to="/demenagement-montrouge" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic italic">Montrouge</Link></li>
                   <li><Link to="/demenagement-chatillon" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic italic">Châtillon</Link></li>
                   <li><Link to="/demenagement-clamart" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic">Clamart</Link></li>
+                  <li><Link to="/demenagement-nogent-sur-marne" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic">Nogent-sur-Marne</Link></li>
                   <li><Link to="/contact" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic italic font-display">Nous contacter</Link></li>
                 </ul>
              </div>

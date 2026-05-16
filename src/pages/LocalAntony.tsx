@@ -684,6 +684,7 @@ const LocalAntony: React.FC = () => {
                   <li><Link to="/demenagement-sceaux" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm">Sceaux</Link></li>
                   <li><Link to="/demenagement-bourg-la-reine" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm">Bourg-la-Reine</Link></li>
                   <li><Link to="/demenagement-bagneux" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm">Bagneux</Link></li>
+                  <li><Link to="/demenagement-nogent-sur-marne" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm">Nogent-sur-Marne</Link></li>
                   <li><Link to="/contact" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm">Contact direct</Link></li>
                 </ul>
              </div>

@@ -441,11 +441,13 @@ const LocalIssyLesMoulineaux: React.FC = () => {
             <Link to="/demenagement-ile-de-france" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display italic">Déménagement Île-de-France</Link>
             <Link to="/demenagement-puteaux" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display italic">Déménagement Puteaux</Link>
             <Link to="/demenagement-nanterre" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display italic">Déménagement Nanterre</Link>
+            <Link to="/demenagement-nogent-sur-marne" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Nogent-sur-Marne</Link>
             <Link to="/demenagement-suresnes" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display italic">Déménagement Suresnes</Link>
             <Link to="/demenagement-rueil-malmaison" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display italic">Déménagement Rueil-Malmaison</Link>
             <Link to="/demenagement-vaucresson" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display italic">Déménagement Vaucresson</Link>
             <Link to="/demenagement-saint-cloud" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display italic">Déménagement Saint-Cloud</Link>
             <Link to="/demenagement-meudon" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display italic">Déménagement Meudon</Link>
+            <Link to="/demenagement-louveciennes" className="text-slate-400 hover:text-accent font-black text-sm transition-colors border-b border-accent/20 hover:border-accent italic">Déménagement Louveciennes</Link>
             <span className="text-slate-300 font-bold text-sm italic font-display">Déménagement Vanves</span>
             <span className="text-slate-300 font-bold text-sm italic font-display">Déménagement Clamart</span>
             <span className="text-slate-300 font-bold text-sm italic font-display">Déménagement Sèvres</span>

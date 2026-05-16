@@ -440,6 +440,7 @@ const LocalNanterre: React.FC = () => {
           </div>
           <div className="flex flex-wrap justify-center gap-x-12 gap-y-6 text-center text-slate-500 font-display uppercase italic text-slate-900">
             <Link to="/demenagement-courbevoie" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display">Déménagement Courbevoie</Link>
+            <Link to="/demenagement-nogent-sur-marne" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Nogent-sur-Marne</Link>
             <Link to="/demenagement-puteaux" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display">Déménagement Puteaux</Link>
             <Link to="/demenagement-neuilly-sur-seine" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Neuilly-sur-Seine</Link>
             <Link to="/demenagement-hauts-de-seine" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Hauts-de-Seine</Link>
@@ -448,6 +449,7 @@ const LocalNanterre: React.FC = () => {
             <Link to="/demenagement-rueil-malmaison" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Rueil-Malmaison</Link>
             <Link to="/demenagement-vaucresson" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent">Déménagement Vaucresson</Link>
             <Link to="/demenagement-saint-cloud" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display">Déménagement Saint-Cloud</Link>
+            <Link to="/demenagement-houilles" className="text-slate-400 hover:text-accent font-bold text-sm transition-colors border-b border-transparent hover:border-accent font-display uppercase italic">Déménagement Houilles</Link>
             <span className="text-slate-300 font-bold text-sm italic font-display uppercase">Déménagement Colombes</span>
             <span className="text-slate-300 font-bold text-sm italic font-display uppercase">Déménagement Bezons</span>
             <span className="text-slate-300 font-bold text-sm italic font-display uppercase font-display decoration-accent/20 uppercase underline">Déménagement La Défense</span>

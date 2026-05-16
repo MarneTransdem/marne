@@ -534,6 +534,7 @@ const LocalChatillon: React.FC = () => {
               { name: "Bagneux", link: null },
               { name: "Fontenay", link: null },
               { name: "Vanves", link: "/demenagement-vanves" },
+              { name: "Louveciennes", link: "/demenagement-louveciennes" },
               { name: "Vaucresson", link: "/demenagement-vaucresson" },
               { name: "Paris 14e", link: "/demenagement-paris-14" },
               { name: "Paris 15e", link: "/demenagement-paris-15" },
@@ -661,6 +662,7 @@ const LocalChatillon: React.FC = () => {
                   <li><Link to="/demenagement-clamart" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Clamart (proche)</Link></li>
                   <li><Link to="/demenagement-vanves" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Vanves (proche)</Link></li>
                   <li><Link to="/demenagement-issy-les-moulineaux" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Issy (proche)</Link></li>
+                  <li><Link to="/demenagement-nogent-sur-marne" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Nogent-sur-Marne</Link></li>
                   <li><Link to="/contact" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Nous contacter</Link></li>
                 </ul>
              </div>

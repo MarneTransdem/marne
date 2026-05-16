@@ -40,7 +40,7 @@ const LocalValDeMarne: React.FC = () => {
     { n: "Vincennes", d: "Déménagements d'appartements, maisons et bureaux à proximité de Paris 12e et 20e.", l: "/demenagement-vincennes" },
     { n: "Saint-Mandé", d: "Accompagnement des projets résidentiels et pros proche de Paris.", l: "/demenagement-saint-mande" },
     { n: "Charenton-le-Pont", d: "Organisation des déménagements entre Paris, le 94 et les communes voisines.", l: "/demenagement-charenton-le-pont" },
-    { n: "Nogent-sur-Marne", d: "Déménagements de logements familiaux, maisons et locaux professionnels." },
+    { n: "Nogent-sur-Marne", d: "Déménagements de logements familiaux, maisons et locaux professionnels.", l: "/demenagement-nogent-sur-marne" },
     { n: "Maisons-Alfort", d: "Déménagements de résidences et bureaux avec attention aux accès et étages." },
     { n: "Créteil", d: "Accompagnement des logements, bureaux et commerces dans le chef-lieu du département.", l: "/demenagement-creteil" },
     { n: "Ivry-sur-Seine", d: "Déménagements de particuliers et pros à proximité immédiate de Paris 13e." },

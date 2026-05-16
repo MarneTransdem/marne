@@ -67,15 +67,34 @@ import LocalBourgLaReine from './pages/LocalBourgLaReine';
 import LocalAntony from './pages/LocalAntony';
 import LocalChatenayMalabry from './pages/LocalChatenayMalabry';
 import LocalLePlessisRobinson from './pages/LocalLePlessisRobinson';
+import LocalNogentSurMarne from './pages/LocalNogentSurMarne';
 import LocalVelizyVillacoublay from './pages/LocalVelizyVillacoublay';
 import LocalViroflay from './pages/LocalViroflay';
 import LocalChaville from './pages/LocalChaville';
 import LocalVilleDAvray from './pages/LocalVilleDAvray';
 import LocalVersailles from './pages/LocalVersailles';
 import LocalLeChesnayRocquencourt from './pages/LocalLeChesnayRocquencourt';
+import LocalLaCelleSaintCloud from './pages/LocalLaCelleSaintCloud';
 import LocalVaucresson from './pages/LocalVaucresson';
 import LocalGarches from './pages/LocalGarches';
 import LocalMarnesLaCoquette from './pages/LocalMarnesLaCoquette';
+import LocalBougival from './pages/LocalBougival';
+import LocalLouveciennes from './pages/LocalLouveciennes';
+import LocalCroissySurSeine from './pages/LocalCroissySurSeine';
+import LocalChatou from './pages/LocalChatou';
+import LocalLeVesinet from './pages/LocalLeVesinet';
+import LocalLePecq from './pages/LocalLePecq';
+import LocalMarlyLeRoi from './pages/LocalMarlyLeRoi';
+import LocalSaintGermainEnLaye from './pages/LocalSaintGermainEnLaye';
+import LocalPoissy from './pages/LocalPoissy';
+import LocalSartrouville from './pages/LocalSartrouville';
+import LocalRambouillet from './pages/LocalRambouillet';
+import LocalMantesLaJolie from './pages/LocalMantesLaJolie';
+import LocalMaisonsLaffitte from './pages/LocalMaisonsLaffitte';
+import LocalHouilles from './pages/LocalHouilles';
+import LocalPlaisir from './pages/LocalPlaisir';
+import LocalGuyancourt from './pages/LocalGuyancourt';
+import LocalConflansSainteHonorine from './pages/LocalConflansSainteHonorine';
 import LocalIDF from './pages/LocalIDF';
 import LocalHautsDeSeine from './pages/LocalHautsDeSeine';
 import LocalSeineSaintDenis from './pages/LocalSeineSaintDenis';
@@ -176,9 +195,28 @@ export default function App() {
                 <Route path="/demenagement-ville-d-avray" element={<LocalVilleDAvray />} />
                 <Route path="/demenagement-versailles" element={<LocalVersailles />} />
                 <Route path="/demenagement-le-chesnay-rocquencourt" element={<LocalLeChesnayRocquencourt />} />
+                <Route path="/demenagement-la-celle-saint-cloud" element={<LocalLaCelleSaintCloud />} />
                 <Route path="/demenagement-vaucresson" element={<LocalVaucresson />} />
                 <Route path="/demenagement-garches" element={<LocalGarches />} />
                 <Route path="/demenagement-marnes-la-coquette" element={<LocalMarnesLaCoquette />} />
+                <Route path="/demenagement-bougival" element={<LocalBougival />} />
+                <Route path="/demenagement-louveciennes" element={<LocalLouveciennes />} />
+                <Route path="/demenagement-croissy-sur-seine" element={<LocalCroissySurSeine />} />
+                <Route path="/demenagement-chatou" element={<LocalChatou />} />
+                <Route path="/demenagement-le-vesinet" element={<LocalLeVesinet />} />
+                <Route path="/demenagement-le-pecq" element={<LocalLePecq />} />
+                <Route path="/demenagement-marly-le-roi" element={<LocalMarlyLeRoi />} />
+                <Route path="/demenagement-saint-germain-en-laye" element={<LocalSaintGermainEnLaye />} />
+                <Route path="/demenagement-poissy" element={<LocalPoissy />} />
+                <Route path="/demenagement-sartrouville" element={<LocalSartrouville />} />
+                <Route path="/demenagement-rambouillet" element={<LocalRambouillet />} />
+                <Route path="/demenagement-mantes-la-jolie" element={<LocalMantesLaJolie />} />
+                <Route path="/demenagement-maisons-laffitte" element={<LocalMaisonsLaffitte />} />
+                <Route path="/demenagement-houilles" element={<LocalHouilles />} />
+                <Route path="/demenagement-plaisir" element={<LocalPlaisir />} />
+                <Route path="/demenagement-guyancourt" element={<LocalGuyancourt />} />
+                <Route path="/demenagement-nogent-sur-marne" element={<LocalNogentSurMarne />} />
+                <Route path="/demenagement-conflans-sainte-honorine" element={<LocalConflansSainteHonorine />} />
                 <Route path="/demenagement-issy-les-moulineaux" element={<LocalIssyLesMoulineaux />} />
                 <Route path="/demenagement-ile-de-france" element={<LocalIDF />} />
                 <Route path="/demenagement-hauts-de-seine" element={<LocalHautsDeSeine />} />

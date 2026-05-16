@@ -524,6 +524,7 @@ const LocalClamart: React.FC = () => {
               { name: "Meudon", link: "/demenagement-meudon" },
               { name: "Issy-les-Moulineaux", link: "/demenagement-issy-les-moulineaux" },
               { name: "Vanves", link: null },
+              { name: "Louveciennes", link: "/demenagement-louveciennes" },
               { name: "Vaucresson", link: "/demenagement-vaucresson" },
               { name: "Châtillon", link: null },
               { name: "Malakoff", link: null },
@@ -672,6 +673,7 @@ const LocalClamart: React.FC = () => {
                   <li><Link to="/demenagement-meudon" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic">À Meudon (proche)</Link></li>
                   <li><Link to="/demenagement-issy-les-moulineaux" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic">À Issy (proche)</Link></li>
                   <li><Link to="/demenagement-paris-15" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic">À Paris 15e (proche)</Link></li>
+                  <li><Link to="/demenagement-nogent-sur-marne" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic">À Nogent-sur-Marne (proche)</Link></li>
                   <li><Link to="/contact" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Nous contacter</Link></li>
                 </ul>
              </div>

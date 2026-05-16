@@ -656,6 +656,7 @@ const LocalChatenayMalabry: React.FC = () => {
                   <li><Link to="/demenagement-antony" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic">Antony</Link></li>
                   <li><Link to="/demenagement-sceaux" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic">Sceaux</Link></li>
                   <li><Link to="/demenagement-bourg-la-reine" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic">Bourg-la-Reine</Link></li>
+                  <li><Link to="/demenagement-nogent-sur-marne" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic">Nogent-sur-Marne</Link></li>
                   <li><Link to="/contact" className="text-slate-400 hover:text-white transition-colors text-sm font-medium shadow-sm font-display shadow-sm italic">Contact</Link></li>
                 </ul>
              </div>

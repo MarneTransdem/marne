@@ -305,6 +305,8 @@ const LocalIDF: React.FC = () => {
               { n: "Versailles", l: "/demenagement-versailles" },
               { n: "Garches", l: "/demenagement-garches" },
               { n: "Marnes-la-Coquette", l: "/demenagement-marnes-la-coquette" },
+              { n: "Le Chesnay-Rocquencourt", l: "/demenagement-le-chesnay-rocquencourt" },
+              { n: "La Celle-Saint-Cloud", l: "/demenagement-la-celle-saint-cloud" },
               { n: "Châtillon", l: "/demenagement-chatillon" },
               { n: "Malakoff", l: "/demenagement-malakoff" },
               { n: "Sèvres", l: "/demenagement-sevres" },
@@ -579,11 +581,28 @@ const LocalIDF: React.FC = () => {
             <Link to="/demenagement-chaville" className="hover:text-accent transition-all">Chaville</Link>
             <Link to="/demenagement-vaucresson" className="hover:text-accent transition-all">Vaucresson</Link>
             <Link to="/demenagement-le-chesnay-rocquencourt" className="hover:text-accent transition-all italic">Le Chesnay</Link>
+            <Link to="/demenagement-la-celle-saint-cloud" className="hover:text-accent transition-all italic">La Celle-Saint-Cloud</Link>
             <Link to="/demenagement-garches" className="hover:text-accent transition-all">Garches</Link>
             <Link to="/demenagement-marnes-la-coquette" className="hover:text-accent transition-all italic underline decoration-accent/30 font-bold">Marnes-la-Coquette</Link>
+            <Link to="/demenagement-bougival" className="hover:text-accent transition-all italic">Bougival</Link>
+            <Link to="/demenagement-chatou" className="hover:text-accent transition-all italic">Chatou</Link>
+            <Link to="/demenagement-le-vesinet" className="hover:text-accent transition-all italic">Le Vésinet</Link>
+            <Link to="/demenagement-le-pecq" className="hover:text-accent transition-all italic">Le Pecq</Link>
+            <Link to="/demenagement-saint-germain-en-laye" className="hover:text-accent transition-all italic">Saint-Germain</Link>
+            <Link to="/demenagement-poissy" className="hover:text-accent transition-all italic">Poissy</Link>
+            <Link to="/demenagement-sartrouville" className="hover:text-accent transition-all italic">Sartrouville</Link>
+            <Link to="/demenagement-rambouillet" className="hover:text-accent transition-all italic">Rambouillet</Link>
+            <Link to="/demenagement-mantes-la-jolie" className="hover:text-accent transition-all italic">Mantes-la-Jolie</Link>
+            <Link to="/demenagement-plaisir" className="hover:text-accent transition-all italic">Plaisir</Link>
+            <Link to="/demenagement-guyancourt" className="hover:text-accent transition-all italic">Guyancourt</Link>
+            <Link to="/demenagement-maisons-laffitte" className="hover:text-accent transition-all italic">Maisons-Laffitte</Link>
+            <Link to="/demenagement-houilles" className="hover:text-accent transition-all italic">Houilles</Link>
+            <Link to="/demenagement-conflans-sainte-honorine" className="hover:text-accent transition-all italic underline decoration-accent/20">Conflans-Sainte-Honorine</Link>
+            <Link to="/demenagement-louveciennes" className="hover:text-accent transition-all italic">Louveciennes</Link>
             <Link to="/demenagement-ville-d-avray" className="hover:text-accent transition-all italic">Ville-d’Avray</Link>
             <Link to="/demenagement-versailles" className="hover:text-accent transition-all">Versailles</Link>
             <Link to="/demenagement-issy-les-moulineaux" className="hover:text-accent transition-all">Issy</Link>
+            <Link to="/demenagement-nogent-sur-marne" className="hover:text-accent transition-all">Nogent-sur-Marne</Link>
             <Link to="/demenagement-hauts-de-seine" className="hover:text-accent transition-all">Hauts-de-Seine</Link>
             <Link to="/demenagement-seine-saint-denis" className="hover:text-accent transition-all">Seine-Saint-Denis</Link>
             <Link to="/demenagement-val-de-marne" className="hover:text-accent transition-all">Val-de-Marne</Link>

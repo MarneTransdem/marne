@@ -408,6 +408,8 @@ const LocalCreteil: React.FC = () => {
             <Link to="/demenagement-saint-maur-des-fosses" className="hover:text-accent transition-colors">Saint-Maur</Link>
             <Link to="/demenagement-saint-mande" className="hover:text-accent transition-colors">Saint-Mandé</Link>
             <Link to="/demenagement-charenton-le-pont" className="hover:text-accent transition-colors">Charenton</Link>
+            <Link to="/demenagement-nogent-sur-marne" className="hover:text-accent transition-colors">Nogent-sur-Marne</Link>
+            <Link to="/demenagement-joinville-le-pont" className="hover:text-accent transition-colors">Joinville-le-Pont</Link>
             <Link to="/demenagement-maisons-alfort" className="hover:text-accent transition-colors">Maisons-Alfort</Link>
             <Link to="/demenagement-ivry-sur-seine" className="hover:text-accent transition-colors">Ivry</Link>
             <Link to="/demenagement-val-de-marne" className="hover:text-accent transition-colors">94 - Val-de-Marne</Link>

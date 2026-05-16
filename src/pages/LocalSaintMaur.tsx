@@ -427,7 +427,8 @@ const LocalSaintMaur: React.FC = () => {
             <Link to="/demenagement-saint-mande" className="hover:text-accent transition-colors">Saint-Mandé</Link>
             <Link to="/demenagement-charenton-le-pont" className="hover:text-accent transition-colors">Charenton</Link>
             <Link to="/demenagement-creteil" className="hover:text-accent transition-colors">Créteil</Link>
-            <Link to="/demenagement-nogent-sur-marne" className="hover:text-accent transition-colors">Nogent</Link>
+            <Link to="/demenagement-nogent-sur-marne" className="hover:text-accent transition-colors">Nogent-sur-Marne</Link>
+            <Link to="/demenagement-joinville-le-pont" className="hover:text-accent transition-colors">Joinville-le-Pont</Link>
             <Link to="/demenagement-maisons-alfort" className="hover:text-accent transition-colors">Maisons-Alfort</Link>
             <Link to="/demenagement-val-de-marne" className="hover:text-accent transition-colors">Tout le 94</Link>
           </div>

@@ -658,6 +658,7 @@ const LocalFontenayAuxRoses: React.FC = () => {
                   <li><Link to="/demenagement-bagneux" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic shadow-sm italic font-display italic font-display">Bagneux (proche)</Link></li>
                   <li><Link to="/demenagement-chatillon" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic shadow-sm font-display shadow-sm font-display shadow-sm italic">Châtillon (proche)</Link></li>
                   <li><Link to="/demenagement-clamart" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic font-display shadow-sm italic shadow-sm">Clamart (proche)</Link></li>
+                  <li><Link to="/demenagement-nogent-sur-marne" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic font-display shadow-sm italic shadow-sm">Nogent-sur-Marne (proche)</Link></li>
                   <li><Link to="/contact" className="text-slate-400 hover:text-white transition-colors text-sm font-medium italic shadow-sm font-display font-display italic shadow-sm">Contact direct</Link></li>
                 </ul>
              </div>
