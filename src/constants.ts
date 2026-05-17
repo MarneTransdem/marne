@@ -14,7 +14,18 @@ import {
   Zap,
   MapPin,
   Star,
-  Globe
+  Globe,
+  Palette,
+  GraduationCap,
+  Heart,
+  Briefcase,
+  Music,
+  Shield,
+  Monitor,
+  Server,
+  Factory,
+  Microscope,
+  Files
 } from 'lucide-react';
 
 export const CONTACT = {
@@ -40,20 +51,6 @@ export const NAVIGATION = [
 ];
 
 export const SERVICES = [
-  {
-    id: 'particuliers',
-    title: 'Déménagement Particuliers',
-    description: 'Une transition en toute sérénité pour votre foyer, avec un accompagnement sur mesure.',
-    icon: Home,
-    path: '/demenagement-particuliers-paris'
-  },
-  {
-    id: 'entreprises',
-    title: 'Déménagement Entreprises',
-    description: 'Transfert de bureaux et locaux professionnels garantissant la continuité de votre activité.',
-    icon: Building2,
-    path: '/demenagement-entreprises-paris'
-  },
   {
     id: 'garde-meuble',
     title: 'Garde-meuble / Stockage',
@@ -88,6 +85,90 @@ export const SERVICES = [
     description: 'Organisation de votre départ depuis Paris ou l’Île-de-France vers toute la France.',
     icon: Globe,
     path: '/demenagement-longue-distance'
+  },
+  {
+    id: 'oeuvres-art',
+    title: "Déménagement d'œuvres d'art",
+    description: "Protection et transport de vos objets précieux, tableaux et sculptures avec un soin extrême.",
+    icon: Palette,
+    path: '/demenagement-oeuvres-art'
+  },
+  {
+    id: 'etudiant',
+    title: "Déménagement Étudiant",
+    description: "Solutions économiques et flexibles pour studios et chambres de bonne.",
+    icon: GraduationCap,
+    path: '/demenagement-etudiant'
+  },
+  {
+    id: 'mutation',
+    title: "Mutation Professionnelle",
+    description: "Accompagnement réactif et dossier conforme pour votre mobilité.",
+    icon: Briefcase,
+    path: '/demenagement-mutation-professionnelle'
+  },
+  {
+    id: 'senior',
+    title: "Déménagement Senior",
+    description: "Une transition en douceur avec aide à l'emballage et installation.",
+    icon: Heart,
+    path: '/demenagement-senior'
+  },
+  {
+    id: 'militaire',
+    title: "Militaire & Gendarmerie",
+    description: "Forfaits conformes PFMD et respect des barèmes de cubage.",
+    icon: Shield,
+    path: '/demenagement-militaire'
+  },
+  {
+    id: 'petit-volume',
+    title: "Petit Volume",
+    description: "Transport de quelques meubles ou cartons à prix réduit.",
+    icon: Box,
+    path: '/demenagement-petit-volume'
+  },
+  {
+    id: 'piano',
+    title: "Piano & Objets Lourds",
+    description: "Manutention technique pour pianos, coffres-forts et marbres.",
+    icon: Music,
+    path: '/demenagement-piano-objets-lourds'
+  },
+  {
+    id: 'transfert-bureaux',
+    title: 'Transfert de Bureaux',
+    description: 'Organisation millimétrée de votre déménagement tertiaire pour une continuité d’activité totale.',
+    icon: Building2,
+    path: '/transfert-bureaux-paris'
+  },
+  {
+    id: 'transfert-informatique',
+    title: 'Transfert Informatique',
+    description: 'Déménagement sécurisé de serveurs, data centers et parcs informatiques par des experts IT.',
+    icon: Monitor,
+    path: '/transfert-informatique-paris'
+  },
+  {
+    id: 'transfert-industriel',
+    title: 'Transfert Industriel',
+    description: 'Manutention lourde et transfert technique de machines, usines et lignes de production.',
+    icon: Factory,
+    path: '/transfert-industriel-paris'
+  },
+  {
+    id: 'transfert-laboratoire',
+    title: 'Transfert de Laboratoire',
+    description: 'Logistique spécialisée pour équipements médicaux et scientifiques en milieux critiques.',
+    icon: Microscope,
+    path: '/transfert-laboratoire-paris'
+  },
+  {
+    id: 'gestion-archives',
+    title: "Gestion d'Archives",
+    description: "Externalisation, transfert sécurisé et destruction certifiée de vos documents confidentiels.",
+    icon: Files,
+    path: '/gestion-archives-paris'
   }
 ];
 

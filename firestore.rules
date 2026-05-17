@@ -66,5 +66,19 @@ service cloud.firestore {
           && data.createdAt == request.time;
       }
     }
+
+    // 3. Reviews
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isAdmin() && isValidReview(incoming());
+      allow delete: if isAdmin();
+
+      function isValidReview(data) {
+        return data.authorName is string && data.authorName.size() <= 150
+          && data.rating is number && data.rating >= 0 && data.rating <= 5
+          && data.text is string && data.text.size() <= 6000
+          && (data.createdAt == request.time);
+      }
+    }
   }
 }

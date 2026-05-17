@@ -46,6 +46,22 @@
         "createdAt": { "type": "string", "format": "date-time" }
       },
       "required": ["name", "phone", "email", "subject", "message", "createdAt"]
+    },
+    "Review": {
+      "title": "Google Review",
+      "description": "A review synchronized from Google Maps.",
+      "type": "object",
+      "properties": {
+        "googleId": { "type": "string", "description": "Original review ID from Google" },
+        "authorName": { "type": "string" },
+        "authorPhotoUrl": { "type": "string" },
+        "rating": { "type": "number" },
+        "text": { "type": "string" },
+        "publishTime": { "type": "string", "format": "date-time" },
+        "relativePublishTimeDescription": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["authorName", "rating", "text", "createdAt"]
     }
   },
   "firestore": {
@@ -56,6 +72,10 @@
     "/messages/{messageId}": {
       "schema": "Message",
       "description": "Contact form messages"
+    },
+    "/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Google Maps reviews"
     }
   }
 }

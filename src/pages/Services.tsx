@@ -56,30 +56,116 @@ const Services: React.FC = () => {
       {/* Services Grid */}
       <section className="py-24">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {SERVICES.map((service, idx) => (
+          {/* General Services Section */}
+          <div className="mb-24">
+            <div className="flex items-center gap-4 mb-12">
+              <div className="h-px bg-slate-200 flex-grow"></div>
+              <h2 className="text-3xl font-black text-brand-900 uppercase tracking-tight italic whitespace-nowrap">Prestations <span className="text-accent underline decoration-accent/10 underline-offset-4">techniques</span></h2>
+              <div className="h-px bg-slate-200 flex-grow"></div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {SERVICES.filter(s => ['garde-meuble', 'monte-meuble', 'emballage', 'cartons', 'longue-distance', 'oeuvres-art', 'piano'].includes(s.id)).map((service, idx) => (
+                <motion.div
+                  key={service.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                >
+                  <Link to={service.path} className="group bg-white p-10 rounded-[2.5rem] border border-slate-100 hover:border-accent transition-all hover:shadow-2xl flex flex-col h-full">
+                    <div className="w-16 h-16 bg-slate-50 text-accent rounded-2xl flex items-center justify-center mb-8 group-hover:bg-accent group-hover:text-white transition-colors">
+                      <service.icon size={32} />
+                    </div>
+                    <h3 className="text-2xl font-bold text-brand-900 mb-4 uppercase tracking-tight italic">{service.title}</h3>
+                    <p className="text-slate-500 font-light leading-relaxed mb-10 flex-grow">
+                      {service.description}
+                    </p>
+                    <div className="flex items-center gap-2 text-accent font-bold text-sm uppercase tracking-widest group-hover:gap-4 transition-all">
+                      En savoir plus
+                      <ArrowRight size={18} />
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Enterprise Services Section */}
+          <div className="mb-24">
+            <div className="flex items-center gap-4 mb-12">
+              <div className="h-px bg-slate-200 flex-grow"></div>
+              <h2 className="text-3xl font-black text-brand-900 uppercase tracking-tight italic whitespace-nowrap">Transferts <span className="text-accent underline decoration-accent/10 underline-offset-4">professionnels</span></h2>
+              <div className="h-px bg-slate-200 flex-grow"></div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {SERVICES.filter(s => ['transfert-bureaux', 'transfert-informatique', 'transfert-industriel', 'transfert-laboratoire', 'gestion-archives'].includes(s.id)).map((service, idx) => (
+                <motion.div
+                  key={service.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                >
+                  <Link to={service.path} className="group bg-white p-10 rounded-[2.5rem] border border-slate-100 hover:border-accent transition-all hover:shadow-2xl flex flex-col h-full">
+                    <div className="w-16 h-16 bg-slate-50 text-accent rounded-2xl flex items-center justify-center mb-8 group-hover:bg-accent group-hover:text-white transition-colors">
+                      <service.icon size={32} />
+                    </div>
+                    <h3 className="text-2xl font-bold text-brand-900 mb-4 uppercase tracking-tight italic">{service.title}</h3>
+                    <p className="text-slate-500 font-light leading-relaxed mb-10 flex-grow">
+                      {service.description}
+                    </p>
+                    <div className="flex items-center gap-2 text-accent font-bold text-sm uppercase tracking-widest group-hover:gap-4 transition-all">
+                      Solution Pro
+                      <ArrowRight size={18} />
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
               <motion.div
-                key={service.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
+                className="bg-brand-900 p-10 rounded-[2.5rem] text-white flex flex-col justify-center text-center italic"
               >
-                <Link to={service.path} className="group bg-white p-10 rounded-[2.5rem] border border-slate-100 hover:border-accent transition-all hover:shadow-2xl flex flex-col h-full">
-                  <div className="w-16 h-16 bg-slate-50 text-accent rounded-2xl flex items-center justify-center mb-8 group-hover:bg-accent group-hover:text-white transition-colors">
-                    <service.icon size={32} />
-                  </div>
-                  <h2 className="text-2xl font-bold text-brand-900 mb-4">{service.title}</h2>
-                  <p className="text-slate-500 font-light leading-relaxed mb-10 flex-grow">
-                    {service.description}
-                  </p>
-                  <div className="flex items-center gap-2 text-accent font-bold text-sm uppercase tracking-widest group-hover:gap-4 transition-all">
-                    Découvrir le service
-                    <ArrowRight size={18} />
-                  </div>
-                </Link>
+                <h3 className="text-xl font-bold mb-4 uppercase tracking-tight italic">Accompagnement Collaborateurs</h3>
+                <p className="text-slate-400 text-sm font-light mb-8 italic">Nous gérons également la mutation de vos salariés avec des forfaits dédiés.</p>
+                <Link to="/demenagement-mutation-professionnelle" className="text-accent font-bold uppercase tracking-[0.2em] text-[10px] hover:text-white transition-colors italic">Découvrir l'offre collaborateurs</Link>
               </motion.div>
-            ))}
+            </div>
+          </div>
+
+          {/* Specialized Services Section (Individuals) */}
+          <div>
+            <div className="flex items-center gap-4 mb-12">
+              <div className="h-px bg-slate-200 flex-grow"></div>
+              <h2 className="text-3xl font-black text-brand-900 uppercase tracking-tight italic whitespace-nowrap">Cas <span className="text-accent underline decoration-accent/10 underline-offset-4">particuliers</span></h2>
+              <div className="h-px bg-slate-200 flex-grow"></div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {SERVICES.filter(s => ['etudiant', 'senior', 'militaire', 'mutation', 'petit-volume'].includes(s.id)).map((service, idx) => (
+                <motion.div
+                  key={service.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                >
+                  <Link to={service.path} className="group bg-white p-10 rounded-[2.5rem] border border-slate-100 hover:border-accent transition-all hover:shadow-2xl flex flex-col h-full">
+                    <div className="w-16 h-16 bg-slate-50 text-accent rounded-2xl flex items-center justify-center mb-8 group-hover:bg-accent group-hover:text-white transition-colors">
+                      <service.icon size={32} />
+                    </div>
+                    <h3 className="text-2xl font-bold text-brand-900 mb-4 uppercase tracking-tight italic">{service.title}</h3>
+                    <p className="text-slate-500 font-light leading-relaxed mb-10 flex-grow">
+                      {service.description}
+                    </p>
+                    <div className="flex items-center gap-2 text-accent font-bold text-sm uppercase tracking-widest group-hover:gap-4 transition-all">
+                      Découvrir la solution
+                      <ArrowRight size={18} />
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

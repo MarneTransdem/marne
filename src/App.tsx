@@ -116,6 +116,18 @@ import LongueDistanceParisLille from './pages/LongueDistanceParisLille';
 import LongueDistanceParisStrasbourg from './pages/LongueDistanceParisStrasbourg';
 import LongueDistanceParisMontpellier from './pages/LongueDistanceParisMontpellier';
 import LongueDistanceParisRennes from './pages/LongueDistanceParisRennes';
+import DemenagementOeuvresArt from './pages/DemenagementOeuvresArt';
+import DemenagementEtudiant from './pages/DemenagementEtudiant';
+import DemenagementMilitaire from './pages/DemenagementMilitaire';
+import DemenagementSenior from './pages/DemenagementSenior';
+import DemenagementMutation from './pages/DemenagementMutation';
+import DemenagementPetitVolume from './pages/DemenagementPetitVolume';
+import DemenagementPiano from './pages/DemenagementPiano';
+import TransfertBureaux from './pages/TransfertBureaux';
+import TransfertInformatique from './pages/TransfertInformatique';
+import TransfertIndustriel from './pages/TransfertIndustriel';
+import TransfertLaboratoire from './pages/TransfertLaboratoire';
+import GestionArchives from './pages/GestionArchives';
 import SecteursDesservis from './pages/SecteursDesservis';
 
 import { APIProvider } from '@vis.gl/react-google-maps';
@@ -241,6 +253,20 @@ export default function App() {
                 <Route path="/demenagement-paris-montpellier" element={<LongueDistanceParisMontpellier />} />
                 <Route path="/demenagement-paris-rennes" element={<LongueDistanceParisRennes />} />
                 <Route path="/demenagement-longue-distance" element={<LongueDistance />} />
+                <Route path="/demenagement-oeuvres-art" element={<DemenagementOeuvresArt />} />
+                <Route path="/demenagement-etudiant" element={<DemenagementEtudiant />} />
+                <Route path="/demenagement-militaire" element={<DemenagementMilitaire />} />
+                <Route path="/demenagement-senior" element={<DemenagementSenior />} />
+                <Route path="/demenagement-mutation-professionnelle" element={<DemenagementMutation />} />
+                <Route path="/demenagement-petit-volume" element={<DemenagementPetitVolume />} />
+                <Route path="/demenagement-piano-objets-lourds" element={<DemenagementPiano />} />
+                
+                {/* Enterprise Specifics */}
+                <Route path="/transfert-bureaux-paris" element={<TransfertBureaux />} />
+                <Route path="/transfert-informatique-paris" element={<TransfertInformatique />} />
+                <Route path="/transfert-industriel-paris" element={<TransfertIndustriel />} />
+                <Route path="/transfert-laboratoire-paris" element={<TransfertLaboratoire />} />
+                <Route path="/gestion-archives-paris" element={<GestionArchives />} />
                 
                 {/* Legacy / Simple Paths */}
                 <Route path="/particuliers" element={<DemenagementParticuliers />} />

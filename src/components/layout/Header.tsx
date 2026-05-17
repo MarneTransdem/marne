@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, ArrowRight } from 'lucide-react';
+import { Menu, X, Phone, ArrowRight, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Logo } from '../ui/Logo';
-import { CONTACT, NAVIGATION } from '../../constants';
+import { CONTACT, NAVIGATION, SERVICES } from '../../constants';
 
 export const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isParticuliersOpen, setIsParticuliersOpen] = useState(false);
+  const [isEntreprisesOpen, setIsEntreprisesOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -18,7 +21,20 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const closeMenu = () => setIsOpen(false);
+  const closeMenu = () => {
+    setIsOpen(false);
+    setIsServicesOpen(false);
+    setIsParticuliersOpen(false);
+    setIsEntreprisesOpen(false);
+  };
+
+  const PARTICULIERS_SERVICES = ['etudiant', 'senior', 'militaire', 'mutation', 'petit-volume'];
+  const ENTREPRISE_SERVICES = ['transfert-bureaux', 'transfert-informatique', 'transfert-industriel', 'transfert-laboratoire', 'gestion-archives'];
+  const TECHNICAL_SERVICES = ['garde-meuble', 'monte-meuble', 'emballage', 'cartons', 'longue-distance', 'oeuvres-art', 'piano'];
+  
+  const OTHER_SERVICES = SERVICES.filter(s => TECHNICAL_SERVICES.includes(s.id));
+  const INDIVIDUAL_SERVICES = SERVICES.filter(s => PARTICULIERS_SERVICES.includes(s.id));
+  const PRO_SERVICES = SERVICES.filter(s => ENTREPRISE_SERVICES.includes(s.id));
 
   return (
     <header 
@@ -33,17 +49,99 @@ export const Header: React.FC = () => {
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8">
-          {NAVIGATION.map((item) => (
-            <Link 
-              key={item.path} 
-              to={item.path}
-              className={`nav-link text-sm font-semibold transition-colors ${
-                location.pathname === item.path ? 'text-brand-900 after:w-full' : 'text-slate-500 hover:text-brand-900'
-              }`}
-            >
-              {item.name}
-            </Link>
-          ))}
+          {NAVIGATION.map((item) => {
+            if (item.name === 'Services' || item.name === 'Particuliers' || item.name === 'Entreprises') {
+              const isOpen = 
+                item.name === 'Services' ? isServicesOpen : 
+                item.name === 'Particuliers' ? isParticuliersOpen : 
+                isEntreprisesOpen;
+              
+              const setIsOpenDropdown = 
+                item.name === 'Services' ? setIsServicesOpen : 
+                item.name === 'Particuliers' ? setIsParticuliersOpen : 
+                setIsEntreprisesOpen;
+              
+              const servicesToShow = 
+                item.name === 'Services' ? OTHER_SERVICES : 
+                item.name === 'Particuliers' ? INDIVIDUAL_SERVICES : 
+                PRO_SERVICES;
+
+              return (
+                <div 
+                  key={item.path}
+                  className="relative group"
+                  onMouseEnter={() => setIsOpenDropdown(true)}
+                  onMouseLeave={() => setIsOpenDropdown(false)}
+                >
+                  <Link 
+                    to={item.path}
+                    className={`nav-link text-sm font-semibold transition-colors flex items-center gap-1 ${
+                      location.pathname.startsWith(item.path) || 
+                      servicesToShow.some(s => location.pathname === s.path)
+                        ? 'text-brand-900 after:w-full' 
+                        : 'text-slate-500 hover:text-brand-900'
+                    }`}
+                  >
+                    {item.name}
+                    <ChevronDown size={14} className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                  </Link>
+
+                  {/* Mega Menu */}
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{ duration: 0.2 }}
+                        className={`absolute top-full left-1/2 -translate-x-1/2 pt-4 z-50 pointer-events-auto ${item.name === 'Services' ? 'w-[900px]' : 'w-[750px]'}`}
+                      >
+                        <div className={`bg-white rounded-[2rem] shadow-2xl border border-slate-100 overflow-hidden p-8 grid gap-x-6 gap-y-4 ${item.name === 'Services' ? 'grid-cols-3' : 'grid-cols-2'}`}>
+                          {servicesToShow.map((service) => (
+                            <Link
+                              key={service.id}
+                              to={service.path}
+                              onClick={() => setIsOpenDropdown(false)}
+                              className="flex items-start gap-3 p-3 rounded-2xl hover:bg-slate-50 transition-all group/item"
+                            >
+                              <div className="bg-slate-100 p-2 rounded-xl text-brand-900 group-hover/item:bg-accent transition-colors shrink-0">
+                                <service.icon size={16} />
+                              </div>
+                              <div>
+                                <h4 className="text-[11px] font-bold text-brand-900 mb-0.5 line-clamp-1">{service.title}</h4>
+                                <p className="text-[9px] text-slate-500 leading-tight line-clamp-1">{service.description}</p>
+                              </div>
+                            </Link>
+                          ))}
+                          <div className={`mt-4 pt-4 border-t border-slate-100 flex justify-center ${item.name === 'Services' ? 'col-span-3' : 'col-span-2'}`}>
+                            <Link 
+                              to={item.path} 
+                              onClick={() => setIsOpenDropdown(false)}
+                              className="text-xs font-bold text-accent hover:text-brand-900 transition-colors flex items-center gap-2 uppercase tracking-widest"
+                            >
+                              {item.name === 'Services' ? 'Tous nos services techniques' : `Toutes nos solutions ${item.name.toLowerCase()}`} <ArrowRight size={14} />
+                            </Link>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            }
+
+            return (
+              <Link 
+                key={item.path} 
+                to={item.path}
+                className={`nav-link text-sm font-semibold transition-colors ${
+                  location.pathname === item.path ? 'text-brand-900 after:w-full' : 'text-slate-500 hover:text-brand-900'
+                }`}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="hidden md:flex items-center gap-8">
@@ -112,12 +210,31 @@ export const Header: React.FC = () => {
                       <Link 
                         to={item.path}
                         onClick={closeMenu}
-                        className={`text-2xl font-bold transition-all ${
+                        className={`text-2xl font-bold transition-all block ${
                           location.pathname === item.path ? 'text-accent pl-4 border-l-4 border-accent' : 'text-brand-900'
                         }`}
                       >
                         {item.name}
                       </Link>
+                      {(item.name === 'Services' || item.name === 'Particuliers' || item.name === 'Entreprises') && (
+                        <div className="mt-4 ml-4 flex flex-col gap-3 border-l border-slate-100 pl-4">
+                          {(
+                            item.name === 'Services' ? OTHER_SERVICES : 
+                            item.name === 'Particuliers' ? INDIVIDUAL_SERVICES : 
+                            PRO_SERVICES
+                          ).map((s) => (
+                            <Link 
+                              key={s.id} 
+                              to={s.path} 
+                              onClick={closeMenu}
+                              className="text-sm font-medium text-slate-500 hover:text-accent transition-colors flex items-center gap-2"
+                            >
+                              <s.icon size={14} />
+                              {s.title}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
                     </motion.div>
                   ))}
                 </div>
@@ -141,7 +258,7 @@ export const Header: React.FC = () => {
                   <Link 
                     to="/demande-de-devis" 
                     onClick={closeMenu}
-                    className="btn-premium bg-accent text-white py-4 px-8 rounded-full font-bold text-center shadow-xl block"
+                    className="btn-premium bg-brand-900 text-white py-4 px-8 rounded-full font-bold text-center shadow-xl block"
                   >
                     Demander un devis
                   </Link>
@@ -154,3 +271,4 @@ export const Header: React.FC = () => {
     </header>
   );
 };
+

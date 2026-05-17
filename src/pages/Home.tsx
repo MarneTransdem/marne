@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Hero } from '../components/home/Hero';
 import { ReassuranceBar } from '../components/home/ReassuranceBar';
 import { ServicesSection } from '../components/home/ServicesSection';
+import { GoogleReviewsSection } from '../components/home/GoogleReviews';
 import { FAQ } from '../components/home/FAQ';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle, Quote, Phone, ShieldCheck, MapPin } from 'lucide-react';
@@ -178,6 +179,7 @@ const Home: React.FC = () => {
       </section>
 
       <FAQ />
+      <GoogleReviewsSection />
 
       {/* CTA Final */}
       <section className="py-24 bg-brand-900 relative overflow-hidden">

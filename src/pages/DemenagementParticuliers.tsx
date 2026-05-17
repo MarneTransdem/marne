@@ -135,34 +135,32 @@ const DemenagementParticuliers: React.FC = () => {
         </div>
       </section>
 
-      {/* 5. Section “Nos prestations pour les particuliers” */}
+      {/* 5. Section “Déménagements spécialisés & Situations de vie” */}
       <section className="py-24">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-brand-900 mb-4">Nos prestations pour les particuliers</h2>
-            <p className="text-slate-500">Un large panel de services pour un déménagement clé en main.</p>
+            <h2 className="text-3xl lg:text-5xl font-black text-brand-900 mb-4 uppercase tracking-tight italic">Déménagements <span className="text-accent italic underline decoration-accent/10 underline-offset-8">spécialisés</span></h2>
+            <p className="text-slate-500 max-w-2xl mx-auto font-light">À chaque situation de vie, ses contraintes propres. Marne Transdem propose des solutions dédiées pour vous accompagner au mieux.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { icon: <Truck />, title: "Chargement et déchargement", desc: "Manutention experte de vos biens par nos déménageurs." },
-              { icon: <Truck />, title: "Transport des meubles et cartons", desc: "Acheminement sécurisé vers votre nouvelle adresse." },
-              { icon: <ShieldCheck />, title: "Protection des objets fragiles", desc: "Emballage spécifique pour la vaisselle, écrans et objets d'art." },
-              { icon: <Settings />, title: "Démontage et remontage", desc: "Nos techniciens s'occupent de votre mobilier complexe." },
-              { icon: <Box />, title: "Emballage selon formule", desc: "Prestation adaptée au niveau de confort choisi." },
-              { icon: <Zap />, title: "Possibilité de monte-meuble", desc: "Solution de levage selon les accès et contraintes d'immeuble." },
-              { icon: <MapPin />, title: "Garde-meuble selon besoins", desc: "Stockage sécurisé entre deux adresses si nécessaire." }
-            ].map((p, i) => (
-              <div key={i} className="p-8 bg-white border border-slate-100 rounded-[2rem] hover:shadow-xl transition-all group">
-                <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-accent mb-6 group-hover:bg-accent group-hover:text-white transition-colors">
-                  {p.icon}
+            {SERVICES.filter(s => ['etudiant', 'mutation', 'senior', 'militaire', 'petit-volume'].includes(s.id)).map((service, i) => (
+              <Link key={i} to={service.path} className="p-8 bg-white border border-slate-100 rounded-[2.5rem] hover:shadow-2xl hover:border-accent group transition-all">
+                <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform">
+                  <service.icon size={24} />
                 </div>
-                <h3 className="text-xl font-bold text-brand-900 mb-4">{p.title}</h3>
-                <p className="text-slate-500 font-light leading-relaxed text-sm">{p.desc}</p>
-              </div>
+                <h3 className="text-xl font-bold text-brand-900 mb-4 uppercase tracking-tight italic group-hover:text-accent transition-colors">{service.title}</h3>
+                <p className="text-slate-500 font-light text-sm leading-relaxed mb-6">{service.description}</p>
+                <div className="flex items-center gap-2 text-accent text-xs font-black uppercase tracking-widest">
+                  Découvrir le service
+                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
+
+      {/* 6. Section “Nos prestations pour les particuliers” */}
 
       {/* 6. Section “Nos formules pour votre déménagement” */}
       <section className="py-24 bg-brand-900 text-white">
