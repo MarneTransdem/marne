@@ -36,35 +36,92 @@ export const useGoogleReviews = (placeId: string) => {
     if (!placesLib || !placeId) return;
 
     try {
-      const place = new placesLib.Place({ id: placeId });
-      await place.fetchFields({
-        fields: ['reviews', 'rating', 'userRatingCount']
-      });
-
-      if (place.reviews) {
-        // Simple sync strategy: avoid duplicates by checking author name + text snippet (since no ID)
-        // or just clear and refill for simplicity if the list is small (max 5)
+      let place: google.maps.places.Place | null = null;
+      
+      console.log('Attempting sync with Place ID:', placeId);
+      
+      try {
+        const testPlace = new placesLib.Place({ id: placeId });
+        await testPlace.fetchFields({
+          fields: ['reviews', 'rating', 'userRatingCount', 'displayName']
+        });
+        place = testPlace;
+        console.log('Successfully fetched fields for Place ID:', placeId);
+      } catch (error: any) {
+        console.log('Initial Place ID lookup failed, attempting search fallback. Error:', error.message);
         
+        // Try searching for the business
+        const searchResponse = await placesLib.Place.searchByText({
+          textQuery: 'Marne Transdem 43 Rue des Maraîchers 75020 Paris',
+          fields: ['id', 'displayName', 'formattedAddress']
+        });
+        
+        if (searchResponse.places && searchResponse.places.length > 0) {
+          const foundPlace = searchResponse.places[0];
+          console.log('Found Place via search fallback:', {
+            id: foundPlace.id,
+            name: foundPlace.displayName,
+            address: foundPlace.formattedAddress
+          });
+          
+          // CRITICAL: We must fetch reviews specifically for the found place
+          await foundPlace.fetchFields({
+            fields: ['reviews', 'rating', 'userRatingCount']
+          });
+          place = foundPlace;
+        } else {
+          // Fallback search with just name and city
+          const fallbackSearch = await placesLib.Place.searchByText({
+            textQuery: 'Marne Transdem Paris',
+            fields: ['id', 'displayName', 'formattedAddress']
+          });
+          
+          if (fallbackSearch.places && fallbackSearch.places.length > 0) {
+            const foundPlace = fallbackSearch.places[0];
+            await foundPlace.fetchFields({
+              fields: ['reviews', 'rating', 'userRatingCount']
+            });
+            place = foundPlace;
+          } else {
+            throw new Error('Business not found via any search fallback');
+          }
+        }
+      }
+
+      if (place && place.reviews) {
+        console.log(`Processing ${place.reviews.length} reviews from Google`);
         const currentReviewsSnap = await getDocs(collection(db, 'reviews'));
         const existingTexts = new Set(currentReviewsSnap.docs.map(d => d.data().text));
 
+        let addedCount = 0;
         for (const r of place.reviews) {
-          if (!existingTexts.has(r.text)) {
+          const rawAuthorName = r.authorAttribution?.displayName || (r as any).authorName;
+          const rawText = r.text || (r as any).text;
+          const rawPhotoUrl = r.authorAttribution?.photoUri || (r as any).authorPhotoUrl;
+          const rawRating = r.rating || (r as any).rating;
+
+          if (rawText && rawAuthorName && !existingTexts.has(rawText)) {
             await addDoc(collection(db, 'reviews'), {
-              authorName: r.authorName,
-              authorPhotoUrl: r.authorPhotoUrl,
-              rating: r.rating,
-              text: r.text,
-              publishTime: r.publishTime?.toISOString(),
-              relativePublishTimeDescription: r.relativePublishTimeDescription,
+              authorName: String(rawAuthorName || 'Client Anonyme'),
+              authorPhotoUrl: rawPhotoUrl ? String(rawPhotoUrl) : null,
+              rating: typeof rawRating === 'number' ? rawRating : 5,
+              text: String(rawText),
+              publishTime: r.publishTime?.toISOString() || new Date().toISOString(),
+              relativePublishTimeDescription: r.relativePublishTimeDescription || 'Récemment',
               createdAt: serverTimestamp()
             });
+            addedCount++;
           }
         }
+        console.log(`Sync complete. Added ${addedCount} new reviews.`);
         await fetchFromFirestore();
+      } else {
+        console.log('No reviews found for the establishment.');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error syncing with Google:', error);
+      const errorMessage = error.message || 'Erreur inconnue';
+      alert(`Erreur lors de la synchronisation: ${errorMessage}`);
     }
   };
 

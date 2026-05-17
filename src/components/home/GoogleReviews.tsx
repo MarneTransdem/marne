@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { Star, Quote, ArrowRight, RefreshCw, LogIn } from 'lucide-react';
+import { Star, Quote, ArrowRight, RefreshCw, LogIn, ExternalLink } from 'lucide-react';
 import { useGoogleReviews } from '../../services/googleReviewsService';
 import { APIProvider } from '@vis.gl/react-google-maps';
 import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
+import { QRCodeSVG } from 'qrcode.react';
 
 // Hardcoded for Marne Transdem Paris
-const PLACE_ID = 'ChIJB81D7fVv5kcRv41qD9K6yX0'; 
+// This is the Place ID for the Paris location at Maraîchers
+const PLACE_ID = 'ChIJL2dd80xv5kcR0XnQ9K6yX0'; 
+const REVIEW_LINK = 'https://g.page/r/CfMHwv-XtPiPEAE/review';
 
 const API_KEY = process.env.GOOGLE_MAPS_PLATFORM_KEY || '';
 const hasValidKey = Boolean(API_KEY) && API_KEY !== 'YOUR_API_KEY';
@@ -97,30 +100,31 @@ export const GoogleReviews: React.FC = () => {
     }
   };
 
-  if (isLoading && reviews.length === 0) return null;
-
   return (
-    <section className="py-24 bg-white overflow-hidden">
+    <section className="py-24 bg-white overflow-hidden" id="google-reviews">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
           <div className="max-w-2xl">
             <h2 className="text-accent font-black uppercase text-xs tracking-[0.3em] mb-4 italic">La satisfaction client</h2>
             <p className="text-4xl md:text-6xl font-black text-brand-900 leading-none tracking-tighter uppercase italic">
               Vos derniers <br/>
-              <span className="text-accent underline decoration-brand-900/10 underline-offset-8 italic">avis google</span>
+              <span className="text-accent underline decoration-brand-900/10 underline-offset-8 italic">avis dynamiques</span>
+            </p>
+            <p className="mt-6 text-slate-500 italic max-w-lg text-sm">
+              Nos avis Google sont synchronisés en temps réel. Partagez votre expérience pour aider nos futurs clients !
             </p>
           </div>
           <div className="flex items-center gap-6">
              <div className="text-right hidden sm:block">
                 <p className="text-2xl font-black text-brand-900 uppercase italic">4.9/5</p>
-                <p className="text-[10px] text-slate-400 uppercase tracking-[0.2em]">Basé sur +100 avis</p>
+                <p className="text-[10px] text-slate-400 uppercase tracking-[0.2em]">Basé sur 495 avis google</p>
              </div>
              <div className="flex gap-2">
                {!isAdmin ? (
                  <button 
                    onClick={login}
                    className="p-4 rounded-full bg-slate-50 border border-slate-100 text-brand-900 hover:bg-brand-900 hover:text-white transition-all flex items-center justify-center"
-                   title="Connexion Admin"
+                   title="Connexion Admin pour synchroniser"
                  >
                     <LogIn size={24} />
                  </button>
@@ -129,7 +133,7 @@ export const GoogleReviews: React.FC = () => {
                    onClick={handleSync}
                    disabled={isSyncing}
                    className="p-4 rounded-full bg-slate-50 border border-slate-100 text-brand-900 hover:bg-accent hover:text-white transition-all group disabled:opacity-50"
-                   title="Synchroniser les avis"
+                   title="Synchroniser les avis Google Maps"
                  >
                     <RefreshCw size={24} className={isSyncing ? 'animate-spin' : 'group-hover:rotate-180 transition-transform duration-500'} />
                  </button>
@@ -138,30 +142,66 @@ export const GoogleReviews: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {reviews.map((review, idx) => (
-            <ReviewCard key={review.id || review.publishTime} review={review} index={idx} />
-          ))}
-          
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="bg-brand-900 rounded-[2rem] p-10 text-white flex flex-col justify-center items-center text-center italic relative overflow-hidden group"
-          >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl group-hover:bg-accent/40 transition-all duration-500"></div>
-            <h3 className="text-2xl font-black uppercase mb-4 italic tracking-tight">Et vous ?</h3>
-            <p className="text-white/60 text-sm font-light mb-8 italic">Partagez votre expérience avec Marne Transdem et aidez-nous à nous améliorer.</p>
-            <a 
-              href={`https://search.google.com/local/writereview?placeid=${PLACE_ID}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-3 bg-accent text-brand-900 font-black rounded-xl uppercase text-xs tracking-widest hover:bg-white transition-colors"
+        {isLoading ? (
+          <div className="flex justify-center py-20">
+            <RefreshCw size={40} className="text-accent animate-spin" />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {reviews.slice(0, 5).map((review, idx) => (
+              <ReviewCard key={review.id || review.publishTime} review={review} index={idx} />
+            ))}
+            
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="bg-brand-900 rounded-[2rem] p-10 text-white flex flex-col justify-center items-center text-center italic relative overflow-hidden group min-h-[400px]"
             >
-              Laisser un avis
-            </a>
-          </motion.div>
-        </div>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl group-hover:bg-accent/40 transition-all duration-500"></div>
+              
+              <div className="bg-white p-4 rounded-2xl mb-8 group-hover:scale-105 transition-transform duration-500">
+                <QRCodeSVG 
+                  value={REVIEW_LINK} 
+                  size={140} 
+                  fgColor="#0c112b" 
+                  level="H"
+                  includeMargin={true}
+                />
+              </div>
+
+              <h3 className="text-2xl font-black uppercase mb-4 italic tracking-tight">Et vous ?</h3>
+              <p className="text-white/60 text-sm font-light mb-8 italic">Scannez le QR code ou cliquez ci-dessous pour nous laisser une évaluation.</p>
+              
+              <a 
+                href={REVIEW_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-3 bg-accent text-brand-900 font-black rounded-xl uppercase text-xs tracking-widest hover:bg-white transition-colors"
+              >
+                Laisser un avis
+                <ExternalLink size={14} />
+              </a>
+            </motion.div>
+          </div>
+        )}
+
+        {reviews.length === 0 && !isLoading && (
+          <div className="bg-slate-50 rounded-[2.5rem] p-12 text-center border border-dashed border-slate-200 mt-8">
+            <p className="text-slate-500 italic mb-6">Aucun avis synchronisé pour le moment.</p>
+            {isAdmin ? (
+              <button 
+                onClick={handleSync}
+                className="inline-flex items-center gap-3 bg-brand-900 text-white px-8 py-4 rounded-full font-bold hover:bg-accent transition-all"
+              >
+                Lancer la première synchronisation
+                <RefreshCw size={20} className={isSyncing ? 'animate-spin' : ''} />
+              </button>
+            ) : (
+              <p className="text-xs text-slate-400">Connectez-vous en tant qu'administrateur pour synchroniser les avis Google.</p>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );
