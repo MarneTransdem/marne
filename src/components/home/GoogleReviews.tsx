@@ -105,13 +105,13 @@ export const GoogleReviews: React.FC = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
           <div className="max-w-2xl">
-            <h2 className="text-accent font-black uppercase text-xs tracking-[0.3em] mb-4 italic">La satisfaction client</h2>
+            <h2 className="text-accent font-black uppercase text-xs tracking-[0.3em] mb-4 italic">Expérience client</h2>
             <p className="text-4xl md:text-6xl font-black text-brand-900 leading-none tracking-tighter uppercase italic">
-              Vos derniers <br/>
-              <span className="text-accent underline decoration-brand-900/10 underline-offset-8 italic">avis dynamiques</span>
+              Ils nous font <br/>
+              <span className="text-accent underline decoration-brand-900/10 underline-offset-8 italic">confiance</span>
             </p>
             <p className="mt-6 text-slate-500 italic max-w-lg text-sm">
-              Nos avis Google sont synchronisés en temps réel. Partagez votre expérience pour aider nos futurs clients !
+              Découvrez pourquoi nos clients recommandent Marne Transdem pour leur déménagement à Paris. Des avis authentiques, synchronisés en temps réel.
             </p>
           </div>
           <div className="flex items-center gap-6">

@@ -27,7 +27,7 @@
 }
 
 .glass {
-  @apply bg-white/95 backdrop-blur-xl border-b border-slate-200;
+  @apply bg-white shadow-md border-b border-slate-100;
 }
 
 .service-card {

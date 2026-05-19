@@ -236,20 +236,27 @@ const Home: React.FC = () => {
       <GoogleReviewsSection />
 
       {/* CTA Final */}
-      <section className="py-24 bg-brand-900 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
-        <div className="container mx-auto px-4 md:px-6 text-center relative z-10">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight">Un projet de déménagement à Paris ou en Île-de-France ?</h2>
-          <p className="text-white/60 mb-12 max-w-2xl mx-auto font-light">Demandez une estimation personnalisée ou contactez directement notre équipe.</p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-xl hover:bg-accent-hover transition-all flex items-center gap-3 shadow-2xl">
-              Demander mon devis gratuit
-              <ArrowRight size={24} />
-            </Link>
-            <a href="tel:0144935486" className="text-white font-bold text-2xl flex items-center gap-3 hover:text-accent transition-transform">
-              <Phone size={24} className="text-accent" />
-              01 44 93 54 86
-            </a>
+      <section className="py-24 bg-white relative overflow-hidden font-sans italic">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="bg-slate-50 rounded-[3rem] md:rounded-[4rem] p-12 md:p-20 border border-slate-100 text-center relative overflow-hidden">
+            {/* Background decoration */}
+            <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 -skew-x-12 translate-x-1/4 pointer-events-none z-0"></div>
+            
+            <div className="relative z-10">
+              <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-6 tracking-tighter uppercase italic">Un projet de déménagement <br/> à Paris ou en Île-de-France ?</h2>
+              <p className="text-slate-500 mb-12 max-w-2xl mx-auto font-light italic text-lg">Demandez une estimation personnalisée ou contactez directement notre équipe.</p>
+              
+              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <Link to="/demande-de-devis" className="bg-brand-900 text-white px-10 py-5 rounded-full font-bold text-xl hover:bg-brand-800 transition-all flex items-center gap-3 shadow-xl group">
+                  Demander mon devis gratuit
+                  <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform text-accent" />
+                </Link>
+                <a href="tel:0144935486" className="text-brand-900 font-bold text-2xl flex items-center gap-3 hover:text-accent transition-colors">
+                  <Phone size={24} className="text-accent" />
+                  01 44 93 54 86
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
