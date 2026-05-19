@@ -9,6 +9,7 @@ import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { MobileCTA } from './components/layout/MobileCTA';
 import { PageTransition } from './components/layout/PageTransition';
+import ScrollToTop from './components/layout/ScrollToTop';
 import Home from './pages/Home';
 import Services from './pages/Services';
 import QuoteRequest from './pages/QuoteRequest';
@@ -140,6 +141,7 @@ export default function App() {
     <APIProvider apiKey={API_KEY} version="weekly">
       <HelmetProvider>
         <BrowserRouter>
+          <ScrollToTop />
           <Header />
           <main>
             <PageTransition>

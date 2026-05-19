@@ -179,6 +179,60 @@ const Home: React.FC = () => {
       </section>
 
       <FAQ />
+
+      {/* Advice Teaser Section */}
+      <section className="py-24 bg-white overflow-hidden relative font-sans italic">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex flex-col lg:flex-row items-center gap-16">
+            <div className="lg:w-1/2 relative">
+               <div className="absolute -inset-10 bg-accent/10 rounded-full blur-3xl opacity-50"></div>
+               <div className="relative bg-brand-900 rounded-[3rem] p-4 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-700">
+                  <img 
+                    src="https://images.unsplash.com/photo-1581578731548-c64695cc6958?auto=format&fit=crop&q=80&w=1000" 
+                    alt="Conseils déménagement" 
+                    className="rounded-[2.5rem] w-full aspect-video object-cover"
+                  />
+                  <div className="absolute -bottom-8 -right-8 bg-accent p-8 rounded-[2rem] shadow-xl border-4 border-white hidden md:block">
+                     <CheckCircle size={40} className="text-brand-900" />
+                  </div>
+               </div>
+            </div>
+            
+            <div className="lg:w-1/2 space-y-8">
+               <div className="space-y-4">
+                  <h2 className="text-accent font-black uppercase text-xs tracking-[0.3em] mb-4">Experts à vos côtés</h2>
+                  <p className="text-4xl md:text-6xl font-black text-brand-900 mb-8 leading-[1.1] tracking-tighter uppercase italic">
+                    Préparez votre <br/>
+                    <span className="text-accent underline decoration-brand-900/10 underline-offset-8 italic">départ sereinement</span>
+                  </p>
+               </div>
+               
+               <p className="text-slate-500 text-lg font-light leading-relaxed">
+                  Découvrez notre centre de ressources dédié : checklist interactive, guides d'emballage et toutes les formalités administratives pour ne rien oublier.
+               </p>
+
+               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {[
+                    "Checklist interactive par étapes",
+                    "Guide d'emballage fragile",
+                    "Aide aux formalités administratives",
+                    "Astuces d'organisation Jour J"
+                  ].map((tip, i) => (
+                    <div key={i} className="flex items-center gap-3">
+                       <CheckCircle size={18} className="text-accent shrink-0" />
+                       <span className="text-brand-900 font-bold text-sm tracking-tight">{tip}</span>
+                    </div>
+                  ))}
+               </div>
+
+               <Link to="/blog" className="inline-flex items-center gap-4 bg-brand-900 text-white px-10 py-5 rounded-full font-black uppercase text-xs tracking-widest hover:bg-brand-800 transition-all shadow-xl group">
+                  Accéder à nos conseils <ArrowRight size={20} className="text-accent group-hover:translate-x-2 transition-transform" />
+               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <GoogleReviewsSection />
 
       {/* CTA Final */}

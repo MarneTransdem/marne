@@ -97,7 +97,7 @@ export const useGoogleReviews = (placeId: string) => {
         for (const r of place.reviews) {
           const rawAuthorName = r.authorAttribution?.displayName || (r as any).authorName;
           const rawText = r.text || (r as any).text;
-          const rawPhotoUrl = r.authorAttribution?.photoUri || (r as any).authorPhotoUrl;
+          const rawPhotoUrl = r.authorAttribution?.photoURI || (r as any).authorPhotoUrl;
           const rawRating = r.rating || (r as any).rating;
 
           if (rawText && rawAuthorName && !existingTexts.has(rawText)) {
