@@ -6,45 +6,45 @@ import { CONTACT, NAVIGATION, SERVICES } from '../../constants';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-brand-900 text-white pt-20 pb-10">
+    <footer className="bg-brand-900 dark:bg-slate-950 text-white pt-20 pb-10 transition-colors duration-300">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
           {/* Col 1: Brand & Contact */}
-          <div className="space-y-8 flex flex-col items-center sm:items-start">
+          <div className="space-y-8 flex flex-col items-center sm:items-start text-center sm:text-left">
             <div className="space-y-6 flex flex-col items-center sm:items-start w-full">
               <Link to="/">
                 <Logo variant="light" height="h-12" />
               </Link>
               <div className="space-y-6">
-                <p className="text-slate-400 text-sm leading-relaxed font-light max-w-xs text-center sm:text-left">
+                <p className="text-slate-400 dark:text-slate-500 text-sm leading-relaxed font-light max-w-xs">
                   Déménagement à Paris. Un accompagnement professionnel pour tous vos projets de mobilité au cœur de l'Île-de-France.
                 </p>
                 <ul className="space-y-4">
                   <li className="flex items-center gap-3 justify-center sm:justify-start group">
-                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-accent/10 transition-colors">
+                    <div className="w-8 h-8 rounded-full bg-white/5 dark:bg-white/10 flex items-center justify-center group-hover:bg-accent/10 transition-colors">
                       <MapPin size={14} className="text-accent" />
                     </div>
-                    <span className="text-slate-300 text-xs font-medium">{CONTACT.fullAddress}</span>
+                    <span className="text-slate-300 dark:text-slate-400 text-xs font-medium">{CONTACT.fullAddress}</span>
                   </li>
                   <li className="flex items-center gap-3 justify-center sm:justify-start group">
-                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-accent/10 transition-colors">
+                    <div className="w-8 h-8 rounded-full bg-white/5 dark:bg-white/10 flex items-center justify-center group-hover:bg-accent/10 transition-colors">
                       <Phone size={14} className="text-accent" />
                     </div>
-                    <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="text-slate-100 text-sm font-bold hover:text-accent transition-colors">{CONTACT.phone}</a>
+                    <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="text-slate-100 dark:text-white text-sm font-bold hover:text-accent transition-colors">{CONTACT.phone}</a>
                   </li>
                   <li className="flex items-center gap-3 justify-center sm:justify-start group">
-                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-accent/10 transition-colors">
+                    <div className="w-8 h-8 rounded-full bg-white/5 dark:bg-white/10 flex items-center justify-center group-hover:bg-accent/10 transition-colors">
                       <Mail size={14} className="text-accent" />
                     </div>
-                    <a href={`mailto:${CONTACT.email}`} className="text-slate-300 text-xs font-medium hover:text-white transition-colors truncate max-w-[200px]">{CONTACT.email}</a>
+                    <a href={`mailto:${CONTACT.email}`} className="text-slate-300 dark:text-slate-400 text-xs font-medium hover:text-white transition-colors truncate max-w-[200px]">{CONTACT.email}</a>
                   </li>
                 </ul>
               </div>
             </div>
             <div className="flex gap-4 justify-center sm:justify-start">
-               <a href="#" className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:border-accent hover:text-accent transition-all"><Instagram size={14} /></a>
-               <a href="#" className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:border-accent hover:text-accent transition-all"><Facebook size={14} /></a>
-               <a href="#" className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:border-accent hover:text-accent transition-all"><Linkedin size={14} /></a>
+               <a href="#" className="w-8 h-8 rounded-full border border-white/10 dark:border-white/20 flex items-center justify-center hover:border-accent hover:text-accent transition-all"><Instagram size={14} /></a>
+               <a href="#" className="w-8 h-8 rounded-full border border-white/10 dark:border-white/20 flex items-center justify-center hover:border-accent hover:text-accent transition-all"><Facebook size={14} /></a>
+               <a href="#" className="w-8 h-8 rounded-full border border-white/10 dark:border-white/20 flex items-center justify-center hover:border-accent hover:text-accent transition-all"><Linkedin size={14} /></a>
             </div>
           </div>
 

@@ -173,7 +173,7 @@ const DemenagementParticuliers: React.FC = () => {
             {FORMULAS.map((formula, i) => (
               <div key={i} className="bg-white/5 border border-white/10 p-10 rounded-[2.5rem] flex flex-col hover:bg-white/10 transition-all">
                 <h3 className="text-2xl font-black mb-4 text-accent">{formula.name}</h3>
-                <p className="text-slate-300 text-sm mb-10 font-light leading-relaxed">{formula.description}</p>
+                <p className="text-slate-300 text-sm mb-10 font-light leading-relaxed opacity-70">{formula.description}</p>
                 <ul className="space-y-4 mb-10 flex-grow">
                   {formula.features.slice(0, 4).map((f, j) => (
                     <li key={j} className="flex gap-3 text-sm font-light">
@@ -183,7 +183,7 @@ const DemenagementParticuliers: React.FC = () => {
                   ))}
                 </ul>
                 <div className="space-y-4">
-                   <Link to="/demande-de-devis" className="block text-center bg-accent text-brand-900 py-4 rounded-full font-bold hover:bg-accent-hover transition-all">
+                   <Link to="/demande-de-devis" className="block text-center bg-accent text-brand-900 stay-dark py-4 rounded-full font-bold hover:bg-accent-hover transition-all">
                      Choisir {formula.name}
                    </Link>
                 </div>

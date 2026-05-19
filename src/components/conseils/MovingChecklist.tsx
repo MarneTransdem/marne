@@ -76,7 +76,7 @@ export const MovingChecklist: React.FC = () => {
   const progress = Math.round((completedTasks.size / CHECKLIST_DATA.reduce((acc, s) => acc + s.tasks.length, 0)) * 100);
 
   return (
-    <div className="bg-white rounded-[3rem] shadow-2xl overflow-hidden border border-slate-100 italic">
+    <div className="bg-white stay-white-bg rounded-[3rem] shadow-2xl overflow-hidden border border-slate-100 italic">
       <div className="bg-brand-900 p-8 md:p-12 text-white">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
           <div>
@@ -115,8 +115,8 @@ export const MovingChecklist: React.FC = () => {
             transition={{ duration: 0.3 }}
           >
             <div className="mb-8">
-              <h4 className="text-brand-900 text-xl font-black uppercase italic mb-1 tracking-tight">{activeSection.title}</h4>
-              <p className="text-slate-400 italic text-sm">{activeSection.subtitle}</p>
+              <h4 className="text-brand-900 stay-dark text-xl font-black uppercase italic mb-1 tracking-tight">{activeSection.title}</h4>
+              <p className="text-slate-400 stay-dark opacity-60 italic text-sm">{activeSection.subtitle}</p>
             </div>
 
             <div className="space-y-4">
@@ -126,8 +126,8 @@ export const MovingChecklist: React.FC = () => {
                   onClick={() => toggleTask(task.id)}
                   className={`w-full flex items-start gap-4 p-5 rounded-2xl transition-all border text-left group ${
                     completedTasks.has(task.id)
-                      ? 'bg-slate-50 border-slate-100 opacity-60'
-                      : 'bg-white border-slate-100 hover:border-accent hover:shadow-lg translate-y-0 hover:-translate-y-1'
+                      ? 'bg-slate-50 stay-light-section border-slate-100 opacity-60'
+                      : 'bg-white stay-white-bg border-slate-100 hover:border-accent hover:shadow-lg translate-y-0 hover:-translate-y-1'
                   }`}
                 >
                   <div className="shrink-0 mt-0.5">
@@ -139,7 +139,7 @@ export const MovingChecklist: React.FC = () => {
                   </div>
                   <div className="flex-grow">
                      <p className={`font-bold italic transition-all ${
-                        completedTasks.has(task.id) ? 'text-slate-400 line-through' : 'text-brand-900'
+                        completedTasks.has(task.id) ? 'text-slate-400 stay-dark opacity-50 line-through' : 'text-brand-900 stay-dark'
                      }`}>
                         {task.text}
                      </p>
@@ -156,8 +156,8 @@ export const MovingChecklist: React.FC = () => {
         </AnimatePresence>
       </div>
 
-      <div className="p-8 bg-slate-50 border-t border-slate-100 flex justify-center">
-         <p className="text-slate-400 text-xs italic">
+      <div className="p-8 bg-slate-50 stay-light-section border-t border-slate-100 flex justify-center">
+         <p className="text-slate-400 stay-dark opacity-50 text-xs italic">
            Astuce : Cette liste est sauvegardée localement sur votre navigateur.
          </p>
       </div>

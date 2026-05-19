@@ -436,21 +436,21 @@ const LocalParis20: React.FC = () => {
       </section>
 
       {/* 12. FAQ locale */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-white stay-white-bg">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-6">FAQ Déménagement Paris 20e</h2>
-            <p className="text-slate-500 font-light italic">Les questions les plus fréquentes pour votre projet dans l'arrondissement.</p>
+            <h2 className="text-3xl md:text-5xl font-black text-brand-900 stay-dark mb-6">FAQ Déménagement Paris 20e</h2>
+            <p className="text-slate-500 stay-dark font-light italic opacity-70">Les questions les plus fréquentes pour votre projet dans l'arrondissement.</p>
           </div>
 
           <div className="space-y-6">
             {faqs.map((faq, i) => (
-              <div key={i} className="bg-white p-10 rounded-[2rem] border border-slate-200 shadow-sm">
-                <h4 className="text-lg font-bold text-brand-900 mb-6 flex items-start gap-4">
+              <div key={i} className="bg-slate-50 stay-light-section p-10 rounded-[2rem] border border-slate-200 shadow-sm">
+                <h4 className="text-lg font-bold text-brand-900 stay-dark mb-6 flex items-start gap-4">
                   <HelpCircle className="text-accent shrink-0 mt-1" size={22} />
                   {faq.q}
                 </h4>
-                <p className="text-slate-500 font-light leading-relaxed pl-10 italic border-l-2 border-accent/20">
+                <p className="text-slate-500 stay-dark font-light leading-relaxed pl-10 italic border-l-2 border-accent/20 opacity-80">
                   {faq.a}
                 </p>
               </div>

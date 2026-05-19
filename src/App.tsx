@@ -133,14 +133,16 @@ import SecteursDesservis from './pages/SecteursDesservis';
 
 import { APIProvider } from '@vis.gl/react-google-maps';
 import { CookieConsent } from './components/common/CookieConsent';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_PLATFORM_KEY || '';
 
 export default function App() {
   return (
-    <APIProvider apiKey={API_KEY} version="weekly">
-      <HelmetProvider>
-        <BrowserRouter>
+    <ThemeProvider>
+      <APIProvider apiKey={API_KEY} version="weekly">
+        <HelmetProvider>
+          <BrowserRouter>
           <ScrollToTop />
           <Header />
           <main>
@@ -291,5 +293,6 @@ export default function App() {
         </BrowserRouter>
       </HelmetProvider>
     </APIProvider>
+    </ThemeProvider>
   );
 }

@@ -72,7 +72,7 @@ const FormulasPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white dark:bg-slate-950 min-h-screen transition-colors duration-300">
       <SEO 
         title="Formules de déménagement Paris | Marne Transdem" 
         description="Découvrez les formules Économique, Standard et Luxe de Marne Transdem pour organiser votre déménagement à Paris selon votre budget et vos besoins." 
@@ -88,7 +88,7 @@ const FormulasPage: React.FC = () => {
       />
       
       {/* 1. Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-brand-900 overflow-hidden text-white">
+      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-brand-900 dark:bg-slate-950 overflow-hidden text-white transition-colors duration-300">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 blur-3xl opacity-50"></div>
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
@@ -131,11 +131,11 @@ const FormulasPage: React.FC = () => {
       </section>
 
       {/* 2. Introduction */}
-      <section className="py-24">
+      <section className="py-24 dark:bg-slate-950">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-brand-900 mb-8">Découvrez les détails de nos formules</h2>
-            <div className="space-y-6 text-slate-600 leading-relaxed text-lg font-light">
+            <h2 className="text-3xl font-bold text-brand-900 dark:text-white mb-8">Découvrez les détails de nos formules</h2>
+            <div className="space-y-6 text-slate-600 dark:text-slate-400 leading-relaxed text-lg font-light">
               <p>
                 Nous proposons des formules soigneusement conçues pour répondre à différents besoins en matière de temps, de budget et de niveau d’accompagnement. Que vous souhaitiez participer activement à la préparation de votre déménagement ou déléguer une grande partie de l’organisation, nos formules vous permettent de choisir la solution la plus adaptée à votre situation.
               </p>
@@ -148,11 +148,11 @@ const FormulasPage: React.FC = () => {
       </section>
 
       {/* 3. 3 formules flexibles et personnalisables */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 stay-light-section">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-20">
-            <h2 className="text-3xl lg:text-5xl font-black text-brand-900 mb-6">3 formules flexibles et personnalisables</h2>
-            <p className="text-slate-500 max-w-2xl mx-auto font-light leading-relaxed">
+            <h2 className="text-3xl lg:text-5xl font-black text-brand-900 mb-6 stay-dark tracking-tight">3 formules flexibles et personnalisables</h2>
+            <p className="text-slate-500 max-w-2xl mx-auto font-light leading-relaxed stay-dark opacity-70">
               Nous avons conçu ces trois formules pour répondre aux besoins des particuliers et des entreprises, selon leur budget, leur disponibilité et le niveau de prise en charge souhaité.
             </p>
           </div>
@@ -163,10 +163,10 @@ const FormulasPage: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm flex flex-col h-full hover:shadow-xl transition-all"
+              className="stay-white-bg p-10 rounded-[2.5rem] border border-slate-100 shadow-sm flex flex-col h-full hover:shadow-xl transition-all"
             >
-              <h3 className="text-2xl font-black text-brand-900 mb-6 uppercase tracking-tight">Formule économique</h3>
-              <p className="text-slate-500 mb-8 leading-relaxed font-light text-sm">
+              <h3 className="text-2xl font-black text-brand-900 mb-6 uppercase tracking-tight stay-dark">Formule économique</h3>
+              <p className="text-slate-500 mb-8 leading-relaxed font-light text-sm stay-dark opacity-70">
                 Pour un déménagement maîtrisé, la formule Économique est idéale si vous souhaitez préparer vous-même vos cartons et organiser une partie de votre déménagement. Vous vous occupez de l’emballage et de la mise en cartons de vos affaires. L’équipe Marne Transdem prend ensuite en charge le chargement, le transport et le déchargement dans votre nouveau logement ou local.
               </p>
               <ul className="space-y-4 mb-10 flex-grow">
@@ -177,13 +177,13 @@ const FormulasPage: React.FC = () => {
                   "Solution adaptée aux budgets maîtrisés",
                   "Idéale si vous souhaitez participer"
                 ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-brand-900 font-medium">
+                  <li key={i} className="flex items-start gap-3 text-sm text-brand-900 font-medium stay-dark">
                     <CheckCircle2 size={18} className="text-accent shrink-0 mt-0.5" />
                     {item}
                   </li>
                 ))}
               </ul>
-              <Link to="/demande-de-devis" className="w-full py-4 bg-slate-100 text-brand-900 rounded-2xl font-bold text-center hover:bg-slate-200 transition-colors">
+              <Link to="/demande-de-devis" className="w-full py-4 bg-slate-100 text-brand-900 stay-dark rounded-2xl font-bold text-center hover:bg-slate-200 transition-colors">
                 Choisir la formule économique
               </Link>
             </motion.div>
@@ -196,7 +196,7 @@ const FormulasPage: React.FC = () => {
               transition={{ delay: 0.1 }}
               className="bg-brand-900 rounded-[2.5rem] p-10 border border-brand-800 shadow-2xl flex flex-col h-full lg:scale-110 z-10 relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-24 h-24 bg-accent/20 blur-3xl"></div>
+              <div className="absolute top-0 right-0 w-24 h-24 bg-accent/20 blur-3xl text-white"></div>
               <div className="bg-accent text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest self-start mb-6">
                 Le plus équilibré
               </div>
@@ -218,7 +218,7 @@ const FormulasPage: React.FC = () => {
                   </li>
                 ))}
               </ul>
-              <Link to="/demande-de-devis" className="w-full py-4 bg-accent text-white rounded-2xl font-bold text-center hover:bg-accent/90 transition-colors shadow-lg shadow-accent/20">
+              <Link to="/demande-de-devis" className="w-full py-4 bg-accent text-brand-900 stay-dark rounded-2xl font-bold text-center hover:bg-accent/90 transition-colors shadow-lg shadow-accent/20">
                 Choisir la formule standard
               </Link>
             </motion.div>
@@ -229,10 +229,10 @@ const FormulasPage: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm flex flex-col h-full hover:shadow-xl transition-all"
+              className="stay-white-bg p-10 rounded-[2.5rem] border border-slate-100 shadow-sm flex flex-col h-full hover:shadow-xl transition-all"
             >
-              <h3 className="text-2xl font-black text-brand-900 mb-6 uppercase tracking-tight">Formule luxe</h3>
-              <p className="text-slate-500 mb-8 leading-relaxed font-light text-sm">
+              <h3 className="text-2xl font-black text-brand-900 mb-6 uppercase tracking-tight stay-dark">Formule luxe</h3>
+              <p className="text-slate-500 mb-8 leading-relaxed font-light text-sm stay-dark opacity-70">
                 La formule Luxe, aussi appelée formule clé en main, s’adresse aux clients qui souhaitent déléguer une grande partie de leur déménagement. L’équipe Marne Transdem accompagne la préparation, l’emballage, la protection, la manutention, le transport et l’installation selon les besoins définis lors de l’étude du projet.
               </p>
               <ul className="space-y-4 mb-10 flex-grow">
@@ -243,13 +243,13 @@ const FormulasPage: React.FC = () => {
                   "Transport et installation",
                   "Solution confortable pour déléguer"
                 ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-brand-900 font-medium">
+                  <li key={i} className="flex items-start gap-3 text-sm text-brand-900 font-medium stay-dark">
                     <CheckCircle2 size={18} className="text-accent shrink-0 mt-0.5" />
                     {item}
                   </li>
                 ))}
               </ul>
-              <Link to="/demande-de-devis" className="w-full py-4 bg-slate-100 text-brand-900 rounded-2xl font-bold text-center hover:bg-slate-200 transition-colors">
+              <Link to="/demande-de-devis" className="w-full py-4 bg-slate-100 text-brand-900 stay-dark rounded-2xl font-bold text-center hover:bg-slate-200 transition-colors">
                 Choisir la formule luxe
               </Link>
             </motion.div>
@@ -258,22 +258,22 @@ const FormulasPage: React.FC = () => {
       </section>
 
       {/* 4. Tableau comparatif */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-white dark:bg-slate-950">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-black text-brand-900 mb-6 tracking-tight">Tableau comparatif des formules</h2>
-            <p className="text-slate-500 font-light text-lg">Comparez les prestations pour choisir le niveau d’accompagnement idéal.</p>
+            <h2 className="text-3xl lg:text-5xl font-black text-brand-900 dark:text-white mb-6 tracking-tight">Tableau comparatif des formules</h2>
+            <p className="text-slate-500 dark:text-slate-400 font-light text-lg">Comparez les prestations pour choisir le niveau d’accompagnement idéal.</p>
           </div>
 
           {/* Desktop Table View */}
           <div className="hidden lg:block relative">
-            <div className="overflow-hidden rounded-[3rem] border border-slate-200 shadow-premium bg-white">
+            <div className="overflow-hidden rounded-[3rem] border border-slate-200 dark:border-slate-800 shadow-premium bg-white dark:bg-slate-900">
               <table className="w-full text-left border-collapse table-fixed">
                 <thead>
-                  <tr className="bg-brand-900">
+                  <tr className="bg-brand-900 dark:bg-slate-950">
                     <th className="p-10 text-xs font-black uppercase tracking-[0.2em] text-white/40 border-b border-white/5 w-[35%]">Prestations</th>
                     <th className="p-10 text-sm font-black uppercase tracking-widest text-white border-b border-white/5 text-center">Économique</th>
-                    <th className="p-10 text-sm font-black uppercase tracking-widest text-white border-b border-accent/20 text-center bg-white/5 relative border-x border-white/5">
+                    <th className="p-10 text-sm font-black uppercase tracking-widest text-white border-b border-accent/20 text-center bg-white/5 dark:bg-slate-900/50 relative border-x border-white/5">
                       <div className="flex flex-col items-center gap-3">
                         <span className="bg-accent text-brand-900 px-4 py-1 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg shadow-accent/20">
                           Recommandée
@@ -286,15 +286,15 @@ const FormulasPage: React.FC = () => {
                 </thead>
                 <tbody className="text-sm">
                   {comparisonData.map((row, i) => (
-                    <tr key={i} className="group hover:bg-slate-50/30 transition-colors">
-                      <td className="p-6 font-bold text-brand-900 border-b border-slate-50 leading-tight text-sm">{row.label}</td>
-                      <td className="p-6 text-center border-b border-slate-50 bg-white">
+                    <tr key={i} className="group hover:bg-slate-50/30 dark:hover:bg-white/5 transition-colors">
+                      <td className="p-6 font-bold text-brand-900 dark:text-white border-b border-slate-50 dark:border-slate-800 leading-tight text-sm">{row.label}</td>
+                      <td className="p-6 text-center border-b border-slate-50 dark:border-slate-800 bg-white dark:bg-slate-900">
                         <StatusBadge status={row.eco} />
                       </td>
-                      <td className="p-6 text-center border-b border-accent/5 bg-accent/[0.03] border-x border-accent/5">
+                      <td className="p-6 text-center border-b border-accent/5 dark:border-accent/10 bg-accent/[0.03] dark:bg-accent/[0.05] border-x border-accent/5">
                          <StatusBadge status={row.std} />
                       </td>
-                      <td className="p-6 text-center border-b border-slate-50">
+                      <td className="p-6 text-center border-b border-slate-50 dark:border-slate-800 bg-white dark:bg-slate-900">
                         <StatusBadge status={row.lux} />
                       </td>
                     </tr>
@@ -308,17 +308,17 @@ const FormulasPage: React.FC = () => {
           <div className="lg:hidden space-y-8">
             <div className="space-y-6">
               {['Économique', 'Standard', 'Luxe'].map((formula) => (
-                <div key={formula} className={`p-8 rounded-3xl border ${formula === 'Standard' ? 'border-accent bg-accent/[0.02] ring-4 ring-accent/5' : 'border-slate-100 bg-white'}`}>
+                <div key={formula} className={`p-8 rounded-3xl border ${formula === 'Standard' ? 'border-accent bg-accent/[0.02] ring-4 ring-accent/5' : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900'}`}>
                   <div className="flex items-center justify-between mb-8">
-                    <h3 className={`text-2xl font-black uppercase tracking-tight ${formula === 'Standard' ? 'text-accent' : 'text-brand-900'}`}>{formula}</h3>
+                    <h3 className={`text-2xl font-black uppercase tracking-tight ${formula === 'Standard' ? 'text-accent' : 'text-brand-900 dark:text-white'}`}>{formula}</h3>
                     {formula === 'Standard' && (
                       <span className="bg-accent text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Populaire</span>
                     )}
                   </div>
                   <div className="space-y-4">
                     {comparisonData.map((row, i) => (
-                      <div key={i} className="flex flex-col gap-2 pb-4 border-b border-slate-50 last:border-0 last:pb-0">
-                        <div className="text-xs font-bold text-brand-900 leading-tight">{row.label}</div>
+                      <div key={i} className="flex flex-col gap-2 pb-4 border-b border-slate-50 dark:border-slate-800 last:border-0 last:pb-0">
+                        <div className="text-xs font-bold text-brand-900 dark:text-white leading-tight">{row.label}</div>
                         <div>
                           <StatusBadge status={formula === 'Économique' ? row.eco : formula === 'Standard' ? row.std : row.lux} />
                         </div>
@@ -330,17 +330,17 @@ const FormulasPage: React.FC = () => {
             </div>
           </div>
           
-          <p className="mt-12 text-sm text-slate-500 font-bold text-center italic flex items-center justify-center gap-2">
+          <p className="mt-12 text-sm text-slate-500 dark:text-slate-400 font-bold text-center italic flex items-center justify-center gap-2">
             <Info size={16} className="text-accent" />
             Toutes nos formules sont flexibles et adaptables selon les besoins du projet.
           </p>
 
           {/* Decision Support Block */}
-          <div className="mt-24 max-w-4xl mx-auto bg-brand-900 rounded-[3rem] p-10 lg:p-20 border border-white/5 text-center text-white relative overflow-hidden">
+          <div className="mt-24 max-w-4xl mx-auto bg-brand-900 dark:bg-slate-900 rounded-[3rem] p-10 lg:p-20 border border-white/5 dark:border-slate-800 text-center text-white relative overflow-hidden transition-colors duration-300">
             <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 blur-[80px] -translate-y-1/2 translate-x-1/2"></div>
             <div className="relative z-10">
-              <h3 className="text-3xl lg:text-4xl font-bold text-white mb-6">Besoin d’aide pour choisir votre formule ?</h3>
-              <p className="text-slate-300 leading-relaxed font-light text-lg mb-12 max-w-2xl mx-auto">
+              <h3 className="text-3xl lg:text-4xl font-bold text-white mb-6 text-white">Besoin d’aide pour choisir votre formule ?</h3>
+              <p className="text-slate-300 dark:text-slate-400 leading-relaxed font-light text-lg mb-12 max-w-2xl mx-auto text-white">
                 Nous vous accompagnons pour identifier la prestation la plus adaptée à votre volume, vos accès, votre budget et votre disponibilité.
               </p>
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -359,18 +359,18 @@ const FormulasPage: React.FC = () => {
       </section>
 
       {/* 5. Quelle formule choisir ? */}
-      <section className="py-24 bg-brand-900 text-white overflow-hidden relative">
+      <section className="py-24 bg-brand-900 dark:bg-slate-950 text-white overflow-hidden relative transition-colors duration-300">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/10 blur-[120px]"></div>
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">Quelle formule choisir pour votre déménagement ?</h2>
-            <p className="text-slate-300 font-light">Identifiez la solution la plus adaptée à votre profil.</p>
+            <p className="text-slate-300 dark:text-slate-400 font-light">Identifiez la solution la plus adaptée à votre profil.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white/5 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/10 hover:bg-white/10 transition-colors">
-              <h4 className="text-xl font-bold mb-6 text-white border-b border-white/10 pb-4">Choisissez l'Économique si :</h4>
-              <ul className="space-y-4 text-slate-300 font-light">
+            <div className="bg-white/5 dark:bg-slate-900 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/10 dark:border-slate-800 hover:bg-white/10 dark:hover:bg-slate-800/80 transition-colors">
+              <h4 className="text-xl font-bold mb-6 text-white border-b border-white/10 dark:border-slate-800 pb-4">Choisissez l'Économique si :</h4>
+              <ul className="space-y-4 text-slate-300 dark:text-slate-400 font-light">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 size={18} className="text-accent shrink-0 mt-0.5" />
                   Vous souhaitez maîtriser votre budget.
@@ -386,9 +386,9 @@ const FormulasPage: React.FC = () => {
               </ul>
             </div>
 
-            <div className="bg-white/5 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/10 hover:bg-white/10 transition-colors">
-              <h4 className="text-xl font-bold mb-6 text-white border-b border-white/10 pb-4">Choisissez la Standard si :</h4>
-              <ul className="space-y-4 text-slate-300 font-light">
+            <div className="bg-white/5 dark:bg-slate-900 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/10 dark:border-slate-800 hover:bg-white/10 dark:hover:bg-slate-800/80 transition-colors">
+              <h4 className="text-xl font-bold mb-6 text-white border-b border-white/10 dark:border-slate-800 pb-4">Choisissez la Standard si :</h4>
+              <ul className="space-y-4 text-slate-300 dark:text-slate-400 font-light">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 size={18} className="text-accent shrink-0 mt-0.5" />
                   Vous souhaitez un équilibre budget/confort.
@@ -404,9 +404,9 @@ const FormulasPage: React.FC = () => {
               </ul>
             </div>
 
-            <div className="bg-white/5 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/10 hover:bg-white/10 transition-colors">
-              <h4 className="text-xl font-bold mb-6 text-white border-b border-white/10 pb-4">Choisissez la Luxe si :</h4>
-              <ul className="space-y-4 text-slate-300 font-light">
+            <div className="bg-white/5 dark:bg-slate-900 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/10 dark:border-slate-800 hover:bg-white/10 dark:hover:bg-slate-800/80 transition-colors">
+              <h4 className="text-xl font-bold mb-6 text-white border-b border-white/10 dark:border-slate-800 pb-4">Choisissez la Luxe si :</h4>
+              <ul className="space-y-4 text-slate-300 dark:text-slate-400 font-light">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 size={18} className="text-accent shrink-0 mt-0.5" />
                   Vous souhaitez déléguer plus de préparation.
@@ -426,17 +426,17 @@ const FormulasPage: React.FC = () => {
       </section>
 
       {/* 6. Section CTA intermédiaire */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-slate-50 dark:bg-slate-900/50">
         <div className="container mx-auto px-4 md:px-6 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold text-brand-900 mb-8">Vous déménagez bientôt ? Laissez-nous vous accompagner.</h2>
-          <p className="text-xl text-slate-500 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+          <h2 className="text-3xl lg:text-4xl font-bold text-brand-900 dark:text-white mb-8">Vous déménagez bientôt ? Laissez-nous vous accompagner.</h2>
+          <p className="text-xl text-slate-500 dark:text-slate-400 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
             Décrivez votre projet et recevez une estimation adaptée à votre volume, vos accès, votre budget et le niveau d’accompagnement souhaité.
           </p>
           <div className="flex flex-wrap justify-center gap-6">
             <Link to="/demande-de-devis" className="bg-accent text-white px-12 py-5 rounded-full font-bold text-lg hover:bg-accent/90 transition-all shadow-xl shadow-accent/20">
               Demander mon devis gratuit
             </Link>
-            <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white text-brand-900 border border-slate-200 px-10 py-5 rounded-full font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-3">
+            <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white dark:bg-slate-800 text-brand-900 dark:text-white border border-slate-200 dark:border-slate-700 px-10 py-5 rounded-full font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-3">
               <Phone size={20} className="text-accent" />
               {CONTACT.phone}
             </a>
@@ -445,20 +445,20 @@ const FormulasPage: React.FC = () => {
       </section>
 
       {/* 7. Nos services complémentaires */}
-      <section className="py-24">
+      <section className="py-24 dark:bg-slate-950">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-brand-900 mb-4">Nos services de déménagement</h2>
-            <p className="text-slate-500 font-light">Nous fournissons des services de déménagement adaptés aux particuliers et aux entreprises.</p>
+            <h2 className="text-3xl font-bold text-brand-900 dark:text-white mb-4 tracking-tight">Nos services de déménagement</h2>
+            <p className="text-slate-500 dark:text-slate-400 font-light">Nous fournissons des services de déménagement adaptés aux particuliers et aux entreprises.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {SERVICES.map((service) => (
-              <Link key={service.id} to={service.path} className="group bg-white p-8 rounded-[2rem] border border-slate-100 hover:border-accent transition-all hover:shadow-xl shadow-premium/5 flex flex-col h-full">
-                <div className="w-14 h-14 bg-slate-50 text-accent rounded-2xl flex items-center justify-center mb-6 group-hover:bg-accent group-hover:text-white transition-colors">
+              <Link key={service.id} to={service.path} className="group bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 hover:border-accent transition-all hover:shadow-xl shadow-premium/5 flex flex-col h-full">
+                <div className="w-14 h-14 bg-slate-50 dark:bg-slate-800 text-accent rounded-2xl flex items-center justify-center mb-6 group-hover:bg-accent group-hover:text-white transition-colors">
                   <service.icon size={28} />
                 </div>
-                <h3 className="text-xl font-bold text-brand-900 mb-3">{service.title}</h3>
-                <p className="text-slate-500 text-sm font-light leading-relaxed mb-6 flex-grow">{service.description}</p>
+                <h3 className="text-xl font-bold text-brand-900 dark:text-white mb-3">{service.title}</h3>
+                <p className="text-slate-500 dark:text-slate-400 text-sm font-light leading-relaxed mb-6 flex-grow">{service.description}</p>
                 <div className="flex items-center gap-2 text-accent font-bold text-sm uppercase tracking-widest group-hover:gap-4 transition-all">
                   Découvrir
                   <ArrowRight size={16} />
@@ -470,18 +470,18 @@ const FormulasPage: React.FC = () => {
       </section>
 
       {/* 8. FAQ */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-slate-50 dark:bg-slate-900/50">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl">
-          <h2 className="text-3xl font-bold text-brand-900 mb-12 text-center">Questions fréquentes sur nos formules</h2>
+          <h2 className="text-3xl font-bold text-brand-900 dark:text-white mb-12 text-center">Questions fréquentes sur nos formules</h2>
           <div className="space-y-6">
             {faqs.map((faq, i) => (
-              <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex gap-6 items-start">
-                <div className="bg-slate-50 w-10 h-10 rounded-lg flex items-center justify-center text-accent shrink-0">
+              <div key={i} className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex gap-6 items-start">
+                <div className="bg-slate-50 dark:bg-slate-800 w-10 h-10 rounded-lg flex items-center justify-center text-accent shrink-0">
                   <Info size={18} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-900 text-lg mb-3">{faq.q}</h4>
-                  <p className="text-slate-500 font-light leading-relaxed">{faq.a}</p>
+                  <h4 className="font-bold text-brand-900 dark:text-white text-lg mb-3">{faq.q}</h4>
+                  <p className="text-slate-500 dark:text-slate-400 font-light leading-relaxed">{faq.a}</p>
                 </div>
               </div>
             ))}
@@ -490,26 +490,26 @@ const FormulasPage: React.FC = () => {
       </section>
 
       {/* 9. Bloc contact final */}
-      <section className="py-24">
+      <section className="py-24 dark:bg-slate-950">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="bg-brand-900 rounded-[3rem] p-12 lg:p-20 text-white relative overflow-hidden">
+          <div className="bg-brand-900 dark:bg-slate-900 rounded-[3rem] p-12 lg:p-20 text-white relative overflow-hidden transition-colors duration-300">
             <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/20 blur-[100px]"></div>
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <div>
                 <h2 className="text-4xl lg:text-6xl font-black text-white mb-8">Devis déménagement Paris</h2>
-                <p className="text-xl text-slate-300 font-light mb-12 leading-relaxed">
+                <p className="text-xl text-slate-300 dark:text-slate-400 font-light mb-12 leading-relaxed text-white">
                   Vous déménagez bientôt ? Contactez Marne Transdem pour choisir la formule adaptée à votre projet.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
                   <div className="space-y-2">
-                    <div className="text-[10px] uppercase tracking-widest text-slate-500 font-black">Notre bureau</div>
+                    <div className="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-600 font-black">Notre bureau</div>
                     <div className="font-bold flex items-center gap-2">
                       <MapPin size={16} className="text-accent" />
                       {CONTACT.fullAddress}
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="text-[10px] uppercase tracking-widest text-slate-500 font-black">Email</div>
+                    <div className="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-600 font-black">Email</div>
                     <div className="font-bold flex items-center gap-2">
                       <Mail size={16} className="text-accent" />
                       {CONTACT.email}
@@ -520,15 +520,15 @@ const FormulasPage: React.FC = () => {
                   <Link to="/demande-de-devis" className="bg-accent text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-accent/90 transition-all text-center">
                     Demander mon devis gratuit
                   </Link>
-                  <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-3">
+                  <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white dark:bg-slate-800 text-brand-900 dark:text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-3">
                     <Phone size={20} className="text-accent" />
                     Nous appeler
                   </a>
                 </div>
               </div>
               <div className="hidden lg:block relative">
-                 <div className="aspect-square bg-white/5 rounded-[3rem] border border-white/10 p-8">
-                    <div className="w-full h-full rounded-[2rem] bg-brand-800 flex items-center justify-center overflow-hidden">
+                 <div className="aspect-square bg-white/5 dark:bg-slate-800/50 rounded-[3rem] border border-white/10 dark:border-slate-800 p-8 transition-colors">
+                    <div className="w-full h-full rounded-[2rem] bg-brand-800 dark:bg-slate-950 flex items-center justify-center overflow-hidden">
                        <img 
                         src="https://images.unsplash.com/photo-1577705998148-6da4f3963bc8?auto=format&fit=crop&q=80" 
                         alt="Devis Déménagement Paris" 

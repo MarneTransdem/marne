@@ -39,8 +39,8 @@ const GoogleBadge = () => (
       </div>
       <div className="h-5 w-[1px] bg-slate-100"></div>
       <div className="flex flex-col">
-        <span className="text-[12px] font-black text-brand-900 leading-none group-hover:text-accent transition-colors">4.9/5</span>
-        <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">495 avis Google</span>
+        <span className="text-[12px] font-black text-brand-900 dark:text-white group-hover:text-accent transition-colors">4.9/5</span>
+        <span className="text-[9px] text-brand-900 dark:text-white font-bold uppercase tracking-wider">495 avis Google</span>
       </div>
     </a>
   );
@@ -128,7 +128,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center bg-slate-50 border-b border-slate-100 pt-40 md:pt-48 pb-20 md:pb-24 overflow-hidden">
+    <section className="relative min-h-screen flex items-center bg-slate-50 dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800 pt-40 md:pt-48 pb-20 md:pb-24 overflow-hidden transition-colors duration-300">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 -skew-x-12 translate-x-1/4 pointer-events-none z-0"></div>
       
@@ -147,12 +147,12 @@ export const Hero: React.FC = () => {
                 <GoogleBadge />
               </div>
               
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-brand-900 leading-[1.1] mb-6 tracking-tight italic uppercase">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-brand-900 dark:text-white leading-[1.1] mb-6 tracking-tight italic uppercase">
                 Entreprise de<br/>
-                <span className="text-accent underline decoration-brand-900/10 underline-offset-8">déménagement à Paris</span>
+                <span className="text-accent underline decoration-brand-900/10 dark:decoration-white/10 underline-offset-8">déménagement à Paris</span>
               </h1>
               
-              <p className="text-lg md:text-xl text-slate-500 mb-10 md:mb-12 max-w-xl leading-relaxed font-light italic">
+              <p className="text-lg md:text-xl text-slate-500 dark:text-slate-400 mb-10 md:mb-12 max-w-xl leading-relaxed font-light italic">
                 Marne Transdem accompagne les particuliers et les entreprises pour leurs déménagements à Paris, en Île-de-France et partout en France.
               </p>
               
@@ -166,7 +166,7 @@ export const Hero: React.FC = () => {
                 </Link>
                 <a 
                   href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}
-                  className="btn-premium bg-white text-brand-900 border border-slate-200 px-8 py-5 rounded-full font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-3"
+                  className="btn-premium bg-white text-brand-900 stay-dark border border-slate-200 px-8 py-5 rounded-full font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-3"
                 >
                   <Phone size={20} className="text-accent" />
                   Appeler
@@ -181,17 +181,17 @@ export const Hero: React.FC = () => {
               transition={{ duration: 1, delay: 0.2 }}
               className="relative lg:block"
             >
-              <div className="relative z-10 p-1 bg-gradient-to-br from-slate-200 to-slate-50 rounded-[2.5rem] md:rounded-[3rem] shadow-premium max-w-lg mx-auto lg:max-w-none">
+              <div className="relative z-10 p-1 bg-gradient-to-br from-slate-200 to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-[2.5rem] md:rounded-[3rem] shadow-premium max-w-lg mx-auto lg:max-w-none">
                  <div className="bg-white rounded-[2.4rem] md:rounded-[2.9rem] p-8 md:p-10 py-10 md:py-12">
-                    <h3 className="text-2xl font-bold text-brand-900 mb-2 tracking-tight italic uppercase">Estimation rapide</h3>
-                    <p className="text-sm text-slate-400 mb-8 font-light italic">Recevez une première étude personnalisée.</p>
+                    <h3 className="text-2xl font-bold text-brand-900 stay-dark mb-2 tracking-tight italic uppercase">Estimation rapide</h3>
+                    <p className="text-sm text-slate-500 stay-dark mb-8 font-light italic opacity-70">Recevez une première étude personnalisée.</p>
                     
                     <form onSubmit={handleQuickSubmit} className="space-y-5">
                       <div className="space-y-1.5 font-sans italic">
                         <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Départ</label>
                         <input 
                           ref={fromRef}
-                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm outline-none placeholder:text-slate-300 focus:border-accent transition-colors" 
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm outline-none placeholder:text-slate-300 focus:border-accent transition-colors text-brand-900 stay-dark" 
                           placeholder="Adresse de départ" 
                           value={quickForm.fromAddress}
                           onChange={(e) => setQuickForm(prev => ({ ...prev, fromAddress: e.target.value }))}
@@ -201,7 +201,7 @@ export const Hero: React.FC = () => {
                         <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Arrivée</label>
                         <input 
                           ref={toRef}
-                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm outline-none placeholder:text-slate-300 focus:border-accent transition-colors" 
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm outline-none placeholder:text-slate-300 focus:border-accent transition-colors text-brand-900 stay-dark" 
                           placeholder="Adresse d'arrivée" 
                           value={quickForm.toAddress}
                           onChange={(e) => setQuickForm(prev => ({ ...prev, toAddress: e.target.value }))}
@@ -212,13 +212,13 @@ export const Hero: React.FC = () => {
                         <div className="grid grid-cols-4 gap-3">
                           {['15', '30', '50', '+'].map(v => (
                             <button 
+                              key={v}
                               type="button"
-                              key={v} 
                               onClick={() => setQuickForm(prev => ({ ...prev, volume: v === '+' ? '60' : v }))}
                               className={`rounded-xl py-2 flex items-center justify-center text-xs font-bold transition-all ${
                                 (quickForm.volume === v || (v === '+' && quickForm.volume === '60'))
-                                  ? 'bg-accent text-white border-accent' 
-                                  : 'bg-slate-50 border border-slate-100 text-slate-400 hover:border-slate-300'
+                                  ? 'bg-accent text-brand-900 stay-dark border-accent' 
+                                  : 'bg-slate-50 border border-slate-100 text-slate-400 hover:border-slate-200'
                               }`}
                             >
                               {v === '+' ? '60+' : v}
@@ -227,15 +227,15 @@ export const Hero: React.FC = () => {
                         </div>
                       </div>
   
-                      <button type="submit" className="w-full mt-10 bg-accent text-white py-5 rounded-full font-bold flex items-center justify-center gap-3 hover:bg-accent-hover transition-colors shadow-lg shadow-accent/20 active:scale-[0.98] uppercase italic text-sm tracking-widest">
+                      <button type="submit" className="w-full mt-10 bg-accent text-brand-900 stay-dark py-5 rounded-full font-bold flex items-center justify-center gap-3 hover:bg-accent-hover transition-colors shadow-lg shadow-accent/20 active:scale-[0.98] uppercase italic text-sm tracking-widest">
                         Demander mon devis gratuit
                         <ArrowRight size={20} />
                       </button>
                     </form>
   
                     <div className="mt-8 pt-8 border-t border-slate-50 flex items-center justify-center gap-3">
-                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">Réponse rapide</span>
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic opacity-60">Réponse rapide</span>
                     </div>
                  </div>
               </div>

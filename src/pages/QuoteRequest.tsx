@@ -3,15 +3,16 @@ import { QuoteForm } from '../components/forms/QuoteForm';
 import { SEO } from '../components/SEO';
 import { ShieldCheck, MessageSquare, UserCheck, Building2, Phone, Mail, MapPin } from 'lucide-react';
 import { getBreadcrumbSchema } from '../lib/schema';
+import { CONTACT } from '../constants';
 
 const QuoteRequest: React.FC = () => {
   const path = "/demande-de-devis";
 
   return (
-    <div className="bg-slate-50 min-h-screen py-12 md:py-20">
+    <div className="bg-slate-50 dark:bg-slate-950 min-h-screen py-12 md:py-20 transition-colors duration-300">
       <SEO 
         title="Demande de Devis Déménagement Paris | Estimation gratuite | Marne Transdem" 
-        description="Obtenez votre devis de déménagement gratuit à Paris et en Île-de-France. Formulaire rapide, réponse sous 24h. Étude personnalisée de votre projet." 
+        description="Obtenez votre devis de déménagement gratuit à Paris and en Île-de-France. Formulaire rapide, réponse sous 24h. Étude personnalisée de votre projet." 
         canonical={path}
         schema={getBreadcrumbSchema([
           { name: "Accueil", item: "/" },
@@ -24,19 +25,19 @@ const QuoteRequest: React.FC = () => {
           {/* 1. Hero de page */}
           <div className="text-center mb-16 relative">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-48 bg-accent/5 rounded-full blur-3xl -z-10"></div>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-brand-900 mb-6 tracking-tight leading-tight">
+            <h1 className="text-4xl md:text-6xl font-extrabold text-brand-900 dark:text-white mb-6 tracking-tight leading-tight">
               Demande de devis <span className="text-accent italic font-serif">déménagement</span> à Paris
             </h1>
-            <p className="text-slate-500 text-lg md:text-xl max-w-3xl mx-auto mb-10 font-light leading-relaxed">
+            <p className="text-slate-500 dark:text-slate-400 text-lg md:text-xl max-w-3xl mx-auto mb-10 font-light leading-relaxed">
               Décrivez votre projet en quelques minutes. L’équipe Marne Transdem vous recontacte pour établir une estimation adaptée à votre situation.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <a 
-                href="tel:0144935486" 
-                className="btn-premium bg-slate-100 text-brand-900 px-8 py-4 rounded-full font-bold text-base hover:bg-slate-200 transition-all flex items-center gap-3 shadow-sm border border-slate-200"
+                href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} 
+                className="btn-premium bg-slate-100 dark:bg-slate-900 text-brand-900 dark:text-white px-8 py-4 rounded-full font-bold text-base hover:bg-slate-200 dark:hover:bg-slate-800 transition-all flex items-center gap-3 shadow-sm border border-slate-200 dark:border-slate-800"
               >
                 <Phone size={20} className="text-accent" />
-                Appeler au 01 44 93 54 86
+                Appeler au {CONTACT.phone}
               </a>
             </div>
           </div>
@@ -51,11 +52,11 @@ const QuoteRequest: React.FC = () => {
               { icon: UserCheck, title: "Accompagnement professionnel" },
               { icon: Building2, title: "Particuliers & entreprises" }
             ].map((item, i) => (
-              <div key={i} className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 text-center flex flex-col items-center gap-4 group hover:shadow-xl hover:border-accent/20 transition-all duration-300">
-                <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-accent group-hover:scale-110 transition-transform">
+              <div key={i} className="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 text-center flex flex-col items-center gap-4 group hover:shadow-xl hover:border-accent/20 transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-accent group-hover:scale-110 transition-transform">
                   <item.icon size={28} />
                 </div>
-                <p className="font-bold text-brand-900 text-sm md:text-base leading-tight tracking-tight px-2">{item.title}</p>
+                <p className="font-bold text-brand-900 dark:text-white text-sm md:text-base leading-tight tracking-tight px-2">{item.title}</p>
               </div>
             ))}
           </div>
@@ -63,7 +64,7 @@ const QuoteRequest: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* 3. Formulaire principal */}
             <div className="lg:col-span-2">
-              <h2 className="text-2xl font-bold text-brand-900 mb-8 flex items-center gap-3">
+              <h2 className="text-2xl font-bold text-brand-900 dark:text-white mb-8 flex items-center gap-3">
                 <div className="w-1.5 h-8 bg-accent rounded-full"></div>
                 Votre formulaire de projet
               </h2>
@@ -72,7 +73,7 @@ const QuoteRequest: React.FC = () => {
 
             {/* 5. Colonne latérale */}
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-brand-900 lg:hidden flex items-center gap-3">
+              <h2 className="text-2xl font-bold text-brand-900 dark:text-white lg:hidden flex items-center gap-3">
                 <div className="w-1.5 h-8 bg-accent rounded-full"></div>
                 Assistance
               </h2>

@@ -825,9 +825,9 @@ const VolumeCalculator: React.FC = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-white stay-white-bg">
         <div className="container mx-auto px-4 max-w-4xl">
-          <h2 className="text-3xl font-black text-brand-900 mb-12 text-center">Questions fréquentes sur le volume</h2>
+          <h2 className="text-3xl font-black text-brand-900 stay-dark mb-12 text-center">Questions fréquentes sur le volume</h2>
           <div className="space-y-6">
             {[
               { q: "Comment calculer le volume d’un déménagement ?", a: "Le volume se calcule en multipliant la longueur par la largeur par la hauteur de chaque meuble et carton. Notre outil automatise ce calcul pour vous." },
@@ -835,9 +835,9 @@ const VolumeCalculator: React.FC = () => {
               { q: "Pourquoi le volume peut-il varier ?", a: "Le 'vide' entre les meubles dans le camion, le type de cartons et le démontage ou non du mobilier influencent le volume total occupé." },
               { q: "Puis-je modifier mon estimation après avoir commencé ?", a: "Oui, vous pouvez ajouter ou retirer des objets et des pièces à tout moment avant de soumettre vos données." }
             ].map((faq, i) => (
-              <div key={i} className="p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100">
-                <h4 className="font-black text-brand-900 text-lg mb-4">{faq.q}</h4>
-                <p className="text-slate-500 font-light leading-relaxed">{faq.a}</p>
+              <div key={i} className="p-8 bg-slate-50 stay-light-section rounded-[2.5rem] border border-slate-100">
+                <h4 className="font-black text-brand-900 stay-dark text-lg mb-4">{faq.q}</h4>
+                <p className="text-slate-500 stay-dark font-light leading-relaxed opacity-80">{faq.a}</p>
               </div>
             ))}
           </div>

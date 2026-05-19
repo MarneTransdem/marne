@@ -22,24 +22,24 @@ const ReviewCard: React.FC<{ review: any; index: number }> = ({ review, index })
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
-      className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-premium flex flex-col h-full group hover:border-accent transition-all duration-500"
+      className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-premium flex flex-col h-full group hover:border-accent transition-all duration-500"
     >
       <div className="flex items-center gap-4 mb-6">
         {review.authorPhotoUrl ? (
           <img 
             src={review.authorPhotoUrl} 
             alt={review.authorName} 
-            className="w-12 h-12 rounded-full border border-slate-100"
+            className="w-12 h-12 rounded-full border border-slate-100 dark:border-slate-800"
             referrerPolicy="no-referrer"
           />
         ) : (
-          <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 font-bold uppercase">
+          <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 font-bold uppercase">
             {review.authorName?.charAt(0)}
           </div>
         )}
         <div>
-          <h4 className="font-black text-brand-900 uppercase italic text-sm tracking-tight">{review.authorName}</h4>
-          <p className="text-[10px] text-slate-400 uppercase tracking-widest">{review.relativePublishTimeDescription}</p>
+          <h4 className="font-black text-brand-900 dark:text-white uppercase italic text-sm tracking-tight">{review.authorName}</h4>
+          <p className="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-widest">{review.relativePublishTimeDescription}</p>
         </div>
       </div>
       
@@ -55,13 +55,13 @@ const ReviewCard: React.FC<{ review: any; index: number }> = ({ review, index })
 
       <div className="relative mb-8 flex-grow">
         <Quote className="absolute -top-2 -left-2 text-accent/10 w-8 h-8 -z-10" />
-        <p className="text-slate-600 italic font-light leading-relaxed text-sm line-clamp-4 group-hover:line-clamp-none transition-all duration-500">
+        <p className="text-slate-600 dark:text-slate-400 italic font-light leading-relaxed text-sm line-clamp-4 group-hover:line-clamp-none transition-all duration-500">
           "{review.text}"
         </p>
       </div>
 
-      <div className="pt-6 border-t border-slate-50 flex items-center justify-between">
-        <span className="text-[10px] font-black text-brand-900 uppercase tracking-widest opacity-30 italic">Avis Google</span>
+      <div className="pt-6 border-t border-slate-50 dark:border-slate-800 flex items-center justify-between">
+        <span className="text-[10px] font-black text-brand-900 dark:text-white uppercase tracking-widest opacity-30 italic">Avis Google</span>
         <div className="w-6 h-6 rounded-full bg-accent text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
            <ArrowRight size={12} />
         </div>
@@ -101,29 +101,29 @@ export const GoogleReviews: React.FC = () => {
   };
 
   return (
-    <section className="py-24 bg-white overflow-hidden" id="google-reviews">
+    <section className="py-24 bg-white dark:bg-slate-950 overflow-hidden transition-colors duration-300" id="google-reviews">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
           <div className="max-w-2xl">
             <h2 className="text-accent font-black uppercase text-xs tracking-[0.3em] mb-4 italic">Expérience client</h2>
-            <p className="text-4xl md:text-6xl font-black text-brand-900 leading-none tracking-tighter uppercase italic">
+            <p className="text-4xl md:text-6xl font-black text-brand-900 dark:text-white leading-none tracking-tighter uppercase italic">
               Ils nous font <br/>
-              <span className="text-accent underline decoration-brand-900/10 underline-offset-8 italic">confiance</span>
+              <span className="text-accent underline decoration-brand-900/10 dark:decoration-white/10 underline-offset-8 italic">confiance</span>
             </p>
-            <p className="mt-6 text-slate-500 italic max-w-lg text-sm">
+            <p className="mt-6 text-slate-500 dark:text-slate-400 italic max-w-lg text-sm">
               Découvrez pourquoi nos clients recommandent Marne Transdem pour leur déménagement à Paris. Des avis authentiques, synchronisés en temps réel.
             </p>
           </div>
           <div className="flex items-center gap-6">
              <div className="text-right hidden sm:block">
-                <p className="text-2xl font-black text-brand-900 uppercase italic">4.9/5</p>
-                <p className="text-[10px] text-slate-400 uppercase tracking-[0.2em]">Basé sur 495 avis google</p>
+                <p className="text-2xl font-black text-brand-900 dark:text-white uppercase italic">4.9/5</p>
+                <p className="text-[10px] text-brand-900 dark:text-white uppercase tracking-[0.2em]">Basé sur 495 avis google</p>
              </div>
              <div className="flex gap-2">
                {!isAdmin ? (
                  <button 
                    onClick={login}
-                   className="p-4 rounded-full bg-slate-50 border border-slate-100 text-brand-900 hover:bg-brand-900 hover:text-white transition-all flex items-center justify-center"
+                   className="p-4 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-brand-900 dark:text-white hover:bg-brand-900 dark:hover:bg-accent hover:text-white dark:hover:text-brand-900 transition-all flex items-center justify-center"
                    title="Connexion Admin pour synchroniser"
                  >
                     <LogIn size={24} />
@@ -132,7 +132,7 @@ export const GoogleReviews: React.FC = () => {
                  <button 
                    onClick={handleSync}
                    disabled={isSyncing}
-                   className="p-4 rounded-full bg-slate-50 border border-slate-100 text-brand-900 hover:bg-accent hover:text-white transition-all group disabled:opacity-50"
+                   className="p-4 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-brand-900 dark:text-white hover:bg-accent hover:text-white transition-all group disabled:opacity-50"
                    title="Synchroniser les avis Google Maps"
                  >
                     <RefreshCw size={24} className={isSyncing ? 'animate-spin' : 'group-hover:rotate-180 transition-transform duration-500'} />
@@ -187,18 +187,18 @@ export const GoogleReviews: React.FC = () => {
         )}
 
         {reviews.length === 0 && !isLoading && (
-          <div className="bg-slate-50 rounded-[2.5rem] p-12 text-center border border-dashed border-slate-200 mt-8">
-            <p className="text-slate-500 italic mb-6">Aucun avis synchronisé pour le moment.</p>
+          <div className="bg-slate-50 dark:bg-slate-900/50 rounded-[2.5rem] p-12 text-center border border-dashed border-slate-200 dark:border-slate-800 mt-8">
+            <p className="text-slate-500 dark:text-slate-400 italic mb-6">Aucun avis synchronisé pour le moment.</p>
             {isAdmin ? (
               <button 
                 onClick={handleSync}
-                className="inline-flex items-center gap-3 bg-brand-900 text-white px-8 py-4 rounded-full font-bold hover:bg-accent transition-all"
+                className="inline-flex items-center gap-3 bg-brand-900 dark:bg-accent dark:text-brand-900 text-white px-8 py-4 rounded-full font-bold hover:bg-accent transition-all"
               >
                 Lancer la première synchronisation
                 <RefreshCw size={20} className={isSyncing ? 'animate-spin' : ''} />
               </button>
             ) : (
-              <p className="text-xs text-slate-400">Connectez-vous en tant qu'administrateur pour synchroniser les avis Google.</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500">Connectez-vous en tant qu'administrateur pour synchroniser les avis Google.</p>
             )}
           </div>
         )}

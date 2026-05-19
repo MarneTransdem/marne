@@ -207,23 +207,23 @@ const LocalMontreuil: React.FC = () => {
       </section>
 
       {/* 7. Formules adaptées à votre projet */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 stay-light-section">
         <div className="container mx-auto px-4 md:px-6 text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-black text-brand-900">Formules adaptées à votre projet</h2>
+          <h2 className="text-3xl md:text-5xl font-black text-brand-900 stay-dark">Formules adaptées à votre projet</h2>
         </div>
         <div className="container mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
-           <div className="bg-white p-10 rounded-[2.5rem] border border-slate-200">
-             <h3 className="text-2xl font-black text-brand-900 mb-4 border-b pb-4">Économique</h3>
-             <p className="text-slate-500 font-light text-sm italic">Vous préparez vos cartons, Marne Transdem prend en charge la manutention et le transport selon le projet.</p>
+           <div className="stay-white-bg p-10 rounded-[2.5rem] border border-slate-200">
+             <h3 className="text-2xl font-black text-brand-900 mb-4 border-b pb-4 stay-dark">Économique</h3>
+             <p className="text-slate-500 font-light text-sm italic stay-dark opacity-70">Vous préparez vos cartons, Marne Transdem prend en charge la manutention et le transport selon le projet.</p>
            </div>
-           <div className="bg-white p-10 rounded-[2.5rem] border border-brand-900 shadow-xl relative scale-105 z-10">
+           <div className="stay-white-bg p-10 rounded-[2.5rem] border border-brand-900 shadow-xl relative scale-105 z-10">
              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-brand-900 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Conseillée</div>
-             <h3 className="text-2xl font-black text-brand-900 mb-4 border-b pb-4">Standard</h3>
-             <p className="text-slate-500 font-light text-sm italic">Une formule équilibrée pour déléguer certains éléments comme les objets fragiles ou certains meubles selon les besoins.</p>
+             <h3 className="text-2xl font-black text-brand-900 mb-4 border-b pb-4 stay-dark">Standard</h3>
+             <p className="text-slate-500 font-light text-sm italic stay-dark opacity-70">Une formule équilibrée pour déléguer certains éléments comme les objets fragiles ou certains meubles selon les besoins.</p>
            </div>
-           <div className="bg-white p-10 rounded-[2.5rem] border border-slate-200">
-             <h3 className="text-2xl font-black text-brand-900 mb-4 border-b pb-4">Luxe</h3>
-             <p className="text-slate-500 font-light text-sm italic">Une formule plus complète pour déléguer davantage de préparation, d'emballage et d'organisation selon la prestation choisie.</p>
+           <div className="stay-white-bg p-10 rounded-[2.5rem] border border-slate-200">
+             <h3 className="text-2xl font-black text-brand-900 mb-4 border-b pb-4 stay-dark">Luxe</h3>
+             <p className="text-slate-500 font-light text-sm italic stay-dark opacity-70">Une formule plus complète pour déléguer davantage de préparation, d'emballage et d'organisation selon la prestation choisie.</p>
            </div>
         </div>
         <div className="text-center mt-12">

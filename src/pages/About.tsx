@@ -29,7 +29,7 @@ const About: React.FC = () => {
   ];
 
   return (
-    <div className="bg-white">
+    <div className="bg-white dark:bg-slate-950 transition-colors duration-300">
       <SEO 
         title="À propos de Marne Transdem | Déménagement à Paris" 
         description="Découvrez Marne Transdem, entreprise de déménagement à Paris accompagnant particuliers et entreprises avec méthode, soin et organisation." 
@@ -46,7 +46,7 @@ const About: React.FC = () => {
       />
 
       {/* 1. Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-brand-900 overflow-hidden text-white">
+      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-brand-900 dark:bg-slate-950 overflow-hidden text-white transition-colors duration-300">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 blur-3xl opacity-50"></div>
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
@@ -89,14 +89,14 @@ const About: React.FC = () => {
       </section>
 
       {/* 2. Introduction */}
-      <section className="py-24">
+      <section className="py-24 dark:bg-slate-950">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-4xl lg:text-5xl font-black text-brand-900 mb-8 uppercase italic underline decoration-accent/10 underline-offset-8">Une expertise <span className="text-accent italic">francilienne</span></h2>
-              <div className="space-y-6 text-slate-500 leading-relaxed text-lg font-light italic">
+              <h2 className="text-4xl lg:text-5xl font-black text-brand-900 dark:text-white mb-8 uppercase italic underline decoration-accent/10 underline-offset-8">Une expertise <span className="text-accent italic">francilienne</span></h2>
+              <div className="space-y-6 text-slate-500 dark:text-slate-400 leading-relaxed text-lg font-light italic">
                 <p>
-                  Basée à <span className="font-bold text-brand-900">Paris 20e</span>, Marne Transdem offre une logistique fluide pour les déménagements en Île-de-France ainsi qu'au niveau national.
+                  Basée à <span className="font-bold text-brand-900 dark:text-white">Paris 20e</span>, Marne Transdem offre une logistique fluide pour les déménagements en Île-de-France ainsi qu'au niveau national.
                 </p>
                 <p>
                   Qu'il s'agisse de transférer un appartement dans le Marais ou des bureaux en petite couronne, nous appliquons la même rigueur et le même soin à chaque bien confié.
@@ -108,11 +108,11 @@ const About: React.FC = () => {
       </section>
 
       {/* 3. Notre mission */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-slate-50 dark:bg-slate-900/50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-brand-900 mb-6">Notre mission</h2>
-            <p className="text-slate-500 max-w-3xl mx-auto font-light leading-relaxed text-lg">
+            <h2 className="text-3xl lg:text-4xl font-bold text-brand-900 dark:text-white mb-6">Notre mission</h2>
+            <p className="text-slate-500 dark:text-slate-400 max-w-3xl mx-auto font-light leading-relaxed text-lg">
               Notre mission est d’aider chaque client à préparer son déménagement avec méthode, sérénité et efficacité. Chaque projet est différent : volume à transporter, accès, étages, distance, niveau d’accompagnement souhaité, contraintes de calendrier ou besoins spécifiques. C’est pourquoi nous privilégions une approche personnalisée.
             </p>
           </div>
@@ -141,13 +141,13 @@ const About: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all text-center"
+                className="bg-white dark:bg-slate-900 p-10 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all text-center"
               >
-                <div className="w-16 h-16 bg-slate-50 text-accent rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <div className="w-16 h-16 bg-slate-50 dark:bg-slate-800 text-accent rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <mission.icon size={32} />
                 </div>
-                <h3 className="text-2xl font-bold text-brand-900 mb-4">{mission.title}</h3>
-                <p className="text-slate-500 font-light leading-relaxed">
+                <h3 className="text-2xl font-bold text-brand-900 dark:text-white mb-4">{mission.title}</h3>
+                <p className="text-slate-500 dark:text-slate-400 font-light leading-relaxed">
                   {mission.desc}
                 </p>
               </motion.div>
@@ -157,17 +157,17 @@ const About: React.FC = () => {
       </section>
 
       {/* 4. Notre approche */}
-      <section className="py-24">
+      <section className="py-24 dark:bg-slate-950">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-bold text-brand-900 mb-6">Une méthode claire pour chaque déménagement</h2>
-              <p className="text-slate-500 font-light leading-relaxed">
+              <h2 className="text-3xl lg:text-4xl font-bold text-brand-900 dark:text-white mb-6">Une méthode claire pour chaque déménagement</h2>
+              <p className="text-slate-500 dark:text-slate-400 font-light leading-relaxed">
                 L’objectif est d’apporter une vision claire du déroulement avant le jour du déménagement. Nous prenons en compte les contraintes propres à Paris : stationnement, étages, ascenseurs, accès d’immeuble, mobilier volumineux ou besoin éventuel de monte-meuble.
               </p>
             </div>
 
-            <div className="space-y-8 relative before:absolute before:left-[19px] before:top-8 before:bottom-8 before:w-0.5 before:bg-slate-100 lg:before:hidden">
+            <div className="space-y-8 relative before:absolute before:left-[19px] before:top-8 before:bottom-8 before:w-0.5 before:bg-slate-100 dark:before:bg-slate-800 lg:before:hidden">
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 {[
                   { n: "01", t: "Échange sur votre projet", d: "Premier contact pour comprendre vos besoins." },
@@ -177,12 +177,12 @@ const About: React.FC = () => {
                 ].map((step, idx) => (
                   <div key={idx} className="relative pl-12 lg:pl-0 lg:text-center group">
                     <div className="absolute left-0 top-0 lg:static flex flex-col items-center">
-                      <div className="w-10 h-10 rounded-full bg-white border-2 border-slate-100 flex items-center justify-center text-accent font-black text-xs mb-4 z-10 group-hover:bg-accent group-hover:text-white group-hover:border-accent transition-all">
+                      <div className="w-10 h-10 rounded-full bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 flex items-center justify-center text-accent font-black text-xs mb-4 z-10 group-hover:bg-accent group-hover:text-white group-hover:border-accent transition-all">
                         {step.n}
                       </div>
                     </div>
-                    <h4 className="font-bold text-brand-900 mb-2">{step.t}</h4>
-                    <p className="text-sm text-slate-500 font-light leading-relaxed">{step.d}</p>
+                    <h4 className="font-bold text-brand-900 dark:text-white mb-2">{step.t}</h4>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 font-light leading-relaxed">{step.d}</p>
                   </div>
                 ))}
               </div>
@@ -192,18 +192,18 @@ const About: React.FC = () => {
       </section>
 
       {/* 4. Notre équipe */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-white dark:bg-slate-950">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <div className="mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6 italic tracking-tight uppercase">Notre <span className="text-accent underline decoration-accent/10 underline-offset-8">Équipe</span></h2>
-            <p className="text-slate-500 max-w-2xl mx-auto font-light leading-relaxed">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-6 italic tracking-tight uppercase">Notre <span className="text-accent underline decoration-accent/10 underline-offset-8">Équipe</span></h2>
+            <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
               Une équipe à dimension humaine pour un accompagnement de proximité et une logistique sans faille.
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-6xl mx-auto">
             <div className="group space-y-6">
-              <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100">
+              <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 dark:border-slate-800">
                 <img 
                   src="/images/gerant-marne-transdem.webp" 
                   alt="Le Gérant - Marne Transdem" 
@@ -211,13 +211,13 @@ const About: React.FC = () => {
                 />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-slate-900 uppercase italic tracking-tight">Le Gérant</h3>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white uppercase italic tracking-tight">Le Gérant</h3>
                 <p className="text-accent text-[10px] font-black uppercase tracking-[0.2em]">Direction & Expertise</p>
               </div>
             </div>
             
             <div className="group space-y-6 md:mt-12">
-              <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100">
+              <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 dark:border-slate-800">
                 <img 
                   src="/images/secretaire-marne-transdem.webp" 
                   alt="Secrétariat - Marne Transdem" 
@@ -225,13 +225,13 @@ const About: React.FC = () => {
                 />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-slate-900 uppercase italic tracking-tight">Le Secrétariat</h3>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white uppercase italic tracking-tight">Le Secrétariat</h3>
                 <p className="text-accent text-[10px] font-black uppercase tracking-[0.2em]">Accueil & Gestion</p>
               </div>
             </div>
             
             <div className="group space-y-6">
-              <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100">
+              <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 dark:border-slate-800">
                 <img 
                   src="/images/bureau-marne-transdem.webp" 
                   alt="Nos Bureaux - Marne Transdem" 
@@ -239,7 +239,7 @@ const About: React.FC = () => {
                 />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-slate-900 uppercase italic tracking-tight">Nos Bureaux</h3>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white uppercase italic tracking-tight">Nos Bureaux</h3>
                 <p className="text-accent text-[10px] font-black uppercase tracking-[0.2em]">Paris 20e</p>
               </div>
             </div>
@@ -248,20 +248,20 @@ const About: React.FC = () => {
       </section>
 
       {/* 5. Nos services */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-slate-50 dark:bg-slate-900/50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-brand-900 mb-4 tracking-tight">Des services adaptés aux particuliers et aux entreprises</h2>
-            <p className="text-slate-500 font-light">Découvrez nos solutions pour répondre à toutes vos problématiques de mobilité.</p>
+            <h2 className="text-3xl lg:text-4xl font-bold text-brand-900 dark:text-white mb-4 tracking-tight">Des services adaptés aux particuliers et aux entreprises</h2>
+            <p className="text-slate-500 dark:text-slate-400 font-light">Découvrez nos solutions pour répondre à toutes vos problématiques de mobilité.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {SERVICES.map((service) => (
-              <Link key={service.id} to={service.path} className="group bg-white p-8 rounded-[2rem] border border-slate-100 hover:border-accent transition-all hover:shadow-xl flex flex-col h-full">
-                <div className="w-14 h-14 bg-slate-50 text-accent rounded-2xl flex items-center justify-center mb-6 group-hover:bg-accent group-hover:text-white transition-colors">
+              <Link key={service.id} to={service.path} className="group bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 hover:border-accent transition-all hover:shadow-xl flex flex-col h-full">
+                <div className="w-14 h-14 bg-slate-50 dark:bg-slate-800 text-accent rounded-2xl flex items-center justify-center mb-6 group-hover:bg-accent group-hover:text-white transition-colors">
                   <service.icon size={28} />
                 </div>
-                <h3 className="text-xl font-bold text-brand-900 mb-3">{service.title}</h3>
-                <p className="text-slate-500 text-sm font-light leading-relaxed mb-6 flex-grow">{service.description}</p>
+                <h3 className="text-xl font-bold text-brand-900 dark:text-white mb-3">{service.title}</h3>
+                <p className="text-slate-500 dark:text-slate-400 text-sm font-light leading-relaxed mb-6 flex-grow">{service.description}</p>
                 <div className="flex items-center gap-2 text-accent font-bold text-sm uppercase tracking-widest group-hover:gap-4 transition-all">
                   Explorer
                   <ArrowRight size={16} />
@@ -284,10 +284,10 @@ const About: React.FC = () => {
       </section>
 
       {/* 6. Pourquoi choisir Marne Transdem ? */}
-      <section className="py-24">
+      <section className="py-24 dark:bg-slate-950">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl lg:text-4xl font-bold text-brand-900 mb-12 text-center">Pourquoi choisir Marne Transdem ?</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold text-brand-900 dark:text-white mb-12 text-center">Pourquoi choisir Marne Transdem ?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
               {[
                 "Entreprise basée à Paris 20e",
@@ -301,7 +301,7 @@ const About: React.FC = () => {
                   <div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center shrink-0 mt-1">
                     <CheckCircle2 size={16} className="text-accent" />
                   </div>
-                  <span className="text-lg text-brand-900 font-medium">{point}</span>
+                  <span className="text-lg text-brand-900 dark:text-white font-medium">{point}</span>
                 </div>
               ))}
             </div>
@@ -310,12 +310,12 @@ const About: React.FC = () => {
       </section>
 
       {/* 7. Nos valeurs */}
-      <section className="py-24 bg-brand-900 text-white relative overflow-hidden">
+      <section className="py-24 bg-brand-900 dark:bg-slate-950 text-white relative overflow-hidden transition-colors duration-300">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 blur-[120px]"></div>
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">Nos valeurs</h2>
-            <p className="text-slate-300 font-light">Ce qui guide nos interventions au quotidien.</p>
+            <p className="text-slate-300 dark:text-slate-400 font-light">Ce qui guide nos interventions au quotidien.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -341,12 +341,12 @@ const About: React.FC = () => {
                 desc: "Une entreprise basée à Paris, à l’écoute des besoins de ses clients." 
               }
             ].map((value, idx) => (
-              <div key={idx} className="bg-white/5 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/10 hover:bg-white/10 transition-colors">
+              <div key={idx} className="bg-white/5 dark:bg-slate-900 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/10 dark:border-slate-800 hover:bg-white/10 dark:hover:bg-slate-800/80 transition-colors">
                 <div className="text-accent mb-6">
                   <value.icon size={32} />
                 </div>
                 <h4 className="text-xl font-bold mb-4">{value.title}</h4>
-                <p className="text-slate-400 font-light text-sm leading-relaxed">{value.desc}</p>
+                <p className="text-slate-400 dark:text-slate-500 font-light text-sm leading-relaxed">{value.desc}</p>
               </div>
             ))}
           </div>
@@ -354,46 +354,46 @@ const About: React.FC = () => {
       </section>
 
       {/* 8. Notre zone d’intervention */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-slate-50 dark:bg-slate-900/50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-bold text-brand-900 mb-6">Une entreprise de déménagement à Paris et en Île-de-France</h2>
-              <p className="text-slate-500 font-light leading-relaxed text-lg mb-8">
+              <h2 className="text-3xl lg:text-4xl font-bold text-brand-900 dark:text-white mb-6">Une entreprise de déménagement à Paris et en Île-de-France</h2>
+              <p className="text-slate-500 dark:text-slate-400 font-light leading-relaxed text-lg mb-8">
                 Basée au {CONTACT.fullAddress}, Marne Transdem intervient à Paris, en Île-de-France et accompagne également des projets longue distance selon les besoins.
               </p>
             </div>
 
-            <div className="bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-sm">
-              <h3 className="text-xs font-black text-brand-900 uppercase tracking-[0.4em] mb-8 text-center opacity-40">Zones desservies</h3>
+            <div className="bg-white dark:bg-slate-900 p-10 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm">
+              <h3 className="text-xs font-black text-brand-900 dark:text-white uppercase tracking-[0.4em] mb-8 text-center opacity-40">Zones desservies</h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                 {[
                   "Paris", "Paris 20e", "Hauts-de-Seine", "Seine-Saint-Denis", "Val-de-Marne",
                   "Val-d’Oise", "Yvelines", "Essonne", "Seine-et-Marne", "Longue distance*"
                 ].map((zone, idx) => (
-                  <div key={idx} className="bg-slate-50 py-3 px-4 rounded-xl text-center text-sm font-bold text-brand-900 border border-slate-100">
+                  <div key={idx} className="bg-slate-50 dark:bg-slate-800 py-3 px-4 rounded-xl text-center text-sm font-bold text-brand-900 dark:text-white border border-slate-100 dark:border-slate-700">
                     {zone}
                   </div>
                 ))}
               </div>
-              <p className="mt-8 text-[10px] text-slate-400 text-center italic">* Selon étude et volume du projet.</p>
+              <p className="mt-8 text-[10px] text-slate-400 dark:text-slate-500 text-center italic">* Selon étude et volume du projet.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* 9. Section CTA intermédiaire */}
-      <section className="py-24 text-center">
+      <section className="py-24 text-center dark:bg-slate-950">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-3xl lg:text-5xl font-black text-brand-900 mb-8 tracking-tight">Vous préparez un déménagement ?</h2>
-          <p className="text-xl text-slate-500 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+          <h2 className="text-3xl lg:text-5xl font-black text-brand-900 dark:text-white mb-8 tracking-tight">Vous préparez un déménagement ?</h2>
+          <p className="text-xl text-slate-500 dark:text-slate-400 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
             Expliquez-nous votre projet afin d’obtenir une estimation adaptée à votre volume, vos accès et le niveau d’accompagnement souhaité.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link to="/demande-de-devis" className="bg-accent text-white px-12 py-5 rounded-full font-bold text-lg hover:bg-accent/90 transition-all shadow-xl shadow-accent/20">
               Demander mon devis gratuit
             </Link>
-            <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white text-brand-900 border border-slate-200 px-10 py-5 rounded-full font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-3">
+            <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white dark:bg-slate-800 text-brand-900 dark:text-white border border-slate-200 dark:border-slate-700 px-10 py-5 rounded-full font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-3">
               <Phone size={20} className="text-accent" />
               {CONTACT.phone}
             </a>
@@ -402,18 +402,18 @@ const About: React.FC = () => {
       </section>
 
       {/* 10. Section FAQ courte */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-slate-50 dark:bg-slate-900/50">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl">
-          <h2 className="text-3xl font-bold text-brand-900 mb-12 text-center">Questions fréquentes sur Marne Transdem</h2>
+          <h2 className="text-3xl font-bold text-brand-900 dark:text-white mb-12 text-center">Questions fréquentes sur Marne Transdem</h2>
           <div className="space-y-6">
             {faqs.map((faq, i) => (
-              <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex gap-6 items-start">
-                <div className="bg-slate-50 w-10 h-10 rounded-lg flex items-center justify-center text-accent shrink-0">
+              <div key={i} className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex gap-6 items-start">
+                <div className="bg-slate-50 dark:bg-slate-800 w-10 h-10 rounded-lg flex items-center justify-center text-accent shrink-0">
                   <Info size={18} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-900 text-lg mb-3">{faq.q}</h4>
-                  <p className="text-slate-500 font-light leading-relaxed">{faq.a}</p>
+                  <h4 className="font-bold text-brand-900 dark:text-white text-lg mb-3">{faq.q}</h4>
+                  <p className="text-slate-500 dark:text-slate-400 font-light leading-relaxed">{faq.a}</p>
                 </div>
               </div>
             ))}
@@ -422,33 +422,33 @@ const About: React.FC = () => {
       </section>
 
       {/* 11. Bloc contact final */}
-      <section className="py-24">
+      <section className="py-24 dark:bg-slate-950">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="bg-brand-900 rounded-[3rem] p-12 lg:p-20 text-white relative overflow-hidden">
+          <div className="bg-brand-900 dark:bg-slate-900 rounded-[3rem] p-12 lg:p-20 text-white relative overflow-hidden transition-colors duration-300">
             <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/20 blur-[100px]"></div>
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <div>
                 <h2 className="text-4xl lg:text-6xl font-black text-white mb-8">Contacter Marne Transdem</h2>
-                <p className="text-xl text-slate-300 font-light mb-12 leading-relaxed">
+                <p className="text-xl text-slate-300 dark:text-slate-400 font-light mb-12 leading-relaxed">
                   Notre équipe est à votre écoute pour organiser votre prochain déménagement à Paris ou en Île-de-France.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
                   <div className="space-y-2">
-                    <div className="text-[10px] uppercase tracking-widest text-slate-500 font-black">Notre bureau</div>
+                    <div className="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-600 font-black">Notre bureau</div>
                     <div className="font-bold flex items-center gap-2">
                       <MapPin size={16} className="text-accent" />
                       {CONTACT.fullAddress}
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="text-[10px] uppercase tracking-widest text-slate-500 font-black">Email</div>
+                    <div className="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-600 font-black">Email</div>
                     <div className="font-bold flex items-center gap-2">
                       <Mail size={16} className="text-accent" />
                       {CONTACT.email}
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="text-[10px] uppercase tracking-widest text-slate-500 font-black">Téléphone</div>
+                    <div className="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-600 font-black">Téléphone</div>
                     <div className="font-bold flex items-center gap-2">
                       <Phone size={16} className="text-accent" />
                       {CONTACT.phone}
@@ -459,14 +459,14 @@ const About: React.FC = () => {
                   <Link to="/demande-de-devis" className="bg-accent text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-accent/90 transition-all text-center">
                     Demander mon devis
                   </Link>
-                  <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-3">
+                  <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white dark:bg-slate-800 text-brand-900 dark:text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-3">
                     <Phone size={20} className="text-accent" />
                     Nous appeler
                   </a>
                 </div>
               </div>
               <div className="hidden lg:flex justify-center items-center">
-                <div className="w-full max-w-md aspect-[4/5] bg-white/5 rounded-[3rem] border border-white/10 p-4 lg:p-8 backdrop-blur-md relative overflow-hidden group">
+                <div className="w-full max-w-md aspect-[4/5] bg-white/5 dark:bg-slate-800/50 rounded-[3rem] border border-white/10 dark:border-slate-700 p-4 lg:p-8 backdrop-blur-md relative overflow-hidden group">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:w-48 group-hover:h-48 transition-all duration-700"></div>
                   
                   <div className="relative z-10 h-full flex flex-col">
@@ -482,9 +482,9 @@ const About: React.FC = () => {
 
                     <div className="space-y-8 flex-grow">
                       <div className="group/item">
-                        <div className="text-[10px] uppercase tracking-widest text-slate-500 font-black mb-3">Notre bureau</div>
-                        <div className="font-bold flex items-start gap-4 text-slate-200">
-                          <div className="w-10 h-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover/item:bg-accent group-hover/item:text-white transition-colors">
+                        <div className="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-600 font-black mb-3">Notre bureau</div>
+                        <div className="font-bold flex items-start gap-4 text-slate-200 dark:text-slate-300">
+                          <div className="w-10 h-10 rounded-2xl bg-white/5 dark:bg-white/10 border border-white/10 dark:border-slate-700 flex items-center justify-center shrink-0 group-hover/item:bg-accent group-hover/item:text-white transition-colors">
                             <MapPin size={18} />
                           </div>
                           <span className="pt-1">{CONTACT.fullAddress}</span>
@@ -492,9 +492,9 @@ const About: React.FC = () => {
                       </div>
 
                       <div className="group/item">
-                        <div className="text-[10px] uppercase tracking-widest text-slate-500 font-black mb-3">Email</div>
-                        <div className="font-bold flex items-center gap-4 text-slate-200">
-                          <div className="w-10 h-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover/item:bg-accent group-hover/item:text-white transition-colors">
+                        <div className="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-600 font-black mb-3">Email</div>
+                        <div className="font-bold flex items-center gap-4 text-slate-200 dark:text-slate-300">
+                          <div className="w-10 h-10 rounded-2xl bg-white/5 dark:bg-white/10 border border-white/10 dark:border-slate-700 flex items-center justify-center shrink-0 group-hover/item:bg-accent group-hover/item:text-white transition-colors">
                             <Mail size={18} />
                           </div>
                           <span>{CONTACT.email}</span>
@@ -502,9 +502,9 @@ const About: React.FC = () => {
                       </div>
 
                       <div className="group/item">
-                        <div className="text-[10px] uppercase tracking-widest text-slate-500 font-black mb-3">Téléphone</div>
-                        <div className="font-bold flex items-center gap-4 text-slate-200">
-                          <div className="w-10 h-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover/item:bg-accent group-hover/item:text-white transition-colors">
+                        <div className="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-600 font-black mb-3">Téléphone</div>
+                        <div className="font-bold flex items-center gap-4 text-slate-200 dark:text-slate-300">
+                          <div className="w-10 h-10 rounded-2xl bg-white/5 dark:bg-white/10 border border-white/10 dark:border-slate-700 flex items-center justify-center shrink-0 group-hover/item:bg-accent group-hover/item:text-white transition-colors">
                             <Phone size={18} />
                           </div>
                           <span>{CONTACT.phone}</span>
@@ -513,7 +513,7 @@ const About: React.FC = () => {
                     </div>
 
                     <div className="mt-auto pt-8">
-                      <Link to="/demande-de-devis" className="block w-full bg-white text-brand-900 py-4 rounded-2xl font-black text-center hover:bg-accent hover:text-white transition-all shadow-lg hover:shadow-accent/20">
+                      <Link to="/demande-de-devis" className="block w-full bg-white dark:bg-accent text-brand-900 dark:text-brand-950 py-4 rounded-2xl font-black text-center hover:bg-accent dark:hover:bg-white hover:text-white dark:hover:text-brand-950 transition-all shadow-lg hover:shadow-accent/20">
                         Demander un devis
                       </Link>
                     </div>
