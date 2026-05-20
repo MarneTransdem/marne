@@ -6,7 +6,7 @@ import { ServicesSection } from '../components/home/ServicesSection';
 import { GoogleReviewsSection } from '../components/home/GoogleReviews';
 import { FAQ } from '../components/home/FAQ';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Quote, Phone, ShieldCheck, MapPin } from 'lucide-react';
+import { ArrowRight, CheckCircle, Quote, Phone, ShieldCheck, MapPin, Check } from 'lucide-react';
 import { FORMULAS, FAQ_ITEMS, CONTACT } from '../constants';
 import { SEO } from '../components/SEO';
 import { getOrganizationSchema, getLocalBusinessSchema, getFAQSchema } from '../lib/schema';
@@ -56,11 +56,11 @@ const Home: React.FC = () => {
                 <p className="text-sm text-slate-500 mb-6 min-h-[40px] italic stay-dark opacity-70">{formula.description}</p>
                 <div className="space-y-4 mb-10 flex-grow">
                   {formula.features.map(feature => (
-                    <div key={feature} className="flex items-start gap-2">
-                      <div className="mt-1 bg-accent/10 text-accent rounded-full p-0.5">
-                        <CheckCircle size={10} fill="currentColor" className="text-white" />
+                    <div key={feature} className="flex items-start gap-4">
+                      <div className="shrink-0 w-6 h-6 rounded-full border-2 border-accent bg-accent/10 flex items-center justify-center mt-0.5 shadow-sm">
+                        <div className="w-2.5 h-2.5 rounded-full bg-accent" />
                       </div>
-                      <span className="text-sm text-brand-900 font-medium stay-dark">{feature}</span>
+                      <span className="text-sm text-brand-900 font-medium stay-dark leading-relaxed">{feature}</span>
                     </div>
                   ))}
                 </div>
@@ -237,20 +237,20 @@ const Home: React.FC = () => {
       {/* CTA Final */}
       <section className="py-24 bg-white dark:bg-slate-950 relative overflow-hidden font-sans italic transition-colors duration-300">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="bg-slate-50 dark:bg-slate-900/50 rounded-[3rem] md:rounded-[4rem] p-12 md:p-20 border border-slate-100 dark:border-slate-800 text-center relative overflow-hidden">
+          <div className="bg-slate-50 stay-light-section rounded-[3rem] md:rounded-[4rem] p-12 md:p-20 border border-slate-100 dark:border-slate-800 text-center relative overflow-hidden">
             {/* Background decoration */}
             <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 -skew-x-12 translate-x-1/4 pointer-events-none z-0"></div>
             
             <div className="relative z-10">
-              <h2 className="text-3xl md:text-5xl font-black text-brand-900 dark:text-white mb-6 tracking-tighter uppercase italic">Un projet de déménagement <br/> à Paris ou en Île-de-France ?</h2>
-              <p className="text-slate-500 dark:text-slate-400 mb-12 max-w-2xl mx-auto font-light italic text-lg">Demandez une estimation personnalisée ou contactez directement notre équipe.</p>
+              <h2 className="text-3xl md:text-5xl font-black text-brand-900 stay-dark mb-6 tracking-tighter uppercase italic">Un projet de déménagement <br/> à Paris ou en Île-de-France ?</h2>
+              <p className="text-slate-500 stay-dark mb-12 max-w-2xl mx-auto font-light italic text-lg opacity-80">Demandez une estimation personnalisée ou contactez directement notre équipe.</p>
               
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <Link to="/demande-de-devis" className="bg-brand-900 dark:bg-accent dark:text-brand-900 text-white px-10 py-5 rounded-full font-bold text-xl hover:bg-brand-800 dark:hover:bg-accent-hover transition-all flex items-center gap-3 shadow-xl group">
+                <Link to="/demande-de-devis" className="bg-brand-900 text-white px-10 py-5 rounded-full font-bold text-xl hover:bg-brand-800 transition-all flex items-center gap-3 shadow-xl group">
                   Demander mon devis gratuit
-                  <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform text-accent dark:text-brand-900" />
+                  <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform text-accent" />
                 </Link>
-                <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="text-brand-900 dark:text-white font-bold text-2xl flex items-center gap-3 hover:text-accent transition-colors">
+                <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="text-brand-900 stay-dark font-bold text-2xl flex items-center gap-3 hover:text-accent transition-colors">
                   <Phone size={24} className="text-accent" />
                   {CONTACT.phone}
                 </a>

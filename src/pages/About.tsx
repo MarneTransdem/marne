@@ -201,18 +201,18 @@ const About: React.FC = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12 max-w-7xl mx-auto">
             <div className="group space-y-6">
               <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 dark:border-slate-800">
                 <img 
                   src="/images/gerant-marne-transdem.webp" 
-                  alt="Le Gérant - Marne Transdem" 
+                  alt="M. H.Yassa - Gérant" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white uppercase italic tracking-tight">Le Gérant</h3>
-                <p className="text-accent text-[10px] font-black uppercase tracking-[0.2em]">Direction & Expertise</p>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white uppercase italic tracking-tight">M. H.Yassa</h3>
+                <p className="text-accent text-[10px] font-black uppercase tracking-[0.2em]">Gérant</p>
               </div>
             </div>
             
@@ -220,13 +220,13 @@ const About: React.FC = () => {
               <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 dark:border-slate-800">
                 <img 
                   src="/images/secretaire-marne-transdem.webp" 
-                  alt="Secrétariat - Marne Transdem" 
+                  alt="Mme J.Gabay - Secrétariat" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white uppercase italic tracking-tight">Le Secrétariat</h3>
-                <p className="text-accent text-[10px] font-black uppercase tracking-[0.2em]">Accueil & Gestion</p>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white uppercase italic tracking-tight">Mme J.Gabay</h3>
+                <p className="text-accent text-[10px] font-black uppercase tracking-[0.2em]">Secrétariat</p>
               </div>
             </div>
             
@@ -234,13 +234,23 @@ const About: React.FC = () => {
               <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 dark:border-slate-800">
                 <img 
                   src="/images/bureau-marne-transdem.webp" 
-                  alt="Nos Bureaux - Marne Transdem" 
+                  alt="Mr. E.Perrin - Commercial" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white uppercase italic tracking-tight">Nos Bureaux</h3>
-                <p className="text-accent text-[10px] font-black uppercase tracking-[0.2em]">Paris 20e</p>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white uppercase italic tracking-tight">Mr. E.Perrin</h3>
+                <p className="text-accent text-[10px] font-black uppercase tracking-[0.2em]">Commercial</p>
+              </div>
+            </div>
+
+            <div className="group space-y-6 md:mt-12">
+              <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 dark:border-slate-800 bg-slate-100 flex items-center justify-center">
+                <span className="text-slate-400">Photo à venir</span>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white uppercase italic tracking-tight">Lamine</h3>
+                <p className="text-accent text-[10px] font-black uppercase tracking-[0.2em]">Chef d'équipe</p>
               </div>
             </div>
           </div>

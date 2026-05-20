@@ -24,12 +24,12 @@ const Legal: React.FC = () => {
           <section className="mb-10">
             <h2 className="text-xl font-bold text-brand-900 mb-4">1. Éditeur du Site</h2>
             <p>Le site <strong>{CONTACT.domain}</strong> est édité par la société <strong>Marne Transdem</strong>.</p>
-            <p>Statut : SARL au capital de [Votre Capital]</p>
-            <p>Siège social : {CONTACT.fullAddress}</p>
+            <p>Statut : SARL au capital de 15 000 €</p>
+            <p>Siège social : 43 RUE DES MARAICHERS, 75020 PARIS France</p>
             <p>Téléphone : {CONTACT.phone}</p>
             <p>Email : {CONTACT.email}</p>
-            <p>SIRET : [Votre Siret]</p>
-            <p>Directeur de la publication : [Nom du Responsable]</p>
+            <p>SIREN : 530136696</p>
+            <p>Directeur de la publication : Hanafi YASSA, Gérant</p>
           </section>
 
           <section className="mb-10">
@@ -45,6 +45,12 @@ const Legal: React.FC = () => {
           <section className="mb-10">
             <h2 className="text-xl font-bold text-brand-900 mb-4">4. Protection des Données (RGPD)</h2>
             <p>Conformément à la loi « Informatique et Libertés », vous disposez d'un droit d'accès, de rectification et d'opposition aux données personnelles vous concernant. Vous pouvez exercer ce droit en nous contactant à {CONTACT.email}.</p>
+          </section>
+
+          <section className="mb-10">
+            <h2 className="text-xl font-bold text-brand-900 mb-4">5. Conception et réalisation</h2>
+            <p>Conception et réalisation du site par A. Hachour.</p>
+            <p>Contact : vsw.contact@gmail.com | 06 51 46 02 57</p>
           </section>
         </div>
       </div>

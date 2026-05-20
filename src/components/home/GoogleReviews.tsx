@@ -38,7 +38,7 @@ const ReviewCard: React.FC<{ review: any; index: number }> = ({ review, index })
           </div>
         )}
         <div>
-          <h4 className="font-black text-brand-900 dark:text-white uppercase italic text-sm tracking-tight">{review.authorName}</h4>
+          <h4 className="font-black text-brand-900 stay-dark uppercase italic text-sm tracking-tight">{review.authorName}</h4>
           <p className="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-widest">{review.relativePublishTimeDescription}</p>
         </div>
       </div>
@@ -135,7 +135,7 @@ export const GoogleReviews: React.FC = () => {
                    className="p-4 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-brand-900 dark:text-white hover:bg-accent hover:text-white transition-all group disabled:opacity-50"
                    title="Synchroniser les avis Google Maps"
                  >
-                    <RefreshCw size={24} className={isSyncing ? 'animate-spin' : 'group-hover:rotate-180 transition-transform duration-500'} />
+                    <RefreshCw size={24} className={isSyncing ? 'animate-spin text-black' : 'group-hover:rotate-180 transition-transform duration-500 text-black'} />
                  </button>
                )}
              </div>

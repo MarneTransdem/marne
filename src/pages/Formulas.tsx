@@ -177,8 +177,10 @@ const FormulasPage: React.FC = () => {
                   "Solution adaptée aux budgets maîtrisés",
                   "Idéale si vous souhaitez participer"
                 ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-brand-900 font-medium stay-dark">
-                    <CheckCircle2 size={18} className="text-accent shrink-0 mt-0.5" />
+                  <li key={i} className="flex items-start gap-4 text-sm text-brand-900 font-medium stay-dark">
+                    <div className="shrink-0 w-6 h-6 rounded-full border-2 border-accent bg-accent/10 flex items-center justify-center mt-0.5 shadow-sm">
+                      <div className="w-2.5 h-2.5 rounded-full bg-accent" />
+                    </div>
                     {item}
                   </li>
                 ))}
@@ -212,8 +214,10 @@ const FormulasPage: React.FC = () => {
                   "Chargement, transport et déchargement",
                   "Bon équilibre autonomie/accompagnement"
                 ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-white font-medium">
-                    <CheckCircle2 size={18} className="text-accent shrink-0 mt-0.5" />
+                  <li key={i} className="flex items-start gap-4 text-sm text-white font-medium">
+                    <div className="shrink-0 w-6 h-6 rounded-full border-2 border-accent bg-accent/10 flex items-center justify-center mt-0.5 shadow-sm">
+                      <div className="w-2.5 h-2.5 rounded-full bg-accent" />
+                    </div>
                     {item}
                   </li>
                 ))}
@@ -243,8 +247,10 @@ const FormulasPage: React.FC = () => {
                   "Transport et installation",
                   "Solution confortable pour déléguer"
                 ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-brand-900 font-medium stay-dark">
-                    <CheckCircle2 size={18} className="text-accent shrink-0 mt-0.5" />
+                  <li key={i} className="flex items-start gap-4 text-sm text-brand-900 font-medium stay-dark">
+                    <div className="shrink-0 w-6 h-6 rounded-full border-2 border-accent bg-accent/10 flex items-center justify-center mt-0.5 shadow-sm">
+                      <div className="w-2.5 h-2.5 rounded-full bg-accent" />
+                    </div>
                     {item}
                   </li>
                 ))}

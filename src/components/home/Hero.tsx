@@ -7,7 +7,7 @@ import { useMapsLibrary } from '@vis.gl/react-google-maps';
 
 const GoogleBadge = () => (
     <a 
-      href="https://www.google.com/maps/place/?q=place_id:ChIJL2dd80xv5kcR0XnQ9K6yX0"
+      href="https://maps.app.goo.gl/mgKeWdoyH5Mpt8xJ9"
       target="_blank"
       rel="noopener noreferrer"
       className="flex items-center gap-4 bg-white border border-slate-100 px-5 py-2.5 rounded-2xl shadow-sm w-fit group hover:shadow-md transition-all cursor-pointer"
@@ -39,8 +39,8 @@ const GoogleBadge = () => (
       </div>
       <div className="h-5 w-[1px] bg-slate-100"></div>
       <div className="flex flex-col">
-        <span className="text-[12px] font-black text-brand-900 dark:text-white group-hover:text-accent transition-colors">4.9/5</span>
-        <span className="text-[9px] text-brand-900 dark:text-white font-bold uppercase tracking-wider">495 avis Google</span>
+        <span className="text-[12px] font-black text-brand-900 stay-dark group-hover:text-accent transition-colors">4.9/5</span>
+        <span className="text-[9px] text-brand-900 stay-dark font-bold uppercase tracking-wider">495 avis Google</span>
       </div>
     </a>
   );

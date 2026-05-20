@@ -21,7 +21,13 @@ import {
   Building2, 
   CheckCircle2,
   ChevronLeft,
-  X
+  X,
+  Camera,
+  Video,
+  Sparkles,
+  UploadCloud,
+  Loader2,
+  Check
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { SEO } from '../components/SEO';
@@ -64,6 +70,21 @@ interface VolumeEstimate {
   safetyMarginEnabled: boolean;
   suggestedFormula: string;
   createdAt: string;
+}
+
+interface AIDetectedItem {
+  name: string;
+  itemId: string | null;
+  volume: number;
+  quantity: number;
+  confidence: number;
+  selected?: boolean;
+}
+
+interface AIAnalysisResult {
+  detectedRoomName: string;
+  summary: string;
+  items: AIDetectedItem[];
 }
 
 const ROOM_TYPES = [
@@ -143,10 +164,195 @@ const VolumeCalculator: React.FC = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
   const [activeRoomId, setActiveRoomId] = useState<string | null>(null);
   const [safetyMargin, setSafetyMargin] = useState(false);
-  const [step, setStep] = useState<'rooms' | 'items' | 'summary'>('rooms');
+  const [step, setStep] = useState<'rooms' | 'items' | 'summary' | 'ai-analyse'>('rooms');
   const [searchQuery, setSearchQuery] = useState('');
   const [showCustomItem, setShowCustomItem] = useState(false);
   const [customItem, setCustomItem] = useState({ name: '', volume: 0, quantity: 1 });
+
+  // AI-powered visual analysis states
+  const [uploadedFiles, setUploadedFiles] = useState<{ id: string; name: string; type: string; dataUrl: string }[]>([]);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [aiError, setAiError] = useState<string | null>(null);
+  const [aiResults, setAiResults] = useState<AIAnalysisResult | null>(null);
+  const [aiTargetRoomOption, setAiTargetRoomOption] = useState<'new' | string>('new');
+
+  const resizeImage = (file: File): Promise<string> => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+          const maxDim = 1200;
+
+          if (width > maxDim || height > maxDim) {
+            if (width > height) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            resolve(event.target?.result as string);
+            return;
+          }
+
+          ctx.drawImage(img, 0, 0, width, height);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.8); // 80% quality JPEG is highly clear but 15x lighter
+          resolve(dataUrl);
+        };
+        img.onerror = () => {
+          resolve(event.target?.result as string);
+        };
+        img.src = event.target?.result as string;
+      };
+      reader.onerror = () => {
+        resolve("");
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    const filesArray = Array.from(e.target.files) as File[];
+    
+    for (const file of filesArray) {
+      const fileId = Math.random().toString(36).substring(2, 9);
+      try {
+        let finalDataUrl = "";
+        if (file.type.startsWith('image/')) {
+          finalDataUrl = await resizeImage(file);
+        } else {
+          finalDataUrl = await new Promise<string>((resolve) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result as string || "");
+            reader.onerror = () => resolve("");
+            reader.readAsDataURL(file);
+          });
+        }
+        
+        if (finalDataUrl) {
+          setUploadedFiles(prev => [
+            ...prev, 
+            { 
+              id: fileId,
+              name: file.name, 
+              type: file.type, 
+              dataUrl: finalDataUrl 
+            }
+          ]);
+        }
+      } catch (err) {
+        console.error("Erreur de lecture du fichier :", err);
+      }
+    }
+  };
+
+  const removeUploadedFile = (id: string) => {
+    setUploadedFiles(prev => prev.filter(f => f.id !== id));
+  };
+
+  const triggerAiAnalysis = async () => {
+    if (uploadedFiles.length === 0) return;
+    setIsAnalyzing(true);
+    setAiError(null);
+    setAiResults(null);
+    
+    try {
+      const response = await fetch("/api/gemini/analyze-images", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          images: uploadedFiles.map(f => ({
+            data: f.dataUrl,
+            mimeType: f.type
+          }))
+        })
+      });
+
+      if (!response.ok) {
+        const errData = await response.json();
+        throw new Error(errData.details || errData.error || "Une erreur est survenue lors de l'analyse.");
+      }
+
+      const data: AIAnalysisResult = await response.json();
+      
+      // Initialize selected attribute to true by default for import convenience
+      if (data.items) {
+        data.items = data.items.map(item => ({ ...item, selected: true }));
+      }
+      
+      setAiResults(data);
+    } catch (err: any) {
+      console.error(err);
+      setAiError(err.message || "Impossible d'analyser vos médias pour le moment. Veuillez réessayer avec une image claire.");
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
+  const importAiItems = () => {
+    if (!aiResults) return;
+    const selectedItems = aiResults.items.filter(item => item.selected);
+    if (selectedItems.length === 0) return;
+
+    let targetRoomId = "";
+
+    if (aiTargetRoomOption === 'new') {
+      const newRoomId = Math.random().toString(36).substr(2, 9);
+      const newRoom: Room = {
+        id: newRoomId,
+        name: aiResults.detectedRoomName || "Pièce Analysée par IA",
+        type: 'salon',
+        items: selectedItems.map(item => ({
+          id: Math.random().toString(36).substr(2, 9),
+          itemId: item.itemId || `custom-${Math.random().toString(36).substr(2, 5)}`,
+          name: item.name,
+          volume: item.volume,
+          quantity: item.quantity
+        }))
+      };
+      setRooms([...rooms, newRoom]);
+      targetRoomId = newRoomId;
+    } else {
+      setRooms(rooms.map(room => {
+        if (room.id !== aiTargetRoomOption) return room;
+        const mergedItems = [...room.items];
+        selectedItems.forEach(item => {
+          const resolvedId = item.itemId || `custom-${Math.random().toString(36).substr(2, 5)}`;
+          const existingIndex = mergedItems.findIndex(i => i.itemId === resolvedId);
+          if (existingIndex > -1) {
+            mergedItems[existingIndex].quantity += item.quantity;
+          } else {
+            mergedItems.push({
+              id: Math.random().toString(36).substr(2, 9),
+              itemId: resolvedId,
+              name: item.name,
+              volume: item.volume,
+              quantity: item.quantity
+            });
+          }
+        });
+        return { ...room, items: mergedItems };
+      }));
+      targetRoomId = aiTargetRoomOption;
+    }
+
+    // Reset AI state and focus new/modded room
+    setUploadedFiles([]);
+    setAiResults(null);
+    setActiveRoomId(targetRoomId);
+    setStep('items');
+  };
 
   // Load from local storage on mount (optional)
   useEffect(() => {
@@ -443,6 +649,35 @@ const VolumeCalculator: React.FC = () => {
                 </div>
               </div>
 
+              {/* AI Visual Calculator Integration */}
+              <div className="bg-brand-900 text-white p-8 rounded-[2.5rem] relative overflow-hidden shadow-xl border border-white/5">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-accent/20 blur-2xl rounded-full"></div>
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Sparkles className="text-accent animate-pulse" size={18} />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-accent">Nouveau & Révolutionnaire</span>
+                  </div>
+                  <h4 className="text-base font-black mb-3 leading-tight text-white">Capture d'objets par IA</h4>
+                  <p className="text-slate-300 text-xs font-light leading-relaxed mb-6">
+                    Prenez en photo ou vidéo vos meubles ou vos pièces entières. Notre IA intelligente va lister les meubles et calculer automatiquement leur volume en m³ !
+                  </p>
+                  <button
+                    onClick={() => {
+                      setStep('ai-analyse');
+                      setActiveRoomId(null);
+                    }}
+                    className={`w-full font-black py-4 px-4 rounded-2xl text-[11px] uppercase tracking-widest shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                      step === 'ai-analyse'
+                      ? 'bg-accent text-white shadow-accent/20'
+                      : 'bg-white text-brand-900 shadow-white/5 hover:bg-slate-100'
+                    }`}
+                  >
+                    <Camera size={14} />
+                    Scanner par Photo / Vidéo
+                  </button>
+                </div>
+              </div>
+
               {/* Add Room Catalog Section */}
               <div className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-premium">
                 <h3 className="text-xs font-black uppercase tracking-widest text-brand-900/40 mb-6">Ajouter une pièce</h3>
@@ -476,6 +711,278 @@ const VolumeCalculator: React.FC = () => {
             {/* Middle Column: Item Catalog or Room Selection */}
             <div className="lg:col-span-6 bg-white rounded-[3rem] border border-slate-100 shadow-premium min-h-[600px] flex flex-col overflow-hidden relative">
               
+              {step === 'ai-analyse' && (
+                <div className="p-8 md:p-12 flex flex-col h-full bg-slate-50/50">
+                  {/* AI Scanner Header */}
+                  <div className="flex items-center gap-4 mb-8">
+                    <button 
+                      onClick={() => setStep('rooms')} 
+                      className="p-3 bg-white rounded-2xl text-slate-400 hover:text-brand-900 shadow-sm border border-slate-100 transition-all cursor-pointer"
+                    >
+                      <ChevronLeft size={20} />
+                    </button>
+                    <div>
+                      <h2 className="text-2xl font-black text-brand-900 tracking-tight flex items-center gap-2">
+                        <Sparkles className="text-accent" size={24} />
+                        Estimation par IA
+                      </h2>
+                      <p className="text-xs text-slate-500 font-light mt-1">
+                        Téléversez vos instantanés de pièces ou de meubles pour inventorier vos volumes de déménagement.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Body Content */}
+                  {!aiResults ? (
+                    <div className="space-y-8 flex-1 flex flex-col justify-between">
+                      <div className="space-y-6">
+                        {/* Drag and drop upload area */}
+                        <div className="relative">
+                          <input 
+                            type="file" 
+                            id="ai-media-upload" 
+                            multiple 
+                            accept="image/*,video/*"
+                            onChange={handleFileChange}
+                            className="absolute inset-0 opacity-0 w-full h-full cursor-pointer z-10"
+                          />
+                          <div className="border-2 border-dashed border-slate-200 bg-white hover:border-accent p-10 rounded-[2rem] text-center transition-all flex flex-col items-center justify-center gap-4">
+                            <div className="w-16 h-16 bg-slate-50 text-accent rounded-3xl flex items-center justify-center shadow-inner">
+                              <UploadCloud size={32} />
+                            </div>
+                            <div>
+                              <p className="font-bold text-brand-900 text-sm">Déposez vos photos ou vidéos ici</p>
+                              <p className="text-slate-400 text-xs mt-1">Glissez vos fichiers ou cliquez pour ouvrir l'appareil photo/vidéo</p>
+                            </div>
+                            <div className="text-[10px] text-slate-400 bg-slate-50 px-3 py-1 rounded-full border border-slate-100">
+                              Formats supportés : PNG, JPG, WEBP, MP4, MOV (max 10MB)
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Uploaded previews */}
+                        {uploadedFiles.length > 0 && (
+                          <div className="space-y-4">
+                            <div className="flex justify-between items-center bg-slate-100/60 p-3 rounded-2xl px-4">
+                              <span className="text-xs font-bold text-brand-900">{uploadedFiles.length} fichier(s) prêt(s) pour analyse</span>
+                              <button 
+                                onClick={() => setUploadedFiles([])} 
+                                className="text-[10px] text-red-500 font-bold hover:underline"
+                              >
+                                Tout effacer
+                              </button>
+                            </div>
+                            <div className="grid grid-cols-3 gap-3">
+                              {uploadedFiles.map(file => (
+                                <motion.div 
+                                  layout
+                                  key={file.id} 
+                                  className="relative rounded-2xl overflow-hidden aspect-video bg-black border border-slate-100 group shadow-sm"
+                                >
+                                  {file.type.startsWith('video') ? (
+                                    <div className="w-full h-full flex flex-col items-center justify-center bg-slate-900 text-white">
+                                      <Video size={24} className="text-accent" />
+                                      <span className="text-[8px] truncate max-w-full px-2 mt-1 font-mono text-slate-400">{file.name}</span>
+                                    </div>
+                                  ) : (
+                                    <img src={file.dataUrl} alt={file.name} className="w-full h-full object-cover" />
+                                  )}
+                                  <button
+                                    onClick={() => removeUploadedFile(file.id)}
+                                    className="absolute top-2 right-2 p-1.5 bg-brand-900/80 text-white hover:bg-red-600 rounded-full transition-colors z-20 pointer-events-auto"
+                                  >
+                                    <X size={10} />
+                                  </button>
+                                </motion.div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Error notice */}
+                        {aiError && (
+                          <div className="p-4 bg-red-50 border border-red-100 text-red-600 rounded-2xl text-xs font-medium">
+                            {aiError}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Sticky action bottom bar */}
+                      <div className="pt-6 border-t border-slate-100 bg-white p-6 rounded-[2rem] shadow-sm">
+                        <button
+                          onClick={triggerAiAnalysis}
+                          disabled={uploadedFiles.length === 0 || isAnalyzing}
+                          className="w-full bg-brand-900 text-white hover:bg-brand-800 disabled:opacity-40 disabled:cursor-not-allowed font-black uppercase py-4 rounded-2xl tracking-widest text-[11px] shadow-lg shadow-brand-900/10 flex items-center justify-center gap-3 transition-all cursor-pointer"
+                        >
+                          {isAnalyzing ? (
+                            <>
+                              <Loader2 className="animate-spin text-accent" size={16} />
+                              Analyse IA en cours...
+                            </>
+                          ) : (
+                            <>
+                              <Sparkles className="text-accent animate-bounce" size={14} />
+                              Lancer l'Analyse d'Objets par IA
+                            </>
+                          )}
+                        </button>
+                        <p className="text-[10px] text-slate-400 font-light mt-3 text-center">
+                          L'analyse utilise le modèle sécurisé Gemini 1.5 Pro/Flash de Marne Transdem. Les images ne sont pas stockées.
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                     /* AI Results display view */
+                    <div className="space-y-6 flex-1 flex flex-col h-full justify-between">
+                      <div className="space-y-6 overflow-y-auto max-h-[60vh] pr-2 custom-scrollbar">
+                        {/* Summary panel */}
+                        <div className="bg-brand-900 text-white p-6 rounded-[2rem] shadow-md relative overflow-hidden">
+                          <div className="absolute top-0 right-0 w-16 h-16 bg-accent/20 blur-xl"></div>
+                          <p className="text-[10px] uppercase tracking-widest font-black text-accent mb-2">Verdict Logistique de notre IA</p>
+                          <h4 className="font-black text-lg mb-2 text-white">{aiResults.detectedRoomName || "Inventaire Détecté"}</h4>
+                          <p className="text-xs text-slate-300 leading-relaxed font-light">{aiResults.summary}</p>
+                        </div>
+
+                        {/* Target selection config */}
+                        <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm space-y-3">
+                          <label className="text-[10px] font-black uppercase text-slate-400 tracking-wider">Où importer ces objets dans le calculateur ?</label>
+                          <div className="grid grid-cols-2 gap-3 mt-1">
+                            <button
+                              onClick={() => setAiTargetRoomOption('new')}
+                              className={`p-3 rounded-xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
+                                aiTargetRoomOption === 'new'
+                                ? 'border-accent bg-accent/5'
+                                : 'border-slate-100 hover:border-slate-300 bg-slate-50/50'
+                              }`}
+                            >
+                              <span className="text-[11px] font-black text-brand-900">Nouvelle pièce</span>
+                              <span className="text-[9px] text-slate-400 mt-1 leading-none">{aiResults.detectedRoomName || "Pièce IA"}</span>
+                            </button>
+                            {rooms.length === 0 ? (
+                              <div className="p-3 rounded-xl border border-dashed border-slate-200 bg-slate-50 flex items-center justify-center text-center">
+                                <span className="text-[9px] text-slate-400 leading-tight">Aucune pièce existante</span>
+                              </div>
+                            ) : (
+                              <select
+                                value={aiTargetRoomOption}
+                                onChange={(e) => setAiTargetRoomOption(e.target.value)}
+                                className="p-3 rounded-xl border border-slate-100 bg-white text-xs font-bold text-brand-900 outline-none focus:border-accent"
+                              >
+                                <option value="new">Créer une nouvelle pièce...</option>
+                                {rooms.map(r => (
+                                  <option key={r.id} value={r.id}>{r.name} ({r.items.reduce((a, b) => a + (b.volume * b.quantity), 0).toFixed(1)} m³)</option>
+                                ))}
+                              </select>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Items list */}
+                        <div className="space-y-3">
+                          <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider font-bold">Objets détectés ({aiResults.items.filter(i => i.selected).reduce((acc, i) => acc + i.quantity, 0)})</span>
+                          <div className="space-y-3">
+                            {aiResults.items.map((item, index) => (
+                              <div 
+                                key={index} 
+                                className={`p-4 rounded-2xl border transition-all flex items-center justify-between shadow-sm ${
+                                  item.selected 
+                                  ? 'bg-white border-accent/20 hover:border-accent' 
+                                  : 'bg-slate-50/50 border-slate-100 opacity-60'
+                                }`}
+                              >
+                                <div className="flex items-center gap-3">
+                                  <button
+                                    onClick={() => {
+                                      const updated = [...aiResults.items];
+                                      updated[index].selected = !updated[index].selected;
+                                      setAiResults({ ...aiResults, items: updated });
+                                    }}
+                                    className={`w-5 h-5 rounded-md flex items-center justify-center border transition-colors cursor-pointer ${
+                                      item.selected 
+                                      ? 'bg-accent border-accent text-white' 
+                                      : 'border-slate-300 bg-white hover:border-accent'
+                                    }`}
+                                  >
+                                    {item.selected && <Check size={12} strokeWidth={3} />}
+                                  </button>
+                                  <div>
+                                    <div className="font-bold text-brand-900 text-xs flex items-center gap-2">
+                                      {item.name}
+                                      {item.confidence && (
+                                        <span className={`text-[8px] font-mono px-1.5 py-0.5 rounded-full ${
+                                          item.confidence > 80 ? 'bg-green-50 text-green-600' : 'bg-amber-50 text-amber-600'
+                                        }`}>
+                                          Confiance : {item.confidence}%
+                                        </span>
+                                      )}
+                                    </div>
+                                    <div className="text-[9px] text-slate-400 font-medium mt-1">
+                                      {item.volume.toFixed(2)} m³ unitaire
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                <div className="flex items-center gap-2">
+                                  {item.selected && (
+                                    <div className="flex items-center gap-1 bg-slate-50 p-1 rounded-lg border border-slate-100">
+                                      <button 
+                                        onClick={() => {
+                                          const updated = [...aiResults.items];
+                                          updated[index].quantity = Math.max(1, updated[index].quantity - 1);
+                                          setAiResults({ ...aiResults, items: updated });
+                                        }}
+                                        className="w-6 h-6 rounded bg-white hover:bg-slate-100 shadow-sm flex items-center justify-center text-xs font-bold transition-all cursor-pointer"
+                                      >
+                                        <Minus size={10} />
+                                      </button>
+                                      <span className="font-black text-brand-900 text-xs w-6 text-center">x{item.quantity}</span>
+                                      <button 
+                                        onClick={() => {
+                                          const updated = [...aiResults.items];
+                                          updated[index].quantity += 1;
+                                          setAiResults({ ...aiResults, items: updated });
+                                        }}
+                                        className="w-6 h-6 rounded bg-accent text-white shadow-sm flex items-center justify-center text-xs font-bold transition-all cursor-pointer"
+                                      >
+                                        <Plus size={10} />
+                                      </button>
+                                    </div>
+                                  )}
+                                  <div className="text-right w-16 text-xs font-black text-brand-900">
+                                    {(item.volume * item.quantity).toFixed(2)} m³
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Sticky action bottom bar */}
+                      <div className="pt-6 border-t border-slate-100 bg-white p-6 rounded-[2rem] shadow-sm flex gap-4">
+                        <button
+                          onClick={() => {
+                            setAiResults(null);
+                            setUploadedFiles([]);
+                          }}
+                          className="w-1/3 bg-slate-50 text-slate-500 hover:bg-slate-100 font-bold uppercase py-4 rounded-2xl tracking-widest text-[10px] transition-all cursor-pointer text-center"
+                        >
+                          Recommencer
+                        </button>
+                        <button
+                          onClick={importAiItems}
+                          disabled={aiResults.items.filter(i => i.selected).length === 0}
+                          className="flex-1 bg-accent text-white hover:bg-accent/90 disabled:opacity-40 font-black uppercase py-4 rounded-2xl tracking-widest text-[11px] shadow-lg shadow-accent/20 flex items-center justify-center gap-2 transition-all cursor-pointer"
+                        >
+                          <CheckCircle2 size={16} />
+                          Importer ces {aiResults.items.filter(i => i.selected).length} objet(s) ({aiResults.items.filter(i => i.selected).reduce((acc, i) => acc + (i.volume * i.quantity), 0).toFixed(2)} m³)
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
               {step === 'rooms' && (
                 <div className="p-8 md:p-12">
                   <div className="mb-10 text-center">

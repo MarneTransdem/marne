@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
           <div className="space-y-8 flex flex-col items-center sm:items-start text-center sm:text-left">
             <div className="space-y-6 flex flex-col items-center sm:items-start w-full">
               <Link to="/">
-                <Logo variant="light" height="h-12" />
+                <Logo variant="dark" height="h-12" />
               </Link>
               <div className="space-y-6">
                 <p className="text-slate-400 dark:text-slate-500 text-sm leading-relaxed font-light max-w-xs">

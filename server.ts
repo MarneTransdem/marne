@@ -4,8 +4,28 @@ import path from "path";
 import { fileURLToPath } from "url";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+import { GoogleGenAI, Type } from "@google/genai";
 
 dotenv.config();
+
+let aiClient: GoogleGenAI | null = null;
+function getGeminiClient(): GoogleGenAI {
+  if (!aiClient) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error("GEMINI_API_KEY environment variable is required");
+    }
+    aiClient = new GoogleGenAI({
+      apiKey,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
+        }
+      }
+    });
+  }
+  return aiClient;
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,8 +34,9 @@ async function startServer() {
   const app = express();
   const PORT = process.env.PORT || 3000;
 
-  // Middleware for parsing JSON
-  app.use(express.json());
+  // Middleware for parsing JSON with increased limit for base64 images/videos
+  app.use(express.json({ limit: "50mb" }));
+  app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
   // API Route: Send Email
   app.post("/api/send-email", async (req, res) => {
@@ -139,6 +160,129 @@ async function startServer() {
     } catch (error) {
       console.error("Email Error:", error);
       res.status(500).json({ error: "Échec de l'envoi de l'email" });
+    }
+  });
+
+  // API Route: AI-powered image/video analysis for volume calculations
+  app.post("/api/gemini/analyze-images", async (req, res) => {
+    try {
+      const { images } = req.body; // Array of { data: string (base64 data), mimeType: string }
+
+      if (!images || !Array.isArray(images) || images.length === 0) {
+        return res.status(400).json({ error: "Aucune image fournie pour l'analyse." });
+      }
+
+      const client = getGeminiClient();
+
+      const parts = images.map(img => {
+        let cleanData = img.data;
+        if (cleanData.includes("base64,")) {
+          cleanData = cleanData.split("base64,")[1];
+        }
+        return {
+          inlineData: {
+            data: cleanData,
+            mimeType: img.mimeType || "image/jpeg"
+          }
+        };
+      });
+
+      const textPrompt = `Analyse l'image (ou les images) d'une pièce ou d'un lot d'objets à déménager et dresse un inventaire précis des meubles, cartons, et objets visibles pour estimer leur volume en mètres cubes (m³).
+
+Vous devez retourner les résultats strictement au format JSON selon le schéma demandé.
+Pour chaque objet détecté :
+1. Essayez de le faire de manière optimale correspondre à l'un des éléments standards de notre catalogue (fournissez le "itemId" correspondant) :
+- "sofa2" (Canapé 2 places, 1.20 m³)
+- "sofa3" (Canapé 3 places, 1.80 m³)
+- "armchair" (Fauteuil, 0.40 m³)
+- "coffee-table" (Table basse, 0.30 m³)
+- "tv-stand" (Meuble TV, 0.60 m³)
+- "tv" (Télévision, 0.15 m³)
+- "shelf-small" (Bibliothèque petite, 0.80 m³)
+- "shelf-large" (Bibliothèque grande, 1.50 m³)
+- "rug" (Tapis, 0.10 m³)
+- "table4" (Table 4 personnes, 0.80 m³)
+- "table6" (Table 6 personnes, 1.20 m³)
+- "chair" (Chaise, 0.15 m³)
+- "sideboard" (Buffet, 0.80 m³)
+- "china-cabinet" (Vaisselier, 1.20 m³)
+- "bed-single" (Lit simple, 0.80 m³)
+- "bed-double" (Lit double, 1.20 m³)
+- "mattress-single" (Matelas simple, 0.40 m³)
+- "mattress-double" (Matelas double, 0.70 m³)
+- "nightstand" (Table de chevet, 0.15 m³)
+- "dresser" (Commode, 0.80 m³)
+- "wardrobe2" (Armoire 2 portes, 1.50 m³)
+- "wardrobe3" (Armoire 3 portes, 2.20 m³)
+- "fridge" (Réfrigérateur, 1.00 m³)
+- "freezer" (Congélateur, 0.80 m³)
+- "washing-machine" (Lave-linge, 0.50 m³)
+- "dishwasher" (Lave-vaisselle, 0.50 m³)
+- "oven" (Four, 0.20 m³)
+- "microwave" (Micro-ondes, 0.05 m³)
+- "desk" (Bureau, 0.80 m³)
+- "desk-chair" (Chaise de bureau, 0.25 m³)
+- "filing-cabinet" (Caisson, 0.20 m³)
+- "monitor" (Écran, 0.05 m³)
+- "printer" (Imprimante, 0.10 m³)
+- "bike" (Vélo, 0.60 m³)
+- "metal-shelf" (Étagère métallique, 0.50 m³)
+- "suitcase" (Valise, 0.10 m³)
+- "box-std" (Carton standard, 0.05 m³)
+- "box-books" (Carton livres, 0.03 m³)
+- "box-wardrobe" (Carton penderie, 0.20 m³)
+- "box-fragile" (Carton vaisselle, 0.05 m³)
+
+2. Si l'objet n'est pas précisément dans ce catalogue standard, vous devez configurer un item personnalisé en indiquant "itemId": null (ou "custom-xxx"), son nom clair en français (ex: "Table d'appoint ronde", "Vélo elliptique", "Plante verte moyenne", "Gros carton"), et un volume estimé réaliste en m³ (ex: petite table d'appoint = 0.2 m³, gros miroir = 0.1 m³, etc.).`;
+
+      parts.push({
+        text: textPrompt
+      } as any);
+
+      const response = await client.models.generateContent({
+        model: "gemini-3.5-flash",
+        contents: { parts: parts as any },
+        config: {
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: Type.OBJECT,
+            properties: {
+              detectedRoomName: { type: Type.STRING },
+              summary: { type: Type.STRING },
+              items: {
+                type: Type.ARRAY,
+                items: {
+                  type: Type.OBJECT,
+                  properties: {
+                    name: { type: Type.STRING },
+                    itemId: { type: Type.STRING },
+                    volume: { type: Type.NUMBER },
+                    quantity: { type: Type.INTEGER },
+                    confidence: { type: Type.INTEGER }
+                  },
+                  required: ["name", "volume", "quantity"]
+                }
+              }
+            },
+            required: ["detectedRoomName", "summary", "items"]
+          }
+        }
+      });
+
+      const responseText = response.text;
+      if (!responseText) {
+        throw new Error("L'assistant Gemini a retourné une réponse vide.");
+      }
+
+      const cleanJson = JSON.parse(responseText.trim());
+      res.json(cleanJson);
+
+    } catch (error: any) {
+      console.error("Gemini Image Analysis Error:", error);
+      res.status(500).json({ 
+        error: "Échec de l'analyse visuelle par l'IA", 
+        details: error.message || error 
+      });
     }
   });
 
