@@ -53,13 +53,13 @@ const FormulasPage: React.FC = () => {
     const lowerStatus = status.toLowerCase();
 
     if (lowerStatus.includes("à notre charge")) {
-      styles = "bg-slate-50 text-brand-900 border-slate-200";
+      styles = "bg-slate-50 text-black border-slate-200";
     } else if (lowerStatus.includes("à votre charge")) {
       styles = "bg-white text-slate-400 border-slate-100 italic";
     } else if (lowerStatus.includes("offert")) {
       styles = "bg-accent/10 text-accent border-accent/20 font-black";
     } else if (lowerStatus.includes("selon projet") || lowerStatus.includes("à la demande")) {
-      styles = "bg-brand-900/5 text-brand-900 border-brand-900/10";
+      styles = "bg-brand-900/5 text-black border-brand-900/10";
     } else {
       styles = "bg-slate-50 text-slate-400 border-slate-200";
     }
@@ -135,7 +135,7 @@ const FormulasPage: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-brand-900 dark:text-white mb-8">Découvrez les détails de nos formules</h2>
-            <div className="space-y-6 text-slate-600 dark:text-slate-400 leading-relaxed text-lg font-light">
+            <div className="space-y-6 text-slate-600 dark:text-white leading-relaxed text-lg font-light">
               <p>
                 Nous proposons des formules soigneusement conçues pour répondre à différents besoins en matière de temps, de budget et de niveau d’accompagnement. Que vous souhaitiez participer activement à la préparation de votre déménagement ou déléguer une grande partie de l’organisation, nos formules vous permettent de choisir la solution la plus adaptée à votre situation.
               </p>
@@ -267,8 +267,8 @@ const FormulasPage: React.FC = () => {
       <section className="py-24 bg-white dark:bg-slate-950">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-black text-brand-900 dark:text-white mb-6 tracking-tight">Tableau comparatif des formules</h2>
-            <p className="text-slate-500 dark:text-slate-400 font-light text-lg">Comparez les prestations pour choisir le niveau d’accompagnement idéal.</p>
+            <h2 className="text-3xl lg:text-5xl font-black text-brand-900 mb-6 tracking-tight">Tableau comparatif des formules</h2>
+            <p className="text-slate-500 font-light text-lg">Comparez les prestations pour choisir le niveau d’accompagnement idéal.</p>
           </div>
 
           {/* Desktop Table View */}
@@ -293,14 +293,14 @@ const FormulasPage: React.FC = () => {
                 <tbody className="text-sm">
                   {comparisonData.map((row, i) => (
                     <tr key={i} className="group hover:bg-slate-50/30 dark:hover:bg-white/5 transition-colors">
-                      <td className="p-6 font-bold text-brand-900 dark:text-white border-b border-slate-50 dark:border-slate-800 leading-tight text-sm">{row.label}</td>
-                      <td className="p-6 text-center border-b border-slate-50 dark:border-slate-800 bg-white dark:bg-slate-900">
+                      <td className="p-6 font-bold text-black border-b border-slate-50 leading-tight text-sm">{row.label}</td>
+                      <td className="p-6 text-center border-b border-slate-50 bg-white">
                         <StatusBadge status={row.eco} />
                       </td>
-                      <td className="p-6 text-center border-b border-accent/5 dark:border-accent/10 bg-accent/[0.03] dark:bg-accent/[0.05] border-x border-accent/5">
+                      <td className="p-6 text-center border-b border-accent/5 bg-accent/[0.03] border-x border-accent/5">
                          <StatusBadge status={row.std} />
                       </td>
-                      <td className="p-6 text-center border-b border-slate-50 dark:border-slate-800 bg-white dark:bg-slate-900">
+                      <td className="p-6 text-center border-b border-slate-50 bg-white">
                         <StatusBadge status={row.lux} />
                       </td>
                     </tr>
@@ -316,7 +316,7 @@ const FormulasPage: React.FC = () => {
               {['Économique', 'Standard', 'Luxe'].map((formula) => (
                 <div key={formula} className={`p-8 rounded-3xl border ${formula === 'Standard' ? 'border-accent bg-accent/[0.02] ring-4 ring-accent/5' : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900'}`}>
                   <div className="flex items-center justify-between mb-8">
-                    <h3 className={`text-2xl font-black uppercase tracking-tight ${formula === 'Standard' ? 'text-accent' : 'text-brand-900 dark:text-white'}`}>{formula}</h3>
+                    <h3 className={`text-2xl font-black uppercase tracking-tight ${formula === 'Standard' ? 'text-accent' : 'text-brand-900'}`}>{formula}</h3>
                     {formula === 'Standard' && (
                       <span className="bg-accent text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Populaire</span>
                     )}
@@ -324,7 +324,7 @@ const FormulasPage: React.FC = () => {
                   <div className="space-y-4">
                     {comparisonData.map((row, i) => (
                       <div key={i} className="flex flex-col gap-2 pb-4 border-b border-slate-50 dark:border-slate-800 last:border-0 last:pb-0">
-                        <div className="text-xs font-bold text-brand-900 dark:text-white leading-tight">{row.label}</div>
+                        <div className="text-xs font-bold text-black leading-tight">{row.label}</div>
                         <div>
                           <StatusBadge status={formula === 'Économique' ? row.eco : formula === 'Standard' ? row.std : row.lux} />
                         </div>
@@ -463,9 +463,9 @@ const FormulasPage: React.FC = () => {
                 <div className="w-14 h-14 bg-slate-50 dark:bg-slate-800 text-accent rounded-2xl flex items-center justify-center mb-6 group-hover:bg-accent group-hover:text-white transition-colors">
                   <service.icon size={28} />
                 </div>
-                <h3 className="text-xl font-bold text-brand-900 dark:text-white mb-3">{service.title}</h3>
-                <p className="text-slate-500 dark:text-slate-400 text-sm font-light leading-relaxed mb-6 flex-grow">{service.description}</p>
-                <div className="flex items-center gap-2 text-accent font-bold text-sm uppercase tracking-widest group-hover:gap-4 transition-all">
+                <h3 className="text-xl font-bold text-black mb-3">{service.title}</h3>
+                <p className="text-slate-900 text-sm font-light leading-relaxed mb-6 flex-grow">{service.description}</p>
+                <div className="flex items-center gap-2 text-black font-bold text-sm uppercase tracking-widest group-hover:gap-4 transition-all">
                   Découvrir
                   <ArrowRight size={16} />
                 </div>

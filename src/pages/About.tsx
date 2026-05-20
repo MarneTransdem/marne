@@ -245,8 +245,12 @@ const About: React.FC = () => {
             </div>
 
             <div className="group space-y-6 md:mt-12">
-              <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 dark:border-slate-800 bg-slate-100 flex items-center justify-center">
-                <span className="text-slate-400">Photo à venir</span>
+              <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 dark:border-slate-800">
+                <img 
+                  src="/images/lamine.webp" 
+                  alt="Lamine - Chef d'équipe" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
               </div>
               <div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white uppercase italic tracking-tight">Lamine</h3>
