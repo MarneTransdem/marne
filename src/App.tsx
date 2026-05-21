@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BrowserRouter, Routes, Route, ScrollRestoration } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, ScrollRestoration, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
@@ -16,6 +16,8 @@ import QuoteRequest from './pages/QuoteRequest';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import FormulasPage from './pages/Formulas';
+import AdminDashboard from './pages/AdminDashboard';
+import Login from './pages/Login';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Legal from './pages/Legal';
@@ -134,165 +136,181 @@ import SecteursDesservis from './pages/SecteursDesservis';
 import { APIProvider } from '@vis.gl/react-google-maps';
 import { CookieConsent } from './components/common/CookieConsent';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { AuthProvider } from './context/AuthContext';
 
 const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_PLATFORM_KEY || '';
+
+function AppContent() {
+  const location = useLocation();
+  const isAdminOrLogin = location.pathname.startsWith('/admin') || location.pathname === '/login';
+
+  return (
+    <>
+      <ScrollToTop />
+      {!isAdminOrLogin && <Header />}
+      <main>
+        <PageTransition>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/devis" element={<QuoteRequest />} />
+            <Route path="/demande-de-devis" element={<QuoteRequest />} />
+            <Route path="/secteurs-desservis" element={<SecteursDesservis />} />
+            
+            {/* Specialized Services */}
+            <Route path="/demenagement-particuliers-paris" element={<DemenagementParticuliers />} />
+            <Route path="/demenagement-entreprises-paris" element={<DemenagementEntreprises />} />
+            <Route path="/garde-meuble-paris" element={<GardeMeuble />} />
+            <Route path="/location-monte-meuble-paris" element={<MonteMeuble />} />
+            <Route path="/emballage-protection-demenagement" element={<Emballage />} />
+            <Route path="/cartons-demenagement-paris" element={<Cartons />} />
+            <Route path="/calculateur-volume" element={<VolumeCalculator />} />
+            <Route path="/formules-demenagement" element={<FormulasPage />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
+             <Route path="/demenagement-paris-20" element={<LocalParis20 />} />
+            <Route path="/demenagement-paris-11" element={<LocalParis11 />} />
+            <Route path="/demenagement-paris-12" element={<LocalParis12 />} />
+            <Route path="/demenagement-paris-13" element={<LocalParis13 />} />
+            <Route path="/demenagement-paris-14" element={<LocalParis14 />} />
+            <Route path="/demenagement-paris-15" element={<LocalParis15 />} />
+            <Route path="/demenagement-paris-16" element={<LocalParis16 />} />
+            <Route path="/demenagement-paris-17" element={<LocalParis17 />} />
+            <Route path="/demenagement-paris-18" element={<LocalParis18 />} />
+            <Route path="/demenagement-paris-19" element={<LocalParis19 />} />
+            <Route path="/demenagement-paris-10" element={<LocalParis10 />} />
+            <Route path="/demenagement-paris-9" element={<LocalParis9 />} />
+            <Route path="/demenagement-montreuil" element={<LocalMontreuil />} />
+            <Route path="/demenagement-vincennes" element={<LocalVincennes />} />
+            <Route path="/demenagement-saint-mande" element={<LocalSaintMande />} />
+            <Route path="/demenagement-bagnolet" element={<LocalBagnolet />} />
+            <Route path="/demenagement-boulogne-billancourt" element={<LocalBoulogneBillancourt />} />
+            <Route path="/demenagement-neuilly-sur-seine" element={<LocalNeuillySurSeine />} />
+            <Route path="/demenagement-levallois-perret" element={<LocalLevalloisPerret />} />
+            <Route path="/demenagement-clichy" element={<LocalClichy />} />
+            <Route path="/demenagement-courbevoie" element={<LocalCourbevoie />} />
+            <Route path="/demenagement-puteaux" element={<LocalPuteaux />} />
+            <Route path="/demenagement-nanterre" element={<LocalNanterre />} />
+            <Route path="/demenagement-suresnes" element={<LocalSuresnes />} />
+            <Route path="/demenagement-rueil-malmaison" element={<LocalRueilMalmaison />} />
+            <Route path="/demenagement-saint-cloud" element={<LocalSaintCloud />} />
+            <Route path="/demenagement-meudon" element={<LocalMeudon />} />
+            <Route path="/demenagement-clamart" element={<LocalClamart />} />
+            <Route path="/demenagement-sevres" element={<LocalSevres />} />
+            <Route path="/demenagement-vanves" element={<LocalVanves />} />
+            <Route path="/demenagement-chatillon" element={<LocalChatillon />} />
+            <Route path="/demenagement-malakoff" element={<LocalMalakoff />} />
+            <Route path="/demenagement-montrouge" element={<LocalMontrouge />} />
+            <Route path="/demenagement-bagneux" element={<LocalBagneux />} />
+            <Route path="/demenagement-fontenay-aux-roses" element={<LocalFontenayAuxRoses />} />
+            <Route path="/demenagement-sceaux" element={<LocalSceaux />} />
+            <Route path="/demenagement-bourg-la-reine" element={<LocalBourgLaReine />} />
+            <Route path="/demenagement-antony" element={<LocalAntony />} />
+            <Route path="/demenagement-chatenay-malabry" element={<LocalChatenayMalabry />} />
+            <Route path="/demenagement-le-plessis-robinson" element={<LocalLePlessisRobinson />} />
+            <Route path="/demenagement-velizy-villacoublay" element={<LocalVelizyVillacoublay />} />
+            <Route path="/demenagement-viroflay" element={<LocalViroflay />} />
+            <Route path="/demenagement-chaville" element={<LocalChaville />} />
+            <Route path="/demenagement-ville-d-avray" element={<LocalVilleDAvray />} />
+            <Route path="/demenagement-versailles" element={<LocalVersailles />} />
+            <Route path="/demenagement-le-chesnay-rocquencourt" element={<LocalLeChesnayRocquencourt />} />
+            <Route path="/demenagement-la-celle-saint-cloud" element={<LocalLaCelleSaintCloud />} />
+            <Route path="/demenagement-vaucresson" element={<LocalVaucresson />} />
+            <Route path="/demenagement-garches" element={<LocalGarches />} />
+            <Route path="/demenagement-marnes-la-coquette" element={<LocalMarnesLaCoquette />} />
+            <Route path="/demenagement-bougival" element={<LocalBougival />} />
+            <Route path="/demenagement-louveciennes" element={<LocalLouveciennes />} />
+            <Route path="/demenagement-croissy-sur-seine" element={<LocalCroissySurSeine />} />
+            <Route path="/demenagement-chatou" element={<LocalChatou />} />
+            <Route path="/demenagement-le-vesinet" element={<LocalLeVesinet />} />
+            <Route path="/demenagement-le-pecq" element={<LocalLePecq />} />
+            <Route path="/demenagement-marly-le-roi" element={<LocalMarlyLeRoi />} />
+            <Route path="/demenagement-saint-germain-en-laye" element={<LocalSaintGermainEnLaye />} />
+            <Route path="/demenagement-poissy" element={<LocalPoissy />} />
+            <Route path="/demenagement-sartrouville" element={<LocalSartrouville />} />
+            <Route path="/demenagement-rambouillet" element={<LocalRambouillet />} />
+            <Route path="/demenagement-mantes-la-jolie" element={<LocalMantesLaJolie />} />
+            <Route path="/demenagement-maisons-laffitte" element={<LocalMaisonsLaffitte />} />
+            <Route path="/demenagement-houilles" element={<LocalHouilles />} />
+            <Route path="/demenagement-plaisir" element={<LocalPlaisir />} />
+            <Route path="/demenagement-guyancourt" element={<LocalGuyancourt />} />
+            <Route path="/demenagement-nogent-sur-marne" element={<LocalNogentSurMarne />} />
+            <Route path="/demenagement-conflans-sainte-honorine" element={<LocalConflansSainteHonorine />} />
+            <Route path="/demenagement-issy-les-moulineaux" element={<LocalIssyLesMoulineaux />} />
+            <Route path="/demenagement-ile-de-france" element={<LocalIDF />} />
+            <Route path="/demenagement-hauts-de-seine" element={<LocalHautsDeSeine />} />
+            <Route path="/demenagement-seine-saint-denis" element={<LocalSeineSaintDenis />} />
+            <Route path="/demenagement-val-de-marne" element={<LocalValDeMarne />} />
+            <Route path="/demenagement-yvelines" element={<LocalYvelines />} />
+            <Route path="/demenagement-essonne" element={<LocalEssonne />} />
+            <Route path="/demenagement-val-d-oise" element={<LocalValDOise />} />
+            <Route path="/demenagement-seine-et-marne" element={<LocalSeineEtMarne />} />
+            <Route path="/demenagement-charenton-le-pont" element={<CharentonLePont />} />
+            <Route path="/demenagement-saint-maur-des-fosses" element={<LocalSaintMaur />} />
+            <Route path="/demenagement-creteil" element={<LocalCreteil />} />
+            
+            {/* Longue Distance */}
+            <Route path="/demenagement-paris-lyon" element={<LongueDistanceParisLyon />} />
+            <Route path="/demenagement-paris-marseille" element={<LongueDistanceParisMarseille />} />
+            <Route path="/demenagement-paris-bordeaux" element={<LongueDistanceParisBordeaux />} />
+            <Route path="/demenagement-paris-toulouse" element={<LongueDistanceParisToulouse />} />
+            <Route path="/demenagement-paris-nantes" element={<LongueDistanceParisNantes />} />
+            <Route path="/demenagement-paris-lille" element={<LongueDistanceParisLille />} />
+            <Route path="/demenagement-paris-strasbourg" element={<LongueDistanceParisStrasbourg />} />
+            <Route path="/demenagement-paris-montpellier" element={<LongueDistanceParisMontpellier />} />
+            <Route path="/demenagement-paris-rennes" element={<LongueDistanceParisRennes />} />
+            <Route path="/demenagement-longue-distance" element={<LongueDistance />} />
+            <Route path="/demenagement-oeuvres-art" element={<DemenagementOeuvresArt />} />
+            <Route path="/demenagement-etudiant" element={<DemenagementEtudiant />} />
+            <Route path="/demenagement-militaire" element={<DemenagementMilitaire />} />
+            <Route path="/demenagement-senior" element={<DemenagementSenior />} />
+            <Route path="/demenagement-mutation-professionnelle" element={<DemenagementMutation />} />
+            <Route path="/demenagement-petit-volume" element={<DemenagementPetitVolume />} />
+            <Route path="/demenagement-piano-objets-lourds" element={<DemenagementPiano />} />
+            
+            {/* Enterprise Specifics */}
+            <Route path="/transfert-bureaux-paris" element={<TransfertBureaux />} />
+            <Route path="/transfert-informatique-paris" element={<TransfertInformatique />} />
+            <Route path="/transfert-industriel-paris" element={<TransfertIndustriel />} />
+            <Route path="/transfert-laboratoire-paris" element={<TransfertLaboratoire />} />
+            <Route path="/gestion-archives-paris" element={<GestionArchives />} />
+            
+            {/* Legacy / Simple Paths */}
+            <Route path="/particuliers" element={<DemenagementParticuliers />} />
+            <Route path="/entreprises" element={<DemenagementEntreprises />} />
+            <Route path="/garde-meuble" element={<GardeMeuble />} />
+            <Route path="/monte-meuble" element={<MonteMeuble />} />
+            <Route path="/emballage" element={<Emballage />} />
+            <Route path="/formules" element={<FormulasPage />} />
+
+            <Route path="/a-propos" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/mentions-legales" element={<Legal />} />
+            <Route path="/politique-de-confidentialite" element={<PrivacyPolicy />} />
+          </Routes>
+        </PageTransition>
+      </main>
+      {!isAdminOrLogin && <Footer />}
+      {!isAdminOrLogin && <CookieConsent />}
+      {!isAdminOrLogin && <MobileCTA />}
+    </>
+  );
+}
 
 export default function App() {
   return (
     <ThemeProvider>
-      <APIProvider apiKey={API_KEY} version="weekly">
+      <AuthProvider>
+        <APIProvider apiKey={API_KEY} version="weekly">
         <HelmetProvider>
           <BrowserRouter>
-          <ScrollToTop />
-          <Header />
-          <main>
-            <PageTransition>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/devis" element={<QuoteRequest />} />
-                <Route path="/demande-de-devis" element={<QuoteRequest />} />
-                <Route path="/secteurs-desservis" element={<SecteursDesservis />} />
-                
-                {/* Specialized Services */}
-                <Route path="/demenagement-particuliers-paris" element={<DemenagementParticuliers />} />
-                <Route path="/demenagement-entreprises-paris" element={<DemenagementEntreprises />} />
-                <Route path="/garde-meuble-paris" element={<GardeMeuble />} />
-                <Route path="/location-monte-meuble-paris" element={<MonteMeuble />} />
-                <Route path="/emballage-protection-demenagement" element={<Emballage />} />
-                <Route path="/cartons-demenagement-paris" element={<Cartons />} />
-                <Route path="/calculateur-volume" element={<VolumeCalculator />} />
-                <Route path="/formules-demenagement" element={<FormulasPage />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/blog/:id" element={<BlogPost />} />
-                 <Route path="/demenagement-paris-20" element={<LocalParis20 />} />
-                <Route path="/demenagement-paris-11" element={<LocalParis11 />} />
-                <Route path="/demenagement-paris-12" element={<LocalParis12 />} />
-                <Route path="/demenagement-paris-13" element={<LocalParis13 />} />
-                <Route path="/demenagement-paris-14" element={<LocalParis14 />} />
-                <Route path="/demenagement-paris-15" element={<LocalParis15 />} />
-                <Route path="/demenagement-paris-16" element={<LocalParis16 />} />
-                <Route path="/demenagement-paris-17" element={<LocalParis17 />} />
-                <Route path="/demenagement-paris-18" element={<LocalParis18 />} />
-                <Route path="/demenagement-paris-19" element={<LocalParis19 />} />
-                <Route path="/demenagement-paris-10" element={<LocalParis10 />} />
-                <Route path="/demenagement-paris-9" element={<LocalParis9 />} />
-                <Route path="/demenagement-montreuil" element={<LocalMontreuil />} />
-                <Route path="/demenagement-vincennes" element={<LocalVincennes />} />
-                <Route path="/demenagement-saint-mande" element={<LocalSaintMande />} />
-                <Route path="/demenagement-bagnolet" element={<LocalBagnolet />} />
-                <Route path="/demenagement-boulogne-billancourt" element={<LocalBoulogneBillancourt />} />
-                <Route path="/demenagement-neuilly-sur-seine" element={<LocalNeuillySurSeine />} />
-                <Route path="/demenagement-levallois-perret" element={<LocalLevalloisPerret />} />
-                <Route path="/demenagement-clichy" element={<LocalClichy />} />
-                <Route path="/demenagement-courbevoie" element={<LocalCourbevoie />} />
-                <Route path="/demenagement-puteaux" element={<LocalPuteaux />} />
-                <Route path="/demenagement-nanterre" element={<LocalNanterre />} />
-                <Route path="/demenagement-suresnes" element={<LocalSuresnes />} />
-                <Route path="/demenagement-rueil-malmaison" element={<LocalRueilMalmaison />} />
-                <Route path="/demenagement-saint-cloud" element={<LocalSaintCloud />} />
-                <Route path="/demenagement-meudon" element={<LocalMeudon />} />
-                <Route path="/demenagement-clamart" element={<LocalClamart />} />
-                <Route path="/demenagement-sevres" element={<LocalSevres />} />
-                <Route path="/demenagement-vanves" element={<LocalVanves />} />
-                <Route path="/demenagement-chatillon" element={<LocalChatillon />} />
-                <Route path="/demenagement-malakoff" element={<LocalMalakoff />} />
-                <Route path="/demenagement-montrouge" element={<LocalMontrouge />} />
-                <Route path="/demenagement-bagneux" element={<LocalBagneux />} />
-                <Route path="/demenagement-fontenay-aux-roses" element={<LocalFontenayAuxRoses />} />
-                <Route path="/demenagement-sceaux" element={<LocalSceaux />} />
-                <Route path="/demenagement-bourg-la-reine" element={<LocalBourgLaReine />} />
-                <Route path="/demenagement-antony" element={<LocalAntony />} />
-                <Route path="/demenagement-chatenay-malabry" element={<LocalChatenayMalabry />} />
-                <Route path="/demenagement-le-plessis-robinson" element={<LocalLePlessisRobinson />} />
-                <Route path="/demenagement-velizy-villacoublay" element={<LocalVelizyVillacoublay />} />
-                <Route path="/demenagement-viroflay" element={<LocalViroflay />} />
-                <Route path="/demenagement-chaville" element={<LocalChaville />} />
-                <Route path="/demenagement-ville-d-avray" element={<LocalVilleDAvray />} />
-                <Route path="/demenagement-versailles" element={<LocalVersailles />} />
-                <Route path="/demenagement-le-chesnay-rocquencourt" element={<LocalLeChesnayRocquencourt />} />
-                <Route path="/demenagement-la-celle-saint-cloud" element={<LocalLaCelleSaintCloud />} />
-                <Route path="/demenagement-vaucresson" element={<LocalVaucresson />} />
-                <Route path="/demenagement-garches" element={<LocalGarches />} />
-                <Route path="/demenagement-marnes-la-coquette" element={<LocalMarnesLaCoquette />} />
-                <Route path="/demenagement-bougival" element={<LocalBougival />} />
-                <Route path="/demenagement-louveciennes" element={<LocalLouveciennes />} />
-                <Route path="/demenagement-croissy-sur-seine" element={<LocalCroissySurSeine />} />
-                <Route path="/demenagement-chatou" element={<LocalChatou />} />
-                <Route path="/demenagement-le-vesinet" element={<LocalLeVesinet />} />
-                <Route path="/demenagement-le-pecq" element={<LocalLePecq />} />
-                <Route path="/demenagement-marly-le-roi" element={<LocalMarlyLeRoi />} />
-                <Route path="/demenagement-saint-germain-en-laye" element={<LocalSaintGermainEnLaye />} />
-                <Route path="/demenagement-poissy" element={<LocalPoissy />} />
-                <Route path="/demenagement-sartrouville" element={<LocalSartrouville />} />
-                <Route path="/demenagement-rambouillet" element={<LocalRambouillet />} />
-                <Route path="/demenagement-mantes-la-jolie" element={<LocalMantesLaJolie />} />
-                <Route path="/demenagement-maisons-laffitte" element={<LocalMaisonsLaffitte />} />
-                <Route path="/demenagement-houilles" element={<LocalHouilles />} />
-                <Route path="/demenagement-plaisir" element={<LocalPlaisir />} />
-                <Route path="/demenagement-guyancourt" element={<LocalGuyancourt />} />
-                <Route path="/demenagement-nogent-sur-marne" element={<LocalNogentSurMarne />} />
-                <Route path="/demenagement-conflans-sainte-honorine" element={<LocalConflansSainteHonorine />} />
-                <Route path="/demenagement-issy-les-moulineaux" element={<LocalIssyLesMoulineaux />} />
-                <Route path="/demenagement-ile-de-france" element={<LocalIDF />} />
-                <Route path="/demenagement-hauts-de-seine" element={<LocalHautsDeSeine />} />
-                <Route path="/demenagement-seine-saint-denis" element={<LocalSeineSaintDenis />} />
-                <Route path="/demenagement-val-de-marne" element={<LocalValDeMarne />} />
-                <Route path="/demenagement-yvelines" element={<LocalYvelines />} />
-                <Route path="/demenagement-essonne" element={<LocalEssonne />} />
-                <Route path="/demenagement-val-d-oise" element={<LocalValDOise />} />
-                <Route path="/demenagement-seine-et-marne" element={<LocalSeineEtMarne />} />
-                <Route path="/demenagement-charenton-le-pont" element={<CharentonLePont />} />
-                <Route path="/demenagement-saint-maur-des-fosses" element={<LocalSaintMaur />} />
-                <Route path="/demenagement-creteil" element={<LocalCreteil />} />
-                
-                {/* Longue Distance */}
-                <Route path="/demenagement-paris-lyon" element={<LongueDistanceParisLyon />} />
-                <Route path="/demenagement-paris-marseille" element={<LongueDistanceParisMarseille />} />
-                <Route path="/demenagement-paris-bordeaux" element={<LongueDistanceParisBordeaux />} />
-                <Route path="/demenagement-paris-toulouse" element={<LongueDistanceParisToulouse />} />
-                <Route path="/demenagement-paris-nantes" element={<LongueDistanceParisNantes />} />
-                <Route path="/demenagement-paris-lille" element={<LongueDistanceParisLille />} />
-                <Route path="/demenagement-paris-strasbourg" element={<LongueDistanceParisStrasbourg />} />
-                <Route path="/demenagement-paris-montpellier" element={<LongueDistanceParisMontpellier />} />
-                <Route path="/demenagement-paris-rennes" element={<LongueDistanceParisRennes />} />
-                <Route path="/demenagement-longue-distance" element={<LongueDistance />} />
-                <Route path="/demenagement-oeuvres-art" element={<DemenagementOeuvresArt />} />
-                <Route path="/demenagement-etudiant" element={<DemenagementEtudiant />} />
-                <Route path="/demenagement-militaire" element={<DemenagementMilitaire />} />
-                <Route path="/demenagement-senior" element={<DemenagementSenior />} />
-                <Route path="/demenagement-mutation-professionnelle" element={<DemenagementMutation />} />
-                <Route path="/demenagement-petit-volume" element={<DemenagementPetitVolume />} />
-                <Route path="/demenagement-piano-objets-lourds" element={<DemenagementPiano />} />
-                
-                {/* Enterprise Specifics */}
-                <Route path="/transfert-bureaux-paris" element={<TransfertBureaux />} />
-                <Route path="/transfert-informatique-paris" element={<TransfertInformatique />} />
-                <Route path="/transfert-industriel-paris" element={<TransfertIndustriel />} />
-                <Route path="/transfert-laboratoire-paris" element={<TransfertLaboratoire />} />
-                <Route path="/gestion-archives-paris" element={<GestionArchives />} />
-                
-                {/* Legacy / Simple Paths */}
-                <Route path="/particuliers" element={<DemenagementParticuliers />} />
-                <Route path="/entreprises" element={<DemenagementEntreprises />} />
-                <Route path="/garde-meuble" element={<GardeMeuble />} />
-                <Route path="/monte-meuble" element={<MonteMeuble />} />
-                <Route path="/emballage" element={<Emballage />} />
-                <Route path="/formules" element={<FormulasPage />} />
-  
-                <Route path="/a-propos" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/mentions-legales" element={<Legal />} />
-                <Route path="/politique-de-confidentialite" element={<PrivacyPolicy />} />
-              </Routes>
-            </PageTransition>
-          </main>
-          <Footer />
-          <CookieConsent />
-          <MobileCTA />
-        </BrowserRouter>
-      </HelmetProvider>
-    </APIProvider>
+            <AppContent />
+          </BrowserRouter>
+        </HelmetProvider>
+      </APIProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

@@ -463,9 +463,9 @@ const FormulasPage: React.FC = () => {
                 <div className="w-14 h-14 bg-slate-50 dark:bg-slate-800 text-accent rounded-2xl flex items-center justify-center mb-6 group-hover:bg-accent group-hover:text-white transition-colors">
                   <service.icon size={28} />
                 </div>
-                <h3 className="text-xl font-bold text-black mb-3">{service.title}</h3>
-                <p className="text-slate-900 text-sm font-light leading-relaxed mb-6 flex-grow">{service.description}</p>
-                <div className="flex items-center gap-2 text-black font-bold text-sm uppercase tracking-widest group-hover:gap-4 transition-all">
+                <h3 className="text-xl font-bold !text-black mb-3">{service.title}</h3>
+                <p className="text-slate-600 dark:text-slate-300 text-sm font-light leading-relaxed mb-6 flex-grow">{service.description}</p>
+                <div className="flex items-center gap-2 text-accent font-bold text-sm uppercase tracking-widest group-hover:gap-4 transition-all">
                   Découvrir
                   <ArrowRight size={16} />
                 </div>
@@ -478,7 +478,7 @@ const FormulasPage: React.FC = () => {
       {/* 8. FAQ */}
       <section className="py-24 bg-slate-50 dark:bg-slate-900/50">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl">
-          <h2 className="text-3xl font-bold text-brand-900 dark:text-white mb-12 text-center">Questions fréquentes sur nos formules</h2>
+          <h2 className="text-3xl font-bold text-black mb-12 text-center">Questions fréquentes sur nos formules</h2>
           <div className="space-y-6">
             {faqs.map((faq, i) => (
               <div key={i} className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex gap-6 items-start">
@@ -486,7 +486,7 @@ const FormulasPage: React.FC = () => {
                   <Info size={18} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-900 dark:text-white text-lg mb-3">{faq.q}</h4>
+                  <h4 className="font-bold !text-black text-lg mb-3">{faq.q}</h4>
                   <p className="text-slate-500 dark:text-slate-400 font-light leading-relaxed">{faq.a}</p>
                 </div>
               </div>

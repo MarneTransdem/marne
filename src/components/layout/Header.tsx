@@ -254,7 +254,7 @@ export const Header: React.FC = () => {
                           <button 
                             onClick={() => toggleMobileExpanded(item.name)}
                             className={`w-full flex items-center justify-between text-2xl font-bold transition-all ${
-                              location.pathname.startsWith(item.path) ? 'text-accent pl-4 border-l-4 border-accent' : 'text-brand-900 dark:text-white'
+                              location.pathname.startsWith(item.path) ? 'text-accent pl-4 border-l-4 border-accent' : 'text-black'
                             }`}
                           >
                             {item.name}
@@ -265,7 +265,7 @@ export const Header: React.FC = () => {
                             to={item.path}
                             onClick={closeMenu}
                             className={`text-2xl font-bold transition-all block ${
-                              location.pathname === item.path ? 'text-accent pl-4 border-l-4 border-accent' : 'text-brand-900 dark:text-white'
+                              location.pathname === item.path ? 'text-accent pl-4 border-l-4 border-accent' : 'text-black'
                             }`}
                           >
                             {item.name}
@@ -292,7 +292,7 @@ export const Header: React.FC = () => {
                                       key={s.id} 
                                       to={s.path} 
                                       onClick={closeMenu}
-                                      className="text-base font-medium text-slate-500 dark:text-slate-400 hover:text-accent transition-colors flex items-center gap-3 py-1"
+                                      className="text-base font-medium text-black hover:text-accent transition-colors flex items-center gap-3 py-1"
                                     >
                                       <div className="bg-slate-100 dark:bg-slate-800 p-1.5 rounded-lg text-brand-900 dark:text-white">
                                         <s.icon size={16} />
@@ -328,7 +328,7 @@ export const Header: React.FC = () => {
                     className="flex flex-col gap-2 items-start"
                   >
                     <span className="text-xs font-black uppercase tracking-[0.2em] text-slate-400">Conseil & devis</span>
-                    <span className="text-xl font-bold text-brand-900 dark:text-white flex items-center gap-2">
+                    <span className="text-xl font-bold text-black flex items-center gap-2">
                        <Phone size={20} className="text-accent" />
                        {CONTACT.phone}
                     </span>

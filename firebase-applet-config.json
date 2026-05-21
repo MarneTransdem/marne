@@ -1,10 +1,10 @@
 {
-  "projectId": "gen-lang-client-0816809169",
-  "appId": "1:849876995065:web:9f17e23e8b5bb756534b28",
-  "apiKey": "AIzaSyCwKobqXxJhYKKIhIMZWRivcA5QG4R0uS0",
-  "authDomain": "gen-lang-client-0816809169.firebaseapp.com",
-  "firestoreDatabaseId": "ai-studio-60afbc5d-fcf5-45cf-8867-dbfd2e348830",
-  "storageBucket": "gen-lang-client-0816809169.firebasestorage.app",
-  "messagingSenderId": "849876995065",
-  "measurementId": ""
+  "projectId": "marnetransdem20",
+  "appId": "1:109489576616:web:6b0e87095a2aff6d82809d",
+  "apiKey": "AIzaSyA19Rtk3MKvrEcMmzFhdBd8-oS3D073tIs",
+  "authDomain": "marnetransdem20.firebaseapp.com",
+  "firestoreDatabaseId": "marne",
+  "storageBucket": "marnetransdem20.firebasestorage.app",
+  "messagingSenderId": "109489576616",
+  "measurementId": "G-DZF3966VQJ"
 }
