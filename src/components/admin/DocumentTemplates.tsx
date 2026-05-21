@@ -102,8 +102,8 @@ const prepareStylesForPdf = () => {
     return new Proxy(style, {
       get(target, prop, receiver) {
         if (prop === 'getPropertyValue') {
-          return function(key: string) {
-            return cleanValue(target.getPropertyValue(key));
+          return function(this: any, key: string) {
+            return cleanValue((style as any).getPropertyValue(key));
           };
         }
         const val = Reflect.get(target, prop, receiver);
@@ -246,15 +246,11 @@ const patchClonedDocument = (clonedDoc: Document, canvasId: string) => {
         return new Proxy(style, {
           get(target, prop, receiver) {
             if (prop === 'getPropertyValue') {
-              return function(key: string) {
-                return cleanValue(target.getPropertyValue(key));
+              return function(this: any, key: string) {
+                return cleanValue((style as any).getPropertyValue(key));
               };
             }
-            const val = Reflect.get(target, prop, receiver);
-            if (typeof val === 'function') {
-              return val.bind(target);
-            }
-            return cleanValue(val);
+            return cleanValue(Reflect.get(target, prop, receiver));
           }
         });
       };

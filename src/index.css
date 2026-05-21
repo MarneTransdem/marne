@@ -120,3 +120,18 @@
 .dark ::-webkit-scrollbar-thumb {
   @apply bg-slate-700 hover:bg-slate-600;
 }
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #official-doc-canvas, #pdf-document-canvas, #official-doc-canvas *, #pdf-document-canvas * {
+    visibility: visible;
+  }
+  #official-doc-canvas, #pdf-document-canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}

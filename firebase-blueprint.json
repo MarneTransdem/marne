@@ -8,7 +8,10 @@
         "uid": { "type": "string" },
         "email": { "type": "string" },
         "role": { "type": "string", "enum": ["gérant", "secrétaire", "commercial", "chef_equipe"] },
-        "createdAt": { "type": "string", "format": "date-time" }
+        "createdAt": { "type": "string", "format": "date-time" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "status": { "type": "string" }
       },
       "required": ["uid", "email", "role"]
     },
@@ -17,9 +20,63 @@
       "description": "Déménagement quote",
       "type": "object",
       "properties": {
+        "id": { "type": "string" },
         "clientName": { "type": "string" },
-        "createdAt": { "type": "string", "format": "date-time" },
+        "phone": { "type": "string" },
+        "fromCity": { "type": "string" },
+        "toCity": { "type": "string" },
+        "volume": { "type": "number" },
+        "formula": { "type": "string" },
+        "price": { "type": "number" },
+        "date": { "type": "string" },
+        "createdAt": { "type": "string" },
         "status": { "type": "string" }
+      }
+    },
+    "Facture": {
+      "title": "Facture",
+      "description": "Facture",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "devisId": { "type": "string" },
+        "clientName": { "type": "string" },
+        "amount": { "type": "number" },
+        "date": { "type": "string" },
+        "dueDate": { "type": "string" },
+        "status": { "type": "string" }
+      }
+    },
+    "Visite": {
+      "title": "Visite",
+      "description": "Visite technique",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "clientName": { "type": "string" },
+        "address": { "type": "string" },
+        "phone": { "type": "string" },
+        "date": { "type": "string" },
+        "time": { "type": "string" },
+        "commercialAssigned": { "type": "string" },
+        "status": { "type": "string" }
+      }
+    },
+    "Demenagement": {
+      "title": "Demenagement",
+      "description": "Déménagement",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "clientName": { "type": "string" },
+        "devisId": { "type": "string" },
+        "volume": { "type": "number" },
+        "fromCity": { "type": "string" },
+        "toCity": { "type": "string" },
+        "date": { "type": "string" },
+        "teamLeader": { "type": "string" },
+        "status": { "type": "string" },
+        "crewSize": { "type": "number" }
       }
     }
   },
@@ -29,8 +86,21 @@
       "description": "User profiles"
     },
     "devis/{devisId}": {
-        "schema": "Devis",
-        "description": "Quotes collection"
+      "schema": "Devis",
+      "description": "Quotes collection"
+    },
+    "factures/{factureId}": {
+      "schema": "Facture",
+      "description": "Factures collection"
+    },
+    "visites/{visiteId}": {
+      "schema": "Visite",
+      "description": "Visites collection"
+    },
+    "demenagements/{demenagementId}": {
+      "schema": "Demenagement",
+      "description": "Demenagements collection"
     }
   }
 }
+

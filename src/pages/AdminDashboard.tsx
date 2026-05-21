@@ -9,6 +9,8 @@ import { doc, setDoc, getDoc, collection, addDoc, getDocs, deleteDoc } from 'fir
 import { PublicRequests } from '../components/admin/PublicRequests';
 import { PdfGenerator } from '../components/admin/PdfGenerator';
 import { DocumentTemplates } from '../components/admin/DocumentTemplates';
+import { useSyncedCollection } from '../hooks/useData';
+import { Devis, Facture, Visite, Demenagement, UserProfile, FieldMover, FieldTruck, Role } from '../types';
 import { 
   LogOut, 
   User, 
@@ -43,90 +45,61 @@ import {
   Eye
 } from 'lucide-react';
 
-type Role = 'gérant' | 'secrétaire' | 'commercial' | 'chef_equipe';
+const SEED_DEVIS: Devis[] = [
+  { id: 'DEV-2026-001', clientName: 'Gérard Depardieu', phone: '06 12 34 56 78', fromCity: 'Paris (75)', toCity: 'Bordeaux (33)', volume: 45, formula: 'Luxe', price: 3450, date: '2026-06-24', createdAt: '2026-05-18', status: 'Signé' },
+  { id: 'DEV-2026-002', clientName: 'Sophie Marceau', phone: '06 98 76 54 32', fromCity: 'Nanterre (92)', toCity: 'Lyon (69)', volume: 18, formula: 'Standard', price: 1720, date: '2026-07-10', createdAt: '2026-05-19', status: 'Signé' },
+  { id: 'DEV-2026-003', clientName: 'Jean Dujardin', phone: '07 43 21 89 67', fromCity: 'Boulogne-Billancourt (92)', toCity: 'Marseille (13)', volume: 32, formula: 'Économique', price: 2100, date: '2026-06-05', createdAt: '2026-05-10', status: 'Brouillon' },
+  { id: 'DEV-2026-004', clientName: 'Marion Cotillard', phone: '06 55 44 33 22', fromCity: 'Versailles (78)', toCity: 'Nantes (44)', volume: 55, formula: 'Luxe', price: 4200, date: '2026-08-15', createdAt: '2026-05-15', status: 'Envoyé' },
+  { id: 'DEV-2026-005', clientName: 'Omar Sy', phone: '06 11 22 33 44', fromCity: 'Montreuil (93)', toCity: 'Lille (59)', volume: 22, formula: 'Standard', price: 1450, date: '2026-06-18', createdAt: '2026-05-20', status: 'Envoyé' }
+];
 
-// Structured interfaces for mock business state
-interface Devis {
-  id: string;
-  clientName: string;
-  phone: string;
-  fromCity: string;
-  toCity: string;
-  volume: number; // m3
-  formula: 'Économique' | 'Standard' | 'Luxe' | 'Dynamic';
-  price: number;
-  date: string;
-  createdAt: string;
-  status: 'Brouillon' | 'Envoyé' | 'Signé' | 'Refusé';
-}
+const SEED_FACTURES: Facture[] = [
+  { id: 'FAC-2026-001', devisId: 'DEV-2026-001', clientName: 'Gérard Depardieu', amount: 3450, date: '2026-05-19', dueDate: '2026-06-19', status: 'Payée' },
+  { id: 'FAC-2026-002', devisId: 'DEV-2026-002', clientName: 'Sophie Marceau', amount: 1720, date: '2026-05-20', dueDate: '2026-06-20', status: 'En attente' }
+];
 
-interface Facture {
-  id: string;
-  devisId: string;
-  clientName: string;
-  amount: number;
-  date: string;
-  dueDate: string;
-  status: 'Payée' | 'En attente' | 'En retard';
-}
+const SEED_VISITES: Visite[] = [
+  { id: 'VIS-001', clientName: 'Pierre Niney', address: '12 Rue de la Paix, Paris', phone: '06 88 77 66 55', date: '2026-05-22', time: '14:30', commercialAssigned: 'Jean-Marc Tardieu', status: 'Planifiée' },
+  { id: 'VIS-002', clientName: 'Albert Dupontel', address: '45 Avenue Foch, Saint-Cloud', phone: '06 44 33 22 11', date: '2026-05-20', time: '10:00', volumeEstimated: 40, commercialAssigned: 'Michel Blanc-Sec', status: 'Réalisée' },
+  { id: 'VIS-003', clientName: 'Leïla Bekhti', address: '8 Rue Caulaincourt, Paris 18', phone: '07 12 45 78 90', date: '2026-05-25', time: '11:00', commercialAssigned: 'Jean-Marc Tardieu', status: 'Planifiée' }
+];
 
-interface Visite {
-  id: string;
-  clientName: string;
-  address: string;
-  phone: string;
-  date: string;
-  time: string;
-  volumeEstimated?: number;
-  commercialAssigned: string;
-  status: 'Planifiée' | 'Réalisée' | 'Facturée' | 'Annulée';
-}
+const SEED_DEMENAGEMENTS: Demenagement[] = [
+  { id: 'DEM-001', clientName: 'Sophie Marceau', devisId: 'DEV-2026-002', volume: 18, fromCity: 'Nanterre (92)', toCity: 'Lyon (69)', date: '2026-07-10', teamLeader: 'Hervé Le Gall', status: 'Programmé', crewSize: 2 },
+  { id: 'DEM-002', clientName: 'Gérard Depardieu', devisId: 'DEV-2026-001', volume: 45, fromCity: 'Paris (75)', toCity: 'Bordeaux (33)', date: '2026-06-24', teamLeader: 'Ahmed Bensalah', status: 'Programmé', crewSize: 4 }
+];
 
-interface Demenagement {
-  id: string;
-  clientName: string;
-  devisId: string;
-  volume: number;
-  fromCity: string;
-  toCity: string;
-  date: string;
-  teamLeader: string;
-  status: 'À planifier' | 'Programmé' | 'En cours' | 'Terminé';
-  crewSize: number;
-  assignedMovers?: string[]; // Array of mover names/ids
-  assignedTruck?: string;     // Assigned truck details/plate
-}
+const SEED_COLLABORATEURS: UserProfile[] = [
+  { uid: 'u1', email: 'contact@marnetransdem.com', role: 'gérant', name: 'Alain Delon (Gérant)', status: 'Actif' },
+  { uid: 'u2', email: 'secretaire@marnetransdem.com', role: 'secrétaire', name: 'Corinne Masson', status: 'Actif' },
+  { uid: 'u3', email: 'commercial@marnetransdem.com', role: 'commercial', name: 'Jean-Marc Tardieu', status: 'Actif' },
+  { uid: 'u4', email: 'chef@marnetransdem.com', role: 'chef_equipe', name: 'Hervé Le Gall (Chef Équipe 1)', status: 'Actif' },
+  { uid: 'u5', email: 'ahmed@marnetransdem.com', role: 'chef_equipe', name: 'Ahmed Bensalah (Chef Équipe 2)', status: 'Actif' }
+];
 
-interface FieldMover {
-  id: string;
-  name: string;
-  phone: string;
-  role: 'Chauffeur PL' | 'Chauffeur VL' | 'Déménageur Porteur' | 'Aide-déménageur';
-  status: 'Disponible' | 'En mission' | 'En repos';
-}
+const SEED_MOVERS: FieldMover[] = [
+  { id: 'MVR-001', name: 'Dominique Chauffard', phone: '06 11 22 33 44', role: 'Chauffeur PL', status: 'Disponible' },
+  { id: 'MVR-002', name: 'Pascal Porteur', phone: '06 22 33 44 55', role: 'Déménageur Porteur', status: 'Disponible' },
+  { id: 'MVR-003', name: 'Lucien Volant', phone: '06 33 44 55 66', role: 'Chauffeur VL', status: 'Disponible' },
+  { id: 'MVR-004', name: 'Érik Solide', phone: '06 44 55 66 77', role: 'Aide-déménageur', status: 'Disponible' },
+  { id: 'MVR-005', name: 'Marc Bagarre', phone: '06 55 66 77 88', role: 'Déménageur Porteur', status: 'Disponible' }
+];
 
-interface FieldTruck {
-  id: string;
-  plateNumber: string;
-  type: string; // e.g. "Poids Lourd 44m³", "Fourgon VL 20m³"
-  capacity: number; // in m³
-  status: 'Disponible' | 'En maintenance' | 'En mission';
-}
-
-interface UserProfile {
-  uid: string;
-  email: string;
-  role: Role;
-  name: string;
-  phone?: string;
-  status: 'Actif' | 'Inactif';
-}
+const SEED_TRUCKS: FieldTruck[] = [
+  { id: 'TRK-01', plateNumber: 'AA-123-BB', type: 'Poids Lourd 44m³', capacity: 44, status: 'Disponible' },
+  { id: 'TRK-02', plateNumber: 'CC-456-DD', type: 'Fourgon VL 20m³', capacity: 20, status: 'Disponible' },
+  { id: 'TRK-03', plateNumber: 'EE-789-FF', type: 'Camionnette 12m³', capacity: 12, status: 'Disponible' }
+];
 
 export default function AdminDashboard() {
   const { user, role, loading } = useAuth();
   const { theme, toggleTheme } = useTheme();
+  
+  const [devisList, setDevisList] = useSyncedCollection<Devis>('devis', SEED_DEVIS);
+  
   const [activeTab, setActiveTab] = useState('overview');
   const [searchQuery, setSearchQuery] = useState('');
+
 
   // Notification and Dropdown States
   const [showNotifications, setShowNotifications] = useState(false);
@@ -177,11 +150,10 @@ export default function AdminDashboard() {
   };
   
   // Real-time state management (seeded via localStorage for incredible persistence and live UI interactivity)
-  const [devisList, setDevisList] = useState<Devis[]>([]);
-  const [factures, setFactures] = useState<Facture[]>([]);
-  const [visites, setVisites] = useState<Visite[]>([]);
-  const [demenagements, setDemenagements] = useState<Demenagement[]>([]);
-  const [collaborateurs, setCollaborateurs] = useState<UserProfile[]>([]);
+  const [factures, setFactures] = useSyncedCollection<Facture>('factures', SEED_FACTURES);
+  const [visites, setVisites] = useSyncedCollection<Visite>('visites', SEED_VISITES);
+  const [demenagements, setDemenagements] = useSyncedCollection<Demenagement>('demenagements', SEED_DEMENAGEMENTS);
+  const [collaborateurs, setCollaborateurs] = useSyncedCollection<UserProfile>('collaborateurs', SEED_COLLABORATEURS);
 
   // Modals / Creating Forms state
   const [showAddDevis, setShowAddDevis] = useState(false);
@@ -214,7 +186,7 @@ export default function AdminDashboard() {
   const [collabSubTab, setCollabSubTab] = useState<'crm' | 'terrain' | 'flotte'>('crm');
 
   // States for physical Movers (terrain team)
-  const [movers, setMovers] = useState<FieldMover[]>([]);
+  const [movers, setMovers] = useSyncedCollection<FieldMover>('movers', SEED_MOVERS);
   const [showAddMover, setShowAddMover] = useState(false);
   const [editingMover, setEditingMover] = useState<FieldMover | null>(null);
   const [newMover, setNewMover] = useState<Partial<FieldMover>>({
@@ -222,7 +194,7 @@ export default function AdminDashboard() {
   });
 
   // States for physical Trucks (véhicules flotte)
-  const [trucks, setTrucks] = useState<FieldTruck[]>([]);
+  const [trucks, setTrucks] = useSyncedCollection<FieldTruck>('trucks', SEED_TRUCKS);
   const [showAddTruck, setShowAddTruck] = useState(false);
   const [editingTruck, setEditingTruck] = useState<FieldTruck | null>(null);
   const [newTruck, setNewTruck] = useState<Partial<FieldTruck>>({
@@ -251,110 +223,7 @@ export default function AdminDashboard() {
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncMessage, setSyncMessage] = useState<string | null>(null);
 
-  // Load and seed initial database schemas or load from localStorage
-  useEffect(() => {
-    // 1. Initial seed for Devis
-    const localDevis = localStorage.getItem('mt_devis');
-    if (localDevis) {
-      setDevisList(JSON.parse(localDevis));
-    } else {
-      const seed: Devis[] = [
-        { id: 'DEV-2026-001', clientName: 'Gérard Depardieu', phone: '06 12 34 56 78', fromCity: 'Paris (75)', toCity: 'Bordeaux (33)', volume: 45, formula: 'Luxe', price: 3450, date: '2026-06-24', createdAt: '2026-05-18', status: 'Signé' },
-        { id: 'DEV-2026-002', clientName: 'Sophie Marceau', phone: '06 98 76 54 32', fromCity: 'Nanterre (92)', toCity: 'Lyon (69)', volume: 18, formula: 'Standard', price: 1720, date: '2026-07-10', createdAt: '2026-05-19', status: 'Signé' },
-        { id: 'DEV-2026-003', clientName: 'Jean Dujardin', phone: '07 43 21 89 67', fromCity: 'Boulogne-Billancourt (92)', toCity: 'Marseille (13)', volume: 32, formula: 'Économique', price: 2100, date: '2026-06-05', createdAt: '2026-05-10', status: 'Brouillon' },
-        { id: 'DEV-2026-004', clientName: 'Marion Cotillard', phone: '06 55 44 33 22', fromCity: 'Versailles (78)', toCity: 'Nantes (44)', volume: 55, formula: 'Luxe', price: 4200, date: '2026-08-15', createdAt: '2026-05-15', status: 'Envoyé' },
-        { id: 'DEV-2026-005', clientName: 'Omar Sy', phone: '06 11 22 33 44', fromCity: 'Montreuil (93)', toCity: 'Lille (59)', volume: 22, formula: 'Standard', price: 1450, date: '2026-06-18', createdAt: '2026-05-20', status: 'Envoyé' }
-      ];
-      setDevisList(seed);
-      localStorage.setItem('mt_devis', JSON.stringify(seed));
-    }
-
-    // 2. Initial seed for Factures
-    const localFactures = localStorage.getItem('mt_factures');
-    if (localFactures) {
-      setFactures(JSON.parse(localFactures));
-    } else {
-      const seed: Facture[] = [
-        { id: 'FAC-2026-001', devisId: 'DEV-2026-001', clientName: 'Gérard Depardieu', amount: 3450, date: '2026-05-19', dueDate: '2026-06-19', status: 'Payée' },
-        { id: 'FAC-2026-002', devisId: 'DEV-2026-002', clientName: 'Sophie Marceau', amount: 1720, date: '2026-05-20', dueDate: '2026-06-20', status: 'En attente' }
-      ];
-      setFactures(seed);
-      localStorage.setItem('mt_factures', JSON.stringify(seed));
-    }
-
-    // 3. Initial seed for Visites
-    const localVisites = localStorage.getItem('mt_visites');
-    if (localVisites) {
-      setVisites(JSON.parse(localVisites));
-    } else {
-      const seed: Visite[] = [
-        { id: 'VIS-001', clientName: 'Pierre Niney', address: '12 Rue de la Paix, Paris', phone: '06 88 77 66 55', date: '2026-05-22', time: '14:30', commercialAssigned: 'Jean-Marc Tardieu', status: 'Planifiée' },
-        { id: 'VIS-002', clientName: 'Albert Dupontel', address: '45 Avenue Foch, Saint-Cloud', phone: '06 44 33 22 11', date: '2026-05-20', time: '10:00', volumeEstimated: 40, commercialAssigned: 'Michel Blanc-Sec', status: 'Réalisée' },
-        { id: 'VIS-003', clientName: 'Leïla Bekhti', address: '8 Rue Caulaincourt, Paris 18', phone: '07 12 45 78 90', date: '2026-05-25', time: '11:00', commercialAssigned: 'Jean-Marc Tardieu', status: 'Planifiée' }
-      ];
-      setVisites(seed);
-      localStorage.setItem('mt_visites', JSON.stringify(seed));
-    }
-
-    // 4. Initial seed for Demenagements (Planning)
-    const localDemenagements = localStorage.getItem('mt_demenagements');
-    if (localDemenagements) {
-      setDemenagements(JSON.parse(localDemenagements));
-    } else {
-      const seed: Demenagement[] = [
-        { id: 'DEM-001', clientName: 'Sophie Marceau', devisId: 'DEV-2026-002', volume: 18, fromCity: 'Nanterre (92)', toCity: 'Lyon (69)', date: '2026-07-10', teamLeader: 'Hervé Le Gall', status: 'Programmé', crewSize: 2 },
-        { id: 'DEM-002', clientName: 'Gérard Depardieu', devisId: 'DEV-2026-001', volume: 45, fromCity: 'Paris (75)', toCity: 'Bordeaux (33)', date: '2026-06-24', teamLeader: 'Ahmed Bensalah', status: 'Programmé', crewSize: 4 }
-      ];
-      setDemenagements(seed);
-      localStorage.setItem('mt_demenagements', JSON.stringify(seed));
-    }
-
-    // 5. Initial seed for Collaborateurs
-    const localCollaborateurs = localStorage.getItem('mt_collaborateurs');
-    if (localCollaborateurs) {
-      setCollaborateurs(JSON.parse(localCollaborateurs));
-    } else {
-      const seed: UserProfile[] = [
-        { uid: 'u1', email: 'contact@marnetransdem.com', role: 'gérant', name: 'Alain Delon (Gérant)', status: 'Actif' },
-        { uid: 'u2', email: 'secretaire@marnetransdem.com', role: 'secrétaire', name: 'Corinne Masson', status: 'Actif' },
-        { uid: 'u3', email: 'commercial@marnetransdem.com', role: 'commercial', name: 'Jean-Marc Tardieu', status: 'Actif' },
-        { uid: 'u4', email: 'chef@marnetransdem.com', role: 'chef_equipe', name: 'Hervé Le Gall (Chef Équipe 1)', status: 'Actif' },
-        { uid: 'u5', email: 'ahmed@marnetransdem.com', role: 'chef_equipe', name: 'Ahmed Bensalah (Chef Équipe 2)', status: 'Actif' }
-      ];
-      setCollaborateurs(seed);
-      localStorage.setItem('mt_collaborateurs', JSON.stringify(seed));
-    }
-
-    // 6. Initial seed for Field Movers
-    const localMovers = localStorage.getItem('mt_field_movers');
-    if (localMovers) {
-      setMovers(JSON.parse(localMovers));
-    } else {
-      const seedMovers: FieldMover[] = [
-        { id: 'MVR-001', name: 'Dominique Chauffard', phone: '06 11 22 33 44', role: 'Chauffeur PL', status: 'Disponible' },
-        { id: 'MVR-002', name: 'Pascal Porteur', phone: '06 22 33 44 55', role: 'Déménageur Porteur', status: 'Disponible' },
-        { id: 'MVR-003', name: 'Lucien Volant', phone: '06 33 44 55 66', role: 'Chauffeur VL', status: 'Disponible' },
-        { id: 'MVR-004', name: 'Érik Solide', phone: '06 44 55 66 77', role: 'Aide-déménageur', status: 'Disponible' },
-        { id: 'MVR-005', name: 'Marc Bagarre', phone: '06 55 66 77 88', role: 'Déménageur Porteur', status: 'Disponible' }
-      ];
-      setMovers(seedMovers);
-      localStorage.setItem('mt_field_movers', JSON.stringify(seedMovers));
-    }
-
-    // 7. Initial seed for Field Trucks
-    const localTrucks = localStorage.getItem('mt_field_trucks');
-    if (localTrucks) {
-      setTrucks(JSON.parse(localTrucks));
-    } else {
-      const seedTrucks: FieldTruck[] = [
-        { id: 'TRK-01', plateNumber: 'AA-123-BB', type: 'Poids Lourd 44m³', capacity: 44, status: 'Disponible' },
-        { id: 'TRK-02', plateNumber: 'CC-456-DD', type: 'Fourgon VL 20m³', capacity: 20, status: 'Disponible' },
-        { id: 'TRK-03', plateNumber: 'EE-789-FF', type: 'Camionnette 12m³', capacity: 12, status: 'Disponible' }
-      ];
-      setTrucks(seedTrucks);
-      localStorage.setItem('mt_field_trucks', JSON.stringify(seedTrucks));
-    }
-  }, []);
+  // Load and seed initial database schemas is handled by real-time Firestore synchronization hooks!
 
   // Sync to Firestore for real persistent capability sync
   const handleDatabaseSync = async () => {
