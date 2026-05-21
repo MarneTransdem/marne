@@ -69,42 +69,79 @@ const fallbackOklab = (match: string): string => {
   }
 };
 
-const prepareStylesForPdf = async () => {
-  const links = Array.from(document.querySelectorAll('link[rel="stylesheet"]')) as HTMLLinkElement[];
-  const tempStyles: HTMLStyleElement[] = [];
-  
-  for (const link of links) {
-    try {
-      const href = link.href;
-      if (href) {
-        const res = await fetch(href);
-        const cssText = await res.text();
-        const cleanedCss = cssText
+const prepareStylesForPdf = () => {
+  const originalCSSStates: { sheet: CSSStyleSheet; disabled: boolean }[] = [];
+  const tempStyleTags: HTMLStyleElement[] = [];
+
+  const cleanValue = (val: any): any => {
+    if (typeof val === 'string') {
+      if (val.includes('oklch') || val.includes('oklab') || val.includes('color(')) {
+        return val
+          .replace(/oklch\((?:[^()]+|\([^()]*\))*\)/gi, (m) => fallbackOklch(m))
+          .replace(/oklab\((?:[^()]+|\([^()]*\))*\)/gi, (m) => fallbackOklab(m))
+          .replace(/color\(oklch\s+[^)]+\)/gi, '#0f172a')
+          .replace(/color\(oklab\s+[^)]+\)/gi, '#0f172a');
+      }
+    }
+    return val;
+  };
+
+  // Intercept getPropertyValue globally on CSSStyleDeclaration prototype
+  const originalGetPropertyValue = CSSStyleDeclaration.prototype.getPropertyValue;
+  CSSStyleDeclaration.prototype.getPropertyValue = function(this: any, property: string): string {
+    const val = originalGetPropertyValue.call(this, property);
+    return cleanValue(val);
+  };
+
+  // Intercept window.getComputedStyle on main window
+  const originalGetComputedStyle = window.getComputedStyle;
+  window.getComputedStyle = function(el: Element, pseudoElt?: string) {
+    const style = originalGetComputedStyle(el, pseudoElt);
+    if (!style) return style;
+
+    return new Proxy(style, {
+      get(target, prop, receiver) {
+        if (prop === 'getPropertyValue') {
+          return function(key: string) {
+            return cleanValue(target.getPropertyValue(key));
+          };
+        }
+        const val = Reflect.get(target, prop, receiver);
+        if (typeof val === 'function') {
+          return val.bind(target);
+        }
+        return cleanValue(val);
+      }
+    });
+  };
+
+  try {
+    const sheets = Array.from(document.styleSheets) as CSSStyleSheet[];
+    for (const sheet of sheets) {
+      try {
+        const cssRules = Array.from(sheet.cssRules);
+        const originalCssText = cssRules.map(rule => rule.cssText).join('\n');
+        
+        const cleanedCssText = originalCssText
           .replace(/oklch\((?:[^()]+|\([^()]*\))*\)/gi, (match) => fallbackOklch(match))
           .replace(/oklab\((?:[^()]+|\([^()]*\))*\)/gi, (match) => fallbackOklab(match));
         
         const style = document.createElement('style');
         style.setAttribute('data-temp-pdf-style', 'true');
-        style.textContent = cleanedCss;
+        style.textContent = cleanedCssText;
         document.head.appendChild(style);
-        tempStyles.push(style);
-        
-        link.disabled = true;
+        tempStyleTags.push(style);
+
+        originalCSSStates.push({ sheet, disabled: sheet.disabled });
+        sheet.disabled = true;
+      } catch (err) {
+        console.warn("Could not read stylesheet rules, temporarily disabling to prevent html2canvas crashes:", err);
+        originalCSSStates.push({ sheet, disabled: sheet.disabled });
+        sheet.disabled = true;
       }
-    } catch (err) {
-      console.warn("Failed to inline link stylesheet for PDF generation:", err);
     }
-  }
-  
-  const liveStyles = Array.from(document.querySelectorAll('style:not([data-temp-pdf-style])')) as HTMLStyleElement[];
-  const originalStyleTexts = new Map<HTMLStyleElement, string>();
-  for (const style of liveStyles) {
-    if (style.textContent && (style.textContent.includes('oklch') || style.textContent.includes('oklab'))) {
-      originalStyleTexts.set(style, style.textContent);
-      style.textContent = style.textContent
-        .replace(/oklch\((?:[^()]+|\([^()]*\))*\)/gi, (match) => fallbackOklch(match))
-        .replace(/oklab\((?:[^()]+|\([^()]*\))*\)/gi, (match) => fallbackOklab(match));
-    }
+  } catch (globalErr) {
+    console.warn("Global stylesheet inspection issue:", globalErr);
   }
 
   // Handle inline style attributes in the body temporarily
@@ -122,17 +159,107 @@ const prepareStylesForPdf = async () => {
   }
 
   return () => {
-    tempStyles.forEach(style => style.remove());
-    links.forEach(link => {
-      link.disabled = false;
-    });
-    originalStyleTexts.forEach((originalText, style) => {
-      style.textContent = originalText;
+    // Restore original getters/methods
+    CSSStyleDeclaration.prototype.getPropertyValue = originalGetPropertyValue;
+    window.getComputedStyle = originalGetComputedStyle;
+
+    tempStyleTags.forEach(style => style.remove());
+    originalCSSStates.forEach(state => {
+      try {
+        state.sheet.disabled = state.disabled;
+      } catch (err) {
+        // ignore
+      }
     });
     originalInlineStyles.forEach((originalStyle, el) => {
       el.setAttribute('style', originalStyle);
     });
   };
+};
+
+const patchClonedDocument = (clonedDoc: Document, canvasId: string) => {
+  const el = clonedDoc.getElementById(canvasId);
+  if (el) {
+    el.style.width = '210mm';
+    el.style.boxShadow = 'none';
+    el.style.border = 'none';
+  }
+
+  // 1. Remove any style/link tags that are not our cleaned temp tags, keeping google fonts
+  const sheetsInClone = Array.from(clonedDoc.querySelectorAll('style, link[rel="stylesheet"]')) as HTMLElement[];
+  sheetsInClone.forEach(sheetEl => {
+    const isTemp = sheetEl.getAttribute('data-temp-pdf-style') === 'true';
+    const isGoogleFont = sheetEl instanceof HTMLLinkElement && sheetEl.href && sheetEl.href.includes('fonts.googleapis.com');
+    if (!isTemp && !isGoogleFont) {
+      sheetEl.remove();
+    }
+  });
+
+  // 2. Clean inline styles in the cloned document
+  const clonedElementsWithInlineStyles = Array.from(clonedDoc.querySelectorAll('*[style]')) as HTMLElement[];
+  for (const item of clonedElementsWithInlineStyles) {
+    const styleAttr = item.getAttribute('style');
+    if (styleAttr && (styleAttr.toLowerCase().includes('oklch') || styleAttr.toLowerCase().includes('oklab') || styleAttr.toLowerCase().includes('color('))) {
+      const cleaned = styleAttr
+        .replace(/oklch\((?:[^()]+|\([^()]*\))*\)/gi, (m) => fallbackOklch(m))
+        .replace(/oklab\((?:[^()]+|\([^()]*\))*\)/gi, (m) => fallbackOklab(m))
+        .replace(/color\(oklch\s+[^)]+\)/gi, '#0f172a')
+        .replace(/color\(oklab\s+[^)]+\)/gi, '#0f172a');
+      item.setAttribute('style', cleaned);
+    }
+  }
+
+  // 3. Patch the window and CSS prototype of the cloned document
+  if (clonedDoc.defaultView) {
+    const win = clonedDoc.defaultView as any;
+    
+    // Inline values cleaner
+    const cleanValue = (val: any): any => {
+      if (typeof val === 'string') {
+        if (val.includes('oklch') || val.includes('oklab') || val.includes('color(')) {
+          return val
+            .replace(/oklch\((?:[^()]+|\([^()]*\))*\)/gi, (m) => fallbackOklch(m))
+            .replace(/oklab\((?:[^()]+|\([^()]*\))*\)/gi, (m) => fallbackOklab(m))
+            .replace(/color\(oklch\s+[^)]+\)/gi, '#0f172a')
+            .replace(/color\(oklab\s+[^)]+\)/gi, '#0f172a');
+        }
+      }
+      return val;
+    };
+
+    // Override getPropertyValue globally on CSSStyleDeclaration prototype inside the cloned window
+    if (win.CSSStyleDeclaration) {
+      const originalGetPropertyValue = win.CSSStyleDeclaration.prototype.getPropertyValue;
+      win.CSSStyleDeclaration.prototype.getPropertyValue = function(this: any, property: string): string {
+        const val = originalGetPropertyValue.call(this, property);
+        return cleanValue(val);
+      };
+    }
+
+    // Override window.getComputedStyle inside the cloned window
+    const originalGetComputedStyle = win.getComputedStyle;
+    if (originalGetComputedStyle) {
+      win.getComputedStyle = function(element: Element, pseudoElt?: string) {
+        const style = originalGetComputedStyle(element, pseudoElt);
+        if (!style) return style;
+
+        return new Proxy(style, {
+          get(target, prop, receiver) {
+            if (prop === 'getPropertyValue') {
+              return function(key: string) {
+                return cleanValue(target.getPropertyValue(key));
+              };
+            }
+            const val = Reflect.get(target, prop, receiver);
+            if (typeof val === 'function') {
+              return val.bind(target);
+            }
+            return cleanValue(val);
+          }
+        });
+      };
+    }
+  }
 };
 
 interface PdfGeneratorProps {
@@ -178,7 +305,7 @@ export const PdfGenerator: React.FC<PdfGeneratorProps> = ({
     setIsGeneratingPdf(true);
     let cleanupStyles: (() => void) | null = null;
     try {
-      cleanupStyles = await prepareStylesForPdf();
+      cleanupStyles = prepareStylesForPdf();
       let canvas;
       try {
         canvas = await html2canvas(element, {
@@ -188,12 +315,7 @@ export const PdfGenerator: React.FC<PdfGeneratorProps> = ({
           logging: false,
           backgroundColor: '#ffffff',
           onclone: (clonedDoc) => {
-            const el = clonedDoc.getElementById('pdf-document-canvas');
-            if (el) {
-              el.style.width = '210mm';
-              el.style.boxShadow = 'none';
-              el.style.border = 'none';
-            }
+            patchClonedDocument(clonedDoc, 'pdf-document-canvas');
           }
         });
       } catch (corsErr) {
@@ -205,12 +327,7 @@ export const PdfGenerator: React.FC<PdfGeneratorProps> = ({
           logging: false,
           backgroundColor: '#ffffff',
           onclone: (clonedDoc) => {
-            const el = clonedDoc.getElementById('pdf-document-canvas');
-            if (el) {
-              el.style.width = '210mm';
-              el.style.boxShadow = 'none';
-              el.style.border = 'none';
-            }
+            patchClonedDocument(clonedDoc, 'pdf-document-canvas');
           }
         });
       }
