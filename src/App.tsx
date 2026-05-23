@@ -6,11 +6,12 @@
 import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route,  useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { Header } from './components/layout/Header';
-import { Footer } from './components/layout/Footer';
-import { MobileCTA } from './components/layout/MobileCTA';
 import { PageTransition } from './components/layout/PageTransition';
 import ScrollToTop from './components/layout/ScrollToTop';
+
+const Header = lazy(() => import('./components/layout/Header').then(module => ({ default: module.Header })));
+const Footer = lazy(() => import('./components/layout/Footer').then(module => ({ default: module.Footer })));
+const MobileCTA = lazy(() => import('./components/layout/MobileCTA').then(module => ({ default: module.MobileCTA })));
 
 const Home = lazy(() => import('./pages/Home'));
 const Services = lazy(() => import('./pages/Services'));
@@ -136,7 +137,7 @@ const GestionArchives = lazy(() => import('./pages/GestionArchives'));
 const SecteursDesservis = lazy(() => import('./pages/SecteursDesservis'));
 
 
-import { CookieConsent } from './components/common/CookieConsent';
+const CookieConsent = lazy(() => import('./components/common/CookieConsent').then(module => ({ default: module.CookieConsent })));
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
 
@@ -147,10 +148,14 @@ function AppContent() {
   return (
     <>
       <ScrollToTop />
-      {!isAdminOrLogin && <Header />}
+      {!isAdminOrLogin && (
+        <Suspense fallback={<div className="h-20 bg-transparent" />}>
+          <Header />
+        </Suspense>
+      )}
       <main>
         <PageTransition>
-          <Suspense fallback={<div>Chargement...</div>}>
+          <Suspense fallback={<div className="py-24 text-center"><span className="animate-pulse text-sm text-slate-400">Chargement...</span></div>}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/services" element={<Services />} />
@@ -294,9 +299,21 @@ function AppContent() {
           </Suspense>
         </PageTransition>
       </main>
-      {!isAdminOrLogin && <Footer />}
-      {!isAdminOrLogin && <CookieConsent />}
-      {!isAdminOrLogin && <MobileCTA />}
+      {!isAdminOrLogin && (
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
+      )}
+      {!isAdminOrLogin && (
+        <Suspense fallback={null}>
+          <CookieConsent />
+        </Suspense>
+      )}
+      {!isAdminOrLogin && (
+        <Suspense fallback={null}>
+          <MobileCTA />
+        </Suspense>
+      )}
     </>
   );
 }

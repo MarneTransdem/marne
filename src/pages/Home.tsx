@@ -3,9 +3,10 @@ import { motion } from 'motion/react';
 import { Hero } from '../components/home/Hero';
 import { ReassuranceBar } from '../components/home/ReassuranceBar';
 import { ServicesSection } from '../components/home/ServicesSection';
-import { GoogleReviewsSection } from '../components/home/GoogleReviews';
-import { FAQ } from '../components/home/FAQ';
 import { Link } from 'react-router-dom';
+
+const GoogleReviewsSection = React.lazy(() => import('../components/home/GoogleReviews').then(m => ({ default: m.GoogleReviewsSection })));
+const FAQ = React.lazy(() => import('../components/home/FAQ').then(m => ({ default: m.FAQ })));
 import { ArrowRight, CheckCircle, Quote, Phone, ShieldCheck, MapPin, Check } from 'lucide-react';
 import { FORMULAS, FAQ_ITEMS, CONTACT } from '../constants';
 import { SEO } from '../components/SEO';
@@ -177,7 +178,9 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <FAQ />
+      <React.Suspense fallback={<div className="py-24 text-center bg-white dark:bg-slate-950"><span className="text-slate-400 animate-pulse font-light text-sm italic">Chargement des questions fréquentes...</span></div>}>
+        <FAQ />
+      </React.Suspense>
 
       {/* Advice Teaser Section */}
       <section className="py-24 bg-white dark:bg-slate-950 overflow-hidden relative font-sans italic transition-colors duration-300">
@@ -232,7 +235,9 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <GoogleReviewsSection />
+      <React.Suspense fallback={<div className="py-24 text-center bg-white dark:bg-slate-950"><span className="text-slate-400 animate-pulse font-light text-sm italic">Chargement des avis clients...</span></div>}>
+        <GoogleReviewsSection />
+      </React.Suspense>
 
       {/* CTA Final */}
       <section className="py-24 bg-white dark:bg-slate-950 relative overflow-hidden font-sans italic transition-colors duration-300">

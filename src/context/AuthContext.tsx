@@ -1,7 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, User } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from '../lib/firebase';
+import type { User } from 'firebase/auth';
 
 type Role = 'gérant' | 'secrétaire' | 'commercial' | 'chef_equipe';
 
@@ -37,42 +35,74 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      setUser(user);
-      if (user) {
-        try {
-          const userDoc = await getDoc(doc(db, 'users', user.uid));
-          if (userDoc.exists()) {
-            const fetchedRole = userDoc.data().role as Role;
-            setRole(fetchedRole);
-            localStorage.setItem(`mt_role_${user.uid}`, fetchedRole);
-          } else {
-            const cachedRole = localStorage.getItem(`mt_role_${user.uid}`);
-            if (cachedRole) {
-              setRole(cachedRole as Role);
-            } else {
-              const fallback = getFallbackRoleByEmail(user.email);
-              setRole(fallback);
-              if (fallback) localStorage.setItem(`mt_role_${user.uid}`, fallback);
-            }
-          }
-        } catch (error) {
-          console.warn("Erreur de récupération du rôle depuis Firestore, utilisation du fallback hors-ligne :", error);
-          const cachedRole = localStorage.getItem(`mt_role_${user.uid}`);
-          if (cachedRole) {
-            setRole(cachedRole as Role);
-          } else {
-            const fallback = getFallbackRoleByEmail(user.email);
-            setRole(fallback);
-            if (fallback) localStorage.setItem(`mt_role_${user.uid}`, fallback);
-          }
+    let unsubscribe: (() => void) | null = null;
+    let isMounted = true;
+
+    const initAuth = async () => {
+      try {
+        const isAdminPath = window.location.pathname.startsWith('/admin') || window.location.pathname === '/login';
+        if (!isAdminPath) {
+          // Defer loading on public-facing routes to let the initial page render completely first
+          await new Promise(resolve => setTimeout(resolve, 1500));
         }
-      } else {
-        setRole(null);
+
+        if (!isMounted) return;
+
+        const { auth, db } = await import('../lib/firebase');
+        const { onAuthStateChanged } = await import('firebase/auth');
+        const { doc, getDoc } = await import('firebase/firestore');
+
+        unsubscribe = onAuthStateChanged(auth, async (user) => {
+          if (!isMounted) return;
+          setUser(user);
+          if (user) {
+            try {
+              const userDoc = await getDoc(doc(db, 'users', user.uid));
+              if (userDoc.exists()) {
+                const fetchedRole = userDoc.data().role as Role;
+                if (!isMounted) return;
+                setRole(fetchedRole);
+                localStorage.setItem(`mt_role_${user.uid}`, fetchedRole);
+              } else {
+                const cachedRole = localStorage.getItem(`mt_role_${user.uid}`);
+                if (!isMounted) return;
+                if (cachedRole) {
+                  setRole(cachedRole as Role);
+                } else {
+                  const fallback = getFallbackRoleByEmail(user.email);
+                  setRole(fallback);
+                  if (fallback) localStorage.setItem(`mt_role_${user.uid}`, fallback);
+                }
+              }
+            } catch (error) {
+              console.warn("Erreur de récupération du rôle depuis Firestore, utilisation du fallback hors-ligne :", error);
+              if (!isMounted) return;
+              const cachedRole = localStorage.getItem(`mt_role_${user.uid}`);
+              if (cachedRole) {
+                setRole(cachedRole as Role);
+              } else {
+                const fallback = getFallbackRoleByEmail(user.email);
+                setRole(fallback);
+                if (fallback) localStorage.setItem(`mt_role_${user.uid}`, fallback);
+              }
+            }
+          } else {
+            setRole(null);
+          }
+          setLoading(false);
+        });
+      } catch (err) {
+        console.warn("Échec du chargement dynamique de Firebase Auth:", err);
+        if (isMounted) setLoading(false);
       }
-      setLoading(false);
-    });
-    return unsubscribe;
+    };
+
+    initAuth();
+
+    return () => {
+      isMounted = false;
+      if (unsubscribe) unsubscribe();
+    };
   }, []);
 
   return (
