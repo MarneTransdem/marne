@@ -134,11 +134,7 @@ export const Hero: React.FC = () => {
       
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
+            <div className="space-y-8">
               <div className="flex flex-wrap items-center gap-4 mb-8">
                 <div className="inline-flex items-center gap-3 bg-accent/10 border border-accent/20 text-accent px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-[0.2em]">
                   <span className="flex h-2 w-2 rounded-full bg-accent animate-pulse"></span>
@@ -172,7 +168,7 @@ export const Hero: React.FC = () => {
                   Appeler
                 </a>
               </div>
-            </motion.div>
+            </div>
             
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
@@ -183,7 +179,7 @@ export const Hero: React.FC = () => {
             >
               <div className="relative z-10 p-1 bg-gradient-to-br from-slate-200 to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-[2.5rem] md:rounded-[3rem] shadow-premium max-w-lg mx-auto lg:max-w-none">
                  <div className="bg-white rounded-[2.4rem] md:rounded-[2.9rem] p-8 md:p-10 py-10 md:py-12">
-                    <h3 className="text-2xl font-bold text-brand-900 stay-dark mb-2 tracking-tight italic uppercase">Estimation rapide</h3>
+                    <h2 className="text-2xl font-bold text-brand-900 stay-dark mb-2 tracking-tight italic uppercase">Estimation rapide</h2>
                     <p className="text-sm text-slate-500 stay-dark mb-8 font-light italic opacity-70">Recevez une première étude personnalisée.</p>
                     
                     <form onSubmit={handleQuickSubmit} className="space-y-5">

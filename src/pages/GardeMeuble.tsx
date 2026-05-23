@@ -6,31 +6,63 @@ import { SEO } from '../components/SEO';
 import { CONTACT } from '../constants';
 import { getServiceSchema, getFAQSchema, getBreadcrumbSchema } from '../lib/schema';
 
+const faqs = [
+  { 
+    q: "Quand utiliser un garde-meuble lors d’un déménagement ?", 
+    a: "Un garde-meuble est particulièrement utile lors d'un déménagement en deux temps, par exemple si vous devez quitter votre ancien logement avant que le nouveau ne soit disponible, ou si vous réalisez des travaux de rénovation avant de vous installer." 
+  },
+  { 
+    q: "Peut-on stocker des meubles entre deux logements ?", 
+    a: "Oui, c'est l'une des utilisations les plus fréquentes. Nous organisons le transport de vos meubles depuis votre domicile actuel vers l'espace de stockage, puis la livraison vers votre nouveau logement une fois celui-ci prêt." 
+  },
+  { 
+    q: "Le garde-meuble convient-il aux entreprises ?", 
+    a: "Tout à fait. Les entreprises utilisent nos solutions pour stocker du mobilier de bureau inutilisé, du matériel événementiel ou des archives, permettant ainsi d'optimiser l'espace de travail de leurs locaux parisiens." 
+  },
+  { 
+    q: "Comment estimer le volume à stocker ?", 
+    a: "L'estimation du volume dépend de la quantité de mobilier et de cartons. Lors de notre échange, nous évaluons ensemble vos besoins pour vous orienter vers la solution la plus adaptée à votre inventaire." 
+  },
+  { 
+    q: "Comment obtenir un devis pour une solution de stockage ?", 
+    a: "Il vous suffit de nous contacter ou de remplir notre formulaire en ligne. Nous vous fournirons une estimation personnalisée incluant, selon votre projet, le transport et le stockage de vos biens." 
+  }
+];
+
+const REASONS_WHY = [
+  { t: "Entre deux logements", d: "Vous devez quitter votre domicile actuel mais votre nouveau logement n'est pas encore prêt." },
+  { t: "Pendant des travaux", d: "Libérez de l'espace pour protéger vos meubles des poussières et faciliter l'accès aux artisans." },
+  { t: "Meubles volumineux", d: "Solution idéale pour stocker du mobilier imposant dont vous n'avez pas l'usage immédiat." },
+  { t: "Stockage entreprise", d: "Pour les professionnels manquant d'espace pour leurs archives ou leur matériel." }
+];
+
+const ACCOMPAGNEMENT_OFFER = [
+  { icon: <ClipboardCheck size={32} />, title: "Évaluation du volume", desc: "Étude précise du volume à stocker pour optimiser l'espace." },
+  { icon: <Info size={32} />, title: "Conseil personnalisé", desc: "Orientation vers la solution adaptée à votre projet." },
+  { icon: <Truck size={32} />, title: "Transport des biens", desc: "Acheminement professionnel vers l'espace de stockage." },
+  { icon: <Package size={32} />, title: "Protection soignée", desc: "Protection des meubles et cartons durant le stockage." },
+  { icon: <Clock size={32} />, title: "Stockage temporaire", desc: "Solution flexible selon la durée de votre projet." },
+  { icon: <ArrowUpDown size={32} />, title: "Restitution des biens", desc: "Livraison de vos affaires selon votre planning." }
+];
+
+const METHODS = [
+  { t: "Analyse de votre besoin", d: "Étude personnalisée de votre projet de stockage." },
+  { t: "Estimation du volume", d: "Calcul précis de l'espace nécessaire pour vos biens." },
+  { t: "Préparation et transport", d: "Chargement et acheminement professionnel de vos affaires." },
+  { t: "Stockage et restitution", d: "Stockage organisé et restitution selon votre projet." }
+];
+
+const WHY_CHOOSE_US = [
+  { t: "Entreprise basée à Paris 20e", d: "Une connaissance logistique du terrain à Paris et en Île-de-France." },
+  { t: "Accompagnement professionnel", d: "Un suivi de proximité et une expertise dédiée à votre projet." },
+  { t: "Organisation claire", d: "Une planification étape par étape sans mauvaise surprise." },
+  { t: "Protection soignée des biens", d: "Protection soignée de votre mobilier et de vos effets personnels." },
+  { t: "Solution adaptée selon le projet", d: "Des solutions pensées pour répondre à vos besoins réels." },
+  { t: "Intervention IDF", d: "Intervention à Paris et en Île-de-France selon votre projet." }
+];
+
 const GardeMeuble: React.FC = () => {
   const path = "/garde-meuble-paris";
-
-  const faqs = [
-    { 
-      q: "Quand utiliser un garde-meuble lors d’un déménagement ?", 
-      a: "Un garde-meuble est particulièrement utile lors d'un déménagement en deux temps, par exemple si vous devez quitter votre ancien logement avant que le nouveau ne soit disponible, ou si vous réalisez des travaux de rénovation avant de vous installer." 
-    },
-    { 
-      q: "Peut-on stocker des meubles entre deux logements ?", 
-      a: "Oui, c'est l'une des utilisations les plus fréquentes. Nous organisons le transport de vos meubles depuis votre domicile actuel vers l'espace de stockage, puis la livraison vers votre nouveau logement une fois celui-ci prêt." 
-    },
-    { 
-      q: "Le garde-meuble convient-il aux entreprises ?", 
-      a: "Tout à fait. Les entreprises utilisent nos solutions pour stocker du mobilier de bureau inutilisé, du matériel événementiel ou des archives, permettant ainsi d'optimiser l'espace de travail de leurs locaux parisiens." 
-    },
-    { 
-      q: "Comment estimer le volume à stocker ?", 
-      a: "L'estimation du volume dépend de la quantité de mobilier et de cartons. Lors de notre échange, nous évaluons ensemble vos besoins pour vous orienter vers la solution la plus adaptée à votre inventaire." 
-    },
-    { 
-      q: "Comment obtenir un devis pour une solution de stockage ?", 
-      a: "Il vous suffit de nous contacter ou de remplir notre formulaire en ligne. Nous vous fournirons une estimation personnalisée incluant, selon votre projet, le transport et le stockage de vos biens." 
-    }
-  ];
 
   return (
     <div className="bg-white">

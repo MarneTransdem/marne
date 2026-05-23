@@ -166,11 +166,11 @@ const Home: React.FC = () => {
 
             <div className="lg:w-5/12 grid grid-cols-2 gap-6 relative order-first lg:order-last">
               <div className="space-y-6">
-                <img src="/images/demenagement-paris.webp" alt="Déménagement professionnel Paris et Paris 20e" className="rounded-3xl shadow-xl aspect-[3/4] object-cover grayscale-[30%]" />
-                <img src="/images/demenagement-ile-de-france.webp" alt="Déménagement en Île-de-France et banlieue parisienne" className="rounded-3xl shadow-xl aspect-square object-cover" />
+                <img src="/images/demenagement-paris.webp" width="600" height="800" alt="Déménagement professionnel Paris et Paris 20e" className="rounded-3xl shadow-xl aspect-[3/4] object-cover grayscale-[30%]" />
+                <img src="/images/demenagement-ile-de-france.webp" width="600" height="600" alt="Déménagement en Île-de-France et banlieue parisienne" className="rounded-3xl shadow-xl aspect-square object-cover" />
               </div>
               <div className="pt-12 space-y-6">
-                <img src="/images/demenagement-longue-distance.webp" alt="Déménagement longue distance au départ de Paris vers toute la France" className="rounded-3xl shadow-xl aspect-[3/4] object-cover" />
+                <img src="/images/demenagement-longue-distance.webp" width="600" height="800" alt="Déménagement longue distance au départ de Paris vers toute la France" className="rounded-3xl shadow-xl aspect-[3/4] object-cover" />
               </div>
             </div>
           </div>

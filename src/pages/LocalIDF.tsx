@@ -110,6 +110,8 @@ const LocalIDF: React.FC = () => {
               <div className="aspect-square rounded-[4rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.02]">
                 <img 
                   src="/images/demenagement-ile-de-france.webp" 
+                  width="600"
+                  height="600"
                   alt="Déménagement Île-de-France Marne Transdem" 
                   className="w-full h-full object-cover"
                 />

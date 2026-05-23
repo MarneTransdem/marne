@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { FileText, Printer, Mail, Download, Check, ShieldCheck, Clock, CheckCircle2, Send } from 'lucide-react';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 
 const fallbackOklch = (match: string): string => {
   try {
@@ -299,6 +297,8 @@ export const PdfGenerator: React.FC<PdfGeneratorProps> = ({
   };
 
   const handleDownloadPdf = async () => {
+    const { default: jsPDF } = await import('jspdf');
+    const { default: html2canvas } = await import('html2canvas');
     const element = document.getElementById('pdf-document-canvas');
     if (!element) return;
     

@@ -325,7 +325,7 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
               <h3 className="text-xl md:text-2xl font-bold text-brand-900 dark:text-white tracking-tight">
                 A. Vos coordonnées
               </h3>
-              <p className="text-slate-400 dark:text-slate-500 mt-1 md:mt-2 font-light text-sm">Informations essentielles pour notre premier échange.</p>
+              <p className="text-slate-600 dark:text-slate-400 mt-1 md:mt-2 font-light text-sm">Informations essentielles pour notre premier échange.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -353,7 +353,7 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
               <h3 className="text-xl md:text-2xl font-bold text-brand-900 dark:text-white tracking-tight">
                 B. Adresse de départ
               </h3>
-              <p className="text-slate-400 dark:text-slate-500 mt-1 md:mt-2 font-light text-sm">L'adresse actuelle de votre logement. Saisie assistée.</p>
+              <p className="text-slate-600 dark:text-slate-400 mt-1 md:mt-2 font-light text-sm">L'adresse actuelle de votre logement. Saisie assistée.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -403,7 +403,7 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
               <h3 className="text-xl md:text-2xl font-bold text-brand-900 dark:text-white tracking-tight">
                 C. Adresse d’arrivée
               </h3>
-              <p className="text-slate-400 dark:text-slate-500 mt-1 md:mt-2 font-light text-sm">Où livrons-nous vos biens ? Saisie assistée.</p>
+              <p className="text-slate-600 dark:text-slate-400 mt-1 md:mt-2 font-light text-sm">Où livrons-nous vos biens ? Saisie assistée.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

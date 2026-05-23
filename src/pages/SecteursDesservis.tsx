@@ -229,7 +229,7 @@ const SecteursDesservis: React.FC = () => {
               </div>
             </div>
             <div className="rounded-[3.5rem] overflow-hidden shadow-2xl relative grayscale-[20%] transition-all h-full italic">
-                <img src="/images/demenagement-paris.webp" alt="Paris Déménagement" className="w-full h-full object-cover italic transition-all grayscale-[10%]" />
+                <img src="/images/demenagement-paris.webp" width="600" height="800" alt="Paris Déménagement" className="w-full h-full object-cover italic transition-all grayscale-[10%]" />
             </div>
           </div>
         </div>

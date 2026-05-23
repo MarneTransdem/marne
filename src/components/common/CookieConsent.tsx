@@ -47,6 +47,7 @@ export const CookieConsent: React.FC = () => {
                   <button 
                     onClick={() => setIsVisible(false)}
                     className="text-slate-400 hover:text-brand-900 transition-colors"
+                    aria-label="Fermer"
                   >
                     <X size={18} />
                   </button>

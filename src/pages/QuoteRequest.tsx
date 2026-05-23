@@ -1,5 +1,6 @@
 import React from 'react';
 import { QuoteForm } from '../components/forms/QuoteForm';
+import { MapProvider } from '../components/common/MapProvider';
 import { SEO } from '../components/SEO';
 import { ShieldCheck, MessageSquare, UserCheck, Building2, Phone, Mail, MapPin } from 'lucide-react';
 import { getBreadcrumbSchema } from '../lib/schema';
@@ -68,7 +69,9 @@ const QuoteRequest: React.FC = () => {
                 <div className="w-1.5 h-8 bg-accent rounded-full"></div>
                 Votre formulaire de projet
               </h2>
-              <QuoteForm />
+              <MapProvider>
+                <QuoteForm />
+              </MapProvider>
             </div>
 
             {/* 5. Colonne latérale */}

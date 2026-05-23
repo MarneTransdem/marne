@@ -38,7 +38,7 @@ const ReviewCard: React.FC<{ review: any; index: number }> = ({ review, index })
           </div>
         )}
         <div>
-          <h4 className="font-black text-brand-900 stay-dark uppercase italic text-sm tracking-tight">{review.authorName}</h4>
+          <h3 className="font-black text-brand-900 stay-dark uppercase italic text-sm tracking-tight">{review.authorName}</h3>
           <p className="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-widest">{review.relativePublishTimeDescription}</p>
         </div>
       </div>
@@ -71,34 +71,7 @@ const ReviewCard: React.FC<{ review: any; index: number }> = ({ review, index })
 };
 
 export const GoogleReviews: React.FC = () => {
-  const { reviews, isLoading, syncWithGoogle } = useGoogleReviews(PLACE_ID);
-  const [isSyncing, setIsSyncing] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-
-  useEffect(() => {
-    return onAuthStateChanged(auth, (user) => {
-      setIsAdmin(user?.email === 'contact@marnetransdem.com');
-    });
-  }, []);
-
-  const handleSync = async () => {
-    if (!hasValidKey) {
-      alert("La clé API Google Maps n'est pas configurée. Veuillez l'ajouter dans les paramètres 'Secrets' d'AI Studio sous le nom GOOGLE_MAPS_PLATFORM_KEY.");
-      return;
-    }
-    setIsSyncing(true);
-    await syncWithGoogle();
-    setIsSyncing(false);
-  };
-
-  const login = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
-    } catch (error) {
-      console.error("Erreur de connexion:", error);
-    }
-  };
+  const { reviews, isLoading } = useGoogleReviews(PLACE_ID);
 
   return (
     <section className="py-24 bg-white dark:bg-slate-950 overflow-hidden transition-colors duration-300" id="google-reviews">
@@ -114,32 +87,8 @@ export const GoogleReviews: React.FC = () => {
               Découvrez pourquoi nos clients recommandent Marne Transdem pour leur déménagement à Paris. Des avis authentiques, synchronisés en temps réel.
             </p>
           </div>
-          <div className="flex items-center gap-6">
-             <div className="text-right hidden sm:block">
-                <p className="text-2xl font-black text-brand-900 dark:text-white uppercase italic">4.9/5</p>
-                <p className="text-[10px] text-brand-900 dark:text-white uppercase tracking-[0.2em]">Basé sur 495 avis google</p>
-             </div>
-             <div className="flex gap-2">
-               {!isAdmin ? (
-                 <button 
-                   onClick={login}
-                   className="p-4 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-brand-900 dark:text-white hover:bg-brand-900 dark:hover:bg-accent hover:text-white dark:hover:text-brand-900 transition-all flex items-center justify-center"
-                   title="Connexion Admin pour synchroniser"
-                 >
-                    <LogIn size={24} />
-                 </button>
-               ) : (
-                 <button 
-                   onClick={handleSync}
-                   disabled={isSyncing}
-                   className="p-4 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-brand-900 dark:text-white hover:bg-accent hover:text-white transition-all group disabled:opacity-50"
-                   title="Synchroniser les avis Google Maps"
-                 >
-                    <RefreshCw size={24} className={isSyncing ? 'animate-spin text-black' : 'group-hover:rotate-180 transition-transform duration-500 text-black'} />
-                 </button>
-               )}
-             </div>
-          </div>
+          {/* Admin Sync button will be added here */}
+          <AdminSyncButton />
         </div>
 
         {isLoading ? (
@@ -189,17 +138,6 @@ export const GoogleReviews: React.FC = () => {
         {reviews.length === 0 && !isLoading && (
           <div className="bg-slate-50 dark:bg-slate-900/50 rounded-[2.5rem] p-12 text-center border border-dashed border-slate-200 dark:border-slate-800 mt-8">
             <p className="text-slate-500 dark:text-slate-400 italic mb-6">Aucun avis synchronisé pour le moment.</p>
-            {isAdmin ? (
-              <button 
-                onClick={handleSync}
-                className="inline-flex items-center gap-3 bg-brand-900 dark:bg-accent dark:text-brand-900 text-white px-8 py-4 rounded-full font-bold hover:bg-accent transition-all"
-              >
-                Lancer la première synchronisation
-                <RefreshCw size={20} className={isSyncing ? 'animate-spin' : ''} />
-              </button>
-            ) : (
-              <p className="text-xs text-slate-400 dark:text-slate-500">Connectez-vous en tant qu'administrateur pour synchroniser les avis Google.</p>
-            )}
           </div>
         )}
       </div>
@@ -207,10 +145,60 @@ export const GoogleReviews: React.FC = () => {
   );
 };
 
-export const GoogleReviewsSection: React.FC = () => {
+const AdminSyncButton: React.FC = () => {
+  const [isAdmin, setIsAdmin] = useState(false);
+  
+  useEffect(() => {
+    return onAuthStateChanged(auth, (user) => {
+      setIsAdmin(user?.email === 'contact@marnetransdem.com');
+    });
+  }, []);
+
+  if (!isAdmin) return null;
+
   return (
-    <APIProvider apiKey={API_KEY} version="weekly">
-      <GoogleReviews />
-    </APIProvider>
+    <div className="flex items-center gap-6">
+      <SyncReviews />
+    </div>
   );
+};
+
+const SyncReviews: React.FC = () => {
+    // Only import APIProvider when admin is ready
+    return (
+        <APIProvider apiKey={API_KEY} version="weekly">
+            <SyncContent />
+        </APIProvider>
+    )
+}
+
+const SyncContent: React.FC = () => {
+    const { syncWithGoogle } = useGoogleReviews(PLACE_ID);
+    const [isSyncing, setIsSyncing] = useState(false);
+    
+    const handleSync = async () => {
+        if (!hasValidKey) {
+          alert("La clé API Google Maps n'est pas configurée.");
+          return;
+        }
+        setIsSyncing(true);
+        await syncWithGoogle();
+        setIsSyncing(false);
+    };
+
+    return (
+        <button 
+            onClick={handleSync}
+            disabled={isSyncing}
+            className="p-4 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-brand-900 dark:text-white hover:bg-accent hover:text-white transition-all group disabled:opacity-50"
+            title="Synchroniser les avis Google Maps"
+        >
+            <RefreshCw size={24} className={isSyncing ? 'animate-spin text-black' : 'group-hover:rotate-180 transition-transform duration-500 text-black'} />
+        </button>
+    )
+};
+
+
+export const GoogleReviewsSection: React.FC = () => {
+    return <GoogleReviews />;
 };

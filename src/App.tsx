@@ -3,142 +3,142 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BrowserRouter, Routes, Route, ScrollRestoration, useLocation } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
+import { BrowserRouter, Routes, Route,  useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { MobileCTA } from './components/layout/MobileCTA';
 import { PageTransition } from './components/layout/PageTransition';
 import ScrollToTop from './components/layout/ScrollToTop';
-import Home from './pages/Home';
-import Services from './pages/Services';
-import QuoteRequest from './pages/QuoteRequest';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import FormulasPage from './pages/Formulas';
-import AdminDashboard from './pages/AdminDashboard';
-import Login from './pages/Login';
-import Blog from './pages/Blog';
-import BlogPost from './pages/BlogPost';
-import Legal from './pages/Legal';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import DemenagementParticuliers from './pages/DemenagementParticuliers';
-import DemenagementEntreprises from './pages/DemenagementEntreprises';
-import GardeMeuble from './pages/GardeMeuble';
-import MonteMeuble from './pages/MonteMeuble';
-import Emballage from './pages/Emballage';
-import Cartons from './pages/Cartons';
-import VolumeCalculator from './pages/VolumeCalculator';
-import LocalParis20 from './pages/LocalParis20';
-import LocalParis11 from './pages/LocalParis11';
-import LocalParis12 from './pages/LocalParis12';
-import LocalParis13 from './pages/LocalParis13';
-import LocalParis14 from './pages/LocalParis14';
-import LocalParis15 from './pages/LocalParis15';
-import LocalParis16 from './pages/LocalParis16';
-import LocalParis17 from './pages/LocalParis17';
-import LocalParis18 from './pages/LocalParis18';
-import LocalParis19 from './pages/LocalParis19';
-import LocalParis10 from './pages/LocalParis10';
-import LocalParis9 from './pages/LocalParis9';
-import LocalMontreuil from './pages/LocalMontreuil';
-import LocalVincennes from './pages/LocalVincennes';
-import LocalSaintMande from './pages/LocalSaintMande';
-import LocalBagnolet from './pages/LocalBagnolet';
-import LocalBoulogneBillancourt from './pages/LocalBoulogneBillancourt';
-import LocalNeuillySurSeine from './pages/LocalNeuillySurSeine';
-import LocalLevalloisPerret from './pages/LocalLevalloisPerret';
-import LocalClichy from './pages/LocalClichy';
-import LocalCourbevoie from './pages/LocalCourbevoie';
-import LocalPuteaux from './pages/LocalPuteaux';
-import LocalNanterre from './pages/LocalNanterre';
-import LocalSuresnes from './pages/LocalSuresnes';
-import LocalRueilMalmaison from './pages/LocalRueilMalmaison';
-import LocalSaintCloud from './pages/LocalSaintCloud';
-import LocalMeudon from './pages/LocalMeudon';
-import LocalIssyLesMoulineaux from './pages/LocalIssyLesMoulineaux';
-import LocalClamart from './pages/LocalClamart';
-import LocalSevres from './pages/LocalSevres';
-import LocalVanves from './pages/LocalVanves';
-import LocalChatillon from './pages/LocalChatillon';
-import LocalMalakoff from './pages/LocalMalakoff';
-import LocalMontrouge from './pages/LocalMontrouge';
-import LocalBagneux from './pages/LocalBagneux';
-import LocalFontenayAuxRoses from './pages/LocalFontenayAuxRoses';
-import LocalSceaux from './pages/LocalSceaux';
-import LocalBourgLaReine from './pages/LocalBourgLaReine';
-import LocalAntony from './pages/LocalAntony';
-import LocalChatenayMalabry from './pages/LocalChatenayMalabry';
-import LocalLePlessisRobinson from './pages/LocalLePlessisRobinson';
-import LocalNogentSurMarne from './pages/LocalNogentSurMarne';
-import LocalVelizyVillacoublay from './pages/LocalVelizyVillacoublay';
-import LocalViroflay from './pages/LocalViroflay';
-import LocalChaville from './pages/LocalChaville';
-import LocalVilleDAvray from './pages/LocalVilleDAvray';
-import LocalVersailles from './pages/LocalVersailles';
-import LocalLeChesnayRocquencourt from './pages/LocalLeChesnayRocquencourt';
-import LocalLaCelleSaintCloud from './pages/LocalLaCelleSaintCloud';
-import LocalVaucresson from './pages/LocalVaucresson';
-import LocalGarches from './pages/LocalGarches';
-import LocalMarnesLaCoquette from './pages/LocalMarnesLaCoquette';
-import LocalBougival from './pages/LocalBougival';
-import LocalLouveciennes from './pages/LocalLouveciennes';
-import LocalCroissySurSeine from './pages/LocalCroissySurSeine';
-import LocalChatou from './pages/LocalChatou';
-import LocalLeVesinet from './pages/LocalLeVesinet';
-import LocalLePecq from './pages/LocalLePecq';
-import LocalMarlyLeRoi from './pages/LocalMarlyLeRoi';
-import LocalSaintGermainEnLaye from './pages/LocalSaintGermainEnLaye';
-import LocalPoissy from './pages/LocalPoissy';
-import LocalSartrouville from './pages/LocalSartrouville';
-import LocalRambouillet from './pages/LocalRambouillet';
-import LocalMantesLaJolie from './pages/LocalMantesLaJolie';
-import LocalMaisonsLaffitte from './pages/LocalMaisonsLaffitte';
-import LocalHouilles from './pages/LocalHouilles';
-import LocalPlaisir from './pages/LocalPlaisir';
-import LocalGuyancourt from './pages/LocalGuyancourt';
-import LocalConflansSainteHonorine from './pages/LocalConflansSainteHonorine';
-import LocalIDF from './pages/LocalIDF';
-import LocalHautsDeSeine from './pages/LocalHautsDeSeine';
-import LocalSeineSaintDenis from './pages/LocalSeineSaintDenis';
-import LocalValDeMarne from './pages/LocalValDeMarne';
-import LocalYvelines from './pages/LocalYvelines';
-import LocalEssonne from './pages/LocalEssonne';
-import LocalValDOise from './pages/LocalValDOise';
-import LocalSeineEtMarne from './pages/LocalSeineEtMarne';
-import CharentonLePont from './pages/CharentonLePont';
-import LocalSaintMaur from './pages/LocalSaintMaur';
-import LocalCreteil from './pages/LocalCreteil';
-import LongueDistance from './pages/LongueDistance';
-import LongueDistanceParisLyon from './pages/LongueDistanceParisLyon';
-import LongueDistanceParisMarseille from './pages/LongueDistanceParisMarseille';
-import LongueDistanceParisBordeaux from './pages/LongueDistanceParisBordeaux';
-import LongueDistanceParisToulouse from './pages/LongueDistanceParisToulouse';
-import LongueDistanceParisNantes from './pages/LongueDistanceParisNantes';
-import LongueDistanceParisLille from './pages/LongueDistanceParisLille';
-import LongueDistanceParisStrasbourg from './pages/LongueDistanceParisStrasbourg';
-import LongueDistanceParisMontpellier from './pages/LongueDistanceParisMontpellier';
-import LongueDistanceParisRennes from './pages/LongueDistanceParisRennes';
-import DemenagementOeuvresArt from './pages/DemenagementOeuvresArt';
-import DemenagementEtudiant from './pages/DemenagementEtudiant';
-import DemenagementMilitaire from './pages/DemenagementMilitaire';
-import DemenagementSenior from './pages/DemenagementSenior';
-import DemenagementMutation from './pages/DemenagementMutation';
-import DemenagementPetitVolume from './pages/DemenagementPetitVolume';
-import DemenagementPiano from './pages/DemenagementPiano';
-import TransfertBureaux from './pages/TransfertBureaux';
-import TransfertInformatique from './pages/TransfertInformatique';
-import TransfertIndustriel from './pages/TransfertIndustriel';
-import TransfertLaboratoire from './pages/TransfertLaboratoire';
-import GestionArchives from './pages/GestionArchives';
-import SecteursDesservis from './pages/SecteursDesservis';
 
-import { APIProvider } from '@vis.gl/react-google-maps';
+const Home = lazy(() => import('./pages/Home'));
+const Services = lazy(() => import('./pages/Services'));
+const QuoteRequest = lazy(() => import('./pages/QuoteRequest'));
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contact'));
+const FormulasPage = lazy(() => import('./pages/Formulas'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+const Login = lazy(() => import('./pages/Login'));
+const Blog = lazy(() => import('./pages/Blog'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
+const Legal = lazy(() => import('./pages/Legal'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const DemenagementParticuliers = lazy(() => import('./pages/DemenagementParticuliers'));
+const DemenagementEntreprises = lazy(() => import('./pages/DemenagementEntreprises'));
+const GardeMeuble = lazy(() => import('./pages/GardeMeuble'));
+const MonteMeuble = lazy(() => import('./pages/MonteMeuble'));
+const Emballage = lazy(() => import('./pages/Emballage'));
+const Cartons = lazy(() => import('./pages/Cartons'));
+const VolumeCalculator = lazy(() => import('./pages/VolumeCalculator'));
+const LocalParis20 = lazy(() => import('./pages/LocalParis20'));
+const LocalParis11 = lazy(() => import('./pages/LocalParis11'));
+const LocalParis12 = lazy(() => import('./pages/LocalParis12'));
+const LocalParis13 = lazy(() => import('./pages/LocalParis13'));
+const LocalParis14 = lazy(() => import('./pages/LocalParis14'));
+const LocalParis15 = lazy(() => import('./pages/LocalParis15'));
+const LocalParis16 = lazy(() => import('./pages/LocalParis16'));
+const LocalParis17 = lazy(() => import('./pages/LocalParis17'));
+const LocalParis18 = lazy(() => import('./pages/LocalParis18'));
+const LocalParis19 = lazy(() => import('./pages/LocalParis19'));
+const LocalParis10 = lazy(() => import('./pages/LocalParis10'));
+const LocalParis9 = lazy(() => import('./pages/LocalParis9'));
+const LocalMontreuil = lazy(() => import('./pages/LocalMontreuil'));
+const LocalVincennes = lazy(() => import('./pages/LocalVincennes'));
+const LocalSaintMande = lazy(() => import('./pages/LocalSaintMande'));
+const LocalBagnolet = lazy(() => import('./pages/LocalBagnolet'));
+const LocalBoulogneBillancourt = lazy(() => import('./pages/LocalBoulogneBillancourt'));
+const LocalNeuillySurSeine = lazy(() => import('./pages/LocalNeuillySurSeine'));
+const LocalLevalloisPerret = lazy(() => import('./pages/LocalLevalloisPerret'));
+const LocalClichy = lazy(() => import('./pages/LocalClichy'));
+const LocalCourbevoie = lazy(() => import('./pages/LocalCourbevoie'));
+const LocalPuteaux = lazy(() => import('./pages/LocalPuteaux'));
+const LocalNanterre = lazy(() => import('./pages/LocalNanterre'));
+const LocalSuresnes = lazy(() => import('./pages/LocalSuresnes'));
+const LocalRueilMalmaison = lazy(() => import('./pages/LocalRueilMalmaison'));
+const LocalSaintCloud = lazy(() => import('./pages/LocalSaintCloud'));
+const LocalMeudon = lazy(() => import('./pages/LocalMeudon'));
+const LocalIssyLesMoulineaux = lazy(() => import('./pages/LocalIssyLesMoulineaux'));
+const LocalClamart = lazy(() => import('./pages/LocalClamart'));
+const LocalSevres = lazy(() => import('./pages/LocalSevres'));
+const LocalVanves = lazy(() => import('./pages/LocalVanves'));
+const LocalChatillon = lazy(() => import('./pages/LocalChatillon'));
+const LocalMalakoff = lazy(() => import('./pages/LocalMalakoff'));
+const LocalMontrouge = lazy(() => import('./pages/LocalMontrouge'));
+const LocalBagneux = lazy(() => import('./pages/LocalBagneux'));
+const LocalFontenayAuxRoses = lazy(() => import('./pages/LocalFontenayAuxRoses'));
+const LocalSceaux = lazy(() => import('./pages/LocalSceaux'));
+const LocalBourgLaReine = lazy(() => import('./pages/LocalBourgLaReine'));
+const LocalAntony = lazy(() => import('./pages/LocalAntony'));
+const LocalChatenayMalabry = lazy(() => import('./pages/LocalChatenayMalabry'));
+const LocalLePlessisRobinson = lazy(() => import('./pages/LocalLePlessisRobinson'));
+const LocalNogentSurMarne = lazy(() => import('./pages/LocalNogentSurMarne'));
+const LocalVelizyVillacoublay = lazy(() => import('./pages/LocalVelizyVillacoublay'));
+const LocalViroflay = lazy(() => import('./pages/LocalViroflay'));
+const LocalChaville = lazy(() => import('./pages/LocalChaville'));
+const LocalVilleDAvray = lazy(() => import('./pages/LocalVilleDAvray'));
+const LocalVersailles = lazy(() => import('./pages/LocalVersailles'));
+const LocalLeChesnayRocquencourt = lazy(() => import('./pages/LocalLeChesnayRocquencourt'));
+const LocalLaCelleSaintCloud = lazy(() => import('./pages/LocalLaCelleSaintCloud'));
+const LocalVaucresson = lazy(() => import('./pages/LocalVaucresson'));
+const LocalGarches = lazy(() => import('./pages/LocalGarches'));
+const LocalMarnesLaCoquette = lazy(() => import('./pages/LocalMarnesLaCoquette'));
+const LocalBougival = lazy(() => import('./pages/LocalBougival'));
+const LocalLouveciennes = lazy(() => import('./pages/LocalLouveciennes'));
+const LocalCroissySurSeine = lazy(() => import('./pages/LocalCroissySurSeine'));
+const LocalChatou = lazy(() => import('./pages/LocalChatou'));
+const LocalLeVesinet = lazy(() => import('./pages/LocalLeVesinet'));
+const LocalLePecq = lazy(() => import('./pages/LocalLePecq'));
+const LocalMarlyLeRoi = lazy(() => import('./pages/LocalMarlyLeRoi'));
+const LocalSaintGermainEnLaye = lazy(() => import('./pages/LocalSaintGermainEnLaye'));
+const LocalPoissy = lazy(() => import('./pages/LocalPoissy'));
+const LocalSartrouville = lazy(() => import('./pages/LocalSartrouville'));
+const LocalRambouillet = lazy(() => import('./pages/LocalRambouillet'));
+const LocalMantesLaJolie = lazy(() => import('./pages/LocalMantesLaJolie'));
+const LocalMaisonsLaffitte = lazy(() => import('./pages/LocalMaisonsLaffitte'));
+const LocalHouilles = lazy(() => import('./pages/LocalHouilles'));
+const LocalPlaisir = lazy(() => import('./pages/LocalPlaisir'));
+const LocalGuyancourt = lazy(() => import('./pages/LocalGuyancourt'));
+const LocalConflansSainteHonorine = lazy(() => import('./pages/LocalConflansSainteHonorine'));
+const LocalIDF = lazy(() => import('./pages/LocalIDF'));
+const LocalHautsDeSeine = lazy(() => import('./pages/LocalHautsDeSeine'));
+const LocalSeineSaintDenis = lazy(() => import('./pages/LocalSeineSaintDenis'));
+const LocalValDeMarne = lazy(() => import('./pages/LocalValDeMarne'));
+const LocalYvelines = lazy(() => import('./pages/LocalYvelines'));
+const LocalEssonne = lazy(() => import('./pages/LocalEssonne'));
+const LocalValDOise = lazy(() => import('./pages/LocalValDOise'));
+const LocalSeineEtMarne = lazy(() => import('./pages/LocalSeineEtMarne'));
+const CharentonLePont = lazy(() => import('./pages/CharentonLePont'));
+const LocalSaintMaur = lazy(() => import('./pages/LocalSaintMaur'));
+const LocalCreteil = lazy(() => import('./pages/LocalCreteil'));
+const LongueDistance = lazy(() => import('./pages/LongueDistance'));
+const LongueDistanceParisLyon = lazy(() => import('./pages/LongueDistanceParisLyon'));
+const LongueDistanceParisMarseille = lazy(() => import('./pages/LongueDistanceParisMarseille'));
+const LongueDistanceParisBordeaux = lazy(() => import('./pages/LongueDistanceParisBordeaux'));
+const LongueDistanceParisToulouse = lazy(() => import('./pages/LongueDistanceParisToulouse'));
+const LongueDistanceParisNantes = lazy(() => import('./pages/LongueDistanceParisNantes'));
+const LongueDistanceParisLille = lazy(() => import('./pages/LongueDistanceParisLille'));
+const LongueDistanceParisStrasbourg = lazy(() => import('./pages/LongueDistanceParisStrasbourg'));
+const LongueDistanceParisMontpellier = lazy(() => import('./pages/LongueDistanceParisMontpellier'));
+const LongueDistanceParisRennes = lazy(() => import('./pages/LongueDistanceParisRennes'));
+const DemenagementOeuvresArt = lazy(() => import('./pages/DemenagementOeuvresArt'));
+const DemenagementEtudiant = lazy(() => import('./pages/DemenagementEtudiant'));
+const DemenagementMilitaire = lazy(() => import('./pages/DemenagementMilitaire'));
+const DemenagementSenior = lazy(() => import('./pages/DemenagementSenior'));
+const DemenagementMutation = lazy(() => import('./pages/DemenagementMutation'));
+const DemenagementPetitVolume = lazy(() => import('./pages/DemenagementPetitVolume'));
+const DemenagementPiano = lazy(() => import('./pages/DemenagementPiano'));
+const TransfertBureaux = lazy(() => import('./pages/TransfertBureaux'));
+const TransfertInformatique = lazy(() => import('./pages/TransfertInformatique'));
+const TransfertIndustriel = lazy(() => import('./pages/TransfertIndustriel'));
+const TransfertLaboratoire = lazy(() => import('./pages/TransfertLaboratoire'));
+const GestionArchives = lazy(() => import('./pages/GestionArchives'));
+const SecteursDesservis = lazy(() => import('./pages/SecteursDesservis'));
+
+
 import { CookieConsent } from './components/common/CookieConsent';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
-
-const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_PLATFORM_KEY || '';
 
 function AppContent() {
   const location = useLocation();
@@ -150,9 +150,10 @@ function AppContent() {
       {!isAdminOrLogin && <Header />}
       <main>
         <PageTransition>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/services" element={<Services />} />
+          <Suspense fallback={<div>Chargement...</div>}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/services" element={<Services />} />
             <Route path="/devis" element={<QuoteRequest />} />
             <Route path="/demande-de-devis" element={<QuoteRequest />} />
             <Route path="/secteurs-desservis" element={<SecteursDesservis />} />
@@ -290,6 +291,7 @@ function AppContent() {
             <Route path="/mentions-legales" element={<Legal />} />
             <Route path="/politique-de-confidentialite" element={<PrivacyPolicy />} />
           </Routes>
+          </Suspense>
         </PageTransition>
       </main>
       {!isAdminOrLogin && <Footer />}
@@ -303,13 +305,11 @@ export default function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <APIProvider apiKey={API_KEY} version="weekly">
         <HelmetProvider>
           <BrowserRouter>
             <AppContent />
           </BrowserRouter>
         </HelmetProvider>
-      </APIProvider>
       </AuthProvider>
     </ThemeProvider>
   );
