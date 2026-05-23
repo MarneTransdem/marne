@@ -103,7 +103,7 @@ const Home: React.FC = () => {
                       <ShieldCheck size={32} />
                     </div>
                     <div>
-                      <h4 className="text-xl font-black mb-2 text-white uppercase italic tracking-tight">{item.t}</h4>
+                      <h3 className="text-xl font-black mb-2 text-white uppercase italic tracking-tight">{item.t}</h3>
                       <p className="text-slate-400 font-light text-sm italic leading-relaxed">{item.d}</p>
                     </div>
                   </div>
@@ -199,10 +199,10 @@ const Home: React.FC = () => {
             
             <div className="lg:w-1/2 space-y-8">
                <div className="space-y-4">
-                  <h2 className="text-accent font-black uppercase text-xs tracking-[0.3em] mb-4">Experts à vos côtés</h2>
+                  <h2 className="text-amber-800 dark:text-accent font-black uppercase text-xs tracking-[0.3em] mb-4">Experts à vos côtés</h2>
                   <p className="text-4xl md:text-6xl font-black text-brand-900 dark:text-white mb-8 leading-[1.1] tracking-tighter uppercase italic">
                     Préparez votre <br/>
-                    <span className="text-accent underline decoration-brand-900/10 dark:decoration-white/10 underline-offset-8 italic">départ sereinement</span>
+                    <span className="text-amber-800 dark:text-accent underline decoration-brand-900/10 dark:decoration-white/10 underline-offset-8 italic">départ sereinement</span>
                   </p>
                </div>
                

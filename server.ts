@@ -5,6 +5,7 @@ import { fileURLToPath } from "url";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 import { GoogleGenAI, Type } from "@google/genai";
+import compression from "compression";
 
 dotenv.config();
 
@@ -33,6 +34,9 @@ const __dirname = path.dirname(__filename);
 async function startServer() {
   const app = express();
   const PORT = process.env.PORT || 3000;
+
+  // Enable gzip/deflate compression for all text-based responses (HTML, CSS, JS)
+  app.use(compression());
 
   // Middleware for parsing JSON with increased limit for base64 images/videos
   app.use(express.json({ limit: "50mb" }));
@@ -298,10 +302,22 @@ Pour chaque objet détecté :
     });
     app.use(vite.middlewares);
   } else {
-    // Serve static files in production
+    // Serve static files in production with optimized browser caching
     const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath));
+    app.use(express.static(distPath, {
+      maxAge: '1d',
+      setHeaders: (res, filePath) => {
+        if (filePath.includes('/assets/')) {
+          // Compiled assets in Vite include long hashes and are completely immutable
+          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        } else if (filePath.endsWith('.html')) {
+          // HTML files must always be checked for updates
+          res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+        }
+      }
+    }));
     app.get('*', (req, res) => {
+      res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
       res.sendFile(path.join(distPath, 'index.html'));
     });
   }

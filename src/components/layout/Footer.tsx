@@ -104,13 +104,13 @@ export const Footer: React.FC = () => {
 
         {/* Footer Bottom */}
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-slate-600 text-[10px] font-medium uppercase tracking-wider text-center md:text-left">
+          <p className="text-slate-300 text-[10px] font-medium uppercase tracking-wider text-center md:text-left">
             © {new Date().getFullYear()} {CONTACT.name}. Solutions de mobilité professionnelle.
           </p>
-          <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 text-slate-500 text-[10px] font-black uppercase tracking-widest">
-            <Link to="/mentions-legales" className="hover:text-slate-300 transition-colors">Mentions Légales</Link>
-            <Link to="/politique-de-confidentialite" className="hover:text-slate-300 transition-colors">Confidentialité</Link>
-            <span className="cursor-pointer hover:text-slate-300 transition-colors">Sitemap</span>
+          <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 text-slate-300/80 text-[10px] font-black uppercase tracking-widest">
+            <Link to="/mentions-legales" className="hover:text-white transition-colors">Mentions Légales</Link>
+            <Link to="/politique-de-confidentialite" className="hover:text-white transition-colors">Confidentialité</Link>
+            <span className="cursor-pointer hover:text-white transition-colors">Sitemap</span>
           </div>
         </div>
       </div>

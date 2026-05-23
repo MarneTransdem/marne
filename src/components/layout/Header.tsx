@@ -273,44 +273,40 @@ export const Header: React.FC = () => {
                         )}
                         
                         {hasSubmenu && (
-                          <AnimatePresence>
-                            {isExpanded && (
-                              <motion.div 
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: 'auto', opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.3, ease: 'easeInOut' }}
-                                className="overflow-hidden"
-                              >
-                                <div className="mt-4 ml-4 flex flex-col gap-3 border-l border-slate-100 dark:border-slate-800 pl-4 pb-2">
-                                  {(
-                                    item.name === 'Services' ? OTHER_SERVICES : 
-                                    item.name === 'Particuliers' ? INDIVIDUAL_SERVICES : 
-                                    PRO_SERVICES
-                                  ).map((s) => (
-                                    <Link 
-                                      key={s.id} 
-                                      to={s.path} 
-                                      onClick={closeMenu}
-                                      className="text-base font-medium text-black hover:text-accent transition-colors flex items-center gap-3 py-1"
-                                    >
-                                      <div className="bg-slate-100 dark:bg-slate-800 p-1.5 rounded-lg text-brand-900 dark:text-white">
-                                        <s.icon size={16} />
-                                      </div>
-                                      {s.title}
-                                    </Link>
-                                  ))}
+                          <div 
+                            className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out ${
+                              isExpanded ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                            }`}
+                          >
+                            <div className="overflow-hidden">
+                              <div className="mt-4 ml-4 flex flex-col gap-3 border-l border-slate-100 dark:border-slate-800 pl-4 pb-2">
+                                {(
+                                  item.name === 'Services' ? OTHER_SERVICES : 
+                                  item.name === 'Particuliers' ? INDIVIDUAL_SERVICES : 
+                                  PRO_SERVICES
+                                ).map((s) => (
                                   <Link 
-                                    to={item.path} 
+                                    key={s.id} 
+                                    to={s.path} 
                                     onClick={closeMenu}
-                                    className="text-sm font-bold text-accent hover:text-brand-900 dark:hover:text-white transition-colors flex items-center gap-2 uppercase tracking-widest mt-2"
+                                    className="text-base font-medium text-black hover:text-accent transition-colors flex items-center gap-3 py-1"
                                   >
-                                    Tout voir <ArrowRight size={14} />
+                                    <div className="bg-slate-100 dark:bg-slate-800 p-1.5 rounded-lg text-brand-900 dark:text-white">
+                                      <s.icon size={16} />
+                                    </div>
+                                    {s.title}
                                   </Link>
-                                </div>
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
+                                ))}
+                                <Link 
+                                  to={item.path} 
+                                  onClick={closeMenu}
+                                  className="text-sm font-bold text-accent hover:text-brand-900 dark:hover:text-white transition-colors flex items-center gap-2 uppercase tracking-widest mt-2"
+                                >
+                                  Tout voir <ArrowRight size={14} />
+                                </Link>
+                              </div>
+                            </div>
+                          </div>
                         )}
                       </motion.div>
                     );

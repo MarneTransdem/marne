@@ -9,7 +9,7 @@ export const ServicesSection: React.FC = () => {
     <section className="py-24 bg-white dark:bg-slate-950 relative transition-colors duration-300">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-accent text-sm font-bold uppercase tracking-widest mb-4">Nos Solutions</h2>
+          <h2 className="text-amber-800 dark:text-accent text-sm font-bold uppercase tracking-widest mb-4">Nos Solutions</h2>
           <p className="text-3xl md:text-4xl lg:text-5xl font-bold text-brand-900 dark:text-white mb-6">
             Des services de déménagement complets et sur mesure
           </p>
@@ -63,7 +63,7 @@ export const ServicesSection: React.FC = () => {
             </p>
             <Link 
               to="/contact"
-              className="bg-accent text-white px-8 py-4 rounded-full font-bold hover:bg-accent-hover shadow-lg transition-all"
+              className="bg-accent text-brand-900 stay-dark px-8 py-4 rounded-full font-bold hover:bg-accent-hover shadow-lg transition-all"
             >
               Contactez-nous
             </Link>

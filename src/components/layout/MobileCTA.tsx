@@ -15,7 +15,7 @@ export const MobileCTA: React.FC = () => {
       </a>
       <Link 
         to="/demande-de-devis"
-        className="bg-accent text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 text-sm shadow-[0_10px_25px_rgba(234,179,8,0.3)] active:scale-95 transition-all"
+        className="bg-accent text-brand-900 stay-dark py-4 rounded-xl font-bold flex items-center justify-center gap-2 text-sm shadow-[0_10px_25px_rgba(234,179,8,0.3)] active:scale-95 transition-all"
       >
         Devis
         <ArrowRight size={18} />

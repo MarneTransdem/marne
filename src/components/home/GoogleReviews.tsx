@@ -31,6 +31,7 @@ const ReviewCard: React.FC<{ review: any; index: number }> = ({ review, index })
             alt={review.authorName} 
             className="w-12 h-12 rounded-full border border-slate-100 dark:border-slate-800"
             referrerPolicy="no-referrer"
+            loading="lazy"
           />
         ) : (
           <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 font-bold uppercase">
@@ -78,10 +79,10 @@ export const GoogleReviews: React.FC = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
           <div className="max-w-2xl">
-            <h2 className="text-accent font-black uppercase text-xs tracking-[0.3em] mb-4 italic">Expérience client</h2>
+            <h2 className="text-amber-800 dark:text-accent font-black uppercase text-xs tracking-[0.3em] mb-4 italic">Expérience client</h2>
             <p className="text-4xl md:text-6xl font-black text-brand-900 dark:text-white leading-none tracking-tighter uppercase italic">
               Ils nous font <br/>
-              <span className="text-accent underline decoration-brand-900/10 dark:decoration-white/10 underline-offset-8 italic">confiance</span>
+              <span className="text-amber-800 dark:text-accent underline decoration-brand-900/10 dark:decoration-white/10 underline-offset-8 italic">confiance</span>
             </p>
             <p className="mt-6 text-slate-500 dark:text-slate-400 italic max-w-lg text-sm">
               Découvrez pourquoi nos clients recommandent Marne Transdem pour leur déménagement à Paris. Des avis authentiques, synchronisés en temps réel.

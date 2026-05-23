@@ -12,7 +12,7 @@ export const FAQ: React.FC = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-accent text-sm font-bold uppercase tracking-widest mb-4">FAQ déménagement</h2>
+            <h2 className="text-amber-800 dark:text-accent text-sm font-bold uppercase tracking-widest mb-4">FAQ déménagement</h2>
             <p className="text-3xl md:text-5xl font-bold text-brand-900 stay-dark mb-6 tracking-tight">
               Questions fréquentes
             </p>
@@ -40,27 +40,23 @@ export const FAQ: React.FC = () => {
                     <ChevronDown className="w-5 md:w-6 h-5 md:h-6" />
                   </div>
                 </button>
-                <AnimatePresence>
-                  {openIndex === index && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-5 md:px-8 pb-6 md:pb-8 text-slate-600 leading-relaxed font-light text-sm md:text-base stay-dark opacity-80">
-                        {item.answer}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <div 
+                  className={`grid transition-all duration-300 ease-in-out ${
+                    openIndex === index ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="px-5 md:px-8 pb-6 md:pb-8 text-slate-600 leading-relaxed font-light text-sm md:text-base stay-dark opacity-80">
+                      {item.answer}
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
 
           <div className="mt-16 text-center">
-            <p className="text-slate-400 dark:text-slate-500 mb-6">Vous avez une question spécifique ?</p>
+            <p className="text-slate-600 dark:text-slate-400 mb-6">Vous avez une question spécifique ?</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="flex items-center gap-3 text-brand-900 dark:text-white font-bold hover:text-accent transition-colors">
                 <span className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-accent"><Phone size={18} /></span>

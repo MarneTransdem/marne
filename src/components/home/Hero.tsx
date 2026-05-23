@@ -136,7 +136,7 @@ export const Hero: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-8">
               <div className="flex flex-wrap items-center gap-4 mb-8">
-                <div className="inline-flex items-center gap-3 bg-accent/10 border border-accent/20 text-accent px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-[0.2em]">
+                <div className="inline-flex items-center gap-3 bg-accent/10 border border-accent/20 text-brand-900 dark:text-accent px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-[0.2em]">
                   <span className="flex h-2 w-2 rounded-full bg-accent animate-pulse"></span>
                   Paris & Île-de-France
                 </div>
@@ -184,7 +184,7 @@ export const Hero: React.FC = () => {
                     
                     <form onSubmit={handleQuickSubmit} className="space-y-5">
                       <div className="space-y-1.5 font-sans italic">
-                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Départ</label>
+                        <label className="text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest ml-1">Départ</label>
                         <input 
                           ref={fromRef}
                           className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm outline-none placeholder:text-slate-300 focus:border-accent transition-colors text-brand-900 stay-dark" 
@@ -194,7 +194,7 @@ export const Hero: React.FC = () => {
                         />
                       </div>
                       <div className="space-y-1.5 font-sans italic">
-                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Arrivée</label>
+                        <label className="text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest ml-1">Arrivée</label>
                         <input 
                           ref={toRef}
                           className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm outline-none placeholder:text-slate-300 focus:border-accent transition-colors text-brand-900 stay-dark" 
@@ -204,7 +204,7 @@ export const Hero: React.FC = () => {
                         />
                       </div>
                       <div className="space-y-1.5 font-sans italic">
-                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Volume (m³)</label>
+                        <label className="text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest ml-1">Volume (m³)</label>
                         <div className="grid grid-cols-4 gap-3">
                           {['15', '30', '50', '+'].map(v => (
                             <button 
@@ -214,7 +214,7 @@ export const Hero: React.FC = () => {
                               className={`rounded-xl py-2 flex items-center justify-center text-xs font-bold transition-all ${
                                 (quickForm.volume === v || (v === '+' && quickForm.volume === '60'))
                                   ? 'bg-accent text-brand-900 stay-dark border-accent' 
-                                  : 'bg-slate-50 border border-slate-100 text-slate-400 hover:border-slate-200'
+                                  : 'bg-slate-100 border border-slate-200 text-slate-600 hover:border-slate-300 dark:bg-slate-900 dark:border-slate-800 dark:text-slate-300 dark:hover:border-slate-700'
                               }`}
                             >
                               {v === '+' ? '60+' : v}
@@ -229,9 +229,9 @@ export const Hero: React.FC = () => {
                       </button>
                     </form>
   
-                    <div className="mt-8 pt-8 border-t border-slate-50 flex items-center justify-center gap-3">
+                    <div className="mt-8 pt-8 border-t border-slate-100 flex items-center justify-center gap-3">
                       <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic opacity-60">Réponse rapide</span>
+                      <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest italic">Réponse rapide</span>
                     </div>
                  </div>
               </div>
