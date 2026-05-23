@@ -149,7 +149,12 @@ async function startServer() {
         from: `"Marne Transdem Web" <${process.env.GMAIL_USER}>`,
         to: adminEmail,
         subject: isQuote ? `[Urgent Devis] ${clientName}` : `[Contact Site] ${data.subject}`,
-        html: getEmailContainer(isQuote ? "Nouvelle demande de devis" : "Nouveau message de contact", adminHtml)
+        html: getEmailContainer(
+          isQuote 
+            ? '<span style="color: #ef4444; font-weight: bold; margin-right: 4px;">[Urgent Devis]</span> Nouvelle demande de devis' 
+            : 'Nouveau message de contact', 
+          adminHtml
+        )
       });
 
       // 2. Send Confirmation to Client
