@@ -29,8 +29,6 @@ export const Logo: React.FC<LogoProps> = ({ className = '', variant, height = 'h
         alt="Marne Transdem" 
         width="295"
         height="98"
-        fetchPriority="high"
-        loading="eager"
         className={`${height} w-auto object-contain transition-transform hover:scale-105 duration-300`}
         referrerPolicy="no-referrer"
       />
