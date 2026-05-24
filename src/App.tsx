@@ -112,6 +112,15 @@ const LocalSeineEtMarne = lazy(() => import('./pages/LocalSeineEtMarne'));
 const CharentonLePont = lazy(() => import('./pages/CharentonLePont'));
 const LocalSaintMaur = lazy(() => import('./pages/LocalSaintMaur'));
 const LocalCreteil = lazy(() => import('./pages/LocalCreteil'));
+const LocalMaisonsAlfort = lazy(() => import('./pages/LocalMaisonsAlfort'));
+const LocalIvrySurSeine = lazy(() => import('./pages/LocalIvrySurSeine'));
+const LocalSaintMaurice = lazy(() => import('./pages/LocalSaintMaurice'));
+const LocalFontenaySousBois = lazy(() => import('./pages/LocalFontenaySousBois'));
+const LocalVillejuif = lazy(() => import('./pages/LocalVillejuif'));
+const LocalVitrySurSeine = lazy(() => import('./pages/LocalVitrySurSeine'));
+const LocalAlfortville = lazy(() => import('./pages/LocalAlfortville'));
+const LocalKremlinBicetre = lazy(() => import('./pages/LocalKremlinBicetre'));
+const LocalJoinvilleLePont = lazy(() => import('./pages/LocalJoinvilleLePont'));
 const LongueDistance = lazy(() => import('./pages/LongueDistance'));
 const LongueDistanceParisLyon = lazy(() => import('./pages/LongueDistanceParisLyon'));
 const LongueDistanceParisMarseille = lazy(() => import('./pages/LongueDistanceParisMarseille'));
@@ -256,6 +265,15 @@ function AppContent() {
             <Route path="/demenagement-charenton-le-pont" element={<CharentonLePont />} />
             <Route path="/demenagement-saint-maur-des-fosses" element={<LocalSaintMaur />} />
             <Route path="/demenagement-creteil" element={<LocalCreteil />} />
+            <Route path="/demenagement-maisons-alfort" element={<LocalMaisonsAlfort />} />
+            <Route path="/demenagement-ivry-sur-seine" element={<LocalIvrySurSeine />} />
+            <Route path="/demenagement-saint-maurice" element={<LocalSaintMaurice />} />
+            <Route path="/demenagement-fontenay-sous-bois" element={<LocalFontenaySousBois />} />
+            <Route path="/demenagement-villejuif" element={<LocalVillejuif />} />
+            <Route path="/demenagement-vitry-sur-seine" element={<LocalVitrySurSeine />} />
+            <Route path="/demenagement-alfortville" element={<LocalAlfortville />} />
+            <Route path="/demenagement-le-kremlin-bicetre" element={<LocalKremlinBicetre />} />
+            <Route path="/demenagement-joinville-le-pont" element={<LocalJoinvilleLePont />} />
             
             {/* Longue Distance */}
             <Route path="/demenagement-paris-lyon" element={<LongueDistanceParisLyon />} />

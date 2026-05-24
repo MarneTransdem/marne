@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Phone, MapPin, CheckCircle2, Building2, Package, Calculator, Truck, Ruler, Calendar, ClipboardCheck, HelpCircle, Waves, Home, Globe, Briefcase, Trees } from 'lucide-react';
+import { ArrowRight, Phone, MapPin, CheckCircle2, Building2, Package, Calculator, Truck, Ruler, Calendar, ClipboardCheck, HelpCircle, Home, Briefcase } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
 import { CONTACT } from '../constants';
@@ -11,49 +11,49 @@ const LocalMaisonsAlfort: React.FC = () => {
   
   const faqs = [
     { 
-      q: "Comment organiser un déménagement à Maisons-Alfort ?", 
-      a: "Un déménagement à Maisons-Alfort demande d’anticiper le volume, les accès, les étages, les éventuels ascenseurs, le stationnement et la préparation des cartons. Selon qu’il s’agit d’un appartement, d’une résidence, d’une maison ou d’un local professionnel, il est important d’évaluer les caves, garages, parkings, accès de chargement, meubles volumineux et objets fragiles. Marne Transdem vous accompagne pour définir une organisation adaptée à votre logement, à vos biens et au niveau d’accompagnement souhaité." 
+      q: "Comment préparer un déménagement à Maisons-Alfort avec de fortes contraintes d'étages ?", 
+      a: "Pour les appartements situés dans des immeubles sans ascenseur ou dotés de cages d'escalier étroites à Maisons-Alfort (comme dans le quartier historique d'Alfort ou de Charentonneau), l'organisation nécessite une étude technique préalable. Marne Transdem évalue la largeur des passages, le poids des meubles et la possibilité d'installer un monte-meuble extérieur. Nous planifions l'emballage renforcé, le démontage stratégique du mobilier encombrant et mobilisons une équipe de déménageurs professionnels expérimentés pour le portage de charges lourdes en toute sécurité." 
     },
     { 
-      q: "Marne Transdem intervient-elle à Maisons-Alfort et dans les villes proches ?", 
-      a: "Oui, Marne Transdem accompagne les projets de déménagement à Maisons-Alfort et dans les secteurs proches comme Charenton-le-Pont, Saint-Maurice, Alfortville, Créteil, Saint-Maur-des-Fossés, Joinville-le-Pont, Ivry-sur-Seine, Vitry-sur-Seine, Vincennes, Paris 12e, Paris 13e et plus largement en Île-de-France selon les besoins du projet." 
+      q: "Quelles sont les formalités de stationnement pour déménager à Maisons-Alfort ?", 
+      a: "Déménager à Maisons-Alfort impose d'obtenir une autorisation de stationnement temporaire auprès des services municipaux de la mairie de Maisons-Alfort. Cette démarche doit être effectuée au moins 15 jours avant la date du déménagement. Elle permet de réserver l'emplacement nécessaire pour le camion de déménagement et l'éventuel monte-meuble, évitant ainsi les obstructions de circulation sur les avenues fréquentées comme l'avenue du Général de Gaulle ou l'avenue Gambetta. Notre société de déménagement peut prendre en charge cette démarche administrative pour votre confort." 
     },
     { 
-      q: "Peut-on organiser un déménagement de Paris vers Maisons-Alfort ?", 
-      a: "Oui, Marne Transdem peut accompagner un déménagement depuis Paris ou l’Île-de-France vers Maisons-Alfort selon le volume, les adresses, les accès, les étages, le niveau d’emballage souhaité et les contraintes du projet. Une étude personnalisée permet d’adapter l’organisation et les moyens nécessaires." 
+      q: "Comment s'organise le transfert de bureaux ou de locaux professionnels à Maisons-Alfort ?", 
+      a: "Le transfert d'entreprise ou de bureaux à Maisons-Alfort exige une planification stricte pour minimiser l'impact sur votre activité. Nous réalisons un inventaire complet du parc informatique, des archives, du mobilier ergonomique et des documents sensibles. Nos équipes interviennent souvent en horaires décalés ou le week-end. Grâce à notre proximité avec les grands axes routiers comme l'autoroute A4 et le Val-de-Marne, nous assurons un transport ultra-sécurisé et un remontage rapide de vos espaces de travail." 
     },
     { 
-      q: "Marne Transdem peut-elle déménager des bureaux ou locaux professionnels à Maisons-Alfort ?", 
-      a: "Oui, Marne Transdem accompagne les transferts de bureaux, cabinets, agences, commerces et locaux professionnels à Maisons-Alfort. L’organisation tient compte du mobilier professionnel, des archives, du matériel informatique, des cartons professionnels, des étages, des ascenseurs, des accès et du besoin éventuel de stockage temporaire." 
+      q: "Quel est le tarif moyen d'un déménagement résidentiel à Maisons-Alfort ?", 
+      a: "Le coût d'un déménagement dépend de plusieurs critères précis : le volume total en mètres cubes (m³), la distance entre l'adresse de départ et d'arrivée, les conditions d'accès (nombre d'étages, présence ou non d'un ascenseur, distance de portage) et la formule d'accompagnement choisie (Économique, Standard ou Luxe). Marne Transdem propose des visites techniques gratuites, sur place ou à distance par visioconférence, pour vous délivrer un devis personnalisé, transparent et sans surcoût caché." 
     },
     { 
-      q: "Peut-on demander un monte-meuble à Maisons-Alfort ?", 
-      a: "Oui, un monte-meuble peut être envisagé lorsque certains meubles volumineux ne passent pas facilement par l’escalier ou l’ascenseur. Sa mise en place dépend de l’étage, de la configuration de la rue, de la façade, des accès et de la faisabilité technique." 
+      q: "Est-il nécessaire d'utiliser un monte-meuble pour un déménagement en résidence ?", 
+      a: "L'usage d'un monte-meuble est fortement recommandé lorsque les meubles volumineux ne passent pas par l'escalier ou l'ascenseur, ou si le règlement de copropriété de votre résidence à Maisons-Alfort interdit le portage de charges lourdes dans les parties communes. L'installation d'une échelle ou d'un monte-meuble dépend également de la configuration de la rue, de l'absence de câbles électriques aériens ou de arbres, et de l'autorisation de stationnement obtenue." 
     },
     { 
-      q: "Comment obtenir un devis pour un déménagement à Maisons-Alfort ?", 
-      a: "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L’estimation prend en compte le volume, les adresses, les accès, les étages, le stationnement, la formule souhaitée et les besoins spécifiques comme l’emballage, le garde-meuble ou le monte-meuble." 
+      q: "Proposez-vous une formule d'emballage complet pour les objets fragiles ?", 
+      a: "Oui, notre formule Luxe prend en charge l'emballage intégral de vos biens, y compris la vaisselle fine, les verres en cristal, les objets d'art, les miroirs et les tableaux. Pour les formules intermédiaires comme la Standard, nos déménageurs professionnels se chargent uniquement de la mise en caisse et de la protection du mobilier fragile, tandis que vous préparez les cartons d'effets non fragiles (livres, vêtements, linge de maison)." 
     }
   ];
 
   const nearbySectors = [
     { n: "Charenton-le-Pont", l: "/demenagement-charenton-le-pont" },
-    { n: "Saint-Maur-des-Fossés", l: "/demenagement-saint-maur" },
+    { n: "Saint-Maur-des-Fossés", l: "/demenagement-saint-maur-des-fosses" },
     { n: "Créteil", l: "/demenagement-creteil" },
     { n: "Vincennes", l: "/demenagement-vincennes" },
     { n: "Paris 12e", l: "/demenagement-paris-12" },
-    { n: "Saint-Maurice", l: null },
-    { n: "Alfortville", l: null },
-    { n: "Joinville-le-Pont", l: null },
-    { n: "Ivry-sur-Seine", l: null },
-    { n: "Vitry-sur-Seine", l: null }
+    { n: "Saint-Maurice", l: "/demenagement-saint-maurice" },
+    { n: "Alfortville", l: "/demenagement-alfortville" },
+    { n: "Joinville-le-Pont", l: "/demenagement-joinville-le-pont" },
+    { n: "Ivry-sur-Seine", l: "/demenagement-ivry-sur-seine" },
+    { n: "Vitry-sur-Seine", l: "/demenagement-vitry-sur-seine" }
   ];
 
   return (
     <div className="bg-white min-h-screen">
       <SEO 
-        title="Déménagement Maisons-Alfort | Marne Transdem"
-        description="Préparez votre déménagement à Maisons-Alfort avec Marne Transdem. Déménagements de résidences, appartements, maisons et bureaux avec attention aux accès, étages, monte-meuble et devis personnalisé."
+        title="Déménagement Maisons-Alfort | Résidences & Bureaux | Marne Transdem"
+        description="Besoin d'un déménagement à Maisons-Alfort ? Expert du Val-de-Marne 94, Marne Transdem assure le transfert de résidences et de bureaux. Spécialiste des accès complexes et des étages élevés."
         canonical={path}
         schema={[
           getFAQSchema(faqs),
@@ -65,7 +65,7 @@ const LocalMaisonsAlfort: React.FC = () => {
         ]}
       />
 
-      {/* 1. Hero Content */}
+      {/* 1. SECTION HERO */}
       <section className="relative pt-32 pb-24 lg:pt-48 lg:pb-36 bg-brand-900 overflow-hidden text-white font-sans">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 -skew-x-12 translate-x-1/2 pointer-events-none"></div>
         <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -76,16 +76,16 @@ const LocalMaisonsAlfort: React.FC = () => {
               className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full mb-8 border border-white/10"
             >
               <MapPin size={16} className="text-accent" />
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">Déménagement local</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">Déménageur de Confiance - Val-de-Marne (94)</span>
             </motion.div>
 
-            <h1 className="text-5xl md:text-8xl font-black mb-8 leading-[1.1] tracking-tight italic">
+            <h1 className="text-4xl md:text-7xl font-black mb-8 leading-[1.1] tracking-tight italic">
               Déménagement <br/>
               <span className="text-accent underline decoration-accent/20 underline-offset-8 italic uppercase text-white">Maisons-Alfort</span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-slate-300 mb-12 leading-relaxed font-light max-w-3xl italic">
-              Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Maisons-Alfort, avec une organisation adaptée aux résidences, appartements, maisons, bureaux, commerces, cabinets et locaux professionnels, en tenant compte des accès, des étages et des contraintes de stationnement.
+            <p className="text-lg md:text-xl text-slate-300 mb-12 leading-relaxed font-light max-w-3xl italic">
+              Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Maisons-Alfort. Nous apportons une attention méticuleuse et une expertise logistique éprouvée pour surmonter les défis des accès difficiles, des étages supérieurs sans ascenseur, et des configurations complexes de copropriétés.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-5">
@@ -102,160 +102,97 @@ const LocalMaisonsAlfort: React.FC = () => {
         </div>
       </section>
 
-      {/* 2. Introduction locale */}
+      {/* 2. MAJEUR CONTENU ÉCRIT - MINIMUM 1200 MOTS */}
+      {/* Introduction locale & Présentation de la Ville */}
       <section className="py-24 font-sans">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-8">
+              <span className="text-xs font-black uppercase tracking-widest text-accent">Expertise de Proximité</span>
               <h2 className="text-3xl md:text-5xl font-black text-brand-900 leading-tight tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8 transition-all">
-                Votre déménagement <span className="text-accent italic">à Maisons-Alfort</span>
+                L'art du déménagement <span className="text-accent italic">à Maisons-Alfort</span>
               </h2>
-              <div className="space-y-6 text-slate-500 text-lg font-light leading-relaxed italic text-justify">
+              <div className="space-y-6 text-slate-600 text-[16px] font-light leading-relaxed text-left">
                 <p>
-                  Ville résidentielle, familiale et dynamique du <span className="font-bold text-brand-900 italic tracking-tight uppercase">Val-de-Marne</span> et de l’est parisien, Maisons-Alfort bénéficie d’une situation privilégiée en <span className="font-bold text-slate-700">Île-de-France</span>. Proche de <span className="font-bold text-slate-700">Paris</span> (notamment les 12e et 13e arrondissements), de <span className="font-bold text-slate-700">Charenton-le-Pont</span>, <span className="font-bold text-slate-700">Saint-Maurice</span>, <span className="font-bold text-slate-700">Alfortville</span>, <span className="font-bold text-slate-700">Créteil</span>, <span className="font-bold text-slate-700">Saint-Maur-des-Fossés</span>, <span className="font-bold text-slate-700">Joinville-le-Pont</span>, <span className="font-bold text-slate-700">Ivry-sur-Seine</span>, <span className="font-bold text-slate-700">Vitry-sur-Seine</span> et <span className="font-bold text-slate-700">Vincennes</span>, elle offre des profils de logements variés.
+                  Bordée par les eaux de la Marne, la charmante commune de <strong>Maisons-Alfort</strong> (94700) incarne un cadre de vie de premier plan au sein de la banlieue immobilière de l'Est parisien. Idéalement limitrophe du bois de Vincennes et particulièrement proche de Paris, elle séduit par son urbanisme équilibré, son dynamisme économique, et l'excellence de ses liaisons de transports. De sa célèbre <em>École nationale vétérinaire d'Alfort (ENVA)</em> au mythique Musée Fragonard, la ville se distingue par son riche patrimoine historique.
                 </p>
                 <p>
-                  Que vous emménagiez dans un studio, un appartement en résidence, une maison familiale ou que vous transfériez vos bureaux, cabinets professionnels, agences ou commerces, Marne Transdem vous propose des solutions sur mesure. Nous maîtrisons les contraintes locales : accès d’immeubles, ascenseurs, étages, escaliers, ainsi que la logistique liée au stationnement et à l’estimation du volume pour une demande de devis précise.
+                  Mais déménager au sein d'une telle cité requiert une connaissance pointue de sa configuration. Des zones hautement résidentielles de <strong>Charentonneau</strong> aux quartiers d'habitat dense du <strong>Vert-de-Maisons</strong>, d'Alfort, du Centre-ville, ou des Planètes, chaque secteur offre des typologies de bâtis uniques. Que vous résidiez dans une majestueuse maison bourgeoise sur les bords de Marne ou dans une copropriété moderne d'immeubles collectifs, les exigences de manutention et de transport exigent un savoir-faire rigoureux et certifié.
                 </p>
-              </div>
-              <div className="pt-4">
-                <Link to="/demande-de-devis" className="inline-flex items-center gap-3 bg-brand-900 text-white px-8 py-4 rounded-full font-bold hover:bg-brand-800 transition-all italic">
-                  Demander mon devis personnalisé
-                  <ArrowRight size={20} />
-                </Link>
+                <p>
+                  C'est ici qu'interviennent les équipes de <strong>Marne Transdem</strong>, votre partenaire déménageur de référence dans tout le <Link to="/demenagement-val-de-marne" className="font-bold text-brand-900 hover:text-accent underline transition-colors">Val-de-Marne</Link>. Notre mission consiste à lever toutes les incertitudes liées à votre changement d'adresse pour assurer un déroulement fluide, serein, rigoureusement planifié et sécurisé de vos biens personnels.
+                </p>
               </div>
             </div>
             <div className="relative group">
-              <div className="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
+              <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenagement-maisons-alfort-94.jpg" 
-                  alt="Déménagement à Maisons-Alfort Marne Transdem" 
-                  className="w-full h-full object-cover grayscale-[10%]"
+                  src="/images/demenageur-maisons-alfort-val-de-marne.jpg" 
+                  alt="Déménagement à Maisons-Alfort - Marne Transdem" 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
                 />
               </div>
-              <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-accent/20 rounded-full blur-3xl -z-0"></div>
+              <div className="absolute -bottom-8 -right-8 w-44 h-44 bg-accent/20 rounded-full blur-3xl -z-0"></div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. Pourquoi une préparation rigoureuse ? */}
-      <section className="py-24 bg-slate-50 border-y border-slate-100 font-sans italic">
-        <div className="container mx-auto px-4 md:px-6 italic">
-          <div className="max-w-4xl mx-auto text-center mb-16 italic">
-             <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-6 uppercase tracking-tight italic">Pourquoi une <span className="text-accent underline decoration-accent/20 italic tracking-tight">préparation rigoureuse</span> ?</h2>
-             <p className="text-slate-500 text-lg font-light italic">
-                Maisons-Alfort présente des contraintes logistiques variées qui demandent une étude attentive.
-             </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 italic">
-             {[
-               { icon: Building2, t: "Résidences & Appartements", d: "Gestion des étages, ascenseurs parfois limités, escaliers étroits et protection des halls et parties communes." },
-               { icon: Home, t: "Maisons & Pavillons", d: "Analyse des accès garage, cave, jardin, portail, allée ou cour pour un chargement efficace." },
-               { icon: Truck, t: "Stationnement & Rue", d: "Anticipation du stationnement dans les rues résidentielles ou fréquentées pour assurer la manutention." },
-               { icon: Package, t: "Protection & Fragiles", d: "Emballage expert de la vaisselle, livres, tableaux, mobilier familial et objets de valeur." },
-               { icon: Briefcase, t: "Bureaux & Commerces", d: "Organisation méticuleuse pour les transferts professionnels : mobilier, archives et matériel informatique." },
-               { icon: Ruler, t: "Monte-Meuble", d: "Solution à envisager pour les meubles volumineux selon la configuration de la rue et l'étage." }
-             ].map((item, i) => (
-                <div key={i} className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-slate-100 hover:border-accent transition-all group italic">
-                  <item.icon className="text-accent mb-6 group-hover:scale-110 transition-transform grayscale-[10%]" size={40} />
-                  <h3 className="text-xl font-bold text-brand-900 mb-4 tracking-tight uppercase italic">{item.t}</h3>
-                  <p className="text-slate-500 text-sm font-light leading-relaxed italic">{item.d}</p>
-                </div>
-             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Nos Services à Maisons-Alfort */}
-      <section className="py-24 font-sans italic">
-        <div className="container mx-auto px-4 md:px-6 italic">
-          <div className="text-center mb-20 italic">
-            <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-6 uppercase tracking-tight italic underline decoration-accent/20 underline-offset-8">Nos Services de <span className="text-accent italic tracking-tight">Déménagement</span></h2>
-            <p className="text-slate-500 text-lg font-light italic max-w-2xl mx-auto italic">
-              Des solutions complètes pour tous vos besoins de mobilité à Maisons-Alfort.
+      {/* 3. LE GRAND DEFI DES ACCES ET DES ETAGES (Focus principal) */}
+      <section className="py-24 bg-slate-50 border-y border-slate-100 font-sans">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-4xl mx-auto text-center mb-20">
+            <span className="text-xs font-black uppercase tracking-widest text-accent">La Logistique de Précision</span>
+            <h2 className="text-3xl md:text-5xl font-black text-brand-900 mt-2 mb-6 uppercase tracking-tight">Le défi majeur des <span className="text-accent underline decoration-accent/20">accès complexes et des étages</span> à Maisons-Alfort</h2>
+            <p className="text-slate-500 text-lg font-light leading-relaxed">
+              Manœuvrer le mobilier familial, les cartons fragiles et l'équipement informatique de bureau dans un environnement urbain exige des dispositifs spécifiques de manutention.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 italic">
-             {[
-               { t: "Particuliers", d: "Appartements, studios, résidences, maisons et logements familiaux.", l: "/demenagement-particuliers-paris" },
-               { t: "Entreprises", d: "Bureaux, commerces, cabinets, agences et locaux professionnels.", l: "/demenagement-entreprises-paris" },
-               { t: "Garde-Meuble", d: "Solution utile pendant une transition, des travaux ou un décalage.", l: "/garde-meuble-paris" },
-               { t: "Monte-Meuble", d: "Solution selon les étages, accès et faisabilité technique.", l: "/location-monte-meuble-paris" },
-               { t: "Emballage", d: "Protection des meubles, objets fragiles et effets personnels.", l: "/emballage-protection-demenagement" },
-               { t: "Cartons", d: "Préparation du déménagement avec du matériel adapté.", l: "/cartons-demenagement-paris" },
-               { t: "Formules", d: "Économique, Standard ou Luxe selon votre budget.", l: "/formules-demenagement" },
-               { t: "Calculateur", d: "Estimation indicative du volume avant votre devis.", l: "/calculateur-volume" }
-             ].map((service, i) => (
-               <Link key={i} to={service.l} className="bg-white p-8 rounded-[2rem] border border-slate-100 hover:border-accent hover:shadow-xl transition-all group flex flex-col justify-between italic">
-                 <div>
-                   <h3 className="text-lg font-bold text-brand-900 mb-3 uppercase italic tracking-tight group-hover:text-accent transition-colors italic">{service.t}</h3>
-                   <p className="text-slate-500 text-xs font-light leading-relaxed italic">{service.d}</p>
-                 </div>
-                 <div className="mt-6 flex items-center gap-2 text-accent font-black uppercase text-[10px] tracking-widest italic font-sans italic">
-                   Voir le service <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform italic" />
-                 </div>
-               </Link>
-             ))}
-          </div>
-        </div>
-      </section>
 
-      {/* 5. Déménagement Particuliers */}
-      <section className="py-24 bg-brand-900 text-white font-sans italic overflow-hidden relative">
-        <div className="container mx-auto px-4 md:px-6 relative z-10 italic">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center italic">
-            <div className="space-y-8 italic">
-              <h2 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">Déménagement <br/><span className="text-accent italic">de Particuliers</span></h2>
-              <div className="space-y-6 text-slate-300 text-lg font-light leading-relaxed italic">
-                <p>
-                  Marne Transdem accompagne les particuliers dans leurs changements de résidence à Maisons-Alfort. Nous organisons les déménagements d'appartements, studios, résidences et maisons familiales, que ce soit pour une installation locale, de Maisons-Alfort vers Paris, ou vers une autre ville d’Île-de-France.
-                </p>
-                <p>
-                  Nous prenons en charge le tri, la préparation des cartons, la protection experte de vos meubles et effets personnels (vaisselle, livres, tableaux, miroirs). Notre équipe évalue les accès, les étages, les ascenseurs et les caves pour adapter la formule choisie à votre projet de mobilité.
-                </p>
-                <div className="pt-6">
-                   <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover transition-all inline-flex items-center gap-3 italic">
-                     Demander mon devis particulier
-                     <ArrowRight size={22} />
-                   </Link>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <div className="space-y-8">
+              <h3 className="text-2xl font-bold text-brand-900 uppercase italic">Les spécificités architecturales de la ville</h3>
+              <p className="text-slate-600 font-light leading-relaxed text-justify">
+                Le tissu urbain de Maisons-Alfort est caractérisé par une grande mixité. D'un côté, le quartier pavillonnaire de <strong>Charentonneau</strong> rassemble de belles maisons disposant parfois d'entrées étroites, d'allées de garage sinueuses ou de sous-sols difficiles d'accès. De l'autre, les grands ensembles résidentiels et les immeubles modernes s'élèvent sur plusieurs étages, équipés ou non d'ascenseurs dont les limites de charge utile interdisent le transport des plus grands meubles.
+              </p>
+              <p className="text-slate-600 font-light leading-relaxed text-justify">
+                Les cages d'escalier collectives ou individuelles de style ancien, fréquentes dans les quartiers historiques autour de la mairie, s'avèrent souvent trop étroites pour les canapés d'angle, les armoires en chêne, les pianos ou l'électroménager lourd. Forcer le passage expose au risque d'endommager gravement les parois de l'escalier, de briser ou déformer le mobilier, ou de blesser le personnel.
+              </p>
+
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="bg-accent/10 p-3 rounded-xl shrink-0">
+                    <CheckCircle2 className="text-accent" size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-brand-900 uppercase text-xs tracking-wider">Plan d'accès personnalisé</h4>
+                    <p className="text-sm text-slate-500 font-light mt-1">Repérage de la porte d'entrée, de l'embrasure de garage et de la configuration de voirie.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="bg-accent/10 p-3 rounded-xl shrink-0">
+                    <CheckCircle2 className="text-accent" size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-brand-900 uppercase text-xs tracking-wider">Optimisation d'équipe</h4>
+                    <p className="text-sm text-slate-500 font-light mt-1">Équipe dimensionnée pour le portage manuel intensif avec sangles professionnelles de levage.</p>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="rounded-[3.5rem] overflow-hidden grayscale-[5%] shadow-2xl skew-y-1 italic">
-               <img src="/images/demenagement-particulier-maisons-alfort.jpg" alt="Déménagement particuliers Maisons-Alfort" className="w-full h-full object-cover" />
-            </div>
-          </div>
-        </div>
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_30%,rgba(242,125,38,0.05),transparent_50%)] pointer-events-none italic"></div>
-      </section>
 
-      {/* 6. Déménagement Résidencies */}
-      <section className="py-24 font-sans italic">
-        <div className="container mx-auto px-4 md:px-6 italic">
-          <div className="max-w-4xl mx-auto italic">
-            <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-8 uppercase italic tracking-tight underline decoration-accent/20 underline-offset-8 text-center italic">Une organisation adaptée <span className="text-accent italic tracking-tight italic">aux résidences & étages</span></h2>
-            <div className="bg-slate-50 p-12 rounded-[3.5rem] border border-slate-100 space-y-8 italic shadow-sm italic">
-              <p className="text-slate-500 text-lg font-light leading-relaxed italic text-center italic">
-                Les déménagements en immeuble collectif ou résidence à Maisons-Alfort nécessitent une coordination précise de l'équipe et une attention particulière aux parties communes.
+            <div className="bg-white p-12 rounded-[2.5rem] shadow-sm border border-slate-100 space-y-8">
+              <h3 className="text-2xl font-bold text-brand-900 uppercase italic">La Solution: Le Monte-Meuble de Levage</h3>
+              <p className="text-slate-600 font-light leading-relaxed text-justify">
+                Pour pallier ces difficultés, <strong>Marne Transdem</strong> intègre de manière agile des solutions techniques innovantes, notamment la location de monte-meuble et monte-charge de déménagement. Installées en façade depuis la chaussée ou une zone de cour privée, nos plateformes élévatrices permettent de descendre ou de monter les affaires les plus volumineuses directement par les fenêtres ou les balcons, jusqu'au 8ème étage et plus.
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 italic">
-                {[
-                  "Protection des murs et sols des parties communes.",
-                  "Gestion optimisée des ascenseurs et escaliers.",
-                  "Anticipation du stationnement et des accès cave/parking.",
-                  "Installation méthodique dans votre nouveau logement."
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-4 italic font-sans">
-                    <CheckCircle2 size={24} className="text-accent mt-1 shrink-0 italic" />
-                    <span className="text-slate-600 font-medium italic">{item}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="text-center pt-8">
-                <Link to="/demande-de-devis" className="inline-flex items-center gap-3 bg-brand-900 text-white px-8 py-4 rounded-full font-bold hover:bg-brand-800 transition-all italic">
-                  Préparer mon déménagement en résidence
-                  <ArrowRight size={20} />
+              <p className="text-slate-600 font-light leading-relaxed text-justify">
+                Cette méthode offre un triple avantage : elle élimine la fatigue et la manutention dangereuse dans les escaliers étroits, elle garantit l'intégrité absolue du mobilier lourd, et elle accélère de manière spectaculaire le temps de chargement au camion. C'est également un gage de respect pour les parties communes de votre copropriété, évitant les nuisances sonores, les éraflures sur les peintures et les dégâts potentiels aux ascenseurs partagés.
+              </p>
+              <div className="pt-4">
+                <Link to="/location-monte-meuble-paris" className="inline-flex items-center gap-2 text-accent font-black uppercase text-xs tracking-widest hover:text-brand-900 transition-colors">
+                  Découvrir notre service Monte-Meuble <ArrowRight size={16} />
                 </Link>
               </div>
             </div>
@@ -263,130 +200,221 @@ const LocalMaisonsAlfort: React.FC = () => {
         </div>
       </section>
 
-      {/* 7. Déménagement d'Entreprise */}
-      <section className="py-24 bg-slate-50 border-y border-slate-100 font-sans italic underline-none italic">
-        <div className="container mx-auto px-4 md:px-6 italic">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center italic transition-all italic">
-            <div className="rounded-[3rem] shadow-2xl overflow-hidden grayscale-[10%] italic">
-               <img src="/images/transfert-bureau-maisons-alfort.jpg" alt="Déménagement d'entreprises Maisons-Alfort" className="w-full h-full object-cover" />
+      {/* 4. DÉMÉNAGEMENT RÉSIDENTIEL À MAISONS-ALFORT */}
+      <section className="py-24 font-sans">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div className="relative group order-last lg:order-first">
+              <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
+                <img 
+                  src="/images/demenageurs-professionnels-maisons-alfort.jpg" 
+                  alt="Déménageurs professionnels à Maisons-Alfort" 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <div className="absolute -bottom-8 -left-8 w-44 h-44 bg-accent/20 rounded-full blur-3xl -z-0"></div>
             </div>
-            <div className="space-y-8 italic">
-              <h2 className="text-3xl md:text-5xl font-black text-brand-900 tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">Transfert <span className="text-accent italic uppercase italic tracking-tight italic">Professionnel</span></h2>
-              <p className="text-slate-500 text-lg font-light leading-relaxed italic italic">
-                Marne Transdem accompagne les professionnels de Maisons-Alfort dans leurs transferts de bureaux, cabinets, agences et commerces. Nous gérons le mobilier professionnel, l'archivage, le matériel informatique et la planification logistique pour assurer la continuité de votre activité vers le Val-de-Marne ou l'est parisien.
-              </p>
-              <div className="flex flex-wrap gap-4 pt-4 italic">
-                <Link to="/demenagement-entreprises-paris" className="bg-brand-900 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all italic">Organiser un transfert pro</Link>
-                <Link to="/garde-meuble-paris" className="bg-white text-brand-900 border border-slate-200 px-8 py-4 rounded-full font-bold hover:bg-slate-50 transition-all italic">Stockage temporaire</Link>
+
+            <div className="space-y-8">
+              <span className="text-xs font-black uppercase tracking-widest text-accent">Services Résidentiels</span>
+              <h2 className="text-3xl md:text-5xl font-black text-brand-900 leading-tight tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">
+                Le déménagement de votre <span className="text-accent italic">logement ou appartement</span>
+              </h2>
+              <div className="space-y-6 text-slate-600 text-[16px] font-light leading-relaxed text-justify">
+                <p>
+                  Changer de logement est une affaire d'organisation rigoureuse. Qu'il s'agisse du déménagement complet d'une maison de famille près de la Marne ou du transfert d'un studio d'étudiant situé à proximité de l'École Vétérinaire, <strong>Marne Transdem</strong> adapte chaque étape mécanique et humaine aux particularités de votre vie. Notre engagement repose sur une prise en charge professionnelle et sereine.
+                </p>
+                <p>
+                  Notre personnel qualifié se charge de la fourniture en quantité requise de matériel professionnel d'emballage : cartons spéciaux pour livres, cartons penderie pour vos vêtements sur cintres, housses de protection capitonnées pour canapés et ensembles literie, couvertures de protection pour le mobilier en bois précieux, et caisses alvéolées destinées à l'emballage sécurisé de la verrerie fragile et des assiettes.
+                </p>
+                <p>
+                  Nous nous adaptons avec précision à votre budget à travers trois formules modulables : l'<strong>Économique</strong>, idéale si vous souhaitez vous-même mettre en cartons pour que nous gérions uniquement le portage et le transport sécurisé ; la formule <strong>Standard</strong>, notre option la plus populaire combinant la mise en carton par vos soins du linge et des livres, avec notre gestion intégrale du mobilier fragile et de la vaisselle ; et enfin la formule <strong>Luxe</strong>, un service clé en main où nous prenons en charge la totalité de l'emballage et du déballage à votre nouvelle adresse.
+                </p>
+              </div>
+              <div className="pt-4 flex flex-wrap gap-4">
+                <Link to="/demenagement-particuliers-paris" className="bg-brand-900 text-white px-8 py-4 rounded-full font-bold hover:bg-brand-800 transition-all italic text-sm">
+                  Détails Particuliers
+                </Link>
+                <Link to="/formules-demenagement" className="border border-slate-200 text-brand-900 px-8 py-4 rounded-full font-bold hover:bg-slate-50 transition-all italic text-sm">
+                  Comparer nos formules
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 8. Arrivée de Paris vers Maisons-Alfort */}
-      <section className="py-24 font-sans italic transition-all italic underline-none italic">
-        <div className="container mx-auto px-4 md:px-6 text-center italic font-sans italic">
-          <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-8 uppercase italic tracking-tight underline decoration-accent/20 underline-offset-8 font-sans italic italic">Paris & IDF vers <span className="text-accent italic tracking-tight font-sans italic italic">Maisons-Alfort</span></h2>
-          <p className="text-slate-500 text-lg font-light leading-relaxed max-w-3xl mx-auto mb-12 italic italic text-center italic">
-             Marne Transdem organise vos projets au départ de <Link to="/demenagement-paris" className="text-brand-900 font-bold hover:text-accent transition-colors italic underline decoration-accent/20 underline-offset-4">Paris</Link> (12e, 13e, etc.), de la <Link to="/demenagement-seine-saint-denis" className="text-brand-900 font-bold hover:text-accent transition-colors italic underline decoration-accent/20 underline-offset-4">Seine-Saint-Denis</Link>, des <Link to="/demenagement-hauts-de-seine" className="text-brand-900 font-bold hover:text-accent transition-colors italic underline decoration-accent/20 underline-offset-4">Hauts-de-Seine</Link> ou du <Link to="/demenagement-val-de-marne" className="text-brand-900 font-bold hover:text-accent transition-colors italic underline decoration-accent/20 underline-offset-4">Val-de-Marne</Link> vers Maisons-Alfort.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 italic font-sans italic underline-none italic">
-             {[
-               { n: "Paris 12e", l: "/demenagement-paris-12" },
-               { n: "Paris 13e", l: "/demenagement-paris-13" },
-               { n: "Hauts-de-Seine", l: "/demenagement-hauts-de-seine" },
-               { n: "Seine-Saint-Denis", l: "/demenagement-seine-saint-denis" },
-               { n: "Essonne", l: "/demenagement-essonne" }
-             ].map((loc, i) => (
-               <Link key={i} to={loc.l} className="bg-white px-6 py-3 rounded-full shadow-sm border border-slate-200 text-sm font-bold text-brand-900 hover:text-accent hover:border-accent transition-all italic uppercase tracking-widest italic">{loc.n}</Link>
-             ))}
+      {/* 5. TRANSFERTS DE BUREAUX ET ENTREPRISES À MAISONS-ALFORT */}
+      <section className="py-24 bg-slate-50 border-y border-slate-100 font-sans">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div className="space-y-8">
+              <span className="text-xs font-black uppercase tracking-widest text-accent font-semibold">Solution B2B Corporate</span>
+              <h2 className="text-3xl md:text-5xl font-black text-brand-900 leading-tight tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">
+                Transfert de bureaux et <span className="text-accent italic">déménagement professionnel</span>
+              </h2>
+              <div className="space-y-6 text-slate-600 text-[16px] font-light leading-relaxed text-justify">
+                <p>
+                  Les exigences logistiques d'un déménagement d'entreprise à Maisons-Alfort diffèrent fondamentalement de celles d'un projet de nature résidentielle. Afin de préserver la productivité et la continuité opérationnelle de votre établissement, il est crucial d'étudier la planification des tâches avec minutie, de gérer les archives avec ordre, d'assurer une manipulation impeccable du matériel informatique de pointe et de veiller à une réimplantation efficace des espaces.
+                </p>
+                <p>
+                  Qu'il s'agisse du déménagement de bureaux administratifs d'une PME implantée sur l'avenue Gambetta, d'un cabinet professionnel médical, juridique ou comptable, ou d'une agence commerciale, <strong>Marne Transdem</strong> déploie un chef de projet dédié pour coordonner l'intégralité du processus. Nous concevons un plan concret d'étiquetage des bureaux, des ordinateurs et des cartons d'archives, permettant ainsi une réimplantation rapide et sans faille des équipes dans leurs nouveaux locaux professionnels.
+                </p>
+                <p>
+                  Notre savoir-faire couvre également l'emballage rigide de vos parcs de serveurs et machines informatiques sensibles à l'aide de bacs en plastique scellables, le démontage méticuleux des postes de travail ergonomiques, et le portage de coffres-forts ou d'équipements lourds. Grâce à notre flexibilité opérationnelle, nous mettons en place des transferts par phases, de nuit ou durant le week-end, minimisant à l'extrême l'arrêt d'exploitation de votre structure.
+                </p>
+              </div>
+              <div className="pt-4 flex flex-wrap gap-4">
+                <Link to="/demenagement-entreprises-paris" className="bg-brand-900 text-white px-8 py-4 rounded-full font-bold hover:bg-brand-hover hover:scale-105 transition-all outline-none italic text-sm">
+                  Planifier un transfert pro
+                </Link>
+                <Link to="/garde-meuble-paris" className="bg-white text-brand-900 border border-slate-300 px-8 py-4 rounded-full font-bold hover:bg-slate-50 transition-all italic text-sm">
+                  Garde-meuble disponible
+                </Link>
+              </div>
+            </div>
+
+            <div className="relative group">
+              <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
+                <img 
+                  src="/images/transfert-de-bureaux-entreprise-maisons-alfort.jpg" 
+                  alt="Transfert de bureaux et structures professionnelles à Maisons-Alfort" 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <div className="absolute -bottom-8 -right-8 w-44 h-44 bg-accent/20 rounded-full blur-3xl -z-0"></div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 9. Formules */}
-      <section className="py-24 bg-brand-900 text-white font-sans italic">
-        <div className="container mx-auto px-4 md:px-6 italic">
-          <div className="text-center mb-16 italic font-sans italic underline decoration-accent/20 underline-offset-8">
-            <h2 className="text-3xl md:text-5xl font-black uppercase italic tracking-tight italic italic underline-none italic">Formules <span className="text-accent italic tracking-tight italic italic underline-none italic">sur Mesure</span></h2>
+      {/* 6. POURQUOI CHOISIR MARNE TRANSDEM ? */}
+      <section className="py-24 font-sans">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <span className="text-xs font-black uppercase tracking-widest text-accent">La Rigueur Marne Transdem</span>
+            <h2 className="text-3xl md:text-5xl font-black text-brand-900 mt-2 mb-6 uppercase tracking-tight">Pourquoi nous confier votre <span className="text-accent underline decoration-accent/20">reconstitution de foyer</span> ?</h2>
+            <p className="text-slate-500 text-lg font-light leading-relaxed">
+              Marne Transdem garantit un engagement contractuel rigoureux basé sur l'efficacité, la sécurité et la clarté financière.
+            </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 italic">
-             {[
-               { t: "Économique", d: "Vous préparez vos cartons, Marne Transdem gère la manutention et le transport." },
-               { t: "Standard", d: "Formule équilibrée déléguant les mobiliers délicats et les objets fragiles." },
-               { t: "Luxe", d: "Déléguez une grande partie de la préparation et de l'emballage pour plus de confort." }
-             ].map((formule, i) => (
-               <div key={i} className="bg-white/5 p-10 rounded-[2.5rem] border border-white/10 hover:border-accent transition-all group italic">
-                 <h3 className="text-2xl font-bold text-white mb-6 uppercase italic tracking-tight italic group-hover:text-accent transition-colors italic">{formule.t}</h3>
-                 <p className="text-slate-400 text-sm font-light leading-relaxed italic">{formule.d}</p>
-                 <div className="mt-8">
-                    <Link to="/formules-demenagement" className="text-accent text-[10px] font-black uppercase tracking-widest italic flex items-center gap-2 italic">Détails de la formule <ArrowRight size={14} /></Link>
-                 </div>
-               </div>
-             ))}
-          </div>
-          <div className="text-center mt-16 italic font-sans italic underline-none italic transition-all italic">
-             <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-12 py-5 rounded-full font-bold text-lg hover:bg-accent-hover transition-all italic shadow-2xl italic">Comparer les formules</Link>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-10 rounded-[2rem] border border-slate-100 hover:border-accent hover:shadow-xl transition-all group">
+              <div className="bg-accent/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 text-accent group-hover:scale-110 transition-transform">
+                <Truck size={32} />
+              </div>
+              <h3 className="text-xl font-bold text-brand-900 mb-4 tracking-tight uppercase italic">Flotte moderne labellisée</h3>
+              <p className="text-slate-500 text-sm font-light leading-relaxed">
+                Nos camions de déménagement capitonnés de différents litrages s'adaptent avec polyvalence à tous les volumes de chargement et circulent facilement à Maisons-Alfort.
+              </p>
+            </div>
+
+            <div className="bg-white p-10 rounded-[2rem] border border-slate-100 hover:border-accent hover:shadow-xl transition-all group">
+              <div className="bg-accent/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 text-accent group-hover:scale-110 transition-transform">
+                <Package size={32} />
+              </div>
+              <h3 className="text-xl font-bold text-brand-900 mb-4 tracking-tight uppercase italic">Fournitures d'emballage pro</h3>
+              <p className="text-slate-500 text-sm font-light leading-relaxed">
+                Nous fournissons tout le matériel requis : cartons, scotchs silencieux, papier d'emballage bull-pack d'amortissement, penderies à vêtements et housses protectrices imperméables.
+              </p>
+            </div>
+
+            <div className="bg-white p-10 rounded-[2rem] border border-slate-100 hover:border-accent hover:shadow-xl transition-all group">
+              <div className="bg-accent/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 text-accent group-hover:scale-110 transition-transform">
+                <ClipboardCheck size={32} />
+              </div>
+              <h3 className="text-xl font-bold text-brand-900 mb-4 tracking-tight uppercase italic">Couverture d'assurance totale</h3>
+              <p className="text-slate-500 text-sm font-light leading-relaxed">
+                Chaque contrat de déménagement inclut une assurance transport détaillée de vos biens personnels contre l'avarie ou l'imprévu, basée sur une déclaration préalable de valeur.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 10. Volume & Monte-Meuble */}
-      <section className="py-24 font-sans italic">
-        <div className="container mx-auto px-4 md:px-6 italic font-sans transition-all italic">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 italic font-sans italic underline-none italic">
-             <div className="lg:col-span-2 space-y-12 italic transition-all italic">
-               <h2 className="text-3xl md:text-5xl font-black text-brand-900 uppercase italic tracking-tight underline decoration-accent/20 underline-offset-8 transition-all italic transition-all italic">Volume, Accès <span className="text-accent italic tracking-tight font-sans italic transition-all italic">et Monte-Meuble</span></h2>
-               <div className="space-y-6 text-slate-500 text-lg font-light leading-relaxed italic transition-all italic text-justify">
-                 <p>
-                   L'organisation d'un déménagement à Maisons-Alfort demande une étude attentive du volume et des accès réels (hall, parking, ascenseur, couloirs). Si des meubles volumineux ne passent pas par les escaliers étroits d'une résidence, l'utilisation d'un <Link to="/location-monte-meuble-paris" className="text-accent font-bold italic underline">monte-meuble</Link> peut être envisagée selon la faisabilité technique sur place.
-                 </p>
-                 <p>
-                   Nous vous conseillons d'estimer votre volume indicatif via notre calculateur pour affiner votre demande de devis et prévoir les moyens nécessaires le jour J.
-                 </p>
-               </div>
-               <div className="flex flex-col sm:flex-row gap-6 pt-4 italic">
-                  <Link to="/calculateur-volume" className="inline-flex items-center gap-5 bg-brand-900 text-white px-10 py-5 rounded-full font-bold text-lg group hover:shadow-2xl transition-all italic shadow-xl">
-                    <Calculator size={24} className="text-accent group-hover:scale-110 transition-transform italic" />
-                    Calculateur de volume
-                  </Link>
-                  <Link to="/location-monte-meuble-paris" className="inline-flex items-center gap-3 text-brand-900 font-black uppercase text-xs tracking-widest border-b-2 border-accent pb-2 hover:text-accent transition-all italic">Location de monte-meuble</Link>
-               </div>
-             </div>
-             <div className="bg-slate-50 p-12 rounded-[3.5rem] border border-slate-100 italic shadow-sm flex flex-col justify-center italic">
-                <h4 className="text-xl font-bold text-brand-900 mb-8 uppercase italic tracking-tight border-b-2 border-accent pb-4 italic">Notre Méthode</h4>
-                {[
-                  "Analyse de votre projet personnalisé",
-                  "Évaluation du volume, accès et étages",
-                  "Choix de la formule et organisation",
-                  "Réalisation du déménagement sécurisée"
-                ].map((step, i) => (
-                  <div key={i} className="flex items-start gap-4 mb-6 italic">
-                    <span className="text-accent font-black italic">{i+1}.</span>
-                    <span className="text-sm font-medium text-slate-600 italic">{step}</span>
+      {/* 7. PREPARATION ERGONOMIQUE DU VOLUME */}
+      <section className="py-24 bg-brand-900 text-white font-sans overflow-hidden relative">
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div className="space-y-8">
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-accent">Estimation Cube & Volume</span>
+              <h2 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic">Estimez votre volume de <br/><span className="text-accent italic font-sans italic">meubles et meubles lourds</span></h2>
+              <div className="space-y-6 text-slate-300 text-lg font-light leading-relaxed text-left">
+                <p>
+                  Le volume exact en m³ (mètres cubes) est le point pivot de tout devis de déménagement de précision. Évaluer de façon intuitive ou approximative vos cartons et votre immobilier expose au risque de surcoût ou de manque de place au camion le jour J.
+                </p>
+                <p>
+                  Pour vous accompagner dans cette estimation indispensable, Marne Transdem met à votre entière disposition un outil calculateur de volume en ligne d'une haute précision technique. Répertoriez pièces par pièces l'agencement de vos buffets, lits, commodes, cartons indicatifs et canapés afin de préparer instantanément votre devis personnalisé.
+                </p>
+              </div>
+              <div className="pt-6">
+                <Link to="/calculateur-volume" className="inline-flex items-center gap-4 bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover transition-all shadow-xl">
+                  <Calculator size={24} />
+                  Utiliser le calculateur de volume
+                </Link>
+              </div>
+            </div>
+
+            <div className="bg-white/5 p-12 rounded-[3rem] border border-white/10 space-y-8">
+              <h3 className="text-2xl font-bold text-white uppercase italic tracking-tight">Chronologie d'un déménagement serein</h3>
+              <div className="space-y-6">
+                <div className="flex gap-4">
+                  <span className="bg-accent text-brand-900 font-bold w-10 h-10 rounded-full flex items-center justify-center shrink-0">1</span>
+                  <div>
+                    <h4 className="font-bold text-white text-sm uppercase tracking-wide">J-90 : Planification admin</h4>
+                    <p className="text-xs text-slate-400 font-light mt-1">Préavis de bail, pré-visite technique, choix de la formule idéale.</p>
                   </div>
-                ))}
-             </div>
+                </div>
+                <div className="flex gap-4">
+                  <span className="bg-accent text-brand-900 font-bold w-10 h-10 rounded-full flex items-center justify-center shrink-0">2</span>
+                  <div>
+                    <h4 className="font-bold text-white text-sm uppercase tracking-wide">J-30 : Livraison de vos cartons</h4>
+                    <p className="text-xs text-slate-400 font-light mt-1">Emballage méthodique des effets non fragiles par vos soins.</p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <span className="bg-accent text-brand-900 font-bold w-10 h-10 rounded-full flex items-center justify-center shrink-0">3</span>
+                  <div>
+                    <h4 className="font-bold text-white text-sm uppercase tracking-wide">J-15 : Autorisation municipale</h4>
+                    <p className="text-xs text-slate-400 font-light mt-1">Pose des barrières de stationnement au départ et à l'arrivée (Mairie).</p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <span className="bg-accent text-brand-900 font-bold w-10 h-10 rounded-full flex items-center justify-center shrink-0">4</span>
+                  <div>
+                    <h4 className="font-bold text-white text-sm uppercase tracking-wide">Le Jour J : Prise en charge sécurisée</h4>
+                    <p className="text-xs text-slate-400 font-light mt-1">Soin de manutention, démontage, arrimage camion et livraison sécurisée.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_30%,rgba(242,125,38,0.05),transparent_50%)] pointer-events-none"></div>
       </section>
 
-      {/* 11. Secteurs Proches linking section */}
-      <section className="py-24 bg-slate-50 border-y border-slate-100 font-sans italic">
-        <div className="container mx-auto px-4 md:px-6 italic">
-          <div className="text-center mb-16 italic font-sans italic underline decoration-accent/20 underline-offset-8">
-            <h2 className="text-2xl md:text-4xl font-black text-brand-900 uppercase italic tracking-tight italic underline-none italic">Autres Secteurs <span className="text-accent italic tracking-tight font-sans italic italic underline-none italic">Proches</span></h2>
+      {/* 8. BREADCRUMBS MAILLAGE SECTEURS PROCHES */}
+      <section className="py-24 bg-slate-50 border-y border-slate-100 font-sans">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="text-center mb-16">
+            <span className="text-xs font-black uppercase tracking-widest text-accent">Le Réseau du Val-de-Marne</span>
+            <h2 className="text-2xl md:text-4xl font-black text-brand-900 mt-2 mb-4 uppercase tracking-tight">Secteurs géographiques d'intervention <span className="text-accent italic font-sans italic">autour de Maisons-Alfort</span></h2>
+            <p className="text-slate-500 text-sm font-light max-w-2xl mx-auto">
+              Nous couvrons l'ensemble des départements de la petite couronne et de la région IDF, avec des équipes de déménageurs de proximité disponibles de suite.
+            </p>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 max-w-6xl mx-auto italic font-sans transition-all italic">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 max-w-6xl mx-auto">
             {nearbySectors.map((s, i) => (
               s.l ? (
-                <Link key={i} to={s.l} className="bg-white p-6 rounded-2xl border border-slate-100 group hover:border-accent hover:shadow-lg transition-all text-center italic shadow-sm">
-                   <span className="font-bold text-brand-900 group-hover:text-accent transition-colors italic uppercase text-[10px] tracking-widest italic">{s.n}</span>
+                <Link key={i} to={s.l} className="bg-white p-6 rounded-2xl border border-slate-100 group hover:border-accent hover:shadow-lg transition-all text-center shadow-sm">
+                  <span className="font-bold text-brand-900 group-hover:text-accent transition-colors text-xs uppercase tracking-wider">{s.n}</span>
                 </Link>
               ) : (
-                <div key={i} className="bg-white/50 p-6 rounded-2xl border border-dashed border-slate-200 text-center opacity-60 italic">
-                   <span className="font-bold text-slate-400 italic uppercase text-[10px] tracking-widest italic italic">{s.n}</span>
+                <div key={i} className="bg-white/50 p-6 rounded-2xl border border-dashed border-slate-200 text-center opacity-60">
+                  <span className="font-bold text-slate-400 text-xs uppercase tracking-wider">{s.n}</span>
                 </div>
               )
             ))}
@@ -394,69 +422,75 @@ const LocalMaisonsAlfort: React.FC = () => {
         </div>
       </section>
 
-      {/* 12. CTA Intermédiaire */}
-      <section className="py-24 bg-accent relative overflow-hidden font-sans italic">
-        <div className="container mx-auto px-4 md:px-6 text-center relative z-10 italic transition-all italic">
-           <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-8 font-display uppercase tracking-tight italic italic leading-tight italic transition-all italic underline-none italic shadow-none italic translate-y-0 italic grayscale-0 transition-opacity italic">Vous préparez un déménagement <br/>à Maisons-Alfort ?</h2>
-           <p className="text-brand-900/70 text-lg mb-12 max-w-2xl mx-auto italic font-light italic leading-relaxed italic transition-all italic grayscale-0 italic text-brand-900 italic">
-             Décrivez votre projet et recevez une estimation adaptée à votre volume, vos accès, vos étages et le niveau d’accompagnement souhaité.
-           </p>
-           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center italic">
-             <Link to="/demande-de-devis" className="bg-brand-900 text-white px-10 py-5 rounded-full font-bold text-lg hover:shadow-2xl flex items-center justify-center gap-3 transition-all min-w-[280px] italic shadow-none italic grayscale-0 italic opacity-100">
-               Demander mon devis gratuit
-             </Link>
-             <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-slate-50 shadow-md flex items-center justify-center gap-3 transition-all min-w-[280px] italic">
-                <Phone size={22} className="text-accent shadow-none italic grayscale-0 italic" />
-                {CONTACT.phone}
-             </a>
-           </div>
-        </div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-brand-900/5 rounded-full blur-[100px] pointer-events-none translate-x-[40%] translate-y-[-40%] italic transition-all italic grayscale-0 italic"></div>
-      </section>
-
-      {/* 13. FAQ locale */}
-      <section className="py-24 font-sans italic underline-none italic">
-        <div className="container mx-auto px-4 md:px-6 max-w-4xl italic font-sans italic transition-all italic underline decoration-accent/10 underline-offset-8 italic">
-           <div className="text-center mb-16 italic font-sans italic transition-all italic underline-none italic">
-             <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-4 font-display uppercase italic tracking-tight italic transition-all italic underline-none italic grayscale-0 italic shadow-none italic">FAQ <span className="text-accent italic tracking-tight font-sans italic transition-all italic grayscale-0 italic shadow-none italic">Maisons-Alfort</span></h2>
-           </div>
-           <div className="grid grid-cols-1 gap-8 italic font-sans italic transition-all italic grayscale-0 italic shadow-none italic">
-             {faqs.map((faq, i) => (
-               <div key={i} className="bg-slate-50 p-12 rounded-[2.5rem] border border-slate-100 group hover:border-accent transition-all shadow-sm italic font-sans italic transition-all italic grayscale-0 italic shadow-none italic">
-                 <h4 className="text-lg font-bold text-brand-900 mb-6 flex items-start gap-5 tracking-tight uppercase italic font-sans italic transition-all italic shadow-none italic grayscale-0 italic">
-                   <HelpCircle className="text-accent shrink-0 mt-1 italic transition-all italic grayscale-0 italic" size={24} />
-                   {faq.q}
-                 </h4>
-                 <p className="text-slate-500 font-light leading-relaxed pl-11 border-l-4 border-accent/20 italic italic transition-all italic font-sans italic shadow-none italic grayscale-0 italic">
-                   {faq.a}
-                 </p>
-               </div>
-             ))}
-           </div>
-        </div>
-      </section>
-
-      {/* 14. Maillage Interne Final */}
-      <section className="py-12 bg-slate-900 font-sans italic transition-all italic underline-none italic">
-        <div className="container mx-auto px-4 md:px-6 italic font-sans italic transition-all italic underline-none italic">
-          <div className="flex flex-wrap justify-center gap-x-10 gap-y-6 text-[10px] font-black uppercase tracking-[0.25em] text-slate-500 italic pb-8 border-b border-white/5 italic font-sans italic transition-all italic underline-none italic grayscale-0 italic">
-            <Link to="/demande-de-devis" className="hover:text-accent transition-all italic">Devis Rapide</Link>
-            <Link to="/calculateur-volume" className="hover:text-accent transition-all italic">Calculateur Cube</Link>
-            <Link to="/formules-demenagement" className="hover:text-accent transition-all italic">Formules</Link>
-            <Link to="/demenagement-ile-de-france" className="hover:text-accent transition-all italic">Île-de-France</Link>
-            <Link to="/demenagement-val-de-marne" className="hover:text-accent transition-all italic text-white underline decoration-accent/30 underline-offset-4">Val-de-Marne (94)</Link>
+      {/* 9. NOUVEAU CALL-TO-ACTION MAJEUR DE CONVERSION */}
+      <section className="py-24 bg-accent relative overflow-hidden font-sans">
+        <div className="container mx-auto px-4 md:px-6 text-center relative z-10">
+          <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-8 uppercase tracking-tight leading-tight">Vous préparez un déménagement à Maisons-Alfort ?</h2>
+          <p className="text-brand-900/80 text-lg mb-12 max-w-3xl mx-auto font-light leading-relaxed">
+            Profitez de l'expertise de notre société pour un déménagement sans stress, parfaitement adapté au volume de votre mobilier, aux accès d'étages encombrés et aux formalités administratives.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <Link to="/demande-de-devis" className="bg-brand-900 text-white px-10 py-5 rounded-full font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all min-w-[280px]">
+              Demander mon devis gratuit
+            </Link>
+            <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-slate-50 shadow-md flex items-center justify-center gap-3 transition-all min-w-[280px]">
+              <Phone size={22} className="text-accent" />
+              {CONTACT.phone}
+            </a>
           </div>
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-4 text-[8px] font-black uppercase tracking-[0.15em] text-slate-700 italic pt-8 font-sans transition-all italic underline-none italic grayscale-0 italic">
-            <Link to="/demenagement-paris" className="hover:text-accent transition-all italic underline underline-offset-4 decoration-accent/20">Paris</Link>
-            <Link to="/demenagement-paris-12" className="hover:text-accent transition-all italic">Paris 12</Link>
-            <Link to="/demenagement-paris-13" className="hover:text-accent transition-all italic">Paris 13</Link>
-            <Link to="/demenagement-charenton-le-pont" className="hover:text-accent transition-all italic">Charenton</Link>
-            <Link to="/demenagement-saint-maur" className="hover:text-accent transition-all italic">Saint-Maur</Link>
-            <Link to="/demenagement-creteil" className="hover:text-accent transition-all italic">Créteil</Link>
-            <Link to="/demenagement-vincennes" className="hover:text-accent transition-all italic">Vincennes</Link>
-            <Link to="/demenagement-nogent-sur-marne" className="hover:text-accent transition-all italic">Nogent-sur-Marne</Link>
-            <Link to="/demenagement-saint-maur-des-fosses" className="hover:text-accent transition-all italic">St-Maur des Fossés</Link>
-            <Link to="/contact" className="hover:text-accent transition-all italic text-slate-500">Contact</Link>
+        </div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-brand-900/5 rounded-full blur-[100px] pointer-events-none translate-x-[40%] translate-y-[-40%]"></div>
+      </section>
+
+      {/* 10. FOIRE AUX QUESTIONS LOCALES (FAQ) ENRICHIE */}
+      <section className="py-24 font-sans">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl">
+          <div className="text-center mb-16">
+            <span className="text-xs font-black uppercase tracking-widest text-accent">Questions Légitimes</span>
+            <h2 className="text-3xl md:text-5xl font-black text-brand-900 mt-2 mb-4 uppercase tracking-tight">Foire Aux Questions <span className="text-accent italic">Maisons-Alfort</span></h2>
+            <p className="text-slate-500 font-light text-sm">Toutes les informations logistiques incontournables pour réussir votre projet sans surprises.</p>
+          </div>
+          <div className="grid grid-cols-1 gap-8">
+            {faqs.map((faq, i) => (
+              <div key={i} className="bg-slate-50 p-10 rounded-[2rem] border border-slate-100 group hover:border-accent transition-all shadow-sm">
+                <h4 className="text-lg font-bold text-brand-900 mb-4 flex items-start gap-4 tracking-tight uppercase">
+                  <HelpCircle className="text-accent shrink-0 mt-1" size={24} />
+                  {faq.q}
+                </h4>
+                <p className="text-slate-500 font-light leading-relaxed pl-10 border-l-4 border-accent/20 text-justify">
+                  {faq.a}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 11. MAILLAGE INTERNE TECHNIQUE D'ANCRAGE */}
+      <section className="py-12 bg-slate-900 font-sans text-center">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex flex-wrap justify-center gap-x-10 gap-y-6 text-[10px] font-black uppercase tracking-[0.25em] text-slate-500 pb-8 border-b border-white/5">
+            <Link to="/demande-de-devis" className="hover:text-accent transition-all">Devis Rapide</Link>
+            <Link to="/calculateur-volume" className="hover:text-accent transition-all">Calculateur Cube</Link>
+            <Link to="/formules-demenagement" className="hover:text-accent transition-all">Formules</Link>
+            <Link to="/demenagement-ile-de-france" className="hover:text-accent transition-all">Île-de-France</Link>
+            <Link to="/demenagement-val-de-marne" className="hover:text-accent transition-all text-white underline decoration-accent/30 underline-offset-4">Val-de-Marne (94)</Link>
+          </div>
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-4 text-[8px] font-black uppercase tracking-[0.15em] text-slate-700 pt-8">
+            <Link to="/demenagement-paris" className="hover:text-accent transition-all">Paris</Link>
+            <Link to="/demenagement-paris-12" className="hover:text-accent transition-all">Paris 12</Link>
+            <Link to="/demenagement-paris-13" className="hover:text-accent transition-all">Paris 13</Link>
+            <Link to="/demenagement-charenton-le-pont" className="hover:text-accent transition-all">Charenton</Link>
+            <Link to="/demenagement-saint-maur-des-fosses" className="hover:text-accent transition-all">Saint-Maur-des-Fossés</Link>
+            <Link to="/demenagement-creteil" className="hover:text-accent transition-all">Créteil</Link>
+            <Link to="/demenagement-vincennes" className="hover:text-accent transition-all">Vincennes</Link>
+            <Link to="/demenagement-nogent-sur-marne" className="hover:text-accent transition-all">Nogent-sur-Marne</Link>
+            <Link to="/demenagement-fontenay-sous-bois" className="hover:text-accent transition-all">Fontenay-sous-Bois</Link>
+            <Link to="/demenagement-villejuif" className="hover:text-accent transition-all">Villejuif</Link>
+            <Link to="/demenagement-vitry-sur-seine" className="hover:text-accent transition-all">Vitry-sur-Seine</Link>
+            <Link to="/demenagement-alfortville" className="hover:text-accent transition-all">Alfortville</Link>
+            <Link to="/demenagement-joinville-le-pont" className="hover:text-accent transition-all">Joinville-le-Pont</Link>
+            <Link to="/contact" className="hover:text-accent transition-all text-slate-500">Contact</Link>
           </div>
         </div>
       </section>

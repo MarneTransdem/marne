@@ -39,12 +39,12 @@ const LocalNogentSurMarne: React.FC = () => {
   const nearbySectors = [
     { n: "Vincennes", l: "/demenagement-vincennes" },
     { n: "Saint-Mandé", l: "/demenagement-saint-mande" },
-    { n: "Saint-Maur-des-Fossés", l: "/demenagement-saint-maur" },
+    { n: "Saint-Maur-des-Fossés", l: "/demenagement-saint-maur-des-fosses" },
     { n: "Montreuil", l: "/demenagement-montreuil" },
     { n: "Paris 12e", l: "/demenagement-paris-12" },
-    { n: "Fontenay-sous-Bois", l: null },
+    { n: "Fontenay-sous-Bois", l: "/demenagement-fontenay-sous-bois" },
     { n: "Le Perreux-sur-Marne", l: null },
-    { n: "Joinville-le-Pont", l: null },
+    { n: "Joinville-le-Pont", l: "/demenagement-joinville-le-pont" },
     { n: "Champigny-sur-Marne", l: null },
     { n: "Bry-sur-Marne", l: null }
   ];

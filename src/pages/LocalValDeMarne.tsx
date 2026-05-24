@@ -41,17 +41,18 @@ const LocalValDeMarne: React.FC = () => {
     { n: "Saint-Mandé", d: "Accompagnement des projets résidentiels et pros proche de Paris.", l: "/demenagement-saint-mande" },
     { n: "Charenton-le-Pont", d: "Organisation des déménagements entre Paris, le 94 et les communes voisines.", l: "/demenagement-charenton-le-pont" },
     { n: "Nogent-sur-Marne", d: "Déménagements de logements familiaux, maisons et locaux professionnels.", l: "/demenagement-nogent-sur-marne" },
-    { n: "Maisons-Alfort", d: "Déménagements de résidences et bureaux avec attention aux accès et étages." },
+    { n: "Maisons-Alfort", d: "Déménagements de résidences et bureaux avec attention aux accès et étages.", l: "/demenagement-maisons-alfort" },
     { n: "Créteil", d: "Accompagnement des logements, bureaux et commerces dans le chef-lieu du département.", l: "/demenagement-creteil" },
-    { n: "Ivry-sur-Seine", d: "Déménagements de particuliers et pros à proximité immédiate de Paris 13e." },
+    { n: "Ivry-sur-Seine", d: "Déménagements de particuliers et pros à proximité immédiate de Paris 13e.", l: "/demenagement-ivry-sur-seine" },
+    { n: "Saint-Maurice", d: "Déménagements soignés de résidences et de bureaux en lisière du Bois de Vincennes.", l: "/demenagement-saint-maurice" },
     { n: "Saint-Maur-des-Fossés", d: "Expertise pour les déménagements de maisons et résidences familiales.", l: "/demenagement-saint-maur-des-fosses" },
-    { n: "Fontenay-sous-Bois", d: "Logistique adaptée aux quartiers résidentiels et zones d'activités." },
-    { n: "Vitry-sur-Seine", d: "Déménagements urbains pour particuliers et entreprises en plein développement." },
-    { n: "Villejuif", d: "Solutions de déménagement pour logements et centres de recherche ou médicaux." },
-    { n: "Alfortville", d: "Déménagements résidentiels et locaux professionnels en bords de Seine." },
-    { n: "Le Kremlin-Bicêtre", d: "Organisation logistique proche de Paris 13e et de l'hôpital." },
+    { n: "Fontenay-sous-Bois", d: "Logistique adaptée aux quartiers résidentiels et zones d'activités.", l: "/demenagement-fontenay-sous-bois" },
+    { n: "Vitry-sur-Seine", d: "Déménagements urbains pour particuliers et entreprises en plein développement.", l: "/demenagement-vitry-sur-seine" },
+    { n: "Villejuif", d: "Solutions de déménagement pour logements et centres de recherche ou médicaux.", l: "/demenagement-villejuif" },
+    { n: "Alfortville", d: "Déménagements résidentiels et locaux professionnels en bords de Seine.", l: "/demenagement-alfortville" },
+    { n: "Le Kremlin-Bicêtre", d: "Organisation logistique proche de Paris 13e et de l'hôpital.", l: "/demenagement-le-kremlin-bicetre" },
     { n: "Champigny-sur-Marne", d: "Accompagnement des projets de déménagement pour maisons et appartements." },
-    { n: "Joinville-le-Pont", d: "Déménagements résidentiels dans un cadre entre ville et nature." },
+    { n: "Joinville-le-Pont", d: "Déménagements résidentiels dans un cadre entre ville et nature.", l: "/demenagement-joinville-le-pont" },
     { n: "Le Perreux-sur-Marne", d: "Services de déménagement premium pour logements familiaux et villas." }
   ];
 
@@ -526,8 +527,18 @@ const LocalValDeMarne: React.FC = () => {
             <Link to="/demenagement-vincennes" className="hover:text-accent uppercase italic">Vincennes</Link>
             <Link to="/demenagement-saint-mande" className="hover:text-accent uppercase italic">Saint-Mandé</Link>
             <Link to="/demenagement-charenton-le-pont" className="hover:text-accent uppercase italic">Charenton</Link>
-            <Link to="/demenagement-saint-maur-des-fosses" className="hover:text-accent uppercase italic">Saint-Maur</Link>
-            {["Nogent", "Créteil", "Maisons-Alfort", "Ivry", "Villejuif", "Fontenay"].map(c => <span key={c} className="cursor-default uppercase italic">{c}</span>)}
+            <Link to="/demenagement-saint-maur-des-fosses" className="hover:text-accent uppercase italic">Saint-Maur-des-Fossés</Link>
+            <Link to="/demenagement-nogent-sur-marne" className="hover:text-accent uppercase italic">Nogent</Link>
+            <Link to="/demenagement-creteil" className="hover:text-accent uppercase italic">Créteil</Link>
+            <Link to="/demenagement-maisons-alfort" className="hover:text-accent uppercase italic">Maisons-Alfort</Link>
+            <Link to="/demenagement-ivry-sur-seine" className="hover:text-accent uppercase italic">Ivry-sur-Seine</Link>
+            <Link to="/demenagement-saint-maurice" className="hover:text-accent uppercase italic">Saint-Maurice</Link>
+            <Link to="/demenagement-fontenay-sous-bois" className="hover:text-accent uppercase italic">Fontenay-sous-Bois</Link>
+            <Link to="/demenagement-villejuif" className="hover:text-accent uppercase italic">Villejuif</Link>
+            <Link to="/demenagement-vitry-sur-seine" className="hover:text-accent uppercase italic">Vitry-sur-Seine</Link>
+            <Link to="/demenagement-alfortville" className="hover:text-accent uppercase italic">Alfortville</Link>
+            <Link to="/demenagement-le-kremlin-bicetre" className="hover:text-accent uppercase italic">Le Kremlin-Bicêtre</Link>
+            <Link to="/demenagement-joinville-le-pont" className="hover:text-accent uppercase italic">Joinville-le-Pont</Link>
           </div>
         </div>
       </section>
