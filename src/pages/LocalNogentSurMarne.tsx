@@ -43,9 +43,9 @@ const LocalNogentSurMarne: React.FC = () => {
     { n: "Montreuil", l: "/demenagement-montreuil" },
     { n: "Paris 12e", l: "/demenagement-paris-12" },
     { n: "Fontenay-sous-Bois", l: "/demenagement-fontenay-sous-bois" },
-    { n: "Le Perreux-sur-Marne", l: null },
+    { n: "Le Perreux-sur-Marne", l: "/demenagement-le-perreux-sur-marne" },
     { n: "Joinville-le-Pont", l: "/demenagement-joinville-le-pont" },
-    { n: "Champigny-sur-Marne", l: null },
+    { n: "Champigny-sur-Marne", l: "/demenagement-champigny-sur-marne" },
     { n: "Bry-sur-Marne", l: null }
   ];
 
@@ -386,6 +386,8 @@ const LocalNogentSurMarne: React.FC = () => {
             <Link to="/demenagement-creteil" className="hover:text-accent transition-all italic transition-all italic">Créteil</Link>
             <Link to="/demenagement-montreuil" className="hover:text-accent transition-all italic transition-all italic">Montreuil</Link>
             <Link to="/demenagement-saint-maur-des-fosses" className="hover:text-accent transition-all italic transition-all italic">St-Maur des Fossés</Link>
+            <Link to="/demenagement-champigny-sur-marne" className="hover:text-accent transition-all italic transition-all italic">Champigny-sur-Marne</Link>
+            <Link to="/demenagement-le-perreux-sur-marne" className="hover:text-accent transition-all italic transition-all italic">Le Perreux-sur-Marne</Link>
             <Link to="/contact" className="hover:text-accent transition-all italic transition-all italic text-slate-500">Contact</Link>
           </div>
         </div>

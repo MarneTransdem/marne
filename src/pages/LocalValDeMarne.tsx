@@ -51,9 +51,9 @@ const LocalValDeMarne: React.FC = () => {
     { n: "Villejuif", d: "Solutions de déménagement pour logements et centres de recherche ou médicaux.", l: "/demenagement-villejuif" },
     { n: "Alfortville", d: "Déménagements résidentiels et locaux professionnels en bords de Seine.", l: "/demenagement-alfortville" },
     { n: "Le Kremlin-Bicêtre", d: "Organisation logistique proche de Paris 13e et de l'hôpital.", l: "/demenagement-le-kremlin-bicetre" },
-    { n: "Champigny-sur-Marne", d: "Accompagnement des projets de déménagement pour maisons et appartements." },
+    { n: "Champigny-sur-Marne", d: "Accompagnement des projets de déménagement pour maisons et appartements.", l: "/demenagement-champigny-sur-marne" },
     { n: "Joinville-le-Pont", d: "Déménagements résidentiels dans un cadre entre ville et nature.", l: "/demenagement-joinville-le-pont" },
-    { n: "Le Perreux-sur-Marne", d: "Services de déménagement premium pour logements familiaux et villas." }
+    { n: "Le Perreux-sur-Marne", d: "Services de déménagement premium pour logements familiaux et villas.", l: "/demenagement-le-perreux-sur-marne" }
   ];
 
   return (
@@ -539,6 +539,8 @@ const LocalValDeMarne: React.FC = () => {
             <Link to="/demenagement-alfortville" className="hover:text-accent uppercase italic">Alfortville</Link>
             <Link to="/demenagement-le-kremlin-bicetre" className="hover:text-accent uppercase italic">Le Kremlin-Bicêtre</Link>
             <Link to="/demenagement-joinville-le-pont" className="hover:text-accent uppercase italic">Joinville-le-Pont</Link>
+            <Link to="/demenagement-champigny-sur-marne" className="hover:text-accent uppercase italic">Champigny-sur-Marne</Link>
+            <Link to="/demenagement-le-perreux-sur-marne" className="hover:text-accent uppercase italic">Le Perreux-sur-Marne</Link>
           </div>
         </div>
       </section>

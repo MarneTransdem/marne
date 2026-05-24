@@ -39,20 +39,23 @@ const LocalSeineSaintDenis: React.FC = () => {
   const cities = [
     { n: "Montreuil", d: "Déménagements d'appartements, maisons et locaux professionnels à proximité de Paris 20e.", l: "/demenagement-montreuil" },
     { n: "Bagnolet", d: "Organisation des déménagements de particuliers et d'entreprises limitrophes de Paris.", l: "/demenagement-bagnolet" },
-    { n: "Pantin", d: "Accompagnement des projets de déménagement résidentiels et pros dans l'est parisien." },
-    { n: "Les Lilas", d: "Solutions de déménagement pour logements familiaux et commerces de proximité." },
-    { n: "Saint-Denis", d: "Déménagements de bureaux et locaux professionnels selon le volume et les accès." },
+    { n: "Pantin", d: "Accompagnement des projets de déménagement résidentiels et pros dans l'est parisien.", l: "/demenagement-pantin" },
+    { n: "Les Lilas", d: "Solutions de déménagement pour logements familiaux et commerces de proximité.", l: "/demenagement-les-lilas" },
+    { n: "Saint-Denis", d: "Déménagements de bureaux et locaux professionnels selon le volume et les accès.", l: "/demenagement-saint-denis" },
+    { n: "Bondy", d: "Accompagnement des projets de déménagement dans le centre du département.", l: "/demenagement-bondy" },
     { n: "Aubervilliers", d: "Déménagements pour particuliers et commerces avec attention aux accès urbains." },
-    { n: "Romainville", d: "Logistique adaptée aux nouveaux quartiers résidentiels et logements familiaux." },
-    { n: "Noisy-le-Sec", d: "Transferts de bureaux et déménagements d'appartements en zone urbaine." },
-    { n: "Bondy", d: "Accompagnement des projets de déménagement dans le centre du département." },
+    { n: "Romainville", d: "Logistique adaptée aux nouveaux quartiers résidentiels et logements familiaux.", l: "/demenagement-romainville" },
+    { n: "Noisy-le-Sec", d: "Transferts de bureaux et déménagements d'appartements en zone urbaine.", l: "/demenagement-noisy-le-sec" },
     { n: "Bobigny", d: "Expertise pour les déménagements administratifs et logements collectifs." },
     { n: "Drancy", d: "Déménagements de maisons et résidences avec gestion optimisée du volume." },
     { n: "Saint-Ouen-sur-Seine", d: "Solutions de proximité pour les quartiers en pleine mutation proche de Paris 18e." },
     { n: "La Courneuve", d: "Déménagements pour particuliers et zones d'activités professionnelles." },
     { n: "Rosny-sous-Bois", d: "Déménagements résidentiels et transferts de commerces en zone commerciale." },
     { n: "Noisy-le-Grand", d: "Gestion des accès pour bureaux et logements en ville nouvelle." },
-    { n: "Aulnay-sous-Bois", d: "Accompagnement des logements familiaux et locaux industriels." }
+    { n: "Aulnay-sous-Bois", d: "Accompagnement des logements familiaux et locaux industriels.", l: "/demenagement-aulnay-sous-bois" },
+    { n: "Drancy", d: "Déménagements de maisons et résidences avec gestion optimisée du volume.", l: "/demenagement-drancy" },
+    { n: "Bobigny", d: "Expertise pour les déménagements administratifs et logements collectifs.", l: "/demenagement-bobigny" },
+    { n: "Saint-Ouen", d: "Un accompagnement complet pour votre projet de déménagement à Saint-Ouen.", l: "/demenagement-saint-ouen" }
   ];
 
   return (
@@ -526,9 +529,19 @@ const LocalSeineSaintDenis: React.FC = () => {
             <Link to="/demenagement-nogent-sur-marne" className="hover:text-accent">Nogent-sur-Marne</Link>
             <Link to="/demenagement-saint-mande" className="hover:text-accent">Saint-Mandé</Link>
             <Link to="/demenagement-charenton-le-pont" className="hover:text-accent">Charenton</Link>
+            <Link to="/demenagement-pantin" className="hover:text-accent">Pantin</Link>
+            <Link to="/demenagement-saint-denis" className="hover:text-accent">Saint-Denis</Link>
+            <Link to="/demenagement-bondy" className="hover:text-accent">Bondy</Link>
+            <Link to="/demenagement-romainville" className="hover:text-accent">Romainville</Link>
+            <Link to="/demenagement-noisy-le-sec" className="hover:text-accent">Noisy-le-Sec</Link>
+            <Link to="/demenagement-aulnay-sous-bois" className="hover:text-accent">Aulnay-sous-Bois</Link>
+            <Link to="/demenagement-drancy" className="hover:text-accent">Drancy</Link>
+            <Link to="/demenagement-bobigny" className="hover:text-accent">Bobigny</Link>
+            <Link to="/demenagement-saint-ouen" className="hover:text-accent">Saint-Ouen</Link>
+            <Link to="/demenagement-les-lilas" className="hover:text-accent">Les Lilas</Link>
             <Link to="/demenagement-val-d-oise" className="hover:text-accent">Val-d'Oise</Link>
             <Link to="/demenagement-seine-et-marne" className="hover:text-accent">Seine-et-Marne</Link>
-            {["Pantin", "Les Lilas", "Bobigny", "Saint-Denis", "Aubervilliers"].map(c => <span key={c} className="cursor-default">{c}</span>)}
+            {["Bobigny", "Aubervilliers"].map(c => <span key={c} className="cursor-default">{c}</span>)}
           </div>
         </div>
       </section>

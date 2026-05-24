@@ -37,7 +37,7 @@ const LocalValDOise: React.FC = () => {
   ];
 
   const cities = [
-    { n: "Argenteuil", d: "Déménagements d’appartements, maisons, bureaux et commerces à proximité de Paris et des Hauts-de-Seine." },
+    { n: "Argenteuil", d: "Déménagements d’appartements, maisons, bureaux et commerces à proximité de Paris et des Hauts-de-Seine.", l: "/demenagement-argenteuil" },
     { n: "Cergy", d: "Accompagnement des projets de déménagement résidentiels et professionnels dans l’agglomération de Cergy-Pontoise." },
     { n: "Pontoise", d: "Organisation des déménagements de particuliers et d’entreprises selon les accès, le volume et la formule." },
     { n: "Sarcelles", d: "Déménagements de logements, appartements, résidences et locaux professionnels selon les besoins." },

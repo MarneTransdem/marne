@@ -276,6 +276,15 @@ const LocalIDF: React.FC = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
             {[
               { n: "Montreuil", l: "/demenagement-montreuil" },
+              { n: "Pantin", l: "/demenagement-pantin" },
+              { n: "Les Lilas", l: "/demenagement-les-lilas" },
+              { n: "Saint-Denis", l: "/demenagement-saint-denis" },
+              { n: "Romainville", l: "/demenagement-romainville" },
+              { n: "Noisy-le-Sec", l: "/demenagement-noisy-le-sec" },
+              { n: "Bondy", l: "/demenagement-bondy" },
+              { n: "Bobigny", l: "/demenagement-bobigny" },
+              { n: "Saint-Ouen", l: "/demenagement-saint-ouen" },
+              { n: "Argenteuil", l: "/demenagement-argenteuil" },
               { n: "Vincennes", l: "/demenagement-vincennes" },
               { n: "Saint-Mandé", l: "/demenagement-saint-mande" },
               { n: "Bagnolet", l: "/demenagement-bagnolet" },
@@ -560,6 +569,16 @@ const LocalIDF: React.FC = () => {
           <div className="flex flex-wrap justify-center gap-x-10 gap-y-6 text-[10px] font-black uppercase tracking-[0.25em] text-slate-600 italic pt-8">
             <Link to="/demenagement-paris-20" className="hover:text-accent transition-all">Paris 20e</Link>
             <Link to="/demenagement-montreuil" className="hover:text-accent transition-all">Montreuil</Link>
+            <Link to="/demenagement-pantin" className="hover:text-accent transition-all">Pantin</Link>
+            <Link to="/demenagement-les-lilas" className="hover:text-accent transition-all">Les Lilas</Link>
+            <Link to="/demenagement-saint-denis" className="hover:text-accent transition-all">Saint-Denis</Link>
+            <Link to="/demenagement-romainville" className="hover:text-accent transition-all">Romainville</Link>
+            <Link to="/demenagement-noisy-le-sec" className="hover:text-accent transition-all">Noisy-le-Sec</Link>
+            <Link to="/demenagement-bondy" className="hover:text-accent transition-all">Bondy</Link>
+            <Link to="/demenagement-bobigny" className="hover:text-accent transition-all">Bobigny</Link>
+            <Link to="/demenagement-saint-ouen" className="hover:text-accent transition-all">Saint-Ouen</Link>
+            <Link to="/demenagement-argenteuil" className="hover:text-accent transition-all">Argenteuil</Link>
+            <Link to="/demenagement-aulnay-sous-bois" className="hover:text-accent transition-all">Aulnay-sous-Bois</Link>
             <Link to="/demenagement-vincennes" className="hover:text-accent transition-all">Vincennes</Link>
             <Link to="/demenagement-saint-mande" className="hover:text-accent transition-all">Saint-Mandé</Link>
             <Link to="/demenagement-bagnolet" className="hover:text-accent transition-all">Bagnolet</Link>

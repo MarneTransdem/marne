@@ -9,6 +9,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { PageTransition } from './components/layout/PageTransition';
 import ScrollToTop from './components/layout/ScrollToTop';
 
+const NotFound = lazy(() => import('./pages/NotFound'));
 const Header = lazy(() => import('./components/layout/Header').then(module => ({ default: module.Header })));
 const Footer = lazy(() => import('./components/layout/Footer').then(module => ({ default: module.Footer })));
 const MobileCTA = lazy(() => import('./components/layout/MobileCTA').then(module => ({ default: module.MobileCTA })));
@@ -45,6 +46,17 @@ const LocalParis19 = lazy(() => import('./pages/LocalParis19'));
 const LocalParis10 = lazy(() => import('./pages/LocalParis10'));
 const LocalParis9 = lazy(() => import('./pages/LocalParis9'));
 const LocalMontreuil = lazy(() => import('./pages/LocalMontreuil'));
+const LocalRomainville = lazy(() => import('./pages/LocalRomainville'));
+const LocalNoisyLeSec = lazy(() => import('./pages/LocalNoisyLeSec'));
+const LocalAulnaySousBois = lazy(() => import('./pages/LocalAulnaySousBois'));
+const LocalBobigny = lazy(() => import('./pages/LocalBobigny'));
+const LocalDrancy = lazy(() => import('./pages/LocalDrancy'));
+const LocalSaintOuen = lazy(() => import('./pages/LocalSaintOuen'));
+const LocalArgenteuil = lazy(() => import('./pages/LocalArgenteuil'));
+const LocalSaintDenis = lazy(() => import('./pages/LocalSaintDenis'));
+const LocalBondy = lazy(() => import('./pages/LocalBondy'));
+const LocalLesLilas = lazy(() => import('./pages/LocalLesLilas'));
+const LocalPantin = lazy(() => import('./pages/LocalPantin'));
 const LocalVincennes = lazy(() => import('./pages/LocalVincennes'));
 const LocalSaintMande = lazy(() => import('./pages/LocalSaintMande'));
 const LocalBagnolet = lazy(() => import('./pages/LocalBagnolet'));
@@ -121,6 +133,8 @@ const LocalVitrySurSeine = lazy(() => import('./pages/LocalVitrySurSeine'));
 const LocalAlfortville = lazy(() => import('./pages/LocalAlfortville'));
 const LocalKremlinBicetre = lazy(() => import('./pages/LocalKremlinBicetre'));
 const LocalJoinvilleLePont = lazy(() => import('./pages/LocalJoinvilleLePont'));
+const LocalChampignySurMarne = lazy(() => import('./pages/LocalChampignySurMarne'));
+const LocalLePerreuxSurMarne = lazy(() => import('./pages/LocalLePerreuxSurMarne'));
 const LongueDistance = lazy(() => import('./pages/LongueDistance'));
 const LongueDistanceParisLyon = lazy(() => import('./pages/LongueDistanceParisLyon'));
 const LongueDistanceParisMarseille = lazy(() => import('./pages/LongueDistanceParisMarseille'));
@@ -198,6 +212,17 @@ function AppContent() {
             <Route path="/demenagement-paris-10" element={<LocalParis10 />} />
             <Route path="/demenagement-paris-9" element={<LocalParis9 />} />
             <Route path="/demenagement-montreuil" element={<LocalMontreuil />} />
+            <Route path="/demenagement-romainville" element={<LocalRomainville />} />
+            <Route path="/demenagement-noisy-le-sec" element={<LocalNoisyLeSec />} />
+            <Route path="/demenagement-aulnay-sous-bois" element={<LocalAulnaySousBois />} />
+            <Route path="/demenagement-bobigny" element={<LocalBobigny />} />
+            <Route path="/demenagement-drancy" element={<LocalDrancy />} />
+            <Route path="/demenagement-saint-ouen" element={<LocalSaintOuen />} />
+            <Route path="/demenagement-argenteuil" element={<LocalArgenteuil />} />
+            <Route path="/demenagement-saint-denis" element={<LocalSaintDenis />} />
+            <Route path="/demenagement-bondy" element={<LocalBondy />} />
+            <Route path="/demenagement-les-lilas" element={<LocalLesLilas />} />
+            <Route path="/demenagement-pantin" element={<LocalPantin />} />
             <Route path="/demenagement-vincennes" element={<LocalVincennes />} />
             <Route path="/demenagement-saint-mande" element={<LocalSaintMande />} />
             <Route path="/demenagement-bagnolet" element={<LocalBagnolet />} />
@@ -274,6 +299,8 @@ function AppContent() {
             <Route path="/demenagement-alfortville" element={<LocalAlfortville />} />
             <Route path="/demenagement-le-kremlin-bicetre" element={<LocalKremlinBicetre />} />
             <Route path="/demenagement-joinville-le-pont" element={<LocalJoinvilleLePont />} />
+            <Route path="/demenagement-champigny-sur-marne" element={<LocalChampignySurMarne />} />
+            <Route path="/demenagement-le-perreux-sur-marne" element={<LocalLePerreuxSurMarne />} />
             
             {/* Longue Distance */}
             <Route path="/demenagement-paris-lyon" element={<LongueDistanceParisLyon />} />
@@ -313,6 +340,7 @@ function AppContent() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/mentions-legales" element={<Legal />} />
             <Route path="/politique-de-confidentialite" element={<PrivacyPolicy />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
           </Suspense>
         </PageTransition>

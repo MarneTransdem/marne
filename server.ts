@@ -321,7 +321,32 @@ Pour chaque objet détecté :
         }
       }
     }));
-    app.get('*', (req, res) => {
+    // 301 Redirects
+  app.get("/societe-demenagement-paris/", (req, res) => {
+    res.redirect(301, "/");
+  });
+
+  app.get("/demenagement-particuliers/", (req, res) => {
+    res.redirect(301, "/demenagement-particuliers-paris");
+  });
+
+  app.get("/services-demenagement/", (req, res) => {
+    res.redirect(301, "/services");
+  });
+
+  app.get("/location-de-monte-meuble-ou-de-monte-charge-a-paris-et-en-ile-de-france/", (req, res) => {
+    res.redirect(301, "/location-monte-meuble-paris");
+  });
+
+  app.get("/demenagement-dentreprises-a-paris-et-en-ile-de-france/", (req, res) => {
+    res.redirect(301, "/demenagement-entreprises-paris");
+  });
+
+  app.get("/devisdemenagement/", (req, res) => {
+    res.redirect(301, "/demande-de-devis");
+  });
+
+  app.get('*', (req, res) => {
       res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
       res.sendFile(path.join(distPath, 'index.html'));
     });

@@ -43,10 +43,10 @@ const LocalFontenaySousBois: React.FC = () => {
     { n: "Saint-Maurice", l: "/demenagement-saint-maurice" },
     { n: "Paris 12e", l: "/demenagement-paris-12" },
     { n: "Neuilly-sur-Marne", l: null },
-    { n: "Le Perreux-sur-Marne", l: null },
-    { n: "Champigny-sur-Marne", l: null },
+    { n: "Le Perreux-sur-Marne", l: "/demenagement-le-perreux-sur-marne" },
+    { n: "Champigny-sur-Marne", l: "/demenagement-champigny-sur-marne" },
     { n: "Rosny-sous-Bois", l: null },
-    { n: "Montreuil", l: null }
+    { n: "Montreuil", l: "/demenagement-montreuil" }
   ];
 
   return (
@@ -488,6 +488,9 @@ const LocalFontenaySousBois: React.FC = () => {
             <Link to="/demenagement-maisons-alfort" className="hover:text-accent transition-all">Maisons-Alfort</Link>
             <Link to="/demenagement-ivry-sur-seine" className="hover:text-accent transition-all">Ivry-sur-Seine</Link>
             <Link to="/demenagement-villejuif" className="hover:text-accent transition-all">Villejuif</Link>
+            <Link to="/demenagement-champigny-sur-marne" className="hover:text-accent transition-all">Champigny-sur-Marne</Link>
+            <Link to="/demenagement-le-perreux-sur-marne" className="hover:text-accent transition-all">Le Perreux-sur-Marne</Link>
+            <Link to="/demenagement-montreuil" className="hover:text-accent transition-all">Montreuil</Link>
             <Link to="/contact" className="hover:text-accent transition-all text-slate-500">Contact</Link>
           </div>
         </div>
