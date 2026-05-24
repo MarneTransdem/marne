@@ -151,7 +151,7 @@ async function startServer() {
         subject: isQuote ? `[Urgent Devis] ${clientName}` : `[Contact Site] ${data.subject}`,
         html: getEmailContainer(
           isQuote 
-            ? '<span style="color: #ef4444; font-weight: bold; margin-right: 4px;">[Urgent Devis]</span> Nouvelle demande de devis' 
+            ? '<span style="background-color: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 9999px; margin-right: 8px; display: inline-block; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.2;">Urgent Devis</span> Nouvelle demande de devis' 
             : 'Nouveau message de contact', 
           adminHtml
         )
