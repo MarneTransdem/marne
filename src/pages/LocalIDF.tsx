@@ -285,6 +285,11 @@ const LocalIDF: React.FC = () => {
               { n: "Bobigny", l: "/demenagement-bobigny" },
               { n: "Saint-Ouen", l: "/demenagement-saint-ouen" },
               { n: "Argenteuil", l: "/demenagement-argenteuil" },
+              { n: "Cergy", l: "/demenagement-cergy" },
+              { n: "Pontoise", l: "/demenagement-pontoise" },
+              { n: "Saint-Gratien", l: "/demenagement-saint-gratien" },
+              { n: "Enghien-les-Bains", l: "/demenagement-enghien-les-bains" },
+              { n: "Montmorency", l: "/demenagement-montmorency" },
               { n: "Vincennes", l: "/demenagement-vincennes" },
               { n: "Saint-Mandé", l: "/demenagement-saint-mande" },
               { n: "Bagnolet", l: "/demenagement-bagnolet" },
@@ -578,6 +583,11 @@ const LocalIDF: React.FC = () => {
             <Link to="/demenagement-bobigny" className="hover:text-accent transition-all">Bobigny</Link>
             <Link to="/demenagement-saint-ouen" className="hover:text-accent transition-all">Saint-Ouen</Link>
             <Link to="/demenagement-argenteuil" className="hover:text-accent transition-all">Argenteuil</Link>
+            <Link to="/demenagement-cergy" className="hover:text-accent transition-all">Cergy</Link>
+            <Link to="/demenagement-pontoise" className="hover:text-accent transition-all">Pontoise</Link>
+            <Link to="/demenagement-saint-gratien" className="hover:text-accent transition-all">Saint-Gratien</Link>
+            <Link to="/demenagement-enghien-les-bains" className="hover:text-accent transition-all">Enghien-les-Bains</Link>
+            <Link to="/demenagement-montmorency" className="hover:text-accent transition-all">Montmorency</Link>
             <Link to="/demenagement-aulnay-sous-bois" className="hover:text-accent transition-all">Aulnay-sous-Bois</Link>
             <Link to="/demenagement-vincennes" className="hover:text-accent transition-all">Vincennes</Link>
             <Link to="/demenagement-saint-mande" className="hover:text-accent transition-all">Saint-Mandé</Link>

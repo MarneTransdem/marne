@@ -159,6 +159,11 @@ const Home: React.FC = () => {
                   { name: 'Bobigny', path: '/demenagement-bobigny', m: false },
                   { name: 'Saint-Ouen', path: '/demenagement-saint-ouen', m: false },
                   { name: 'Argenteuil', path: '/demenagement-argenteuil', m: false },
+                  { name: 'Cergy', path: '/demenagement-cergy', m: false },
+                  { name: 'Pontoise', path: '/demenagement-pontoise', m: false },
+                  { name: 'Saint-Gratien', path: '/demenagement-saint-gratien', m: false },
+                  { name: 'Enghien-les-Bains', path: '/demenagement-enghien-les-bains', m: false },
+                  { name: 'Montmorency', path: '/demenagement-montmorency', m: false },
                   { name: 'Boulogne', path: '/demenagement-boulogne-billancourt', m: false },
                   { name: 'Neuilly', path: '/demenagement-neuilly-sur-seine', m: false },
                   { name: 'Vincennes', path: '/demenagement-vincennes', m: false }

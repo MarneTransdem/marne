@@ -346,6 +346,10 @@ Pour chaque objet détecté :
     res.redirect(301, "/demande-de-devis");
   });
 
+  app.get("/emballage-demenagement/", (req, res) => {
+    res.redirect(301, "/cartons-demenagement-paris");
+  });
+
   app.get('*', (req, res) => {
       res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
       res.sendFile(path.join(distPath, 'index.html'));
