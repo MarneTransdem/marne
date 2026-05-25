@@ -41,7 +41,7 @@ const LocalValDOise: React.FC = () => {
     { n: "Cergy", d: "Accompagnement des projets de déménagement résidentiels et professionnels dans l’agglomération de Cergy-Pontoise.", l: "/demenagement-cergy" },
     { n: "Pontoise", d: "Organisation des déménagements de particuliers et d’entreprises selon les accès, le volume et la formule.", l: "/demenagement-pontoise" },
     { n: "Sarcelles", d: "Déménagements de logements, appartements, résidences et locaux professionnels selon les besoins." },
-    { n: "Franconville", d: "Accompagnement des déménagements de maisons, appartements et projets familiaux dans le nord-ouest francilien." },
+    { n: "Franconville", d: "Accompagnement des déménagements de maisons, appartements et projets familiaux dans le nord-ouest francilien.", l: "/demenagement-franconville" },
     { n: "Herblay-sur-Seine", d: "Déménagements de logements familiaux, maisons, appartements et bureaux selon le volume." },
     { n: "Enghien-les-Bains", d: "Déménagements résidentiels et professionnels avec attention portée aux accès et à la protection.", l: "/demenagement-enghien-les-bains" },
     { n: "Magny-en-Vexin", d: "Accompagnement des projets en grande couronne et longue distance selon les besoins." },

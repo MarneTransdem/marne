@@ -164,6 +164,7 @@ const Home: React.FC = () => {
                   { name: 'Saint-Gratien', path: '/demenagement-saint-gratien', m: false },
                   { name: 'Enghien-les-Bains', path: '/demenagement-enghien-les-bains', m: false },
                   { name: 'Montmorency', path: '/demenagement-montmorency', m: false },
+                  { name: 'Franconville', path: '/demenagement-franconville', m: false },
                   { name: 'Boulogne', path: '/demenagement-boulogne-billancourt', m: false },
                   { name: 'Neuilly', path: '/demenagement-neuilly-sur-seine', m: false },
                   { name: 'Vincennes', path: '/demenagement-vincennes', m: false }

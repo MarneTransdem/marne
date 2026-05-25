@@ -72,6 +72,7 @@ const SecteursDesservis: React.FC = () => {
     { n: "Saint-Gratien", p: "/demenagement-saint-gratien", e: true },
     { n: "Enghien-les-Bains", p: "/demenagement-enghien-les-bains", e: true },
     { n: "Montmorency", p: "/demenagement-montmorency", e: true },
+    { n: "Franconville", p: "/demenagement-franconville", e: true },
     { n: "Vincennes", p: "/demenagement-vincennes", e: true },
     { n: "Saint-Mandé", p: "/demenagement-saint-mande", e: true },
     { n: "Bagnolet", p: "/demenagement-bagnolet", e: true },

@@ -58,6 +58,7 @@ const LocalPontoise = lazy(() => import('./pages/LocalPontoise'));
 const LocalSaintGratien = lazy(() => import('./pages/LocalSaintGratien'));
 const LocalEnghienLesBains = lazy(() => import('./pages/LocalEnghienLesBains'));
 const LocalMontmorency = lazy(() => import('./pages/LocalMontmorency'));
+const LocalFranconville = lazy(() => import('./pages/LocalFranconville'));
 const LocalSaintDenis = lazy(() => import('./pages/LocalSaintDenis'));
 const LocalBondy = lazy(() => import('./pages/LocalBondy'));
 const LocalLesLilas = lazy(() => import('./pages/LocalLesLilas'));
@@ -229,6 +230,7 @@ function AppContent() {
             <Route path="/demenagement-saint-gratien" element={<LocalSaintGratien />} />
             <Route path="/demenagement-enghien-les-bains" element={<LocalEnghienLesBains />} />
             <Route path="/demenagement-montmorency" element={<LocalMontmorency />} />
+            <Route path="/demenagement-franconville" element={<LocalFranconville />} />
             <Route path="/demenagement-saint-denis" element={<LocalSaintDenis />} />
             <Route path="/demenagement-bondy" element={<LocalBondy />} />
             <Route path="/demenagement-les-lilas" element={<LocalLesLilas />} />

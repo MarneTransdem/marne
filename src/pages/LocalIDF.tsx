@@ -290,6 +290,7 @@ const LocalIDF: React.FC = () => {
               { n: "Saint-Gratien", l: "/demenagement-saint-gratien" },
               { n: "Enghien-les-Bains", l: "/demenagement-enghien-les-bains" },
               { n: "Montmorency", l: "/demenagement-montmorency" },
+              { n: "Franconville", l: "/demenagement-franconville" },
               { n: "Vincennes", l: "/demenagement-vincennes" },
               { n: "Saint-Mandé", l: "/demenagement-saint-mande" },
               { n: "Bagnolet", l: "/demenagement-bagnolet" },
@@ -588,6 +589,7 @@ const LocalIDF: React.FC = () => {
             <Link to="/demenagement-saint-gratien" className="hover:text-accent transition-all">Saint-Gratien</Link>
             <Link to="/demenagement-enghien-les-bains" className="hover:text-accent transition-all">Enghien-les-Bains</Link>
             <Link to="/demenagement-montmorency" className="hover:text-accent transition-all">Montmorency</Link>
+            <Link to="/demenagement-franconville" className="hover:text-accent transition-all">Franconville</Link>
             <Link to="/demenagement-aulnay-sous-bois" className="hover:text-accent transition-all">Aulnay-sous-Bois</Link>
             <Link to="/demenagement-vincennes" className="hover:text-accent transition-all">Vincennes</Link>
             <Link to="/demenagement-saint-mande" className="hover:text-accent transition-all">Saint-Mandé</Link>
