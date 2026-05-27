@@ -122,7 +122,7 @@ const LocalNogentSurMarne: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenagement-nogent-sur-marne-94.jpg" 
+                  src="/images/demenagement-94-val-de-marne.jpg" 
                   alt="Déménagement à Nogent-sur-Marne Marne Transdem" 
                   className="w-full h-full object-cover grayscale-[20%]"
                 />
@@ -217,7 +217,7 @@ const LocalNogentSurMarne: React.FC = () => {
               </div>
             </div>
             <div className="order-1 lg:order-2 rounded-[3.5rem] overflow-hidden grayscale-[10%] shadow-2xl skew-y-2 italic">
-               <img src="/images/demenagement-maison-nogent-sur-marne.jpg" alt="Déménagement familial à Nogent-sur-Marne" className="w-full h-full object-cover" />
+               <img src="/images/demenagement-94-val-de-marne.jpg" alt="Déménagement familial à Nogent-sur-Marne" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
@@ -229,7 +229,7 @@ const LocalNogentSurMarne: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 italic">
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-20 items-center italic transition-all italic">
             <div className="lg:w-1/2 order-2 lg:order-1 grayscale-[15%] rounded-[3rem] shadow-2xl overflow-hidden italic shadow-black/5">
-               <img src="/images/transfert-bureau-nogent-sur-marne.jpg" alt="Transfert de bureaux à Nogent-sur-Marne" className="w-full h-full object-cover" />
+               <img src="/images/transfert-bureaux-entreprise-paris.jpg" alt="Transfert de bureaux à Nogent-sur-Marne" className="w-full h-full object-cover" />
             </div>
             <div className="lg:w-1/2 space-y-8 order-1 lg:order-2 italic font-sans italic">
               <h2 className="text-3xl md:text-5xl font-black text-brand-900 tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">Transfert <span className="text-accent italic uppercase italic tracking-tight italic">Professionnel</span></h2>

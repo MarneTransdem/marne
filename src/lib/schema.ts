@@ -1,11 +1,12 @@
 import { CONTACT } from '../constants';
+import { DEFAULT_OG_IMAGE, SITE_URL } from './seo-routes';
 
 export const getOrganizationSchema = () => ({
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "Marne Transdem",
-  "url": "https://devisdemenagement-paris.com",
-  "logo": "https://devisdemenagement-paris.com/logo.png",
+  "url": SITE_URL,
+  "logo": `${SITE_URL}/logo.png`,
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": CONTACT.phone.replace(/\s/g, ''),
@@ -22,9 +23,9 @@ export const getLocalBusinessSchema = () => ({
   "@context": "https://schema.org",
   "@type": "MovingCompany",
   "name": "Marne Transdem",
-  "image": "https://images.unsplash.com/photo-1513326738677-b964603b136d?auto=format&fit=crop&q=80&w=1000",
-  "@id": "https://devisdemenagement-paris.com",
-  "url": "https://devisdemenagement-paris.com",
+  "image": `${SITE_URL}${DEFAULT_OG_IMAGE}`,
+  "@id": SITE_URL,
+  "url": SITE_URL,
   "telephone": CONTACT.phone.replace(/\s/g, ''),
   "address": {
     "@type": "PostalAddress",
@@ -65,7 +66,9 @@ export const getBreadcrumbSchema = (items: { name: string, item: string }[]) => 
     "@type": "ListItem",
     "position": index + 1,
     "name": item.name,
-    "item": `https://devisdemenagement-paris.com${item.item}`
+    "item": item.item.startsWith('http')
+      ? item.item.replace('https://marnetransdem.com', SITE_URL)
+      : `${SITE_URL}${item.item.startsWith('/') ? item.item : `/${item.item}`}`
   }))
 });
 
@@ -100,6 +103,6 @@ export const getContactPageSchema = () => ({
   "@type": "ContactPage",
   "name": "Contact Marne Transdem",
   "description": "Contactez Marne Transdem pour votre déménagement à Paris. Informations de contact et formulaire de message.",
-  "url": "https://devisdemenagement-paris.com/contact",
+  "url": `${SITE_URL}/contact`,
   "mainEntity": getLocalBusinessSchema()
 });

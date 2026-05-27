@@ -127,7 +127,7 @@ const LocalSaintMaurice: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenagement-appartements-saint-maurice-94.jpg" 
+                  src="/images/demenagement-94-val-de-marne.jpg" 
                   alt="Prestation de déménagement à Saint-Maurice - Marne Transdem" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -207,7 +207,7 @@ const LocalSaintMaurice: React.FC = () => {
             <div className="relative group order-last lg:order-first">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenageurs-professionnels-saint-maurice.jpg" 
+                  src="/images/equipe-demenageur-94.jpg" 
                   alt="Déménageurs professionnels Marne Transdem à Saint-Maurice" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -278,7 +278,7 @@ const LocalSaintMaurice: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/transfert-bureaux-entreprises-saint-maurice.jpg" 
+                  src="/images/transfert-bureaux-entreprise-paris.jpg" 
                   alt="Déménagement de parcs informatiques et bureaux professionnels à Saint-Maurice" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"

@@ -100,7 +100,7 @@ const TransfertIndustriel: React.FC = () => {
             </div>
             <div className="relative group italic grayscale-[30%]">
                <div className="aspect-video rounded-[4rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01] italic">
-                  <img src="/images/transfert-industriel-paris.jpg" alt="Déménagement industriel Marne Transdem" className="w-full h-full object-cover italic font-sans" />
+                  <img src="/images/transfert-entreprise-essonne.jpg" alt="Déménagement industriel Marne Transdem" className="w-full h-full object-cover italic font-sans" />
                </div>
                <div className="absolute -top-10 -left-10 w-48 h-48 bg-accent/20 rounded-full blur-3xl -z-0"></div>
             </div>

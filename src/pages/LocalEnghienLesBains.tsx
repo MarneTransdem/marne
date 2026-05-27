@@ -111,7 +111,7 @@ const LocalEnghienLesBains: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10">
                 <img 
-                  src="/images/demenagement-enghien-les-bains.jpg" 
+                  src="/images/camion-demenagement-95.jpg" 
                   alt="Déménagement à Enghien-les-Bains" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"

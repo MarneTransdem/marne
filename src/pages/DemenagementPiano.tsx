@@ -99,7 +99,7 @@ const DemenagementPiano: React.FC = () => {
               </div>
             </div>
             <div className="rounded-[4rem] overflow-hidden grayscale-[5%] shadow-2xl skew-x-1 italic font-sans transition-all italic shadow-none italic">
-               <img src="/images/transport-piano-paris.jpg" alt="Transport piano et objets lourds Marne Transdem" className="w-full h-full object-cover italic transition-transform duration-700 hover:scale-[1.02]" />
+               <img src="/images/demenageur-port-de-charges.jpg" alt="Transport piano et objets lourds Marne Transdem" className="w-full h-full object-cover italic transition-transform duration-700 hover:scale-[1.02]" />
             </div>
           </div>
         </div>

@@ -127,7 +127,7 @@ const LocalMaisonsAlfort: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenageur-maisons-alfort-val-de-marne.jpg" 
+                  src="/images/demenageur-professionnel-94.jpg" 
                   alt="Déménagement à Maisons-Alfort - Marne Transdem" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -207,7 +207,7 @@ const LocalMaisonsAlfort: React.FC = () => {
             <div className="relative group order-last lg:order-first">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenageurs-professionnels-maisons-alfort.jpg" 
+                  src="/images/equipe-demenageur-94.jpg" 
                   alt="Déménageurs professionnels à Maisons-Alfort" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -278,7 +278,7 @@ const LocalMaisonsAlfort: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/transfert-de-bureaux-entreprise-maisons-alfort.jpg" 
+                  src="/images/transfert-bureaux-entreprise-paris.jpg" 
                   alt="Transfert de bureaux et structures professionnelles à Maisons-Alfort" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"

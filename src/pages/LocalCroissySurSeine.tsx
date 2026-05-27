@@ -68,7 +68,7 @@ const LocalCroissySurSeine: React.FC = () => {
 
       {/* 1. Hero Section */}
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-brand-900 overflow-hidden italic font-display text-white">
-        <div className="absolute inset-0 bg-[url('/images/demenagement-croissy-sur-seine-78.jpg')] bg-cover bg-center opacity-20 transition-transform duration-1000 scale-105"></div>
+        <div className="absolute inset-0 bg-[url('/images/demenagement-croissy-sur-seine-yvelines.jpg')] bg-cover bg-center opacity-20 transition-transform duration-1000 scale-105"></div>
         <div className="container mx-auto px-4 md:px-6 relative z-10 text-white text-brand-900">
           <div className="max-w-4xl">
             <motion.div
@@ -159,7 +159,7 @@ const LocalCroissySurSeine: React.FC = () => {
             <div className="relative font-display italic">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-8 border-slate-50 shadow-brand-900/10">
                 <img 
-                  src="/images/demenagement-croissy-sur-seine-78.jpg" 
+                  src="/images/demenagement-croissy-sur-seine-yvelines.jpg" 
                   alt="Déménagement Croissy-sur-Seine - Marne Transdem" 
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />

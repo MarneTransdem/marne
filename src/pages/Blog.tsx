@@ -41,6 +41,19 @@ type BlogPost = {
   primaryCtaLabel?: string;
 };
 
+const imageDimensions: Record<string, { width: number; height: number }> = {
+  '/images/monte-meuble-paris-haussmannien.jpg': { width: 1152, height: 2048 },
+  '/images/transfert-bureaux-entreprise-paris.jpg': { width: 1513, height: 2017 },
+  '/images/camion-demenagement-stationnement-paris.jpg': { width: 1152, height: 2048 },
+  '/images/cartons-demenagement-paris.jpg': { width: 1897, height: 1423 },
+  '/images/cartons-preparation-demenagement.jpg': { width: 1152, height: 2048 },
+  '/images/equipe-demenageurs-marne-transdem.jpg': { width: 1513, height: 2017 },
+};
+
+function getImageDimensions(image: string) {
+  return imageDimensions[image] || { width: 1600, height: 1200 };
+}
+
 type ExpertTip = {
   icon: React.ElementType;
   title: string;
@@ -161,6 +174,7 @@ const Blog: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<BlogCategory>('Tous');
 
   const featuredPost = posts.find((post) => post.featured) || posts[0];
+  const featuredImageDimensions = getImageDimensions(featuredPost.image);
 
   const filteredPosts = useMemo(() => {
     if (activeCategory === 'Tous') return posts;
@@ -182,6 +196,7 @@ const Blog: React.FC = () => {
         title="Blog déménagement Paris : prix, monte-meuble, conseils et guides | Marne Transdem"
         description="Guides Marne Transdem pour préparer votre déménagement à Paris : prix, devis, volume, formalités, stationnement, monte-meuble, transfert de bureaux et checklist pratique."
         keywords="blog déménagement Paris, conseils déménagement Paris, prix déménagement Paris, devis déménagement Paris, monte-meuble Paris, déménagement entreprise Paris, checklist déménagement, formalités déménagement, volume déménagement"
+        canonical="/blog"
       />
 
       <section className="relative overflow-hidden bg-brand-900 pt-48 pb-32 text-white">
@@ -249,8 +264,12 @@ const Blog: React.FC = () => {
                   <img
                     src={featuredPost.image}
                     alt={featuredPost.imageAlt}
+                    width={featuredImageDimensions.width}
+                    height={featuredImageDimensions.height}
                     className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110"
                     loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-brand-900/20 transition-colors group-hover:bg-brand-900/10" />
                   <div className="absolute top-8 left-8 rounded-full bg-accent px-5 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-brand-900 shadow-lg">
@@ -396,7 +415,10 @@ const Blog: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
-            {regularPosts.map((post) => (
+            {regularPosts.map((post) => {
+              const dimensions = getImageDimensions(post.image);
+
+              return (
               <article key={post.id} className="group flex h-full flex-col">
                 <Link
                   to={`/blog/${post.slug}`}
@@ -405,7 +427,10 @@ const Blog: React.FC = () => {
                   <img
                     src={post.image}
                     alt={post.imageAlt}
+                    width={dimensions.width}
+                    height={dimensions.height}
                     loading="lazy"
+                    decoding="async"
                     className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-brand-900/10 transition-colors group-hover:bg-transparent" />
@@ -440,7 +465,8 @@ const Blog: React.FC = () => {
                   </div>
                 </div>
               </article>
-            ))}
+              );
+            })}
           </div>
 
           {filteredPosts.length === 0 && (

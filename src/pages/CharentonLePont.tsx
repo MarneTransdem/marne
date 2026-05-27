@@ -13,16 +13,59 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { SEO } from '../components/SEO';
+import { CONTACT } from '../constants';
+import { getBreadcrumbSchema, getFAQSchema } from '../lib/schema';
 
 const CharentonLePont = () => {
+  const path = '/demenagement-charenton-le-pont';
+  const faqs = [
+    {
+      q: "Quelles sont les formalités de stationnement à Charenton-le-Pont ?",
+      a: "La ville de Charenton requiert une autorisation de stationnement temporaire (AST). Marne Transdem prend en charge cette demande auprès des services municipaux pour vous libérer des contraintes administratives."
+    },
+    {
+      q: "Proposez-vous la location de monte-meuble à Charenton ?",
+      a: "Oui. Pour les accès difficiles ou les meubles volumineux, nous déployons un technicien et un monte-meuble capable d'atteindre les étages élevés des résidences charentonnaises."
+    },
+    {
+      q: "Quel est le prix d'un déménagement à Charenton-le-Pont ?",
+      a: "Le tarif dépend du volume, de la distance et de la formule choisie. Nous réalisons une visite technique gratuite à domicile ou en visio pour vous fournir un devis précis et transparent."
+    },
+    {
+      q: "Peut-on déménager le dimanche à Charenton ?",
+      a: "Le déménagement est soumis à la réglementation sonore locale. Nous privilégions les interventions du lundi au samedi pour respecter le voisinage, mais des exceptions sont possibles en fonction de la situation."
+    }
+  ];
+
   return (
     <div id="charenton-page" className="bg-white">
+      <SEO
+        title="Déménageur Charenton-le-Pont (94220) | Devis gratuit | Marne Transdem"
+        description="Préparez votre déménagement à Charenton-le-Pont avec Marne Transdem : particuliers, entreprises, garde-meuble, monte-meuble et devis gratuit pour le 94220."
+        canonical={path}
+        image="/images/demenagement-charenton-le-pont.webp"
+        schema={[
+          getFAQSchema(faqs),
+          getBreadcrumbSchema([
+            { name: 'Accueil', item: '/' },
+            { name: 'Val-de-Marne', item: '/demenagement-val-de-marne' },
+            { name: 'Déménagement Charenton-le-Pont', item: path }
+          ])
+        ]}
+      />
+
       {/* 1. Hero Section Premium */}
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-slate-900">
         <div className="absolute inset-0 z-0">
           <img 
             src="/images/demenagement-charenton-le-pont.webp" 
             alt="Déménagement professionnel à Charenton-le-Pont avec Marne Transdem" 
+            width="765"
+            height="1020"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
             className="w-full h-full object-cover opacity-40 grayscale-[20%]"
           />
           <div className="absolute inset-0 bg-linear-to-b from-slate-900/80 via-slate-900/40 to-slate-900/90" />
@@ -67,9 +110,9 @@ const CharentonLePont = () => {
               <Link to="/contact" className="px-8 py-4 bg-accent text-white rounded-full font-bold uppercase text-sm tracking-widest hover:bg-accent-hover hover:shadow-2xl hover:shadow-accent/40 transition-all text-center">
                 Demander mon devis offert
               </Link>
-              <a href="tel:0148084439" className="px-8 py-4 bg-white/10 text-white border border-white/20 rounded-full font-bold uppercase text-sm tracking-widest hover:bg-white/20 transition-all flex items-center justify-center gap-2 group whitespace-nowrap">
+              <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="px-8 py-4 bg-white/10 text-white border border-white/20 rounded-full font-bold uppercase text-sm tracking-widest hover:bg-white/20 transition-all flex items-center justify-center gap-2 group whitespace-nowrap">
                 <Phone size={18} className="group-hover:animate-shake" />
-                01 48 08 44 39
+                {CONTACT.phone}
               </a>
             </motion.div>
           </div>
@@ -113,6 +156,10 @@ const CharentonLePont = () => {
                 <img 
                   src="/images/marne-transdem.webp" 
                   alt="Déménageur Marne Transdem à Charenton-le-Pont" 
+                  width="375"
+                  height="500"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
               </div>
@@ -216,24 +263,7 @@ const CharentonLePont = () => {
             <h2 className="text-3xl font-bold text-slate-900 mb-12 italic text-center uppercase tracking-tight">Questions <span className="text-accent">Frequentes</span></h2>
             
             <div className="space-y-6">
-              {[
-                { 
-                  q: "Quelles sont les formalités de stationnement à Charenton-le-Pont ?", 
-                  a: "La ville de Charenton requiert une autorisation de stationnement temporaire (AST). Marne Transdem prend en charge cette demande auprès des services municipaux pour vous libérer des contraintes administratives." 
-                },
-                { 
-                  q: "Proposez-vous la location de monte-meuble à Charenton ?", 
-                  a: "Oui. Pour les accès difficiles ou les meubles volumineux, nous déployons un technicien et un monte-meuble capable d'atteindre les étages élevés des résidences charentonnaises." 
-                },
-                { 
-                  q: "Quel est le prix d'un déménagement à Charenton-le-Pont ?", 
-                  a: "Le tarif dépend du volume, de la distance et de la formule choisie. Nous réalisons une visite technique gratuite (à domicile ou en visio) pour vous fournir un devis précis et transparent." 
-                },
-                { 
-                  q: "Peut-on déménager le dimanche à Charenton ?", 
-                  a: "Le déménagement est soumis à la réglementation sonore locale. Nous privilégions les interventions du lundi au samedi pour respecter le voisinage, mais des exceptions sont possibles en fonction de la situation." 
-                }
-              ].map((item, i) => (
+              {faqs.map((item, i) => (
                 <div key={i} className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
                   <h4 className="font-bold text-slate-900 mb-4 flex items-start gap-4">
                     <CheckCircle2 size={20} className="text-accent flex-shrink-0 mt-1" />
@@ -263,7 +293,7 @@ const CharentonLePont = () => {
               <Link to="/contact" className="w-full sm:w-auto px-12 py-5 bg-accent text-white rounded-full font-bold uppercase text-sm tracking-[0.2em] shadow-xl shadow-accent/20 hover:scale-105 transition-all">
                 Obtenir mon devis gratuit
               </Link>
-              <a href="tel:0148084439" className="w-full sm:w-auto px-12 py-5 bg-slate-900 text-white rounded-full font-bold uppercase text-sm tracking-[0.2em] hover:bg-slate-800 transition-all flex items-center justify-center gap-3">
+              <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="w-full sm:w-auto px-12 py-5 bg-slate-900 text-white rounded-full font-bold uppercase text-sm tracking-[0.2em] hover:bg-slate-800 transition-all flex items-center justify-center gap-3">
                 Nous appeler
               </a>
             </div>

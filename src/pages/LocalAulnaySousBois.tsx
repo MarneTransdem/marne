@@ -111,7 +111,7 @@ const LocalAulnaySousBois: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10">
                 <img 
-                  src="/images/demenagement-aulnay-sous-bois.jpg" 
+                  src="/images/demenagement-appartement-93.jpg" 
                   alt="Déménagement à Aulnay-sous-Bois" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"

@@ -118,6 +118,10 @@ const Home: React.FC = () => {
                   <img 
                     src="/images/societe-demenagement-paris.webp" 
                     alt="Déménageur professionnel Paris" 
+                    width="600"
+                    height="800"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full aspect-[4/5] object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-transparent to-transparent"></div>
@@ -184,11 +188,11 @@ const Home: React.FC = () => {
 
             <div className="lg:w-5/12 grid grid-cols-2 gap-6 relative order-first lg:order-last">
               <div className="space-y-6">
-                <img src="/images/demenagement-paris.webp" width="600" height="800" alt="Déménagement professionnel Paris et Paris 20e" className="rounded-3xl shadow-xl aspect-[3/4] object-cover grayscale-[30%]" />
-                <img src="/images/demenagement-ile-de-france.webp" width="600" height="600" alt="Déménagement en Île-de-France et banlieue parisienne" className="rounded-3xl shadow-xl aspect-square object-cover" />
+                <img src="/images/demenagement-paris.webp" width="600" height="800" loading="lazy" decoding="async" alt="Déménagement professionnel Paris et Paris 20e" className="rounded-3xl shadow-xl aspect-[3/4] object-cover grayscale-[30%]" />
+                <img src="/images/demenagement-ile-de-france.webp" width="600" height="600" loading="lazy" decoding="async" alt="Déménagement en Île-de-France et banlieue parisienne" className="rounded-3xl shadow-xl aspect-square object-cover" />
               </div>
               <div className="pt-12 space-y-6">
-                <img src="/images/demenagement-longue-distance.webp" width="600" height="800" alt="Déménagement longue distance au départ de Paris vers toute la France" className="rounded-3xl shadow-xl aspect-[3/4] object-cover" />
+                <img src="/images/demenagement-longue-distance.webp" width="600" height="800" loading="lazy" decoding="async" alt="Déménagement longue distance au départ de Paris vers toute la France" className="rounded-3xl shadow-xl aspect-[3/4] object-cover" />
               </div>
             </div>
           </div>
@@ -209,6 +213,10 @@ const Home: React.FC = () => {
                   <img 
                     src="/images/preparation-demenagement.webp" 
                     alt="Préparation de déménagement à Paris : cartons, emballage et checklist Marne Transdem" 
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async"
                     className="rounded-[2.5rem] w-full aspect-video object-cover"
                   />
                   <div className="absolute -bottom-8 -right-8 bg-accent p-8 rounded-[2rem] shadow-xl border-4 border-white dark:border-slate-800 hidden md:block">

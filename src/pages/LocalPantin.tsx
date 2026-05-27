@@ -122,7 +122,7 @@ const LocalPantin: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenagement-pantin-93.jpg" 
+                  src="/images/demenagement-appartement-93.jpg" 
                   alt="Déménagement haut de gamme d'appartement ou loft le long du canal à Pantin" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -202,7 +202,7 @@ const LocalPantin: React.FC = () => {
             <div className="relative group order-last lg:order-first">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenageurs-professionnels-pantin.jpg" 
+                  src="/images/equipe-demenagement-93.jpg" 
                   alt="Équipe de déménageurs professionnels à l'œuvre à Pantin" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -273,7 +273,7 @@ const LocalPantin: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/transfert-entreprises-pantin.jpg" 
+                  src="/images/transfert-bureaux-entreprise-paris.jpg" 
                   alt="Déménagement de bureaux professionnels et locaux d'activités à Pantin" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"

@@ -6,8 +6,47 @@ import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 import { GoogleGenAI, Type } from "@google/genai";
 import compression from "compression";
+import fs from "fs";
+import {
+  CANONICAL_ALIASES,
+  getRobotsTxt,
+  getSeoRoute,
+  getSitemapXml,
+  renderPrerenderBody,
+  renderSeoHead,
+} from "./src/lib/seo-routes.ts";
 
 dotenv.config();
+
+// Simple in-memory rate limiter to prevent spam/abuse
+interface RateLimitEntry {
+  count: number;
+  resetTime: number;
+}
+const rateLimitMap = new Map<string, RateLimitEntry>();
+
+function isRateLimited(ip: string, limit: number, windowMs: number): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+  
+  if (!entry) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + windowMs });
+    return false;
+  }
+  
+  if (now > entry.resetTime) {
+    entry.count = 1;
+    entry.resetTime = now + windowMs;
+    return false;
+  }
+  
+  if (entry.count >= limit) {
+    return true;
+  }
+  
+  entry.count++;
+  return false;
+}
 
 let aiClient: GoogleGenAI | null = null;
 function getGeminiClient(): GoogleGenAI {
@@ -31,6 +70,76 @@ function getGeminiClient(): GoogleGenAI {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+const negotiableImageExtensions = new Set([".jpg", ".jpeg", ".png", ".webp"]);
+const imageVariantPreference = [
+  { extension: "avif", mimeType: "image/avif" },
+  { extension: "webp", mimeType: "image/webp" },
+] as const;
+
+function clientAcceptsMime(acceptHeader: string | undefined, mimeType: string): boolean {
+  if (!acceptHeader) return false;
+
+  return acceptHeader.split(",").some((entry) => {
+    const [type, ...params] = entry.trim().split(";");
+    if (type !== mimeType) return false;
+
+    const quality = params
+      .map((param) => param.trim())
+      .find((param) => param.startsWith("q="));
+
+    return quality !== "q=0" && quality !== "q=0.0";
+  });
+}
+
+function isInsideDirectory(filePath: string, rootDir: string): boolean {
+  const relative = path.relative(rootDir, filePath);
+  return !!relative && !relative.startsWith("..") && !path.isAbsolute(relative);
+}
+
+function getNegotiatedImageVariant(
+  requestedImagePath: string,
+  imagesRoot: string,
+  acceptHeader: string | undefined,
+) {
+  const originalPath = path.resolve(imagesRoot, requestedImagePath);
+  if (!isInsideDirectory(originalPath, imagesRoot)) return null;
+
+  const extension = path.extname(originalPath).toLowerCase();
+  if (!negotiableImageExtensions.has(extension)) return null;
+
+  for (const variant of imageVariantPreference) {
+    if (!clientAcceptsMime(acceptHeader, variant.mimeType)) continue;
+
+    const variantPath = originalPath.replace(/\.(jpe?g|png|webp)$/i, `.${variant.extension}`);
+    if (path.normalize(variantPath) === path.normalize(originalPath)) continue;
+    if (fs.existsSync(variantPath)) {
+      return { path: variantPath, mimeType: variant.mimeType };
+    }
+  }
+
+  return null;
+}
+
+function renderHtmlDocument(template: string, requestUrl: string) {
+  const pathname = new URL(requestUrl, "http://localhost").pathname;
+  const route = getSeoRoute(pathname);
+  const html = template
+    .replace(/<title>[\s\S]*?<\/title>/, `<title data-rh="true">${escapeHtml(route.title)}</title>`)
+    .replace("</head>", `    ${renderSeoHead(route)}\n  </head>`)
+    .replace('<div id="root"></div>', `<div id="root">${renderPrerenderBody(route)}</div>`);
+
+  return { html, status: route.status || 200 };
+}
+
 async function startServer() {
   const app = express();
   const PORT = process.env.PORT || 3000;
@@ -44,7 +153,20 @@ async function startServer() {
 
   // API Route: Send Email
   app.post("/api/send-email", async (req, res) => {
-    const { type, data } = req.body;
+    const ip = req.ip || "unknown";
+    // 5 email submissions per hour
+    if (isRateLimited(ip, 5, 60 * 60 * 1000)) {
+      return res.status(429).json({ error: "Trop de demandes envoyées. Veuillez réessayer plus tard." });
+    }
+
+    const { type, data, website } = req.body;
+
+    // Honeypot spam prevention
+    if (website) {
+      console.warn(`Honeypot anti-spam triggered from IP: ${ip}`);
+      return res.status(400).json({ error: "Requête invalide" });
+    }
+
     
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -174,6 +296,12 @@ async function startServer() {
 
   // API Route: AI-powered image/video analysis for volume calculations
   app.post("/api/gemini/analyze-images", async (req, res) => {
+    const ip = req.ip || "unknown";
+    // Limit to 10 image uploads per hour to prevent Gemini API quota exhaustion
+    if (isRateLimited(ip, 10, 60 * 60 * 1000)) {
+      return res.status(429).json({ error: "Trop d'analyses d'images demandées. Veuillez réessayer plus tard." });
+    }
+
     try {
       const { images } = req.body; // Array of { data: string (base64 data), mimeType: string }
 
@@ -299,17 +427,100 @@ Pour chaque objet détecté :
     res.json({ status: "ok" });
   });
 
+  Object.entries(CANONICAL_ALIASES).forEach(([from, to]) => {
+    app.get(from, (req, res) => {
+      const query = req.originalUrl.includes("?")
+        ? req.originalUrl.slice(req.originalUrl.indexOf("?"))
+        : "";
+      res.redirect(301, `${to}${query}`);
+    });
+  });
+
+  app.get("/sitemap.xml", (req, res) => {
+    const xml = getSitemapXml();
+    if (!xml) {
+      return res.status(500).send("Error generating sitemap");
+    }
+    res.header("Content-Type", "application/xml");
+    res.send(xml);
+  });
+
+  app.get("/robots.txt", (req, res) => {
+    res.type("text/plain");
+    res.send(getRobotsTxt());
+  });
+
+  [
+    ["/societe-demenagement-paris/", "/"],
+    ["/demenagement-particuliers/", "/demenagement-particuliers-paris"],
+    ["/services-demenagement/", "/services"],
+    ["/location-de-monte-meuble-ou-de-monte-charge-a-paris-et-en-ile-de-france/", "/location-monte-meuble-paris"],
+    ["/demenagement-dentreprises-a-paris-et-en-ile-de-france/", "/demenagement-entreprises-paris"],
+    ["/devisdemenagement/", "/demande-de-devis"],
+    ["/emballage-demenagement/", "/cartons-demenagement-paris"],
+  ].forEach(([from, to]) => {
+    app.get(from, (req, res) => {
+      const query = req.originalUrl.includes("?")
+        ? req.originalUrl.slice(req.originalUrl.indexOf("?"))
+        : "";
+      res.redirect(301, `${to}${query}`);
+    });
+  });
+
+  const imagesRoot = path.resolve(
+    process.cwd(),
+    process.env.NODE_ENV === "production" ? "dist/images" : "public/images",
+  );
+
+  app.get("/images/*", (req, res, next) => {
+    const requestedImagePath = req.params[0];
+    const variant = getNegotiatedImageVariant(
+      requestedImagePath,
+      imagesRoot,
+      req.get("accept"),
+    );
+
+    if (!variant) {
+      return next();
+    }
+
+    res.vary("Accept");
+    res.setHeader("Cache-Control", "public, max-age=604800, stale-while-revalidate=86400");
+    res.type(variant.mimeType);
+    return res.sendFile(variant.path, (error) => {
+      if (error) next(error);
+    });
+  });
+
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
-      server: { middlewareMode: true },
-      appType: "spa",
+      server: {
+        middlewareMode: true,
+        hmr: false,
+      },
+      appType: "custom",
     });
     app.use(vite.middlewares);
+
+    app.get("*", async (req, res, next) => {
+      try {
+        const templatePath = path.join(process.cwd(), "index.html");
+        const template = await vite.transformIndexHtml(
+          req.originalUrl,
+          fs.readFileSync(templatePath, "utf8")
+        );
+        const rendered = renderHtmlDocument(template, req.originalUrl);
+        res.status(rendered.status).type("html").send(rendered.html);
+      } catch (error) {
+        next(error);
+      }
+    });
   } else {
     // Serve static files in production with optimized browser caching
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath, {
+      index: false,
       maxAge: '1d',
       setHeaders: (res, filePath) => {
         if (filePath.includes('/assets/')) {
@@ -321,38 +532,12 @@ Pour chaque objet détecté :
         }
       }
     }));
-    // 301 Redirects
-  app.get("/societe-demenagement-paris/", (req, res) => {
-    res.redirect(301, "/");
-  });
 
-  app.get("/demenagement-particuliers/", (req, res) => {
-    res.redirect(301, "/demenagement-particuliers-paris");
-  });
-
-  app.get("/services-demenagement/", (req, res) => {
-    res.redirect(301, "/services");
-  });
-
-  app.get("/location-de-monte-meuble-ou-de-monte-charge-a-paris-et-en-ile-de-france/", (req, res) => {
-    res.redirect(301, "/location-monte-meuble-paris");
-  });
-
-  app.get("/demenagement-dentreprises-a-paris-et-en-ile-de-france/", (req, res) => {
-    res.redirect(301, "/demenagement-entreprises-paris");
-  });
-
-  app.get("/devisdemenagement/", (req, res) => {
-    res.redirect(301, "/demande-de-devis");
-  });
-
-  app.get("/emballage-demenagement/", (req, res) => {
-    res.redirect(301, "/cartons-demenagement-paris");
-  });
-
-  app.get('*', (req, res) => {
+    app.get('*', (req, res) => {
+      const template = fs.readFileSync(path.join(distPath, 'index.html'), 'utf8');
+      const rendered = renderHtmlDocument(template, req.originalUrl);
       res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
-      res.sendFile(path.join(distPath, 'index.html'));
+      res.status(rendered.status).type('html').send(rendered.html);
     });
   }
 

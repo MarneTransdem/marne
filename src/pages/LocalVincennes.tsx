@@ -196,7 +196,7 @@ const LocalVincennes: React.FC = () => {
             </div>
             <div className="lg:w-1/2 grid grid-cols-2 gap-4">
               <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl">
-                <img src="/images/demenagement-appartement-94.jpg" className="w-full h-full object-cover" alt="Appartement Vincennes" />
+                <img src="/images/demenagement-94-val-de-marne.jpg" className="w-full h-full object-cover" alt="Appartement Vincennes" />
               </div>
               <div className="aspect-square rounded-[3rem] overflow-hidden mt-12 shadow-2xl">
                 <img src="/images/equipe-demenageur-94.jpg" className="w-full h-full object-cover" alt="Déménagement Famille" />

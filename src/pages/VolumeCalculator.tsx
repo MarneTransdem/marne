@@ -175,6 +175,7 @@ const VolumeCalculator: React.FC = () => {
   const [aiError, setAiError] = useState<string | null>(null);
   const [aiResults, setAiResults] = useState<AIAnalysisResult | null>(null);
   const [aiTargetRoomOption, setAiTargetRoomOption] = useState<'new' | string>('new');
+  const [isDragging, setIsDragging] = useState(false);
 
   const resizeImage = (file: File): Promise<string> => {
     return new Promise((resolve) => {
@@ -221,10 +222,7 @@ const VolumeCalculator: React.FC = () => {
     });
   };
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-    const filesArray = Array.from(e.target.files) as File[];
-    
+  const processFiles = async (filesArray: File[]) => {
     for (const file of filesArray) {
       const fileId = Math.random().toString(36).substring(2, 9);
       try {
@@ -254,6 +252,28 @@ const VolumeCalculator: React.FC = () => {
       } catch (err) {
         console.error("Erreur de lecture du fichier :", err);
       }
+    }
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    await processFiles(Array.from(e.target.files));
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleDrop = async (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      await processFiles(Array.from(e.dataTransfer.files));
     }
   };
 
@@ -737,7 +757,12 @@ const VolumeCalculator: React.FC = () => {
                     <div className="space-y-8 flex-1 flex flex-col justify-between">
                       <div className="space-y-6">
                         {/* Drag and drop upload area */}
-                        <div className="relative">
+                        <div 
+                          className="relative overflow-hidden rounded-[2rem] transition-all"
+                          onDragOver={handleDragOver}
+                          onDragLeave={handleDragLeave}
+                          onDrop={handleDrop}
+                        >
                           <input 
                             type="file" 
                             id="ai-media-upload" 
@@ -746,19 +771,37 @@ const VolumeCalculator: React.FC = () => {
                             onChange={handleFileChange}
                             className="absolute inset-0 opacity-0 w-full h-full cursor-pointer z-10"
                           />
-                          <div className="border-2 border-dashed border-slate-200 bg-white hover:border-accent p-10 rounded-[2rem] text-center transition-all flex flex-col items-center justify-center gap-4">
-                            <div className="w-16 h-16 bg-slate-50 text-accent rounded-3xl flex items-center justify-center shadow-inner">
+                          <motion.div 
+                            animate={{ 
+                              borderColor: isDragging ? '#F5A400' : '#E2E8F0',
+                              scale: isDragging ? 1.02 : 1,
+                              backgroundColor: isDragging ? 'rgba(245, 164, 0, 0.05)' : '#FFFFFF'
+                            }}
+                            transition={{ duration: 0.2 }}
+                            className="border-2 border-dashed p-10 rounded-[2rem] text-center flex flex-col items-center justify-center gap-4 relative shadow-sm"
+                          >
+                            <motion.div 
+                              animate={{ y: isDragging ? -5 : 0 }}
+                              className={`w-16 h-16 rounded-3xl flex items-center justify-center shadow-inner transition-colors ${
+                                isDragging ? 'bg-accent text-white' : 'bg-slate-50 text-accent'
+                              }`}
+                            >
                               <UploadCloud size={32} />
-                            </div>
+                            </motion.div>
                             <div>
-                              <p className="font-bold text-brand-900 text-sm">Déposez vos photos ou vidéos ici</p>
-                              <p className="text-slate-400 text-xs mt-1">Glissez vos fichiers ou cliquez pour ouvrir l'appareil photo/vidéo</p>
+                              <p className="font-black text-brand-900 text-sm">
+                                {isDragging ? "Relâchez vos fichiers ici !" : "Déposez vos photos ou vidéos ici"}
+                              </p>
+                              <p className="text-slate-400 text-xs mt-1">
+                                {isDragging ? "Marne Transdem IA va lister les meubles..." : "Glissez vos fichiers ou cliquez pour ouvrir l'appareil photo/vidéo"}
+                              </p>
                             </div>
                             <div className="text-[10px] text-slate-400 bg-slate-50 px-3 py-1 rounded-full border border-slate-100">
                               Formats supportés : PNG, JPG, WEBP, MP4, MOV (max 10MB)
                             </div>
-                          </div>
+                          </motion.div>
                         </div>
+
 
                         {/* Uploaded previews */}
                         {uploadedFiles.length > 0 && (

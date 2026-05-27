@@ -122,7 +122,7 @@ const LocalAlfortville: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenagement-alfortville-94.jpg" 
+                  src="/images/demenagement-94-val-de-marne.jpg" 
                   alt="Déménagement d'appartement en bords de Seine à Alfortville" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -202,7 +202,7 @@ const LocalAlfortville: React.FC = () => {
             <div className="relative group order-last lg:order-first">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenageurs-professionnels-alfortville.jpg" 
+                  src="/images/equipe-demenageur-94.jpg" 
                   alt="Déménageurs qualifiés emballant un meuble lourd à Alfortville" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -273,7 +273,7 @@ const LocalAlfortville: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/transfert-entreprises-alfortville.jpg" 
+                  src="/images/transfert-bureaux-entreprise-paris.jpg" 
                   alt="Transfert de locaux professionnels et bureaux à Alfortville" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"

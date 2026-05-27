@@ -109,7 +109,7 @@ const DemenagementMutation: React.FC = () => {
               </div>
             </div>
             <div className="rounded-[4rem] overflow-hidden grayscale-[30%] shadow-2xl skew-x-1 italic font-sans transition-all italic shadow-none italic">
-               <img src="/images/mutation-professionnelle-paris.jpg" alt="Mutation professionnelle Paris Marne Transdem" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105 italic" />
+               <img src="/images/transfert-bureaux-entreprise-paris.jpg" alt="Mutation professionnelle Paris Marne Transdem" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105 italic" />
             </div>
           </div>
         </div>

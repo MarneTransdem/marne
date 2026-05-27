@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { CONTACT } from '../constants';
+import { SITE_URL } from '../lib/seo-routes';
 
 type FAQItem = {
   question: string;
@@ -42,7 +43,21 @@ type BlogPostData = {
   }>;
 };
 
-const siteUrl = 'https://marnetransdem.com';
+const siteUrl = SITE_URL;
+
+const imageDimensions: Record<string, { width: number; height: number }> = {
+  '/images/equipe-demenageurs-marne-transdem.jpg': { width: 1513, height: 2017 },
+  '/images/cartons-demenagement-paris.jpg': { width: 1897, height: 1423 },
+  '/images/transfert-bureaux-entreprise-paris.jpg': { width: 1513, height: 2017 },
+  '/images/cartons-preparation-demenagement.jpg': { width: 1152, height: 2048 },
+  '/images/camion-demenagement-stationnement-paris.jpg': { width: 1152, height: 2048 },
+  '/images/monte-meuble-paris-haussmannien.jpg': { width: 1152, height: 2048 },
+  '/images/transfert-entreprise-78-yvelines.jpg': { width: 1897, height: 1423 },
+};
+
+function getImageDimensions(image: string) {
+  return imageDimensions[image] || { width: 1600, height: 1200 };
+}
 
 const faqsDemenagementParis: FAQItem[] = [
   {
@@ -1135,7 +1150,7 @@ const posts: Record<string, BlogPostData> = {
       <p>Plus l’entreprise est structurée, plus le déménagement doit être planifié.</p>
 
       <div class="not-prose my-12 overflow-hidden rounded-[2rem] shadow-2xl">
-        <img src="/images/transfert-entreprise-78-yvelines.jpg" alt="déménagement entreprise Paris transfert de bureaux" class="w-full object-cover aspect-video" referrerPolicy="no-referrer" />
+        <img src="/images/transfert-entreprise-78-yvelines.jpg" alt="déménagement entreprise Paris transfert de bureaux" width="1897" height="1423" loading="lazy" decoding="async" class="w-full object-cover aspect-video" referrerPolicy="no-referrer" />
       </div>
 
       <h2>1. Désigner un responsable de projet interne</h2>
@@ -1152,7 +1167,7 @@ const posts: Record<string, BlogPostData> = {
       <p>Cet inventaire permet d’estimer le volume, le nombre de cartons, le nombre de déménageurs, la taille du camion et le temps d’intervention. Il permet aussi d’identifier les éléments sensibles : matériel informatique, archives confidentielles, mobilier fragile, objets lourds, équipements à démonter ou biens à évacuer. Un devis professionnel fiable repose toujours sur une vision précise du volume et des contraintes.</p>
 
       <div class="not-prose my-12 overflow-hidden rounded-[2rem] shadow-2xl">
-        <img src="/images/equipe-demenagement-93.jpg" alt="déménageurs professionnels transportant du mobilier de bureau" class="w-full object-cover aspect-video" referrerPolicy="no-referrer" />
+        <img src="/images/equipe-demenagement-93.jpg" alt="déménageurs professionnels transportant du mobilier de bureau" width="1897" height="2529" loading="lazy" decoding="async" class="w-full object-cover aspect-video" referrerPolicy="no-referrer" />
       </div>
 
       <h2>4. Trier avant de transférer les bureaux</h2>
@@ -1163,7 +1178,7 @@ const posts: Record<string, BlogPostData> = {
       <p>Chaque poste doit être identifié avant le déménagement. Une méthode efficace consiste à attribuer un code ou une étiquette à chaque collaborateur, service ou zone d’arrivée. Par exemple : Service commercial, Comptabilité, Direction, Accueil, Salle de réunion, Open space, Bureau 1, Bureau 2, Stockage, Archives. Chaque carton, écran, unité centrale, caisson et fauteuil peut être étiqueté avec la zone de destination. Cette méthode permet aux déménageurs de déposer directement les éléments au bon endroit dans les nouveaux locaux. Elle évite les cartons perdus, les meubles mal répartis et les collaborateurs qui cherchent leur matériel pendant plusieurs heures. Dans un déménagement d’entreprise, l’étiquetage n’est pas un détail. C’est un outil de continuité d’activité.</p>
 
       <div class="not-prose my-12 overflow-hidden rounded-[2rem] shadow-2xl">
-        <img src="/images/emballage-demenagement.webp" alt="cartons étiquetés pour un déménagement de bureaux" class="w-full object-cover aspect-video" referrerPolicy="no-referrer" />
+        <img src="/images/emballage-demenagement.webp" alt="cartons étiquetés pour un déménagement de bureaux" width="765" height="1020" loading="lazy" decoding="async" class="w-full object-cover aspect-video" referrerPolicy="no-referrer" />
       </div>
 
       <h2>6. Anticiper le transfert informatique</h2>
@@ -1190,7 +1205,7 @@ const posts: Record<string, BlogPostData> = {
       <p>Un changement de bureaux doit être communiqué aux personnes concernées : clients, fournisseurs, partenaires, banque, assurance, expert-comptable, administration, organismes sociaux, prestataires, opérateur téléphonique et services de livraison. Si le siège social de la société change, des formalités juridiques peuvent être nécessaires. Service-Public rappelle que le transfert d’un siège social nécessite plusieurs formalités. Pour une entreprise individuelle, certaines modifications doivent également être enregistrées au registre concerné.</p>
 
       <div class="not-prose my-12 overflow-hidden rounded-[2rem] shadow-2xl">
-        <img src="/images/transfert-entreprise-essonne.jpg" alt="transfert de postes informatiques lors d’un déménagement professionnel" class="w-full object-cover aspect-video" referrerPolicy="no-referrer" />
+        <img src="/images/transfert-entreprise-essonne.jpg" alt="transfert de postes informatiques lors d’un déménagement professionnel" width="1897" height="2529" loading="lazy" decoding="async" class="w-full object-cover aspect-video" referrerPolicy="no-referrer" />
       </div>
 
       <h2>13. Mettre à jour les supports de communication</h2>
@@ -1251,7 +1266,7 @@ const posts: Record<string, BlogPostData> = {
       <p>We can help you with: volumetric assessment, planning, access analysis, furniture transfer, box transport, material protection, professional building handling, disassembly and reassembly according to the planned services, organization with furniture lift if necessary, moving offices, shops, practices and professional premises. Our goal: help you transfer your business with as little interruption as possible.</p>
 
       <div class="not-prose my-12 overflow-hidden rounded-[2rem] shadow-2xl">
-        <img src="/images/camion-marne-transdem-93.jpg" alt="camion de déménagement devant un immeuble de bureaux à Paris" class="w-full object-cover aspect-video" referrerPolicy="no-referrer" />
+        <img src="/images/camion-marne-transdem-93.jpg" alt="camion de déménagement devant un immeuble de bureaux à Paris" width="1897" height="2529" loading="lazy" decoding="async" class="w-full object-cover aspect-video" referrerPolicy="no-referrer" />
       </div>
 
       <h2>Besoin d’un devis pour votre déménagement d’entreprise à Paris ?</h2>
@@ -1365,10 +1380,18 @@ const BlogPost: React.FC = () => {
 
   const schema = useMemo(() => buildJsonLd(post), [post]);
   const relatedPosts = post.related?.filter((relatedPost) => relatedPost.slug !== post.slug) || [];
+  const postImageDimensions = getImageDimensions(post.image);
 
   return (
     <div className="min-h-screen bg-white">
-      <SEO title={post.metaTitle} description={post.metaDesc} keywords={post.keywords} schema={schema} />
+      <SEO
+        title={post.metaTitle}
+        description={post.metaDesc}
+        keywords={post.keywords}
+        canonical={`/blog/${post.slug}`}
+        image={post.image}
+        schema={schema}
+      />
 
       <article className="pt-32 pb-24">
         <div className="container mx-auto px-4 md:px-6">
@@ -1408,7 +1431,16 @@ const BlogPost: React.FC = () => {
             </header>
 
             <figure className="relative mb-16 aspect-[21/9] overflow-hidden rounded-[3rem] shadow-2xl">
-              <img src={post.image} alt={post.imageAlt} className="h-full w-full object-cover" loading="eager" />
+              <img
+                src={post.image}
+                alt={post.imageAlt}
+                width={postImageDimensions.width}
+                height={postImageDimensions.height}
+                className="h-full w-full object-cover"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+              />
               <div className="pointer-events-none absolute inset-0 bg-brand-900/10" />
             </figure>
 
@@ -1518,7 +1550,10 @@ const BlogPost: React.FC = () => {
               Articles recommandés
             </h2>
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-              {relatedPosts.map((relatedPost) => (
+              {relatedPosts.map((relatedPost) => {
+                const dimensions = getImageDimensions(relatedPost.image);
+
+                return (
                 <Link
                   key={relatedPost.slug}
                   to={`/blog/${relatedPost.slug}`}
@@ -1527,7 +1562,10 @@ const BlogPost: React.FC = () => {
                   <img
                     src={relatedPost.image}
                     alt={relatedPost.imageAlt}
+                    width={dimensions.width}
+                    height={dimensions.height}
                     loading="lazy"
+                    decoding="async"
                     className="h-24 w-24 shrink-0 rounded-2xl object-cover"
                   />
                   <div>
@@ -1540,7 +1578,8 @@ const BlogPost: React.FC = () => {
                     <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Lire l’article</span>
                   </div>
                 </Link>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>

@@ -117,7 +117,7 @@ const DemenagementOeuvresArt: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center italic transition-all italic underline-none italic">
             <div className="order-2 md:order-1 rounded-[3.5rem] overflow-hidden shadow-2xl skew-x-1 grayscale-[10%] italic">
               <img 
-                src="/images/transport-art-paris.jpg" 
+                src="/images/demenagement-oeuvres-art.jpg" 
                 alt="Emballage oeuvre d'art Marne Transdem" 
                 className="w-full h-full object-cover"
               />

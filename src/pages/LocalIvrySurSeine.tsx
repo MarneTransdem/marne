@@ -127,7 +127,7 @@ const LocalIvrySurSeine: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenagement-appartement-ivry-sur-seine.jpg" 
+                  src="/images/demenagement-94-val-de-marne.jpg" 
                   alt="Déménagement d'appartement à Ivry-sur-Seine" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -207,7 +207,7 @@ const LocalIvrySurSeine: React.FC = () => {
             <div className="relative group order-last lg:order-first">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenageurs-professionnels-ivry.jpg" 
+                  src="/images/equipe-demenageur-94.jpg" 
                   alt="Déménageurs professionnels à Ivry-sur-Seine en plein portage" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -278,7 +278,7 @@ const LocalIvrySurSeine: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/transfert-de-bureaux-ivry-sur-seine.jpg" 
+                  src="/images/transfert-bureaux-entreprise-paris.jpg" 
                   alt="Déménagement de bureaux professionnels et de parcs d'ordinateurs à Ivry-sur-Seine" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"

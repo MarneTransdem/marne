@@ -111,7 +111,7 @@ const TransfertBureaux: React.FC = () => {
             <div className="relative group italic">
               <div className="rounded-[4rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-105 grayscale-0">
                 <img 
-                  src="/images/transfert-bureaux-paris.jpg" 
+                  src="/images/transfert-bureaux-entreprise-paris.jpg" 
                   alt="Déménagement de bureaux Marne Transdem" 
                   className="w-full h-full object-cover"
                 />

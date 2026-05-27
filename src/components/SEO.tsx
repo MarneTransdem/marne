@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { DEFAULT_OG_IMAGE, SITE_URL } from '../lib/seo-routes';
 
 interface SEOProps {
   title: string;
@@ -8,6 +9,7 @@ interface SEOProps {
   canonical?: string;
   type?: string;
   image?: string;
+  robots?: string;
   schema?: any | any[];
 }
 
@@ -17,12 +19,15 @@ export const SEO: React.FC<SEOProps> = ({
   keywords,
   canonical, 
   type = "website",
-  image = "/og-image.jpg",
+  image = DEFAULT_OG_IMAGE,
+  robots = "index, follow",
   schema 
 }) => {
   const fullTitle = title.includes("Marne Transdem") ? title : `${title} | Marne Transdem`;
-  const siteUrl = "https://devisdemenagement-paris.com";
-  const fullUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
+  const fallbackPath = typeof window !== 'undefined' ? window.location.pathname : '/';
+  const canonicalPath = canonical || fallbackPath;
+  const fullUrl = canonicalPath.startsWith('http') ? canonicalPath : `${SITE_URL}${canonicalPath}`;
+  const fullImageUrl = image.startsWith('http') ? image : `${SITE_URL}${image}`;
   
   const schemas = Array.isArray(schema) ? schema : schema ? [schema] : [];
 
@@ -38,17 +43,17 @@ export const SEO: React.FC<SEOProps> = ({
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={fullUrl} />
-      <meta property="og:image" content={`${siteUrl}${image}`} />
+      <meta property="og:image" content={fullImageUrl} />
       <meta property="og:site_name" content="Marne Transdem" />
       
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={`${siteUrl}${image}`} />
+      <meta name="twitter:image" content={fullImageUrl} />
       
       {/* Additional SEO */}
-      <meta name="robots" content="index, follow" />
+      <meta name="robots" content={robots} />
       <meta name="geo.region" content="FR-75" />
       <meta name="geo.placename" content="Paris" />
       

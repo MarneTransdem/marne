@@ -110,7 +110,7 @@ const GestionArchives: React.FC = () => {
             </div>
             <div className="relative italic transition-all grayscale-0 shadow-none italic font-sans italic">
                <div className="rounded-[4rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 hover:scale-[1.02] italic grayscale-0">
-                  <img src="/images/gestion-archives-paris.jpg" alt="Gestion d'archives Marne Transdem" className="w-full h-full object-cover italic transition-all" />
+                  <img src="/images/bureau-marne-transdem.webp" alt="Gestion d'archives Marne Transdem" className="w-full h-full object-cover italic transition-all" />
                </div>
                <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-accent/20 rounded-full blur-[100px] -z-0 italic transition-all"></div>
             </div>

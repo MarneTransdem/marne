@@ -10,6 +10,7 @@ const NotFound: React.FC = () => {
       <SEO 
         title="Page non trouvée | Marne Transdem"
         description="La page que vous recherchez n'existe pas."
+        robots="noindex, nofollow"
       />
       
       <div className="max-w-xl text-center">

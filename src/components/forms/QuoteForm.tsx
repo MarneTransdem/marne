@@ -39,6 +39,7 @@ interface FormData {
   needsPacking: string;
   needsStorage: string;
   message: string;
+  website?: string;
 
   // Section E: Consentement
   consent: boolean;
@@ -69,7 +70,8 @@ const INITIAL_DATA: FormData = {
   needsPacking: 'non',
   needsStorage: 'non',
   message: '',
-  consent: false
+  consent: false,
+  website: ''
 };
 
 const LOCAL_STORAGE_KEY = 'marne_transdem_volume_estimate';
@@ -238,10 +240,22 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
 
     setIsSubmitting(true);
     
+    // Honeypot spam prevention
+    if (formData.website) {
+      console.warn("Honeypot anti-spam triggered on QuoteForm!");
+      // Quietly succeed to frustrate spammers
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setIsSuccess(true);
+      }, 1000);
+      return;
+    }
+
     try {
       const path = 'quotes';
+      const { website, ...cleanData } = formData;
       await addDoc(collection(db, path), {
-        ...formData,
+        ...cleanData,
         createdAt: serverTimestamp()
       });
 
@@ -249,7 +263,7 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
       const emailResponse = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'quote', data: formData })
+        body: JSON.stringify({ type: 'quote', data: cleanData, website })
       });
 
       if (!emailResponse.ok) {
@@ -319,6 +333,11 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
       )}
       <div className="p-5 md:p-10 lg:p-14">
         <form onSubmit={handleSubmit} className="space-y-12 md:space-y-20">
+          {/* Honeypot field for spam prevention */}
+          <div className="hidden" aria-hidden="true">
+            <input type="text" name="website" value={formData.website} onChange={handleChange} tabIndex={-1} autoComplete="off" />
+          </div>
+
           {/* Section A: Vos coordonnées */}
           <section className="space-y-8 md:space-y-10">
             <div className="border-l-4 border-accent pl-5 md:pl-6 text-left">

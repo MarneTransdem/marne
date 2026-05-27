@@ -21,6 +21,8 @@ const Contact: React.FC = () => {
       const formElement = e.currentTarget as HTMLFormElement;
       const formData = new FormData(formElement);
       
+      const honeypot = formData.get('website');
+      
       const payload = {
         name: formData.get('name'),
         phone: formData.get('phone'),
@@ -36,7 +38,7 @@ const Contact: React.FC = () => {
       const emailResponse = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'contact', data: payload })
+        body: JSON.stringify({ type: 'contact', data: payload, website: honeypot })
       });
 
       if (!emailResponse.ok) {
@@ -206,6 +208,11 @@ const Contact: React.FC = () => {
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-8">
+                  {/* Honeypot field for spam prevention */}
+                  <div className="hidden" aria-hidden="true">
+                    <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+                  </div>
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2">
                       <label htmlFor="name" className="text-[10px] font-black uppercase tracking-widest text-brand-900/60 dark:text-slate-500 ml-4">Nom et prénom <span className="text-accent">*</span></label>

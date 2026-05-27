@@ -68,7 +68,7 @@ const LocalMantesLaJolie: React.FC = () => {
 
       {/* 1. Hero Section */}
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-brand-900 overflow-hidden italic font-display text-white">
-        <div className="absolute inset-0 bg-[url('/images/demenagement-mantes-la-jolie.jpg')] bg-cover bg-center opacity-20 transition-transform duration-1000 scale-105"></div>
+        <div className="absolute inset-0 bg-[url('/images/demenagement-yvelines-78.jpg')] bg-cover bg-center opacity-20 transition-transform duration-1000 scale-105"></div>
         <div className="container mx-auto px-4 md:px-6 relative z-10 text-white">
           <div className="max-w-4xl">
             <motion.div
@@ -159,7 +159,7 @@ const LocalMantesLaJolie: React.FC = () => {
             <div className="relative group transition-all duration-700">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-8 border-slate-50 shadow-brand-900/10">
                 <img 
-                  src="/images/demenagement-mantes-la-jolie-local.jpg" 
+                  src="/images/demenagement-yvelines-78.jpg" 
                   alt="Déménagement Mantes-la-Jolie - Marne Transdem" 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -307,7 +307,7 @@ const LocalMantesLaJolie: React.FC = () => {
             <div className="lg:w-1/2 order-2 lg:order-1 relative group">
                 <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.02] border-8 border-slate-50 shadow-brand-900/10">
                   <img 
-                    src="/images/demenagement-particuliers-mantes-la-jolie.jpg" 
+                    src="/images/demenagement-maison-yvelines.jpg" 
                     alt="Déménagement particuliers Mantes-la-Jolie - Marne Transdem" 
                     className="w-full h-full object-cover transition-transform duration-700"
                   />
@@ -344,7 +344,7 @@ const LocalMantesLaJolie: React.FC = () => {
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row-reverse gap-20 items-center shadow-brand-900/10 transition-all">
              <div className="lg:w-1/2 shadow-sm transition-transform hover:scale-[1.01] group duration-700">
                 <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative border-8 border-white p-2 shadow-brand-900/10 transition-transform">
-                  <img src="/images/transfert-bureau-mantes-la-jolie.jpg" alt="Déménagement Entreprise Mantes-la-Jolie" className="w-full h-full object-cover rounded-[2.5rem] transition-transform duration-700 group-hover:scale-105" />
+                  <img src="/images/transfert-entreprise-78-yvelines.jpg" alt="Déménagement Entreprise Mantes-la-Jolie" className="w-full h-full object-cover rounded-[2.5rem] transition-transform duration-700 group-hover:scale-105" />
                 </div>
              </div>
              <div className="lg:w-1/2 space-y-8 px-4 decoration-accent/10 transition-all">
@@ -442,7 +442,7 @@ const LocalMantesLaJolie: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 shadow-sm transition-all text-brand-900">
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
              <div className="rounded-[3rem] overflow-hidden shadow-2xl border-8 border-slate-50 italic shadow-sm shadow-brand-900/20 transition-all hover:scale-[1.01] group duration-700">
-               <img src="/images/logistique-mantes.jpg" alt="Volume et accès déménagement Mantes-la-Jolie" className="w-full h-full object-cover shadow-inner transition-transform duration-700 group-hover:scale-105" />
+               <img src="/images/demenagement-yvelines-camion.jpg" alt="Volume et accès déménagement Mantes-la-Jolie" className="w-full h-full object-cover shadow-inner transition-transform duration-700 group-hover:scale-105" />
              </div>
              <div className="space-y-8 shadow-sm px-4 shadow-brand-900/10 italic text-brand-900 transition-all">
                <h2 className="text-3xl md:text-5xl font-black text-brand-900 tracking-tight leading-tight px-4 uppercase italic shadow-sm underline decoration-accent/20 underline-offset-8 transition-all hover:text-accent">Volume, accès & monte-meuble</h2>

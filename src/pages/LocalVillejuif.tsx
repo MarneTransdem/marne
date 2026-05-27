@@ -127,7 +127,7 @@ const LocalVillejuif: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenagement-villejuif-94.jpg" 
+                  src="/images/demenagement-94-val-de-marne.jpg" 
                   alt="Déménagement d'appartement et logistique pour les résidents de Villejuif" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -207,7 +207,7 @@ const LocalVillejuif: React.FC = () => {
             <div className="relative group order-last lg:order-first">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenageurs-professionnels-villejuif.jpg" 
+                  src="/images/equipe-demenageur-94.jpg" 
                   alt="Déménageurs de métier en cours d'emballage d'objets précieux à Villejuif" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -275,7 +275,7 @@ const LocalVillejuif: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/transfert-cliniques-bureaux-villejuif.jpg" 
+                  src="/images/transfert-bureaux-entreprise-paris.jpg" 
                   alt="Manutention et emballage technique pour administrations et bureaux à Villejuif" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"

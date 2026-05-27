@@ -126,7 +126,7 @@ const LocalVitrySurSeine: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenagement-vitry-sur-seine-94.jpg" 
+                  src="/images/demenagement-94-val-de-marne.jpg" 
                   alt="Déménagement d'appartement et logistique urbaine à Vitry-sur-Seine" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -206,7 +206,7 @@ const LocalVitrySurSeine: React.FC = () => {
             <div className="relative group order-last lg:order-first">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenageurs-professionnels-vitry.jpg" 
+                  src="/images/equipe-demenageur-94.jpg" 
                   alt="Compagnons déménageurs chevronnés lors de la protection de meubles à Vitry-sur-Seine" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -274,7 +274,7 @@ const LocalVitrySurSeine: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/transfert-entreprises-vitry-sur-seine.jpg" 
+                  src="/images/transfert-bureaux-entreprise-paris.jpg" 
                   alt="Déménagement d'entreprise et manutention de bureaux à Vitry-sur-Seine" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"

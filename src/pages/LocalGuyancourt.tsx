@@ -119,7 +119,7 @@ const LocalGuyancourt: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenagement-guyancourt-78.jpg" 
+                  src="/images/demenagement-yvelines-78.jpg" 
                   alt="Déménagement à Guyancourt Marne Transdem" 
                   className="w-full h-full object-cover grayscale-[20%]"
                 />
@@ -163,7 +163,7 @@ const LocalGuyancourt: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-20 items-center italic">
             <div className="lg:w-1/2 rounded-[3.5rem] overflow-hidden shadow-2xl relative order-2 lg:order-1 grayscale-[10%] italic">
-              <img src="/images/demenagement-maison-78-guyancourt.jpg" alt="Organiser son déménagement à Guyancourt" className="w-full h-full object-cover" />
+              <img src="/images/demenagement-maison-yvelines.jpg" alt="Organiser son déménagement à Guyancourt" className="w-full h-full object-cover" />
             </div>
             <div className="lg:w-1/2 space-y-8 order-1 lg:order-2 italic">
               <h2 className="text-3xl md:text-4xl font-black text-brand-900 tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">Engagement Qualité</h2>

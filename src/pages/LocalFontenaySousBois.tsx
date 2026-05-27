@@ -127,7 +127,7 @@ const LocalFontenaySousBois: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenagement-fontenay-sous-bois-94.jpg" 
+                  src="/images/demenagement-94-val-de-marne.jpg" 
                   alt="Déménagement d'appartement et de résidence à Fontenay-sous-Bois" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -207,7 +207,7 @@ const LocalFontenaySousBois: React.FC = () => {
             <div className="relative group order-last lg:order-first">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/demenageurs-professionnels-fontenay.jpg" 
+                  src="/images/equipe-demenageur-94.jpg" 
                   alt="Déménageurs professionnels s'occupant d'un emballage de cartons à Fontenay-sous-Bois" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -278,7 +278,7 @@ const LocalFontenaySousBois: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <img 
-                  src="/images/transfert-bureaux-fontenay-sous-bois.jpg" 
+                  src="/images/transfert-bureaux-entreprise-paris.jpg" 
                   alt="Déménagement de parcs de serveurs et bureautique d'entreprise à Fontenay-sous-Bois" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"

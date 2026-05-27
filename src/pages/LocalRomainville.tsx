@@ -111,7 +111,7 @@ const LocalRomainville: React.FC = () => {
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10">
                 <img 
-                  src="/images/demenagement-romainville-93.jpg" 
+                  src="/images/demenagement-appartement-93.jpg" 
                   alt="Déménagement à Romainville" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
