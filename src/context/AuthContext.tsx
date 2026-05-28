@@ -42,8 +42,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         const isAdminPath = window.location.pathname.startsWith('/admin') || window.location.pathname === '/login';
         if (!isAdminPath) {
-          // Defer loading on public-facing routes to let the initial page render completely first
-          await new Promise(resolve => setTimeout(resolve, 1500));
+          setLoading(false);
+          return;
         }
 
         if (!isMounted) return;

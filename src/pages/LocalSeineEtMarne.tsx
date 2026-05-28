@@ -392,7 +392,7 @@ const LocalSeineEtMarne: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center italic italic italic italic transition-all italic h-full transition-all italic">
              <div className="order-2 lg:order-1 relative grayscale-[20%] italic transition-all h-full shadow-2xl transition-all h-full italic transition-all">
                 <div className="aspect-video bg-slate-200 rounded-[2.5rem] overflow-hidden shadow-xl border-8 border-white p-2 italic transition-all italic h-full transition-all italic transition-all">
-                   <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=1200" alt="Déménagement longue distance Seine-et-Marne" className="w-full h-full object-cover rounded-[2rem] italic transition-all h-full transition-all italic grayscale-[10%] transition-all h-full" />
+                   <img src="/images/demenagement-longue-distance-camion.jpg" alt="Déménagement longue distance Seine-et-Marne" width="1200" height="675" loading="lazy" decoding="async" className="w-full h-full object-cover rounded-[2rem] italic transition-all h-full transition-all italic grayscale-[10%] transition-all h-full" />
                 </div>
                 <div className="absolute top-6 left-6 bg-brand-900 text-white px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest shadow-xl flex items-center gap-2 italic italic italic transition-transform transition-all italic transition-all">
                    <Globe size={14} className="text-accent" /> Longue Distance

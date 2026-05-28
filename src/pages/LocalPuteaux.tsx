@@ -128,8 +128,13 @@ const LocalPuteaux: React.FC = () => {
             <div className="relative font-display">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 border-8 border-slate-50">
                 <img 
-                  src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/demenagement-nanterre-hauts-de-seine.jpg" 
                   alt="Déménagement Puteaux" 
+                  width="800"
+                  height="600"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -236,8 +241,12 @@ const LocalPuteaux: React.FC = () => {
             <div className="relative order-2 lg:order-1 font-display">
               <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl font-display">
                 <img 
-                  src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/demenagement-appartement-92.jpg" 
                   alt="Déménagement particuliers Puteaux" 
+                  width="800"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover font-display"
                 />
               </div>
@@ -294,8 +303,12 @@ const LocalPuteaux: React.FC = () => {
             <div className="relative font-display">
               <div className="aspect-[16/9] rounded-[3rem] overflow-hidden shadow-2xl font-display">
                 <img 
-                  src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1000" 
+                  src="/images/transfert-bureau-hauts-de-seine.jpg" 
                   alt="Déménagement entreprises Puteaux" 
+                  width="1000"
+                  height="563"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover font-display"
                 />
               </div>

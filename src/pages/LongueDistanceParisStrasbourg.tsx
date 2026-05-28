@@ -110,7 +110,7 @@ const LongueDistanceParisStrasbourg: React.FC = () => {
               </div>
             </div>
             <div className="relative rounded-[3rem] overflow-hidden shadow-2xl grayscale-[20%] transition-all h-full aspect-square">
-               <img src="https://images.unsplash.com/photo-1596431102927-4632490db0ea?auto=format&fit=crop&q=80&w=800" alt="Paris Strasbourg Transport" className="w-full h-full object-cover" />
+               <img src="/images/demenagement-longue-distance-camion.jpg" alt="Paris Strasbourg Transport" width="800" height="800" loading="eager" fetchPriority="high" decoding="async" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
@@ -178,7 +178,7 @@ const LongueDistanceParisStrasbourg: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 italic">
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-20 items-center italic">
             <div className="lg:w-1/2 rounded-[3.5rem] overflow-hidden shadow-2xl relative order-2 lg:order-1 grayscale-[10%]">
-               <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&q=80&w=800" alt="Particulier Paris Strasbourg" className="w-full h-full object-cover italic grayscale-[10%]" />
+               <img src="/images/demenagement-maison-appartement-particulier.jpg" alt="Particulier Paris Strasbourg" width="800" height="600" loading="lazy" decoding="async" className="w-full h-full object-cover italic grayscale-[10%]" />
             </div>
             <div className="lg:w-1/2 space-y-8 order-1 lg:order-2 italic font-sans">
               <h2 className="text-3xl md:text-4xl font-black text-brand-900 tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8 transition-all">Particuliers de Paris vers Strasbourg</h2>
@@ -203,7 +203,7 @@ const LongueDistanceParisStrasbourg: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 italic font-sans">
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row-reverse gap-20 items-center italic">
              <div className="lg:w-1/2 rounded-[3.5rem] overflow-hidden shadow-2xl relative grayscale-[10%] italic">
-                <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=800" alt="Entreprise Paris Strasbourg" className="w-full h-full object-cover italic" />
+                <img src="/images/transfert-bureaux-entreprise-paris.jpg" alt="Entreprise Paris Strasbourg" width="800" height="600" loading="lazy" decoding="async" className="w-full h-full object-cover italic" />
              </div>
              <div className="lg:w-1/2 space-y-8 italic font-sans">
                <h2 className="text-3xl md:text-4xl font-black text-brand-900 tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8 transition-all underline decoration-accent/20 underline-offset-4">Transfert professionnel Paris Strasbourg</h2>

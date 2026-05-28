@@ -1,71 +1,116 @@
-# Marne Transdem - Déménageur à Paris & Île-de-France
+# Marne Transdem
 
-Marne Transdem est une application web moderne et performante pour une entreprise de déménagement basée à Paris. Elle offre une expérience utilisateur premium, optimisée pour le SEO et le taux de conversion.
+Application web de Marne Transdem, déménageur à Paris et en Île-de-France.
+Le projet combine React, TypeScript, Vite et un serveur Express pour servir les
+pages publiques, les routes API, le prerender SEO, le sitemap, les robots et la
+négociation automatique des images AVIF/WebP.
 
-## 🚀 Fonctionnalités
+## Points Forts
 
-- **SEO Local Optimisé** : Pages dédiées pour de nombreux secteurs (Paris, Hauts-de-Seine, Yvelines, etc.).
-- **Calculateur de Volume** : Outil interactif pour estimer le volume d'un déménagement.
-- **Demande de Devis** : Formulaire complet et intuitif pour les prospects.
-- **Design Premium** : Interface soignée utilisant Tailwind CSS et Framer Motion (motion) pour des animations fluides.
-- **Responsive Design** : Expérience fluide sur desktop, tablette et mobile.
+- SEO local avec pages par secteur et articles de blog canoniques.
+- Prerender HTML serveur pour les balises title, meta, canonical, robots, Open Graph et JSON-LD.
+- Sitemap et robots générés depuis les routes SEO canoniques.
+- Images négociées en AVIF puis WebP selon le header `Accept`.
+- Formulaire de devis, formulaire de contact et calculateur de volume.
+- Protections anti-spam de base sur les formulaires publics.
 
-## 🛠️ Stack Technique
+## Stack
 
-- **Frontend** : React 18+ / TypeScript
-- **Build Tool** : Vite
-- **Styling** : Tailwind CSS
-- **Animations** : Framer Motion (motion)
-- **Icônes** : Lucide React
-- **Routage** : React Router DOM
+- React 19, TypeScript, React Router.
+- Vite, Tailwind CSS, Motion, Lucide React.
+- Express, compression, Nodemailer, Gemini API.
+- Firebase client pour les données applicatives.
+- Sharp pour la génération des variantes images.
 
-## 💻 Installation et Développement
+## Installation
 
-### Prérequis
+```bash
+npm install
+```
 
-- Node.js (v18 ou supérieur)
-- npm (ou yarn)
+Copier `.env.example` vers `.env`, puis renseigner les variables nécessaires :
 
-### Installation
+```bash
+GEMINI_API_KEY=
+APP_URL=
+GMAIL_USER=
+GMAIL_APP_PASSWORD=
+VITE_GOOGLE_MAPS_PLATFORM_KEY=
+```
 
-1. Clonez le dépôt :
-   ```bash
-   git clone <url-du-depot>
-   ```
-
-2. Installez les dépendances :
-   ```bash
-   npm install
-   ```
-
-3. Créez un fichier `.env` basé sur `.env.example` et configurez vos variables.
-
-### Lancement du serveur de développement
+## Développement
 
 ```bash
 npm run dev
 ```
-L'application utilise un serveur Express avec Vite en middleware. Elle est accessible sur `http://localhost:3000`.
 
-### Build et Production
+Le serveur écoute sur `http://localhost:3000` par défaut. Pour choisir un port
+dans PowerShell :
 
-Pour construire et lancer l'application en mode production (idéal pour Cloud Run) :
+```powershell
+$env:PORT='3100'; npm run dev
+```
+
+## Qualité
+
+```bash
+npm run audit:site
+npm run lint
+npm run build
+```
+
+Ou tout lancer en une fois :
+
+```bash
+npm run check
+```
+
+`npm run audit:site` contrôle notamment :
+
+- cohérence routes publiques / sitemap ;
+- correspondance du `robots.txt` ;
+- existence des images référencées dans `src` ;
+- couverture AVIF et WebP ;
+- absence d'images Unsplash externes dans les pages publiques ;
+- image Open Graph par défaut ;
+- absence de fichiers `.env` suivis et de placeholders critiques dans les fichiers versionnés.
+
+## Images
+
+Générer les variantes manquantes :
+
+```bash
+npm run optimize:images
+```
+
+La recompression des WebP existants est volontairement séparée, car Windows peut
+verrouiller les fichiers servis par le serveur local :
+
+```bash
+npm run optimize:images:recompress
+```
+
+## Production
 
 ```bash
 npm run build
 npm start
 ```
-Le serveur écoutera sur le port défini par l'environnement (`PORT`) ou 3000 par défaut.
 
-## 📁 Structure du Projet
+En production, le serveur sert `dist/`, applique les balises SEO serveur et
+renvoie les variantes AVIF/WebP disponibles pour les images publiques. Les
+images originales restent servies avec `Vary: Accept` pour éviter les caches
+incohérents entre navigateurs compatibles AVIF/WebP et navigateurs plus anciens.
 
-- `server.ts` : Point d'entrée de l'application (Express + Vite).
-- `src/components` : Composants UI réutilisables.
-- `src/pages` : Pages principales et pages SEO locales.
-- `src/lib` : Utilitaires et schémas SEO.
-- `src/constants` : Constantes de l'application (coordonnées, etc.).
-- `src/types.ts` : Définitions Typescript globales.
+## Structure
 
-## 📄 Licence
+- `server.ts` : serveur Express, API, SEO serveur, sitemap, robots, images.
+- `src/lib/seo-routes.ts` : source des routes SEO canoniques.
+- `src/pages` : pages publiques et pages locales.
+- `src/components` : composants réutilisables.
+- `scripts/optimize-referenced-images.mjs` : génération AVIF/WebP.
+- `scripts/audit-site-health.ts` : audit local SEO/performance.
 
-Ce projet est la propriété de Marne Transdem.
+## Licence
+
+Projet propriétaire Marne Transdem.

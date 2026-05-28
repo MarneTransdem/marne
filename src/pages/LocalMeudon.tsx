@@ -240,8 +240,12 @@ const LocalMeudon: React.FC = () => {
             <div className="relative order-2 lg:order-1 font-display">
               <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl font-display">
                 <img 
-                  src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/demenagement-meudon-hauts-de-seine.jpg" 
                   alt="Déménagement particuliers Meudon" 
+                  width="800"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover font-display"
                 />
               </div>
@@ -298,8 +302,12 @@ const LocalMeudon: React.FC = () => {
             <div className="relative font-display">
               <div className="aspect-[16/9] rounded-[3rem] overflow-hidden shadow-2xl font-display">
                 <img 
-                  src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1000" 
+                  src="/images/transfert-bureau-hauts-de-seine.jpg" 
                   alt="Déménagement entreprises Meudon" 
+                  width="1000"
+                  height="563"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover font-display"
                 />
               </div>

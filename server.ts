@@ -492,6 +492,15 @@ Pour chaque objet détecté :
     });
   });
 
+  app.use("/images", express.static(imagesRoot, {
+    fallthrough: true,
+    maxAge: "7d",
+    setHeaders: (res) => {
+      res.setHeader("Vary", "Accept");
+      res.setHeader("Cache-Control", "public, max-age=604800, stale-while-revalidate=86400");
+    },
+  }));
+
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({

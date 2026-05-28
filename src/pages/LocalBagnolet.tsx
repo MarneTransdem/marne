@@ -105,8 +105,13 @@ const LocalBagnolet: React.FC = () => {
             <div className="relative">
               <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 hover:scale-[1.02]">
                 <img 
-                  src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800" 
+                  src="/images/demenagement-appartement-93.jpg" 
                   alt="Déménagement Bagnolet" 
+                  width="800"
+                  height="600"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -191,7 +196,7 @@ const LocalBagnolet: React.FC = () => {
             </div>
             <div className="lg:w-1/2 relative">
                <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10">
-                 <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800" alt="Habitation Bagnolet" />
+                 <img src="/images/demenagement-maison-appartement-particulier.jpg" alt="Habitation Bagnolet" width="800" height="600" loading="lazy" decoding="async" className="w-full h-full object-cover" />
                </div>
                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-white/5 blur-3xl -z-10 rounded-full"></div>
             </div>
@@ -205,7 +210,7 @@ const LocalBagnolet: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="order-2 lg:order-1 relative">
                <div className="aspect-video bg-slate-100 rounded-[2.5rem] overflow-hidden shadow-xl border-8 border-white p-2">
-                 <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" alt="Bureaux Bagnolet" className="rounded-[2rem] w-full h-full object-cover" />
+                 <img src="/images/transfert-bureaux-entreprise-paris.jpg" alt="Bureaux Bagnolet" width="800" height="450" loading="lazy" decoding="async" className="rounded-[2rem] w-full h-full object-cover" />
                </div>
             </div>
             <div className="order-1 lg:order-2 space-y-8">

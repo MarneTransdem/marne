@@ -536,8 +536,12 @@ const FormulasPage: React.FC = () => {
                  <div className="aspect-square bg-white/5 dark:bg-slate-800/50 rounded-[3rem] border border-white/10 dark:border-slate-800 p-8 transition-colors">
                     <div className="w-full h-full rounded-[2rem] bg-brand-800 dark:bg-slate-950 flex items-center justify-center overflow-hidden">
                        <img 
-                        src="https://images.unsplash.com/photo-1577705998148-6da4f3963bc8?auto=format&fit=crop&q=80" 
+                        src="/images/demenagement-paris-intra-muros.jpg" 
                         alt="Devis Déménagement Paris" 
+                        width="600"
+                        height="600"
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover opacity-60"
                        />
                     </div>

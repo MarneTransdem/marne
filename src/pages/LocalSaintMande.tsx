@@ -104,7 +104,7 @@ const LocalSaintMande: React.FC = () => {
             </div>
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.02]">
-                <img src="https://images.unsplash.com/photo-1596720510619-3333e9d8e578?auto=format&fit=crop&q=80&w=800" alt="Saint-Mandé Immobilier" className="w-full h-full object-cover" />
+                <img src="/images/demenagement-94-val-de-marne.jpg" alt="Saint-Mandé Immobilier" width="800" height="600" loading="eager" fetchPriority="high" decoding="async" className="w-full h-full object-cover" />
               </div>
               <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-accent/20 rounded-full blur-3xl -z-0"></div>
             </div>
@@ -178,7 +178,7 @@ const LocalSaintMande: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
             <div className="lg:w-1/2 rounded-[3rem] overflow-hidden shadow-2xl relative">
-              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=600" alt="Déménagement Particulier Saint-Mandé" className="w-full h-full object-cover" />
+              <img src="/images/demenagement-appartement-creteil.jpg" alt="Déménagement Particulier Saint-Mandé" width="600" height="600" loading="lazy" decoding="async" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-brand-900/10 pointer-events-none"></div>
             </div>
             <div className="lg:w-1/2 space-y-8">
@@ -204,7 +204,7 @@ const LocalSaintMande: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-5xl mx-auto flex flex-col lg:flex-row-reverse gap-16 items-center">
             <div className="lg:w-1/2 rounded-[3.5rem] overflow-hidden shadow-2xl relative">
-              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=600" alt="Transfert Entreprise Saint-Mandé" className="w-full h-full object-cover" />
+              <img src="/images/transfert-bureaux-entreprise-paris.jpg" alt="Transfert Entreprise Saint-Mandé" width="600" height="600" loading="lazy" decoding="async" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-accent/5 pointer-events-none"></div>
             </div>
             <div className="lg:w-1/2 space-y-8">

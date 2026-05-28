@@ -12,6 +12,44 @@ import { FORMULAS, FAQ_ITEMS, CONTACT } from '../constants';
 import { SEO } from '../components/SEO';
 import { getOrganizationSchema, getLocalBusinessSchema, getFAQSchema } from '../lib/schema';
 
+const DeferredGoogleReviews: React.FC = () => {
+  const ref = React.useRef<HTMLDivElement>(null);
+  const [shouldRender, setShouldRender] = React.useState(false);
+
+  React.useEffect(() => {
+    if (shouldRender) return;
+    const node = ref.current;
+    if (!node) return;
+
+    if (!('IntersectionObserver' in window)) {
+      setShouldRender(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        setShouldRender(true);
+        observer.disconnect();
+      }
+    }, { rootMargin: '700px 0px' });
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [shouldRender]);
+
+  return (
+    <div ref={ref}>
+      {shouldRender ? (
+        <React.Suspense fallback={<div className="py-24 text-center bg-white dark:bg-slate-950"><span className="text-slate-400 animate-pulse font-light text-sm italic">Chargement des avis clients...</span></div>}>
+          <GoogleReviewsSection />
+        </React.Suspense>
+      ) : (
+        <div className="h-24 bg-white dark:bg-slate-950" aria-hidden="true" />
+      )}
+    </div>
+  );
+};
+
 const Home: React.FC = () => {
   return (
     <>
@@ -260,9 +298,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <React.Suspense fallback={<div className="py-24 text-center bg-white dark:bg-slate-950"><span className="text-slate-400 animate-pulse font-light text-sm italic">Chargement des avis clients...</span></div>}>
-        <GoogleReviewsSection />
-      </React.Suspense>
+      <DeferredGoogleReviews />
 
       {/* CTA Final */}
       <section className="py-24 bg-white dark:bg-slate-950 relative overflow-hidden font-sans italic transition-colors duration-300">

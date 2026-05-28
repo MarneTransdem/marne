@@ -90,7 +90,7 @@ const LocalHautsDeSeine: React.FC = () => {
 
       {/* 1. Hero de page */}
       <section className="relative pt-32 pb-24 lg:pt-48 lg:pb-36 bg-brand-900 overflow-hidden text-white">
-        <div className="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1454165833767-027ffea9e778?auto=format&fit=crop&q=80&w=1200')] bg-cover bg-center opacity-10 pointer-events-none"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-[url('/images/demenagement-92-hauts-de-seine-camion.jpg')] bg-cover bg-center opacity-10 pointer-events-none"></div>
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl">
             <motion.div

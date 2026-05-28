@@ -341,7 +341,7 @@ const LocalCreteil: React.FC = () => {
                </Link>
              </div>
              <div className="lg:w-1/2 grayscale hover:grayscale-0 transition-all duration-700 rounded-[3rem] overflow-hidden shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1506015391300-4802dc74de2e?auto=format&fit=crop&q=80&w=800" alt="Déménagement longue distance" className="w-full h-full object-cover" />
+                <img src="/images/demenagement-longue-distance-camion.jpg" alt="Déménagement longue distance" width="800" height="450" loading="lazy" decoding="async" className="w-full h-full object-cover" />
              </div>
            </div>
         </div>

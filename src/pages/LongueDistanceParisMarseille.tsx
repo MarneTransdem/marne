@@ -110,7 +110,7 @@ const LongueDistanceParisMarseille: React.FC = () => {
               </div>
             </div>
             <div className="relative rounded-[3rem] overflow-hidden shadow-2xl transition-all h-full aspect-square grayscale-[20%]">
-               <img src="https://images.unsplash.com/photo-1549416878-b9ca35c2d4ac?auto=format&fit=crop&q=80&w=800" alt="Paris Marseille Transport" className="w-full h-full object-cover" />
+               <img src="/images/demenagement-longue-distance-camion.jpg" alt="Paris Marseille Transport" width="800" height="800" loading="eager" fetchPriority="high" decoding="async" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
@@ -178,7 +178,7 @@ const LongueDistanceParisMarseille: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 italic font-sans italic">
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-20 items-center italic">
             <div className="lg:w-1/2 rounded-[3.5rem] overflow-hidden shadow-2xl relative order-2 lg:order-1 grayscale-[10%]">
-               <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800" alt="Particulier Paris Marseille" className="w-full h-full object-cover italic transition-all h-full grayscale-[10%]" />
+               <img src="/images/demenagement-maison-appartement-particulier.jpg" alt="Particulier Paris Marseille" width="800" height="600" loading="lazy" decoding="async" className="w-full h-full object-cover italic transition-all h-full grayscale-[10%]" />
             </div>
             <div className="lg:w-1/2 space-y-8 order-1 lg:order-2 italic font-sans italic">
               <h2 className="text-3xl md:text-4xl font-black text-brand-900 tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8 italic transition-all">Déménagement particuliers</h2>
@@ -203,7 +203,7 @@ const LongueDistanceParisMarseille: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 italic font-sans italic">
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row-reverse gap-20 items-center italic">
              <div className="lg:w-1/2 rounded-[3.5rem] overflow-hidden shadow-2xl relative grayscale-[10%] italic transition-all h-full transition-all italic grayscale-[10%]">
-                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" alt="Entreprise Paris Marseille" className="w-full h-full object-cover italic transition-all h-full" />
+                <img src="/images/transfert-bureaux-entreprise-paris.jpg" alt="Entreprise Paris Marseille" width="800" height="600" loading="lazy" decoding="async" className="w-full h-full object-cover italic transition-all h-full" />
              </div>
              <div className="lg:w-1/2 space-y-8 italic font-sans italic italic">
                <h2 className="text-3xl md:text-4xl font-black text-brand-900 tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8 italic transition-all italic h-full underline decoration-accent/20 underline-offset-4 italic">Transferts professionnels</h2>
