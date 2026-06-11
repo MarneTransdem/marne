@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { UserPlus, Edit, X, Trash2, Truck, Plus, Users, Calendar, AlertTriangle, CheckCircle, Scale, Shield } from 'lucide-react';
 import { db } from '../../lib/firebase';
-import { doc, setDoc, deleteDoc } from 'firebase/firestore';
+import { deleteCrmAccessProfile, deleteCrmEmailAccessProfile, normalizeCrmEmail, upsertCrmAccessProfile } from '../../lib/crm-auth-access';
 import { useAuth } from '../../context/AuthContext';
 import { useOutletContext } from 'react-router-dom';
 import { useSyncedCollection } from '../../hooks/useData';
@@ -31,7 +31,7 @@ const SEED_TRUCKS: FieldTruck[] = [
 ];
 
 export function AdminCollaborateurs() {
-  const { user } = useAuth();
+  const { user, role } = useAuth();
   const context = useOutletContext<AdminOutletContextType>();
   const pushNotification = context?.pushNotification;
 
@@ -40,6 +40,33 @@ export function AdminCollaborateurs() {
   const [movers, setMovers] = useSyncedCollection<FieldMover>('movers', SEED_MOVERS);
   const [trucks, setTrucks] = useSyncedCollection<FieldTruck>('trucks', SEED_TRUCKS);
   const [demenagements] = useSyncedCollection<Demenagement>('demenagements');
+
+  useEffect(() => {
+    if (role !== 'gérant' || collaborateurs.length === 0) return;
+
+    const syncCrmAccessProfiles = async () => {
+      try {
+        await Promise.all(
+          collaborateurs
+            .filter(collab => collab.uid && collab.email && collab.role)
+            .map(collab =>
+              upsertCrmAccessProfile(db, {
+                uid: collab.uid,
+                email: collab.email,
+                role: collab.role,
+                name: collab.name,
+                phone: collab.phone,
+                status: collab.status
+              })
+            )
+        );
+      } catch (syncErr) {
+        console.warn("Firestore CRM access mirror sync failed:", syncErr);
+      }
+    };
+
+    syncCrmAccessProfiles();
+  }, [collaborateurs, role]);
 
   // Local states
   const [showAddCollab, setShowAddCollab] = useState(false);
@@ -105,14 +132,13 @@ export function AdminCollaborateurs() {
     };
 
     try {
-      await setDoc(doc(db, 'users', uid), {
+      await upsertCrmAccessProfile(db, {
         uid,
         email: cleanEmail,
         role: createdItem.role,
         name: createdItem.name,
         phone: createdItem.phone,
-        status: createdItem.status,
-        createdAt: new Date().toISOString()
+        status: createdItem.status
       });
       localStorage.setItem(`mt_role_${uid}`, createdItem.role);
     } catch (fsErr) {
@@ -148,17 +174,22 @@ export function AdminCollaborateurs() {
     }
 
     const cleanEmail = editingCollab.email.trim().toLowerCase();
+    const previousEmail = normalizeCrmEmail(collaborateurs.find(c => c.uid === editingCollab.uid)?.email);
     
     try {
-      await setDoc(doc(db, 'users', editingCollab.uid), {
+      await upsertCrmAccessProfile(db, {
         uid: editingCollab.uid,
         email: cleanEmail,
         role: editingCollab.role,
         name: editingCollab.name.trim(),
         phone: editingCollab.phone || '',
-        status: editingCollab.status,
-        updatedAt: new Date().toISOString()
-      }, { merge: true });
+        status: editingCollab.status
+      });
+
+      if (previousEmail && previousEmail !== cleanEmail) {
+        await deleteCrmEmailAccessProfile(db, previousEmail);
+      }
+
       localStorage.setItem(`mt_role_${editingCollab.uid}`, editingCollab.role);
     } catch (fsErr) {
       console.warn("Firestore update offline during collaborator edit:", fsErr);
@@ -188,7 +219,8 @@ export function AdminCollaborateurs() {
     }
 
     try {
-      await deleteDoc(doc(db, 'users', uid));
+      const removedCollab = collaborateurs.find(c => c.uid === uid);
+      await deleteCrmAccessProfile(db, uid, removedCollab?.email);
     } catch (fsErr) {
       console.warn("Firestore delete offline during collaborator removal:", fsErr);
     }

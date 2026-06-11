@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { 
   signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword 
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut
 } from 'firebase/auth';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../lib/firebase';
+import { getCrmRoleForAuthenticatedUser, upsertCrmAccessProfile } from '../lib/crm-auth-access';
 import { useAuth } from '../context/AuthContext';
+import type { Role } from '../types';
 import { 
   Lock, 
   Mail, 
@@ -18,8 +22,6 @@ import {
   CheckCircle,
   HelpCircle
 } from 'lucide-react';
-
-type Role = 'gérant' | 'secrétaire' | 'commercial' | 'chef_equipe';
 
 export default function Login() {
   const { user, role, loading: authLoading } = useAuth();
@@ -44,6 +46,36 @@ export default function Login() {
     return <Navigate to="/admin" replace />;
   }
 
+  const canBootstrapManager = (checkEmail: string) =>
+    adminBootstrapEnabled && checkEmail === 'contact@marnetransdem.com';
+
+  const ensureUserHasCrmRole = async (
+    uid: string,
+    userEmail: string | null,
+    displayName?: string | null
+  ) => {
+    const checkEmail = (userEmail || '').trim().toLowerCase();
+    const existingRole = await getCrmRoleForAuthenticatedUser(db, uid, checkEmail);
+
+    if (existingRole) {
+      return true;
+    }
+
+    if (canBootstrapManager(checkEmail)) {
+      await upsertCrmAccessProfile(db, {
+        uid,
+        email: checkEmail,
+        role: 'gérant',
+        name: displayName || 'Gérant MarneTransdem',
+        status: 'Actif',
+        provider: 'google'
+      });
+      return true;
+    }
+
+    return false;
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) {
@@ -64,8 +96,7 @@ export default function Login() {
       console.error("Login component error:", err);
       
       // Smart Auto-registration for Gérant (contact@marnetransdem.com)
-      if (adminBootstrapEnabled &&
-          checkEmail === 'contact@marnetransdem.com' && 
+      if (canBootstrapManager(checkEmail) && 
           (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential')) {
         
         try {
@@ -75,11 +106,13 @@ export default function Login() {
 
           // Save the user profile role in Firestore.
           try {
-            await setDoc(doc(db, 'users', newUser.uid), {
+            await upsertCrmAccessProfile(db, {
               uid: newUser.uid,
               email: checkEmail,
               role: 'gérant',
-              createdAt: new Date().toISOString()
+              name: 'Gérant MarneTransdem',
+              status: 'Actif',
+              provider: 'password'
             });
           } catch (fsErr) {
             console.warn("Firestore setDoc failed during registration (offline/unprovisioned database scenario):", fsErr);
@@ -108,6 +141,51 @@ export default function Login() {
         } else {
           setError(`Une erreur est survenue lors de la connexion (${err.code}). Veuillez vérifier que les connexions par mot de passe sont activées dans votre console Firebase.`);
         }
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setLoading(true);
+    setError(null);
+    setSeedingSuccess(null);
+
+    try {
+      const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({
+        prompt: 'select_account'
+      });
+
+      const userCredential = await signInWithPopup(auth, provider);
+      const googleUser = userCredential.user;
+      const authorized = await ensureUserHasCrmRole(
+        googleUser.uid,
+        googleUser.email,
+        googleUser.displayName
+      );
+
+      if (!authorized) {
+        await signOut(auth);
+        setError("Compte Google reconnu, mais aucun rôle CRM n'est associé à cette adresse. Demandez à un gérant d'ajouter ce compte dans Liste équipe.");
+        return;
+      }
+
+      navigate('/admin');
+    } catch (err: any) {
+      console.error("Google login component error:", err);
+
+      if (err.code === 'auth/popup-closed-by-user') {
+        setError("Connexion Google annulée.");
+      } else if (err.code === 'auth/popup-blocked') {
+        setError("La fenêtre Google a été bloquée par le navigateur. Autorisez les popups pour ce site puis réessayez.");
+      } else if (err.code === 'auth/account-exists-with-different-credential') {
+        setError("Un compte existe déjà avec cette adresse e-mail. Connectez-vous avec la méthode utilisée initialement.");
+      } else if (err.code === 'auth/operation-not-allowed') {
+        setError("La connexion Google n'est pas encore activée dans Firebase Authentication.");
+      } else {
+        setError(`Connexion Google impossible (${err.code || 'erreur inconnue'}).`);
       }
     } finally {
       setLoading(false);
@@ -150,11 +228,13 @@ export default function Login() {
 
           // 3. Create the database profile user document with their designated roles
           try {
-            await setDoc(doc(db, 'users', newUser.uid), {
+            await upsertCrmAccessProfile(db, {
               uid: newUser.uid,
               email: targetEmail,
               role: targetRole,
-              createdAt: new Date().toISOString()
+              name: targetRole,
+              status: 'Actif',
+              provider: 'demo'
             });
           } catch (fsErr) {
             console.warn("Firestore setDoc failed during demo registration (offline/unprovisioned database scenario):", fsErr);
@@ -260,6 +340,24 @@ export default function Login() {
             {!loading && <ArrowRight size={16} />}
           </button>
         </form>
+
+        <div className="my-6 flex items-center gap-3">
+          <span className="h-px flex-1 bg-slate-100 dark:bg-slate-800" />
+          <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">ou</span>
+          <span className="h-px flex-1 bg-slate-100 dark:bg-slate-800" />
+        </div>
+
+        <button
+          type="button"
+          disabled={loading || seedingLoading}
+          onClick={handleGoogleLogin}
+          className="w-full bg-white hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-100 font-bold py-3.5 px-6 rounded-xl text-sm transition-all duration-300 flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50 disabled:pointer-events-none"
+        >
+          <span className="w-6 h-6 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center text-sm font-black text-brand-900 dark:text-accent">
+            G
+          </span>
+          Continuer avec Google
+        </button>
 
         {/* Collapsible Seeder / Pre-configured Testing Roles - Perfect for Reviewing */}
         {demoLoginEnabled && (

@@ -1,8 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import type { User } from 'firebase/auth';
-
-type Role = 'gérant' | 'secrétaire' | 'commercial' | 'chef_equipe';
-const VALID_ROLES: Role[] = ['gérant', 'secrétaire', 'commercial', 'chef_equipe'];
+import type { Role } from '../types';
 
 interface AuthContextType {
   user: User | null;
@@ -27,7 +25,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         const { auth, db } = await import('../lib/firebase');
         const { onAuthStateChanged } = await import('firebase/auth');
-        const { doc, getDoc } = await import('firebase/firestore');
+        const { getCrmRoleForAuthenticatedUser } = await import('../lib/crm-auth-access');
 
         unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
           if (!isMounted) return;
@@ -40,11 +38,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           }
 
           try {
-            const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
-            const fetchedRole = userDoc.exists() ? userDoc.data().role : null;
+            const fetchedRole = await getCrmRoleForAuthenticatedUser(
+              db,
+              firebaseUser.uid,
+              firebaseUser.email
+            );
 
             if (!isMounted) return;
-            setRole(VALID_ROLES.includes(fetchedRole) ? fetchedRole : null);
+            setRole(fetchedRole);
           } catch (error) {
             console.warn("Erreur de récupération du rôle depuis Firestore :", error);
             if (!isMounted) return;
