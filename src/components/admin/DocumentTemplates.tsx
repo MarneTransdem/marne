@@ -334,7 +334,7 @@ export const DocumentTemplates: React.FC<DocumentTemplatesProps> = ({ move, onCl
       pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
       
-      while (heightLeft >= 0) {
+      while (heightLeft > 5) {
         position = heightLeft - imgHeight;
         pdf.addPage();
         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
@@ -444,7 +444,7 @@ export const DocumentTemplates: React.FC<DocumentTemplatesProps> = ({ move, onCl
                     </div>
                   </div>
                   <div className="text-right">
-                    <span className="bg-brand-900 text-white font-black px-2.5 py-1 rounded inline-block text-[8px] uppercase tracking-wider">
+                    <span className="bg-brand-900 text-white font-black px-2.5 h-6 rounded inline-flex items-center justify-center text-[8px] uppercase tracking-wider leading-none">
                       Lettre de Voiture de Déménagement
                     </span>
                     <p className="font-mono mt-2 font-bold text-slate-800 text-[9px]">L.V. Nº {move.id.replace('DEM', 'LV')}</p>
@@ -553,7 +553,7 @@ export const DocumentTemplates: React.FC<DocumentTemplatesProps> = ({ move, onCl
                     </div>
                   </div>
                   <div className="text-right">
-                    <span className="bg-indigo-900 text-white font-black px-2.5 py-1 rounded inline-block text-[8px] uppercase tracking-wider">
+                    <span className="bg-indigo-900 text-white font-black px-2.5 h-6 rounded inline-flex items-center justify-center text-[8px] uppercase tracking-wider leading-none">
                       Déclaration de Valeur Contractuelle
                     </span>
                     <p className="font-mono mt-2 font-bold text-slate-800 text-[9px]">D.V. Nº {move.id.replace('DEM', 'DV')}</p>
@@ -639,7 +639,7 @@ export const DocumentTemplates: React.FC<DocumentTemplatesProps> = ({ move, onCl
                     </div>
                   </div>
                   <div className="text-right">
-                    <span className="bg-slate-900 text-white font-black px-2.5 py-1 rounded inline-block text-[8px] uppercase tracking-wider">
+                    <span className="bg-slate-900 text-white font-black px-2.5 h-6 rounded inline-flex items-center justify-center text-[8px] uppercase tracking-wider leading-none">
                       Fiche d'Intervention Terrain
                     </span>
                     <p className="font-mono mt-2 font-bold text-slate-800 text-[9px]">INTERV_Nº {move.id}</p>

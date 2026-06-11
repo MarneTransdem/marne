@@ -36,6 +36,7 @@ export default function Login() {
   const [showSeeder, setShowSeeder] = useState(false);
   const [seedingLoading, setSeedingLoading] = useState(false);
   const [seedingSuccess, setSeedingSuccess] = useState<string | null>(null);
+  const demoLoginEnabled = import.meta.env.DEV || import.meta.env.VITE_ENABLE_DEMO_LOGIN === 'true';
 
   // Redirect if already logged in and has role
   if (!authLoading && user && role) {
@@ -70,7 +71,7 @@ export default function Login() {
           const userCredential = await createUserWithEmailAndPassword(auth, checkEmail, password);
           const newUser = userCredential.user;
 
-          // Save the user profile role in Firestore with local fallback
+          // Save the user profile role in Firestore.
           try {
             await setDoc(doc(db, 'users', newUser.uid), {
               uid: newUser.uid,
@@ -81,7 +82,6 @@ export default function Login() {
           } catch (fsErr) {
             console.warn("Firestore setDoc failed during registration (offline/unprovisioned database scenario):", fsErr);
           }
-          localStorage.setItem(`mt_role_${newUser.uid}`, 'gérant');
 
           setSeedingSuccess("Votre compte de Gérant a été automatiquement initialisé et sécurisé avec succès ! Bienvenue.");
           setTimeout(() => {
@@ -114,6 +114,11 @@ export default function Login() {
 
   // Helper function to seed and immediately login with a specific role
   const handleDemoAccess = async (targetRole: Role) => {
+    if (!demoLoginEnabled) {
+      setError("Les comptes de demo sont desactives sur cet environnement.");
+      return;
+    }
+
     setSeedingLoading(true);
     setError(null);
     setSeedingSuccess(null);
@@ -152,7 +157,6 @@ export default function Login() {
           } catch (fsErr) {
             console.warn("Firestore setDoc failed during demo registration (offline/unprovisioned database scenario):", fsErr);
           }
-          localStorage.setItem(`mt_role_${newUser.uid}`, targetRole);
 
           // 4. Then sign in again to reflect
           await signInWithEmailAndPassword(auth, targetEmail, targetPassword);
@@ -256,6 +260,7 @@ export default function Login() {
         </form>
 
         {/* Collapsible Seeder / Pre-configured Testing Roles - Perfect for Reviewing */}
+        {demoLoginEnabled && (
         <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
           <button
             onClick={() => setShowSeeder(!showSeeder)}
@@ -324,6 +329,7 @@ export default function Login() {
             </div>
           )}
         </div>
+        )}
 
       </div>
     </div>

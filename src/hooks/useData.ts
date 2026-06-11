@@ -1,6 +1,6 @@
 import { collection, onSnapshot, query, Firestore, doc, writeBatch } from 'firebase/firestore';
 import { db } from '../lib/firebase';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 export const useCollection = <T>(collectionName: string) => {
   const [data, setData] = useState<T[]>([]);
@@ -22,53 +22,34 @@ const getItemKey = (item: any): string => {
 
 export const useSyncedCollection = <T extends { id?: string; uid?: string }>(
   collectionName: string,
-  initialSeed: T[]
+  _initialData: T[] = [],
+  options?: { enabled?: boolean }
 ) => {
-  const [data, setData] = useState<T[]>(() => {
-    try {
-      const local = localStorage.getItem(`mt_${collectionName}`);
-      return local ? JSON.parse(local) : initialSeed;
-    } catch {
-      return initialSeed;
-    }
-  });
+  const syncEnabled = options?.enabled ?? true;
 
-  const initializedRef = useRef(false);
+  const [data, setData] = useState<T[]>([]);
 
   useEffect(() => {
-    const q = query(collection(db as Firestore, collectionName));
-    const unsubscribe = onSnapshot(q, async (snapshot) => {
-      if (snapshot.empty && !initializedRef.current) {
-        initializedRef.current = true;
-        try {
-          const batch = writeBatch(db as Firestore);
-          initialSeed.forEach((item) => {
-            const key = getItemKey(item);
-            if (key) {
-              const docRef = doc(db as Firestore, collectionName, key);
-              batch.set(docRef, item);
-            }
-          });
-          await batch.commit();
-        } catch (e) {
-          console.error(`Error initializing Firestore with seed for ${collectionName}:`, e);
-        }
-      } else if (!snapshot.empty) {
-        const items = snapshot.docs.map((d) => ({ ...d.data() } as T));
-        
-        try {
-          localStorage.setItem(`mt_${collectionName}`, JSON.stringify(items));
-        } catch (e) {
-          console.error(e);
-        }
+    if (!syncEnabled) {
+      setData([]);
+      return;
+    }
 
+    const q = query(collection(db as Firestore, collectionName));
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        const items = snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as T));
         setData(items);
-        initializedRef.current = true;
+      },
+      (error) => {
+        console.error(`Error reading Firestore collection ${collectionName}:`, error);
+        setData([]);
       }
-    });
+    );
 
     return () => unsubscribe();
-  }, [collectionName, initialSeed]);
+  }, [collectionName, syncEnabled]);
 
   const setCollectionState = async (
     updater: T[] | ((prev: T[]) => T[])
@@ -91,10 +72,9 @@ export const useSyncedCollection = <T extends { id?: string; uid?: string }>(
     });
 
     setData(nextData);
-    try {
-      localStorage.setItem(`mt_${collectionName}`, JSON.stringify(nextData));
-    } catch (e) {
-      console.error(e);
+
+    if (!syncEnabled) {
+      return;
     }
 
     try {

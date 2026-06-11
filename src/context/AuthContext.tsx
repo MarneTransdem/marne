@@ -11,24 +11,6 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType>({ user: null, role: null, loading: true });
 
-function getFallbackRoleByEmail(email: string | null): Role | null {
-  if (!email) return null;
-  const cleanEmail = email.toLowerCase().trim();
-  if (cleanEmail === 'contact@marnetransdem.com' || cleanEmail.includes('alain') || cleanEmail.includes('gerant')) {
-    return 'gérant';
-  }
-  if (cleanEmail === 'secretaire@marnetransdem.com' || cleanEmail.includes('corinne') || cleanEmail.includes('secretaire')) {
-    return 'secrétaire';
-  }
-  if (cleanEmail === 'commercial@marnetransdem.com' || cleanEmail.includes('commercial') || cleanEmail.includes('tardieu')) {
-    return 'commercial';
-  }
-  if (cleanEmail === 'chef@marnetransdem.com' || cleanEmail.includes('chef') || cleanEmail.includes('ahmed') || cleanEmail.includes('equipe')) {
-    return 'chef_equipe';
-  }
-  return 'gérant'; // Fallback to 'gérant'
-}
-
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [role, setRole] = useState<Role | null>(null);
@@ -62,29 +44,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 const fetchedRole = userDoc.data().role as Role;
                 if (!isMounted) return;
                 setRole(fetchedRole);
-                localStorage.setItem(`mt_role_${user.uid}`, fetchedRole);
               } else {
-                const cachedRole = localStorage.getItem(`mt_role_${user.uid}`);
                 if (!isMounted) return;
-                if (cachedRole) {
-                  setRole(cachedRole as Role);
-                } else {
-                  const fallback = getFallbackRoleByEmail(user.email);
-                  setRole(fallback);
-                  if (fallback) localStorage.setItem(`mt_role_${user.uid}`, fallback);
-                }
+                setRole(null);
               }
             } catch (error) {
-              console.warn("Erreur de récupération du rôle depuis Firestore, utilisation du fallback hors-ligne :", error);
+              console.warn("Erreur de récupération du rôle depuis Firestore :", error);
               if (!isMounted) return;
-              const cachedRole = localStorage.getItem(`mt_role_${user.uid}`);
-              if (cachedRole) {
-                setRole(cachedRole as Role);
-              } else {
-                const fallback = getFallbackRoleByEmail(user.email);
-                setRole(fallback);
-                if (fallback) localStorage.setItem(`mt_role_${user.uid}`, fallback);
-              }
+              setRole(null);
             }
           } else {
             setRole(null);

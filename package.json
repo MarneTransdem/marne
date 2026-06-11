@@ -10,9 +10,10 @@
     "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
     "lint": "tsc --noEmit",
     "audit:site": "tsx scripts/audit-site-health.ts",
+    "smoke:admin-dossier-engine": "tsx scripts/smoke-admin-dossier-engine.ts",
     "optimize:images": "node scripts/optimize-referenced-images.mjs",
     "optimize:images:recompress": "node scripts/optimize-referenced-images.mjs --recompress-webp",
-    "check": "npm run audit:site && npm run lint && npm run build"
+    "check": "npm run audit:site && npm run smoke:admin-dossier-engine && npm run lint && npm run build"
   },
   "dependencies": {
     "@google-cloud/firestore": "^8.6.0",

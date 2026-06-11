@@ -4,7 +4,7 @@
  */
 
 import { Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route,  useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route,  useLocation, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { PageTransition } from './components/layout/PageTransition';
 import ScrollToTop from './components/layout/ScrollToTop';
@@ -21,6 +21,16 @@ const About = lazy(() => import('./pages/About'));
 const Contact = lazy(() => import('./pages/Contact'));
 const FormulasPage = lazy(() => import('./pages/Formulas'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+const AdminLayout = lazy(() => import('./components/admin/layout/AdminLayout').then(module => ({ default: module.AdminLayout })));
+const AdminOverview = lazy(() => import('./pages/admin/AdminOverview').then(module => ({ default: module.AdminOverview })));
+const AdminDossiers = lazy(() => import('./pages/admin/AdminDossiers').then(module => ({ default: module.AdminDossiers })));
+const AdminDemandes = lazy(() => import('./pages/admin/AdminDemandes').then(module => ({ default: module.AdminDemandes })));
+const AdminDevis = lazy(() => import('./pages/admin/AdminDevis').then(module => ({ default: module.AdminDevis })));
+const AdminFactures = lazy(() => import('./pages/admin/AdminFactures').then(module => ({ default: module.AdminFactures })));
+const AdminVisites = lazy(() => import('./pages/admin/AdminVisites').then(module => ({ default: module.AdminVisites })));
+const AdminPlanning = lazy(() => import('./pages/admin/AdminPlanning').then(module => ({ default: module.AdminPlanning })));
+const AdminCollaborateurs = lazy(() => import('./pages/admin/AdminCollaborateurs').then(module => ({ default: module.AdminCollaborateurs })));
+const AdminSimulateur = lazy(() => import('./pages/admin/AdminSimulateur').then(module => ({ default: module.AdminSimulateur })));
 const Login = lazy(() => import('./pages/Login'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
@@ -201,7 +211,18 @@ function AppContent() {
             <Route path="/cartons-demenagement-paris" element={<Cartons />} />
             <Route path="/calculateur-volume" element={<VolumeCalculator />} />
             <Route path="/formules-demenagement" element={<FormulasPage />} />
-            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<Navigate to="overview" replace />} />
+              <Route path="overview" element={<AdminOverview />} />
+              <Route path="dossiers" element={<AdminDossiers />} />
+              <Route path="demandes" element={<AdminDemandes />} />
+              <Route path="devis" element={<AdminDevis />} />
+              <Route path="factures" element={<AdminFactures />} />
+              <Route path="visites" element={<AdminVisites />} />
+              <Route path="planning" element={<AdminPlanning />} />
+              <Route path="collaborateurs" element={<AdminCollaborateurs />} />
+              <Route path="simulateur" element={<AdminSimulateur />} />
+            </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:id" element={<BlogPost />} />

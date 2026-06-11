@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { 
   FolderOpen, Search, ArrowRight, User, Phone, Mail, MapPin, 
-  Calendar, CheckCircle, RefreshCw, Layers, Sliders, Play, Plus, Clock, Eye 
+  Calendar, CheckCircle, RefreshCw, Layers, Sliders, Play, Plus, Clock, Eye,
+  ChevronLeft, ChevronRight
 } from 'lucide-react';
-import { collection, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, doc, updateDoc, deleteDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 
 interface PublicRequest {
@@ -28,22 +29,55 @@ interface PublicRequest {
   surface: string;
   volume: string | number;
   formula: string;
+  visitPreference?: 'domicile' | 'visio' | 'a_definir' | string;
   needsLift?: string;
   needsPacking?: string;
   needsStorage?: string;
   message?: string;
   createdAt: any;
-  status?: 'Nouveau' | 'Étudié_Converti' | 'Archivé';
+  status?: 'Nouveau' | 'Visite_planifiée' | 'Étudié_Converti' | 'Archivé';
+  plannedVisitId?: string;
+  convertedDevisId?: string;
 }
 
 interface PublicRequestsProps {
-  onConvertToDevis: (devis: any) => void;
+  onConvertToDevis: (devis: any) => void | Promise<void>;
+  onPlanVisit: (visit: any) => void | Promise<void>;
 }
 
-export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis }) => {
+const PAGE_SIZE_OPTIONS = [10, 20, 50, 100] as const;
+type PageSize = typeof PAGE_SIZE_OPTIONS[number];
+type StatusFilter = 'all' | 'Nouveau' | 'Visite_planifiée' | 'Étudié_Converti' | 'Archivé';
+type VisitFilter = 'all' | 'domicile' | 'visio' | 'a_definir';
+type FormulaFilter = 'all' | 'Économique' | 'Standard' | 'Luxe';
+type ServiceFilter = 'all' | 'lift' | 'packing' | 'storage';
+
+const safeLower = (value: unknown) => String(value ?? '').toLowerCase();
+
+const normalizeFormula = (value: unknown): FormulaFilter => {
+  const formula = safeLower(value);
+  if (formula.includes('luxe') || formula.includes('clé') || formula.includes('cle')) return 'Luxe';
+  if (formula.includes('éco') || formula.includes('eco') || formula.includes('chargement')) return 'Économique';
+  return 'Standard';
+};
+
+const getStatusLabel = (status?: PublicRequest['status']) => {
+  if (status === 'Étudié_Converti') return 'Devis brouillon';
+  if (status === 'Visite_planifiée') return 'Visite planifiée';
+  if (status === 'Archivé') return 'Archivé';
+  return 'À étudier';
+};
+
+export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis, onPlanVisit }) => {
   const [requests, setRequests] = useState<PublicRequest[]>([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
+  const [visitFilter, setVisitFilter] = useState<VisitFilter>('all');
+  const [formulaFilter, setFormulaFilter] = useState<FormulaFilter>('all');
+  const [serviceFilter, setServiceFilter] = useState<ServiceFilter>('all');
+  const [pageSize, setPageSize] = useState<PageSize>(10);
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedRequest, setSelectedRequest] = useState<PublicRequest | null>(null);
   
   // Pricing/Chiffrage state
@@ -52,45 +86,48 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
   const [pricingPrice, setPricingPrice] = useState<number>(1500);
   const [pricingDate, setPricingDate] = useState<string>('');
   const [isConverting, setIsConverting] = useState(false);
+  const [visitMode, setVisitMode] = useState<'domicile' | 'visio' | 'a_definir'>('a_definir');
+  const [visitDate, setVisitDate] = useState<string>('');
+  const [visitTime, setVisitTime] = useState<string>('10:00');
+  const [visitCommercial, setVisitCommercial] = useState<string>('Jean-Marc Tardieu');
+  const [isPlanningVisit, setIsPlanningVisit] = useState(false);
   
-  const fetchRequests = async () => {
+  const sortRequests = (list: PublicRequest[]) => {
+    return [...list].sort((a, b) => {
+      const tA = a.createdAt?.seconds ? a.createdAt.seconds * 1000 : new Date(a.createdAt || 0).getTime();
+      const tB = b.createdAt?.seconds ? b.createdAt.seconds * 1000 : new Date(b.createdAt || 0).getTime();
+      return tB - tA;
+    });
+  };
+
+  const fetchRequests = () => {
     setLoading(true);
-    try {
-      const qSnap = await getDocs(collection(db, 'quotes'));
-      const list = qSnap.docs.map(doc => {
-        const data = doc.data();
-        let status = data.status || 'Nouveau';
-        
-        // Match with already study-and-converted status from localStorage cache if present
-        const cacheStatus = localStorage.getItem(`mt_req_status_${doc.id}`);
-        if (cacheStatus) {
-          status = cacheStatus;
-        }
+    return onSnapshot(
+      collection(db, 'quotes'),
+      (qSnap) => {
+        const list = qSnap.docs.map(doc => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            ...data,
+            status: data.status || 'Nouveau'
+          } as PublicRequest;
+        });
 
-        return {
-          id: doc.id,
-          ...data,
-          status
-        } as PublicRequest;
-      });
-
-      // Sort chronological
-      list.sort((a, b) => {
-        const tA = a.createdAt?.seconds ? a.createdAt.seconds * 1000 : new Date(a.createdAt || 0).getTime();
-        const tB = b.createdAt?.seconds ? b.createdAt.seconds * 1000 : new Date(b.createdAt || 0).getTime();
-        return tB - tA;
-      });
-
-      setRequests(list);
-    } catch (e) {
-      console.error("Failed to load quotes from Firestore:", e);
-    } finally {
-      setLoading(false);
-    }
+        setRequests(sortRequests(list));
+        setLoading(false);
+      },
+      (e) => {
+        console.error("Failed to load quotes from Firestore:", e);
+        setRequests([]);
+        setLoading(false);
+      }
+    );
   };
 
   useEffect(() => {
-    fetchRequests();
+    const unsubscribe = fetchRequests();
+    return () => unsubscribe();
   }, []);
 
   // Pre-populate Pricing Calculator when a request is selected
@@ -104,6 +141,13 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
                    : 'Standard';
       setPricingFormula(form);
       setPricingDate(selectedRequest.date || '');
+      setVisitMode(
+        selectedRequest.visitPreference === 'domicile' || selectedRequest.visitPreference === 'visio'
+          ? selectedRequest.visitPreference
+          : 'a_definir'
+      );
+      setVisitDate('');
+      setVisitTime('10:00');
       
       // Smart estimated price base (e.g. 50€/m3 and formula/lift multipliers)
       let priceBase = volNum * 55;
@@ -132,6 +176,53 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
     setSelectedRequest(req);
   };
 
+  const handlePlanVisit = async () => {
+    if (!selectedRequest) return;
+    if (!visitDate) {
+      alert('Veuillez choisir une date de visite.');
+      return;
+    }
+
+    setIsPlanningVisit(true);
+    try {
+      const visitId = `VIS-WEB-${Math.floor(100 + Math.random() * 900)}`;
+      const visit = {
+        id: visitId,
+        clientName: selectedRequest.fullName,
+        address: visitMode === 'visio'
+          ? `Visio - ${selectedRequest.email}`
+          : [selectedRequest.fromAddress, selectedRequest.fromCity, selectedRequest.fromZip].filter(Boolean).join(', '),
+        phone: selectedRequest.phone,
+        date: visitDate,
+        time: visitTime || '10:00',
+        volumeEstimated: Number(selectedRequest.volume) || undefined,
+        commercialAssigned: visitCommercial,
+        visitMode,
+        sourceRequestId: selectedRequest.id,
+        status: 'Planifiée'
+      };
+
+      await onPlanVisit(visit);
+      await updateDoc(doc(db, 'quotes', selectedRequest.id), {
+        status: 'Visite_planifiée',
+        plannedVisitId: visitId,
+        plannedVisitAt: new Date().toISOString()
+      });
+
+      setRequests(prev => prev.map(r => r.id === selectedRequest.id ? {
+        ...r,
+        status: 'Visite_planifiée',
+        plannedVisitId: visitId
+      } : r));
+      setSelectedRequest(prev => prev ? { ...prev, status: 'Visite_planifiée', plannedVisitId: visitId } : prev);
+    } catch (e) {
+      console.error(e);
+      alert('Erreur lors de la planification de la visite.');
+    } finally {
+      setIsPlanningVisit(false);
+    }
+  };
+
   const handleConvert = async () => {
     if (!selectedRequest) return;
     setIsConverting(true);
@@ -152,14 +243,19 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
         price: pricingPrice,
         date: pricingDate || new Date(Date.now() + 14 * 24 * 3600 * 1000).toISOString().split('T')[0],
         createdAt: new Date().toISOString().split('T')[0],
-        status: 'Brouillon'
+        status: 'Brouillon',
+        sourceRequestId: selectedRequest.id
       };
 
       // Call parent dashboard hook to populate local active devis registrations
-      onConvertToDevis(newDevis);
+      await onConvertToDevis(newDevis);
+      await updateDoc(doc(db, 'quotes', selectedRequest.id), {
+        status: 'Étudié_Converti',
+        convertedDevisId: devisId,
+        convertedAt: new Date().toISOString()
+      });
 
       // Local persistence states update to reflect Traited/Converti
-      localStorage.setItem(`mt_req_status_${selectedRequest.id}`, 'Étudié_Converti');
       
       // Refresh requests list
       setRequests(prev => prev.map(r => r.id === selectedRequest.id ? { ...r, status: 'Étudié_Converti' } : r));
@@ -186,45 +282,175 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
     }
   };
 
-  const filtered = requests.filter(r => 
-    r.fullName.toLowerCase().includes(search.toLowerCase()) ||
-    r.email.toLowerCase().includes(search.toLowerCase()) ||
-    r.fromCity.toLowerCase().includes(search.toLowerCase()) ||
-    r.toCity.toLowerCase().includes(search.toLowerCase())
-  );
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, statusFilter, visitFilter, formulaFilter, serviceFilter, pageSize]);
+
+  const filtered = useMemo(() => {
+    const query = safeLower(search.trim());
+
+    return requests.filter((r) => {
+      const currentStatus = r.status || 'Nouveau';
+      const currentVisit = r.visitPreference === 'domicile' || r.visitPreference === 'visio'
+        ? r.visitPreference
+        : 'a_definir';
+      const currentFormula = normalizeFormula(r.formula);
+      const serviceValue =
+        serviceFilter === 'lift' ? r.needsLift :
+        serviceFilter === 'packing' ? r.needsPacking :
+        serviceFilter === 'storage' ? r.needsStorage :
+        undefined;
+
+      const matchesSearch = !query || [
+        r.fullName,
+        r.email,
+        r.phone,
+        r.fromCity,
+        r.fromZip,
+        r.toCity,
+        r.toZip,
+        r.formula,
+        r.housingType
+      ].some((value) => safeLower(value).includes(query));
+
+      const matchesStatus = statusFilter === 'all' || currentStatus === statusFilter;
+      const matchesVisit = visitFilter === 'all' || currentVisit === visitFilter;
+      const matchesFormula = formulaFilter === 'all' || currentFormula === formulaFilter;
+      const matchesService = serviceFilter === 'all' || safeLower(serviceValue) === 'oui';
+
+      return matchesSearch && matchesStatus && matchesVisit && matchesFormula && matchesService;
+    });
+  }, [requests, search, statusFilter, visitFilter, formulaFilter, serviceFilter]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const paginatedRequests = useMemo(() => {
+    const start = (safeCurrentPage - 1) * pageSize;
+    return filtered.slice(start, start + pageSize);
+  }, [filtered, pageSize, safeCurrentPage]);
+  const resultStart = filtered.length === 0 ? 0 : (safeCurrentPage - 1) * pageSize + 1;
+  const resultEnd = Math.min(filtered.length, safeCurrentPage * pageSize);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white dark:bg-slate-900 p-4 border border-slate-100 dark:border-slate-800 rounded-3xl">
-        <div>
-          <p className="text-xs font-bold text-slate-400 tracking-wider">MARNE TRANSDEM INTERACTION PUBLIC-CRM</p>
+      <div className="bg-white/90 dark:bg-slate-900/90 p-4 border border-slate-200/75 dark:border-slate-800 rounded-2xl shadow-sm space-y-4">
+        <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4">
+          <div>
+            <p className="text-xs font-bold text-slate-400 tracking-wider">MARNE TRANSDEM INTERACTION PUBLIC-CRM</p>
+            <div className="flex flex-wrap items-center gap-2">
+              <h2 className="text-lg font-black text-slate-900 dark:text-white">Demandes Entrantes du Site Web</h2>
+              <span className="bg-amber-100 text-amber-800 dark:bg-amber-950/40 dark:text-amber-300 text-[10px] font-black px-2 py-0.5 rounded-full">
+                {requests.filter(r => r.status === 'Nouveau' || !r.status).length} Nouvelles
+              </span>
+              <span className="bg-slate-100 text-slate-600 dark:bg-slate-950 dark:text-slate-300 text-[10px] font-black px-2 py-0.5 rounded-full">
+                {filtered.length} résultat{filtered.length > 1 ? 's' : ''}
+              </span>
+            </div>
+          </div>
+
           <div className="flex items-center gap-2">
-            <h2 className="text-lg font-black text-slate-900 dark:text-white">Demandes Entrantes du Site Web</h2>
-            <span className="bg-amber-100 text-amber-800 dark:bg-amber-950/40 dark:text-amber-300 text-[10px] font-black px-2 py-0.5 rounded-full">
-              {requests.filter(r => r.status === 'Nouveau').length} Nouvelles
-            </span>
+            <div className="relative w-full sm:w-72">
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <input 
+                type="text" 
+                placeholder="Client, ville, téléphone..." 
+                value={search} 
+                onChange={e => setSearch(e.target.value)}
+                className="w-full pl-8 pr-4 py-2 text-xs bg-white dark:bg-slate-950 rounded-full border border-slate-200/80 dark:border-slate-800 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 shadow-sm"
+              />
+            </div>
+            <button 
+              type="button" 
+              onClick={() => setRequests(prev => sortRequests(prev))} 
+              disabled={loading}
+              className="p-2 bg-white hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-800 rounded-xl transition cursor-pointer shadow-sm"
+              title="Rafraîchir"
+            >
+              <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
+            </button>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <div className="relative">
-            <Search size={14} className="absolute left-3 top-3 text-slate-400" />
-            <input 
-              type="text" 
-              placeholder="Rechercher un client..." 
-              value={search} 
-              onChange={e => setSearch(e.target.value)}
-              className="pl-8 pr-4 py-2 text-xs bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200/55 dark:border-slate-800 focus:outline-accent w-48"
-            />
-          </div>
-          <button 
-            type="button" 
-            onClick={fetchRequests} 
-            disabled={loading}
-            className="p-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700/80 rounded-xl transition cursor-pointer"
-            title="Rafraîchir"
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-3">
+          <select
+            value={statusFilter}
+            onChange={(event) => setStatusFilter(event.target.value as StatusFilter)}
+            className="bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
           >
-            <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
+            <option value="all">Tous les statuts</option>
+            <option value="Nouveau">À étudier</option>
+            <option value="Visite_planifiée">Visite planifiée</option>
+            <option value="Étudié_Converti">Devis brouillon</option>
+            <option value="Archivé">Archivé</option>
+          </select>
+
+          <select
+            value={visitFilter}
+            onChange={(event) => setVisitFilter(event.target.value as VisitFilter)}
+            className="bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+          >
+            <option value="all">Toutes les visites</option>
+            <option value="domicile">Visite domicile</option>
+            <option value="visio">Visite visio</option>
+            <option value="a_definir">À définir</option>
+          </select>
+
+          <select
+            value={formulaFilter}
+            onChange={(event) => setFormulaFilter(event.target.value as FormulaFilter)}
+            className="bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+          >
+            <option value="all">Toutes les formules</option>
+            <option value="Économique">Économique</option>
+            <option value="Standard">Standard</option>
+            <option value="Luxe">Luxe</option>
+          </select>
+
+          <select
+            value={serviceFilter}
+            onChange={(event) => setServiceFilter(event.target.value as ServiceFilter)}
+            className="bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+          >
+            <option value="all">Tous les services</option>
+            <option value="lift">Monte-meuble</option>
+            <option value="packing">Emballage pro</option>
+            <option value="storage">Garde-meuble</option>
+          </select>
+
+          <select
+            value={pageSize}
+            onChange={(event) => setPageSize(Number(event.target.value) as PageSize)}
+            className="bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+          >
+            {PAGE_SIZE_OPTIONS.map((option) => (
+              <option key={option} value={option}>{option} par page</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-t border-slate-100 dark:border-slate-800 pt-3">
+          <p className="text-[11px] font-bold text-slate-500">
+            Affichage {resultStart}-{resultEnd} sur {filtered.length} demande{filtered.length > 1 ? 's' : ''}
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              setSearch('');
+              setStatusFilter('all');
+              setVisitFilter('all');
+              setFormulaFilter('all');
+              setServiceFilter('all');
+              setPageSize(10);
+            }}
+            className="self-start sm:self-auto text-[10px] font-black uppercase tracking-wider text-slate-500 hover:text-brand-900 dark:hover:text-white"
+          >
+            Réinitialiser les filtres
           </button>
         </div>
       </div>
@@ -243,8 +469,9 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
                 Aucune demande client trouvée ou table vide.
               </div>
             ) : (
-              <div className="divide-y divide-slate-100 dark:divide-slate-800">
-                {filtered.map((req) => (
+              <>
+                <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                  {paginatedRequests.map((req) => (
                   <div 
                     key={req.id} 
                     className={`p-5 transition hover:bg-slate-50/60 dark:hover:bg-slate-950/40 cursor-pointer ${selectedRequest?.id === req.id ? 'bg-accent/5 dark:bg-slate-800/40 border-l-4 border-accent' : ''}`}
@@ -258,11 +485,13 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
                         </p>
                       </div>
                       <span className={`px-2.5 py-0.5 text-[9px] font-extrabold rounded-lg ${
-                        req.status === 'Étudié_Converti' 
-                          ? 'bg-emerald-150 text-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300' 
-                          : 'bg-amber-100 text-amber-900 dark:bg-amber-950/40 dark:text-amber-300'
+                        req.status === 'Étudié_Converti'
+                          ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300'
+                          : req.status === 'Visite_planifiée'
+                            ? 'bg-sky-100 text-sky-900 dark:bg-sky-950/30 dark:text-sky-300'
+                            : 'bg-amber-100 text-amber-900 dark:bg-amber-950/40 dark:text-amber-300'
                       }`}>
-                        {req.status === 'Étudié_Converti' ? '✓ Devis Brouillon' : 'A étudier'}
+                        {getStatusLabel(req.status)}
                       </span>
                     </div>
 
@@ -284,7 +513,13 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
                     </div>
 
                     <div className="mt-3 flex items-center justify-between text-[11px] border-t border-dashed border-slate-150 dark:border-slate-800/60 pt-2.5">
-                      <span className="text-slate-400 italic">Formule d'origine: {req.formula}</span>
+                      <span className="text-slate-400 italic">
+                        {req.visitPreference === 'domicile'
+                          ? 'Visite souhaitée : domicile'
+                          : req.visitPreference === 'visio'
+                            ? 'Visite souhaitée : visio'
+                            : `Formule d'origine: ${req.formula}`}
+                      </span>
                       <div className="flex gap-2">
                         <button 
                           onClick={(e) => { e.stopPropagation(); handleStudy(req); }}
@@ -297,13 +532,40 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
                           className="p-1 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 rounded transition active:scale-95 cursor-pointer"
                           title="Supprimer la demande public"
                         >
-                          Delete
+                          Supprimer
                         </button>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 py-3 bg-slate-50/80 dark:bg-slate-950/60 border-t border-slate-100 dark:border-slate-800">
+                  <p className="text-[11px] font-bold text-slate-500">
+                    Page {safeCurrentPage} / {totalPages} · {pageSize} demandes par page
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
+                      disabled={safeCurrentPage <= 1}
+                      className="inline-flex items-center gap-1 rounded-xl bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-800 px-3 py-2 text-[10px] font-black uppercase text-slate-700 dark:text-slate-100 disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                      <ChevronLeft size={13} />
+                      Précédent
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))}
+                      disabled={safeCurrentPage >= totalPages}
+                      className="inline-flex items-center gap-1 rounded-xl bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-800 px-3 py-2 text-[10px] font-black uppercase text-slate-700 dark:text-slate-100 disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                      Suivant
+                      <ChevronRight size={13} />
+                    </button>
+                  </div>
+                </div>
+              </>
             )}
           </div>
         </div>
@@ -340,6 +602,59 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
                     <Mail size={12} className="text-secondary" />
                     <span className="font-semibold text-slate-800 dark:text-slate-200 truncate">{selectedRequest.email}</span>
                   </div>
+                </div>
+
+                <div className="p-3.5 bg-sky-50/70 dark:bg-sky-950/20 rounded-2xl border border-sky-100 dark:border-sky-900/40 space-y-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <span className="text-[9px] uppercase font-black tracking-wider text-sky-700 dark:text-sky-300">Visite commerciale</span>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+                        {selectedRequest.plannedVisitId ? `Planifiée : ${selectedRequest.plannedVisitId}` : 'À programmer depuis la demande'}
+                      </p>
+                    </div>
+                    <Calendar size={16} className="text-sky-700 dark:text-sky-300" />
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <select
+                      value={visitMode}
+                      onChange={e => setVisitMode(e.target.value as any)}
+                      className="bg-white dark:bg-slate-950 p-2 border border-sky-100 dark:border-sky-900/40 rounded-lg text-slate-800 dark:text-slate-100"
+                    >
+                      <option value="a_definir">À définir</option>
+                      <option value="domicile">À domicile</option>
+                      <option value="visio">En visio</option>
+                    </select>
+                    <select
+                      value={visitCommercial}
+                      onChange={e => setVisitCommercial(e.target.value)}
+                      className="bg-white dark:bg-slate-950 p-2 border border-sky-100 dark:border-sky-900/40 rounded-lg text-slate-800 dark:text-slate-100"
+                    >
+                      <option value="Jean-Marc Tardieu">Jean-Marc Tardieu</option>
+                      <option value="Michel Blanc-Sec">Michel Blanc-Sec</option>
+                    </select>
+                    <input
+                      type="date"
+                      value={visitDate}
+                      onChange={e => setVisitDate(e.target.value)}
+                      className="bg-white dark:bg-slate-950 p-2 border border-sky-100 dark:border-sky-900/40 rounded-lg text-slate-800 dark:text-slate-100"
+                    />
+                    <input
+                      type="time"
+                      value={visitTime}
+                      onChange={e => setVisitTime(e.target.value)}
+                      className="bg-white dark:bg-slate-950 p-2 border border-sky-100 dark:border-sky-900/40 rounded-lg text-slate-800 dark:text-slate-100"
+                    />
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={handlePlanVisit}
+                    disabled={isPlanningVisit}
+                    className="w-full bg-sky-700 hover:bg-sky-800 text-white font-black py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95 disabled:opacity-55"
+                  >
+                    <Calendar size={14} /> Planifier la visite
+                  </button>
                 </div>
 
                 {/* Logistics */}

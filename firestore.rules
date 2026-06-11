@@ -34,17 +34,47 @@ service cloud.firestore {
       return isSignedIn() && (isAdmin() || getUserData().role == role);
     }
 
+    function isManager() {
+      return hasRole('gérant');
+    }
+
+    function isSecretary() {
+      return hasRole('secrétaire');
+    }
+
+    function isCommercial() {
+      return hasRole('commercial');
+    }
+
+    function isTeamLead() {
+      return hasRole('chef_equipe');
+    }
+
+    function isOfficeStaff() {
+      return isManager() || isSecretary();
+    }
+
+    function isSalesStaff() {
+      return isOfficeStaff() || isCommercial();
+    }
+
+    function isOperationsStaff() {
+      return isSalesStaff() || isTeamLead();
+    }
+
     // --- Collections ---
 
     // 0. Users
     match /users/{userId} {
-      allow read, write: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow read, write: if isSignedIn() && (request.auth.uid == userId || isManager());
     }
 
     // 1. Quotes
     match /quotes/{quoteId} {
       allow create: if isValidQuote(incoming());
-      allow read: if isAdmin();
+      allow read: if isSalesStaff();
+      allow update: if isSalesStaff();
+      allow delete: if isOfficeStaff();
       
       function isValidQuote(data) {
         return data.keys().hasAll(['fullName', 'phone', 'email', 'fromAddress', 'fromCity', 'fromZip', 'toAddress', 'toCity', 'toZip', 'date', 'housingType', 'surface', 'formula', 'createdAt'])
@@ -68,7 +98,7 @@ service cloud.firestore {
     // 2. Messages
     match /messages/{messageId} {
       allow create: if isValidMessage(incoming());
-      allow read: if isAdmin();
+      allow read, update, delete: if isOfficeStaff();
 
       function isValidMessage(data) {
         return data.keys().hasAll(['name', 'phone', 'email', 'subject', 'message', 'createdAt'])
@@ -84,8 +114,8 @@ service cloud.firestore {
     // 3. Reviews
     match /reviews/{reviewId} {
       allow read: if true;
-      allow create: if isAdmin() && isValidReview(incoming());
-      allow delete: if isAdmin();
+      allow create: if isManager() && isValidReview(incoming());
+      allow delete: if isManager();
 
       function isValidReview(data) {
         return data.authorName is string && data.authorName.size() <= 150
@@ -93,6 +123,53 @@ service cloud.firestore {
           && data.text is string && data.text.size() <= 6000
           && (data.createdAt == request.time);
       }
+    }
+
+    // 4. Admin CRM collections
+    match /devis/{devisId} {
+      allow read, create, update: if isSalesStaff();
+      allow delete: if isOfficeStaff();
+    }
+
+    match /factures/{factureId} {
+      allow read, write: if isOfficeStaff();
+    }
+
+    match /visites/{visiteId} {
+      allow read, write: if isSalesStaff();
+    }
+
+    match /demenagements/{moveId} {
+      allow read: if isOperationsStaff();
+      allow create, delete: if isOfficeStaff();
+      allow update: if isOfficeStaff()
+        || (isTeamLead() && incoming().diff(resource.data).affectedKeys().hasOnly(['status']));
+    }
+
+    match /dossierNotes/{noteId} {
+      allow read, write: if isOperationsStaff();
+    }
+
+    match /dossierTasks/{taskId} {
+      allow read, write: if isOperationsStaff();
+    }
+
+    match /dossierOwners/{ownerId} {
+      allow read, write: if isOperationsStaff();
+    }
+
+    match /collaborateurs/{collaborateurId} {
+      allow read, write: if isManager();
+    }
+
+    match /movers/{moverId} {
+      allow read: if isOperationsStaff();
+      allow write: if isOfficeStaff();
+    }
+
+    match /trucks/{truckId} {
+      allow read: if isOperationsStaff();
+      allow write: if isOfficeStaff();
     }
   }
 }

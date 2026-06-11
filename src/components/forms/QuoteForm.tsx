@@ -35,6 +35,7 @@ interface FormData {
   surface: string;
   volume: string;
   formula: string;
+  visitPreference: string;
   needsLift: string;
   needsPacking: string;
   needsStorage: string;
@@ -66,6 +67,7 @@ const INITIAL_DATA: FormData = {
   surface: '',
   volume: '',
   formula: '',
+  visitPreference: 'a_definir',
   needsLift: 'non',
   needsPacking: 'non',
   needsStorage: 'non',
@@ -510,6 +512,14 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
                   <option value="je ne sais pas">Je ne sais pas</option>
                 </select>
                 {errors.formula && <p className="text-red-500 text-xs ml-1 font-medium">{errors.formula}</p>}
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Visite commerciale souhaitée</label>
+                <select name="visitPreference" value={formData.visitPreference} onChange={handleChange} className="form-input-premium w-full">
+                  <option value="a_definir">À définir avec un conseiller</option>
+                  <option value="domicile">À domicile</option>
+                  <option value="visio">En visio</option>
+                </select>
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Besoin de monte-meuble</label>

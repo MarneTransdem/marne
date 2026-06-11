@@ -167,16 +167,17 @@ addCheck(
   trackedEnvFiles.length === 0 ? 'no secret env files are tracked' : `tracked env files: ${trackedEnvFiles.join(', ')}`,
 );
 
+const projectIdPlaceholder = ['YOUR', 'PROJECT', 'ID'].join('_');
 const placeholderFiles = trackedFiles.filter((file) => {
   const absolute = path.join(root, file);
   if (!fs.existsSync(absolute) || fs.statSync(absolute).size > 1024 * 1024) return false;
   const text = fs.readFileSync(absolute, 'utf8');
-  return text.includes('YOUR_PROJECT_ID');
+  return text.includes(projectIdPlaceholder);
 });
 addCheck(
   'tracked placeholders',
   placeholderFiles.length === 0,
-  placeholderFiles.length === 0 ? 'no YOUR_PROJECT_ID placeholder in tracked files' : placeholderFiles.join(', '),
+  placeholderFiles.length === 0 ? `no ${projectIdPlaceholder} placeholder in tracked files` : placeholderFiles.join(', '),
 );
 
 console.log('\nSite health audit\n');
