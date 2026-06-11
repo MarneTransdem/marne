@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import type { User } from 'firebase/auth';
 
 type Role = 'gérant' | 'secrétaire' | 'commercial' | 'chef_equipe';
+const VALID_ROLES: Role[] = ['gérant', 'secrétaire', 'commercial', 'chef_equipe'];
 
 interface AuthContextType {
   user: User | null;
@@ -22,40 +23,34 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const initAuth = async () => {
       try {
-        const isAdminPath = window.location.pathname.startsWith('/admin') || window.location.pathname === '/login';
-        if (!isAdminPath) {
-          setLoading(false);
-          return;
-        }
-
         if (!isMounted) return;
 
         const { auth, db } = await import('../lib/firebase');
         const { onAuthStateChanged } = await import('firebase/auth');
         const { doc, getDoc } = await import('firebase/firestore');
 
-        unsubscribe = onAuthStateChanged(auth, async (user) => {
+        unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
           if (!isMounted) return;
-          setUser(user);
-          if (user) {
-            try {
-              const userDoc = await getDoc(doc(db, 'users', user.uid));
-              if (userDoc.exists()) {
-                const fetchedRole = userDoc.data().role as Role;
-                if (!isMounted) return;
-                setRole(fetchedRole);
-              } else {
-                if (!isMounted) return;
-                setRole(null);
-              }
-            } catch (error) {
-              console.warn("Erreur de récupération du rôle depuis Firestore :", error);
-              if (!isMounted) return;
-              setRole(null);
-            }
-          } else {
+          setUser(firebaseUser);
+
+          if (!firebaseUser) {
+            setRole(null);
+            setLoading(false);
+            return;
+          }
+
+          try {
+            const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
+            const fetchedRole = userDoc.exists() ? userDoc.data().role : null;
+
+            if (!isMounted) return;
+            setRole(VALID_ROLES.includes(fetchedRole) ? fetchedRole : null);
+          } catch (error) {
+            console.warn("Erreur de récupération du rôle depuis Firestore :", error);
+            if (!isMounted) return;
             setRole(null);
           }
+
           setLoading(false);
         });
       } catch (err) {

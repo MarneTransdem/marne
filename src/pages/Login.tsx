@@ -36,7 +36,8 @@ export default function Login() {
   const [showSeeder, setShowSeeder] = useState(false);
   const [seedingLoading, setSeedingLoading] = useState(false);
   const [seedingSuccess, setSeedingSuccess] = useState<string | null>(null);
-  const demoLoginEnabled = import.meta.env.DEV || import.meta.env.VITE_ENABLE_DEMO_LOGIN === 'true';
+  const demoLoginEnabled = import.meta.env.VITE_ENABLE_DEMO_LOGIN === 'true';
+  const adminBootstrapEnabled = import.meta.env.VITE_ENABLE_ADMIN_BOOTSTRAP === 'true';
 
   // Redirect if already logged in and has role
   if (!authLoading && user && role) {
@@ -63,7 +64,8 @@ export default function Login() {
       console.error("Login component error:", err);
       
       // Smart Auto-registration for Gérant (contact@marnetransdem.com)
-      if (checkEmail === 'contact@marnetransdem.com' && 
+      if (adminBootstrapEnabled &&
+          checkEmail === 'contact@marnetransdem.com' && 
           (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential')) {
         
         try {
