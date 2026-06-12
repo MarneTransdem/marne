@@ -20,7 +20,6 @@ const QuoteRequest = lazy(() => import('./pages/QuoteRequest'));
 const About = lazy(() => import('./pages/About'));
 const Contact = lazy(() => import('./pages/Contact'));
 const FormulasPage = lazy(() => import('./pages/Formulas'));
-const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 const AdminLayout = lazy(() => import('./components/admin/layout/AdminLayout').then(module => ({ default: module.AdminLayout })));
 const AdminOverview = lazy(() => import('./pages/admin/AdminOverview').then(module => ({ default: module.AdminOverview })));
 const AdminDossiers = lazy(() => import('./pages/admin/AdminDossiers').then(module => ({ default: module.AdminDossiers })));

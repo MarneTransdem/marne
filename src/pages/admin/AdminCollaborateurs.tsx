@@ -8,37 +8,15 @@ import { useSyncedCollection } from '../../hooks/useData';
 import { UserProfile, FieldMover, FieldTruck, Role, Demenagement } from '../../types';
 import type { AdminOutletContextType } from '../../components/admin/layout/AdminLayout';
 
-const SEED_COLLABORATEURS: UserProfile[] = [
-  { uid: 'u1', email: 'contact@marnetransdem.com', role: 'gérant', name: 'Alain Delon (Gérant)', status: 'Actif' },
-  { uid: 'u2', email: 'secretaire@marnetransdem.com', role: 'secrétaire', name: 'Corinne Masson', status: 'Actif' },
-  { uid: 'u3', email: 'commercial@marnetransdem.com', role: 'commercial', name: 'Jean-Marc Tardieu', status: 'Actif' },
-  { uid: 'u4', email: 'chef@marnetransdem.com', role: 'chef_equipe', name: 'Hervé Le Gall (Chef Équipe 1)', status: 'Actif' },
-  { uid: 'u5', email: 'ahmed@marnetransdem.com', role: 'chef_equipe', name: 'Ahmed Bensalah (Chef Équipe 2)', status: 'Actif' }
-];
-
-const SEED_MOVERS: FieldMover[] = [
-  { id: 'MVR-001', name: 'Dominique Chauffard', phone: '06 11 22 33 44', role: 'Chauffeur PL', status: 'Disponible' },
-  { id: 'MVR-002', name: 'Pascal Porteur', phone: '06 22 33 44 55', role: 'Déménageur Porteur', status: 'Disponible' },
-  { id: 'MVR-003', name: 'Lucien Volant', phone: '06 33 44 55 66', role: 'Chauffeur VL', status: 'Disponible' },
-  { id: 'MVR-004', name: 'Érik Solide', phone: '06 44 55 66 77', role: 'Aide-déménageur', status: 'Disponible' },
-  { id: 'MVR-005', name: 'Marc Bagarre', phone: '06 55 66 77 88', role: 'Déménageur Porteur', status: 'Disponible' }
-];
-
-const SEED_TRUCKS: FieldTruck[] = [
-  { id: 'TRK-01', plateNumber: 'AA-123-BB', type: 'Poids Lourd 44m³', capacity: 44, status: 'Disponible', mileage: 154000, nextMaintenanceDate: '2026-08-15' },
-  { id: 'TRK-02', plateNumber: 'CC-456-DD', type: 'Fourgon VL 20m³', capacity: 20, status: 'Disponible', mileage: 87500, nextMaintenanceDate: '2026-06-20' },
-  { id: 'TRK-03', plateNumber: 'EE-789-FF', type: 'Camionnette 12m³', capacity: 12, status: 'Disponible', mileage: 43200, nextMaintenanceDate: '2026-05-10' }
-];
-
 export function AdminCollaborateurs() {
   const { user, role } = useAuth();
   const context = useOutletContext<AdminOutletContextType>();
   const pushNotification = context?.pushNotification;
 
   // Synced state hooks
-  const [collaborateurs, setCollaborateurs] = useSyncedCollection<UserProfile>('collaborateurs', SEED_COLLABORATEURS);
-  const [movers, setMovers] = useSyncedCollection<FieldMover>('movers', SEED_MOVERS);
-  const [trucks, setTrucks] = useSyncedCollection<FieldTruck>('trucks', SEED_TRUCKS);
+  const [collaborateurs, setCollaborateurs] = useSyncedCollection<UserProfile>('collaborateurs');
+  const [movers, setMovers] = useSyncedCollection<FieldMover>('movers');
+  const [trucks, setTrucks] = useSyncedCollection<FieldTruck>('trucks');
   const [demenagements] = useSyncedCollection<Demenagement>('demenagements');
 
   useEffect(() => {

@@ -19,33 +19,6 @@ interface AdminPlanningProps {
   searchQuery?: string;
 }
 
-const SEED_DEMENAGEMENTS: Demenagement[] = [
-  { id: 'DEM-001', clientName: 'Sophie Marceau', devisId: 'DEV-2026-002', volume: 18, fromCity: 'Nanterre (92)', toCity: 'Lyon (69)', date: '2026-07-10', teamLeader: 'Hervé Le Gall', status: 'Programmé', crewSize: 2, assignedMovers: ['Pascal Porteur'], assignedTruck: 'CC-456-DD' },
-  { id: 'DEM-002', clientName: 'Gérard Depardieu', devisId: 'DEV-2026-001', volume: 45, fromCity: 'Paris (75)', toCity: 'Bordeaux (33)', date: '2026-06-24', teamLeader: 'Ahmed Bensalah', status: 'Programmé', crewSize: 4, assignedMovers: ['Dominique Chauffard', 'Érik Solide'], assignedTruck: 'AA-123-BB' }
-];
-
-const SEED_MOVERS: FieldMover[] = [
-  { id: 'MVR-001', name: 'Dominique Chauffard', phone: '06 11 22 33 44', role: 'Chauffeur PL', status: 'Disponible' },
-  { id: 'MVR-002', name: 'Pascal Porteur', phone: '06 22 33 44 55', role: 'Déménageur Porteur', status: 'Disponible' },
-  { id: 'MVR-003', name: 'Lucien Volant', phone: '06 33 44 55 66', role: 'Chauffeur VL', status: 'Disponible' },
-  { id: 'MVR-004', name: 'Érik Solide', phone: '06 44 55 66 77', role: 'Aide-déménageur', status: 'Disponible' },
-  { id: 'MVR-005', name: 'Marc Bagarre', phone: '06 55 66 77 88', role: 'Déménageur Porteur', status: 'Disponible' }
-];
-
-const SEED_TRUCKS: FieldTruck[] = [
-  { id: 'TRK-01', plateNumber: 'AA-123-BB', type: 'Poids Lourd 44m³', capacity: 44, status: 'Disponible' },
-  { id: 'TRK-02', plateNumber: 'CC-456-DD', type: 'Fourgon VL 20m³', capacity: 20, status: 'Disponible' },
-  { id: 'TRK-03', plateNumber: 'EE-789-FF', type: 'Camionnette 12m³', capacity: 12, status: 'Disponible' }
-];
-
-const SEED_COLLABORATEURS: UserProfile[] = [
-  { uid: 'u1', email: 'contact@marnetransdem.com', role: 'gérant', name: 'Alain Delon (Gérant)', status: 'Actif' },
-  { uid: 'u2', email: 'secretaire@marnetransdem.com', role: 'secrétaire', name: 'Corinne Masson', status: 'Actif' },
-  { uid: 'u3', email: 'commercial@marnetransdem.com', role: 'commercial', name: 'Jean-Marc Tardieu', status: 'Actif' },
-  { uid: 'u4', email: 'chef@marnetransdem.com', role: 'chef_equipe', name: 'Hervé Le Gall (Chef Équipe 1)', status: 'Actif' },
-  { uid: 'u5', email: 'ahmed@marnetransdem.com', role: 'chef_equipe', name: 'Ahmed Bensalah (Chef Équipe 2)', status: 'Actif' }
-];
-
 export function AdminPlanning({
   demenagements,
   setDemenagements,
@@ -61,10 +34,10 @@ export function AdminPlanning({
   const activeRole = role || authRole;
 
   // Synced states fallback
-  const [syncedMoves, setSyncedMoves] = useSyncedCollection<Demenagement>('demenagements', SEED_DEMENAGEMENTS);
-  const [syncedCollabs] = useSyncedCollection<UserProfile>('collaborateurs', SEED_COLLABORATEURS);
-  const [movers] = useSyncedCollection<FieldMover>('movers', SEED_MOVERS);
-  const [trucks] = useSyncedCollection<FieldTruck>('trucks', SEED_TRUCKS);
+  const [syncedMoves, setSyncedMoves] = useSyncedCollection<Demenagement>('demenagements');
+  const [syncedCollabs] = useSyncedCollection<UserProfile>('collaborateurs');
+  const [movers] = useSyncedCollection<FieldMover>('movers');
+  const [trucks] = useSyncedCollection<FieldTruck>('trucks');
 
   const activeMoves = demenagements || syncedMoves;
   const activeSetMoves = setDemenagements || setSyncedMoves;
