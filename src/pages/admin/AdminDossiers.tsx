@@ -192,6 +192,14 @@ const getDossierWorkflowActions = (dossier: ClientDossier): ClientDossierWorkflo
         description: 'Planifier les compagnons et le camion',
         tone: 'primary'
       });
+      if (!dossier.invoice && dossier.quote?.status === 'Signé') {
+        actions.push({
+          id: 'create_invoice',
+          label: 'Générer facture',
+          description: 'Créer la facture du devis accepté',
+          tone: 'success'
+        });
+      }
       actions.push({
         id: 'confirm_j3',
         label: 'Confirmer J-3',
@@ -217,6 +225,76 @@ const getDossierWorkflowActions = (dossier: ClientDossier): ClientDossierWorkflo
       break;
   }
   return actions;
+};
+
+const toIsoDate = (date = new Date()) => date.toISOString().split('T')[0];
+
+const addDaysIso = (days: number) => {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  return toIsoDate(date);
+};
+
+const getNextReference = (prefix: string, ids: string[], withYear = true) => {
+  const year = new Date().getFullYear();
+  const pattern = new RegExp(`^${prefix}(?:-${year})?-(\\d+)$`);
+  const highest = ids.reduce((max, id) => {
+    const match = id.match(pattern);
+    const value = match ? Number(match[1]) : 0;
+    return Number.isFinite(value) ? Math.max(max, value) : max;
+  }, 0);
+  const sequence = String(highest + 1).padStart(4, '0');
+  return withYear ? `${prefix}-${year}-${sequence}` : `${prefix}-${sequence}`;
+};
+
+const cleanText = (value?: string | number | null) => String(value ?? '').trim();
+
+const buildCityLabel = (city?: string, zip?: string) => [cleanText(city), cleanText(zip)].filter(Boolean).join(' ');
+
+const buildRequestAddress = (request?: AdminPublicRequest) => (
+  [cleanText(request?.fromAddress), buildCityLabel(request?.fromCity, request?.fromZip)]
+    .filter(Boolean)
+    .join(', ')
+);
+
+const parseVolume = (value: unknown, fallback = 20) => {
+  if (typeof value === 'number' && Number.isFinite(value) && value > 0) return Math.round(value);
+  if (typeof value === 'string') {
+    const match = value.replace(',', '.').match(/\d+(\.\d+)?/);
+    const parsed = match ? Number(match[0]) : NaN;
+    if (Number.isFinite(parsed) && parsed > 0) return Math.round(parsed);
+  }
+  return fallback;
+};
+
+const normalizeFormula = (formula?: string): Devis['formula'] => {
+  const normalized = cleanText(formula)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+
+  if (normalized.includes('econom')) return '\u00c9conomique';
+  if (normalized.includes('luxe')) return 'Luxe';
+  if (normalized.includes('dynamic')) return 'Dynamic';
+  return 'Standard';
+};
+
+const estimateQuotePrice = (volume: number, formula: Devis['formula']) => {
+  const rates: Record<Devis['formula'], number> = {
+    '\u00c9conomique': 52,
+    Standard: 62,
+    Luxe: 78,
+    Dynamic: 68
+  };
+  return Math.max(450, Math.round((volume * rates[formula]) / 10) * 10);
+};
+
+const hasMeaningfulOwner = (owner?: string) => {
+  const normalized = cleanText(owner)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+  return !!normalized && !normalized.includes('non assigne');
 };
 
 export function AdminDossiers() {
@@ -335,11 +413,31 @@ export function AdminDossiers() {
       });
   }, [dossierTasks, selectedDossierKey]);
 
+  const activeCollaborateurs = useMemo(() => (
+    collaborateurs.filter((collaborateur) => collaborateur.status === 'Actif')
+  ), [collaborateurs]);
+
+  const currentUserLabel = user?.displayName || user?.email || '';
+
+  const commercialOptions = useMemo(() => (
+    activeCollaborateurs
+      .filter((collaborateur) => collaborateur.role === 'commercial')
+      .map((collaborateur) => collaborateur.name)
+      .filter(Boolean)
+  ), [activeCollaborateurs]);
+
+  const teamLeaderOptions = useMemo(() => (
+    activeCollaborateurs
+      .filter((collaborateur) => collaborateur.role === 'chef_equipe')
+      .map((collaborateur) => collaborateur.name)
+      .filter(Boolean)
+  ), [activeCollaborateurs]);
+
   const ownerOptions = useMemo(() => {
-    const defaultCommercials = ['Jean-Marc Commercial', 'Christophe Commercial', 'Hervé Le Gall', 'Secrétaire Office'];
-    const dbUsers = collaborateurs.filter(c => c.status === 'Actif').map(c => c.name);
-    return Array.from(new Set([...dbUsers, ...defaultCommercials]));
-  }, [collaborateurs]);
+    const dbUsers = activeCollaborateurs.map((collaborateur) => collaborateur.name).filter(Boolean);
+    const existingOwners = allDossiers.map((dossier) => dossier.owner).filter(hasMeaningfulOwner);
+    return Array.from(new Set([...dbUsers, ...existingOwners, currentUserLabel].filter(Boolean)));
+  }, [activeCollaborateurs, allDossiers, currentUserLabel]);
 
   const availableTabs = useMemo(() => {
     const roles: Record<string, AdminTab[]> = {
@@ -355,25 +453,97 @@ export function AdminDossiers() {
   const renderTemplate = (body: string, dossier: ClientDossier | null) => {
     if (!body) return '';
     const data = {
-      clientName: dossier?.clientName || 'Jean Dupont',
-      date: dossier?.date || new Date().toISOString().split('T')[0],
-      time: dossier?.visit?.time || '10:00',
-      devisId: dossier?.quote?.id || 'DEV-2026-003',
-      invoiceId: dossier?.invoice?.id || 'FAC-2026-003',
-      price: dossier?.amount?.toLocaleString('fr-FR') || '1 250',
-      dueDate: dossier?.invoice?.dueDate || '2026-07-15',
-      fromCity: dossier?.fromCity || 'Créteil',
-      toCity: dossier?.toCity || 'Paris',
-      volume: dossier?.quote?.volume || dossier?.move?.volume || '25',
-      formula: dossier?.quote?.formula || 'Standard',
-      commercialAssigned: dossier?.visit?.commercialAssigned || 'Marc Lemaire',
-      assignedTruck: dossier?.move?.assignedTruck || 'Fourgon VL 20m³ (AA-123-BB)',
-      expiresAt: dossier?.quote?.expiresAt || '2026-07-10'
+      clientName: dossier?.clientName || 'Client',
+      date: dossier?.date || addDaysIso(2),
+      time: dossier?.visit?.time || 'à confirmer',
+      devisId: dossier?.quote?.id || 'devis brouillon',
+      invoiceId: dossier?.invoice?.id || 'facture à créer',
+      price: dossier?.amount ? dossier.amount.toLocaleString('fr-FR') : 'à chiffrer',
+      dueDate: dossier?.invoice?.dueDate || addDaysIso(30),
+      fromCity: dossier?.fromCity || 'départ à compléter',
+      toCity: dossier?.toCity || 'arrivée à compléter',
+      volume: dossier?.quote?.volume || dossier?.move?.volume || dossier?.request?.volume || 'à confirmer',
+      formula: dossier?.quote?.formula || normalizeFormula(dossier?.request?.formula),
+      commercialAssigned: dossier?.visit?.commercialAssigned || 'à assigner',
+      assignedTruck: dossier?.move?.assignedTruck || 'à affecter',
+      expiresAt: dossier?.quote?.expiresAt || addDaysIso(30)
     };
 
     return body.replace(/{(\w+)}/g, (match, key) => {
       return (data as any)[key] !== undefined ? String((data as any)[key]) : match;
     });
+  };
+
+  const getDossierPhone = (dossier: ClientDossier) => (
+    cleanText(dossier.phone || dossier.request?.phone || dossier.quote?.phone || dossier.visit?.phone)
+  );
+
+  const getDossierFromCity = (dossier: ClientDossier) => (
+    buildCityLabel(dossier.request?.fromCity, dossier.request?.fromZip) ||
+    cleanText(dossier.quote?.fromCity || dossier.move?.fromCity || dossier.fromCity) ||
+    'Départ à compléter'
+  );
+
+  const getDossierToCity = (dossier: ClientDossier) => (
+    buildCityLabel(dossier.request?.toCity, dossier.request?.toZip) ||
+    cleanText(dossier.quote?.toCity || dossier.move?.toCity || dossier.toCity) ||
+    'Arrivée à compléter'
+  );
+
+  const getDossierVolume = (dossier: ClientDossier, fallback = 20) => parseVolume(
+    dossier.request?.volume ?? dossier.visit?.volumeEstimated ?? dossier.quote?.volume ?? dossier.move?.volume,
+    fallback
+  );
+
+  const getDossierCommercial = (dossier: ClientDossier) => (
+    cleanText(dossier.visit?.commercialAssigned) ||
+    (hasMeaningfulOwner(dossier.owner) ? dossier.owner : '') ||
+    commercialOptions[0] ||
+    (role === 'commercial' ? currentUserLabel : '') ||
+    'Commercial à assigner'
+  );
+
+  const getDefaultTeamLeader = () => (
+    teamLeaderOptions[0] ||
+    movers.find((mover) => mover.status === 'Disponible')?.name ||
+    ''
+  );
+
+  const createInvoiceFromQuote = async (quote: Devis) => {
+    const existingInvoice = factures.find((invoice) => invoice.devisId === quote.id);
+    if (existingInvoice) return existingInvoice;
+
+    const invoice: Facture = {
+      id: getNextReference('FAC', factures.map((item) => item.id)),
+      devisId: quote.id,
+      clientName: quote.clientName,
+      amount: quote.price,
+      date: toIsoDate(),
+      dueDate: addDaysIso(30),
+      status: 'En attente'
+    };
+    await setFactures(prev => [invoice, ...prev]);
+    return invoice;
+  };
+
+  const createMoveFromQuote = async (quote: Devis) => {
+    const existingMove = demenagements.find((move) => move.devisId === quote.id);
+    if (existingMove) return existingMove;
+
+    const newMove: Demenagement = {
+      id: getNextReference('DEM', demenagements.map((item) => item.id), false),
+      clientName: quote.clientName,
+      devisId: quote.id,
+      volume: quote.volume,
+      fromCity: quote.fromCity,
+      toCity: quote.toCity,
+      date: quote.date || toIsoDate(),
+      teamLeader: getDefaultTeamLeader(),
+      status: 'À planifier',
+      crewSize: 3
+    };
+    await setDemenagements(prev => [newMove, ...prev]);
+    return newMove;
   };
 
   const sendSimulatedNotification = async (templateId: string, dossier: ClientDossier) => {
@@ -401,31 +571,13 @@ export function AdminDossiers() {
       dossierKey: dossier.key,
       author: `${user?.email || 'Secrétariat'} (Auto)`,
       content: `[Notification ${template.channel}] ${template.title}\n\n${template.subject ? `Objet : ${renderedSubject}\n` : ''}${renderedBody}`,
-      createdAt: new Date().toISOString().split('T')[0]
+      createdAt: toIsoDate()
     };
     await setDossierNotes(prev => [newNote, ...prev]);
   };
 
-  const createAcceptedQuoteArtifacts = (quote: Devis) => {
-    if (!factures.some((invoice) => invoice.devisId === quote.id)) {
-      const id = `FAC-2026-00${factures.length + 1}`;
-      const invoice: Facture = {
-        id, devisId: quote.id, clientName: quote.clientName, amount: quote.price,
-        date: new Date().toISOString().split('T')[0],
-        dueDate: new Date(Date.now() + 30 * 24 * 3600 * 1000).toISOString().split('T')[0],
-        status: 'En attente'
-      };
-      setFactures(prev => [invoice, ...prev]);
-    }
-    if (!demenagements.some((move) => move.devisId === quote.id)) {
-      const moveId = `DEM-00${demenagements.length + 1}`;
-      const newMove: Demenagement = {
-        id: moveId, clientName: quote.clientName, devisId: quote.id, volume: quote.volume,
-        fromCity: quote.fromCity, toCity: quote.toCity, date: quote.date || new Date().toISOString().split('T')[0],
-        teamLeader: 'Hervé Le Gall', status: 'À planifier', crewSize: 3
-      };
-      setDemenagements(prev => [newMove, ...prev]);
-    }
+  const createAcceptedQuoteArtifacts = async (quote: Devis) => {
+    await createMoveFromQuote(quote);
   };
 
   // Workflow Actions Runner
@@ -433,14 +585,20 @@ export function AdminDossiers() {
     switch (actionId) {
       case 'plan_visit': {
         const visitId = `VIS-${Date.now()}`;
+        const visitPreference = dossier.request?.visitPreference;
+        const visitMode: Visite['visitMode'] = visitPreference === 'domicile' || visitPreference === 'visio' || visitPreference === 'a_definir'
+          ? visitPreference
+          : 'a_definir';
         const newVisit: Visite = {
           id: visitId,
           clientName: dossier.clientName,
-          phone: dossier.phone || '0600000000',
-          address: dossier.fromCity || 'Paris',
-          date: new Date(Date.now() + 2 * 24 * 3600 * 1000).toISOString().split('T')[0],
+          phone: getDossierPhone(dossier),
+          address: buildRequestAddress(dossier.request) || cleanText(dossier.fromCity) || 'Adresse à compléter',
+          date: addDaysIso(2),
           time: '10:00',
-          commercialAssigned: 'Jean-Marc Commercial',
+          volumeEstimated: getDossierVolume(dossier),
+          commercialAssigned: getDossierCommercial(dossier),
+          visitMode,
           status: 'Planifiée' as const,
           sourceRequestId: dossier.request?.id || ''
         };
@@ -452,19 +610,24 @@ export function AdminDossiers() {
         break;
       }
       case 'convert_direct': {
-        const devisId = `DEV-2026-00${devisList.length + 1}`;
+        const devisId = getNextReference('DEV', devisList.map((item) => item.id));
+        const volume = getDossierVolume(dossier);
+        const formula = normalizeFormula(dossier.request?.formula);
         const item: Devis = {
           id: devisId,
           clientName: dossier.clientName,
-          phone: dossier.phone || '0600000000',
-          fromCity: dossier.fromCity?.split(' ')[0] || 'Paris',
-          toCity: dossier.toCity?.split(' ')[0] || 'Lyon',
-          volume: Number(dossier.request?.volume) || 20,
-          formula: 'Standard' as const,
-          price: 1200,
-          date: dossier.request?.date || new Date().toISOString().split('T')[0],
-          createdAt: new Date().toISOString().split('T')[0],
-          expiresAt: new Date(Date.now() + 30 * 24 * 3600 * 1000).toISOString().split('T')[0],
+          phone: getDossierPhone(dossier),
+          email: dossier.request?.email || undefined,
+          fromCity: getDossierFromCity(dossier),
+          toCity: getDossierToCity(dossier),
+          fromAddress: dossier.request?.fromAddress,
+          toAddress: dossier.request?.toAddress,
+          volume,
+          formula,
+          price: estimateQuotePrice(volume, formula),
+          date: dossier.request?.date || toIsoDate(),
+          createdAt: toIsoDate(),
+          expiresAt: addDaysIso(30),
           status: 'Brouillon' as const,
           sourceRequestId: dossier.request?.id || ''
         };
@@ -491,19 +654,24 @@ export function AdminDossiers() {
       }
       case 'create_quote_from_visit': {
         if (dossier.visit?.id) {
-          const devisId = `DEV-2026-00${devisList.length + 1}`;
+          const devisId = getNextReference('DEV', devisList.map((item) => item.id));
+          const volume = getDossierVolume(dossier, dossier.visit.volumeEstimated || 20);
+          const formula = normalizeFormula(dossier.request?.formula);
           const item: Devis = {
             id: devisId,
             clientName: dossier.clientName,
-            phone: dossier.phone || '0600000000',
-            fromCity: dossier.fromCity || 'Paris',
-            toCity: dossier.toCity || 'Lyon',
-            volume: dossier.visit.volumeEstimated || 20,
-            formula: 'Standard' as const,
-            price: (dossier.visit.volumeEstimated || 20) * 60,
+            phone: getDossierPhone(dossier),
+            email: dossier.request?.email || undefined,
+            fromCity: getDossierFromCity(dossier),
+            toCity: getDossierToCity(dossier),
+            fromAddress: dossier.request?.fromAddress,
+            toAddress: dossier.request?.toAddress,
+            volume,
+            formula,
+            price: estimateQuotePrice(volume, formula),
             date: dossier.visit.date,
-            createdAt: new Date().toISOString().split('T')[0],
-            expiresAt: new Date(Date.now() + 30 * 24 * 3600 * 1000).toISOString().split('T')[0],
+            createdAt: toIsoDate(),
+            expiresAt: addDaysIso(30),
             status: 'Brouillon' as const,
             sourceVisitId: dossier.visit.id
           };
@@ -522,14 +690,14 @@ export function AdminDossiers() {
       }
       case 'send_quote': {
         if (dossier.quote?.id) {
-          await setDevisList(prev => prev.map(q => q.id === dossier.quote?.id ? { ...q, status: 'Envoyé', sentAt: new Date().toISOString().split('T')[0] } : q));
-          sendSimulatedNotification('devis_envoye', dossier);
+          await setDevisList(prev => prev.map(q => q.id === dossier.quote?.id ? { ...q, status: 'Envoyé', sentAt: toIsoDate() } : q));
+          await sendSimulatedNotification('devis_envoye', dossier);
         }
         break;
       }
       case 'remind_quote': {
         if (dossier.quote?.id) {
-          sendSimulatedNotification('devis_expirant', dossier);
+          await sendSimulatedNotification('devis_expirant', dossier);
         }
         break;
       }
@@ -538,35 +706,33 @@ export function AdminDossiers() {
           const updatedQuote: Devis = {
             ...dossier.quote,
             status: 'Signé' as const,
-            acceptedAt: new Date().toISOString().split('T')[0]
+            acceptedAt: toIsoDate()
           };
           await setDevisList(prev => prev.map(q => q.id === dossier.quote?.id ? updatedQuote : q));
-          createAcceptedQuoteArtifacts(updatedQuote);
+          await createAcceptedQuoteArtifacts(updatedQuote);
           context?.pushNotification('Devis Signé ✍️', `Devis accepté ! Lancement logistique.`, 'success');
         }
         break;
       }
       case 'refuse_quote': {
         if (dossier.quote?.id) {
-          await setDevisList(prev => prev.map(q => q.id === dossier.quote?.id ? { ...q, status: 'Refusé', refusedAt: new Date().toISOString().split('T')[0] } : q));
+          await setDevisList(prev => prev.map(q => q.id === dossier.quote?.id ? { ...q, status: 'Refusé', refusedAt: toIsoDate() } : q));
           context?.pushNotification('Devis Refusé 🛑', `Devis marqué comme refusé.`, 'info');
         }
         break;
       }
       case 'create_invoice': {
         if (dossier.quote?.id) {
-          const invoiceId = `FAC-2026-00${factures.length + 1}`;
-          const newInvoice: Facture = {
-            id: invoiceId,
-            devisId: dossier.quote.id,
-            clientName: dossier.clientName,
-            amount: dossier.quote.price,
-            date: new Date().toISOString().split('T')[0],
-            dueDate: new Date(Date.now() + 30 * 24 * 3600 * 1000).toISOString().split('T')[0],
-            status: 'En attente' as const
-          };
-          await setFactures(prev => [newInvoice, ...prev]);
-          sendSimulatedNotification('facture_emise', dossier);
+          const alreadyExists = factures.some((invoice) => invoice.devisId === dossier.quote?.id);
+          const invoice = await createInvoiceFromQuote(dossier.quote);
+          const dossierWithInvoice: ClientDossier = { ...dossier, invoice };
+
+          if (alreadyExists) {
+            context?.pushNotification('Facture déjà présente', `La facture ${invoice.id} existe déjà pour ce devis.`, 'info');
+          } else {
+            context?.pushNotification('Facture générée', `Facture ${invoice.id} créée pour ${dossier.clientName}.`, 'success');
+            await sendSimulatedNotification('facture_emise', dossierWithInvoice);
+          }
         }
         break;
       }
@@ -579,13 +745,48 @@ export function AdminDossiers() {
       }
       case 'remind_invoice': {
         if (dossier.invoice?.id) {
-          sendSimulatedNotification('facture_emise', dossier);
+          await sendSimulatedNotification('facture_emise', dossier);
+        }
+        break;
+      }
+      case 'assign_planning': {
+        if (!dossier.move?.id) {
+          context?.pushNotification('Planning introuvable', `Aucun déménagement n'est encore rattaché à ${dossier.clientName}.`, 'warning');
+          break;
+        }
+
+        setSelectedDossierKey(dossier.key);
+        const hasAssignableMovers = movers.some((mover) => (
+          mover.status === 'Disponible' || dossier.move?.assignedMovers?.includes(mover.name)
+        ));
+        const hasAssignableTruck = trucks.some((truck) => (
+          truck.status === 'Disponible' || dossier.move?.assignedTruck === truck.plateNumber
+        ));
+
+        if (!hasAssignableMovers || !hasAssignableTruck) {
+          context?.pushNotification(
+            'Ressources à compléter',
+            'Ajoutez au moins un équipier disponible et un véhicule disponible dans Équipe & outils.',
+            'warning'
+          );
+        } else {
+          context?.pushNotification(
+            'Affectation ouverte',
+            'Sélectionnez le chef de mission, les équipiers et le véhicule dans le dossier.',
+            'info'
+          );
         }
         break;
       }
       case 'confirm_j3': {
         if (dossier.move?.id) {
-          sendSimulatedNotification('planning_j3', dossier);
+          const isReadyForConfirmation = !!dossier.move.assignedTruck && !!dossier.move.assignedMovers?.length && !!dossier.move.teamLeader;
+          if (!isReadyForConfirmation) {
+            setSelectedDossierKey(dossier.key);
+            context?.pushNotification('Planning incomplet', `Affectez d'abord l'équipe et le véhicule pour ${dossier.clientName}.`, 'warning');
+            break;
+          }
+          await sendSimulatedNotification('planning_j3', dossier);
         }
         break;
       }
@@ -623,9 +824,9 @@ export function AdminDossiers() {
     const newNote: DossierNote = {
       id: noteId,
       dossierKey: key,
-      author: user?.name || 'Administrateur',
+      author: currentUserLabel || 'Administrateur',
       content,
-      createdAt: new Date().toISOString().split('T')[0]
+      createdAt: toIsoDate()
     };
     await setDossierNotes(prev => [newNote, ...prev]);
     context?.pushNotification('Note Ajoutée 📝', `Note interne enregistrée.`, 'success');
@@ -637,7 +838,7 @@ export function AdminDossiers() {
       ...task,
       id: taskId,
       done: false,
-      createdAt: new Date().toISOString().split('T')[0]
+      createdAt: toIsoDate()
     };
     await setDossierTasks(prev => [newTask, ...prev]);
     context?.pushNotification('Tâche Ajoutée 📌', `Nouvelle tâche de suivi créée.`, 'success');
@@ -667,7 +868,7 @@ export function AdminDossiers() {
   const handleSaveTemplate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingTemplate || !editingTemplate.id) return;
-    await setTemplates(prev => prev.map(t => t.id === editingTemplate.id ? { ...t, ...editingTemplate, lastUpdated: new Date().toISOString().split('T')[0] } as NotificationTemplate : t));
+    await setTemplates(prev => prev.map(t => t.id === editingTemplate.id ? { ...t, ...editingTemplate, lastUpdated: toIsoDate() } as NotificationTemplate : t));
     context?.pushNotification('Modèle Sauvegardé 💾', `Le modèle de message "${editingTemplate.title}" a été mis à jour.`, 'success');
   };
 

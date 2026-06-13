@@ -80,7 +80,7 @@ api.get('/sitemap.xml', (req, res) => {
   const xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9';
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="${xmlns}">\n`;
   urls.forEach((u) => {
-    xml += `  <url><loc>https://YOUR_PROJECT_ID.web.app${u}</loc></url>\n`;
+    xml += `  <url><loc>https://marnetransdem20.web.app${u}</loc></url>\n`;
   });
   xml += '</urlset>';
   res.header('Content-Type', 'application/xml');
