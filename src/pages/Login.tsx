@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  sendPasswordResetEmail,
   signInWithPopup,
   signOut
 } from 'firebase/auth';
@@ -33,6 +34,8 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [passwordResetLoading, setPasswordResetLoading] = useState(false);
+  const [passwordResetSuccess, setPasswordResetSuccess] = useState<string | null>(null);
 
   // Auto-set state
   const [showSeeder, setShowSeeder] = useState(false);
@@ -48,6 +51,8 @@ export default function Login() {
 
   const canBootstrapManager = (checkEmail: string) =>
     adminBootstrapEnabled && checkEmail === 'contact@marnetransdem.com';
+
+  const normalizedLoginEmail = email.trim().toLowerCase();
 
   const ensureUserHasCrmRole = async (
     uid: string,
@@ -85,8 +90,9 @@ export default function Login() {
 
     setLoading(true);
     setError(null);
+    setPasswordResetSuccess(null);
 
-    const checkEmail = email.trim().toLowerCase();
+    const checkEmail = normalizedLoginEmail;
 
     try {
       await signInWithEmailAndPassword(auth, checkEmail, password);
@@ -126,7 +132,7 @@ export default function Login() {
         } catch (createErr: any) {
           console.error("Auto-registration error:", createErr);
           if (createErr.code === 'auth/email-already-in-use') {
-            setError("Mot de passe incorrect pour le compte gérant existant.");
+            setError("Ce compte gérant existe déjà, mais le mot de passe saisi est incorrect. Utilisez la connexion Google ou réinitialisez le mot de passe.");
           } else if (createErr.code === 'auth/operation-not-allowed') {
             setError("L'authentification par e-mail/mot de passe n'est pas activée dans votre console Firebase (Authentication > Sign-in method). Veuillez l'activer.");
           } else {
@@ -135,7 +141,7 @@ export default function Login() {
         }
       } else {
         if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
-          setError("Identifiants incorrects. Veuillez vérifier votre adresse e-mail et votre mot de passe.");
+          setError("Identifiants incorrects. Vérifiez l'adresse e-mail et le mot de passe, ou utilisez la connexion Google.");
         } else if (err.code === 'auth/invalid-email') {
           setError("Adresse e-mail invalide.");
         } else {
@@ -151,6 +157,7 @@ export default function Login() {
     setLoading(true);
     setError(null);
     setSeedingSuccess(null);
+    setPasswordResetSuccess(null);
 
     try {
       const provider = new GoogleAuthProvider();
@@ -184,11 +191,42 @@ export default function Login() {
         setError("Un compte existe déjà avec cette adresse e-mail. Connectez-vous avec la méthode utilisée initialement.");
       } else if (err.code === 'auth/operation-not-allowed') {
         setError("La connexion Google n'est pas encore activée dans Firebase Authentication.");
+      } else if (err.code === 'auth/unauthorized-domain') {
+        setError("Domaine non autorisé pour Google. Ajoutez localhost et le domaine du site dans Firebase Authentication > Settings > Authorized domains.");
       } else {
         setError(`Connexion Google impossible (${err.code || 'erreur inconnue'}).`);
       }
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handlePasswordReset = async () => {
+    const targetEmail = normalizedLoginEmail;
+
+    if (!targetEmail) {
+      setError("Saisissez d'abord l'adresse e-mail du compte à réinitialiser.");
+      return;
+    }
+
+    setPasswordResetLoading(true);
+    setError(null);
+    setPasswordResetSuccess(null);
+
+    try {
+      await sendPasswordResetEmail(auth, targetEmail);
+      setPasswordResetSuccess(`E-mail de réinitialisation envoyé à ${targetEmail}.`);
+    } catch (err: any) {
+      console.error("Password reset error:", err);
+      if (err.code === 'auth/invalid-email') {
+        setError("Adresse e-mail invalide.");
+      } else if (err.code === 'auth/user-not-found') {
+        setError("Aucun compte Firebase n'est associé à cette adresse.");
+      } else {
+        setError(`Impossible d'envoyer l'e-mail de réinitialisation (${err.code || 'erreur inconnue'}).`);
+      }
+    } finally {
+      setPasswordResetLoading(false);
     }
   };
 
@@ -284,6 +322,13 @@ export default function Login() {
           </div>
         )}
 
+        {passwordResetSuccess && (
+          <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800/50 p-4 rounded-xl text-green-700 dark:text-green-400 text-xs flex gap-3 items-start mb-6">
+            <CheckCircle size={18} className="shrink-0 mt-0.5" />
+            <span className="leading-relaxed">{passwordResetSuccess}</span>
+          </div>
+        )}
+
         {/* Login Form */}
         <form onSubmit={handleLogin} className="space-y-5">
           {/* Email input */}
@@ -328,6 +373,14 @@ export default function Login() {
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
+            <button
+              type="button"
+              onClick={handlePasswordReset}
+              disabled={loading || seedingLoading || passwordResetLoading || !normalizedLoginEmail}
+              className="self-end text-[11px] font-bold text-slate-500 hover:text-brand-900 disabled:opacity-40 disabled:pointer-events-none transition-colors"
+            >
+              {passwordResetLoading ? "Envoi en cours..." : "Mot de passe oublié ?"}
+            </button>
           </div>
 
           {/* Login Button */}

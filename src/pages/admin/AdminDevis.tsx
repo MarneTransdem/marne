@@ -9,7 +9,7 @@ const COLUMNS = ['Brouillon', 'Envoyé', 'En attente', 'Signé', 'Refusé'] as c
 type DevisStatus = typeof COLUMNS[number];
 
 export function AdminDevis() {
-  const [devisList, setDevisList] = useSyncedCollection<Devis>('devis');
+  const [devisList, setDevisList, { daysLimit: devisDays, setDaysLimit: setDevisDays }] = useSyncedCollection<Devis>('devis', [], { timeField: 'createdAt' });
   const [factures, setFactures] = useSyncedCollection<Facture>('factures');
   const [demenagements, setDemenagements] = useSyncedCollection<Demenagement>('demenagements');
   const [publicRequests, setPublicRequests] = useSyncedCollection<AdminPublicRequest>('quotes');
@@ -45,7 +45,8 @@ export function AdminDevis() {
       const newMove: Demenagement = {
         id: moveId, clientName: quote.clientName, devisId: quote.id, volume: quote.volume,
         fromCity: quote.fromCity, toCity: quote.toCity, date: quote.date || new Date().toISOString().split('T')[0],
-        teamLeader: 'Hervé Le Gall', status: 'À planifier', crewSize: 3
+        teamLeader: 'Hervé Le Gall', status: 'À planifier', crewSize: 3,
+        trackingToken: self.crypto?.randomUUID ? self.crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now().toString(36)
       };
       setDemenagements(prev => [newMove, ...prev]);
     }
@@ -93,7 +94,7 @@ export function AdminDevis() {
          status: 'Étudié_Converti',
          convertedDevisId: item.id
        } : req));
-    }
+     }
 
     setShowAddDevis(false);
     resetForm();
@@ -243,9 +244,24 @@ export function AdminDevis() {
           )}
         </div>
 
+        {/* Period Selector */}
+        <div className="flex items-center gap-2 shrink-0">
+          <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Période :</label>
+          <select 
+            value={devisDays} 
+            onChange={(e) => setDevisDays(e.target.value === 'all' ? 'all' : Number(e.target.value))}
+            className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl py-2 px-3 text-xs font-black text-slate-700 dark:text-slate-350 focus:outline-none focus:ring-2 focus:ring-accent/20 cursor-pointer"
+          >
+            <option value={90}>90 derniers jours</option>
+            <option value={180}>180 derniers jours</option>
+            <option value={365}>1 an</option>
+            <option value="all">Toutes les archives</option>
+          </select>
+        </div>
+
         <button
           onClick={() => { resetForm(); setShowAddDevis(true); }}
-          className="bg-accent hover:bg-accent-hover text-brand-900 border border-accent font-black py-2.5 px-5 rounded-2xl text-xs transition-all duration-300 flex items-center justify-center gap-2"
+          className="bg-accent hover:bg-accent-hover text-brand-900 border border-accent font-black py-2.5 px-5 rounded-2xl text-xs transition-all duration-300 flex items-center justify-center gap-2 shrink-0"
         >
           <Plus size={14} /> Rédiger un Devis
         </button>

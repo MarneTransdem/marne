@@ -38,7 +38,11 @@ export interface Facture {
   id: string;
   devisId: string;
   clientName: string;
-  amount: number;
+  email?: string;
+  amountHT?: number;
+  tvaRate?: number;
+  tvaAmount?: number;
+  amount: number; // Represents TTC
   date: string;
   dueDate: string;
   status: 'Payée' | 'En attente' | 'En retard';
@@ -73,6 +77,11 @@ export interface Demenagement {
   crewSize: number;
   assignedMovers?: string[]; // Array of mover names/ids
   assignedTruck?: string;     // Assigned truck details/plate
+  trackingToken?: string;
+  clientSignature?: string;
+  signedAt?: string;
+  currentLocation?: { lat: number; lng: number };
+  locationUpdatedAt?: string;
 }
 
 export interface FieldMover {

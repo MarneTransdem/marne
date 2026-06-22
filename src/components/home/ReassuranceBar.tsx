@@ -14,6 +14,7 @@ export const ReassuranceBar: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -4, scale: 1.02, transition: { duration: 0.2 } }}
               className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-50 transition-colors group"
             >
               <div className="p-3 bg-brand-900/5 rounded-xl text-slate-900 dark:text-brand-500 group-hover:bg-accent group-hover:text-white transition-all duration-300">

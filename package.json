@@ -18,9 +18,11 @@
   "dependencies": {
     "@google-cloud/firestore": "^8.6.0",
     "@google/genai": "^1.29.0",
+    "@react-pdf/renderer": "^4.5.1",
     "@tailwindcss/vite": "^4.1.14",
     "@vis.gl/react-google-maps": "^1.8.3",
     "@vitejs/plugin-react": "^5.0.4",
+    "buffer": "^6.0.3",
     "compression": "^1.8.1",
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",

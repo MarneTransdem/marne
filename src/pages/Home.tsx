@@ -84,6 +84,7 @@ const Home: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
+                whileHover={{ y: -8, scale: formula.popular ? 1.07 : 1.02, transition: { duration: 0.3 } }}
                 className={`stay-white-bg rounded-2xl p-8 border ${formula.popular ? 'border-accent ring-4 ring-accent/5 lg:scale-105' : 'border-slate-100'} relative shadow-premium flex flex-col ${formula.popular ? 'z-10 bg-slate-50/20' : ''}`}
               >
                 {formula.popular && (

@@ -1,6 +1,6 @@
-import { collection, onSnapshot, query, Firestore, doc, writeBatch } from 'firebase/firestore';
+import { collection, onSnapshot, query, Firestore, doc, writeBatch, QueryConstraint, where } from 'firebase/firestore';
 import { db } from '../lib/firebase';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 export const useCollection = <T>(collectionName: string) => {
   const [data, setData] = useState<T[]>([]);
@@ -23,11 +23,34 @@ const getItemKey = (item: any): string => {
 export const useSyncedCollection = <T extends { id?: string; uid?: string }>(
   collectionName: string,
   _initialData: T[] = [],
-  options?: { enabled?: boolean }
+  options?: { 
+    enabled?: boolean; 
+    constraints?: QueryConstraint[];
+    timeField?: string;
+    defaultDays?: number;
+  }
 ) => {
   const syncEnabled = options?.enabled ?? true;
+  const timeField = options?.timeField;
+  const defaultDays = options?.defaultDays ?? (timeField ? 90 : 'all');
 
+  const [daysLimit, setDaysLimit] = useState<number | 'all'>(defaultDays);
   const [data, setData] = useState<T[]>([]);
+
+  // Memoize constraints to avoid recreation loops and infinite hook triggers
+  const memoizedConstraints = useMemo(() => {
+    const list: QueryConstraint[] = [];
+    if (options?.constraints) {
+      list.push(...options.constraints);
+    }
+    if (timeField && daysLimit !== 'all') {
+      const d = new Date();
+      d.setDate(d.getDate() - daysLimit);
+      const dateStr = d.toISOString().split('T')[0];
+      list.push(where(timeField, '>=', dateStr));
+    }
+    return list;
+  }, [options?.constraints, timeField, daysLimit]);
 
   useEffect(() => {
     if (!syncEnabled) {
@@ -35,7 +58,10 @@ export const useSyncedCollection = <T extends { id?: string; uid?: string }>(
       return;
     }
 
-    const q = query(collection(db as Firestore, collectionName));
+    const q = memoizedConstraints.length > 0
+      ? query(collection(db as Firestore, collectionName), ...memoizedConstraints)
+      : query(collection(db as Firestore, collectionName));
+
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
@@ -49,7 +75,7 @@ export const useSyncedCollection = <T extends { id?: string; uid?: string }>(
     );
 
     return () => unsubscribe();
-  }, [collectionName, syncEnabled]);
+  }, [collectionName, syncEnabled, memoizedConstraints]);
 
   const setCollectionState = async (
     updater: T[] | ((prev: T[]) => T[])
@@ -99,5 +125,5 @@ export const useSyncedCollection = <T extends { id?: string; uid?: string }>(
     }
   };
 
-  return [data, setCollectionState] as const;
+  return [data, setCollectionState, { daysLimit, setDaysLimit }] as const;
 };

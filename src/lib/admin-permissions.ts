@@ -9,7 +9,8 @@ export type AdminTab =
   | 'visites'
   | 'planning'
   | 'collaborateurs'
-  | 'simulateur';
+  | 'simulateur'
+  | 'analytics';
 
 export type AdminCollection =
   | 'quotes'
@@ -69,11 +70,16 @@ export const ADMIN_TAB_LABELS: Record<AdminTab, { desktop: string; mobile: strin
     desktop: 'Calcul volume rapide',
     mobile: 'Simul.',
     title: 'Calculateur Volume'
+  },
+  analytics: {
+    desktop: 'Analyses & Stats',
+    mobile: 'Stats',
+    title: 'Statistiques & Performance'
   }
 };
 
 const ROLE_TABS: Record<Role, AdminTab[]> = {
-  gérant: ['overview', 'dossiers', 'demandes', 'devis', 'factures', 'visites', 'planning', 'collaborateurs'],
+  gérant: ['overview', 'dossiers', 'demandes', 'devis', 'factures', 'visites', 'planning', 'collaborateurs', 'analytics'],
   secrétaire: ['dossiers', 'demandes', 'devis', 'factures', 'visites', 'planning'],
   commercial: ['dossiers', 'demandes', 'visites', 'planning', 'simulateur'],
   chef_equipe: ['dossiers', 'planning']

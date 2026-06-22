@@ -1,9 +1,10 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Outlet, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/AuthContext';
 import { useTheme } from '../../../contexts/ThemeContext';
 import { signOut } from 'firebase/auth';
-import { auth } from '../../../lib/firebase';
+import { auth, db } from '../../../lib/firebase';
+import { processOfflineQueue } from '../../../lib/syncEngine';
 import {
   LogOut,
   Sun,
@@ -21,12 +22,13 @@ import {
   Calculator,
   ChevronRight,
   Search,
-  RefreshCw
+  RefreshCw,
+  TrendingUp
 } from 'lucide-react';
 import { ADMIN_TAB_LABELS, getAccessibleTabs, type AdminTab } from '../../../lib/admin-permissions';
 
 const CRM_SIDEBAR_SECTIONS: Array<{ title: string; tabs: AdminTab[] }> = [
-  { title: 'Pilotage', tabs: ['overview', 'dossiers'] },
+  { title: 'Pilotage', tabs: ['overview', 'dossiers', 'analytics'] },
   { title: 'Relation client', tabs: ['demandes', 'visites', 'devis'] },
   { title: 'Finance', tabs: ['factures'] },
   { title: 'Opérations', tabs: ['planning'] },
@@ -43,12 +45,15 @@ const getAdminTabIcon = (tab: AdminTab, size = 16) => {
   if (tab === 'planning') return <Calendar size={size} />;
   if (tab === 'collaborateurs') return <Users size={size} />;
   if (tab === 'simulateur') return <Calculator size={size} />;
+  if (tab === 'analytics') return <TrendingUp size={size} />;
   return <FileText size={size} />;
 };
 
 export type AdminOutletContextType = {
   pushNotification: (title: string, description: string, type?: 'info' | 'success' | 'warning') => void;
   searchQuery: string;
+  isOnline: boolean;
+  isSyncing: boolean;
 };
 
 export function AdminLayout() {
@@ -56,6 +61,7 @@ export function AdminLayout() {
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
+  const [isOnline, setIsOnline] = useState(typeof window !== 'undefined' ? navigator.onLine : true);
 
   const [searchQuery, setSearchQuery] = useState('');
   const [showNotifications, setShowNotifications] = useState(false);
@@ -68,6 +74,57 @@ export function AdminLayout() {
     read: boolean;
     type: 'info' | 'success' | 'warning';
   }>>([]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handleOnline = async () => {
+      setIsOnline(true);
+      pushNotification('Connexion rétablie', 'Votre connexion internet a été rétablie avec succès. Les modifications sont synchronisées avec le cloud.', 'success');
+      
+      setIsSyncing(true);
+      try {
+        const { successCount, failCount } = await processOfflineQueue(db, (title, desc, type) => {
+          pushNotification(title, desc, type);
+        });
+        if (successCount > 0) {
+          pushNotification('Synchronisation terminée', `${successCount} affectation(s) synchronisée(s) avec succès.`, 'success');
+        }
+        if (failCount > 0) {
+          pushNotification('Conflits détectés', `${failCount} affectation(s) en conflit non résolue(s).`, 'warning');
+        }
+      } catch (err) {
+        console.error("Offline sync error:", err);
+      } finally {
+        setIsSyncing(false);
+      }
+    };
+
+    const handleOffline = () => {
+      setIsOnline(false);
+      pushNotification('Mode hors-ligne', 'Vous êtes actuellement déconnecté. Le CRM utilise la base locale et synchronisera vos modifications dès le retour de la connexion.', 'warning');
+    };
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    // Initial run to sync any offline action queued in a previous session
+    if (navigator.onLine) {
+      setIsSyncing(true);
+      processOfflineQueue(db, (title, desc, type) => {
+        pushNotification(title, desc, type);
+      }).catch(err => {
+        console.error("Initial offline sync error:", err);
+      }).finally(() => {
+        setIsSyncing(false);
+      });
+    }
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   const tabs = useMemo(() => getAccessibleTabs(role), [role]);
 
@@ -136,7 +193,9 @@ export function AdminLayout() {
 
   const outletContext: AdminOutletContextType = {
     pushNotification,
-    searchQuery
+    searchQuery,
+    isOnline,
+    isSyncing
   };
 
   return (
@@ -237,6 +296,18 @@ export function AdminLayout() {
             <h1 className="text-base md:text-lg font-black tracking-tight text-brand-950 dark:text-white">
               {getTabTitle()}
             </h1>
+            {!isOnline && (
+              <div className="bg-red-500/15 border border-red-500/25 text-red-600 dark:text-red-400 text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full flex items-center gap-1.5 animate-pulse select-none shadow-sm shrink-0">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-600 dark:bg-red-400 shrink-0"></span>
+                Hors-ligne
+              </div>
+            )}
+            {isSyncing && (
+              <div className="bg-amber-500/15 border border-amber-500/25 text-amber-600 dark:text-amber-400 text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full flex items-center gap-1.5 select-none shadow-sm shrink-0">
+                <RefreshCw className="animate-spin text-amber-500 shrink-0" size={10} />
+                Synchro...
+              </div>
+            )}
           </div>
 
           <div className="hidden lg:flex items-center gap-4 max-w-xs xl:max-w-md w-full mx-4">

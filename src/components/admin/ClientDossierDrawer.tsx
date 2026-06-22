@@ -17,7 +17,7 @@ import {
   X
 } from 'lucide-react';
 import type { AdminTab } from '../../lib/admin-permissions';
-import type { FieldMover, FieldTruck } from '../../types';
+import type { FieldMover, FieldTruck, Demenagement } from '../../types';
 import {
   DOSSIER_STAGES,
   type ClientDossier,
@@ -53,6 +53,7 @@ interface ClientDossierDrawerProps {
     moveId: string,
     assignment: { assignedMovers: string[]; assignedTruck: string; teamLeader: string }
   ) => void;
+  onUpdateMove?: (moveId: string, updates: Partial<Demenagement>) => void;
   onAssignOwner: (dossierKey: string, owner: string) => void;
   onAddNote: (dossierKey: string, content: string) => void;
   onAddTask: (task: Omit<DossierTask, 'id' | 'createdAt' | 'done'>) => void;
@@ -73,6 +74,7 @@ export function ClientDossierDrawer({
   onNavigate,
   onRunWorkflowAction,
   onAssignMoveResources,
+  onUpdateMove,
   onAssignOwner,
   onAddNote,
   onAddTask,
@@ -87,6 +89,48 @@ export function ClientDossierDrawer({
   const [assignmentMoverNames, setAssignmentMoverNames] = useState<string[]>([]);
   const [assignmentTruck, setAssignmentTruck] = useState('');
   const [assignmentLeader, setAssignmentLeader] = useState('');
+  const [sendingTrackingEmail, setSendingTrackingEmail] = useState(false);
+  const [emailSuccessMessage, setEmailSuccessMessage] = useState<string | null>(null);
+  const [emailErrorMessage, setEmailErrorMessage] = useState<string | null>(null);
+
+  const handleSendTrackingEmail = async () => {
+    if (!dossier?.move || !dossier.move.trackingToken) return;
+    setSendingTrackingEmail(true);
+    setEmailSuccessMessage(null);
+    setEmailErrorMessage(null);
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          type: 'devis-tracking',
+          data: {
+            clientName: dossier.clientName,
+            clientEmail: dossier.quote?.email || dossier.invoice?.email || dossier.request?.email || '',
+            id: dossier.move.id,
+            trackingToken: dossier.move.trackingToken
+          }
+        })
+      });
+
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || result.details || "Erreur lors de l'envoi");
+      }
+
+      setEmailSuccessMessage("Lien de suivi envoyé avec succès !");
+      setTimeout(() => setEmailSuccessMessage(null), 5000);
+    } catch (err: any) {
+      console.error("Failed to send tracking email:", err);
+      setEmailErrorMessage(err.message || "Impossible d'envoyer l'e-mail.");
+      setTimeout(() => setEmailErrorMessage(null), 5000);
+    } finally {
+      setSendingTrackingEmail(false);
+    }
+  };
 
   useEffect(() => {
     setNoteContent('');
@@ -381,6 +425,88 @@ export function ClientDossierDrawer({
                   </div>
                 </div>
               )}
+
+              {/* Portail Suivi Client & Signature */}
+              <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800/60 space-y-3">
+                <span className="text-[10px] font-black uppercase tracking-wider text-slate-500 block">
+                  Portail Suivi Client & Signature Électronique
+                </span>
+                {dossier.move.trackingToken ? (
+                  <div className="flex flex-col gap-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-[10px] font-bold text-slate-400">Lien de suivi public :</span>
+                      {dossier.move.clientSignature ? (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-black text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-900/40">
+                          <CheckCircle2 size={10} /> Signé électroniquement
+                        </span>
+                      ) : (
+                        <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/30 px-2 py-0.5 rounded-full border border-amber-200 dark:border-amber-900/40">
+                          En attente de signature
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        readOnly
+                        value={`${window.location.origin}/suivi/${dossier.move.id}?token=${dossier.move.trackingToken}`}
+                        className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 py-1.5 text-[11px] font-mono text-slate-600 dark:text-slate-300 focus:outline-none"
+                        onClick={(e) => (e.target as HTMLInputElement).select()}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigator.clipboard.writeText(`${window.location.origin}/suivi/${dossier.move!.id}?token=${dossier.move!.trackingToken}`);
+                        }}
+                        className="bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:hover:bg-accent-hover text-white dark:text-brand-950 rounded-lg px-3 py-1.5 text-[10px] font-black cursor-pointer shrink-0"
+                      >
+                        Copier
+                      </button>
+                      <button
+                        type="button"
+                        disabled={sendingTrackingEmail}
+                        onClick={handleSendTrackingEmail}
+                        className="bg-slate-800 hover:bg-slate-700 disabled:opacity-50 text-white dark:bg-slate-700 dark:hover:bg-slate-600 rounded-lg px-3 py-1.5 text-[10px] font-black cursor-pointer shrink-0 flex items-center gap-1"
+                      >
+                        {sendingTrackingEmail ? "Envoi..." : "Envoyer par mail"}
+                      </button>
+                    </div>
+                    {emailSuccessMessage && (
+                      <p className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 mt-1">{emailSuccessMessage}</p>
+                    )}
+                    {emailErrorMessage && (
+                      <p className="text-[10px] font-bold text-red-600 dark:text-red-400 mt-1">{emailErrorMessage}</p>
+                    )}
+                    {dossier.move.clientSignature && (
+                      <div className="mt-2 pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+                        <div>
+                          <span className="text-[9px] font-black uppercase text-slate-400">Aperçu signature :</span>
+                          <span className="block text-[10px] font-bold text-slate-500">
+                            Le {new Date(dossier.move.signedAt || '').toLocaleDateString('fr-FR')} à {new Date(dossier.move.signedAt || '').toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'})}
+                          </span>
+                        </div>
+                        <div className="bg-white rounded-lg p-1.5 border border-slate-200 dark:border-slate-800 flex items-center justify-center shrink-0">
+                          <img src={dossier.move.clientSignature} alt="Signature Client" className="h-10 w-24 object-contain" />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (onUpdateMove) {
+                        onUpdateMove(dossier.move!.id, {
+                          trackingToken: self.crypto?.randomUUID ? self.crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now().toString(36)
+                        });
+                      }
+                    }}
+                    className="w-full bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white border border-slate-800 rounded-xl px-3 py-2 text-xs font-black flex items-center justify-center gap-2"
+                  >
+                    Activer le suivi & générer le token public
+                  </button>
+                )}
+              </div>
 
               {canEditMoveAssignment && (
                 <div className="mt-4 space-y-4">

@@ -5,7 +5,7 @@ import { useOutletContext, useNavigate } from 'react-router-dom';
 import {
   Plus, Search, Mail, MessageSquare, Settings, FolderOpen,
   Users, Check, Save, RefreshCw, AlertTriangle, Calendar,
-  ChevronRight, Info, FileText, CheckCircle2, Trash2, Edit3, Eye
+  ChevronLeft, ChevronRight, Info, FileText, CheckCircle2, Trash2, Edit3, Eye, LayoutList, Columns
 } from 'lucide-react';
 import type { Devis, Facture, Visite, Demenagement, UserProfile, FieldMover, FieldTruck, NotificationTemplate } from '../../types';
 import {
@@ -20,6 +20,34 @@ import type { AdminTab } from '../../lib/admin-permissions';
 import { AdminWorkflowRail } from '../../components/admin/AdminWorkflowRail';
 import { ClientDossierDrawer, type ClientDossierWorkflowAction } from '../../components/admin/ClientDossierDrawer';
 import type { AdminOutletContextType } from '../../components/admin/layout/AdminLayout';
+
+const DOSSIER_PAGE_SIZE_OPTIONS = [10, 20, 50, 100] as const;
+
+type DossierPageSize = typeof DOSSIER_PAGE_SIZE_OPTIONS[number];
+type DossierRiskFilter = 'all' | ClientDossier['risk'];
+type DossierSortOption = 'priority' | 'date_asc' | 'amount_desc' | 'client_asc' | 'completion_asc';
+
+const DOSSIER_RISK_WEIGHT: Record<ClientDossier['risk'], number> = {
+  urgent: 0,
+  attention: 1,
+  normal: 2
+};
+
+const getDossierStageLabel = (stage: string) => (
+  DOSSIER_STAGES.find((item) => item.key === stage)?.label || stage
+);
+
+const getDossierComparableDate = (dossier: ClientDossier) => {
+  const rawDate =
+    dossier.date ||
+    dossier.move?.date ||
+    dossier.visit?.date ||
+    dossier.quote?.date ||
+    dossier.request?.date ||
+    '';
+  const timestamp = Date.parse(rawDate);
+  return Number.isFinite(timestamp) ? timestamp : Number.MAX_SAFE_INTEGER;
+};
 
 const SEED_TEMPLATES: NotificationTemplate[] = [
   {
@@ -327,9 +355,15 @@ export function AdminDossiers() {
 
   // UI States
   const [activeTab, setActiveTab] = useState<'dossiers' | 'templates'>('dossiers');
+  const [viewMode, setViewMode] = useState<'list' | 'kanban'>('kanban');
   const [workflowStageFilter, setWorkflowStageFilter] = useState<string>('all');
   const [selectedDossierKey, setSelectedDossierKey] = useState<string | null>(null);
   const [localSearchQuery, setLocalSearchQuery] = useState('');
+  const [dossierRiskFilter, setDossierRiskFilter] = useState<DossierRiskFilter>('all');
+  const [dossierOwnerFilter, setDossierOwnerFilter] = useState('all');
+  const [dossierSort, setDossierSort] = useState<DossierSortOption>('priority');
+  const [dossierPageSize, setDossierPageSize] = useState<DossierPageSize>(20);
+  const [dossierCurrentPage, setDossierCurrentPage] = useState(1);
 
   // Active notification templates editor state
   const [selectedTemplateId, setSelectedTemplateId] = useState<string>('visite_planifiee');
@@ -373,12 +407,24 @@ export function AdminDossiers() {
   }, [allDossiers, selectedDossierKey]);
 
   // Search query from layout context or local state
-  const activeSearch = context?.searchQuery ?? localSearchQuery;
+  const isUsingGlobalSearch = Boolean(context?.searchQuery?.trim());
+  const activeSearch = isUsingGlobalSearch ? context.searchQuery : localSearchQuery;
+
+  const dossierOwnerFilterOptions = useMemo<string[]>(() => (
+    Array.from(new Set<string>(
+      allDossiers
+        .map((dossier) => cleanText(dossier.owner))
+        .filter((owner): owner is string => Boolean(owner))
+    ))
+      .sort((a, b) => a.localeCompare(b, 'fr'))
+  ), [allDossiers]);
 
   // Filter dossiers
   const filteredDossiers = useMemo(() => {
-    return allDossiers.filter(dossier => {
+    const sortedDossiers = allDossiers.filter(dossier => {
       const matchesStage = workflowStageFilter === 'all' || dossier.stage === workflowStageFilter;
+      const matchesRisk = dossierRiskFilter === 'all' || dossier.risk === dossierRiskFilter;
+      const matchesOwner = dossierOwnerFilter === 'all' || dossier.owner === dossierOwnerFilter;
 
       const queryLower = activeSearch.toLowerCase().trim();
       const matchesSearch = !queryLower ||
@@ -386,13 +432,46 @@ export function AdminDossiers() {
         (dossier.phone && dossier.phone.includes(queryLower)) ||
         (dossier.fromCity && dossier.fromCity.toLowerCase().includes(queryLower)) ||
         (dossier.toCity && dossier.toCity.toLowerCase().includes(queryLower)) ||
+        (dossier.owner && dossier.owner.toLowerCase().includes(queryLower)) ||
+        (dossier.nextAction && dossier.nextAction.toLowerCase().includes(queryLower)) ||
+        (dossier.request?.email && dossier.request.email.toLowerCase().includes(queryLower)) ||
         (dossier.quote?.id && dossier.quote.id.toLowerCase().includes(queryLower)) ||
         (dossier.invoice?.id && dossier.invoice.id.toLowerCase().includes(queryLower)) ||
         (dossier.move?.id && dossier.move.id.toLowerCase().includes(queryLower));
 
-      return matchesStage && matchesSearch;
+      return matchesStage && matchesRisk && matchesOwner && matchesSearch;
     });
-  }, [allDossiers, workflowStageFilter, activeSearch]);
+
+    return sortedDossiers.sort((a, b) => {
+      if (dossierSort === 'amount_desc') return b.amount - a.amount;
+      if (dossierSort === 'client_asc') return a.clientName.localeCompare(b.clientName, 'fr');
+      if (dossierSort === 'completion_asc') return a.completion - b.completion;
+      if (dossierSort === 'date_asc') return getDossierComparableDate(a) - getDossierComparableDate(b);
+
+      const riskDelta = DOSSIER_RISK_WEIGHT[a.risk] - DOSSIER_RISK_WEIGHT[b.risk];
+      if (riskDelta !== 0) return riskDelta;
+      return getDossierComparableDate(a) - getDossierComparableDate(b);
+    });
+  }, [allDossiers, workflowStageFilter, dossierRiskFilter, dossierOwnerFilter, activeSearch, dossierSort]);
+
+  const totalDossierPages = Math.max(1, Math.ceil(filteredDossiers.length / dossierPageSize));
+  const safeDossierCurrentPage = Math.min(dossierCurrentPage, totalDossierPages);
+  const paginatedDossiers = useMemo(() => {
+    const start = (safeDossierCurrentPage - 1) * dossierPageSize;
+    return filteredDossiers.slice(start, start + dossierPageSize);
+  }, [filteredDossiers, dossierPageSize, safeDossierCurrentPage]);
+  const dossierResultStart = filteredDossiers.length === 0 ? 0 : (safeDossierCurrentPage - 1) * dossierPageSize + 1;
+  const dossierResultEnd = Math.min(filteredDossiers.length, safeDossierCurrentPage * dossierPageSize);
+
+  useEffect(() => {
+    setDossierCurrentPage(1);
+  }, [activeSearch, workflowStageFilter, dossierRiskFilter, dossierOwnerFilter, dossierSort, dossierPageSize]);
+
+  useEffect(() => {
+    if (dossierCurrentPage > totalDossierPages) {
+      setDossierCurrentPage(totalDossierPages);
+    }
+  }, [dossierCurrentPage, totalDossierPages]);
 
   // Mappings for notes and tasks
   const activeNotes = useMemo(() => {
@@ -540,7 +619,8 @@ export function AdminDossiers() {
       date: quote.date || toIsoDate(),
       teamLeader: getDefaultTeamLeader(),
       status: 'À planifier',
-      crewSize: 3
+      crewSize: 3,
+      trackingToken: self.crypto?.randomUUID ? self.crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now().toString(36)
     };
     await setDemenagements(prev => [newMove, ...prev]);
     return newMove;
@@ -922,20 +1002,6 @@ export function AdminDossiers() {
             }}
           />
 
-          {/* Local Search and Filter Summary */}
-          {!context?.searchQuery && (
-            <div className="relative max-w-md print:hidden">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
-              <input
-                type="text"
-                placeholder="Filtrer par nom, téléphone, ville..."
-                value={localSearchQuery}
-                onChange={(e) => setLocalSearchQuery(e.target.value)}
-                className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full py-2 pl-9 pr-4 text-xs shadow-sm focus:outline-none focus:border-accent"
-              />
-            </div>
-          )}
-
           {/* Tabular Listing of Client Folders */}
           <div className="bg-white/90 dark:bg-slate-900/90 border border-slate-200/75 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm">
             <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
@@ -943,13 +1009,140 @@ export function AdminDossiers() {
                 <h3 className="text-sm font-black text-brand-950 dark:text-white uppercase tracking-wider">Fichiers Clients</h3>
                 <p className="text-xs text-slate-400 font-light mt-0.5">Cliquez sur un dossier pour le consulter et gérer ses actions réglementaires</p>
               </div>
-              <span className="text-[10px] font-black uppercase bg-slate-50 dark:bg-slate-950 border dark:border-slate-800 text-slate-500 rounded-full px-2.5 py-1">
-                {filteredDossiers.length} dossier(s) trouvé(s)
-              </span>
+              <div className="flex items-center gap-3">
+                <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+                  <button
+                    onClick={() => setViewMode('list')}
+                    className={`p-1.5 rounded-lg transition-all ${viewMode === 'list' ? 'bg-white dark:bg-slate-900 shadow-sm text-brand-900 dark:text-white' : 'text-slate-400 hover:text-slate-600'}`}
+                    title="Vue Liste"
+                  >
+                    <LayoutList size={16} />
+                  </button>
+                  <button
+                    onClick={() => setViewMode('kanban')}
+                    className={`p-1.5 rounded-lg transition-all ${viewMode === 'kanban' ? 'bg-white dark:bg-slate-900 shadow-sm text-brand-900 dark:text-white' : 'text-slate-400 hover:text-slate-600'}`}
+                    title="Vue Pipeline"
+                  >
+                    <Columns size={16} />
+                  </button>
+                </div>
+                <span className="text-[10px] font-black uppercase bg-slate-50 dark:bg-slate-950 border dark:border-slate-800 text-slate-500 rounded-full px-2.5 py-1">
+                  {filteredDossiers.length} dossier(s)
+                </span>
+              </div>
             </div>
 
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs border-collapse">
+            <div className="p-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20 space-y-3 print:hidden">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-7 gap-3">
+                {isUsingGlobalSearch ? (
+                  <div className="xl:col-span-2 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2">
+                    <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Recherche globale active</span>
+                    <strong className="block truncate text-xs text-slate-700 dark:text-slate-100">{activeSearch}</strong>
+                  </div>
+                ) : (
+                  <div className="relative xl:col-span-2">
+                    <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
+                    <input
+                      type="text"
+                      placeholder="Nom, téléphone, ville, email, référence..."
+                      value={localSearchQuery}
+                      onChange={(e) => setLocalSearchQuery(e.target.value)}
+                      className="w-full bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl py-2.5 pl-9 pr-4 text-xs font-bold shadow-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
+                    />
+                  </div>
+                )}
+
+                <select
+                  value={workflowStageFilter}
+                  onChange={(event) => setWorkflowStageFilter(event.target.value)}
+                  className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+                >
+                  <option value="all">Toutes les étapes</option>
+                  {DOSSIER_STAGES.map((stage) => (
+                    <option key={stage.key} value={stage.key}>{stage.label}</option>
+                  ))}
+                </select>
+
+                <select
+                  value={dossierRiskFilter}
+                  onChange={(event) => setDossierRiskFilter(event.target.value as DossierRiskFilter)}
+                  className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+                >
+                  <option value="all">Toutes priorités</option>
+                  <option value="urgent">Urgent</option>
+                  <option value="attention">À surveiller</option>
+                  <option value="normal">Normal</option>
+                </select>
+
+                <select
+                  value={dossierOwnerFilter}
+                  onChange={(event) => setDossierOwnerFilter(event.target.value)}
+                  className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+                >
+                  <option value="all">Tous responsables</option>
+                  {dossierOwnerFilterOptions.map((owner) => (
+                    <option key={owner} value={owner}>{owner}</option>
+                  ))}
+                </select>
+
+                <select
+                  value={dossierSort}
+                  onChange={(event) => setDossierSort(event.target.value as DossierSortOption)}
+                  className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+                >
+                  <option value="priority">Priorité puis date</option>
+                  <option value="date_asc">Date la plus proche</option>
+                  <option value="amount_desc">Montant décroissant</option>
+                  <option value="client_asc">Client A-Z</option>
+                  <option value="completion_asc">Avancement faible</option>
+                </select>
+
+                {viewMode === 'list' && (
+                  <select
+                    value={dossierPageSize}
+                    onChange={(event) => setDossierPageSize(Number(event.target.value) as DossierPageSize)}
+                    className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+                  >
+                    {DOSSIER_PAGE_SIZE_OPTIONS.map((option) => (
+                      <option key={option} value={option}>{option} par page</option>
+                    ))}
+                  </select>
+                )}
+              </div>
+
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <p className="text-[11px] font-bold text-slate-500">
+                  {viewMode === 'list' ? (
+                    <>Affichage {dossierResultStart}-{dossierResultEnd} sur {filteredDossiers.length} dossier{filteredDossiers.length > 1 ? 's' : ''}</>
+                  ) : (
+                    <>{filteredDossiers.length} dossier{filteredDossiers.length > 1 ? 's' : ''} affichés</>
+                  )}
+                  {workflowStageFilter !== 'all' && (
+                    <span className="ml-1 text-slate-400">· Étape {getDossierStageLabel(workflowStageFilter)}</span>
+                  )}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setLocalSearchQuery('');
+                    setWorkflowStageFilter('all');
+                    setDossierRiskFilter('all');
+                    setDossierOwnerFilter('all');
+                    setDossierSort('priority');
+                    setDossierPageSize(20);
+                    setDossierCurrentPage(1);
+                  }}
+                  className="self-start sm:self-auto text-[10px] font-black uppercase tracking-wider text-slate-500 hover:text-brand-900 dark:hover:text-white"
+                >
+                  Réinitialiser les filtres
+                </button>
+              </div>
+            </div>
+
+            {viewMode === 'list' ? (
+              <>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs border-collapse">
                 <thead>
                   <tr className="bg-slate-50/50 dark:bg-slate-950/20 text-slate-400 font-black uppercase text-[10px] tracking-wider border-b border-slate-100 dark:border-slate-800">
                     <th className="p-4">Client</th>
@@ -962,7 +1155,7 @@ export function AdminDossiers() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-150 dark:divide-slate-800 text-slate-700 dark:text-slate-300">
-                  {filteredDossiers.map(d => {
+                  {paginatedDossiers.map(d => {
                     const isUrgent = d.risk === 'urgent';
                     const isAttention = d.risk === 'attention';
 
@@ -1056,6 +1249,113 @@ export function AdminDossiers() {
                 </tbody>
               </table>
             </div>
+
+            {filteredDossiers.length > 0 && (
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 py-3 bg-slate-50/80 dark:bg-slate-950/60 border-t border-slate-100 dark:border-slate-800 print:hidden">
+                <p className="text-[11px] font-bold text-slate-500">
+                  Page {safeDossierCurrentPage} / {totalDossierPages} · {dossierPageSize} dossiers par page
+                </p>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setDossierCurrentPage((page) => Math.max(1, page - 1))}
+                    disabled={safeDossierCurrentPage <= 1}
+                    className="inline-flex items-center gap-1 rounded-xl bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-800 px-3 py-2 text-[10px] font-black uppercase text-slate-700 dark:text-slate-100 disabled:opacity-40 disabled:cursor-not-allowed"
+                  >
+                    <ChevronLeft size={13} />
+                    Précédent
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setDossierCurrentPage((page) => Math.min(totalDossierPages, page + 1))}
+                    disabled={safeDossierCurrentPage >= totalDossierPages}
+                    className="inline-flex items-center gap-1 rounded-xl bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-800 px-3 py-2 text-[10px] font-black uppercase text-slate-700 dark:text-slate-100 disabled:opacity-40 disabled:cursor-not-allowed"
+                  >
+                    Suivant
+                    <ChevronRight size={13} />
+                  </button>
+                </div>
+              </div>
+            )}
+              </>
+            ) : (
+              <div className="p-4 bg-slate-50/50 dark:bg-slate-900 overflow-x-auto">
+                <div className="flex gap-4 min-w-max pb-4">
+                  {DOSSIER_STAGES.map(stage => {
+                    // Filter dossiers for this specific stage column
+                    const stageDossiers = filteredDossiers.filter(d => d.stage === stage.key);
+                    
+                    return (
+                      <div key={stage.key} className="w-72 flex flex-col shrink-0">
+                        <div className="flex items-center justify-between mb-3 px-1">
+                          <h4 className="text-xs font-black uppercase text-slate-700 dark:text-slate-300 tracking-wider flex items-center gap-2">
+                            {stage.label}
+                            <span className="bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] py-0.5 px-2 rounded-full">
+                              {stageDossiers.length}
+                            </span>
+                          </h4>
+                        </div>
+                        
+                        <div className="flex-1 min-h-[200px] bg-slate-100/50 dark:bg-slate-800/20 rounded-2xl p-2 space-y-3 border border-slate-200/50 dark:border-slate-800/50">
+                          {stageDossiers.map(d => {
+                            const isUrgent = d.risk === 'urgent';
+                            const isAttention = d.risk === 'attention';
+                            
+                            return (
+                              <div
+                                key={d.key}
+                                onClick={() => setSelectedDossierKey(d.key)}
+                                className={`bg-white dark:bg-slate-950 p-3.5 rounded-xl border-l-4 shadow-sm hover:shadow-md transition-all cursor-pointer group
+                                  ${isUrgent ? 'border-l-red-500' : isAttention ? 'border-l-amber-500' : 'border-l-emerald-500 border border-slate-200 dark:border-slate-800'}`}
+                              >
+                                <div className="flex justify-between items-start mb-2">
+                                  <strong className="font-extrabold text-slate-900 dark:text-white text-xs truncate pr-2">
+                                    {d.clientName}
+                                  </strong>
+                                  <span className="text-[10px] font-black text-brand-900 dark:text-brand-300 whitespace-nowrap bg-brand-50 dark:bg-brand-900/30 px-1.5 py-0.5 rounded">
+                                    {d.amount > 0 ? d.amount.toLocaleString('fr-FR') + ' €' : '-'}
+                                  </span>
+                                </div>
+                                
+                                <div className="text-[10px] text-slate-500 dark:text-slate-400 mb-2 truncate">
+                                  {d.fromCity} ➔ {d.toCity}
+                                </div>
+                                
+                                <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+                                  <div className="flex items-center gap-1.5 text-[9px] text-slate-400 font-bold">
+                                    <Calendar size={10} />
+                                    {d.date || 'À définir'}
+                                  </div>
+                                  {getDossierWorkflowActions(d).length > 0 && (
+                                    <button
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        const actions = getDossierWorkflowActions(d);
+                                        runDossierWorkflowAction(actions[0].id, d);
+                                      }}
+                                      className="bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:hover:bg-accent-hover text-white dark:text-brand-950 text-[9px] font-black px-2 py-1 rounded"
+                                      title={getDossierWorkflowActions(d)[0].label}
+                                    >
+                                      {getDossierWorkflowActions(d)[0].label}
+                                    </button>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
+                          
+                          {stageDossiers.length === 0 && (
+                            <div className="h-20 flex items-center justify-center text-[10px] text-slate-400 italic">
+                              Aucun dossier
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -1240,6 +1540,10 @@ export function AdminDossiers() {
           }}
           onRunWorkflowAction={(actionId, dossier) => runDossierWorkflowAction(actionId, dossier)}
           onAssignMoveResources={(moveId, assignment) => handleAssignMoveResources(moveId, assignment)}
+          onUpdateMove={async (moveId, updates) => {
+            await setDemenagements(prev => prev.map(m => m.id === moveId ? { ...m, ...updates } : m));
+            context?.pushNotification('Dossier Mis à jour 💾', 'Le déménagement a été mis à jour.', 'success');
+          }}
           onAssignOwner={(key, owner) => handleAssignOwner(key, owner)}
           onAddNote={(key, content) => handleAddNote(key, content)}
           onAddTask={(task) => handleAddTask(task)}

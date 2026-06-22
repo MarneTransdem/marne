@@ -25,24 +25,12 @@ service cloud.firestore {
       return isSignedIn() && request.auth.token.email == 'contact@marnetransdem.com';
     }
     
-    // Role-based helpers
-    function hasUidRole(role) {
-      return isSignedIn()
-        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
-        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == role
-        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.status != 'Inactif';
-    }
-
-    function hasEmailRole(role) {
-      return isSignedIn()
-        && request.auth.token.email is string
-        && exists(/databases/$(database)/documents/userRolesByEmail/$(request.auth.token.email))
-        && get(/databases/$(database)/documents/userRolesByEmail/$(request.auth.token.email)).data.role == role
-        && get(/databases/$(database)/documents/userRolesByEmail/$(request.auth.token.email)).data.status != 'Inactif';
-    }
-    
+    // Role-based helper using Firebase Auth Custom Claims
     function hasRole(role) {
-      return isSignedIn() && (isAdmin() || hasUidRole(role) || hasEmailRole(role));
+      return isSignedIn() && (
+        isAdmin() || 
+        (request.auth.token.role is string && request.auth.token.role == role)
+      );
     }
 
     function isManager() {
@@ -158,10 +146,15 @@ service cloud.firestore {
     }
 
     match /demenagements/{moveId} {
-      allow read: if isOperationsStaff();
+      allow get: if isOperationsStaff() || (resource.data.trackingToken != null);
+      allow list: if isOperationsStaff();
       allow create, delete: if isOfficeStaff();
       allow update: if isOfficeStaff()
-        || (isTeamLead() && incoming().diff(resource.data).affectedKeys().hasOnly(['status']));
+        || (isTeamLead() && incoming().diff(resource.data).affectedKeys().hasOnly(['status']))
+        || (resource.data.trackingToken != null 
+            && incoming().trackingToken == resource.data.trackingToken
+            && incoming().diff(resource.data).affectedKeys().hasOnly(['clientSignature', 'signedAt', 'status']) 
+            && incoming().status == 'Terminé');
     }
 
     match /dossierNotes/{noteId} {

@@ -25,13 +25,14 @@ export function AdminFactures({
   const context = useOutletContext<AdminOutletContextType>();
   const activeSearchQuery = searchQuery || context?.searchQuery || '';
 
-  const [syncedFactures, setSyncedFactures] = useSyncedCollection<Facture>('factures');
+  const [syncedFactures, setSyncedFactures, { daysLimit: facturesDays, setDaysLimit: setFacturesDays }] = useSyncedCollection<Facture>('factures', [], { timeField: 'date' });
   
   const activeFactures = factures || syncedFactures;
   const activeSetFactures = setFactures || setSyncedFactures;
 
   const [showAddFacture, setShowAddFacture] = useState(false);
   const [localPdfFacture, setLocalPdfFacture] = useState<Facture | null>(null);
+  const [sendingReminderId, setSendingReminderId] = useState<string | null>(null);
   
   // Financial filter state
   const [filterStatus, setFilterStatus] = useState<'all' | 'En attente' | 'Payée' | 'En retard'>('all');
@@ -39,7 +40,9 @@ export function AdminFactures({
   const [newFacture, setNewFacture] = useState<Partial<Facture>>({
     devisId: '', 
     clientName: '', 
+    email: '',
     amount: 1500, 
+    tvaRate: 20,
     status: 'En attente',
     date: new Date().toISOString().split('T')[0],
     dueDate: new Date(Date.now() + 30 * 24 * 3600 * 1000).toISOString().split('T')[0]
@@ -75,11 +78,20 @@ export function AdminFactures({
       finalStatus = 'En retard';
     }
 
+    const ttc = Number(newFacture.amount) || 1000;
+    const rate = Number(newFacture.tvaRate) || 0;
+    const ht = rate > 0 ? ttc / (1 + (rate / 100)) : ttc;
+    const tvaAmount = ttc - ht;
+
     const item: Facture = {
       id,
       devisId: newFacture.devisId || 'DEV-MANUEL',
       clientName: newFacture.clientName || 'Client Manuel',
-      amount: Number(newFacture.amount) || 1000,
+      email: newFacture.email || '',
+      amountHT: Number(ht.toFixed(2)),
+      tvaRate: rate,
+      tvaAmount: Number(tvaAmount.toFixed(2)),
+      amount: ttc,
       date: dateVal,
       dueDate: dueDateVal,
       status: finalStatus as any,
@@ -91,7 +103,9 @@ export function AdminFactures({
     setNewFacture({ 
       devisId: '', 
       clientName: '', 
+      email: '',
       amount: 1500, 
+      tvaRate: 20,
       status: 'En attente',
       date: new Date().toISOString().split('T')[0],
       dueDate: new Date(Date.now() + 30 * 24 * 3600 * 1000).toISOString().split('T')[0]
@@ -109,6 +123,76 @@ export function AdminFactures({
       }
       return f;
     }));
+  };
+
+  const handleExportCSV = () => {
+    const headers = ['Code Facture', 'Client', 'Email', 'Devis rattaché', 'Montant HT', 'TVA', 'Montant TTC', 'Date Emission', 'Date Echeance', 'Statut'];
+    const rows = filteredFactures.map(f => [
+      f.id,
+      `"${f.clientName}"`,
+      f.email || '',
+      f.devisId,
+      f.amountHT ? f.amountHT.toString().replace('.', ',') : '',
+      f.tvaAmount ? f.tvaAmount.toString().replace('.', ',') : '',
+      f.amount.toString().replace('.', ','),
+      f.date,
+      f.dueDate,
+      f.status
+    ]);
+    const csvContent = [headers.join(';'), ...rows.map(r => r.join(';'))].join('\n');
+    const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `export_factures_${todayStr}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleRelance = async (fac: Facture) => {
+    if (!fac.email) {
+      if (context?.pushNotification) {
+        context.pushNotification("Erreur de relance", "Aucun email n'est renseigné pour ce client.", "warning");
+      } else {
+        alert("Aucun email n'est renseigné pour ce client.");
+      }
+      return;
+    }
+
+    setSendingReminderId(fac.id);
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'invoice-reminder',
+          data: {
+            invoice: fac
+          }
+        }),
+      });
+
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error || `Erreur serveur (${response.status})`);
+      }
+
+      if (context?.pushNotification) {
+        context.pushNotification("Relance envoyée ✉️", `Le rappel de paiement pour la facture ${fac.id} a été envoyé à ${fac.email}.`, "success");
+      }
+    } catch (err: any) {
+      console.error("Failed to send invoice reminder:", err);
+      if (context?.pushNotification) {
+        context.pushNotification("Échec de l'envoi", err.message || "Impossible d'envoyer l'email de relance.", "warning");
+      } else {
+        alert("Une erreur est survenue lors de l'envoi de la relance.");
+      }
+    } finally {
+      setSendingReminderId(null);
+    }
   };
 
   const handlePdfClick = (fac: Facture) => {
@@ -166,12 +250,35 @@ export function AdminFactures({
           <h2 className="text-lg font-black text-slate-900 dark:text-white">Factures & Règlements</h2>
         </div>
         
-        <button
-          onClick={() => setShowAddFacture(true)}
-          className="bg-accent hover:bg-accent-hover text-brand-900 border border-accent font-black py-2.5 px-5 rounded-2xl text-xs transition-all duration-300 flex items-center justify-center gap-2 active:scale-95 cursor-pointer self-start max-w-xs"
-        >
-          <Plus size={14} /> Émettre Facture Libre
-        </button>
+        <div className="flex flex-col sm:flex-row gap-2 items-center">
+          {/* Period Selector */}
+          <div className="flex items-center gap-2 shrink-0">
+            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Période :</label>
+            <select 
+              value={facturesDays} 
+              onChange={(e) => setFacturesDays(e.target.value === 'all' ? 'all' : Number(e.target.value))}
+              className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl py-2 px-3 text-xs font-black text-slate-700 dark:text-slate-350 focus:outline-none focus:ring-2 focus:ring-accent/20 cursor-pointer"
+            >
+              <option value={90}>90 derniers jours</option>
+              <option value={180}>180 derniers jours</option>
+              <option value={365}>1 an</option>
+              <option value="all">Toutes les archives</option>
+            </select>
+          </div>
+
+          <button
+            onClick={handleExportCSV}
+            className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 px-4 rounded-2xl text-xs transition-all duration-300 flex items-center justify-center gap-2 active:scale-95 cursor-pointer shrink-0"
+          >
+            <FileText size={14} /> Export CSV
+          </button>
+          <button
+            onClick={() => setShowAddFacture(true)}
+            className="bg-accent hover:bg-accent-hover text-brand-900 border border-accent font-black py-2.5 px-5 rounded-2xl text-xs transition-all duration-300 flex items-center justify-center gap-2 active:scale-95 cursor-pointer shrink-0"
+          >
+            <Plus size={14} /> Émettre Facture
+          </button>
+        </div>
       </div>
 
       {/* Bandeau de synthèse financière */}
@@ -226,8 +333,21 @@ export function AdminFactures({
               <input type="text" className="w-full bg-white dark:bg-slate-950 p-2.5 border rounded-lg focus:outline-accent" placeholder="ex: DEV-2026-001" value={newFacture.devisId} onChange={e=>setNewFacture({...newFacture, devisId: e.target.value})} />
             </div>
             <div>
-              <label className="block font-bold mb-1">Montant global (€)</label>
+              <label className="block font-bold mb-1">Email du client (pour relance)</label>
+              <input type="email" className="w-full bg-white dark:bg-slate-950 p-2.5 border rounded-lg focus:outline-accent" placeholder="client@email.com" value={newFacture.email} onChange={e=>setNewFacture({...newFacture, email: e.target.value})} />
+            </div>
+            <div>
+              <label className="block font-bold mb-1">Montant global TTC (€)</label>
               <input type="number" className="w-full bg-white dark:bg-slate-950 p-2.5 border rounded-lg focus:outline-accent" value={newFacture.amount} onChange={e=>setNewFacture({...newFacture, amount: Number(e.target.value)})} />
+            </div>
+            <div>
+              <label className="block font-bold mb-1">Taux TVA (%)</label>
+              <select className="w-full bg-white dark:bg-slate-950 p-2.5 border rounded-lg focus:outline-accent" value={newFacture.tvaRate} onChange={e=>setNewFacture({...newFacture, tvaRate: Number(e.target.value)})}>
+                <option value={20}>20% (Standard)</option>
+                <option value={10}>10% (Réduit)</option>
+                <option value={5.5}>5.5% (Spécifique)</option>
+                <option value={0}>0% (Franchise/Auto-entrepreneur)</option>
+              </select>
             </div>
             <div>
               <label className="block font-bold mb-1">Date d'émission</label>
@@ -363,16 +483,36 @@ export function AdminFactures({
                           <div className="flex gap-1">
                             <button
                               onClick={() => updateInvoiceStatus(fac.id, 'Payée')}
-                              className="bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold px-3 py-1.5 rounded-xl text-[10px] cursor-pointer inline-block active:scale-95 whitespace-nowrap"
+                              disabled={sendingReminderId !== null}
+                              className="bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold px-3 py-1.5 rounded-xl text-[10px] cursor-pointer inline-block active:scale-95 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                               Encaisser
                             </button>
                             {fac.status === 'En attente' && (
                               <button
                                 onClick={() => updateInvoiceStatus(fac.id, 'En retard')}
-                                className="bg-red-100 hover:bg-red-200 text-red-700 font-extrabold px-2.5 py-1.5 rounded-xl text-[10px] cursor-pointer inline-block active:scale-95 whitespace-nowrap"
+                                disabled={sendingReminderId !== null}
+                                className="bg-red-100 hover:bg-red-200 text-red-700 font-extrabold px-2.5 py-1.5 rounded-xl text-[10px] cursor-pointer inline-block active:scale-95 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
                               >
                                 Déclarer en retard
+                              </button>
+                            )}
+                            {(fac.status === 'En attente' || fac.status === 'En retard') && (
+                              <button
+                                onClick={() => handleRelance(fac)}
+                                disabled={sendingReminderId !== null}
+                                className="bg-amber-100 hover:bg-amber-200 text-amber-800 font-extrabold px-2.5 py-1.5 rounded-xl text-[10px] cursor-pointer inline-flex items-center gap-1 active:scale-95 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                              >
+                                {sendingReminderId === fac.id ? (
+                                  <>
+                                    <div className="w-3 h-3 border-2 border-amber-800 border-t-transparent rounded-full animate-spin mr-1" />
+                                    Relance...
+                                  </>
+                                ) : (
+                                  <>
+                                    <AlertTriangle size={10} /> Relancer
+                                  </>
+                                )}
                               </button>
                             )}
                           </div>

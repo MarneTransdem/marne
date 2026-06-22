@@ -38,16 +38,30 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           }
 
           try {
-            const fetchedRole = await getCrmRoleForAuthenticatedUser(
-              db,
-              firebaseUser.uid,
-              firebaseUser.email
-            );
+            // 1. Read claims from ID Token Result
+            let idTokenResult = await firebaseUser.getIdTokenResult();
+            let fetchedRole = idTokenResult.claims.role as Role | null;
+
+            // 2. Force token refresh once if role not set in claims (covers first-time login)
+            if (!fetchedRole) {
+              await firebaseUser.getIdToken(true);
+              idTokenResult = await firebaseUser.getIdTokenResult();
+              fetchedRole = idTokenResult.claims.role as Role | null;
+            }
+
+            // 3. Fallback to Firestore role resolution if still not populated in claims
+            if (!fetchedRole) {
+              fetchedRole = await getCrmRoleForAuthenticatedUser(
+                db,
+                firebaseUser.uid,
+                firebaseUser.email
+              );
+            }
 
             if (!isMounted) return;
             setRole(fetchedRole);
           } catch (error) {
-            console.warn("Erreur de récupération du rôle depuis Firestore :", error);
+            console.warn("Erreur de récupération du rôle :", error);
             if (!isMounted) return;
             setRole(null);
           }
