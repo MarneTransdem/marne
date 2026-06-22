@@ -69,6 +69,9 @@ export const SectorPage: React.FC = () => {
             src={heroImage} 
             alt={`Déménagement professionnel à ${sector.name}`} 
             className="w-full h-full object-cover opacity-20 grayscale-[10%]"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
           />
           <div className="absolute inset-0 bg-linear-to-b from-brand-900/80 via-brand-900/40 to-brand-900/90" />
         </div>

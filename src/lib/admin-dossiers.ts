@@ -4,6 +4,7 @@ export type DossierStage = 'demande' | 'visite' | 'devis' | 'facturation' | 'pla
 
 export interface AdminPublicRequest {
   id?: string;
+  dossierId?: string;
   fullName?: string;
   phone?: string;
   email?: string;
@@ -28,6 +29,7 @@ export interface AdminPublicRequest {
 
 export interface ClientDossier {
   key: string;
+  dossierId: string;
   clientName: string;
   phone?: string;
   fromCity?: string;
@@ -48,6 +50,7 @@ export interface ClientDossier {
 
 export interface DossierNote {
   id: string;
+  dossierId?: string;
   dossierKey: string;
   author: string;
   content: string;
@@ -56,6 +59,7 @@ export interface DossierNote {
 
 export interface DossierTask {
   id: string;
+  dossierId?: string;
   dossierKey: string;
   title: string;
   owner: string;
@@ -67,6 +71,7 @@ export interface DossierTask {
 
 export interface DossierOwnerAssignment {
   id: string;
+  dossierId?: string;
   dossierKey: string;
   owner: string;
   updatedAt: string;

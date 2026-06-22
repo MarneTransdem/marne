@@ -8,8 +8,14 @@ import {
   signInWithPopup,
   signOut
 } from 'firebase/auth';
-import { auth, db } from '../lib/firebase';
-import { getCrmRoleForAuthenticatedUser, upsertCrmAccessProfile } from '../lib/crm-auth-access';
+import { auth, cloudFunctions, db } from '../lib/firebase';
+import {
+  getCrmRoleForAuthenticatedUser,
+  getValidCrmRole,
+  isManagerBypassEmail,
+  refreshCrmAccessClaims,
+  upsertCrmAccessProfile
+} from '../lib/crm-auth-access';
 import { useAuth } from '../context/AuthContext';
 import type { Role } from '../types';
 import { 
@@ -25,7 +31,7 @@ import {
 } from 'lucide-react';
 
 export default function Login() {
-  const { user, role, loading: authLoading } = useAuth();
+  const { user, role, loading: authLoading, accessError } = useAuth();
   const navigate = useNavigate();
 
   // Primary Login Form States
@@ -53,6 +59,7 @@ export default function Login() {
     adminBootstrapEnabled && checkEmail === 'contact@marnetransdem.com';
 
   const normalizedLoginEmail = email.trim().toLowerCase();
+  const visibleError = error || (!role ? accessError : null);
 
   const ensureUserHasCrmRole = async (
     uid: string,
@@ -60,10 +67,35 @@ export default function Login() {
     displayName?: string | null
   ) => {
     const checkEmail = (userEmail || '').trim().toLowerCase();
+    const syncClaims = async () => {
+      const refreshedAccess = await refreshCrmAccessClaims(cloudFunctions);
+      if (!refreshedAccess.role) return null;
+
+      const currentUser = auth.currentUser;
+      if (!currentUser) return null;
+
+      const idTokenResult = await currentUser.getIdTokenResult(true);
+      return getValidCrmRole(idTokenResult.claims.role);
+    };
+
+    try {
+      const claimedRole = await syncClaims();
+      if (claimedRole) {
+        return true;
+      }
+    } catch (claimSyncError) {
+      console.warn("CRM claims sync failed during login:", claimSyncError);
+    }
+
     const existingRole = await getCrmRoleForAuthenticatedUser(db, uid, checkEmail);
 
-    if (existingRole) {
+    if (existingRole && isManagerBypassEmail(checkEmail)) {
       return true;
+    }
+
+    if (existingRole) {
+      setError("Rôle CRM trouvé, mais les droits serveur ne sont pas encore synchronisés. Déployez les fonctions Firebase puis reconnectez-vous.");
+      return false;
     }
 
     if (canBootstrapManager(checkEmail)) {
@@ -75,7 +107,14 @@ export default function Login() {
         status: 'Actif',
         provider: 'google'
       });
-      return true;
+
+      try {
+        const claimedRole = await syncClaims();
+        return !!claimedRole || isManagerBypassEmail(checkEmail);
+      } catch (claimSyncError) {
+        console.warn("CRM claims sync failed after manager bootstrap:", claimSyncError);
+        return isManagerBypassEmail(checkEmail);
+      }
     }
 
     return false;
@@ -95,8 +134,19 @@ export default function Login() {
     const checkEmail = normalizedLoginEmail;
 
     try {
-      await signInWithEmailAndPassword(auth, checkEmail, password);
-      // Success will trigger onAuthStateChanged in AuthProvider
+      const userCredential = await signInWithEmailAndPassword(auth, checkEmail, password);
+      const authorized = await ensureUserHasCrmRole(
+        userCredential.user.uid,
+        userCredential.user.email,
+        userCredential.user.displayName
+      );
+
+      if (!authorized) {
+        await signOut(auth);
+        setError("Compte connecté, mais aucun rôle CRM exploitable par Firestore n'est associé à cette adresse.");
+        return;
+      }
+
       navigate('/admin');
     } catch (err: any) {
       console.error("Login component error:", err);
@@ -120,6 +170,12 @@ export default function Login() {
               status: 'Actif',
               provider: 'password'
             });
+            const authorized = await ensureUserHasCrmRole(newUser.uid, checkEmail, newUser.displayName);
+            if (!authorized) {
+              await signOut(auth);
+              setError("Compte gérant créé, mais les droits serveur ne sont pas encore synchronisés.");
+              return;
+            }
           } catch (fsErr) {
             console.warn("Firestore setDoc failed during registration (offline/unprovisioned database scenario):", fsErr);
           }
@@ -254,7 +310,19 @@ export default function Login() {
     try {
       // 1. Try signing in first
       try {
-        await signInWithEmailAndPassword(auth, targetEmail, targetPassword);
+        const signedInUser = await signInWithEmailAndPassword(auth, targetEmail, targetPassword);
+        const authorized = await ensureUserHasCrmRole(
+          signedInUser.user.uid,
+          signedInUser.user.email,
+          signedInUser.user.displayName
+        );
+
+        if (!authorized) {
+          await signOut(auth);
+          setError("Compte démo connecté, mais les droits CRM serveur ne sont pas synchronisés.");
+          return;
+        }
+
         setSeedingSuccess(`Authentifié avec succès comme ${targetRole}!`);
         navigate('/admin');
       } catch (signInErr: any) {
@@ -279,7 +347,19 @@ export default function Login() {
           }
 
           // 4. Then sign in again to reflect
-          await signInWithEmailAndPassword(auth, targetEmail, targetPassword);
+          const signedInUser = await signInWithEmailAndPassword(auth, targetEmail, targetPassword);
+          const authorized = await ensureUserHasCrmRole(
+            signedInUser.user.uid,
+            signedInUser.user.email,
+            signedInUser.user.displayName
+          );
+
+          if (!authorized) {
+            await signOut(auth);
+            setError("Compte démo créé, mais les droits CRM serveur ne sont pas synchronisés.");
+            return;
+          }
+
           setSeedingSuccess(`Compte créé et authentifié avec succès en tant que ${targetRole}!`);
           navigate('/admin');
         } else {
@@ -308,10 +388,10 @@ export default function Login() {
         </div>
 
         {/* Global Alert Notification */}
-        {error && (
+        {visibleError && (
           <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/50 p-4 rounded-xl text-red-700 dark:text-red-400 text-xs flex gap-3 items-start mb-6">
             <ShieldAlert size={18} className="shrink-0 mt-0.5" />
-            <span className="leading-relaxed">{error}</span>
+            <span className="leading-relaxed">{visibleError}</span>
           </div>
         )}
 

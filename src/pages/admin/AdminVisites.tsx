@@ -7,6 +7,7 @@ import {
   Trash2, AlertTriangle, Phone, Box, HelpCircle, User, Compass
 } from 'lucide-react';
 import type { AdminOutletContextType } from '../../components/admin/layout/AdminLayout';
+import { buildDossierIdFromReference } from '../../lib/dossier-id';
 
 interface AdminVisitesProps {
   searchQuery?: string;
@@ -272,6 +273,7 @@ export function AdminVisites({ searchQuery }: AdminVisitesProps) {
       const id = `VIS-00${visites.length + 1}`;
       const item: Visite = {
         id,
+        dossierId: buildDossierIdFromReference('VIS', id),
         clientName: newVisite.clientName || 'Client Visite',
         address: newVisite.address || 'Paris',
         phone: newVisite.phone || '',

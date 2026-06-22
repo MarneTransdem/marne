@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Phone, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CONTACT } from '../../constants';
+import { analytics } from '../../lib/firebase';
 
 export const MobileCTA: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -19,6 +20,20 @@ export const MobileCTA: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const trackConversion = async (action: string) => {
+    if (analytics) {
+      try {
+        const { logEvent } = await import('firebase/analytics');
+        logEvent(analytics, 'conversion_click', {
+          event_category: 'mobile_cta',
+          event_label: action,
+        });
+      } catch (e) {
+        console.warn('Analytics tracking error:', e);
+      }
+    }
+  };
+
   return (
     <AnimatePresence>
       {isVisible && (
@@ -31,18 +46,37 @@ export const MobileCTA: React.FC = () => {
         >
           <a 
             href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}
+            onClick={() => trackConversion('appeler')}
             className="bg-slate-100 dark:bg-slate-800 text-brand-900 dark:text-slate-100 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2.5 text-xs uppercase tracking-widest active:scale-95 transition-all shadow-sm"
           >
             <Phone size={16} className="text-accent" />
             Appeler
           </a>
-          <Link 
-            to="/demande-de-devis"
-            className="bg-accent text-brand-900 stay-dark py-3.5 rounded-xl font-bold flex items-center justify-center gap-2.5 text-xs uppercase tracking-widest shadow-[0_10px_25px_rgba(245,164,0,0.25)] active:scale-95 transition-all"
+          <motion.div
+            animate={{
+              scale: [1, 1.025, 1],
+              boxShadow: [
+                '0 10px 25px rgba(245,164,0,0.2)',
+                '0 10px 25px rgba(245,164,0,0.4)',
+                '0 10px 25px rgba(245,164,0,0.2)',
+              ]
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: 2,
+              ease: 'easeInOut',
+            }}
+            className="w-full"
           >
-            Devis Gratuit
-            <ArrowRight size={16} />
-          </Link>
+            <Link 
+              to="/demande-de-devis"
+              onClick={() => trackConversion('devis_gratuit')}
+              className="bg-accent text-brand-900 stay-dark py-3.5 rounded-xl font-bold flex items-center justify-center gap-2.5 text-xs uppercase tracking-widest active:scale-95 transition-all w-full h-full"
+            >
+              Devis Gratuit
+              <ArrowRight size={16} />
+            </Link>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>

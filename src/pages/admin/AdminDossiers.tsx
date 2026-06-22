@@ -15,7 +15,8 @@ import {
   type DossierTask,
   type AdminPublicRequest
 } from '../../lib/admin-dossiers';
-import { buildClientDossiers } from '../../lib/admin-dossier-engine';
+import { buildClientDossiers, normalizeDossierKey } from '../../lib/admin-dossier-engine';
+import { buildDossierIdFromReference } from '../../lib/dossier-id';
 import type { AdminTab } from '../../lib/admin-permissions';
 import { AdminWorkflowRail } from '../../components/admin/AdminWorkflowRail';
 import { ClientDossierDrawer, type ClientDossierWorkflowAction } from '../../components/admin/ClientDossierDrawer';
@@ -343,7 +344,7 @@ export function AdminDossiers() {
   // Dossier specific metadata tables
   const [dossierNotes, setDossierNotes] = useSyncedCollection<DossierNote>('dossierNotes');
   const [dossierTasks, setDossierTasks] = useSyncedCollection<DossierTask>('dossierTasks');
-  const [dossierOwners, setDossierOwners] = useSyncedCollection<{ id?: string; key: string; owner: string }>('dossierOwners');
+  const [dossierOwners, setDossierOwners] = useSyncedCollection<{ id?: string; key: string; dossierId?: string; owner: string }>('dossierOwners');
   const [templates, setTemplates] = useSyncedCollection<NotificationTemplate>('notification_templates', SEED_TEMPLATES);
 
   // Ensure default templates exist
@@ -385,6 +386,7 @@ export function AdminDossiers() {
   const dossierOwnerOverrides = useMemo(() => {
     const overrides: Record<string, string> = {};
     dossierOwners.forEach(o => {
+      if (o.dossierId) overrides[o.dossierId] = o.owner;
       if (o.key) overrides[o.key] = o.owner;
     });
     return overrides;
@@ -405,6 +407,14 @@ export function AdminDossiers() {
     if (!selectedDossierKey) return null;
     return allDossiers.find(d => d.key === selectedDossierKey) || null;
   }, [allDossiers, selectedDossierKey]);
+
+  const activeDossierKeys = useMemo(() => {
+    if (!selectedDossierKey) return new Set<string>();
+    const keys = new Set<string>([selectedDossierKey]);
+    if (activeDossier?.dossierId) keys.add(activeDossier.dossierId);
+    if (activeDossier?.clientName) keys.add(normalizeDossierKey(activeDossier.clientName));
+    return keys;
+  }, [activeDossier, selectedDossierKey]);
 
   // Search query from layout context or local state
   const isUsingGlobalSearch = Boolean(context?.searchQuery?.trim());
@@ -477,20 +487,20 @@ export function AdminDossiers() {
   const activeNotes = useMemo(() => {
     if (!selectedDossierKey) return [];
     return dossierNotes
-      .filter(n => n.dossierKey === selectedDossierKey)
+      .filter(n => activeDossierKeys.has(n.dossierId || n.dossierKey))
       .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-  }, [dossierNotes, selectedDossierKey]);
+  }, [activeDossierKeys, dossierNotes, selectedDossierKey]);
 
   const activeTasks = useMemo(() => {
     if (!selectedDossierKey) return [];
     return dossierTasks
-      .filter(t => t.dossierKey === selectedDossierKey)
+      .filter(t => activeDossierKeys.has(t.dossierId || t.dossierKey))
       .sort((a, b) => {
         if (a.done !== b.done) return a.done ? 1 : -1;
         if (a.priority !== b.priority) return a.priority === 'urgent' ? -1 : 1;
         return b.createdAt.localeCompare(a.createdAt);
       });
-  }, [dossierTasks, selectedDossierKey]);
+  }, [activeDossierKeys, dossierTasks, selectedDossierKey]);
 
   const activeCollaborateurs = useMemo(() => (
     collaborateurs.filter((collaborateur) => collaborateur.status === 'Actif')
@@ -591,9 +601,11 @@ export function AdminDossiers() {
   const createInvoiceFromQuote = async (quote: Devis) => {
     const existingInvoice = factures.find((invoice) => invoice.devisId === quote.id);
     if (existingInvoice) return existingInvoice;
+    const dossierId = quote.dossierId || buildDossierIdFromReference('DEV', quote.id);
 
     const invoice: Facture = {
       id: getNextReference('FAC', factures.map((item) => item.id)),
+      dossierId,
       devisId: quote.id,
       clientName: quote.clientName,
       amount: quote.price,
@@ -608,9 +620,11 @@ export function AdminDossiers() {
   const createMoveFromQuote = async (quote: Devis) => {
     const existingMove = demenagements.find((move) => move.devisId === quote.id);
     if (existingMove) return existingMove;
+    const dossierId = quote.dossierId || buildDossierIdFromReference('DEV', quote.id);
 
     const newMove: Demenagement = {
       id: getNextReference('DEM', demenagements.map((item) => item.id), false),
+      dossierId,
       clientName: quote.clientName,
       devisId: quote.id,
       volume: quote.volume,
@@ -648,6 +662,7 @@ export function AdminDossiers() {
     const noteId = `NOTE-${Date.now()}`;
     const newNote: DossierNote = {
       id: noteId,
+      dossierId: dossier.dossierId,
       dossierKey: dossier.key,
       author: `${user?.email || 'Secrétariat'} (Auto)`,
       content: `[Notification ${template.channel}] ${template.title}\n\n${template.subject ? `Objet : ${renderedSubject}\n` : ''}${renderedBody}`,
@@ -665,12 +680,14 @@ export function AdminDossiers() {
     switch (actionId) {
       case 'plan_visit': {
         const visitId = `VIS-${Date.now()}`;
+        const dossierId = dossier.dossierId || buildDossierIdFromReference('REQ', dossier.request?.id || visitId);
         const visitPreference = dossier.request?.visitPreference;
         const visitMode: Visite['visitMode'] = visitPreference === 'domicile' || visitPreference === 'visio' || visitPreference === 'a_definir'
           ? visitPreference
           : 'a_definir';
         const newVisit: Visite = {
           id: visitId,
+          dossierId,
           clientName: dossier.clientName,
           phone: getDossierPhone(dossier),
           address: buildRequestAddress(dossier.request) || cleanText(dossier.fromCity) || 'Adresse à compléter',
@@ -684,17 +701,19 @@ export function AdminDossiers() {
         };
         await setVisites(prev => [newVisit, ...prev]);
         if (dossier.request?.id) {
-          await setPublicRequests(prev => prev.map(r => r.id === dossier.request?.id ? { ...r, status: 'Visite_planifiée', plannedVisitId: visitId } : r));
+          await setPublicRequests(prev => prev.map(r => r.id === dossier.request?.id ? { ...r, dossierId, status: 'Visite_planifiée', plannedVisitId: visitId } : r));
         }
         context?.pushNotification('Visite Planifiée 📅', `Rendez-vous fixé pour ${dossier.clientName}.`, 'success');
         break;
       }
       case 'convert_direct': {
         const devisId = getNextReference('DEV', devisList.map((item) => item.id));
+        const dossierId = dossier.dossierId || buildDossierIdFromReference('REQ', dossier.request?.id || devisId);
         const volume = getDossierVolume(dossier);
         const formula = normalizeFormula(dossier.request?.formula);
         const item: Devis = {
           id: devisId,
+          dossierId,
           clientName: dossier.clientName,
           phone: getDossierPhone(dossier),
           email: dossier.request?.email || undefined,
@@ -713,7 +732,7 @@ export function AdminDossiers() {
         };
         await setDevisList(prev => [item, ...prev]);
         if (dossier.request?.id) {
-          await setPublicRequests(prev => prev.map(r => r.id === dossier.request?.id ? { ...r, status: 'Étudié_Converti', convertedDevisId: devisId } : r));
+          await setPublicRequests(prev => prev.map(r => r.id === dossier.request?.id ? { ...r, dossierId, status: 'Étudié_Converti', convertedDevisId: devisId } : r));
         }
         context?.pushNotification('Devis Créé 🚀', `Devis brouillon ${devisId} créé directement.`, 'success');
         break;
@@ -735,10 +754,12 @@ export function AdminDossiers() {
       case 'create_quote_from_visit': {
         if (dossier.visit?.id) {
           const devisId = getNextReference('DEV', devisList.map((item) => item.id));
+          const dossierId = dossier.dossierId || dossier.visit.dossierId || buildDossierIdFromReference('VIS', dossier.visit.id);
           const volume = getDossierVolume(dossier, dossier.visit.volumeEstimated || 20);
           const formula = normalizeFormula(dossier.request?.formula);
           const item: Devis = {
             id: devisId,
+            dossierId,
             clientName: dossier.clientName,
             phone: getDossierPhone(dossier),
             email: dossier.request?.email || undefined,
@@ -889,12 +910,17 @@ export function AdminDossiers() {
 
   // Drawer custom handlers
   const handleAssignOwner = async (key: string, owner: string) => {
-    const existing = dossierOwners.find(o => o.key === key);
+    const legacyKey = activeDossier?.clientName ? normalizeDossierKey(activeDossier.clientName) : key;
+    const existing = dossierOwners.find(o => o.key === key || o.dossierId === key || o.key === legacyKey);
     if (existing) {
-      await setDossierOwners(prev => prev.map(o => o.key === key ? { ...o, owner } : o));
+      await setDossierOwners(prev => prev.map(o => (
+        o.key === key || o.dossierId === key || o.key === legacyKey
+          ? { ...o, key, dossierId: key, owner }
+          : o
+      )));
     } else {
       const id = `OWN-${Date.now()}`;
-      await setDossierOwners(prev => [{ id, key, owner }, ...prev]);
+      await setDossierOwners(prev => [{ id, key, dossierId: key, owner }, ...prev]);
     }
     context?.pushNotification('Assignation Mise à jour 👤', `Responsable mis à jour pour ce dossier.`, 'success');
   };
@@ -903,6 +929,7 @@ export function AdminDossiers() {
     const noteId = `NOTE-${Date.now()}`;
     const newNote: DossierNote = {
       id: noteId,
+      dossierId: key,
       dossierKey: key,
       author: currentUserLabel || 'Administrateur',
       content,
@@ -916,6 +943,7 @@ export function AdminDossiers() {
     const taskId = `TSK-${Date.now()}`;
     const newTask: DossierTask = {
       ...task,
+      dossierId: task.dossierKey,
       id: taskId,
       done: false,
       createdAt: toIsoDate()

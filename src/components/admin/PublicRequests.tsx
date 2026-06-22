@@ -6,9 +6,11 @@ import {
 } from 'lucide-react';
 import { collection, doc, updateDoc, deleteDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
+import { buildDossierIdFromReference } from '../../lib/dossier-id';
 
 interface PublicRequest {
   id: string;
+  dossierId?: string;
   fullName: string;
   phone: string;
   email: string;
@@ -186,8 +188,10 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
     setIsPlanningVisit(true);
     try {
       const visitId = `VIS-WEB-${Math.floor(100 + Math.random() * 900)}`;
+      const dossierId = selectedRequest.dossierId || buildDossierIdFromReference('REQ', selectedRequest.id);
       const visit = {
         id: visitId,
+        dossierId,
         clientName: selectedRequest.fullName,
         address: visitMode === 'visio'
           ? `Visio - ${selectedRequest.email}`
@@ -204,6 +208,7 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
 
       await onPlanVisit(visit);
       await updateDoc(doc(db, 'quotes', selectedRequest.id), {
+        dossierId,
         status: 'Visite_planifiée',
         plannedVisitId: visitId,
         plannedVisitAt: new Date().toISOString()
@@ -211,10 +216,11 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
 
       setRequests(prev => prev.map(r => r.id === selectedRequest.id ? {
         ...r,
+        dossierId,
         status: 'Visite_planifiée',
         plannedVisitId: visitId
       } : r));
-      setSelectedRequest(prev => prev ? { ...prev, status: 'Visite_planifiée', plannedVisitId: visitId } : prev);
+      setSelectedRequest(prev => prev ? { ...prev, dossierId, status: 'Visite_planifiée', plannedVisitId: visitId } : prev);
     } catch (e) {
       console.error(e);
       alert('Erreur lors de la planification de la visite.');
@@ -229,8 +235,10 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
     
     try {
       const devisId = `DEV-2026-WEB-${Math.floor(100 + Math.random() * 900)}`;
+      const dossierId = selectedRequest.dossierId || buildDossierIdFromReference('REQ', selectedRequest.id);
       const newDevis = {
         id: devisId,
+        dossierId,
         clientName: selectedRequest.fullName,
         phone: selectedRequest.phone,
         email: selectedRequest.email,
@@ -250,6 +258,7 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
       // Call parent dashboard hook to populate local active devis registrations
       await onConvertToDevis(newDevis);
       await updateDoc(doc(db, 'quotes', selectedRequest.id), {
+        dossierId,
         status: 'Étudié_Converti',
         convertedDevisId: devisId,
         convertedAt: new Date().toISOString()
@@ -258,7 +267,7 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
       // Local persistence states update to reflect Traited/Converti
       
       // Refresh requests list
-      setRequests(prev => prev.map(r => r.id === selectedRequest.id ? { ...r, status: 'Étudié_Converti' } : r));
+      setRequests(prev => prev.map(r => r.id === selectedRequest.id ? { ...r, dossierId, status: 'Étudié_Converti' } : r));
       setSelectedRequest(null);
     } catch (e) {
       console.error(e);

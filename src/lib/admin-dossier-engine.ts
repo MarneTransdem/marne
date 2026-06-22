@@ -5,6 +5,7 @@ import {
   type ClientDossier,
   type DossierStage
 } from './admin-dossiers';
+import { buildDossierIdFromReference } from './dossier-id';
 
 interface BuildClientDossiersInput {
   publicRequests: AdminPublicRequest[];
@@ -66,11 +67,72 @@ export function buildClientDossiers({
   dossierOwnerOverrides = {}
 }: BuildClientDossiersInput): ClientDossier[] {
   const dossierMap = new Map<string, Partial<ClientDossier>>();
+  const requestDossierIds = new Map<string, string>();
+  const visitDossierIds = new Map<string, string>();
+  const quoteDossierIds = new Map<string, string>();
 
-  const ensureDossier = (clientName: string) => {
-    const key = normalizeDossierKey(clientName || 'Client sans nom');
+  const legacyDossierKey = (clientName: string) => normalizeDossierKey(clientName || 'Client sans nom');
+
+  publicRequests.forEach((request) => {
+    if (!request.id) return;
+    requestDossierIds.set(
+      request.id,
+      request.dossierId || buildDossierIdFromReference('REQ', request.id)
+    );
+  });
+
+  const resolveVisitDossierId = (visit: Visite) => {
+    if (visit.dossierId) return visit.dossierId;
+    if (visit.sourceRequestId && requestDossierIds.has(visit.sourceRequestId)) {
+      return requestDossierIds.get(visit.sourceRequestId)!;
+    }
+    return visit.id ? buildDossierIdFromReference('VIS', visit.id) : legacyDossierKey(visit.clientName);
+  };
+
+  visites.forEach((visit) => {
+    if (visit.id) {
+      visitDossierIds.set(visit.id, resolveVisitDossierId(visit));
+    }
+  });
+
+  const resolveQuoteDossierId = (quote: Devis) => {
+    if (quote.dossierId) return quote.dossierId;
+    if (quote.sourceRequestId && requestDossierIds.has(quote.sourceRequestId)) {
+      return requestDossierIds.get(quote.sourceRequestId)!;
+    }
+    if (quote.sourceVisitId && visitDossierIds.has(quote.sourceVisitId)) {
+      return visitDossierIds.get(quote.sourceVisitId)!;
+    }
+    return quote.id ? buildDossierIdFromReference('DEV', quote.id) : legacyDossierKey(quote.clientName);
+  };
+
+  devisList.forEach((quote) => {
+    if (quote.id) {
+      quoteDossierIds.set(quote.id, resolveQuoteDossierId(quote));
+    }
+  });
+
+  const resolveInvoiceDossierId = (invoice: Facture) => {
+    if (invoice.dossierId) return invoice.dossierId;
+    if (invoice.devisId && quoteDossierIds.has(invoice.devisId)) {
+      return quoteDossierIds.get(invoice.devisId)!;
+    }
+    return invoice.id ? buildDossierIdFromReference('FAC', invoice.id) : legacyDossierKey(invoice.clientName);
+  };
+
+  const resolveMoveDossierId = (move: Demenagement) => {
+    if (move.dossierId) return move.dossierId;
+    if (move.devisId && quoteDossierIds.has(move.devisId)) {
+      return quoteDossierIds.get(move.devisId)!;
+    }
+    return move.id ? buildDossierIdFromReference('DEM', move.id) : legacyDossierKey(move.clientName);
+  };
+
+  const ensureDossier = (clientName: string, dossierId?: string) => {
+    const key = dossierId || legacyDossierKey(clientName);
     const current = dossierMap.get(key) || {
       key,
+      dossierId: key,
       clientName: clientName || 'Client sans nom',
       amount: 0,
       owner: 'Non assigné'
@@ -82,7 +144,10 @@ export function buildClientDossiers({
   publicRequests
     .filter((request) => request.status !== 'Étudié_Converti' && request.status !== 'Archivé')
     .forEach((request) => {
-      const dossier = ensureDossier(request.fullName || 'Client sans nom');
+      const dossierId = request.id
+        ? requestDossierIds.get(request.id)
+        : request.dossierId || legacyDossierKey(request.fullName || 'Client sans nom');
+      const dossier = ensureDossier(request.fullName || 'Client sans nom', dossierId);
       dossier.request = request;
       dossier.phone = dossier.phone || request.phone;
       dossier.fromCity = dossier.fromCity || [request.fromCity, request.fromZip].filter(Boolean).join(' ');
@@ -91,7 +156,7 @@ export function buildClientDossiers({
     });
 
   visites.forEach((visit) => {
-    const dossier = ensureDossier(visit.clientName);
+    const dossier = ensureDossier(visit.clientName, resolveVisitDossierId(visit));
     dossier.visit = visit;
     dossier.phone = dossier.phone || visit.phone;
     dossier.date = dossier.date || visit.date;
@@ -99,7 +164,7 @@ export function buildClientDossiers({
   });
 
   devisList.forEach((quote) => {
-    const dossier = ensureDossier(quote.clientName);
+    const dossier = ensureDossier(quote.clientName, resolveQuoteDossierId(quote));
     dossier.quote = quote;
     dossier.phone = dossier.phone || quote.phone;
     dossier.fromCity = dossier.fromCity || quote.fromCity;
@@ -109,14 +174,14 @@ export function buildClientDossiers({
   });
 
   factures.forEach((invoice) => {
-    const dossier = ensureDossier(invoice.clientName);
+    const dossier = ensureDossier(invoice.clientName, resolveInvoiceDossierId(invoice));
     dossier.invoice = invoice;
     dossier.date = dossier.date || invoice.dueDate;
     dossier.amount = Math.max(dossier.amount || 0, invoice.amount || 0);
   });
 
   demenagements.forEach((move) => {
-    const dossier = ensureDossier(move.clientName);
+    const dossier = ensureDossier(move.clientName, resolveMoveDossierId(move));
     dossier.move = move;
     dossier.fromCity = dossier.fromCity || move.fromCity;
     dossier.toCity = dossier.toCity || move.toCity;
@@ -127,17 +192,19 @@ export function buildClientDossiers({
   return Array.from(dossierMap.values())
     .map((partial) => {
       const stage = getDossierStage(partial);
-      const key = partial.key || normalizeDossierKey(partial.clientName || 'Client sans nom');
+      const key = partial.key || partial.dossierId || legacyDossierKey(partial.clientName || 'Client sans nom');
+      const legacyKey = legacyDossierKey(partial.clientName || 'Client sans nom');
 
       return {
         key,
+        dossierId: key,
         clientName: partial.clientName || 'Client sans nom',
         phone: partial.phone,
         fromCity: partial.fromCity,
         toCity: partial.toCity,
         date: partial.date,
         amount: partial.amount || 0,
-        owner: dossierOwnerOverrides[key] || partial.owner || 'Non assigné',
+        owner: dossierOwnerOverrides[key] || dossierOwnerOverrides[legacyKey] || partial.owner || 'Non assigné',
         quote: partial.quote,
         invoice: partial.invoice,
         visit: partial.visit,

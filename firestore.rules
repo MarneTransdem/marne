@@ -169,6 +169,11 @@ service cloud.firestore {
       allow read, write: if isOperationsStaff();
     }
 
+    match /notification_templates/{templateId} {
+      allow read: if isOperationsStaff();
+      allow write: if isOfficeStaff();
+    }
+
     match /collaborateurs/{collaborateurId} {
       allow read, write: if isManager();
     }

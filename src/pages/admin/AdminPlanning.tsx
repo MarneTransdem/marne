@@ -15,6 +15,7 @@ import type { AdminOutletContextType } from '../../components/admin/layout/Admin
 import { db } from '../../lib/firebase';
 import { runTransaction, collection, query, where, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { enqueueAction, getOfflineQueue, OfflineAction } from '../../lib/offlineQueue';
+import { buildDossierIdFromReference } from '../../lib/dossier-id';
 
 interface AdminPlanningProps {
   demenagements?: Demenagement[];
@@ -642,6 +643,7 @@ export function AdminPlanning({
       const id = `DEM-00${activeMoves.length + 1}`;
       const item: Demenagement = {
         id,
+        dossierId: buildDossierIdFromReference('DEM', id),
         clientName: newDemenagement.clientName || 'Client Déménagement',
         devisId: newDemenagement.devisId || 'SANS-DEVIS',
         volume: Number(newDemenagement.volume) || 20,

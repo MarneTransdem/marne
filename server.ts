@@ -8,6 +8,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 import compression from "compression";
 import admin from "firebase-admin";
 import fs from "fs";
+import helmet from "helmet";
 import {
   CANONICAL_ALIASES,
   getRobotsTxt,
@@ -155,6 +156,65 @@ async function startServer() {
 
   // Enable gzip/deflate compression for all text-based responses (HTML, CSS, JS)
   app.use(compression());
+
+  // Security Headers: Content Security Policy & XSS protections
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: [
+            "'self'",
+            "'unsafe-inline'",
+            "'unsafe-eval'",
+            "https://unpkg.com",
+            "https://maps.googleapis.com",
+            "https://apis.google.com",
+          ],
+          styleSrc: [
+            "'self'",
+            "'unsafe-inline'",
+            "https://fonts.googleapis.com",
+            "https://unpkg.com",
+          ],
+          fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
+          imgSrc: [
+            "'self'",
+            "data:",
+            "blob:",
+            "https://unpkg.com",
+            "https://*.tile.openstreetmap.org",
+            "https://*.basemaps.cartocdn.com",
+            "https://maps.googleapis.com",
+            "https://maps.gstatic.com",
+            "https://*.ggpht.com",
+            "https://*.googleusercontent.com",
+            "https://firebasestorage.googleapis.com",
+          ],
+          connectSrc: [
+            "'self'",
+            "https://*.googleapis.com",
+            "https://*.firebaseio.com",
+            "https://*.tile.openstreetmap.org",
+            "https://*.basemaps.cartocdn.com",
+            "https://identitytoolkit.googleapis.com",
+            "https://securetoken.googleapis.com",
+            "wss://*.firebaseio.com",
+            "https://*.google-analytics.com",
+          ],
+          frameSrc: [
+            "'self'",
+            "https://*.firebaseapp.com",
+            "https://accounts.google.com",
+          ],
+          objectSrc: ["'none'"],
+          upgradeInsecureRequests: [],
+        },
+      },
+      crossOriginEmbedderPolicy: false,
+      crossOriginResourcePolicy: { policy: "cross-origin" },
+    })
+  );
 
   // Middleware for parsing JSON with increased limit for base64 images/videos
   app.use(express.json({ limit: "50mb" }));

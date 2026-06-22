@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import {
   ArrowLeft,
@@ -131,7 +131,7 @@ const posts: Record<string, BlogPostData> = {
 
       <p>La réussite d’un déménagement parisien repose donc sur une préparation précise. Plus l’organisation est claire en amont, plus le jour J devient fluide. À l’inverse, les imprévus non anticipés peuvent rapidement rallonger l’intervention, augmenter le stress et compliquer l’installation dans votre nouveau logement.</p>
 
-      <p>Chez <strong>Marne Transdem</strong>, nous accompagnons les particuliers, les familles et les professionnels dans leurs déménagements à Paris, en Île-de-France et vers toute la France. Notre rôle ne se limite pas au transport : nous aidons nos clients à structurer leur projet, sécuriser leurs biens, anticiper les accès et choisir la formule la plus adaptée.</p>
+      <p>Chez <strong>Marne Transdem</strong>, nous accompagnons les particuliers, les familles et les professionnels dans leurs déménagements à Paris, en <a href="/demenagement-ile-de-france">Île-de-France</a> et vers toute la France. Notre rôle ne se limite pas au transport : nous aidons nos clients à structurer leur projet, sécuriser leurs biens, anticiper les accès et choisir la formule la plus adaptée.</p>
 
       <div class="not-prose my-12 rounded-[2rem] border border-accent/20 bg-accent/5 p-6 md:p-8">
         <p class="mb-4 text-xs font-black uppercase tracking-[0.25em] text-accent">En bref</p>
@@ -157,7 +157,7 @@ const posts: Record<string, BlogPostData> = {
       <h2 id="anticiper">1. Anticipez votre déménagement le plus tôt possible</h2>
       <p>À Paris, l’improvisation est rarement une bonne stratégie. Les disponibilités des déménageurs se remplissent vite, les fins de mois sont très demandées, les vacances scolaires concentrent beaucoup de départs et certaines démarches nécessitent un minimum d’anticipation.</p>
       <p>Dans l’idéal, commencez l’organisation <strong>4 à 6 semaines avant la date souhaitée</strong>. Ce délai vous permet de demander un devis sérieux, de préparer vos cartons sans précipitation, de faire le tri, de réserver un monte-meuble si nécessaire et de clarifier les contraintes de votre immeuble.</p>
-      <p>Cette anticipation est encore plus importante si vous déménagez depuis un appartement familial, un immeuble ancien, un étage élevé, une rue passante ou une adresse où le stationnement est difficile.</p>
+      <p>Cette anticipation est encore plus importante si vous déménagez depuis un appartement familial, un immeuble ancien, un étage élevé, une rue passante ou une adresse où le stationnement est difficile. Par exemple, que vous déménagiez à <a href="/demenagement-vincennes">Vincennes</a>, à <a href="/demenagement-saint-mande">Saint-Mandé</a> ou à <a href="/demenagement-neuilly-sur-seine">Neuilly-sur-Seine</a>, les règlements de stationnement et d'autorisation locale peuvent différer.</p>
 
       <h2 id="volume">2. Faites évaluer précisément votre volume à déménager</h2>
       <p>Le volume est l’un des éléments essentiels d’un devis de déménagement. Il influence le nombre de cartons, la taille du camion, le nombre de déménageurs, la durée d’intervention, le besoin éventuel d’un monte-meuble et le coût global.</p>
@@ -302,7 +302,7 @@ const posts: Record<string, BlogPostData> = {
 
       <p>La bonne méthode consiste à préparer ces démarches progressivement, idéalement plusieurs semaines avant le jour J. Le site Service-Public rappelle d’ailleurs qu’un déménagement implique des démarches avant et après le départ auprès d’organismes publics et privés, notamment la CAF, la banque, l’assurance, les fournisseurs d’énergie ou encore la mairie pour les listes électorales.</p>
 
-      <p>Chez Marne Transdem, nous accompagnons les particuliers et les professionnels dans leurs déménagements à Paris, en Île-de-France et vers toute la France. Notre rôle est de vous aider à organiser votre déménagement de manière claire, efficace et sereine. Voici la checklist complète des formalités à ne pas oublier.</p>
+      <p>Chez Marne Transdem, nous accompagnons les particuliers et les professionnels dans leurs déménagements à Paris, en <a href="/demenagement-ile-de-france">Île-de-France</a> et vers toute la France. Notre rôle est de vous aider à organiser votre déménagement de manière claire, efficace et sereine. Voici la checklist complète des formalités à ne pas oublier.</p>
 
       <h2>1. Prévenir son propriétaire ou son bailleur</h2>
       <p>Si vous êtes locataire, la première formalité consiste à donner congé à votre propriétaire ou à votre agence immobilière. Selon votre situation et votre logement, le préavis peut être de 1 ou 3 mois. Il faut également prévoir l’état des lieux de sortie et communiquer votre nouvelle adresse au bailleur à cette occasion.</p>
@@ -360,6 +360,7 @@ const posts: Record<string, BlogPostData> = {
 
       <h2>16. Organiser l’autorisation de stationnement à Paris</h2>
       <p>Pour un déménagement à Paris, la question du stationnement est essentielle. Le camion doit pouvoir se positionner au plus près de l’immeuble afin de limiter le portage, sécuriser les biens et réduire la durée d’intervention. La Ville de Paris précise que l’AOT de déménagement correspond à l’accord de la Ville sur les modalités de stationnement liées au déménagement. Elle est notamment indispensable pour stationner en dehors de la bande de stationnement payant, stationner plus de six heures ou utiliser un monte-meubles.</p>
+      <p>Si vous déménagez en proche banlieue, comme à <a href="/demenagement-boulogne-billancourt">Boulogne-Billancourt</a>, <a href="/demenagement-saint-maur-des-fosses">Saint-Maur-des-Fossés</a> ou encore <a href="/demenagement-vincennes">Vincennes</a>, veillez également à anticiper les demandes d’autorisation d'occupation temporaire de voirie auprès de la mairie concernée.</p>
 
       <h2>17. Prévoyez une checklist chronologique</h2>
       
@@ -699,7 +700,7 @@ const posts: Record<string, BlogPostData> = {
 
       <p>Or, dans un déménagement, le volume influence presque tout : la taille du camion, le nombre de déménageurs, la durée de l’intervention, le nombre de cartons nécessaires, le prix du devis, le besoin éventuel d’un monte-meuble et l’organisation générale du jour J.</p>
 
-      <p>Chez <strong>Marne Transdem</strong>, nous accompagnons les particuliers et les professionnels dans leurs déménagements à Paris, en Île-de-France et vers toute la France. Notre expérience terrain nous montre une chose simple : un volume bien estimé permet d’éviter les mauvaises surprises.</p>
+      <p>Chez <strong>Marne Transdem</strong>, nous accompagnons les particuliers et les professionnels dans leurs déménagements à Paris, en <a href="/demenagement-ile-de-france">Île-de-France</a> et vers toute la France. Notre expérience terrain nous montre une chose simple : un volume bien estimé permet d’éviter les mauvaises surprises.</p>
 
       <p>Voici une méthode claire pour calculer le volume de votre déménagement avec plus de précision.</p>
 
@@ -942,7 +943,7 @@ const posts: Record<string, BlogPostData> = {
     content: `
       <p class="lead">Déménager à Paris peut vite devenir compliqué lorsque les meubles ne passent pas par l’escalier, que l’ascenseur est trop petit, que le logement se trouve au 4e, 5e ou 6e étage, ou que la copropriété interdit d’utiliser les parties communes pour le transport du mobilier. Dans ces situations, le <strong>monte-meuble</strong> devient souvent la solution la plus efficace.</p>
 
-      <p>Un monte-meuble permet de faire passer les meubles, cartons et objets volumineux par la fenêtre, le balcon ou une ouverture adaptée, sans emprunter l’escalier ou l’ascenseur. Il peut faire gagner du temps, réduire les risques de casse, protéger les parties communes et rendre possible un déménagement qui serait autrement très difficile.</p>
+      <p>Un monte-meuble permet de faire passer les meubles, cartons et objets volumineux par la fenêtre, le balcon ou une ouverture adaptée, sans emprunter l’escalier ou l’ascenseur. C'est une solution particulièrement courante dans les communes denses de la petite couronne comme à <a href="/demenagement-boulogne-billancourt">Boulogne-Billancourt</a>, <a href="/demenagement-nogent-sur-marne">Nogent-sur-Marne</a> ou encore <a href="/demenagement-saint-mande">Saint-Mandé</a>, où de nombreuses résidences anciennes ne disposent pas de monte-charge. Il peut faire gagner du temps, réduire les risques de casse, protéger les parties communes et rendre possible un déménagement qui serait autrement très difficile.</p>
 
       <p>À Paris, son utilisation doit toutefois être anticipée. L’installation d’un monte-meuble sur l’espace public suppose une organisation précise : emplacement, durée d’occupation, accès au pied de l’immeuble, sécurité des piétons, contraintes de circulation et éventuelle autorisation de stationnement.</p>
 
@@ -1127,7 +1128,7 @@ const posts: Record<string, BlogPostData> = {
 
       <p>À Paris, ces enjeux sont encore plus importants. Les rues étroites, les immeubles professionnels anciens, les ascenseurs limités, les horaires d’accès, les quais de livraison, les règles de copropriété, le stationnement et l’utilisation éventuelle d’un monte-meuble doivent être anticipés. La Ville de Paris précise d’ailleurs qu’une AOT de déménagement est nécessaire pour utiliser un monte-meubles sur l’espace public.</p>
 
-      <p>Chez Marne Transdem, nous accompagnons les entreprises, commerces, agences, cabinets, bureaux et professions libérales dans leurs déménagements professionnels à Paris, en Île-de-France et vers toute la France.</p>
+      <p>Chez Marne Transdem, nous accompagnons les entreprises, commerces, agences, cabinets, bureaux et professions libérales dans leurs déménagements professionnels à Paris, en <a href="/demenagement-ile-de-france">Île-de-France</a> et vers toute la France. Qu'il s'agisse de transférer un cabinet médical à <a href="/demenagement-versailles">Versailles</a>, des bureaux de start-up à <a href="/demenagement-neuilly-sur-seine">Neuilly-sur-Seine</a> ou un commerce de proximité à <a href="/demenagement-boulogne-billancourt">Boulogne-Billancourt</a>, nous adaptons notre logistique aux contraintes d'accès locales.</p>
 
       <p>Voici une checklist complète pour organiser votre transfert de bureaux sans bloquer votre activité.</p>
 
@@ -1376,11 +1377,35 @@ function getShareUrl(platform: 'facebook' | 'linkedin', post: BlogPostData) {
 
 const BlogPost: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const post = posts[id || '10-conseils-demenagement-sans-stress-paris'] || posts['10-conseils-demenagement-sans-stress-paris'];
 
   const schema = useMemo(() => buildJsonLd(post), [post]);
   const relatedPosts = post.related?.filter((relatedPost) => relatedPost.slug !== post.slug) || [];
   const postImageDimensions = getImageDimensions(post.image);
+  const handleContentClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const anchor = (event.target as HTMLElement).closest<HTMLAnchorElement>('a[href]');
+    if (!anchor || !event.currentTarget.contains(anchor)) return;
+    if (anchor.target || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+
+    const href = anchor.getAttribute('href');
+    if (!href) return;
+
+    if (href.startsWith('#')) {
+      const target = document.getElementById(decodeURIComponent(href.slice(1)));
+      if (!target) return;
+      event.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.history.replaceState(null, '', href);
+      return;
+    }
+
+    const url = new URL(href, window.location.origin);
+    if (url.origin !== window.location.origin) return;
+
+    event.preventDefault();
+    navigate(`${url.pathname}${url.search}${url.hash}`);
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -1473,7 +1498,7 @@ const BlogPost: React.FC = () => {
 
               <div className="lg:col-span-11">
                 <div className="prose prose-lg max-w-none font-light leading-relaxed prose-slate prose-headings:font-black prose-headings:italic prose-headings:text-brand-900 prose-a:text-accent prose-h2:mt-16 prose-h2:mb-8 prose-h2:text-3xl md:prose-xl md:prose-h2:text-4xl prose-p:leading-relaxed prose-li:marker:text-accent">
-                  <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                  <div dangerouslySetInnerHTML={{ __html: post.content }} onClick={handleContentClick} />
                 </div>
 
                 {!!post.faqs?.length && (

@@ -2,6 +2,7 @@ export type Role = 'gérant' | 'secrétaire' | 'commercial' | 'chef_equipe';
 
 export interface Devis {
   id: string;
+  dossierId?: string;
   clientName: string;
   phone: string;
   email?: string;
@@ -36,6 +37,7 @@ export interface Devis {
 
 export interface Facture {
   id: string;
+  dossierId?: string;
   devisId: string;
   clientName: string;
   email?: string;
@@ -51,6 +53,7 @@ export interface Facture {
 
 export interface Visite {
   id: string;
+  dossierId?: string;
   clientName: string;
   address: string;
   phone: string;
@@ -66,6 +69,7 @@ export interface Visite {
 
 export interface Demenagement {
   id: string;
+  dossierId?: string;
   clientName: string;
   devisId: string;
   volume: number;

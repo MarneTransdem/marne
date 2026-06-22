@@ -21,6 +21,7 @@ export type AdminCollection =
   | 'dossierNotes'
   | 'dossierTasks'
   | 'dossierOwners'
+  | 'notification_templates'
   | 'collaborateurs'
   | 'movers'
   | 'trucks';
@@ -86,10 +87,10 @@ const ROLE_TABS: Record<Role, AdminTab[]> = {
 };
 
 const ROLE_COLLECTIONS: Record<Role, AdminCollection[]> = {
-  gérant: ['quotes', 'devis', 'factures', 'visites', 'demenagements', 'dossierNotes', 'dossierTasks', 'dossierOwners', 'collaborateurs', 'movers', 'trucks'],
-  secrétaire: ['quotes', 'devis', 'factures', 'visites', 'demenagements', 'dossierNotes', 'dossierTasks', 'dossierOwners', 'movers', 'trucks'],
-  commercial: ['quotes', 'devis', 'visites', 'demenagements', 'dossierNotes', 'dossierTasks', 'dossierOwners', 'movers', 'trucks'],
-  chef_equipe: ['demenagements', 'dossierNotes', 'dossierTasks', 'dossierOwners', 'movers', 'trucks']
+  gérant: ['quotes', 'devis', 'factures', 'visites', 'demenagements', 'dossierNotes', 'dossierTasks', 'dossierOwners', 'notification_templates', 'collaborateurs', 'movers', 'trucks'],
+  secrétaire: ['quotes', 'devis', 'factures', 'visites', 'demenagements', 'dossierNotes', 'dossierTasks', 'dossierOwners', 'notification_templates', 'movers', 'trucks'],
+  commercial: ['quotes', 'devis', 'visites', 'demenagements', 'dossierNotes', 'dossierTasks', 'dossierOwners', 'notification_templates', 'movers', 'trucks'],
+  chef_equipe: ['demenagements', 'dossierNotes', 'dossierTasks', 'dossierOwners', 'notification_templates', 'movers', 'trucks']
 };
 
 export function getAccessibleTabs(role: Role | null | undefined): AdminTab[] {

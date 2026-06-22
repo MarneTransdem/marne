@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { PdfGenerator } from '../../components/admin/PdfGenerator';
 import type { AdminOutletContextType } from '../../components/admin/layout/AdminLayout';
+import { buildDossierIdFromReference } from '../../lib/dossier-id';
 
 interface AdminFacturesProps {
   factures?: Facture[];
@@ -85,6 +86,7 @@ export function AdminFactures({
 
     const item: Facture = {
       id,
+      dossierId: newFacture.dossierId || buildDossierIdFromReference(newFacture.devisId ? 'DEV' : 'FAC', newFacture.devisId || id),
       devisId: newFacture.devisId || 'DEV-MANUEL',
       clientName: newFacture.clientName || 'Client Manuel',
       email: newFacture.email || '',

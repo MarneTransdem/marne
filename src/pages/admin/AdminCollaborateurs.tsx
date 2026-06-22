@@ -34,7 +34,8 @@ export function AdminCollaborateurs() {
                 role: collab.role,
                 name: collab.name,
                 phone: collab.phone,
-                status: collab.status
+                status: collab.status,
+                provider: 'crm-email'
               })
             )
         );
@@ -116,9 +117,9 @@ export function AdminCollaborateurs() {
         role: createdItem.role,
         name: createdItem.name,
         phone: createdItem.phone,
-        status: createdItem.status
+        status: createdItem.status,
+        provider: 'crm-email'
       });
-      localStorage.setItem(`mt_role_${uid}`, createdItem.role);
     } catch (fsErr) {
       console.warn("Firestore save fallback offline during collaborator creation:", fsErr);
     }
@@ -161,14 +162,13 @@ export function AdminCollaborateurs() {
         role: editingCollab.role,
         name: editingCollab.name.trim(),
         phone: editingCollab.phone || '',
-        status: editingCollab.status
+        status: editingCollab.status,
+        provider: 'crm-email'
       });
 
       if (previousEmail && previousEmail !== cleanEmail) {
         await deleteCrmEmailAccessProfile(db, previousEmail);
       }
-
-      localStorage.setItem(`mt_role_${editingCollab.uid}`, editingCollab.role);
     } catch (fsErr) {
       console.warn("Firestore update offline during collaborator edit:", fsErr);
     }

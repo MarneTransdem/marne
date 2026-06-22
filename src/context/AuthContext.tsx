@@ -6,13 +6,20 @@ interface AuthContextType {
   user: User | null;
   role: Role | null;
   loading: boolean;
+  accessError: string | null;
 }
 
-const AuthContext = createContext<AuthContextType>({ user: null, role: null, loading: true });
+const AuthContext = createContext<AuthContextType>({
+  user: null,
+  role: null,
+  loading: true,
+  accessError: null
+});
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [role, setRole] = useState<Role | null>(null);
+  const [accessError, setAccessError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,13 +30,21 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         if (!isMounted) return;
 
-        const { auth, db } = await import('../lib/firebase');
+        const { auth, db, cloudFunctions } = await import('../lib/firebase');
         const { onAuthStateChanged } = await import('firebase/auth');
-        const { getCrmRoleForAuthenticatedUser } = await import('../lib/crm-auth-access');
+        const {
+          getCrmRoleForAuthenticatedUser,
+          getValidCrmRole,
+          isManagerBypassEmail,
+          refreshCrmAccessClaims
+        } = await import('../lib/crm-auth-access');
 
         unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
           if (!isMounted) return;
+
+          setLoading(true);
           setUser(firebaseUser);
+          setAccessError(null);
 
           if (!firebaseUser) {
             setRole(null);
@@ -38,38 +53,56 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           }
 
           try {
-            // 1. Read claims from ID Token Result
             let idTokenResult = await firebaseUser.getIdTokenResult();
-            let fetchedRole = idTokenResult.claims.role as Role | null;
+            let fetchedRole = getValidCrmRole(idTokenResult.claims.role);
 
-            // 2. Force token refresh once if role not set in claims (covers first-time login)
             if (!fetchedRole) {
-              await firebaseUser.getIdToken(true);
-              idTokenResult = await firebaseUser.getIdTokenResult();
-              fetchedRole = idTokenResult.claims.role as Role | null;
+              try {
+                const refreshedAccess = await refreshCrmAccessClaims(cloudFunctions);
+
+                if (refreshedAccess.role) {
+                  for (let attempt = 0; attempt < 2 && !fetchedRole; attempt += 1) {
+                    await firebaseUser.getIdToken(true);
+                    idTokenResult = await firebaseUser.getIdTokenResult();
+                    fetchedRole = getValidCrmRole(idTokenResult.claims.role);
+                  }
+                }
+              } catch (claimSyncError) {
+                console.warn('Erreur de synchronisation des droits CRM :', claimSyncError);
+              }
             }
 
-            // 3. Fallback to Firestore role resolution if still not populated in claims
+            if (!fetchedRole && isManagerBypassEmail(firebaseUser.email)) {
+              fetchedRole = 'gérant';
+            }
+
             if (!fetchedRole) {
-              fetchedRole = await getCrmRoleForAuthenticatedUser(
+              const mirroredRole = await getCrmRoleForAuthenticatedUser(
                 db,
                 firebaseUser.uid,
                 firebaseUser.email
+              );
+
+              setAccessError(
+                mirroredRole
+                  ? 'Rôle CRM trouvé, mais les droits serveur ne sont pas encore synchronisés. Déconnectez-vous puis reconnectez-vous après déploiement des fonctions.'
+                  : "Compte connecté, mais aucun rôle CRM actif n'est associé à cette adresse."
               );
             }
 
             if (!isMounted) return;
             setRole(fetchedRole);
           } catch (error) {
-            console.warn("Erreur de récupération du rôle :", error);
+            console.warn('Erreur de récupération du rôle :', error);
             if (!isMounted) return;
             setRole(null);
+            setAccessError('Impossible de vérifier les droits CRM de ce compte.');
           }
 
           setLoading(false);
         });
       } catch (err) {
-        console.warn("Échec du chargement dynamique de Firebase Auth:", err);
+        console.warn('Échec du chargement dynamique de Firebase Auth:', err);
         if (isMounted) setLoading(false);
       }
     };
@@ -83,7 +116,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, role, loading }}>
+    <AuthContext.Provider value={{ user, role, loading, accessError }}>
       {children}
     </AuthContext.Provider>
   );

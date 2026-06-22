@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useSyncedCollection } from '../../hooks/useData';
 import type { Devis } from '../../types';
+import { buildDossierIdFromReference } from '../../lib/dossier-id';
 import { 
   Plus, Minus, Sparkles, RefreshCw, X, Box, CheckCircle2, 
   FileText, ArrowRight, User, Phone, MapPin, Calculator, HelpCircle, Calendar
@@ -125,6 +126,7 @@ export function AdminSimulateur() {
 
     const draftQuote: Devis = {
       id: quoteId,
+      dossierId: buildDossierIdFromReference('SIM', quoteId),
       clientName: clientInfo.clientName,
       phone: clientInfo.phone,
       email: clientInfo.email || undefined,

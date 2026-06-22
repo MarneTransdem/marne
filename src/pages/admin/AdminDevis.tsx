@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useSyncedCollection } from '../../hooks/useData';
 import { Devis, Facture, Demenagement } from '../../types';
 import { AdminPublicRequest } from '../../lib/admin-dossiers';
+import { buildDossierIdFromReference } from '../../lib/dossier-id';
 import { Plus, Edit, Trash2, FileText, Check, X, MoveRight, Printer, Copy, Search, Calendar, AlertTriangle } from 'lucide-react';
 import { PdfGenerator } from '../../components/admin/PdfGenerator';
 
@@ -30,10 +31,11 @@ export function AdminDevis() {
   };
 
   const createAcceptedQuoteArtifacts = (quote: Devis) => {
+    const dossierId = quote.dossierId || buildDossierIdFromReference('DEV', quote.id);
     if (!factures.some((invoice) => invoice.devisId === quote.id)) {
       const id = `FAC-2026-00${factures.length + 1}`;
       const invoice: Facture = {
-        id, devisId: quote.id, clientName: quote.clientName, amount: quote.price,
+        id, dossierId, devisId: quote.id, clientName: quote.clientName, amount: quote.price,
         date: new Date().toISOString().split('T')[0],
         dueDate: new Date(Date.now() + 30 * 24 * 3600 * 1000).toISOString().split('T')[0],
         status: 'En attente'
@@ -43,7 +45,7 @@ export function AdminDevis() {
     if (!demenagements.some((move) => move.devisId === quote.id)) {
       const moveId = `DEM-00${demenagements.length + 1}`;
       const newMove: Demenagement = {
-        id: moveId, clientName: quote.clientName, devisId: quote.id, volume: quote.volume,
+        id: moveId, dossierId, clientName: quote.clientName, devisId: quote.id, volume: quote.volume,
         fromCity: quote.fromCity, toCity: quote.toCity, date: quote.date || new Date().toISOString().split('T')[0],
         teamLeader: 'Hervé Le Gall', status: 'À planifier', crewSize: 3,
         trackingToken: self.crypto?.randomUUID ? self.crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now().toString(36)
@@ -55,12 +57,14 @@ export function AdminDevis() {
   const saveQuote = (e: React.FormEvent) => {
     e.preventDefault();
     const id = editingDevisId || `DEV-2026-00${devisList.length + 1}`;
+    const dossierId = newDevis.dossierId || buildDossierIdFromReference('DEV', id);
     const createdAt = newDevis.createdAt || new Date().toISOString().split('T')[0];
     const defaultExpires = new Date(new Date(createdAt).getTime() + 30 * 24 * 3600 * 1000).toISOString().split('T')[0];
 
     const item: Devis = {
       ...newDevis,
       id,
+      dossierId,
       clientName: newDevis.clientName || 'Nouveau Client',
       phone: newDevis.phone || '0600000000',
       email: newDevis.email || '',
@@ -91,6 +95,7 @@ export function AdminDevis() {
     if (!editingDevisId && item.sourceRequestId) {
        setPublicRequests(prev => prev.map(req => req.id === item.sourceRequestId ? {
          ...req, 
+         dossierId,
          status: 'Étudié_Converti',
          convertedDevisId: item.id
        } : req));
@@ -104,6 +109,7 @@ export function AdminDevis() {
     const duplicated: Partial<Devis> = {
       ...quote,
       id: undefined, // Let saveQuote generate new ID
+      dossierId: undefined,
       status: 'Brouillon',
       createdAt: new Date().toISOString().split('T')[0],
       date: new Date(Date.now() + 15 * 24 * 3600 * 1000).toISOString().split('T')[0], // 15 days later

@@ -923,6 +923,111 @@ api.get('/healthz', (req, res) => {
 
 export const app = functions.https.onRequest(api);
 
+type CrmRole = 'gérant' | 'secrétaire' | 'commercial' | 'chef_equipe';
+
+const VALID_CRM_ROLES = new Set<CrmRole>(['gérant', 'secrétaire', 'commercial', 'chef_equipe']);
+const MANAGER_EMAIL = 'contact@marnetransdem.com';
+
+function normalizeCrmEmail(email?: string | null) {
+  return (email || '').trim().toLowerCase();
+}
+
+function isValidCrmRole(role: unknown): role is CrmRole {
+  return typeof role === 'string' && VALID_CRM_ROLES.has(role as CrmRole);
+}
+
+function getActiveCrmRole(data?: admin.firestore.DocumentData): CrmRole | null {
+  if (!data || data.status === 'Inactif') return null;
+  return isValidCrmRole(data.role) ? data.role : null;
+}
+
+async function setCrmRoleClaim(uid: string, role: CrmRole | null) {
+  const authUser = await admin.auth().getUser(uid);
+  const nextClaims = { ...(authUser.customClaims || {}) };
+
+  if (role) {
+    nextClaims.role = role;
+  } else {
+    delete nextClaims.role;
+  }
+
+  await admin
+    .auth()
+    .setCustomUserClaims(uid, Object.keys(nextClaims).length > 0 ? nextClaims : null);
+}
+
+async function setCrmRoleClaimForUidOrEmail(uid: string, email: string | null, role: CrmRole | null) {
+  try {
+    await setCrmRoleClaim(uid, role);
+    return uid;
+  } catch (error: any) {
+    if (error?.code !== 'auth/user-not-found' || !email) {
+      throw error;
+    }
+
+    try {
+      const authUser = await admin.auth().getUserByEmail(email);
+      await setCrmRoleClaim(authUser.uid, role);
+      return authUser.uid;
+    } catch (emailError: any) {
+      if (emailError?.code === 'auth/user-not-found') {
+        return null;
+      }
+
+      throw emailError;
+    }
+  }
+}
+
+async function resolveCrmRoleForAuthIdentity(uid: string, email?: string | null) {
+  const uidProfile = await db.collection('users').doc(uid).get();
+  if (uidProfile.exists && uidProfile.data()?.status === 'Inactif') return null;
+
+  const uidRole = getActiveCrmRole(uidProfile.data());
+  if (uidRole) return uidRole;
+
+  const cleanEmail = normalizeCrmEmail(email);
+  if (cleanEmail === MANAGER_EMAIL) return 'gérant';
+  if (!cleanEmail) return null;
+
+  const emailProfile = await db.collection('userRolesByEmail').doc(cleanEmail).get();
+  return getActiveCrmRole(emailProfile.data());
+}
+
+export const refreshCrmAccessClaims = functions.https.onCall(async (request) => {
+  const uid = request.auth?.uid;
+  if (!uid) {
+    throw new functions.https.HttpsError(
+      'unauthenticated',
+      'Connexion Firebase requise pour synchroniser les droits CRM.'
+    );
+  }
+
+  const email = normalizeCrmEmail(request.auth?.token.email as string | undefined);
+  const role = await resolveCrmRoleForAuthIdentity(uid, email);
+
+  if (role && email) {
+    await db.collection('users').doc(uid).set(
+      {
+        uid,
+        email,
+        role,
+        status: 'Actif',
+        provider: 'google',
+        updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      },
+      { merge: true }
+    );
+  }
+
+  await setCrmRoleClaim(uid, role);
+
+  return {
+    role,
+    status: role ? 'active' : email ? 'missing_role' : 'missing_email',
+  };
+});
+
 // Firestore trigger to sync user claims to Firebase Auth
 export const syncUserClaims = onDocumentWritten('users/{userId}', async (event) => {
   const userId = event.params.userId;
@@ -931,9 +1036,18 @@ export const syncUserClaims = onDocumentWritten('users/{userId}', async (event) 
   
   // If user is deleted, clear claims
   if (!change.after.exists) {
+    const previousEmail = normalizeCrmEmail(change.before.data()?.email);
     try {
-      await admin.auth().setCustomUserClaims(userId, null);
+      const syncedUid = await setCrmRoleClaimForUidOrEmail(userId, previousEmail, null);
+      if (!syncedUid) {
+        console.log(`Deleted CRM profile ${userId} had no matching Auth user yet.`);
+        return;
+      }
+
       console.log(`Successfully cleared claims for deleted user ${userId}`);
+      if (syncedUid !== userId) {
+        console.log(`Deleted CRM profile ${userId} was mapped to Auth user ${syncedUid}.`);
+      }
     } catch (error) {
       console.error(`Error clearing claims for deleted user ${userId}:`, error);
     }
@@ -941,17 +1055,50 @@ export const syncUserClaims = onDocumentWritten('users/{userId}', async (event) 
   }
   
   const data = change.after.data();
-  const role = data?.role;
-  const status = data?.status;
-  
-  // If inactive, revoke roles by setting claim to null
-  const effectiveRole = status === 'Inactif' ? null : role;
+  const effectiveRole = getActiveCrmRole(data);
+  const email = normalizeCrmEmail(data?.email);
   
   try {
-    await admin.auth().setCustomUserClaims(userId, { role: effectiveRole });
+    const syncedUid = await setCrmRoleClaimForUidOrEmail(userId, email, effectiveRole);
+    if (!syncedUid) {
+      console.log(`CRM profile ${userId} stored for ${email}; Auth user does not exist yet.`);
+      return;
+    }
+
     console.log(`Successfully synced claims for user ${userId}: role = ${effectiveRole}`);
+    if (syncedUid !== userId) {
+      console.log(`CRM profile ${userId} was mapped to Auth user ${syncedUid}.`);
+    }
   } catch (error) {
     console.error(`Error setting custom claims for user ${userId}:`, error);
+  }
+});
+
+export const syncEmailRoleClaims = onDocumentWritten('userRolesByEmail/{email}', async (event) => {
+  const email = normalizeCrmEmail(event.params.email);
+  const change = event.data;
+  if (!change || !email) return;
+
+  let authUser: admin.auth.UserRecord;
+  try {
+    authUser = await admin.auth().getUserByEmail(email);
+  } catch (error: any) {
+    if (error?.code === 'auth/user-not-found') {
+      console.log(`CRM role profile stored for ${email}; Auth user does not exist yet.`);
+      return;
+    }
+
+    console.error(`Error reading Auth user for CRM email ${email}:`, error);
+    return;
+  }
+
+  const role = change.after.exists ? getActiveCrmRole(change.after.data()) : null;
+
+  try {
+    await setCrmRoleClaim(authUser.uid, role);
+    console.log(`Successfully synced claims for email ${email}: role = ${role}`);
+  } catch (error) {
+    console.error(`Error setting custom claims for CRM email ${email}:`, error);
   }
 });
 
