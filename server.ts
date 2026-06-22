@@ -170,6 +170,8 @@ async function startServer() {
             "https://unpkg.com",
             "https://maps.googleapis.com",
             "https://apis.google.com",
+            "https://www.googletagmanager.com",
+            "https://www.google-analytics.com",
           ],
           styleSrc: [
             "'self'",
@@ -190,6 +192,7 @@ async function startServer() {
             "https://*.ggpht.com",
             "https://*.googleusercontent.com",
             "https://firebasestorage.googleapis.com",
+            "https://www.google-analytics.com",
           ],
           connectSrc: [
             "'self'",
@@ -200,7 +203,10 @@ async function startServer() {
             "https://identitytoolkit.googleapis.com",
             "https://securetoken.googleapis.com",
             "wss://*.firebaseio.com",
+            "https://www.google-analytics.com",
             "https://*.google-analytics.com",
+            "https://*.analytics.google.com",
+            "https://*.googletagmanager.com",
           ],
           frameSrc: [
             "'self'",
