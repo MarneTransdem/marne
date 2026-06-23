@@ -193,6 +193,9 @@ async function startServer() {
             "https://*.googleusercontent.com",
             "https://firebasestorage.googleapis.com",
             "https://www.google-analytics.com",
+            "https://www.google.com",
+            "https://www.google.fr",
+            "https://*.doubleclick.net",
           ],
           connectSrc: [
             "'self'",
@@ -207,6 +210,7 @@ async function startServer() {
             "https://*.google-analytics.com",
             "https://*.analytics.google.com",
             "https://*.googletagmanager.com",
+            "https://*.doubleclick.net",
           ],
           frameSrc: [
             "'self'",

@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { 
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword,
+  fetchSignInMethodsForEmail,
+  getRedirectResult,
   GoogleAuthProvider,
   sendPasswordResetEmail,
   signInWithPopup,
+  signInWithRedirect,
   signOut
 } from 'firebase/auth';
 import { auth, cloudFunctions, db } from '../lib/firebase';
@@ -42,6 +45,8 @@ export default function Login() {
   const [error, setError] = useState<string | null>(null);
   const [passwordResetLoading, setPasswordResetLoading] = useState(false);
   const [passwordResetSuccess, setPasswordResetSuccess] = useState<string | null>(null);
+  const [googleRedirectLoading, setGoogleRedirectLoading] = useState(false);
+  const [showGoogleRedirectFallback, setShowGoogleRedirectFallback] = useState(false);
 
   // Auto-set state
   const [showSeeder, setShowSeeder] = useState(false);
@@ -49,11 +54,6 @@ export default function Login() {
   const [seedingSuccess, setSeedingSuccess] = useState<string | null>(null);
   const demoLoginEnabled = import.meta.env.VITE_ENABLE_DEMO_LOGIN === 'true';
   const adminBootstrapEnabled = import.meta.env.VITE_ENABLE_ADMIN_BOOTSTRAP === 'true';
-
-  // Redirect if already logged in and has role
-  if (!authLoading && user && role) {
-    return <Navigate to="/admin" replace />;
-  }
 
   const canBootstrapManager = (checkEmail: string) =>
     adminBootstrapEnabled && checkEmail === 'contact@marnetransdem.com';
@@ -119,6 +119,74 @@ export default function Login() {
 
     return false;
   };
+
+  const buildGoogleProvider = () => {
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({
+      prompt: 'select_account'
+    });
+    return provider;
+  };
+
+  const completeGoogleCrmLogin = async (
+    uid: string,
+    userEmail: string | null,
+    displayName?: string | null
+  ) => {
+    const authorized = await ensureUserHasCrmRole(uid, userEmail, displayName);
+
+    if (!authorized) {
+      await signOut(auth);
+      setError("Compte Google reconnu, mais aucun rôle CRM n'est associé à cette adresse. Demandez à un gérant d'ajouter ce compte dans Liste équipe.");
+      return false;
+    }
+
+    navigate('/admin');
+    return true;
+  };
+
+  useEffect(() => {
+    let mounted = true;
+
+    const finishRedirectLogin = async () => {
+      setGoogleRedirectLoading(true);
+
+      try {
+        const redirectResult = await getRedirectResult(auth);
+        if (!mounted || !redirectResult?.user) return;
+
+        await completeGoogleCrmLogin(
+          redirectResult.user.uid,
+          redirectResult.user.email,
+          redirectResult.user.displayName
+        );
+      } catch (err: any) {
+        console.error("Google redirect login component error:", err);
+        if (!mounted) return;
+
+        if (err.code === 'auth/unauthorized-domain') {
+          setError("Domaine non autorisé pour Google. Ajoutez le domaine du site dans Firebase Authentication > Settings > Authorized domains.");
+        } else if (err.code === 'auth/account-exists-with-different-credential') {
+          setError("Un compte existe déjà avec cette adresse e-mail. Connectez-vous avec la méthode utilisée initialement.");
+        } else {
+          setError(`Connexion Google impossible (${err.code || 'erreur inconnue'}).`);
+        }
+      } finally {
+        if (mounted) setGoogleRedirectLoading(false);
+      }
+    };
+
+    finishRedirectLogin();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  // Redirect if already logged in and has role
+  if (!authLoading && user && role) {
+    return <Navigate to="/admin" replace />;
+  }
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -188,7 +256,8 @@ export default function Login() {
         } catch (createErr: any) {
           console.error("Auto-registration error:", createErr);
           if (createErr.code === 'auth/email-already-in-use') {
-            setError("Ce compte gérant existe déjà, mais le mot de passe saisi est incorrect. Utilisez la connexion Google ou réinitialisez le mot de passe.");
+            setShowGoogleRedirectFallback(true);
+            setError("Ce compte gérant existe déjà, mais le mot de passe saisi est incorrect. Utilisez la connexion Google ou la connexion Google pleine page.");
           } else if (createErr.code === 'auth/operation-not-allowed') {
             setError("L'authentification par e-mail/mot de passe n'est pas activée dans votre console Firebase (Authentication > Sign-in method). Veuillez l'activer.");
           } else {
@@ -197,7 +266,17 @@ export default function Login() {
         }
       } else {
         if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
-          setError("Identifiants incorrects. Vérifiez l'adresse e-mail et le mot de passe, ou utilisez la connexion Google.");
+          const signInMethods = await fetchSignInMethodsForEmail(auth, checkEmail).catch(() => []);
+
+          if (signInMethods.includes('google.com') && !signInMethods.includes('password')) {
+            setShowGoogleRedirectFallback(true);
+            setError("Ce compte est rattaché à Google. Utilisez Continuer avec Google ou la connexion Google pleine page si le popup se ferme.");
+          } else if (checkEmail === 'contact@marnetransdem.com') {
+            setShowGoogleRedirectFallback(true);
+            setError("Le compte gérant doit se connecter avec Google, sauf si un mot de passe Firebase a été créé explicitement.");
+          } else {
+            setError("Identifiants incorrects. Vérifiez l'adresse e-mail et le mot de passe, ou utilisez la connexion Google.");
+          }
         } else if (err.code === 'auth/invalid-email') {
           setError("Adresse e-mail invalide.");
         } else {
@@ -216,44 +295,54 @@ export default function Login() {
     setPasswordResetSuccess(null);
 
     try {
-      const provider = new GoogleAuthProvider();
-      provider.setCustomParameters({
-        prompt: 'select_account'
-      });
-
+      const provider = buildGoogleProvider();
       const userCredential = await signInWithPopup(auth, provider);
       const googleUser = userCredential.user;
-      const authorized = await ensureUserHasCrmRole(
+
+      await completeGoogleCrmLogin(
         googleUser.uid,
         googleUser.email,
         googleUser.displayName
       );
-
-      if (!authorized) {
-        await signOut(auth);
-        setError("Compte Google reconnu, mais aucun rôle CRM n'est associé à cette adresse. Demandez à un gérant d'ajouter ce compte dans Liste équipe.");
-        return;
-      }
-
-      navigate('/admin');
     } catch (err: any) {
       console.error("Google login component error:", err);
 
       if (err.code === 'auth/popup-closed-by-user') {
-        setError("Connexion Google annulée.");
+        setShowGoogleRedirectFallback(true);
+        setError("Fenêtre Google fermée avant la fin. Relancez Google ou utilisez la connexion Google pleine page.");
       } else if (err.code === 'auth/popup-blocked') {
-        setError("La fenêtre Google a été bloquée par le navigateur. Autorisez les popups pour ce site puis réessayez.");
+        setShowGoogleRedirectFallback(true);
+        setError("La fenêtre Google a été bloquée par le navigateur. Utilisez la connexion Google pleine page.");
       } else if (err.code === 'auth/account-exists-with-different-credential') {
         setError("Un compte existe déjà avec cette adresse e-mail. Connectez-vous avec la méthode utilisée initialement.");
       } else if (err.code === 'auth/operation-not-allowed') {
         setError("La connexion Google n'est pas encore activée dans Firebase Authentication.");
       } else if (err.code === 'auth/unauthorized-domain') {
-        setError("Domaine non autorisé pour Google. Ajoutez localhost et le domaine du site dans Firebase Authentication > Settings > Authorized domains.");
+        setError("Domaine non autorisé pour Google. Ajoutez le domaine du site dans Firebase Authentication > Settings > Authorized domains.");
       } else {
         setError(`Connexion Google impossible (${err.code || 'erreur inconnue'}).`);
       }
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGoogleRedirectLogin = async () => {
+    setGoogleRedirectLoading(true);
+    setError(null);
+    setSeedingSuccess(null);
+    setPasswordResetSuccess(null);
+
+    try {
+      await signInWithRedirect(auth, buildGoogleProvider());
+    } catch (err: any) {
+      console.error("Google redirect start error:", err);
+      if (err.code === 'auth/unauthorized-domain') {
+        setError("Domaine non autorisé pour Google. Ajoutez le domaine du site dans Firebase Authentication > Settings > Authorized domains.");
+      } else {
+        setError(`Connexion Google impossible (${err.code || 'erreur inconnue'}).`);
+      }
+      setGoogleRedirectLoading(false);
     }
   };
 
@@ -482,7 +571,7 @@ export default function Login() {
 
         <button
           type="button"
-          disabled={loading || seedingLoading}
+          disabled={loading || seedingLoading || googleRedirectLoading}
           onClick={handleGoogleLogin}
           className="w-full bg-white hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-100 font-bold py-3.5 px-6 rounded-xl text-sm transition-all duration-300 flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50 disabled:pointer-events-none"
         >
@@ -491,6 +580,17 @@ export default function Login() {
           </span>
           Continuer avec Google
         </button>
+
+        {showGoogleRedirectFallback && (
+          <button
+            type="button"
+            disabled={loading || seedingLoading || googleRedirectLoading}
+            onClick={handleGoogleRedirectLogin}
+            className="mt-3 w-full bg-slate-50 hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 font-bold py-3 px-6 rounded-xl text-xs transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:pointer-events-none"
+          >
+            {googleRedirectLoading ? "Ouverture Google..." : "Connexion Google pleine page"}
+          </button>
+        )}
 
         {/* Collapsible Seeder / Pre-configured Testing Roles - Perfect for Reviewing */}
         {demoLoginEnabled && (
