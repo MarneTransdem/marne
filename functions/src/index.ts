@@ -13,7 +13,73 @@ admin.initializeApp();
 const db = admin.firestore();
 
 const api = express();
-api.use(helmet());
+api.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "'unsafe-eval'",
+          "https://unpkg.com",
+          "https://maps.googleapis.com",
+          "https://apis.google.com",
+          "https://www.googletagmanager.com",
+          "https://www.google-analytics.com",
+        ],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://fonts.googleapis.com",
+          "https://unpkg.com",
+        ],
+        fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
+        imgSrc: [
+          "'self'",
+          "data:",
+          "blob:",
+          "https://unpkg.com",
+          "https://*.tile.openstreetmap.org",
+          "https://*.basemaps.cartocdn.com",
+          "https://maps.googleapis.com",
+          "https://maps.gstatic.com",
+          "https://*.ggpht.com",
+          "https://*.googleusercontent.com",
+          "https://firebasestorage.googleapis.com",
+          "https://www.google-analytics.com",
+          "https://www.google.com",
+          "https://www.google.fr",
+          "https://*.doubleclick.net",
+        ],
+        connectSrc: [
+          "'self'",
+          "https://*.googleapis.com",
+          "https://*.firebaseio.com",
+          "https://*.tile.openstreetmap.org",
+          "https://*.basemaps.cartocdn.com",
+          "https://identitytoolkit.googleapis.com",
+          "https://securetoken.googleapis.com",
+          "wss://*.firebaseio.com",
+          "https://www.google-analytics.com",
+          "https://*.google-analytics.com",
+          "https://*.analytics.google.com",
+          "https://*.googletagmanager.com",
+          "https://*.doubleclick.net",
+        ],
+        frameSrc: [
+          "'self'",
+          "https://*.firebaseapp.com",
+          "https://accounts.google.com",
+        ],
+        objectSrc: ["'none'"],
+        upgradeInsecureRequests: [],
+      },
+    },
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+  })
+);
 api.use(cors({ origin: true }));
 api.use(express.json({ limit: '50mb' }));
 api.use(express.urlencoded({ limit: '50mb', extended: true }));
