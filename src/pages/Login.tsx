@@ -29,7 +29,8 @@ import {
   Database, 
   ArrowRight, 
   CheckCircle,
-  HelpCircle
+  HelpCircle,
+  Loader2
 } from 'lucide-react';
 
 export default function Login() {
@@ -44,7 +45,7 @@ export default function Login() {
   const [error, setError] = useState<string | null>(null);
   const [passwordResetLoading, setPasswordResetLoading] = useState(false);
   const [passwordResetSuccess, setPasswordResetSuccess] = useState<string | null>(null);
-  const [googleRedirectLoading, setGoogleRedirectLoading] = useState(false);
+  const [googleRedirectLoading, setGoogleRedirectLoading] = useState(true);
   const [showGoogleRedirectFallback, setShowGoogleRedirectFallback] = useState(false);
 
   // Auto-set state
@@ -185,6 +186,23 @@ export default function Login() {
   // Redirect if already logged in and has role
   if (!authLoading && user && role) {
     return <Navigate to="/admin" replace />;
+  }
+
+  if (authLoading || googleRedirectLoading) {
+    return (
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-32 pb-24 flex flex-col items-center justify-center px-4">
+        <div className="w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl shadow-premium border border-slate-100 dark:border-slate-800 p-8 md:p-10 text-center">
+          <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-accent/10 text-accent">
+            <Loader2 size={24} className="animate-spin" />
+          </div>
+          <span className="text-xs font-black uppercase tracking-[0.2em] text-accent mb-2 block">Portail Équipe</span>
+          <h1 className="text-2xl md:text-3xl font-black text-brand-900 dark:text-white tracking-tight">Connexion en cours</h1>
+          <p className="text-sm font-light text-slate-500 dark:text-slate-400 mt-3">
+            {googleRedirectLoading ? "Finalisation de la connexion Google..." : "Vérification de votre session..."}
+          </p>
+        </div>
+      </div>
+    );
   }
 
   const handleLogin = async (e: React.FormEvent) => {
