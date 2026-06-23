@@ -4,7 +4,22 @@ import { getFirestore, enableMultiTabIndexedDbPersistence, enableIndexedDbPersis
 import { getFunctions } from 'firebase/functions';
 import firebaseConfig from '../../firebase-applet-config.json';
 
-const app = initializeApp(firebaseConfig);
+function getRuntimeFirebaseConfig() {
+  if (typeof window === 'undefined') return firebaseConfig;
+
+  const host = window.location.host;
+  const isLocal = host.startsWith('localhost') || host.startsWith('127.0.0.1');
+  const isFirebaseAuthHost = host.endsWith('.firebaseapp.com') || host.endsWith('.web.app');
+
+  if (isLocal || isFirebaseAuthHost) return firebaseConfig;
+
+  return {
+    ...firebaseConfig,
+    authDomain: host
+  };
+}
+
+const app = initializeApp(getRuntimeFirebaseConfig());
 
 export const firebaseApp = app;
 export const db = firebaseConfig.firestoreDatabaseId && firebaseConfig.firestoreDatabaseId !== '(default)'

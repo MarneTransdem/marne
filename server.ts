@@ -82,10 +82,62 @@ function escapeHtml(value: string): string {
 }
 
 const negotiableImageExtensions = new Set([".jpg", ".jpeg", ".png", ".webp"]);
+const firebaseAuthHelperOrigin = "https://marnetransdem20.firebaseapp.com";
 const imageVariantPreference = [
   { extension: "avif", mimeType: "image/avif" },
   { extension: "webp", mimeType: "image/webp" },
 ] as const;
+
+function readRequestBody(req: express.Request): Promise<Buffer | undefined> {
+  if (req.method === "GET" || req.method === "HEAD") return Promise.resolve(undefined);
+
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = [];
+    req.on("data", (chunk) => chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)));
+    req.on("end", () => resolve(Buffer.concat(chunks)));
+    req.on("error", reject);
+  });
+}
+
+async function proxyFirebaseAuthHelper(req: express.Request, res: express.Response) {
+  try {
+    const targetUrl = new URL(req.originalUrl, firebaseAuthHelperOrigin);
+    const headers = new Headers();
+
+    Object.entries(req.headers).forEach(([key, value]) => {
+      if (!value) return;
+      const lowerKey = key.toLowerCase();
+      if (["host", "connection", "content-length"].includes(lowerKey)) return;
+      if (Array.isArray(value)) {
+        value.forEach((item) => headers.append(key, item));
+      } else {
+        headers.set(key, value);
+      }
+    });
+
+    headers.set("host", "marnetransdem20.firebaseapp.com");
+
+    const body = await readRequestBody(req);
+    const upstream = await fetch(targetUrl, {
+      method: req.method,
+      headers,
+      body,
+      redirect: "manual"
+    } as RequestInit);
+
+    res.status(upstream.status);
+    upstream.headers.forEach((value, key) => {
+      if (["content-encoding", "transfer-encoding", "connection"].includes(key.toLowerCase())) return;
+      res.setHeader(key, value);
+    });
+
+    const payload = Buffer.from(await upstream.arrayBuffer());
+    res.send(payload);
+  } catch (error) {
+    console.error("Firebase auth helper proxy failed:", error);
+    res.status(502).send("Firebase Auth helper unavailable");
+  }
+}
 
 function clientAcceptsMime(acceptHeader: string | undefined, mimeType: string): boolean {
   if (!acceptHeader) return false;
@@ -225,6 +277,8 @@ async function startServer() {
       crossOriginResourcePolicy: { policy: "cross-origin" },
     })
   );
+
+  app.all("/__/auth/*", proxyFirebaseAuthHelper);
 
   // Middleware for parsing JSON with increased limit for base64 images/videos
   app.use(express.json({ limit: "50mb" }));
