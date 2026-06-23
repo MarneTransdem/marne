@@ -7,7 +7,6 @@ import {
   getRedirectResult,
   GoogleAuthProvider,
   sendPasswordResetEmail,
-  signInWithPopup,
   signInWithRedirect,
   signOut
 } from 'firebase/auth';
@@ -288,45 +287,6 @@ export default function Login() {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    setLoading(true);
-    setError(null);
-    setSeedingSuccess(null);
-    setPasswordResetSuccess(null);
-
-    try {
-      const provider = buildGoogleProvider();
-      const userCredential = await signInWithPopup(auth, provider);
-      const googleUser = userCredential.user;
-
-      await completeGoogleCrmLogin(
-        googleUser.uid,
-        googleUser.email,
-        googleUser.displayName
-      );
-    } catch (err: any) {
-      console.error("Google login component error:", err);
-
-      if (err.code === 'auth/popup-closed-by-user') {
-        setShowGoogleRedirectFallback(true);
-        setError("Fenêtre Google fermée avant la fin. Relancez Google ou utilisez la connexion Google pleine page.");
-      } else if (err.code === 'auth/popup-blocked') {
-        setShowGoogleRedirectFallback(true);
-        setError("La fenêtre Google a été bloquée par le navigateur. Utilisez la connexion Google pleine page.");
-      } else if (err.code === 'auth/account-exists-with-different-credential') {
-        setError("Un compte existe déjà avec cette adresse e-mail. Connectez-vous avec la méthode utilisée initialement.");
-      } else if (err.code === 'auth/operation-not-allowed') {
-        setError("La connexion Google n'est pas encore activée dans Firebase Authentication.");
-      } else if (err.code === 'auth/unauthorized-domain') {
-        setError("Domaine non autorisé pour Google. Ajoutez le domaine du site dans Firebase Authentication > Settings > Authorized domains.");
-      } else {
-        setError(`Connexion Google impossible (${err.code || 'erreur inconnue'}).`);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleGoogleRedirectLogin = async () => {
     setGoogleRedirectLoading(true);
     setError(null);
@@ -572,7 +532,7 @@ export default function Login() {
         <button
           type="button"
           disabled={loading || seedingLoading || googleRedirectLoading}
-          onClick={handleGoogleLogin}
+          onClick={handleGoogleRedirectLogin}
           className="w-full bg-white hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-100 font-bold py-3.5 px-6 rounded-xl text-sm transition-all duration-300 flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50 disabled:pointer-events-none"
         >
           <span className="w-6 h-6 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center text-sm font-black text-brand-900 dark:text-accent">
