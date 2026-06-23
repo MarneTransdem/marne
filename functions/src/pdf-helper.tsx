@@ -1236,7 +1236,7 @@ const DeclarationValeurPdfDocument = ({ data, logoUrl }: any) => {
 
             <View style={[pdfStyles.tableRow, { borderBottomWidth: 0 }]}>
               <Text style={[pdfStyles.tableCell, { width: '20%', color: '#cbd5e1', textAlign: 'center' }]}>-</Text>
-              <Text style={[pdfStyles.tableCell, { width: '60%', color: '#94a3b8', fontStyle: 'italic' }]}>Aucun autre effet personnel ne dépasse la limite contractuelle de 750 €</Text>
+              <Text style={[pdfStyles.tableCell, { width: '60%', color: '#94a3b8' }]}>Aucun autre effet personnel ne dépasse la limite contractuelle de 750 €</Text>
               <Text style={[pdfStyles.tableCell, { width: '20%', borderRightWidth: 0, textAlign: 'right', color: '#cbd5e1' }]}>-</Text>
             </View>
           </View>
@@ -1537,4 +1537,3 @@ export async function generatePdfBuffer(
 
   return await renderToBuffer(doc);
 }
-
