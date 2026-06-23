@@ -1,16 +1,17 @@
-import * as functions from 'firebase-functions';
+import { HttpsError, onCall, onRequest } from 'firebase-functions/v2/https';
 import { onDocumentWritten } from 'firebase-functions/v2/firestore';
 import * as admin from 'firebase-admin';
 import { generatePdfBuffer } from './pdf-helper';
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
-import rateLimit from 'express-rate-limit';
+import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
 import { GoogleGenAI, Type } from '@google/genai';
 import * as nodemailer from 'nodemailer';
 
 admin.initializeApp();
 const db = admin.firestore();
+const FUNCTION_REGION = 'europe-west4';
 
 const api = express();
 const firebaseAuthHelperOrigin = 'https://marnetransdem20.firebaseapp.com';
@@ -161,7 +162,7 @@ class FirestoreStore {
 const limiter = rateLimit({
   windowMs: 60 * 1000,
   max: 20,
-  keyGenerator: (req) => req.ip || 'unknown',
+  keyGenerator: (req) => (req.ip ? ipKeyGenerator(req.ip) : 'unknown'),
   store: new FirestoreStore() as any,
 });
 
@@ -1041,7 +1042,7 @@ api.get('/healthz', (req, res) => {
   res.status(200).send('OK');
 });
 
-export const app = functions.https.onRequest(api);
+export const app = onRequest({ region: FUNCTION_REGION }, api);
 
 type CrmRole = 'gérant' | 'secrétaire' | 'commercial' | 'chef_equipe';
 
@@ -1114,10 +1115,10 @@ async function resolveCrmRoleForAuthIdentity(uid: string, email?: string | null)
   return getActiveCrmRole(emailProfile.data());
 }
 
-export const refreshCrmAccessClaims = functions.https.onCall(async (request) => {
+export const refreshCrmAccessClaims = onCall({ region: FUNCTION_REGION }, async (request) => {
   const uid = request.auth?.uid;
   if (!uid) {
-    throw new functions.https.HttpsError(
+    throw new HttpsError(
       'unauthenticated',
       'Connexion Firebase requise pour synchroniser les droits CRM.'
     );
@@ -1149,7 +1150,9 @@ export const refreshCrmAccessClaims = functions.https.onCall(async (request) => 
 });
 
 // Firestore trigger to sync user claims to Firebase Auth
-export const syncUserClaims = onDocumentWritten('users/{userId}', async (event) => {
+export const syncUserClaims = onDocumentWritten(
+  { document: 'users/{userId}', region: FUNCTION_REGION },
+  async (event) => {
   const userId = event.params.userId;
   const change = event.data;
   if (!change) return;
@@ -1192,9 +1195,12 @@ export const syncUserClaims = onDocumentWritten('users/{userId}', async (event) 
   } catch (error) {
     console.error(`Error setting custom claims for user ${userId}:`, error);
   }
-});
+  }
+);
 
-export const syncEmailRoleClaims = onDocumentWritten('userRolesByEmail/{email}', async (event) => {
+export const syncEmailRoleClaims = onDocumentWritten(
+  { document: 'userRolesByEmail/{email}', region: FUNCTION_REGION },
+  async (event) => {
   const email = normalizeCrmEmail(event.params.email);
   const change = event.data;
   if (!change || !email) return;
@@ -1220,5 +1226,6 @@ export const syncEmailRoleClaims = onDocumentWritten('userRolesByEmail/{email}',
   } catch (error) {
     console.error(`Error setting custom claims for CRM email ${email}:`, error);
   }
-});
+  }
+);
 

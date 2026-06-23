@@ -20,13 +20,14 @@ function getRuntimeFirebaseConfig() {
 }
 
 const app = initializeApp(getRuntimeFirebaseConfig());
+const FIREBASE_FUNCTIONS_REGION = 'europe-west4';
 
 export const firebaseApp = app;
 export const db = firebaseConfig.firestoreDatabaseId && firebaseConfig.firestoreDatabaseId !== '(default)'
   ? getFirestore(app, firebaseConfig.firestoreDatabaseId)
   : getFirestore(app);
 export const auth = getAuth();
-export const cloudFunctions = getFunctions(app);
+export const cloudFunctions = getFunctions(app, FIREBASE_FUNCTIONS_REGION);
 
 export let analytics: any = null;
 

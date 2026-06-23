@@ -9,7 +9,10 @@
     "rewrites": [
       {
         "source": "**",
-        "function": "app"
+        "function": {
+          "functionId": "app",
+          "region": "europe-west4"
+        }
       }
     ]
   },
