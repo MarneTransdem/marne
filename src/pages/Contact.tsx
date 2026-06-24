@@ -8,6 +8,7 @@ import { db } from '../lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { handleFirestoreError, OperationType } from '../lib/firestore-errors';
 import { getBreadcrumbSchema, getLocalBusinessSchema, getFAQSchema } from '../lib/schema';
+import { trackConversion } from '../lib/public-analytics';
 
 const Contact: React.FC = () => {
   const path = "/contact";
@@ -47,6 +48,9 @@ const Contact: React.FC = () => {
       }
 
       setFormState('success');
+      trackConversion('contact_form_submit', {
+        subject: String(payload.subject || 'unknown'),
+      });
     } catch (error) {
       setFormState('idle');
       handleFirestoreError(error, OperationType.CREATE, 'messages');
@@ -117,11 +121,19 @@ const Contact: React.FC = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover transition-all flex items-center justify-center gap-3 shadow-lg shadow-accent/20">
+            <Link
+              to="/demande-de-devis"
+              onClick={() => trackConversion('quote_cta_click', { placement: 'contact_hero' })}
+              className="bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover transition-all flex items-center justify-center gap-3 shadow-lg shadow-accent/20"
+            >
               Demander un devis gratuit
               <ArrowRight size={20} />
             </Link>
-            <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white/10 text-white border border-white/20 px-10 py-5 rounded-full font-bold text-lg hover:bg-white/20 transition-all flex items-center justify-center gap-3">
+            <a
+              href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}
+              onClick={() => trackConversion('phone_click', { placement: 'contact_hero' })}
+              className="bg-white/10 text-white border border-white/20 px-10 py-5 rounded-full font-bold text-lg hover:bg-white/20 transition-all flex items-center justify-center gap-3"
+            >
               <Phone size={20} className="text-accent" />
               {CONTACT.phone}
             </a>
@@ -314,7 +326,11 @@ const Contact: React.FC = () => {
                     Pour obtenir une estimation plus précise, utilisez notre formulaire de demande de devis. Vous pourrez indiquer vos adresses, votre volume, les accès, la formule souhaitée et vos besoins spécifiques.
                   </p>
                   
-                  <Link to="/demande-de-devis" className="block w-full bg-accent text-brand-900 py-4 rounded-2xl font-bold text-center hover:bg-accent-hover transition-all mb-10 shadow-lg shadow-accent/20">
+                  <Link
+                    to="/demande-de-devis"
+                    onClick={() => trackConversion('quote_cta_click', { placement: 'contact_sidebar' })}
+                    className="block w-full bg-accent text-brand-900 py-4 rounded-2xl font-bold text-center hover:bg-accent-hover transition-all mb-10 shadow-lg shadow-accent/20"
+                  >
                     Accéder au formulaire de devis
                   </Link>
   
@@ -465,10 +481,18 @@ const Contact: React.FC = () => {
             Contactez Marne Transdem ou remplissez notre formulaire de devis pour décrire votre projet plus précisément.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-12 py-5 rounded-full font-bold text-lg hover:bg-accent-hover transition-all shadow-xl shadow-accent/20">
+            <Link
+              to="/demande-de-devis"
+              onClick={() => trackConversion('quote_cta_click', { placement: 'contact_final' })}
+              className="bg-accent text-brand-900 px-12 py-5 rounded-full font-bold text-lg hover:bg-accent-hover transition-all shadow-xl shadow-accent/20"
+            >
               Demander mon devis gratuit
             </Link>
-            <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white dark:bg-slate-800 text-brand-900 dark:text-white border border-slate-200 dark:border-slate-700 px-10 py-5 rounded-full font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-3">
+            <a
+              href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}
+              onClick={() => trackConversion('phone_click', { placement: 'contact_final' })}
+              className="bg-white dark:bg-slate-800 text-brand-900 dark:text-white border border-slate-200 dark:border-slate-700 px-10 py-5 rounded-full font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-3"
+            >
               <Phone size={20} className="text-accent" />
               {CONTACT.phone}
             </a>

@@ -5,6 +5,17 @@ export const DEFAULT_OG_IMAGE_WIDTH = 1600;
 export const DEFAULT_OG_IMAGE_HEIGHT = 899;
 export const DEFAULT_OG_IMAGE_ALT = 'Marne Transdem - déménagement professionnel à Paris';
 
+export function getGoogleSiteVerificationCode(): string {
+  const viteEnv = typeof import.meta !== 'undefined' ? import.meta.env : undefined;
+  const processEnv = (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env;
+  return (
+    viteEnv?.VITE_GOOGLE_SITE_VERIFICATION ||
+    processEnv?.VITE_GOOGLE_SITE_VERIFICATION ||
+    processEnv?.GOOGLE_SITE_VERIFICATION ||
+    ''
+  ).trim();
+}
+
 export type SeoRoute = {
   path: string;
   canonicalPath: string;
@@ -546,9 +557,13 @@ export function renderSeoHead(route: SeoRoute): string {
   const imageUrl = route.image?.startsWith('http') ? route.image : `${SITE_URL}${route.image || DEFAULT_OG_IMAGE}`;
   const usesDefaultImage = imageUrl === defaultImageUrl;
   const schema = route.schema || [];
+  const googleSiteVerification = getGoogleSiteVerificationCode();
 
   return [
     `<meta data-rh="true" name="description" content="${escapeHtml(route.description)}" />`,
+    ...(googleSiteVerification
+      ? [`<meta data-rh="true" name="google-site-verification" content="${escapeHtml(googleSiteVerification)}" />`]
+      : []),
     `<link data-rh="true" rel="canonical" href="${escapeHtml(canonicalUrl)}" />`,
     `<meta data-rh="true" name="robots" content="${escapeHtml(route.robots || 'index, follow')}" />`,
     '<meta data-rh="true" name="geo.region" content="FR-75" />',

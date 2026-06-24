@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Cookie, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { setAnalyticsConsent, trackEvent } from '../../lib/public-analytics';
 
 export const CookieConsent: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -15,12 +16,13 @@ export const CookieConsent: React.FC = () => {
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem('cookie-consent', 'accepted');
+    setAnalyticsConsent('accepted');
+    void trackEvent('cookie_consent_update', { consent_value: 'accepted' });
     setIsVisible(false);
   };
 
   const handleDecline = () => {
-    localStorage.setItem('cookie-consent', 'declined');
+    setAnalyticsConsent('declined');
     setIsVisible(false);
   };
 

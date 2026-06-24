@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter, Routes, Route,  useLocation, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { PageTransition } from './components/layout/PageTransition';
 import ScrollToTop from './components/layout/ScrollToTop';
 import { PageSkeleton } from './components/common/PageSkeleton';
+import { initPublicAnalytics, trackPageView } from './lib/public-analytics';
 
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Header = lazy(() => import('./components/layout/Header').then(module => ({ default: module.Header })));
@@ -137,6 +138,15 @@ function AppContent() {
   const location = useLocation();
   const isMinimalPage = location.pathname.startsWith('/admin') || location.pathname === '/login' || location.pathname.startsWith('/suivi');
   const needsAuthProvider = location.pathname.startsWith('/admin') || location.pathname === '/login';
+
+  useEffect(() => {
+    initPublicAnalytics();
+  }, []);
+
+  useEffect(() => {
+    if (isMinimalPage) return;
+    trackPageView(`${location.pathname}${location.search}`, document.title);
+  }, [isMinimalPage, location.pathname, location.search]);
 
   return (
     <>

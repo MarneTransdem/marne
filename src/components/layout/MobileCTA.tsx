@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Phone, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CONTACT } from '../../constants';
+import { trackConversion } from '../../lib/public-analytics';
 
 export const MobileCTA: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -19,23 +20,6 @@ export const MobileCTA: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const trackConversion = async (action: string) => {
-    try {
-      const [{ analytics }, { logEvent }] = await Promise.all([
-        import('../../lib/firebase'),
-        import('firebase/analytics'),
-      ]);
-      if (!analytics) return;
-
-      logEvent(analytics, 'conversion_click', {
-        event_category: 'mobile_cta',
-        event_label: action,
-      });
-    } catch (e) {
-      console.warn('Analytics tracking error:', e);
-    }
-  };
-
   return (
     <AnimatePresence>
       {isVisible && (
@@ -48,7 +32,7 @@ export const MobileCTA: React.FC = () => {
         >
           <a 
             href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}
-            onClick={() => trackConversion('appeler')}
+            onClick={() => trackConversion('phone_click', { placement: 'mobile_sticky_cta' })}
             className="bg-slate-100 dark:bg-slate-800 text-brand-900 dark:text-slate-100 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2.5 text-xs uppercase tracking-widest active:scale-95 transition-all shadow-sm"
           >
             <Phone size={16} className="text-accent" />
@@ -72,7 +56,7 @@ export const MobileCTA: React.FC = () => {
           >
             <Link 
               to="/demande-de-devis"
-              onClick={() => trackConversion('devis_gratuit')}
+              onClick={() => trackConversion('quote_cta_click', { placement: 'mobile_sticky_cta' })}
               className="bg-accent text-brand-900 stay-dark py-3.5 rounded-xl font-bold flex items-center justify-center gap-2.5 text-xs uppercase tracking-widest active:scale-95 transition-all w-full h-full"
             >
               Devis Gratuit

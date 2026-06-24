@@ -6,6 +6,7 @@ import { db } from '../../lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { handleFirestoreError, OperationType } from '../../lib/firestore-errors';
 import { useMapsLibrary } from '@vis.gl/react-google-maps';
+import { trackConversion } from '../../lib/public-analytics';
 
 interface FormData {
   // Section A: Coordonnées
@@ -278,6 +279,16 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
       
       setIsSubmitting(false);
       setIsSuccess(true);
+      trackConversion('quote_form_submit', {
+        formula: cleanData.formula || 'unknown',
+        visit_preference: cleanData.visitPreference || 'unknown',
+        needs_lift: cleanData.needsLift || 'unknown',
+        needs_storage: cleanData.needsStorage || 'unknown',
+        has_volume: Boolean(cleanData.volume),
+        has_pre_estimate: Boolean(estimate),
+        from_city: cleanData.fromCity || 'unknown',
+        to_city: cleanData.toCity || 'unknown',
+      });
       window.scrollTo({ top: 0, behavior: 'smooth' });
       localStorage.removeItem(LOCAL_STORAGE_KEY);
     } catch (error) {

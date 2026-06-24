@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Logo } from '../ui/Logo';
 import { CONTACT, NAVIGATION, SERVICES } from '../../constants';
 import { useTheme } from '../../contexts/ThemeContext';
+import { trackConversion } from '../../lib/public-analytics';
 
 export const Header: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
@@ -174,6 +175,7 @@ export const Header: React.FC = () => {
               <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Conseil & devis</p>
               <a 
                 href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}
+                onClick={() => trackConversion('phone_click', { placement: 'header_desktop' })}
                 className="font-bold hover:text-accent transition-all text-sm text-brand-900 stay-dark"
               >
                 {CONTACT.phone}
@@ -181,6 +183,7 @@ export const Header: React.FC = () => {
             </div>
             <Link 
               to="/demande-de-devis" 
+              onClick={() => trackConversion('quote_cta_click', { placement: 'header_desktop' })}
               className="btn-premium bg-accent text-brand-900 px-8 py-2.5 rounded-full font-bold text-sm hover:bg-accent-hover shadow-xl flex items-center gap-2 group"
             >
               Obtenir mon devis
@@ -321,6 +324,7 @@ export const Header: React.FC = () => {
                 >
                   <a 
                     href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}
+                    onClick={() => trackConversion('phone_click', { placement: 'mobile_menu' })}
                     className="flex flex-col gap-2 items-start"
                   >
                     <span className="text-xs font-black uppercase tracking-[0.2em] text-slate-400">Conseil & devis</span>
@@ -331,7 +335,10 @@ export const Header: React.FC = () => {
                   </a>
                   <Link 
                     to="/demande-de-devis" 
-                    onClick={closeMenu}
+                    onClick={() => {
+                      trackConversion('quote_cta_click', { placement: 'mobile_menu' });
+                      closeMenu();
+                    }}
                     className="btn-premium bg-brand-900 dark:bg-accent dark:text-brand-900 text-white py-4 px-8 rounded-full font-bold text-center shadow-xl block"
                   >
                     Demander un devis

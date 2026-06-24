@@ -31,6 +31,21 @@ export const cloudFunctions = getFunctions(app, FIREBASE_FUNCTIONS_REGION);
 
 export let analytics: any = null;
 
+export async function getFirebaseAnalytics() {
+  if (typeof window === 'undefined') return null;
+  if (analytics) return analytics;
+
+  try {
+    const { getAnalytics, isSupported } = await import('firebase/analytics');
+    if (!(await isSupported())) return null;
+    analytics = getAnalytics(app);
+    return analytics;
+  } catch (err) {
+    console.warn('Failed to load Firebase Analytics lazily:', err);
+    return null;
+  }
+}
+
 if (typeof window !== 'undefined') {
   // Enable offline persistence for Firestore to handle ERR_TIMED_OUT or offline networks smoothly
   const enablePersistence = async () => {
@@ -54,20 +69,4 @@ if (typeof window !== 'undefined') {
   };
 
   enablePersistence();
-
-  const initAnalytics = () => {
-    import('firebase/analytics').then(({ getAnalytics }) => {
-      analytics = getAnalytics(app);
-    }).catch(err => {
-      console.warn('Failed to load Firebase Analytics lazily:', err);
-    });
-  };
-
-  if (document.readyState === 'complete') {
-    setTimeout(initAnalytics, 2500);
-  } else {
-    window.addEventListener('load', () => {
-      setTimeout(initAnalytics, 2500);
-    });
-  }
 }

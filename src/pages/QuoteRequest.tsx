@@ -5,6 +5,7 @@ import { SEO } from '../components/SEO';
 import { ShieldCheck, MessageSquare, UserCheck, Building2, Phone, Mail, MapPin } from 'lucide-react';
 import { getBreadcrumbSchema } from '../lib/schema';
 import { CONTACT } from '../constants';
+import { trackConversion } from '../lib/public-analytics';
 
 const QuoteRequest: React.FC = () => {
   const path = "/demande-de-devis";
@@ -35,6 +36,7 @@ const QuoteRequest: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <a 
                 href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} 
+                onClick={() => trackConversion('phone_click', { placement: 'quote_hero' })}
                 className="btn-premium bg-slate-100 dark:bg-slate-900 text-brand-900 dark:text-white px-8 py-4 rounded-full font-bold text-base hover:bg-slate-200 dark:hover:bg-slate-800 transition-all flex items-center gap-3 shadow-sm border border-slate-200 dark:border-slate-800"
               >
                 <Phone size={20} className="text-accent" />
@@ -87,7 +89,11 @@ const QuoteRequest: React.FC = () => {
                 </p>
                 
                 <div className="space-y-6">
-                  <a href="tel:0144935486" className="flex items-center gap-4 hover:text-accent transition-colors group">
+                  <a
+                    href="tel:0144935486"
+                    onClick={() => trackConversion('phone_click', { placement: 'quote_sidebar' })}
+                    className="flex items-center gap-4 hover:text-accent transition-colors group"
+                  >
                     <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-accent/20">
                       <Phone size={18} className="text-accent" />
                     </div>
@@ -97,7 +103,11 @@ const QuoteRequest: React.FC = () => {
                     </div>
                   </a>
 
-                  <a href="mailto:contact@marnetransdem.com" className="flex items-center gap-4 hover:text-accent transition-colors group">
+                  <a
+                    href="mailto:contact@marnetransdem.com"
+                    onClick={() => trackConversion('email_click', { placement: 'quote_sidebar' })}
+                    className="flex items-center gap-4 hover:text-accent transition-colors group"
+                  >
                     <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-accent/20">
                       <Mail size={18} className="text-accent" />
                     </div>

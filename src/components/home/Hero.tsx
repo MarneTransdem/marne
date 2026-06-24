@@ -3,12 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, Phone, ClipboardCheck, ShieldCheck, Star } from 'lucide-react';
 import { motion } from 'motion/react';
 import { CONTACT } from '../../constants';
+import { trackConversion } from '../../lib/public-analytics';
 
 const GoogleBadge = () => (
     <a 
       href="https://maps.app.goo.gl/mgKeWdoyH5Mpt8xJ9"
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => trackConversion('google_business_profile_click', { placement: 'hero_badge' })}
       className="flex items-center gap-4 bg-white border border-slate-100 px-5 py-2.5 rounded-2xl shadow-sm w-fit group hover:shadow-md transition-all cursor-pointer"
     >
       <div className="flex items-center gap-2">
@@ -58,6 +60,12 @@ export const Hero: React.FC = () => {
 
   const handleQuickSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    trackConversion('quick_quote_start', {
+      placement: 'hero_quick_form',
+      has_from_address: Boolean(quickForm.fromAddress),
+      has_to_address: Boolean(quickForm.toAddress),
+      has_volume: Boolean(quickForm.volume),
+    });
     const params = new URLSearchParams();
     if (quickForm.fromAddress) params.set('fromAddress', quickForm.fromAddress);
     if (quickForm.fromCity) params.set('fromCity', quickForm.fromCity);
@@ -98,6 +106,7 @@ export const Hero: React.FC = () => {
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
                 <Link 
                   to="/demande-de-devis" 
+                  onClick={() => trackConversion('quote_cta_click', { placement: 'hero_primary' })}
                   className="btn-premium bg-brand-900 text-white px-8 py-5 rounded-full font-bold text-lg hover:bg-brand-800 shadow-xl flex items-center justify-center gap-3 group"
                 >
                   Demander un devis
@@ -105,6 +114,7 @@ export const Hero: React.FC = () => {
                 </Link>
                 <a 
                   href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}
+                  onClick={() => trackConversion('phone_click', { placement: 'hero_primary' })}
                   className="btn-premium bg-white text-brand-900 stay-dark border border-slate-200 px-8 py-5 rounded-full font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-3"
                 >
                   <Phone size={20} className="text-accent" />

@@ -5,6 +5,7 @@ import {
   DEFAULT_OG_IMAGE_ALT,
   DEFAULT_OG_IMAGE_HEIGHT,
   DEFAULT_OG_IMAGE_WIDTH,
+  getGoogleSiteVerificationCode,
   SITE_URL,
 } from '../lib/seo-routes';
 
@@ -35,6 +36,7 @@ export const SEO: React.FC<SEOProps> = ({
   const fullUrl = canonicalPath.startsWith('http') ? canonicalPath : `${SITE_URL}${canonicalPath}`;
   const fullImageUrl = image.startsWith('http') ? image : `${SITE_URL}${image}`;
   const usesDefaultImage = fullImageUrl === `${SITE_URL}${DEFAULT_OG_IMAGE}`;
+  const googleSiteVerification = getGoogleSiteVerificationCode();
   
   const schemas = Array.isArray(schema) ? schema : schema ? [schema] : [];
 
@@ -42,6 +44,7 @@ export const SEO: React.FC<SEOProps> = ({
     <Helmet>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
+      {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
       {keywords && <meta name="keywords" content={keywords} />}
       <link rel="canonical" href={fullUrl} />
       
