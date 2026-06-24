@@ -1,10 +1,12 @@
+import firebaseConfig from '../../firebase-applet-config.json';
+
 type AnalyticsParams = Record<string, string | number | boolean | null | undefined>;
 
 type WebVitalName = 'CLS' | 'FCP' | 'INP' | 'LCP' | 'TTFB';
 
 const CONSENT_STORAGE_KEY = 'cookie-consent';
 const CONSENT_EVENT_NAME = 'marne:analytics-consent';
-const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
+const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID || firebaseConfig.measurementId || '';
 const GOOGLE_ADS_ID = import.meta.env.VITE_GOOGLE_ADS_CONVERSION_ID;
 const GOOGLE_ADS_QUOTE_LABEL = import.meta.env.VITE_GOOGLE_ADS_QUOTE_CONVERSION_LABEL;
 
