@@ -1,6 +1,12 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { DEFAULT_OG_IMAGE, SITE_URL } from '../lib/seo-routes';
+import {
+  DEFAULT_OG_IMAGE,
+  DEFAULT_OG_IMAGE_ALT,
+  DEFAULT_OG_IMAGE_HEIGHT,
+  DEFAULT_OG_IMAGE_WIDTH,
+  SITE_URL,
+} from '../lib/seo-routes';
 
 interface SEOProps {
   title: string;
@@ -28,6 +34,7 @@ export const SEO: React.FC<SEOProps> = ({
   const canonicalPath = canonical || fallbackPath;
   const fullUrl = canonicalPath.startsWith('http') ? canonicalPath : `${SITE_URL}${canonicalPath}`;
   const fullImageUrl = image.startsWith('http') ? image : `${SITE_URL}${image}`;
+  const usesDefaultImage = fullImageUrl === `${SITE_URL}${DEFAULT_OG_IMAGE}`;
   
   const schemas = Array.isArray(schema) ? schema : schema ? [schema] : [];
 
@@ -39,11 +46,15 @@ export const SEO: React.FC<SEOProps> = ({
       <link rel="canonical" href={fullUrl} />
       
       {/* Open Graph */}
+      <meta property="og:locale" content="fr_FR" />
       <meta property="og:type" content={type} />
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={fullUrl} />
       <meta property="og:image" content={fullImageUrl} />
+      <meta property="og:image:alt" content={DEFAULT_OG_IMAGE_ALT} />
+      {usesDefaultImage && <meta property="og:image:width" content={String(DEFAULT_OG_IMAGE_WIDTH)} />}
+      {usesDefaultImage && <meta property="og:image:height" content={String(DEFAULT_OG_IMAGE_HEIGHT)} />}
       <meta property="og:site_name" content="Marne Transdem" />
       
       {/* Twitter */}
@@ -51,6 +62,7 @@ export const SEO: React.FC<SEOProps> = ({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={fullImageUrl} />
+      <meta name="twitter:image:alt" content={DEFAULT_OG_IMAGE_ALT} />
       
       {/* Additional SEO */}
       <meta name="robots" content={robots} />

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Phone, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CONTACT } from '../../constants';
-import { analytics } from '../../lib/firebase';
 
 export const MobileCTA: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -21,16 +20,19 @@ export const MobileCTA: React.FC = () => {
   }, []);
 
   const trackConversion = async (action: string) => {
-    if (analytics) {
-      try {
-        const { logEvent } = await import('firebase/analytics');
-        logEvent(analytics, 'conversion_click', {
-          event_category: 'mobile_cta',
-          event_label: action,
-        });
-      } catch (e) {
-        console.warn('Analytics tracking error:', e);
-      }
+    try {
+      const [{ analytics }, { logEvent }] = await Promise.all([
+        import('../../lib/firebase'),
+        import('firebase/analytics'),
+      ]);
+      if (!analytics) return;
+
+      logEvent(analytics, 'conversion_click', {
+        event_category: 'mobile_cta',
+        event_label: action,
+      });
+    } catch (e) {
+      console.warn('Analytics tracking error:', e);
     }
   };
 

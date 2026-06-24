@@ -1,9 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, Phone, ClipboardCheck, ShieldCheck, Star } from 'lucide-react';
 import { motion } from 'motion/react';
 import { CONTACT } from '../../constants';
-import { useMapsLibrary } from '@vis.gl/react-google-maps';
 
 const GoogleBadge = () => (
     <a 
@@ -56,62 +55,6 @@ export const Hero: React.FC = () => {
     toZip: '',
     volume: ''
   });
-
-  const mapsLib = useMapsLibrary('places');
-  const fromRef = useRef<HTMLInputElement>(null);
-  const toRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (!mapsLib || !fromRef.current || !toRef.current) return;
-
-    const fromAutocomplete = new google.maps.places.Autocomplete(fromRef.current, {
-      componentRestrictions: { country: 'fr' },
-      fields: ['address_components', 'formatted_address'],
-      types: ['address']
-    });
-
-    const toAutocomplete = new google.maps.places.Autocomplete(toRef.current, {
-      componentRestrictions: { country: 'fr' },
-      fields: ['address_components', 'formatted_address'],
-      types: ['address']
-    });
-
-    fromAutocomplete.addListener('place_changed', () => {
-      const place = fromAutocomplete.getPlace();
-      if (place.address_components) {
-        let city = '';
-        let zip = '';
-        place.address_components.forEach(comp => {
-          if (comp.types.includes('locality')) city = comp.long_name;
-          if (comp.types.includes('postal_code')) zip = comp.long_name;
-        });
-        setQuickForm(prev => ({
-          ...prev,
-          fromAddress: place.formatted_address || '',
-          fromCity: city,
-          fromZip: zip
-        }));
-      }
-    });
-
-    toAutocomplete.addListener('place_changed', () => {
-      const place = toAutocomplete.getPlace();
-      if (place.address_components) {
-        let city = '';
-        let zip = '';
-        place.address_components.forEach(comp => {
-          if (comp.types.includes('locality')) city = comp.long_name;
-          if (comp.types.includes('postal_code')) zip = comp.long_name;
-        });
-        setQuickForm(prev => ({
-          ...prev,
-          toAddress: place.formatted_address || '',
-          toCity: city,
-          toZip: zip
-        }));
-      }
-    });
-  }, [mapsLib]);
 
   const handleQuickSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -186,7 +129,6 @@ export const Hero: React.FC = () => {
                       <div className="space-y-1.5 font-sans italic">
                         <label className="text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest ml-1">Départ</label>
                         <input 
-                          ref={fromRef}
                           className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm outline-none placeholder:text-slate-300 focus:border-accent transition-colors text-brand-900 stay-dark" 
                           placeholder="Adresse de départ" 
                           value={quickForm.fromAddress}
@@ -196,7 +138,6 @@ export const Hero: React.FC = () => {
                       <div className="space-y-1.5 font-sans italic">
                         <label className="text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest ml-1">Arrivée</label>
                         <input 
-                          ref={toRef}
                           className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm outline-none placeholder:text-slate-300 focus:border-accent transition-colors text-brand-900 stay-dark" 
                           placeholder="Adresse d'arrivée" 
                           value={quickForm.toAddress}

@@ -1,8 +1,12 @@
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
+import sharp, { type Metadata } from 'sharp';
 import {
   DEFAULT_OG_IMAGE,
+  DEFAULT_OG_IMAGE_ALT,
+  DEFAULT_OG_IMAGE_HEIGHT,
+  DEFAULT_OG_IMAGE_WIDTH,
   SITE_URL,
   getPublicCanonicalRoutes,
   getRobotsTxt,
@@ -19,6 +23,7 @@ const root = process.cwd();
 const checks: Check[] = [];
 const srcDir = path.join(root, 'src');
 const publicDir = path.join(root, 'public');
+const indexHtmlFile = path.join(root, 'index.html');
 
 function addCheck(name: string, ok: boolean, detail: string) {
   checks.push({ name, ok, detail });
@@ -117,6 +122,20 @@ addCheck(
   robotsTxt === getRobotsTxt().trim() ? 'robots.txt matches server output' : 'robots.txt differs from server output',
 );
 
+const indexHtml = fs.existsSync(indexHtmlFile) ? fs.readFileSync(indexHtmlFile, 'utf8') : '';
+const globalThirdPartyPreconnects = [
+  ...indexHtml.matchAll(/<link[^>]+rel=["']preconnect["'][^>]+href=["']([^"']+)["'][^>]*>/gi),
+]
+  .map((match) => match[1])
+  .filter((href) => /firebase|firestore|google-analytics|googletagmanager|doubleclick/i.test(href));
+addCheck(
+  'public shell preconnects',
+  globalThirdPartyPreconnects.length === 0,
+  globalThirdPartyPreconnects.length === 0
+    ? 'no global Firebase or analytics preconnect in index.html'
+    : `global preconnects: ${globalThirdPartyPreconnects.join(', ')}`,
+);
+
 const imageRefs = collectImageRefs();
 const missingImages: string[] = [];
 const missingAvif: string[] = [];
@@ -153,10 +172,17 @@ addCheck(
 );
 
 const ogImageFile = publicPathToFile(DEFAULT_OG_IMAGE);
+const ogMetadata: Partial<Metadata> = fs.existsSync(ogImageFile) ? await sharp(ogImageFile).metadata() : {};
+const ogDimensionsMatch =
+  ogMetadata.width === DEFAULT_OG_IMAGE_WIDTH &&
+  ogMetadata.height === DEFAULT_OG_IMAGE_HEIGHT &&
+  DEFAULT_OG_IMAGE_WIDTH > DEFAULT_OG_IMAGE_HEIGHT;
 addCheck(
   'default OG image',
-  fs.existsSync(ogImageFile) && fs.existsSync(getVariantPath(ogImageFile, 'avif')),
-  fs.existsSync(ogImageFile) ? `${DEFAULT_OG_IMAGE} exists with negotiated variants` : `${DEFAULT_OG_IMAGE} is missing`,
+  fs.existsSync(ogImageFile) && fs.existsSync(getVariantPath(ogImageFile, 'avif')) && ogDimensionsMatch && DEFAULT_OG_IMAGE_ALT.length > 0,
+  fs.existsSync(ogImageFile)
+    ? `${DEFAULT_OG_IMAGE} ${ogMetadata.width || '?'}x${ogMetadata.height || '?'} with negotiated variants`
+    : `${DEFAULT_OG_IMAGE} is missing`,
 );
 
 const trackedFiles = getTrackedFiles();

@@ -1,6 +1,9 @@
 export const SITE_URL = 'https://devisdemenagement-paris.com';
 export const SITE_NAME = 'Marne Transdem';
-export const DEFAULT_OG_IMAGE = '/images/societe-demenagement-paris.webp';
+export const DEFAULT_OG_IMAGE = '/images/demenagement-paris-9.webp';
+export const DEFAULT_OG_IMAGE_WIDTH = 1600;
+export const DEFAULT_OG_IMAGE_HEIGHT = 899;
+export const DEFAULT_OG_IMAGE_ALT = 'Marne Transdem - déménagement professionnel à Paris';
 
 export type SeoRoute = {
   path: string;
@@ -539,7 +542,9 @@ export function getRobotsTxt(): string {
 
 export function renderSeoHead(route: SeoRoute): string {
   const canonicalUrl = route.status === 404 ? `${SITE_URL}${route.path}` : absoluteUrl(route.canonicalPath);
+  const defaultImageUrl = `${SITE_URL}${DEFAULT_OG_IMAGE}`;
   const imageUrl = route.image?.startsWith('http') ? route.image : `${SITE_URL}${route.image || DEFAULT_OG_IMAGE}`;
+  const usesDefaultImage = imageUrl === defaultImageUrl;
   const schema = route.schema || [];
 
   return [
@@ -548,16 +553,25 @@ export function renderSeoHead(route: SeoRoute): string {
     `<meta data-rh="true" name="robots" content="${escapeHtml(route.robots || 'index, follow')}" />`,
     '<meta data-rh="true" name="geo.region" content="FR-75" />',
     '<meta data-rh="true" name="geo.placename" content="Paris" />',
+    '<meta data-rh="true" property="og:locale" content="fr_FR" />',
     '<meta data-rh="true" property="og:type" content="website" />',
     `<meta data-rh="true" property="og:title" content="${escapeHtml(route.title)}" />`,
     `<meta data-rh="true" property="og:description" content="${escapeHtml(route.description)}" />`,
     `<meta data-rh="true" property="og:url" content="${escapeHtml(canonicalUrl)}" />`,
     `<meta data-rh="true" property="og:image" content="${escapeHtml(imageUrl)}" />`,
+    `<meta data-rh="true" property="og:image:alt" content="${escapeHtml(DEFAULT_OG_IMAGE_ALT)}" />`,
+    ...(usesDefaultImage
+      ? [
+          `<meta data-rh="true" property="og:image:width" content="${DEFAULT_OG_IMAGE_WIDTH}" />`,
+          `<meta data-rh="true" property="og:image:height" content="${DEFAULT_OG_IMAGE_HEIGHT}" />`,
+        ]
+      : []),
     `<meta data-rh="true" property="og:site_name" content="${SITE_NAME}" />`,
     '<meta data-rh="true" name="twitter:card" content="summary_large_image" />',
     `<meta data-rh="true" name="twitter:title" content="${escapeHtml(route.title)}" />`,
     `<meta data-rh="true" name="twitter:description" content="${escapeHtml(route.description)}" />`,
     `<meta data-rh="true" name="twitter:image" content="${escapeHtml(imageUrl)}" />`,
+    `<meta data-rh="true" name="twitter:image:alt" content="${escapeHtml(DEFAULT_OG_IMAGE_ALT)}" />`,
     ...schema.map((item) => `<script data-rh="true" type="application/ld+json">${JSON.stringify(item)}</script>`),
   ].join('\n    ');
 }

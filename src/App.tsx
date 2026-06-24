@@ -62,12 +62,81 @@ const SectorPage = lazy(() => import('./pages/SectorPage'));
 
 
 const CookieConsent = lazy(() => import('./components/common/CookieConsent').then(module => ({ default: module.CookieConsent })));
+const AuthProvider = lazy(() => import('./context/AuthContext').then(module => ({ default: module.AuthProvider })));
 import { ThemeProvider } from './contexts/ThemeContext';
-import { AuthProvider } from './context/AuthContext';
+
+function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/services" element={<Services />} />
+      <Route path="/devis" element={<QuoteRequest />} />
+      <Route path="/demande-de-devis" element={<QuoteRequest />} />
+      <Route path="/secteurs-desservis" element={<SecteursDesservis />} />
+
+      {/* Specialized Services */}
+      <Route path="/demenagement-particuliers-paris" element={<DemenagementParticuliers />} />
+      <Route path="/demenagement-entreprises-paris" element={<DemenagementEntreprises />} />
+      <Route path="/garde-meuble-paris" element={<GardeMeuble />} />
+      <Route path="/location-monte-meuble-paris" element={<MonteMeuble />} />
+      <Route path="/emballage-protection-demenagement" element={<Emballage />} />
+      <Route path="/cartons-demenagement-paris" element={<Cartons />} />
+      <Route path="/calculateur-volume" element={<VolumeCalculator />} />
+      <Route path="/formules-demenagement" element={<FormulasPage />} />
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<Navigate to="overview" replace />} />
+        <Route path="overview" element={<AdminOverview />} />
+        <Route path="dossiers" element={<AdminDossiers />} />
+        <Route path="demandes" element={<AdminDemandes />} />
+        <Route path="devis" element={<AdminDevis />} />
+        <Route path="factures" element={<AdminFactures />} />
+        <Route path="visites" element={<AdminVisites />} />
+        <Route path="planning" element={<AdminPlanning />} />
+        <Route path="collaborateurs" element={<AdminCollaborateurs />} />
+        <Route path="simulateur" element={<AdminSimulateur />} />
+        <Route path="analytics" element={<AdminAnalytics />} />
+      </Route>
+      <Route path="/login" element={<Login />} />
+      <Route path="/suivi/:moveId" element={<ClientTracking />} />
+      <Route path="/blog" element={<Blog />} />
+      <Route path="/blog/:id" element={<BlogPost />} />
+      <Route path="/demenagement-:slug" element={<SectorPage />} />
+      <Route path="/demenagement-oeuvres-art" element={<DemenagementOeuvresArt />} />
+      <Route path="/demenagement-etudiant" element={<DemenagementEtudiant />} />
+      <Route path="/demenagement-militaire" element={<DemenagementMilitaire />} />
+      <Route path="/demenagement-senior" element={<DemenagementSenior />} />
+      <Route path="/demenagement-mutation-professionnelle" element={<DemenagementMutation />} />
+      <Route path="/demenagement-petit-volume" element={<DemenagementPetitVolume />} />
+      <Route path="/demenagement-piano-objets-lourds" element={<DemenagementPiano />} />
+
+      {/* Enterprise Specifics */}
+      <Route path="/transfert-bureaux-paris" element={<TransfertBureaux />} />
+      <Route path="/transfert-informatique-paris" element={<TransfertInformatique />} />
+      <Route path="/transfert-industriel-paris" element={<TransfertIndustriel />} />
+      <Route path="/transfert-laboratoire-paris" element={<TransfertLaboratoire />} />
+      <Route path="/gestion-archives-paris" element={<GestionArchives />} />
+
+      {/* Legacy / Simple Paths */}
+      <Route path="/particuliers" element={<DemenagementParticuliers />} />
+      <Route path="/entreprises" element={<DemenagementEntreprises />} />
+      <Route path="/garde-meuble" element={<GardeMeuble />} />
+      <Route path="/monte-meuble" element={<MonteMeuble />} />
+      <Route path="/emballage" element={<Emballage />} />
+      <Route path="/formules" element={<FormulasPage />} />
+
+      <Route path="/a-propos" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/mentions-legales" element={<Legal />} />
+      <Route path="/politique-de-confidentialite" element={<PrivacyPolicy />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+}
 
 function AppContent() {
   const location = useLocation();
   const isMinimalPage = location.pathname.startsWith('/admin') || location.pathname === '/login' || location.pathname.startsWith('/suivi');
+  const needsAuthProvider = location.pathname.startsWith('/admin') || location.pathname === '/login';
 
   return (
     <>
@@ -80,69 +149,13 @@ function AppContent() {
       <main>
         <PageTransition>
           <Suspense fallback={<PageSkeleton />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/services" element={<Services />} />
-            <Route path="/devis" element={<QuoteRequest />} />
-            <Route path="/demande-de-devis" element={<QuoteRequest />} />
-            <Route path="/secteurs-desservis" element={<SecteursDesservis />} />
-            
-            {/* Specialized Services */}
-            <Route path="/demenagement-particuliers-paris" element={<DemenagementParticuliers />} />
-            <Route path="/demenagement-entreprises-paris" element={<DemenagementEntreprises />} />
-            <Route path="/garde-meuble-paris" element={<GardeMeuble />} />
-            <Route path="/location-monte-meuble-paris" element={<MonteMeuble />} />
-            <Route path="/emballage-protection-demenagement" element={<Emballage />} />
-            <Route path="/cartons-demenagement-paris" element={<Cartons />} />
-            <Route path="/calculateur-volume" element={<VolumeCalculator />} />
-            <Route path="/formules-demenagement" element={<FormulasPage />} />
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<Navigate to="overview" replace />} />
-              <Route path="overview" element={<AdminOverview />} />
-              <Route path="dossiers" element={<AdminDossiers />} />
-              <Route path="demandes" element={<AdminDemandes />} />
-              <Route path="devis" element={<AdminDevis />} />
-              <Route path="factures" element={<AdminFactures />} />
-              <Route path="visites" element={<AdminVisites />} />
-              <Route path="planning" element={<AdminPlanning />} />
-              <Route path="collaborateurs" element={<AdminCollaborateurs />} />
-              <Route path="simulateur" element={<AdminSimulateur />} />
-              <Route path="analytics" element={<AdminAnalytics />} />
-            </Route>
-            <Route path="/login" element={<Login />} />
-            <Route path="/suivi/:moveId" element={<ClientTracking />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:id" element={<BlogPost />} />
-            <Route path="/demenagement-:slug" element={<SectorPage />} />
-            <Route path="/demenagement-oeuvres-art" element={<DemenagementOeuvresArt />} />
-            <Route path="/demenagement-etudiant" element={<DemenagementEtudiant />} />
-            <Route path="/demenagement-militaire" element={<DemenagementMilitaire />} />
-            <Route path="/demenagement-senior" element={<DemenagementSenior />} />
-            <Route path="/demenagement-mutation-professionnelle" element={<DemenagementMutation />} />
-            <Route path="/demenagement-petit-volume" element={<DemenagementPetitVolume />} />
-            <Route path="/demenagement-piano-objets-lourds" element={<DemenagementPiano />} />
-            
-            {/* Enterprise Specifics */}
-            <Route path="/transfert-bureaux-paris" element={<TransfertBureaux />} />
-            <Route path="/transfert-informatique-paris" element={<TransfertInformatique />} />
-            <Route path="/transfert-industriel-paris" element={<TransfertIndustriel />} />
-            <Route path="/transfert-laboratoire-paris" element={<TransfertLaboratoire />} />
-            <Route path="/gestion-archives-paris" element={<GestionArchives />} />
-            
-            {/* Legacy / Simple Paths */}
-            <Route path="/particuliers" element={<DemenagementParticuliers />} />
-            <Route path="/entreprises" element={<DemenagementEntreprises />} />
-            <Route path="/garde-meuble" element={<GardeMeuble />} />
-            <Route path="/monte-meuble" element={<MonteMeuble />} />
-            <Route path="/emballage" element={<Emballage />} />
-            <Route path="/formules" element={<FormulasPage />} />
-
-            <Route path="/a-propos" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/mentions-legales" element={<Legal />} />
-            <Route path="/politique-de-confidentialite" element={<PrivacyPolicy />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+            {needsAuthProvider ? (
+              <AuthProvider>
+                <AppRoutes />
+              </AuthProvider>
+            ) : (
+              <AppRoutes />
+            )}
           </Suspense>
         </PageTransition>
       </main>
@@ -169,13 +182,11 @@ export default function App() {
   const HelmetProviderCast = HelmetProvider as any;
   return (
     <ThemeProvider>
-      <AuthProvider>
-        <HelmetProviderCast>
-          <BrowserRouter>
-            <AppContent />
-          </BrowserRouter>
-        </HelmetProviderCast>
-      </AuthProvider>
+      <HelmetProviderCast>
+        <BrowserRouter>
+          <AppContent />
+        </BrowserRouter>
+      </HelmetProviderCast>
     </ThemeProvider>
   );
 }
