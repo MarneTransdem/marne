@@ -788,7 +788,7 @@ export function AdminPlanning({
         // Lock other potentially conflicting documents inside the transaction to verify they haven't changed
         for (const docSnap of snapshot.docs) {
           if (docSnap.id === moveId) continue;
-          
+
           const freshDoc = await transaction.get(docSnap.ref);
           if (freshDoc.exists()) {
             const currentData = freshDoc.data();
@@ -897,106 +897,130 @@ export function AdminPlanning({
     return dateStr;
   };
 
+  const filteredDemenagements = getFilteredDemenagements();
+  const todayMovesCount = filteredDemenagements.filter(move => move.date === todayStr).length;
+  const unassignedCount = filteredDemenagements.filter(
+    move => !move.assignedTruck || !move.assignedMovers || move.assignedMovers.length === 0
+  ).length;
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       
       {/* Header Panel */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white dark:bg-slate-900 p-4 border border-slate-100 dark:border-slate-800 rounded-3xl shadow-sm">
-        <div>
-          <p className="text-xs font-bold text-slate-400 tracking-wider">PLANIFICATION CHANTIERS & CHAUFFEURS</p>
-          <h2 className="text-lg font-black text-slate-900 dark:text-white">Opérations & Logistique terrain</h2>
-        </div>
-        
-        <div className="flex items-center gap-3">
-          {/* Toggle buttons */}
-          <div className="bg-slate-100 dark:bg-slate-950 p-1 rounded-2xl border border-slate-200/50 dark:border-slate-800 flex flex-wrap">
-            <button
-              onClick={() => setViewMode('list')}
-              className={`p-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
-                viewMode === 'list' 
-                  ? 'bg-white dark:bg-slate-900 shadow-sm text-brand-900 dark:text-white' 
-                  : 'text-slate-500 hover:text-slate-800'
-              }`}
-            >
-              <List size={14} /> Liste
-            </button>
-            <button
-              onClick={() => setViewMode('week')}
-              className={`p-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
-                viewMode === 'week' 
-                  ? 'bg-white dark:bg-slate-900 shadow-sm text-brand-900 dark:text-white' 
-                  : 'text-slate-500 hover:text-slate-800'
-              }`}
-            >
-              <Calendar size={14} /> Semaine
-            </button>
-            <button
-              onClick={() => setViewMode('month')}
-              className={`p-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
-                viewMode === 'month' 
-                  ? 'bg-white dark:bg-slate-900 shadow-sm text-brand-900 dark:text-white' 
-                  : 'text-slate-500 hover:text-slate-800'
-              }`}
-            >
-              <Calendar size={14} /> Mensuel
-            </button>
-            <button
-              onClick={() => setViewMode('gantt')}
-              className={`p-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
-                viewMode === 'gantt' 
-                  ? 'bg-white dark:bg-slate-900 shadow-sm text-brand-900 dark:text-white' 
-                  : 'text-slate-500 hover:text-slate-800'
-              }`}
-            >
-              <Columns size={14} /> Plan de charge
-            </button>
-            <button
-              onClick={() => setViewMode('map')}
-              className={`p-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
-                viewMode === 'map' 
-                  ? 'bg-white dark:bg-slate-900 shadow-sm text-brand-900 dark:text-white' 
-                  : 'text-slate-500 hover:text-slate-800'
-              }`}
-            >
-              <Map size={14} /> Carte & Itinéraires
-            </button>
+      <div className="bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 rounded-xl shadow-sm">
+        <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-5 p-5">
+          <div className="min-w-[260px]">
+            <p className="text-[11px] font-black text-slate-400 tracking-[0.16em] uppercase">Planification terrain</p>
+            <h2 className="mt-1 text-xl font-black text-slate-950 dark:text-white tracking-tight">Opérations & logistique</h2>
+            <div className="mt-4 grid grid-cols-3 gap-2 max-w-[420px]">
+              <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/40 px-3 py-2">
+                <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Affichés</span>
+                <span className="text-lg font-black text-slate-950 dark:text-white">{filteredDemenagements.length}</span>
+              </div>
+              <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/40 px-3 py-2">
+                <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Aujourd'hui</span>
+                <span className="text-lg font-black text-slate-950 dark:text-white">{todayMovesCount}</span>
+              </div>
+              <div className="rounded-lg border border-amber-200/80 dark:border-amber-900/40 bg-amber-50/70 dark:bg-amber-950/10 px-3 py-2">
+                <span className="block text-[9px] font-black uppercase tracking-wider text-amber-600">À affecter</span>
+                <span className="text-lg font-black text-amber-800 dark:text-amber-300">{unassignedCount}</span>
+              </div>
+            </div>
           </div>
 
-          {/* Period Selector */}
-          <div className="flex items-center gap-2 shrink-0">
-            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Période :</label>
-            <select 
-              value={movesDays} 
-              onChange={(e) => setMovesDays(e.target.value === 'all' ? 'all' : Number(e.target.value))}
-              className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl py-2 px-3 text-xs font-black text-slate-700 dark:text-slate-350 focus:outline-none focus:ring-2 focus:ring-accent/20 cursor-pointer"
-            >
-              <option value={90}>90 derniers jours</option>
-              <option value={180}>180 derniers jours</option>
-              <option value={365}>1 an</option>
-              <option value="all">Toutes les archives</option>
-            </select>
-          </div>
-
-          {activeRole !== 'chef_equipe' && (
-            <div className="flex gap-2">
+          <div className="flex flex-col lg:items-end gap-3">
+            {/* Toggle buttons */}
+            <div className="bg-slate-100/80 dark:bg-slate-950 p-1 rounded-lg border border-slate-200/70 dark:border-slate-800 flex flex-wrap gap-1">
               <button
-                type="button"
-                onClick={handleAutoPlan}
-                disabled={isOptimizing}
-                className="bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-750 dark:border-slate-700 font-black py-2.5 px-4 rounded-2xl text-xs transition-all duration-300 flex items-center justify-center gap-2 active:scale-95 cursor-pointer disabled:opacity-50"
+                onClick={() => setViewMode('list')}
+                className={`px-3 py-2 rounded-md text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+                  viewMode === 'list'
+                    ? 'bg-white dark:bg-slate-900 shadow-sm text-brand-900 dark:text-white'
+                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
+                }`}
               >
-                <Compass className={`w-3.5 h-3.5 ${isOptimizing ? 'animate-spin' : ''}`} />
-                {isOptimizing ? 'Optimisation...' : 'Auto-Plan Itinéraires'}
+                <List size={14} /> Liste
               </button>
               <button
-                type="button"
-                onClick={() => setShowAddDemenagement(true)}
-                className="bg-accent hover:bg-accent-hover text-brand-900 border border-accent font-black py-2.5 px-5 rounded-2xl text-xs transition-all duration-300 flex items-center justify-center gap-2 active:scale-95 cursor-pointer shrink-0"
+                onClick={() => setViewMode('week')}
+                className={`px-3 py-2 rounded-md text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+                  viewMode === 'week'
+                    ? 'bg-white dark:bg-slate-900 shadow-sm text-brand-900 dark:text-white'
+                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
+                }`}
               >
-                <Plus size={14} /> Planifier un Chantier
+                <Calendar size={14} /> Semaine
+              </button>
+              <button
+                onClick={() => setViewMode('month')}
+                className={`px-3 py-2 rounded-md text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+                  viewMode === 'month'
+                    ? 'bg-white dark:bg-slate-900 shadow-sm text-brand-900 dark:text-white'
+                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
+                }`}
+              >
+                <Calendar size={14} /> Mensuel
+              </button>
+              <button
+                onClick={() => setViewMode('gantt')}
+                className={`px-3 py-2 rounded-md text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+                  viewMode === 'gantt'
+                    ? 'bg-white dark:bg-slate-900 shadow-sm text-brand-900 dark:text-white'
+                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
+                }`}
+              >
+                <Columns size={14} /> Charge
+              </button>
+              <button
+                onClick={() => setViewMode('map')}
+                className={`px-3 py-2 rounded-md text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+                  viewMode === 'map'
+                    ? 'bg-white dark:bg-slate-900 shadow-sm text-brand-900 dark:text-white'
+                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
+                }`}
+              >
+                <Map size={14} /> Carte
               </button>
             </div>
-          )}
+
+            <div className="flex items-center justify-end gap-2 flex-wrap">
+              {/* Period Selector */}
+              <div className="flex items-center gap-2 shrink-0">
+                <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Période</label>
+                <select
+                  value={movesDays}
+                  onChange={(e) => setMovesDays(e.target.value === 'all' ? 'all' : Number(e.target.value))}
+                  className="h-10 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-3 text-xs font-black text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-accent/20 cursor-pointer"
+                >
+                  <option value={90}>90 derniers jours</option>
+                  <option value={180}>180 derniers jours</option>
+                  <option value={365}>1 an</option>
+                  <option value="all">Toutes les archives</option>
+                </select>
+              </div>
+
+              {activeRole !== 'chef_equipe' && (
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={handleAutoPlan}
+                    disabled={isOptimizing}
+                    className="h-10 bg-slate-950 hover:bg-slate-800 text-white dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-900 dark:border-slate-700 font-black px-4 rounded-lg text-xs transition-all duration-200 flex items-center justify-center gap-2 active:scale-95 cursor-pointer disabled:opacity-50"
+                  >
+                    <Compass className={`w-3.5 h-3.5 ${isOptimizing ? 'animate-spin' : ''}`} />
+                    {isOptimizing ? 'Optimisation...' : 'Auto-plan'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowAddDemenagement(true)}
+                    className="h-10 bg-accent hover:bg-accent-hover text-brand-900 border border-accent font-black px-4 rounded-lg text-xs transition-all duration-200 flex items-center justify-center gap-2 active:scale-95 cursor-pointer shrink-0"
+                  >
+                    <Plus size={14} /> Planifier
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1060,8 +1084,8 @@ export function AdminPlanning({
 
       {/* List View */}
       {viewMode === 'list' && (
-        <div className="space-y-4">
-          {getFilteredDemenagements().map((move) => {
+        <div className="space-y-3">
+          {filteredDemenagements.map((move) => {
             const isAssigning = activeAssignMoveId === move.id;
             const countdownInfo = getCountdown(move.date);
 
@@ -1072,24 +1096,30 @@ export function AdminPlanning({
                 onDragStart={(e) => handleDragStart(e, move.id)}
                 onClick={() => setSelectedMove(move)}
                 onContextMenu={(e) => handleContextMenu(e, move.id)}
-                className={`border rounded-3xl p-6 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer select-none ${
-                  move.status === 'Terminé'
-                    ? 'bg-emerald-50/20 border-emerald-100/45 dark:bg-emerald-950/10 dark:border-emerald-900/20 text-slate-900 dark:text-white'
-                    : move.status === 'En cours'
-                      ? 'bg-purple-50/20 border-purple-100/45 dark:bg-purple-955/10 dark:border-purple-900/20 text-slate-900 dark:text-white'
-                      : isMovePast(move.date)
-                        ? 'border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/40 opacity-60 text-slate-500'
-                        : 'bg-amber-50/20 border-amber-100/45 dark:bg-amber-950/10 dark:border-amber-900/20 text-slate-900 dark:text-white'
+                className={`relative overflow-hidden border rounded-xl bg-white dark:bg-slate-900 p-4 shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 cursor-pointer select-none ${
+                  isMovePast(move.date) && move.status !== 'Terminé'
+                    ? 'border-slate-200 dark:border-slate-800 opacity-75 text-slate-500'
+                    : 'border-slate-200/80 dark:border-slate-800 text-slate-900 dark:text-white'
                 }`}
               >
-                <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                <div className={`absolute inset-y-0 left-0 w-1 ${
+                  move.status === 'Terminé'
+                    ? 'bg-emerald-500'
+                    : move.status === 'En cours'
+                      ? 'bg-purple-500'
+                      : move.status === 'Programmé'
+                        ? 'bg-sky-500'
+                        : 'bg-amber-500'
+                }`} />
+
+                <div className="grid grid-cols-1 xl:grid-cols-[minmax(260px,1.25fr)_minmax(300px,1fr)_minmax(240px,0.85fr)_180px] items-center gap-5 pl-2">
                   {/* Left info */}
-                  <div className="space-y-2 flex-1">
+                  <div className="space-y-2 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-[9px] uppercase font-black tracking-wider text-slate-400 bg-slate-50 dark:bg-slate-950 px-2 py-0.5 rounded-lg border border-slate-200/50 dark:border-slate-800">
+                      <span className="text-[9px] uppercase font-black tracking-wider text-slate-400 bg-slate-50 dark:bg-slate-950 px-2 py-1 rounded-md border border-slate-200/70 dark:border-slate-800">
                         {move.id}
                       </span>
-                      <span className={`px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase ${
+                      <span className={`px-2.5 py-1 rounded-md text-[9px] font-black uppercase ${
                         move.status === 'À planifier' ? 'bg-amber-100 text-amber-900 dark:bg-amber-950/20 dark:text-amber-400' :
                         move.status === 'Programmé' ? 'bg-sky-50 text-slate-700 dark:bg-sky-950/30 dark:text-sky-400' :
                         move.status === 'En cours' ? 'bg-purple-100 text-purple-900 dark:bg-purple-950/20 dark:text-purple-400' : 
@@ -1100,73 +1130,73 @@ export function AdminPlanning({
                       
                       {/* Countdown badge */}
                       {move.status !== 'Terminé' && (
-                        <span className={`text-[9.5px] uppercase font-black ${countdownInfo.color}`}>
+                        <span className={`text-[9.5px] uppercase font-black rounded-md ${countdownInfo.color}`}>
                           {countdownInfo.text}
                         </span>
                       )}
                     </div>
                     
-                    <h4 className="text-base font-black text-brand-950 dark:text-white tracking-tight flex items-center gap-1.5">
+                    <h4 className="text-[15px] font-black text-brand-950 dark:text-white tracking-tight flex items-center gap-1.5 truncate">
                       {move.clientName}
                       {pendingActions.some(a => a.moveId === move.id) && (
                         <Clock size={12} className="text-amber-500 animate-pulse shrink-0" title="En attente de synchronisation" />
                       )}
                     </h4>
                     
-                    <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-light">
-                      <span>{move.fromCity}</span>
+                    <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-medium min-w-0">
+                      <span className="truncate">{move.fromCity}</span>
                       <ArrowRight size={10} className="text-accent shrink-0" />
-                      <span>{move.toCity}</span>
+                      <span className="truncate">{move.toCity}</span>
                     </div>
                   </div>
 
                   {/* Middle metrics */}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-4 text-xs shrink-0 lg:border-l lg:border-r lg:px-6 py-2">
+                  <div className="grid grid-cols-2 gap-x-5 gap-y-3 text-xs min-w-0 xl:border-l xl:border-slate-200 dark:xl:border-slate-800 xl:pl-5">
                     <div>
-                      <span className="text-[9px] text-slate-400 block font-bold uppercase">Volume</span>
+                      <span className="text-[9px] text-slate-400 block font-black uppercase tracking-wider">Volume</span>
                       <span className="font-extrabold text-slate-800 dark:text-white">{move.volume} m³</span>
                     </div>
                     <div>
-                      <span className="text-[9px] text-slate-400 block font-bold uppercase">Date de transport</span>
+                      <span className="text-[9px] text-slate-400 block font-black uppercase tracking-wider">Transport</span>
                       <span className="font-semibold text-slate-800 dark:text-white">{formatDateFr(move.date)}</span>
                     </div>
                     <div>
-                      <span className="text-[9px] text-slate-400 block font-bold uppercase">Chef d'équipe</span>
+                      <span className="text-[9px] text-slate-400 block font-black uppercase tracking-wider">Chef</span>
                       <span className="font-semibold text-slate-800 dark:text-white capitalize">{move.teamLeader}</span>
                     </div>
                     <div>
-                      <span className="text-[9px] text-slate-400 block font-bold uppercase">Équipage</span>
+                      <span className="text-[9px] text-slate-400 block font-black uppercase tracking-wider">Équipe</span>
                       <span className="font-semibold text-slate-800 dark:text-white">{move.crewSize} Coéquipiers</span>
                     </div>
                   </div>
 
                   {/* Operational assignment tags details */}
-                  <div className="shrink-0 flex flex-col gap-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200/50 dark:border-slate-800/80 p-3 rounded-2xl min-w-[200px] text-xs">
+                  <div className="flex flex-col gap-2 bg-slate-50/80 dark:bg-slate-950/40 border border-slate-200/70 dark:border-slate-800 p-3 rounded-lg text-xs min-w-0">
                     <div>
-                      <span className="text-[8.5px] text-slate-400 block uppercase font-black">Chauffeurs / Équipiers</span>
+                      <span className="text-[8.5px] text-slate-400 block uppercase font-black tracking-wider">Équipe terrain</span>
                       <div className="flex flex-wrap gap-1 mt-1">
                         {move.assignedMovers && move.assignedMovers.length > 0 ? (
                           move.assignedMovers.map(name => (
-                            <span key={name} className="bg-brand-50 text-brand-800 dark:bg-brand-900/20 dark:text-brand-350 px-2 py-0.5 rounded text-[10px] font-semibold">
+                            <span key={name} className="bg-white text-brand-800 dark:bg-slate-900 dark:text-brand-350 px-2 py-1 rounded-md border border-slate-200/70 dark:border-slate-800 text-[10px] font-semibold">
                               {name.split(' ')[0]}
                             </span>
                           ))
                         ) : (
-                          <span className="text-amber-600 dark:text-amber-500 text-[10px] italic flex items-center gap-1 font-bold">
+                          <span className="text-amber-600 dark:text-amber-500 text-[10px] flex items-center gap-1 font-bold">
                             <AlertCircle size={10} /> Aucun équipier assigné
                           </span>
                         )}
                       </div>
                     </div>
                     
-                    <div className="mt-1 pt-1 border-t border-dashed border-slate-200 dark:border-slate-800">
-                      <span className="text-[8.5px] text-slate-400 block uppercase font-black">Camion affecté</span>
+                    <div className="pt-2 border-t border-dashed border-slate-200 dark:border-slate-800">
+                      <span className="text-[8.5px] text-slate-400 block uppercase font-black tracking-wider">Véhicule</span>
                       {move.assignedTruck ? (
                         <span className="text-brand-950 dark:text-accent font-extrabold flex items-center gap-1 mt-0.5">
                           <Truck size={10} /> {move.assignedTruck}
                         </span>
                       ) : (
-                        <span className="text-amber-600 dark:text-amber-500 text-[10px] italic flex items-center gap-1 font-bold">
+                        <span className="text-amber-600 dark:text-amber-500 text-[10px] flex items-center gap-1 font-bold">
                           <AlertCircle size={10} /> Aucun véhicule affecté
                         </span>
                       )}
@@ -1174,49 +1204,49 @@ export function AdminPlanning({
                   </div>
 
                   {/* Actions buttons */}
-                  <div className="shrink-0 space-y-2 w-full lg:w-auto">
+                  <div className="grid grid-cols-1 gap-2 w-full xl:w-[180px]">
                     <button
                       onClick={(e) => { e.stopPropagation(); handleDocumentClick(move); }}
-                      className="w-full bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700/80 text-slate-800 dark:text-slate-300 font-extrabold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer text-center block border border-slate-200/50 dark:border-slate-800"
+                      className="h-9 w-full bg-white hover:bg-slate-50 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-extrabold px-3 rounded-lg text-[10px] uppercase cursor-pointer border border-slate-200 dark:border-slate-800 flex items-center justify-center gap-2 transition-colors"
                     >
-                      📄 Documents Officiels
+                      <FileText size={13} /> Documents
                     </button>
 
                     {activeRole !== 'chef_equipe' && (
                       <button
                         onClick={(e) => { e.stopPropagation(); openAssignmentPanel(move); }}
-                        className="w-full bg-brand-900 hover:bg-brand-hover text-white dark:bg-accent dark:text-brand-950 font-black py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer text-center block transition-all"
+                        className="h-9 w-full bg-brand-900 hover:bg-brand-hover text-white dark:bg-accent dark:text-brand-950 font-black px-3 rounded-lg text-[10px] uppercase cursor-pointer transition-all flex items-center justify-center gap-2"
                       >
-                        👥 Affectation équipe
+                        <Users size={13} /> Affecter
                       </button>
                     )}
 
                     {move.status === 'À planifier' && (
                       <button
                         onClick={(e) => { e.stopPropagation(); updateMoveStatus(move.id, 'Programmé'); }}
-                        className="w-full bg-accent hover:bg-accent-hover text-brand-950 font-black py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer text-center block active:scale-95"
+                        className="h-9 w-full bg-accent hover:bg-accent-hover text-brand-950 font-black px-3 rounded-lg text-[10px] uppercase cursor-pointer active:scale-95 flex items-center justify-center gap-2"
                       >
-                        Valider voyage
+                        <Check size={13} /> Valider
                       </button>
                     )}
                     {move.status === 'Programmé' && (
                       <button
                         onClick={(e) => { e.stopPropagation(); updateMoveStatus(move.id, 'En cours'); }}
-                        className="w-full bg-slate-950 hover:bg-slate-850 text-white dark:bg-slate-800 dark:hover:bg-slate-750 font-extrabold py-2 px-4 rounded-xl text-[10px] cursor-pointer text-center block active:scale-95"
+                        className="h-9 w-full bg-slate-950 hover:bg-slate-800 text-white dark:bg-slate-800 dark:hover:bg-slate-750 font-extrabold px-3 rounded-lg text-[10px] cursor-pointer active:scale-95 flex items-center justify-center gap-2"
                       >
-                        En route (Démarré)
+                        <Truck size={13} /> Démarrer
                       </button>
                     )}
                     {move.status === 'En cours' && (
                       <button
                         onClick={(e) => { e.stopPropagation(); updateMoveStatus(move.id, 'Terminé'); }}
-                        className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer text-center block active:scale-95"
+                        className="h-9 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black px-3 rounded-lg text-[10px] uppercase cursor-pointer active:scale-95 flex items-center justify-center gap-2"
                       >
-                        Signaler livraison
+                        <Check size={13} /> Livrer
                       </button>
                     )}
                     {move.status === 'Terminé' && (
-                      <div className="bg-emerald-50 text-emerald-800 dark:bg-emerald-950/20 text-center py-2 px-4 rounded-xl border border-emerald-500/10 text-[10px] font-black uppercase flex items-center justify-center gap-1">
+                      <div className="h-9 bg-emerald-50 text-emerald-800 dark:bg-emerald-950/20 rounded-lg border border-emerald-500/10 text-[10px] font-black uppercase flex items-center justify-center gap-1">
                         <Check size={12} /> Réalisé
                       </div>
                     )}
@@ -1227,10 +1257,10 @@ export function AdminPlanning({
                 {isAssigning && (
                   <div 
                     onClick={(e) => e.stopPropagation()}
-                    className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in text-xs"
+                    className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-in text-xs"
                   >
                     {/* Movers Selection */}
-                    <div className="space-y-3 bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200/50 dark:border-slate-850">
+                    <div className="space-y-3 bg-slate-50/70 dark:bg-slate-950/40 p-4 rounded-lg border border-slate-200/70 dark:border-slate-800">
                       <h5 className="font-black text-slate-800 dark:text-slate-250 flex items-center gap-1.5">
                         <Users size={14} className="text-brand-900 dark:text-accent" />
                         Choisir l'équipe terrain disponible
@@ -1241,7 +1271,7 @@ export function AdminPlanning({
                           return (
                             <label 
                               key={mover.id} 
-                              className={`flex items-center justify-between p-2 rounded-xl border cursor-pointer transition-all ${
+                              className={`flex items-center justify-between p-2 rounded-lg border cursor-pointer transition-all ${
                                 isChecked 
                                   ? 'bg-brand-50 border-brand-200/60 dark:bg-brand-900/15 dark:border-brand-900/40' 
                                   : 'bg-white border-slate-200/50 dark:bg-slate-900 dark:border-slate-805 hover:bg-slate-50'
@@ -1266,7 +1296,7 @@ export function AdminPlanning({
                     </div>
 
                     {/* Truck Selection */}
-                    <div className="space-y-3 bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200/50 dark:border-slate-850">
+                    <div className="space-y-3 bg-slate-50/70 dark:bg-slate-950/40 p-4 rounded-lg border border-slate-200/70 dark:border-slate-800">
                       <h5 className="font-black text-slate-800 dark:text-slate-250 flex items-center gap-1.5">
                         <Truck size={14} className="text-brand-900 dark:text-accent" />
                         Choisir le véhicule disponible
@@ -1277,7 +1307,7 @@ export function AdminPlanning({
                           return (
                             <label 
                               key={truck.id} 
-                              className={`flex items-center justify-between p-2 rounded-xl border cursor-pointer transition-all ${
+                              className={`flex items-center justify-between p-2 rounded-lg border cursor-pointer transition-all ${
                                 isSelected 
                                   ? 'bg-brand-50 border-brand-200/60 dark:bg-brand-900/15 dark:border-brand-900/40' 
                                   : 'bg-white border-slate-200/50 dark:bg-slate-900 dark:border-slate-805 hover:bg-slate-50'
@@ -1303,7 +1333,7 @@ export function AdminPlanning({
                     </div>
 
                     {assignmentError && (
-                      <div className="md:col-span-2 bg-red-50 dark:bg-red-955/20 border border-red-200 dark:border-red-900/35 p-3 rounded-2xl flex items-start gap-2.5 text-[11px] text-red-600 dark:text-red-400 font-medium">
+                      <div className="md:col-span-2 bg-red-50 dark:bg-red-955/20 border border-red-200 dark:border-red-900/35 p-3 rounded-lg flex items-start gap-2.5 text-[11px] text-red-600 dark:text-red-400 font-medium">
                         <AlertCircle size={16} className="shrink-0 mt-0.5" />
                         <div className="flex-1 leading-normal">{assignmentError}</div>
                         <button 
@@ -1323,14 +1353,14 @@ export function AdminPlanning({
                           setAssignmentError(null);
                         }}
                         disabled={isSavingAssignment}
-                        className="px-4 py-2 border border-slate-200 rounded-xl text-slate-600 dark:text-slate-300 font-bold hover:bg-slate-50 cursor-pointer disabled:opacity-50"
+                        className="px-4 py-2 border border-slate-200 rounded-lg text-slate-600 dark:text-slate-300 font-bold hover:bg-slate-50 cursor-pointer disabled:opacity-50"
                       >
                         Annuler
                       </button>
                       <button 
                         onClick={() => handleSaveAssignment(move.id)}
                         disabled={isSavingAssignment}
-                        className="px-5 py-2 bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:hover:bg-accent-hover text-white dark:text-brand-950 font-black rounded-xl transition-all shadow-md cursor-pointer disabled:opacity-50 flex items-center gap-1.5"
+                        className="px-5 py-2 bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:hover:bg-accent-hover text-white dark:text-brand-950 font-black rounded-lg transition-all shadow-sm cursor-pointer disabled:opacity-50 flex items-center gap-1.5"
                       >
                         {isSavingAssignment && <Clock size={12} className="animate-spin" />}
                         {isSavingAssignment ? "Enregistrement..." : (context && !context.isOnline) ? "Enregistrer hors-ligne" : "Enregistrer l'Affectation"}
@@ -1341,8 +1371,8 @@ export function AdminPlanning({
               </div>
             );
           })}
-          {getFilteredDemenagements().length === 0 && (
-            <div className="py-16 text-center text-slate-400 font-light border-2 border-dashed rounded-3xl">
+          {filteredDemenagements.length === 0 && (
+            <div className="py-14 text-center text-slate-400 font-light border border-dashed border-slate-250 dark:border-slate-800 rounded-xl bg-white/60 dark:bg-slate-900/30">
               Aucun chantier de déménagement trouvé.
             </div>
           )}
@@ -2071,9 +2101,9 @@ export function AdminPlanning({
                     setSelectedMove(null);
                     openAssignmentPanel(selectedMove);
                   }}
-                  className="px-4 py-2 bg-brand-900 hover:bg-brand-hover text-white dark:bg-accent dark:text-brand-950 font-black rounded-xl text-xs cursor-pointer transition-all"
+                  className="px-4 py-2 bg-brand-900 hover:bg-brand-hover text-white dark:bg-accent dark:text-brand-950 font-black rounded-lg text-xs cursor-pointer transition-all flex items-center gap-2"
                 >
-                  👥 Affecter
+                  <Users size={13} /> Affecter
                 </button>
               )}
               <button
@@ -2081,9 +2111,9 @@ export function AdminPlanning({
                   setSelectedMove(null);
                   handleDocumentClick(selectedMove);
                 }}
-                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-300 font-extrabold rounded-xl text-xs cursor-pointer transition-all border border-slate-200/50 dark:border-slate-700"
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-300 font-extrabold rounded-lg text-xs cursor-pointer transition-all border border-slate-200/50 dark:border-slate-700 flex items-center gap-2"
               >
-                📄 Documents
+                <FileText size={13} /> Documents
               </button>
               {selectedMove.status === 'À planifier' && (
                 <button
