@@ -72,6 +72,30 @@ function getGeminiClient(): GoogleGenAI {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+type PdfDocumentType = 'devis' | 'facture' | 'lettre_voiture' | 'declaration_valeur' | 'fiche_equipe';
+type PdfHelperModule = {
+  generatePdfBuffer: (type: PdfDocumentType, data: unknown) => Promise<Buffer>;
+};
+
+let pdfHelperPromise: Promise<PdfHelperModule> | null = null;
+
+async function loadPdfHelper(): Promise<PdfHelperModule> {
+  pdfHelperPromise ??= import("./functions/lib/pdf-helper.js").then((module: any) => {
+    const helper = module.generatePdfBuffer ? module : module.default;
+    if (!helper?.generatePdfBuffer) {
+      throw new Error("Module PDF compilé indisponible.");
+    }
+    return helper as PdfHelperModule;
+  });
+
+  return pdfHelperPromise;
+}
+
+async function generateServerPdfBuffer(type: PdfDocumentType, data: unknown): Promise<Buffer> {
+  const { generatePdfBuffer } = await loadPdfHelper();
+  return generatePdfBuffer(type, data);
+}
+
 function escapeHtml(value: string): string {
   return value
     .replace(/&/g, "&amp;")
@@ -339,8 +363,7 @@ async function startServer() {
       let base64Attachment = pdfBase64;
       if (!base64Attachment && docData) {
         try {
-          const { generatePdfBuffer } = await import("./functions/src/pdf-helper.tsx");
-          const buffer = await generatePdfBuffer(req.body.documentType, docData);
+          const buffer = await generateServerPdfBuffer(req.body.documentType, docData);
           base64Attachment = buffer.toString('base64');
         } catch (pdfErr) {
           console.error("Failed to generate PDF for local dev email attachment:", pdfErr);
@@ -450,8 +473,7 @@ async function startServer() {
         const clientName = finalMoveData.clientName || "Client";
         const clientEmail = finalMoveData.clientEmail || finalMoveData.email || "";
 
-        const { generatePdfBuffer } = await import("./functions/src/pdf-helper.tsx");
-        const buffer = await generatePdfBuffer('lettre_voiture', finalMoveData);
+        const buffer = await generateServerPdfBuffer('lettre_voiture', finalMoveData);
         const base64Attachment = buffer.toString('base64');
 
         const emailHtml = `
@@ -501,8 +523,7 @@ async function startServer() {
       }
 
       try {
-        const { generatePdfBuffer } = await import("./functions/src/pdf-helper.tsx");
-        const buffer = await generatePdfBuffer('facture', invoice);
+        const buffer = await generateServerPdfBuffer('facture', invoice);
         const base64Attachment = buffer.toString('base64');
 
         const formatDateFr = (dateStr?: string) => {
@@ -669,8 +690,7 @@ async function startServer() {
 
 
     try {
-      const { generatePdfBuffer } = await import("./functions/src/pdf-helper.tsx");
-      const buffer = await generatePdfBuffer(type, data);
+      const buffer = await generateServerPdfBuffer(type, data);
       
       const crypto = await import("crypto");
       const hash = crypto.createHash("sha256").update(buffer).digest("hex");
