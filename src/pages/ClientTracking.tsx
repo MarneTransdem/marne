@@ -3,6 +3,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import { doc, onSnapshot, updateDoc, Firestore } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import type { Demenagement } from '../types';
+import { downloadGeneratedPdf } from '../lib/pdf-download';
 import { 
   Truck, MapPin, Calendar, User, CheckCircle2, 
   ShieldCheck, AlertCircle, FileText, Download, RotateCcw,
@@ -458,13 +459,7 @@ export default function ClientTracking() {
       }
 
       // Déclencher le téléchargement du fichier
-      const link = document.createElement('a');
-      link.href = result.url;
-      link.target = '_blank';
-      link.download = `Lettre_de_Voiture_${move.id}.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      downloadGeneratedPdf(result, `Lettre_de_Voiture_${move.id}.pdf`);
     } catch (err: any) {
       console.error('Failed to download PDF:', err);
       alert('Impossible de générer le document PDF final en local. ' + (err.message || ''));

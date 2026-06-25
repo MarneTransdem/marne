@@ -96,6 +96,13 @@ async function generateServerPdfBuffer(type: PdfDocumentType, data: unknown): Pr
   return generatePdfBuffer(type, data);
 }
 
+function getGeneratedDocsRoot(): string {
+  return path.resolve(
+    process.cwd(),
+    process.env.NODE_ENV === "production" ? "dist/generated_docs" : "public/generated_docs",
+  );
+}
+
 function escapeHtml(value: string): string {
   return value
     .replace(/&/g, "&amp;")
@@ -696,7 +703,7 @@ async function startServer() {
       const hash = crypto.createHash("sha256").update(buffer).digest("hex");
 
       const fs = await import("fs");
-      const dir = path.resolve(__dirname, "./public/generated_docs");
+      const dir = getGeneratedDocsRoot();
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
@@ -706,7 +713,14 @@ async function startServer() {
       fs.writeFileSync(localFilePath, buffer);
 
       const url = `/generated_docs/${localFileName}`;
-      res.json({ success: true, url, hash });
+      res.json({
+        success: true,
+        url,
+        hash,
+        fileName: localFileName,
+        mimeType: "application/pdf",
+        contentBase64: buffer.toString("base64"),
+      });
     } catch (error: any) {
       console.error("Local PDF Generation Error:", error);
       res.status(500).json({ error: "Échec de la génération du document PDF en local.", details: error.message || error });
@@ -1126,6 +1140,14 @@ Retournez les résultats strictement au format JSON selon le schéma demandé.`
     setHeaders: (res) => {
       res.setHeader("Vary", "Accept");
       res.setHeader("Cache-Control", "public, max-age=604800, stale-while-revalidate=86400");
+    },
+  }));
+
+  app.use("/generated_docs", express.static(getGeneratedDocsRoot(), {
+    fallthrough: false,
+    setHeaders: (res) => {
+      res.setHeader("Cache-Control", "private, no-store");
+      res.setHeader("Content-Type", "application/pdf");
     },
   }));
 

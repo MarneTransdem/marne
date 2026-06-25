@@ -643,8 +643,9 @@ api.post('/api/pdf/generate', async (req, res): Promise<void> => {
 
     // Save to Firebase Cloud Storage
     const bucket = admin.storage().bucket();
-    const fileName = `generated_docs/${type}_${data.id}_${hash.substring(0, 10)}.pdf`;
-    const file = bucket.file(fileName);
+    const downloadFileName = `${type}_${data.id}_${hash.substring(0, 10)}.pdf`;
+    const storageFileName = `generated_docs/${downloadFileName}`;
+    const file = bucket.file(storageFileName);
 
     await file.save(buffer, {
       metadata: {
@@ -664,7 +665,14 @@ api.post('/api/pdf/generate', async (req, res): Promise<void> => {
       expires: '03-09-2491' // Far future expiry
     });
 
-    res.json({ success: true, url, hash });
+    res.json({
+      success: true,
+      url,
+      hash,
+      fileName: downloadFileName,
+      mimeType: 'application/pdf',
+      contentBase64: buffer.toString('base64')
+    });
   } catch (error: any) {
     console.error("Server-side PDF Generation Error:", error);
     res.status(500).json({ error: "Échec de la génération du document PDF côté serveur.", details: error.message || error });

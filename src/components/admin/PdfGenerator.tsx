@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FileText, Printer, Mail, Download, Check, ShieldCheck, Clock, CheckCircle2, Send } from 'lucide-react';
 import { Document as PdfDocument, Page, Text, View, StyleSheet, Font, Image, pdf } from '@react-pdf/renderer';
+import { downloadGeneratedPdf } from '../../lib/pdf-download';
 
 // Register premium fonts for the vector PDF rendering
 Font.register({
@@ -1323,14 +1324,7 @@ export const PdfGenerator: React.FC<PdfGeneratorProps> = ({
         throw new Error(result.error || result.details || "Erreur lors de la génération du PDF.");
       }
 
-      // Download from server URL
-      const link = document.createElement('a');
-      link.href = result.url;
-      link.target = '_blank';
-      link.download = `${documentType === 'devis' ? 'Devis' : 'Facture'}_${data.id}.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      downloadGeneratedPdf(result, `${documentType === 'devis' ? 'Devis' : 'Facture'}_${data.id}.pdf`);
     } catch (e: any) {
       console.error("Failed to generate PDF:", e);
       alert(`Une erreur est survenue lors de la génération du fichier PDF : ${e.message || e}`);

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FileText, Printer, ShieldAlert, Truck, Users, Calendar, Download, Clock, MapPin } from 'lucide-react';
+import { downloadGeneratedPdf } from '../../lib/pdf-download';
 
 interface DocumentTemplatesProps {
   move: {
@@ -45,17 +46,10 @@ export const DocumentTemplates: React.FC<DocumentTemplatesProps> = ({ move, onCl
         throw new Error(result.error || result.details || "Erreur lors de la génération du PDF.");
       }
 
-      // Download from server URL
-      const link = document.createElement('a');
-      link.href = result.url;
-      link.target = '_blank';
       let docName = 'Lettre_de_Voiture';
       if (activeTemplate === 'declaration_valeur') docName = 'Declaration_de_Valeur';
       if (activeTemplate === 'fiche_equipe') docName = 'Fiche_Equipe';
-      link.download = `${docName}_${move.id}.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      downloadGeneratedPdf(result, `${docName}_${move.id}.pdf`);
     } catch (e: any) {
       console.error("Failed to generate official document PDF:", e);
       alert(`Une erreur est survenue lors du téléchargement du document PDF : ${e.message || e}`);
