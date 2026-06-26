@@ -985,6 +985,39 @@ export function AdminDossiers() {
     return activeDossier ? getDossierWorkflowActions(activeDossier) : [];
   }, [activeDossier]);
 
+  const cockpitMetrics = useMemo(() => {
+    const openDossiers = allDossiers.filter((dossier) => dossier.stage !== 'termine');
+    const urgentDossiers = allDossiers.filter((dossier) => dossier.risk === 'urgent');
+    const quoteFollowUps = allDossiers.filter((dossier) => (
+      dossier.quote?.status === 'Envoyé' || dossier.quote?.status === 'En attente'
+    ));
+    const incompletePlanning = allDossiers.filter((dossier) => (
+      dossier.move &&
+      dossier.stage === 'planning' &&
+      (!dossier.move.assignedTruck || !dossier.move.teamLeader || !dossier.move.assignedMovers?.length)
+    ));
+    const overdueInvoices = allDossiers.filter((dossier) => dossier.invoice?.status === 'En retard');
+    const openAmount = openDossiers.reduce((sum, dossier) => sum + dossier.amount, 0);
+
+    const priorityDossiers = [...openDossiers]
+      .sort((a, b) => {
+        const riskDelta = DOSSIER_RISK_WEIGHT[a.risk] - DOSSIER_RISK_WEIGHT[b.risk];
+        if (riskDelta !== 0) return riskDelta;
+        return getDossierComparableDate(a) - getDossierComparableDate(b);
+      })
+      .slice(0, 3);
+
+    return {
+      openCount: openDossiers.length,
+      urgentCount: urgentDossiers.length,
+      quoteFollowUpCount: quoteFollowUps.length,
+      incompletePlanningCount: incompletePlanning.length,
+      overdueInvoiceCount: overdueInvoices.length,
+      openAmount,
+      priorityDossiers
+    };
+  }, [allDossiers]);
+
   return (
     <div className="space-y-6">
 
@@ -1014,6 +1047,188 @@ export function AdminDossiers() {
       {activeTab === 'dossiers' && (
         <div className="space-y-6 animate-fade-in">
 
+          <section className="bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden">
+            <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-5">
+              <div className="min-w-0">
+                <div className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.22em] text-accent">
+                  <FolderOpen size={14} />
+                  Tour de contrôle CRM
+                </div>
+                <h2 className="mt-2 text-xl font-black tracking-tight text-brand-950 dark:text-white">
+                  Cockpit dossiers clients
+                </h2>
+                <p className="mt-1 text-xs font-medium text-slate-500 dark:text-slate-400 max-w-2xl">
+                  Dossiers actifs, priorités, relances et affectations issus des données CRM.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-2 text-xs">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setWorkflowStageFilter('all');
+                    setDossierRiskFilter('all');
+                    setDossierSort('priority');
+                  }}
+                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/40 px-3 py-2 text-left hover:border-accent/50 transition-all"
+                >
+                  <span className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-slate-400">
+                    <FolderOpen size={11} /> Ouverts
+                  </span>
+                  <strong className="mt-1 block text-lg font-black text-slate-950 dark:text-white">{cockpitMetrics.openCount}</strong>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDossierRiskFilter('urgent')}
+                  className="rounded-lg border border-red-200 dark:border-red-900/40 bg-red-50/70 dark:bg-red-950/10 px-3 py-2 text-left hover:border-red-300 transition-all"
+                >
+                  <span className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-red-600 dark:text-red-300">
+                    <AlertTriangle size={11} /> Urgents
+                  </span>
+                  <strong className="mt-1 block text-lg font-black text-red-700 dark:text-red-300">{cockpitMetrics.urgentCount}</strong>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setWorkflowStageFilter('devis')}
+                  className="rounded-lg border border-amber-200 dark:border-amber-900/40 bg-amber-50/70 dark:bg-amber-950/10 px-3 py-2 text-left hover:border-amber-300 transition-all"
+                >
+                  <span className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-amber-700 dark:text-amber-300">
+                    <Mail size={11} /> Relances
+                  </span>
+                  <strong className="mt-1 block text-lg font-black text-amber-800 dark:text-amber-300">{cockpitMetrics.quoteFollowUpCount}</strong>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setWorkflowStageFilter('planning')}
+                  className="rounded-lg border border-sky-200 dark:border-sky-900/40 bg-sky-50/70 dark:bg-sky-950/10 px-3 py-2 text-left hover:border-sky-300 transition-all"
+                >
+                  <span className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-sky-700 dark:text-sky-300">
+                    <Users size={11} /> Planning
+                  </span>
+                  <strong className="mt-1 block text-lg font-black text-sky-800 dark:text-sky-300">{cockpitMetrics.incompletePlanningCount}</strong>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setWorkflowStageFilter('facturation');
+                    setDossierRiskFilter('urgent');
+                  }}
+                  className="rounded-lg border border-rose-200 dark:border-rose-900/40 bg-rose-50/70 dark:bg-rose-950/10 px-3 py-2 text-left hover:border-rose-300 transition-all"
+                >
+                  <span className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-rose-700 dark:text-rose-300">
+                    <FileText size={11} /> Retard
+                  </span>
+                  <strong className="mt-1 block text-lg font-black text-rose-800 dark:text-rose-300">{cockpitMetrics.overdueInvoiceCount}</strong>
+                </button>
+                <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2">
+                  <span className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-slate-400">
+                    <CheckCircle2 size={11} /> Ouvert
+                  </span>
+                  <strong className="mt-1 block text-lg font-black text-brand-950 dark:text-white">
+                    {cockpitMetrics.openAmount.toLocaleString('fr-FR')} €
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-0">
+              <div className="p-5">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">À traiter maintenant</span>
+                    <h3 className="mt-1 text-sm font-black text-brand-950 dark:text-white">Dossiers prioritaires</h3>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setWorkflowStageFilter('all');
+                      setDossierRiskFilter('all');
+                      setDossierSort('priority');
+                    }}
+                    className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-800 px-3 py-2 text-[10px] font-black uppercase text-slate-600 dark:text-slate-200"
+                  >
+                    Voir tout
+                  </button>
+                </div>
+
+                <div className="mt-4 grid grid-cols-1 xl:grid-cols-3 gap-3">
+                  {cockpitMetrics.priorityDossiers.map((dossier) => {
+                    const action = getDossierWorkflowActions(dossier)[0];
+                    return (
+                      <article
+                        key={dossier.key}
+                        className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/55 dark:bg-slate-950/30 p-4"
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="min-w-0">
+                            <span className={`inline-flex rounded-md px-2 py-1 text-[9px] font-black uppercase ${
+                              dossier.risk === 'urgent'
+                                ? 'bg-red-100 text-red-700 dark:bg-red-950/30 dark:text-red-300'
+                                : dossier.risk === 'attention'
+                                  ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/30 dark:text-amber-300'
+                                  : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300'
+                            }`}>
+                              {getDossierStageLabel(dossier.stage)}
+                            </span>
+                            <h4 className="mt-2 truncate text-sm font-black text-brand-950 dark:text-white">{dossier.clientName}</h4>
+                            <p className="mt-1 line-clamp-2 text-xs font-medium text-slate-500 dark:text-slate-400">{dossier.nextAction}</p>
+                          </div>
+                          <strong className="shrink-0 text-xs font-black text-slate-900 dark:text-white">
+                            {dossier.amount > 0 ? `${dossier.amount.toLocaleString('fr-FR')} €` : '-'}
+                          </strong>
+                        </div>
+                        <div className="mt-3 flex items-center justify-between gap-2 border-t border-slate-200/70 dark:border-slate-800 pt-3">
+                          <button
+                            type="button"
+                            onClick={() => setSelectedDossierKey(dossier.key)}
+                            className="text-[10px] font-black uppercase text-slate-500 hover:text-brand-900 dark:hover:text-white"
+                          >
+                            Ouvrir
+                          </button>
+                          {action && (
+                            <button
+                              type="button"
+                              onClick={() => runDossierWorkflowAction(action.id, dossier)}
+                              className="rounded-md bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:text-brand-950 px-2.5 py-1.5 text-[10px] font-black uppercase text-white"
+                            >
+                              {action.label}
+                            </button>
+                          )}
+                        </div>
+                      </article>
+                    );
+                  })}
+
+                  {cockpitMetrics.priorityDossiers.length === 0 && (
+                    <div className="xl:col-span-3 rounded-lg border border-dashed border-slate-250 dark:border-slate-800 p-6 text-center">
+                      <CheckCircle2 className="mx-auto text-emerald-500" size={24} />
+                      <p className="mt-2 text-sm font-black text-slate-600 dark:text-slate-300">Aucun dossier prioritaire.</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <aside className="border-t lg:border-t-0 lg:border-l border-slate-100 dark:border-slate-800 bg-slate-50/55 dark:bg-slate-950/20 p-5">
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Santé portefeuille</span>
+                <div className="mt-3 space-y-3">
+                  {[
+                    { label: 'Devis à relancer', value: cockpitMetrics.quoteFollowUpCount, icon: <Mail size={14} className="text-amber-600" /> },
+                    { label: 'Plannings incomplets', value: cockpitMetrics.incompletePlanningCount, icon: <Users size={14} className="text-sky-600" /> },
+                    { label: 'Factures en retard', value: cockpitMetrics.overdueInvoiceCount, icon: <AlertTriangle size={14} className="text-red-600" /> }
+                  ].map((item) => (
+                    <div key={item.label} className="flex items-center justify-between gap-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 p-3">
+                      <div className="flex items-center gap-2">
+                        {item.icon}
+                        <p className="text-[11px] font-bold leading-relaxed text-slate-600 dark:text-slate-300">{item.label}</p>
+                      </div>
+                      <strong className="text-sm font-black text-brand-950 dark:text-white">{item.value}</strong>
+                    </div>
+                  ))}
+                </div>
+              </aside>
+            </div>
+          </section>
+
           {/* Workflow Rail */}
           <AdminWorkflowRail
             dossiers={allDossiers}
@@ -1031,30 +1246,30 @@ export function AdminDossiers() {
           />
 
           {/* Tabular Listing of Client Folders */}
-          <div className="bg-white/90 dark:bg-slate-900/90 border border-slate-200/75 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm">
+          <div className="bg-white/95 dark:bg-slate-900/95 border border-slate-200/75 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
             <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-black text-brand-950 dark:text-white uppercase tracking-wider">Fichiers Clients</h3>
-                <p className="text-xs text-slate-400 font-light mt-0.5">Cliquez sur un dossier pour le consulter et gérer ses actions réglementaires</p>
+                <h3 className="text-sm font-black text-brand-950 dark:text-white uppercase tracking-wider">Registre actif des dossiers</h3>
+                <p className="text-xs text-slate-400 font-medium mt-0.5">Demandes, visites, devis, factures et missions consolidés</p>
               </div>
               <div className="flex items-center gap-3">
-                <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+                <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
                   <button
                     onClick={() => setViewMode('list')}
-                    className={`p-1.5 rounded-lg transition-all ${viewMode === 'list' ? 'bg-white dark:bg-slate-900 shadow-sm text-brand-900 dark:text-white' : 'text-slate-400 hover:text-slate-600'}`}
+                    className={`p-1.5 rounded-md transition-all ${viewMode === 'list' ? 'bg-white dark:bg-slate-900 shadow-sm text-brand-900 dark:text-white' : 'text-slate-400 hover:text-slate-600'}`}
                     title="Vue Liste"
                   >
                     <LayoutList size={16} />
                   </button>
                   <button
                     onClick={() => setViewMode('kanban')}
-                    className={`p-1.5 rounded-lg transition-all ${viewMode === 'kanban' ? 'bg-white dark:bg-slate-900 shadow-sm text-brand-900 dark:text-white' : 'text-slate-400 hover:text-slate-600'}`}
+                    className={`p-1.5 rounded-md transition-all ${viewMode === 'kanban' ? 'bg-white dark:bg-slate-900 shadow-sm text-brand-900 dark:text-white' : 'text-slate-400 hover:text-slate-600'}`}
                     title="Vue Pipeline"
                   >
                     <Columns size={16} />
                   </button>
                 </div>
-                <span className="text-[10px] font-black uppercase bg-slate-50 dark:bg-slate-950 border dark:border-slate-800 text-slate-500 rounded-full px-2.5 py-1">
+                <span className="text-[10px] font-black uppercase bg-slate-50 dark:bg-slate-950 border dark:border-slate-800 text-slate-500 rounded-md px-2.5 py-1">
                   {filteredDossiers.length} dossier(s)
                 </span>
               </div>
@@ -1063,7 +1278,7 @@ export function AdminDossiers() {
             <div className="p-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20 space-y-3 print:hidden">
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-7 gap-3">
                 {isUsingGlobalSearch ? (
-                  <div className="xl:col-span-2 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2">
+                  <div className="xl:col-span-2 rounded-lg border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2">
                     <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Recherche globale active</span>
                     <strong className="block truncate text-xs text-slate-700 dark:text-slate-100">{activeSearch}</strong>
                   </div>
@@ -1075,7 +1290,7 @@ export function AdminDossiers() {
                       placeholder="Nom, téléphone, ville, email, référence..."
                       value={localSearchQuery}
                       onChange={(e) => setLocalSearchQuery(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl py-2.5 pl-9 pr-4 text-xs font-bold shadow-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
+                      className="w-full bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-lg py-2.5 pl-9 pr-4 text-xs font-bold shadow-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
                     />
                   </div>
                 )}
@@ -1083,7 +1298,7 @@ export function AdminDossiers() {
                 <select
                   value={workflowStageFilter}
                   onChange={(event) => setWorkflowStageFilter(event.target.value)}
-                  className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+                  className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-lg px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
                 >
                   <option value="all">Toutes les étapes</option>
                   {DOSSIER_STAGES.map((stage) => (
@@ -1094,7 +1309,7 @@ export function AdminDossiers() {
                 <select
                   value={dossierRiskFilter}
                   onChange={(event) => setDossierRiskFilter(event.target.value as DossierRiskFilter)}
-                  className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+                  className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-lg px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
                 >
                   <option value="all">Toutes priorités</option>
                   <option value="urgent">Urgent</option>
@@ -1105,7 +1320,7 @@ export function AdminDossiers() {
                 <select
                   value={dossierOwnerFilter}
                   onChange={(event) => setDossierOwnerFilter(event.target.value)}
-                  className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+                  className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-lg px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
                 >
                   <option value="all">Tous responsables</option>
                   {dossierOwnerFilterOptions.map((owner) => (
@@ -1116,7 +1331,7 @@ export function AdminDossiers() {
                 <select
                   value={dossierSort}
                   onChange={(event) => setDossierSort(event.target.value as DossierSortOption)}
-                  className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+                  className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-lg px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
                 >
                   <option value="priority">Priorité puis date</option>
                   <option value="date_asc">Date la plus proche</option>
@@ -1129,7 +1344,7 @@ export function AdminDossiers() {
                   <select
                     value={dossierPageSize}
                     onChange={(event) => setDossierPageSize(Number(event.target.value) as DossierPageSize)}
-                    className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+                    className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-lg px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
                   >
                     {DOSSIER_PAGE_SIZE_OPTIONS.map((option) => (
                       <option key={option} value={option}>{option} par page</option>
@@ -1172,11 +1387,11 @@ export function AdminDossiers() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-slate-50/50 dark:bg-slate-950/20 text-slate-400 font-black uppercase text-[10px] tracking-wider border-b border-slate-100 dark:border-slate-800">
+                  <tr className="bg-slate-50/80 dark:bg-slate-950/30 text-slate-400 font-black uppercase text-[10px] tracking-wider border-b border-slate-100 dark:border-slate-800">
                     <th className="p-4">Client</th>
                     <th className="p-4">Avancement</th>
                     <th className="p-4">Parcours & Villes</th>
-                    <th className="p-4">Valeur Prestation</th>
+                    <th className="p-4">Montant</th>
                     <th className="p-4">Responsable</th>
                     <th className="p-4">Prochaine action</th>
                     <th className="p-4 text-right">Actions</th>
@@ -1190,8 +1405,8 @@ export function AdminDossiers() {
                     return (
                       <tr
                         key={d.key}
-                        onDoubleClick={() => setSelectedDossierKey(d.key)}
-                        className="hover:bg-slate-50/75 dark:hover:bg-slate-950/40 cursor-pointer transition-colors duration-200 group"
+                        onClick={() => setSelectedDossierKey(d.key)}
+                        className="hover:bg-slate-50/85 dark:hover:bg-slate-950/40 cursor-pointer transition-colors duration-200 group"
                       >
                         <td className="p-4">
                           <div className="flex items-center gap-2">
@@ -1205,7 +1420,7 @@ export function AdminDossiers() {
                         <td className="p-4">
                           <div className="w-24">
                             <div className="flex items-center justify-between text-[9px] font-bold text-slate-400 mb-1">
-                              <span>Étape : {d.stage}</span>
+                              <span>{getDossierStageLabel(d.stage)}</span>
                               <span>{d.completion}%</span>
                             </div>
                             <div className="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
@@ -1226,12 +1441,12 @@ export function AdminDossiers() {
                           <strong className="font-extrabold text-slate-950 dark:text-white">{d.amount.toLocaleString('fr-FR')} €</strong>
                         </td>
                         <td className="p-4">
-                          <span className="inline-flex items-center gap-1.5 bg-slate-50 dark:bg-slate-950 px-2 py-1 rounded-lg border dark:border-slate-800 text-[10px] font-bold text-slate-600 dark:text-slate-400">
+                          <span className="inline-flex items-center gap-1.5 bg-slate-50 dark:bg-slate-950 px-2 py-1 rounded-md border dark:border-slate-800 text-[10px] font-bold text-slate-600 dark:text-slate-400">
                             {d.owner}
                           </span>
                         </td>
                         <td className="p-4">
-                          <div className="max-w-[180px] font-medium truncate text-slate-550 dark:text-slate-400">
+                          <div className="max-w-[190px] rounded-md bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 px-2 py-1 font-bold truncate text-slate-650 dark:text-slate-300">
                             {d.nextAction}
                           </div>
                         </td>
@@ -1242,7 +1457,7 @@ export function AdminDossiers() {
                                 e.stopPropagation();
                                 setSelectedDossierKey(d.key);
                               }}
-                              className="p-1.5 bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border dark:border-slate-800 rounded-lg text-slate-600 dark:text-slate-300 shadow-sm"
+                              className="p-1.5 bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border dark:border-slate-800 rounded-md text-slate-600 dark:text-slate-300 shadow-sm"
                               title="Ouvrir le dossier"
                             >
                               <Eye size={13} />
@@ -1254,7 +1469,7 @@ export function AdminDossiers() {
                                   const actions = getDossierWorkflowActions(d);
                                   runDossierWorkflowAction(actions[0].id, d);
                                 }}
-                                className="p-1.5 bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:hover:bg-accent-hover rounded-lg text-white dark:text-brand-950 shadow-sm"
+                                className="p-1.5 bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:hover:bg-accent-hover rounded-md text-white dark:text-brand-950 shadow-sm"
                                 title={getDossierWorkflowActions(d)[0].label}
                               >
                                 <ChevronRight size={13} />
@@ -1288,7 +1503,7 @@ export function AdminDossiers() {
                     type="button"
                     onClick={() => setDossierCurrentPage((page) => Math.max(1, page - 1))}
                     disabled={safeDossierCurrentPage <= 1}
-                    className="inline-flex items-center gap-1 rounded-xl bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-800 px-3 py-2 text-[10px] font-black uppercase text-slate-700 dark:text-slate-100 disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="inline-flex items-center gap-1 rounded-lg bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-800 px-3 py-2 text-[10px] font-black uppercase text-slate-700 dark:text-slate-100 disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     <ChevronLeft size={13} />
                     Précédent
@@ -1297,7 +1512,7 @@ export function AdminDossiers() {
                     type="button"
                     onClick={() => setDossierCurrentPage((page) => Math.min(totalDossierPages, page + 1))}
                     disabled={safeDossierCurrentPage >= totalDossierPages}
-                    className="inline-flex items-center gap-1 rounded-xl bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-800 px-3 py-2 text-[10px] font-black uppercase text-slate-700 dark:text-slate-100 disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="inline-flex items-center gap-1 rounded-lg bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-800 px-3 py-2 text-[10px] font-black uppercase text-slate-700 dark:text-slate-100 disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     Suivant
                     <ChevronRight size={13} />
@@ -1307,7 +1522,7 @@ export function AdminDossiers() {
             )}
               </>
             ) : (
-              <div className="p-4 bg-slate-50/50 dark:bg-slate-900 overflow-x-auto">
+              <div className="p-4 bg-slate-50/60 dark:bg-slate-950/20 overflow-x-auto">
                 <div className="flex gap-4 min-w-max pb-4">
                   {DOSSIER_STAGES.map(stage => {
                     // Filter dossiers for this specific stage column
@@ -1318,13 +1533,13 @@ export function AdminDossiers() {
                         <div className="flex items-center justify-between mb-3 px-1">
                           <h4 className="text-xs font-black uppercase text-slate-700 dark:text-slate-300 tracking-wider flex items-center gap-2">
                             {stage.label}
-                            <span className="bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] py-0.5 px-2 rounded-full">
+                            <span className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-[10px] py-0.5 px-2 rounded-md">
                               {stageDossiers.length}
                             </span>
                           </h4>
                         </div>
-                        
-                        <div className="flex-1 min-h-[200px] bg-slate-100/50 dark:bg-slate-800/20 rounded-2xl p-2 space-y-3 border border-slate-200/50 dark:border-slate-800/50">
+
+                        <div className="flex-1 min-h-[220px] bg-white/60 dark:bg-slate-900/35 rounded-xl p-2 space-y-3 border border-slate-200/70 dark:border-slate-800/70">
                           {stageDossiers.map(d => {
                             const isUrgent = d.risk === 'urgent';
                             const isAttention = d.risk === 'attention';
@@ -1333,21 +1548,25 @@ export function AdminDossiers() {
                               <div
                                 key={d.key}
                                 onClick={() => setSelectedDossierKey(d.key)}
-                                className={`bg-white dark:bg-slate-950 p-3.5 rounded-xl border-l-4 shadow-sm hover:shadow-md transition-all cursor-pointer group
-                                  ${isUrgent ? 'border-l-red-500' : isAttention ? 'border-l-amber-500' : 'border-l-emerald-500 border border-slate-200 dark:border-slate-800'}`}
+                                className={`bg-white dark:bg-slate-950 p-3.5 rounded-lg border shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group
+                                  ${isUrgent ? 'border-l-4 border-l-red-500 border-red-100 dark:border-red-900/30' : isAttention ? 'border-l-4 border-l-amber-500 border-amber-100 dark:border-amber-900/30' : 'border-l-4 border-l-emerald-500 border-slate-200 dark:border-slate-800'}`}
                               >
                                 <div className="flex justify-between items-start mb-2">
                                   <strong className="font-extrabold text-slate-900 dark:text-white text-xs truncate pr-2">
                                     {d.clientName}
                                   </strong>
-                                  <span className="text-[10px] font-black text-brand-900 dark:text-brand-300 whitespace-nowrap bg-brand-50 dark:bg-brand-900/30 px-1.5 py-0.5 rounded">
+                                  <span className="text-[10px] font-black text-brand-900 dark:text-brand-300 whitespace-nowrap bg-brand-50 dark:bg-brand-900/30 px-1.5 py-0.5 rounded-md">
                                     {d.amount > 0 ? d.amount.toLocaleString('fr-FR') + ' €' : '-'}
                                   </span>
                                 </div>
                                 
-                                <div className="text-[10px] text-slate-500 dark:text-slate-400 mb-2 truncate">
+                                <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 mb-2 truncate">
                                   {d.fromCity} ➔ {d.toCity}
                                 </div>
+
+                                <p className="line-clamp-2 text-[10px] font-bold text-slate-500 dark:text-slate-400">
+                                  {d.nextAction}
+                                </p>
                                 
                                 <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
                                   <div className="flex items-center gap-1.5 text-[9px] text-slate-400 font-bold">
@@ -1361,7 +1580,7 @@ export function AdminDossiers() {
                                         const actions = getDossierWorkflowActions(d);
                                         runDossierWorkflowAction(actions[0].id, d);
                                       }}
-                                      className="bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:hover:bg-accent-hover text-white dark:text-brand-950 text-[9px] font-black px-2 py-1 rounded"
+                                      className="bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:hover:bg-accent-hover text-white dark:text-brand-950 text-[9px] font-black px-2 py-1 rounded-md"
                                       title={getDossierWorkflowActions(d)[0].label}
                                     >
                                       {getDossierWorkflowActions(d)[0].label}
@@ -1373,7 +1592,7 @@ export function AdminDossiers() {
                           })}
                           
                           {stageDossiers.length === 0 && (
-                            <div className="h-20 flex items-center justify-center text-[10px] text-slate-400 italic">
+                            <div className="h-20 flex items-center justify-center text-[10px] text-slate-400">
                               Aucun dossier
                             </div>
                           )}

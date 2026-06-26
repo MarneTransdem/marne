@@ -275,11 +275,11 @@ export function ClientDossierDrawer({
     <div className="fixed inset-0 z-[80] flex justify-end bg-slate-950/35 backdrop-blur-sm">
       <button type="button" className="hidden md:block flex-1 cursor-default" onClick={onClose} aria-label="Fermer le dossier" />
 
-      <aside className="w-full md:max-w-2xl h-full bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_58%,#fff7ed_100%)] dark:bg-slate-950 border-l border-slate-200/80 dark:border-slate-800 shadow-2xl overflow-y-auto">
+      <aside className="w-full md:max-w-3xl h-full bg-white dark:bg-slate-950 border-l border-slate-200/80 dark:border-slate-800 shadow-2xl overflow-y-auto">
         <div className="sticky top-0 z-10 bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl border-b border-slate-200/75 dark:border-slate-800 p-5">
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
-              <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] font-black uppercase tracking-wider ${riskClass}`}>
+              <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border text-[10px] font-black uppercase tracking-wider ${riskClass}`}>
                 <AlertCircle size={12} />
                 {stage?.label || 'Dossier'}
               </span>
@@ -291,7 +291,7 @@ export function ClientDossierDrawer({
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200/75 dark:border-slate-800 text-slate-600 dark:text-slate-300 shadow-sm"
+              className="p-2 rounded-lg bg-white hover:bg-slate-50 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200/75 dark:border-slate-800 text-slate-600 dark:text-slate-300 shadow-sm"
               aria-label="Fermer"
             >
               <X size={18} />
@@ -299,15 +299,15 @@ export function ClientDossierDrawer({
           </div>
 
           <div className="mt-5 grid grid-cols-3 gap-3 text-xs">
-            <div className="bg-white/90 dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-2xl p-3 shadow-sm">
+            <div className="bg-slate-50/80 dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-lg p-3 shadow-sm">
               <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">Montant</span>
               <p className="font-black text-brand-950 dark:text-white mt-1">{dossier.amount.toLocaleString('fr-FR')} €</p>
             </div>
-            <div className="bg-white/90 dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-2xl p-3 shadow-sm">
+            <div className="bg-slate-50/80 dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-lg p-3 shadow-sm">
               <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">Avancement</span>
               <p className="font-black text-brand-950 dark:text-white mt-1">{dossier.completion}%</p>
             </div>
-            <div className="bg-white/90 dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-2xl p-3 shadow-sm">
+            <div className="bg-slate-50/80 dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-lg p-3 shadow-sm">
               <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">Tâches</span>
               <p className="font-black text-brand-950 dark:text-white mt-1">{openTaskCount} ouvertes</p>
             </div>
