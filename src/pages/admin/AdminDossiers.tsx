@@ -23,6 +23,7 @@ import { ClientDossierDrawer, type ClientDossierWorkflowAction } from '../../com
 import type { AdminOutletContextType } from '../../components/admin/layout/AdminLayout';
 
 const DOSSIER_PAGE_SIZE_OPTIONS = [10, 20, 50, 100] as const;
+const KANBAN_STAGE_BATCH_SIZE = 10;
 
 type DossierPageSize = typeof DOSSIER_PAGE_SIZE_OPTIONS[number];
 type DossierRiskFilter = 'all' | ClientDossier['risk'];
@@ -115,7 +116,7 @@ L'équipe MarneTransdem`
 
 const getDossierWorkflowActions = (dossier: ClientDossier): ClientDossierWorkflowAction[] => {
   const actions: ClientDossierWorkflowAction[] = [];
-  
+
   switch (dossier.stage) {
     case 'demande':
       actions.push({
@@ -365,6 +366,7 @@ export function AdminDossiers() {
   const [dossierSort, setDossierSort] = useState<DossierSortOption>('priority');
   const [dossierPageSize, setDossierPageSize] = useState<DossierPageSize>(20);
   const [dossierCurrentPage, setDossierCurrentPage] = useState(1);
+  const [kanbanVisibleByStage, setKanbanVisibleByStage] = useState<Record<string, number>>({});
 
   // Active notification templates editor state
   const [selectedTemplateId, setSelectedTemplateId] = useState<string>('visite_planifiee');
@@ -475,6 +477,7 @@ export function AdminDossiers() {
 
   useEffect(() => {
     setDossierCurrentPage(1);
+    setKanbanVisibleByStage({});
   }, [activeSearch, workflowStageFilter, dossierRiskFilter, dossierOwnerFilter, dossierSort, dossierPageSize]);
 
   useEffect(() => {
@@ -1527,7 +1530,10 @@ export function AdminDossiers() {
                   {DOSSIER_STAGES.map(stage => {
                     // Filter dossiers for this specific stage column
                     const stageDossiers = filteredDossiers.filter(d => d.stage === stage.key);
-                    
+                    const visibleLimit = kanbanVisibleByStage[stage.key] ?? KANBAN_STAGE_BATCH_SIZE;
+                    const visibleStageDossiers = stageDossiers.slice(0, visibleLimit);
+                    const remainingStageDossiers = Math.max(0, stageDossiers.length - visibleStageDossiers.length);
+
                     return (
                       <div key={stage.key} className="w-72 flex flex-col shrink-0">
                         <div className="flex items-center justify-between mb-3 px-1">
@@ -1540,10 +1546,10 @@ export function AdminDossiers() {
                         </div>
 
                         <div className="flex-1 min-h-[220px] bg-white/60 dark:bg-slate-900/35 rounded-xl p-2 space-y-3 border border-slate-200/70 dark:border-slate-800/70">
-                          {stageDossiers.map(d => {
+                          {visibleStageDossiers.map(d => {
                             const isUrgent = d.risk === 'urgent';
                             const isAttention = d.risk === 'attention';
-                            
+
                             return (
                               <div
                                 key={d.key}
@@ -1559,7 +1565,7 @@ export function AdminDossiers() {
                                     {d.amount > 0 ? d.amount.toLocaleString('fr-FR') + ' €' : '-'}
                                   </span>
                                 </div>
-                                
+
                                 <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 mb-2 truncate">
                                   {d.fromCity} ➔ {d.toCity}
                                 </div>
@@ -1567,7 +1573,7 @@ export function AdminDossiers() {
                                 <p className="line-clamp-2 text-[10px] font-bold text-slate-500 dark:text-slate-400">
                                   {d.nextAction}
                                 </p>
-                                
+
                                 <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
                                   <div className="flex items-center gap-1.5 text-[9px] text-slate-400 font-bold">
                                     <Calendar size={10} />
@@ -1590,7 +1596,24 @@ export function AdminDossiers() {
                               </div>
                             );
                           })}
-                          
+
+                          {remainingStageDossiers > 0 && (
+                            <button
+                              type="button"
+                              onClick={() => setKanbanVisibleByStage((previous) => ({
+                                ...previous,
+                                [stage.key]: (previous[stage.key] ?? KANBAN_STAGE_BATCH_SIZE) + KANBAN_STAGE_BATCH_SIZE
+                              }))}
+                              className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg border border-dashed border-slate-300 dark:border-slate-700 bg-white/80 dark:bg-slate-950/70 px-3 py-2.5 text-[10px] font-black uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:border-accent hover:text-brand-900 dark:hover:text-white transition-colors"
+                            >
+                              <Plus size={12} />
+                              Charger {Math.min(KANBAN_STAGE_BATCH_SIZE, remainingStageDossiers)} de plus
+                              <span className="font-bold normal-case tracking-normal text-slate-400">
+                                {remainingStageDossiers} restant{remainingStageDossiers > 1 ? 's' : ''}
+                              </span>
+                            </button>
+                          )}
+
                           {stageDossiers.length === 0 && (
                             <div className="h-20 flex items-center justify-center text-[10px] text-slate-400">
                               Aucun dossier
