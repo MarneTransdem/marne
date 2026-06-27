@@ -4,7 +4,7 @@ import {
   Calendar, CheckCircle, RefreshCw, Layers, Sliders, Play, Plus, Clock, Eye,
   ChevronLeft, ChevronRight
 } from 'lucide-react';
-import { collection, doc, updateDoc, deleteDoc, onSnapshot } from 'firebase/firestore';
+import { collection, doc, updateDoc, deleteDoc, onSnapshot, writeBatch } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { buildDossierIdFromReference } from '../../lib/dossier-id';
 
@@ -187,7 +187,8 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
 
     setIsPlanningVisit(true);
     try {
-      const visitId = `VIS-WEB-${Math.floor(100 + Math.random() * 900)}`;
+      const requestIdSlug = selectedRequest.id.replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 96) || String(Date.now());
+      const visitId = selectedRequest.plannedVisitId || `VIS-WEB-${requestIdSlug}`;
       const dossierId = selectedRequest.dossierId || buildDossierIdFromReference('REQ', selectedRequest.id);
       const visit = {
         id: visitId,
@@ -206,13 +207,17 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
         status: 'Planifiée'
       };
 
-      await onPlanVisit(visit);
-      await updateDoc(doc(db, 'quotes', selectedRequest.id), {
+      const plannedVisitAt = new Date().toISOString();
+      const batch = writeBatch(db);
+      batch.set(doc(db, 'visites', visitId), visit, { merge: true });
+      batch.update(doc(db, 'quotes', selectedRequest.id), {
         dossierId,
         status: 'Visite_planifiée',
         plannedVisitId: visitId,
-        plannedVisitAt: new Date().toISOString()
+        plannedVisitAt
       });
+      await batch.commit();
+      await onPlanVisit(visit);
 
       setRequests(prev => prev.map(r => r.id === selectedRequest.id ? {
         ...r,

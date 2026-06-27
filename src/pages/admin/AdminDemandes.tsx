@@ -18,7 +18,6 @@ export function AdminDemandes({
 }: AdminDemandesProps = {}) {
   const context = useOutletContext<AdminOutletContextType | undefined>();
   const [syncedDevisList, setSyncedDevisList] = useSyncedCollection<Devis>('devis');
-  const [, setVisites] = useSyncedCollection<Visite>('visites');
 
   const setDevisList = legacySetDevisList ?? setSyncedDevisList;
   const currentDevisList = legacyDevisList ?? syncedDevisList;
@@ -61,11 +60,6 @@ export function AdminDemandes({
         );
       }}
       onPlanVisit={async (visit: Visite) => {
-        await setVisites(prev => [
-          visit,
-          ...prev.filter(item => item.id !== visit.id)
-        ]);
-
         pushWorkflowNotification(
           'Visite planifiée',
           `Rendez-vous ${visit.visitMode === 'visio' ? 'en visio' : 'à domicile'} créé pour ${visit.clientName}.`,
