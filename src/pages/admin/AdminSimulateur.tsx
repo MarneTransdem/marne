@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useSyncedCollection } from '../../hooks/useData';
 import type { Devis } from '../../types';
 import { buildDossierIdFromReference } from '../../lib/dossier-id';
+import { getNextYearlyId } from '../../lib/admin-ids';
 import { 
   Plus, Minus, Sparkles, RefreshCw, X, Box, CheckCircle2, 
   FileText, ArrowRight, User, Phone, MapPin, Calculator, HelpCircle, Calendar
@@ -112,7 +113,7 @@ export function AdminSimulateur() {
       return;
     }
 
-    const quoteId = `DEV-2026-00${devisList.length + 1}`;
+    const quoteId = getNextYearlyId('DEV', devisList.map((quote) => quote.id));
     
     // Simple mock calculation logic for price
     // Base € per m3: 45€. Luxe multiplier: 1.5, Eco: 0.8

@@ -103,6 +103,81 @@ function getGeneratedDocsRoot(): string {
   );
 }
 
+type CrmRoleKey = 'gerant' | 'secretaire' | 'commercial' | 'chef_equipe';
+
+type AdminActor = {
+  uid: string;
+  email?: string;
+  role: CrmRoleKey;
+};
+
+function normalizeCrmRole(role: unknown): CrmRoleKey | null {
+  const normalized = String(role ?? '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim()
+    .replace(/[\s-]+/g, '_');
+
+  if (normalized === 'gerant') return 'gerant';
+  if (normalized === 'secretaire') return 'secretaire';
+  if (normalized === 'commercial') return 'commercial';
+  if (normalized === 'chef_equipe') return 'chef_equipe';
+  return null;
+}
+
+function getBearerToken(req: any): string | null {
+  const header = req.headers?.authorization;
+  if (typeof header !== 'string') return null;
+  const match = header.match(/^Bearer\s+(.+)$/i);
+  return match?.[1] || null;
+}
+
+function getAdminEmailRoles(type: unknown): CrmRoleKey[] | null {
+  if (type === 'admin-doc') return ['gerant', 'secretaire', 'commercial'];
+  if (type === 'invoice-reminder') return ['gerant', 'secretaire'];
+  if (type === 'devis-tracking') return ['gerant', 'secretaire', 'commercial'];
+  return null;
+}
+
+function getAdminPdfRoles(type: unknown): CrmRoleKey[] | null {
+  if (type === 'devis') return ['gerant', 'secretaire', 'commercial'];
+  if (type === 'facture') return ['gerant', 'secretaire'];
+  if (type === 'declaration_valeur' || type === 'fiche_equipe') return ['gerant', 'secretaire', 'chef_equipe'];
+  return null;
+}
+
+async function requireCrmRole(req: any, res: any, allowedRoles: CrmRoleKey[]): Promise<AdminActor | null> {
+  const token = getBearerToken(req);
+  if (!token) {
+    res.status(401).json({ error: 'Authentification admin requise.' });
+    return null;
+  }
+
+  if (admin.apps.length === 0) {
+    res.status(503).json({ error: 'Service d authentification admin indisponible.' });
+    return null;
+  }
+
+  try {
+    const decoded = await admin.auth().verifyIdToken(token);
+    const email = decoded.email?.toLowerCase();
+    const role = email === 'contact@marnetransdem.com'
+      ? 'gerant'
+      : normalizeCrmRole((decoded as any).role);
+
+    if (!role || !allowedRoles.includes(role)) {
+      res.status(403).json({ error: 'Droits backoffice insuffisants.' });
+      return null;
+    }
+
+    return { uid: decoded.uid, email: decoded.email, role };
+  } catch (error) {
+    console.warn('Invalid admin token:', error);
+    res.status(401).json({ error: 'Session admin invalide ou expiree.' });
+    return null;
+  }
+}
 function escapeHtml(value: string): string {
   return value
     .replace(/&/g, "&amp;")
@@ -326,11 +401,18 @@ async function startServer() {
       return res.status(400).json({ error: "Requête invalide" });
     }
 
-    // Skip rate limiting for admin documents and reminders to allow multiple invoices/quotes/reminders to be sent
-    if (type !== 'admin-doc' && type !== 'invoice-reminder') {
+    const emailRoles = getAdminEmailRoles(type);
+    if (emailRoles) {
+      const actor = await requireCrmRole(req, res, emailRoles);
+      if (!actor) return;
+
+      if (isRateLimited(`admin-email:${actor.uid}:${type}`, 60, 60 * 60 * 1000)) {
+        return res.status(429).json({ error: 'Trop d actions admin envoyees. Veuillez reessayer plus tard.' });
+      }
+    } else {
       const ip = req.ip || "unknown";
       if (isRateLimited(ip, 5, 60 * 60 * 1000)) {
-        return res.status(429).json({ error: "Trop de demandes envoyées. Veuillez réessayer plus tard." });
+        return res.status(429).json({ error: "Trop de demandes envoyees. Veuillez reessayer plus tard." });
       }
     }
 
@@ -696,6 +778,15 @@ async function startServer() {
     }
 
 
+    const pdfRoles = getAdminPdfRoles(type);
+    if (pdfRoles) {
+      const actor = await requireCrmRole(req, res, pdfRoles);
+      if (!actor) return;
+
+      if (isRateLimited(`admin-pdf:${actor.uid}:${type}`, 120, 60 * 60 * 1000)) {
+        return res.status(429).json({ error: 'Trop de generations PDF admin. Veuillez reessayer plus tard.' });
+      }
+    }
     try {
       const buffer = await generateServerPdfBuffer(type, data);
       

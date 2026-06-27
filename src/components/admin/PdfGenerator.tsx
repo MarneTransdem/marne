@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FileText, Printer, Mail, Download, Check, ShieldCheck, Clock, CheckCircle2, Send } from 'lucide-react';
 import { Document as PdfDocument, Page, Text, View, StyleSheet, Font, Image, pdf } from '@react-pdf/renderer';
 import { downloadGeneratedPdf } from '../../lib/pdf-download';
+import { adminFetch } from '../../lib/admin-api';
 
 // Register premium fonts for the vector PDF rendering
 Font.register({
@@ -1308,11 +1309,8 @@ export const PdfGenerator: React.FC<PdfGeneratorProps> = ({
   const handleDownloadPdf = async () => {
     setIsGeneratingPdf(true);
     try {
-      const response = await fetch('/api/pdf/generate', {
+      const response = await adminFetch('/api/pdf/generate', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           type: documentType,
           data: data
@@ -1343,11 +1341,8 @@ export const PdfGenerator: React.FC<PdfGeneratorProps> = ({
     try {
       const pdfName = `${documentType === 'devis' ? 'Devis' : 'Facture'}_${data.id}.pdf`;
 
-      const response = await fetch('/api/send-email', {
+      const response = await adminFetch('/api/send-email', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           type: 'admin-doc',
           documentType,

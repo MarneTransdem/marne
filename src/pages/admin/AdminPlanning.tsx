@@ -16,6 +16,7 @@ import { db } from '../../lib/firebase';
 import { runTransaction, collection, query, where, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { enqueueAction, getOfflineQueue, OfflineAction } from '../../lib/offlineQueue';
 import { buildDossierIdFromReference } from '../../lib/dossier-id';
+import { getNextSequencedId } from '../../lib/admin-ids';
 
 interface AdminPlanningProps {
   demenagements?: Demenagement[];
@@ -42,6 +43,7 @@ export function AdminPlanning({
 
   // Synced states fallback
   const [syncedMoves, setSyncedMoves, { daysLimit: movesDays, setDaysLimit: setMovesDays }] = useSyncedCollection<Demenagement>('demenagements', [], { timeField: 'date' });
+  const [allMovesForIds] = useSyncedCollection<Demenagement>('demenagements');
   const [syncedCollabs] = useSyncedCollection<UserProfile>('collaborateurs');
   const [movers] = useSyncedCollection<FieldMover>('movers');
   const [trucks] = useSyncedCollection<FieldTruck>('trucks');
@@ -49,6 +51,12 @@ export function AdminPlanning({
   const activeMoves = demenagements || syncedMoves;
   const activeSetMoves = setDemenagements || setSyncedMoves;
   const activeCollabs = collaborateurs || syncedCollabs;
+
+  const getTruckAssignmentId = (truck: FieldTruck) => truck.plateNumber || truck.id;
+  const getTruckDisplayLabel = (truck: FieldTruck) => {
+    const label = [truck.plateNumber, truck.type].filter(Boolean).join(' - ');
+    return label || truck.id;
+  };
 
   const [showAddDemenagement, setShowAddDemenagement] = useState(false);
   const [localMoveDoc, setLocalMoveDoc] = useState<Demenagement | null>(null);
@@ -640,7 +648,8 @@ export function AdminPlanning({
       setEditingMoveId(null);
     } else {
       // Create
-      const id = `DEM-00${activeMoves.length + 1}`;
+      const moveIdSource = allMovesForIds.length > 0 ? allMovesForIds : activeMoves;
+      const id = getNextSequencedId('DEM', moveIdSource.map((move) => move.id));
       const item: Demenagement = {
         id,
         dossierId: buildDossierIdFromReference('DEM', id),
@@ -1730,7 +1739,9 @@ export function AdminPlanning({
               
               {/* List of Trucks and their jobs */}
               {trucks.map(truck => {
-                const truckMoves = getFilteredDemenagements().filter(m => m.date === mapSelectedDate && m.assignedTruck === truck.name);
+                const truckAssignmentId = getTruckAssignmentId(truck);
+                const truckLabel = getTruckDisplayLabel(truck);
+                const truckMoves = getFilteredDemenagements().filter(m => m.date === mapSelectedDate && m.assignedTruck === truckAssignmentId);
                 const getTruckColor = (name: string) => {
                   if (name.includes('20m³')) return 'bg-indigo-500';
                   if (name.includes('12m³')) return 'bg-amber-500';
@@ -1741,8 +1752,8 @@ export function AdminPlanning({
                   <div key={truck.id} className="border border-slate-100 dark:border-slate-800/80 rounded-2xl p-3 space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1.5">
-                        <div className={`w-2 h-2 rounded-full ${getTruckColor(truck.name)}`} />
-                        <span className="text-[11px] font-black text-brand-900 dark:text-white uppercase">{truck.name}</span>
+                        <div className={`w-2 h-2 rounded-full ${getTruckColor(truckLabel)}`} />
+                        <span className="text-[11px] font-black text-brand-900 dark:text-white uppercase">{truckLabel}</span>
                       </div>
                       <span className="text-[9px] bg-slate-100 dark:bg-slate-950 px-1.5 py-0.5 rounded-md text-slate-500 font-extrabold">{truckMoves.length}</span>
                     </div>

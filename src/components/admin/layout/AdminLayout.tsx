@@ -126,6 +126,20 @@ export function AdminLayout() {
     };
   }, []);
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handleSyncError = (event: Event) => {
+      const detail = (event as CustomEvent<{ collectionName?: string; message?: string }>).detail;
+      const collectionName = detail?.collectionName || 'donnees';
+      const message = detail?.message || 'La sauvegarde cloud a echoue.';
+      pushNotification('Sauvegarde non appliquee', `${collectionName}: ${message}`, 'warning');
+    };
+
+    window.addEventListener('marne_firestore_sync_error', handleSyncError);
+    return () => window.removeEventListener('marne_firestore_sync_error', handleSyncError);
+  }, []);
+
   const tabs = useMemo(() => getAccessibleTabs(role), [role]);
 
   // Determine current active tab from the URL
@@ -185,6 +199,11 @@ export function AdminLayout() {
 
   if (!user || !role) {
     return <Navigate to="/login" replace state={{ from: location }} />;
+  }
+
+  if (!tabs.includes(currentTab)) {
+    const fallbackTab = tabs[0] || 'overview';
+    return <Navigate to={`/admin/${fallbackTab}`} replace />;
   }
 
   const getTabTitle = () => {
@@ -429,6 +448,30 @@ export function AdminLayout() {
             </div>
           </div>
         </header>
+
+        {/* Mobile tab navigation */}
+        <nav className="lg:hidden sticky top-20 z-30 bg-white/95 dark:bg-slate-950/95 border-b border-slate-200/70 dark:border-slate-800/80 px-3 py-2 backdrop-blur-xl shadow-[0_8px_18px_rgba(15,23,42,0.05)]">
+          <div className="flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {tabs.map((tab) => {
+              const isActive = currentTab === tab;
+              return (
+                <button
+                  key={tab}
+                  onClick={() => navigate(`/admin/${tab}`)}
+                  className={`h-11 min-w-20 px-3 rounded-xl border text-[10px] font-black uppercase tracking-wide flex items-center justify-center gap-1.5 shrink-0 transition-all active:scale-95 ${
+                    isActive
+                      ? 'bg-accent text-brand-900 border-accent shadow-sm'
+                      : 'bg-white/90 dark:bg-slate-900/80 text-slate-600 dark:text-slate-300 border-slate-200/80 dark:border-slate-800'
+                  }`}
+                  title={ADMIN_TAB_LABELS[tab].desktop}
+                >
+                  {getAdminTabIcon(tab, 14)}
+                  <span>{ADMIN_TAB_LABELS[tab].mobile}</span>
+                </button>
+              );
+            })}
+          </div>
+        </nav>
 
         {/* PAGE CONTENT OUTLET */}
         <div className="flex-1 p-4 md:p-6 pb-24 lg:pb-6 relative max-w-7xl mx-auto w-full">

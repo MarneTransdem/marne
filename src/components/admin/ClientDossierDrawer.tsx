@@ -29,6 +29,7 @@ import {
   getDossierPrimaryActionLabel,
   getWorkflowStep
 } from '../../lib/admin-workflow';
+import { adminFetch } from '../../lib/admin-api';
 
 export interface ClientDossierWorkflowAction {
   id: string;
@@ -100,11 +101,8 @@ export function ClientDossierDrawer({
     setEmailErrorMessage(null);
 
     try {
-      const response = await fetch('/api/send-email', {
+      const response = await adminFetch('/api/send-email', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify({
           type: 'devis-tracking',
           data: {

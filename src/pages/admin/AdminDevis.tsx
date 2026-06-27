@@ -3,6 +3,7 @@ import { useSyncedCollection } from '../../hooks/useData';
 import { Devis, Facture, Demenagement } from '../../types';
 import { AdminPublicRequest } from '../../lib/admin-dossiers';
 import { buildDossierIdFromReference } from '../../lib/dossier-id';
+import { getNextSequencedId, getNextYearlyId } from '../../lib/admin-ids';
 import { Plus, Edit, Trash2, FileText, Check, X, MoveRight, Printer, Copy, Search, Calendar, AlertTriangle } from 'lucide-react';
 import { PdfGenerator } from '../../components/admin/PdfGenerator';
 
@@ -11,6 +12,7 @@ type DevisStatus = typeof COLUMNS[number];
 
 export function AdminDevis() {
   const [devisList, setDevisList, { daysLimit: devisDays, setDaysLimit: setDevisDays }] = useSyncedCollection<Devis>('devis', [], { timeField: 'createdAt' });
+  const [allDevisForIds] = useSyncedCollection<Devis>('devis');
   const [factures, setFactures] = useSyncedCollection<Facture>('factures');
   const [demenagements, setDemenagements] = useSyncedCollection<Demenagement>('demenagements');
   const [publicRequests, setPublicRequests] = useSyncedCollection<AdminPublicRequest>('quotes');
@@ -33,7 +35,7 @@ export function AdminDevis() {
   const createAcceptedQuoteArtifacts = (quote: Devis) => {
     const dossierId = quote.dossierId || buildDossierIdFromReference('DEV', quote.id);
     if (!factures.some((invoice) => invoice.devisId === quote.id)) {
-      const id = `FAC-2026-00${factures.length + 1}`;
+      const id = getNextYearlyId('FAC', factures.map((invoice) => invoice.id));
       const invoice: Facture = {
         id, dossierId, devisId: quote.id, clientName: quote.clientName, amount: quote.price,
         date: new Date().toISOString().split('T')[0],
@@ -43,7 +45,7 @@ export function AdminDevis() {
       setFactures(prev => [invoice, ...prev]);
     }
     if (!demenagements.some((move) => move.devisId === quote.id)) {
-      const moveId = `DEM-00${demenagements.length + 1}`;
+      const moveId = getNextSequencedId('DEM', demenagements.map((move) => move.id));
       const newMove: Demenagement = {
         id: moveId, dossierId, clientName: quote.clientName, devisId: quote.id, volume: quote.volume,
         fromCity: quote.fromCity, toCity: quote.toCity, date: quote.date || new Date().toISOString().split('T')[0],
@@ -56,7 +58,8 @@ export function AdminDevis() {
 
   const saveQuote = (e: React.FormEvent) => {
     e.preventDefault();
-    const id = editingDevisId || `DEV-2026-00${devisList.length + 1}`;
+    const idSource = allDevisForIds.length > 0 ? allDevisForIds : devisList;
+    const id = editingDevisId || getNextYearlyId('DEV', idSource.map((quote) => quote.id));
     const dossierId = newDevis.dossierId || buildDossierIdFromReference('DEV', id);
     const createdAt = newDevis.createdAt || new Date().toISOString().split('T')[0];
     const defaultExpires = new Date(new Date(createdAt).getTime() + 30 * 24 * 3600 * 1000).toISOString().split('T')[0];

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FileText, Printer, ShieldAlert, Truck, Users, Calendar, Download, Clock, MapPin } from 'lucide-react';
 import { downloadGeneratedPdf } from '../../lib/pdf-download';
+import { adminFetch } from '../../lib/admin-api';
 
 interface DocumentTemplatesProps {
   move: {
@@ -30,7 +31,7 @@ export const DocumentTemplates: React.FC<DocumentTemplatesProps> = ({ move, onCl
   const handleDownloadPdf = async () => {
     setIsGeneratingPdf(true);
     try {
-      const response = await fetch('/api/pdf/generate', {
+      const response = await adminFetch('/api/pdf/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

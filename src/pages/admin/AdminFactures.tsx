@@ -9,6 +9,8 @@ import {
 import { PdfGenerator } from '../../components/admin/PdfGenerator';
 import type { AdminOutletContextType } from '../../components/admin/layout/AdminLayout';
 import { buildDossierIdFromReference } from '../../lib/dossier-id';
+import { getNextYearlyId } from '../../lib/admin-ids';
+import { adminFetch } from '../../lib/admin-api';
 
 interface AdminFacturesProps {
   factures?: Facture[];
@@ -27,6 +29,7 @@ export function AdminFactures({
   const activeSearchQuery = searchQuery || context?.searchQuery || '';
 
   const [syncedFactures, setSyncedFactures, { daysLimit: facturesDays, setDaysLimit: setFacturesDays }] = useSyncedCollection<Facture>('factures', [], { timeField: 'date' });
+  const [allFacturesForIds] = useSyncedCollection<Facture>('factures');
   
   const activeFactures = factures || syncedFactures;
   const activeSetFactures = setFactures || setSyncedFactures;
@@ -64,12 +67,18 @@ export function AdminFactures({
         return f;
       });
       activeSetFactures(updated);
+      context?.pushNotification(
+        'Factures en retard',
+        `${overdueInvoices.length} facture(s) basculee(s) automatiquement en retard`,
+        'warning'
+      );
     }
   }, [activeFactures, todayStr, activeSetFactures]);
 
   const createInvoice = (e: React.FormEvent) => {
     e.preventDefault();
-    const id = `FAC-2026-00${activeFactures.length + 1}`;
+    const invoiceIdSource = allFacturesForIds.length > 0 ? allFacturesForIds : activeFactures;
+    const id = getNextYearlyId('FAC', invoiceIdSource.map((invoice) => invoice.id));
     const dateVal = newFacture.date || new Date().toISOString().split('T')[0];
     const dueDateVal = newFacture.dueDate || new Date(Date.now() + 30 * 24 * 3600 * 1000).toISOString().split('T')[0];
     
@@ -164,11 +173,8 @@ export function AdminFactures({
 
     setSendingReminderId(fac.id);
     try {
-      const response = await fetch('/api/send-email', {
+      const response = await adminFetch('/api/send-email', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           type: 'invoice-reminder',
           data: {

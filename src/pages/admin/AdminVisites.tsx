@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import type { AdminOutletContextType } from '../../components/admin/layout/AdminLayout';
 import { buildDossierIdFromReference } from '../../lib/dossier-id';
+import { getNextSequencedId } from '../../lib/admin-ids';
 
 interface AdminVisitesProps {
   searchQuery?: string;
@@ -270,7 +271,7 @@ export function AdminVisites({ searchQuery }: AdminVisitesProps) {
       setEditingVisitId(null);
     } else {
       // Create
-      const id = `VIS-00${visites.length + 1}`;
+      const id = getNextSequencedId('VIS', visites.map((visit) => visit.id));
       const item: Visite = {
         id,
         dossierId: buildDossierIdFromReference('VIS', id),

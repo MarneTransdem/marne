@@ -20,6 +20,22 @@ const getItemKey = (item: any): string => {
   return item?.id || item?.uid || '';
 };
 
+type SyncedCollectionError = {
+  collectionName: string;
+  message: string;
+  error: unknown;
+};
+
+const getErrorMessage = (err: unknown) => {
+  return err instanceof Error ? err.message : String(err || 'Erreur de synchronisation inconnue');
+};
+
+const emitSyncError = (detail: SyncedCollectionError) => {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('marne_firestore_sync_error', { detail }));
+  }
+};
+
 export const useSyncedCollection = <T extends { id?: string; uid?: string }>(
   collectionName: string,
   _initialData: T[] = [],
@@ -36,6 +52,7 @@ export const useSyncedCollection = <T extends { id?: string; uid?: string }>(
 
   const [daysLimit, setDaysLimit] = useState<number | 'all'>(defaultDays);
   const [data, setData] = useState<T[]>([]);
+  const [syncError, setSyncError] = useState<SyncedCollectionError | null>(null);
 
   // Memoize constraints to avoid recreation loops and infinite hook triggers
   const memoizedConstraints = useMemo(() => {
@@ -67,9 +84,13 @@ export const useSyncedCollection = <T extends { id?: string; uid?: string }>(
       (snapshot) => {
         const items = snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as T));
         setData(items);
+        setSyncError(null);
       },
       (error) => {
+        const message = getErrorMessage(error);
         console.error(`Error reading Firestore collection ${collectionName}:`, error);
+        setSyncError({ collectionName, message, error });
+        emitSyncError({ collectionName, message, error });
         setData([]);
       }
     );
@@ -80,6 +101,7 @@ export const useSyncedCollection = <T extends { id?: string; uid?: string }>(
   const setCollectionState = async (
     updater: T[] | ((prev: T[]) => T[])
   ) => {
+    const previousData = data;
     const nextData = typeof updater === 'function' ? updater(data) : updater;
     
     const nextIds = new Set(nextData.map((item) => getItemKey(item)).filter(Boolean));
@@ -98,6 +120,7 @@ export const useSyncedCollection = <T extends { id?: string; uid?: string }>(
     });
 
     setData(nextData);
+    setSyncError(null);
 
     if (!syncEnabled) {
       return;
@@ -121,9 +144,13 @@ export const useSyncedCollection = <T extends { id?: string; uid?: string }>(
       });
       await batch.commit();
     } catch (err) {
+      const message = getErrorMessage(err);
       console.error(`Error syncing state with Firestore for ${collectionName}:`, err);
+      setData(previousData);
+      setSyncError({ collectionName, message, error: err });
+      emitSyncError({ collectionName, message, error: err });
     }
   };
 
-  return [data, setCollectionState, { daysLimit, setDaysLimit }] as const;
+  return [data, setCollectionState, { daysLimit, setDaysLimit, syncError, clearSyncError: () => setSyncError(null) }] as const;
 };

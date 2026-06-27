@@ -393,9 +393,25 @@ export default function Login() {
         setSeedingSuccess(`Authentifié avec succès comme ${targetRole}!`);
         navigate('/admin');
       } catch (signInErr: any) {
-        // If user doesn't exist, try creating it
-        if (signInErr.code === 'auth/user-not-found' || signInErr.code === 'auth/wrong-password' || signInErr.code === 'auth/invalid-credential') {
-          // 2. Create standard credentials
+        const canSeedDemoAccount = signInErr.code === 'auth/user-not-found' || signInErr.code === 'auth/wrong-password' || signInErr.code === 'auth/invalid-credential';
+        if (!canSeedDemoAccount) {
+          throw signInErr;
+        }
+
+        const existingMethods = await fetchSignInMethodsForEmail(auth, targetEmail).catch(() => [] as string[]);
+        const explainExistingAccount = () => {
+          const methodsText = existingMethods.length > 0 ? existingMethods.join(', ') : 'un autre mode de connexion';
+          setEmail(targetEmail);
+          setError(`Le compte demo ${targetEmail} existe deja, mais le mot de passe demo n'est pas celui de ce compte Firebase. Methodes detectees : ${methodsText}. Utilisez le mode associe ou reinitialisez le mot de passe avant de relancer la demo.`);
+        };
+
+        if (signInErr.code !== 'auth/user-not-found' && existingMethods.length > 0) {
+          explainExistingAccount();
+          return;
+        }
+
+        try {
+          // 2. Create standard credentials only when Firebase confirms the account is not already usable.
           const userCredential = await createUserWithEmailAndPassword(auth, targetEmail, targetPassword);
           const newUser = userCredential.user;
 
@@ -423,14 +439,18 @@ export default function Login() {
 
           if (!authorized) {
             await signOut(auth);
-            setError("Compte démo créé, mais les droits CRM serveur ne sont pas synchronisés.");
+            setError("Compte demo cree, mais les droits CRM serveur ne sont pas synchronises.");
             return;
           }
 
-          setSeedingSuccess(`Compte créé et authentifié avec succès en tant que ${targetRole}!`);
+          setSeedingSuccess(`Compte cree et authentifie avec succes en tant que ${targetRole}!`);
           navigate('/admin');
-        } else {
-          throw signInErr;
+        } catch (createErr: any) {
+          if (createErr.code === 'auth/email-already-in-use') {
+            explainExistingAccount();
+            return;
+          }
+          throw createErr;
         }
       }
     } catch (err: any) {
