@@ -190,6 +190,7 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
       const requestIdSlug = selectedRequest.id.replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 96) || String(Date.now());
       const visitId = selectedRequest.plannedVisitId || `VIS-WEB-${requestIdSlug}`;
       const dossierId = selectedRequest.dossierId || buildDossierIdFromReference('REQ', selectedRequest.id);
+      const estimatedVolume = Number(selectedRequest.volume);
       const visit = {
         id: visitId,
         dossierId,
@@ -200,7 +201,7 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
         phone: selectedRequest.phone,
         date: visitDate,
         time: visitTime || '10:00',
-        volumeEstimated: Number(selectedRequest.volume) || undefined,
+        ...(Number.isFinite(estimatedVolume) && estimatedVolume > 0 ? { volumeEstimated: estimatedVolume } : {}),
         commercialAssigned: visitCommercial,
         visitMode,
         sourceRequestId: selectedRequest.id,
