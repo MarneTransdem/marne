@@ -4,7 +4,7 @@ import { useSyncedCollection } from '../../hooks/useData';
 import { Visite, UserProfile } from '../../types';
 import { 
   Plus, MapPin, Check, Calendar, Grid, ChevronLeft, ChevronRight, 
-  Trash2, AlertTriangle, Phone, Box, HelpCircle, User, Compass
+  Trash2, AlertTriangle, Phone, Box, HelpCircle, User, Compass, Clock, Eye
 } from 'lucide-react';
 import type { AdminOutletContextType } from '../../components/admin/layout/AdminLayout';
 import { buildDossierIdFromReference } from '../../lib/dossier-id';
@@ -13,6 +13,9 @@ import { getNextSequencedId } from '../../lib/admin-ids';
 interface AdminVisitesProps {
   searchQuery?: string;
 }
+
+const VISIT_LIST_PAGE_SIZE = 10;
+const INITIAL_UPCOMING_COUNT = 9;
 
 export function AdminVisites({ searchQuery }: AdminVisitesProps) {
   const context = useOutletContext<AdminOutletContextType>();
@@ -35,6 +38,12 @@ export function AdminVisites({ searchQuery }: AdminVisitesProps) {
 
   const [viewMode, setViewMode] = useState<'list' | 'week' | 'month'>('list');
   const [showAddVisite, setShowAddVisite] = useState(false);
+  const [statusFilter, setStatusFilter] = useState<Visite['status'] | 'all'>('all');
+  const [modeFilter, setModeFilter] = useState<Visite['visitMode'] | 'all'>('all');
+  const [commercialFilter, setCommercialFilter] = useState<string>('all');
+  const [dateScopeFilter, setDateScopeFilter] = useState<'upcoming' | 'today' | 'past' | 'all'>('upcoming');
+  const [visibleUpcomingCount, setVisibleUpcomingCount] = useState(INITIAL_UPCOMING_COUNT);
+  const [visitListPage, setVisitListPage] = useState(1);
   const [newVisite, setNewVisite] = useState<Partial<Visite>>({
     clientName: '', 
     address: '', 
@@ -313,16 +322,78 @@ export function AdminVisites({ searchQuery }: AdminVisitesProps) {
     }
   };
 
-  const getFilteredVisites = (): Visite[] => {
-    if (!activeSearchQuery) return visites;
-    const query = activeSearchQuery.toLowerCase();
-    return visites.filter(item => 
-      item.clientName.toLowerCase().includes(query) || 
-      item.id.toLowerCase().includes(query) ||
-      item.address.toLowerCase().includes(query) ||
-      item.commercialAssigned.toLowerCase().includes(query)
-    );
+  const getVisitTimestamp = (visit: Visite) => {
+    const [year, month, day] = visit.date.split('-').map(Number);
+    const [hours, minutes] = (visit.time || '00:00').split(':').map(Number);
+    const date = new Date(year || 1970, (month || 1) - 1, day || 1, hours || 0, minutes || 0);
+    return date.getTime();
   };
+
+  const uniqueCommercials = useMemo(() => {
+    return Array.from(new Set(visites.map((visit) => visit.commercialAssigned).filter(Boolean))).sort();
+  }, [visites]);
+
+  const filteredSortedVisites = useMemo(() => {
+    const query = activeSearchQuery.trim().toLowerCase();
+    const now = Date.now();
+
+    return visites
+      .filter((visit) => {
+        const matchesSearch = !query || [
+          visit.clientName,
+          visit.id,
+          visit.address,
+          visit.phone,
+          visit.commercialAssigned,
+          visit.notes
+        ].some((value) => String(value || '').toLowerCase().includes(query));
+
+        const matchesStatus = statusFilter === 'all' || visit.status === statusFilter;
+        const matchesMode = modeFilter === 'all' || visit.visitMode === modeFilter;
+        const matchesCommercial = commercialFilter === 'all' || visit.commercialAssigned === commercialFilter;
+        const isPast = isVisitPast(visit.date, visit.time);
+        const matchesDateScope =
+          dateScopeFilter === 'all' ||
+          (dateScopeFilter === 'today' && visit.date === todayStr) ||
+          (dateScopeFilter === 'upcoming' && !isPast) ||
+          (dateScopeFilter === 'past' && isPast);
+
+        return matchesSearch && matchesStatus && matchesMode && matchesCommercial && matchesDateScope;
+      })
+      .sort((a, b) => {
+        const timeA = getVisitTimestamp(a);
+        const timeB = getVisitTimestamp(b);
+        const aIsUpcoming = timeA >= now;
+        const bIsUpcoming = timeB >= now;
+        if (aIsUpcoming !== bIsUpcoming) return aIsUpcoming ? -1 : 1;
+        return aIsUpcoming ? timeA - timeB : timeB - timeA;
+      });
+  }, [visites, activeSearchQuery, statusFilter, modeFilter, commercialFilter, dateScopeFilter, todayStr]);
+
+  const upcomingVisites = useMemo(() => {
+    return filteredSortedVisites.filter((visit) => visit.status !== 'Annulée' && !isVisitPast(visit.date, visit.time));
+  }, [filteredSortedVisites]);
+
+  const visibleUpcomingVisites = upcomingVisites.slice(0, visibleUpcomingCount);
+  const totalListPages = Math.max(1, Math.ceil(filteredSortedVisites.length / VISIT_LIST_PAGE_SIZE));
+  const safeVisitListPage = Math.min(visitListPage, totalListPages);
+  const paginatedVisites = filteredSortedVisites.slice(
+    (safeVisitListPage - 1) * VISIT_LIST_PAGE_SIZE,
+    safeVisitListPage * VISIT_LIST_PAGE_SIZE
+  );
+
+  React.useEffect(() => {
+    setVisitListPage(1);
+    setVisibleUpcomingCount(INITIAL_UPCOMING_COUNT);
+  }, [activeSearchQuery, statusFilter, modeFilter, commercialFilter, dateScopeFilter]);
+
+  React.useEffect(() => {
+    if (visitListPage > totalListPages) {
+      setVisitListPage(totalListPages);
+    }
+  }, [visitListPage, totalListPages]);
+
+  const getFilteredVisites = (): Visite[] => filteredSortedVisites;
 
   // Helper to map visits to calendar cell
   const getVisitsForCell = (dateStr: string, hourStr: string) => {
@@ -345,6 +416,19 @@ export function AdminVisites({ searchQuery }: AdminVisitesProps) {
       default:
         return null;
     }
+  };
+
+  const getVisitStatusClasses = (status: Visite['status']) => {
+    if (status === 'Planifiée') return 'bg-sky-50 text-sky-700 dark:bg-sky-950/30 dark:text-sky-400';
+    if (status === 'Réalisée') return 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400';
+    if (status === 'Annulée') return 'bg-red-50 text-red-700 dark:bg-red-950/30 dark:text-red-400';
+    return 'bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400';
+  };
+
+  const formatDateFr = (dateStr?: string) => {
+    if (!dateStr) return 'Date à définir';
+    const parts = dateStr.split('-');
+    return parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : dateStr;
   };
 
   return (
@@ -464,126 +548,214 @@ export function AdminVisites({ searchQuery }: AdminVisitesProps) {
         </div>
       )}
 
-      {/* Grid View */}
-      {viewMode === 'list' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {getFilteredVisites().map((vis) => (
-            <div 
-              key={vis.id} 
-              draggable={true}
-              onDragStart={(e) => handleDragStart(e, vis.id)}
-              onClick={() => setSelectedVisit(vis)}
-              onContextMenu={(e) => handleContextMenu(e, vis.id)}
-              className={`border rounded-3xl p-6 shadow-sm space-y-4 hover:shadow-md transition-all cursor-pointer select-none ${
-                vis.status === 'Réalisée'
-                  ? 'bg-emerald-50/20 border-emerald-100/40 dark:bg-emerald-950/10 dark:border-emerald-900/20 text-slate-900 dark:text-white'
-                  : vis.status === 'Annulée'
-                    ? 'bg-red-50/25 border-red-100/40 dark:bg-red-950/10 dark:border-red-900/10 opacity-60 text-slate-500'
-                    : isVisitPast(vis.date, vis.time)
-                      ? 'border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/40 opacity-70 text-slate-500'
-                      : 'bg-amber-50/20 border-amber-100/40 dark:bg-amber-950/10 dark:border-amber-900/20 text-slate-900 dark:text-white'
-              }`}
+      {/* Visit filters */}
+      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl p-4 shadow-sm">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          <div>
+            <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1">Échéance</label>
+            <select value={dateScopeFilter} onChange={(e) => setDateScopeFilter(e.target.value as any)} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:ring-2 focus:ring-accent/20">
+              <option value="upcoming">À venir</option>
+              <option value="today">Aujourd'hui</option>
+              <option value="past">Passées</option>
+              <option value="all">Toutes</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1">Statut</label>
+            <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as any)} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:ring-2 focus:ring-accent/20">
+              <option value="all">Tous statuts</option>
+              <option value="Planifiée">Planifiée</option>
+              <option value="Réalisée">Réalisée</option>
+              <option value="Chiffrée">Chiffrée</option>
+              <option value="Facturée">Facturée</option>
+              <option value="Annulée">Annulée</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1">Type</label>
+            <select value={modeFilter} onChange={(e) => setModeFilter(e.target.value as any)} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:ring-2 focus:ring-accent/20">
+              <option value="all">Tous types</option>
+              <option value="domicile">À domicile</option>
+              <option value="visio">Visio</option>
+              <option value="a_definir">À définir</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1">Commercial</label>
+            <select value={commercialFilter} onChange={(e) => setCommercialFilter(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:ring-2 focus:ring-accent/20">
+              <option value="all">Tous</option>
+              {uniqueCommercials.map((commercial) => (
+                <option key={commercial} value={commercial}>{commercial}</option>
+              ))}
+            </select>
+          </div>
+          <div className="flex items-end">
+            <button
+              onClick={() => {
+                setDateScopeFilter('upcoming');
+                setStatusFilter('all');
+                setModeFilter('all');
+                setCommercialFilter('all');
+              }}
+              className="w-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-950 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 rounded-xl px-3 py-2 text-xs font-black transition-colors"
             >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="text-[9px] uppercase font-black text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-lg border border-slate-200/50 dark:border-slate-800">
-                    {vis.id}
-                  </span>
-                  {isVisitPast(vis.date, vis.time) && (
-                    <span className="bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300 text-[8.5px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider">
-                      Passée
-                    </span>
+              Réinitialiser
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* List View */}
+      {viewMode === 'list' && (
+        <div className="space-y-6">
+          <section className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl p-5 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-wider text-accent">Les plus proches</p>
+                <h3 className="text-sm font-black text-slate-900 dark:text-white">9 prochaines visites</h3>
+              </div>
+              <span className="text-[10px] font-black uppercase text-slate-400">{upcomingVisites.length} à venir</span>
+            </div>
+
+            {visibleUpcomingVisites.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                {visibleUpcomingVisites.map((vis) => (
+                  <button
+                    key={vis.id}
+                    draggable={true}
+                    onDragStart={(e) => handleDragStart(e, vis.id)}
+                    onClick={() => setSelectedVisit(vis)}
+                    onContextMenu={(e) => handleContextMenu(e, vis.id)}
+                    className="text-left border border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/30 hover:bg-white dark:hover:bg-slate-950 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all cursor-pointer space-y-3"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 truncate">{vis.id}</p>
+                        <h4 className="text-sm font-black text-slate-900 dark:text-white truncate">{vis.clientName}</h4>
+                      </div>
+                      <span className={`px-2.5 py-1 rounded-full text-[9px] font-black uppercase shrink-0 ${getVisitStatusClasses(vis.status)}`}>
+                        {vis.status}
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3 text-[11px]">
+                      <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-200 font-bold">
+                        <Calendar size={12} className="text-accent" /> {formatDateFr(vis.date)}
+                      </div>
+                      <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-200 font-bold">
+                        <Clock size={12} className="text-accent" /> {vis.time}
+                      </div>
+                    </div>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 flex gap-1.5">
+                      <MapPin size={12} className="text-slate-400 shrink-0 mt-0.5" /> {vis.address}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-2">
+                      {getVisitModeBadge(vis.visitMode)}
+                      <span className="bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-300 text-[9px] px-2 py-0.5 rounded-md font-bold flex items-center gap-1">
+                        <User size={10} /> {vis.commercialAssigned}
+                      </span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <div className="py-10 text-center text-slate-400 text-sm font-light border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl">
+                Aucune visite à venir avec ces filtres.
+              </div>
+            )}
+
+            {upcomingVisites.length > visibleUpcomingCount && (
+              <button
+                onClick={() => setVisibleUpcomingCount((count) => count + INITIAL_UPCOMING_COUNT)}
+                className="w-full py-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 hover:bg-slate-100 dark:bg-slate-950 dark:hover:bg-slate-800 text-xs font-black text-slate-600 dark:text-slate-300 transition-colors"
+              >
+                Afficher plus ({Math.min(INITIAL_UPCOMING_COUNT, upcomingVisites.length - visibleUpcomingCount)} supplémentaires)
+              </button>
+            )}
+          </section>
+
+          <section className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl shadow-sm overflow-hidden">
+            <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">Vue liste paginée</p>
+                <h3 className="text-sm font-black text-slate-900 dark:text-white">Toutes les visites filtrées</h3>
+              </div>
+              <span className="text-[10px] font-black uppercase text-slate-400">{filteredSortedVisites.length} résultat(s)</span>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[860px] text-left">
+                <thead className="bg-slate-50 dark:bg-slate-950/60 text-[10px] uppercase tracking-wider text-slate-400 font-black border-b border-slate-100 dark:border-slate-800">
+                  <tr>
+                    <th className="px-4 py-3">Date</th>
+                    <th className="px-4 py-3">Client</th>
+                    <th className="px-4 py-3">Adresse</th>
+                    <th className="px-4 py-3">Commercial</th>
+                    <th className="px-4 py-3">Type</th>
+                    <th className="px-4 py-3">Statut</th>
+                    <th className="px-4 py-3 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-xs">
+                  {paginatedVisites.map((vis) => (
+                    <tr key={vis.id} className="hover:bg-slate-50 dark:hover:bg-slate-950/40 cursor-pointer" onClick={() => setSelectedVisit(vis)}>
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        <div className="font-black text-slate-900 dark:text-white">{formatDateFr(vis.date)}</div>
+                        <div className="text-[10px] text-slate-400 font-bold">{vis.time}</div>
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="font-black text-slate-900 dark:text-white">{vis.clientName}</div>
+                        <div className="text-[10px] text-slate-400 font-bold">{vis.id}</div>
+                      </td>
+                      <td className="px-4 py-3 max-w-xs text-slate-500 dark:text-slate-400 truncate">{vis.address}</td>
+                      <td className="px-4 py-3 text-slate-700 dark:text-slate-200 font-bold">{vis.commercialAssigned}</td>
+                      <td className="px-4 py-3">{getVisitModeBadge(vis.visitMode)}</td>
+                      <td className="px-4 py-3">
+                        <span className={`px-2.5 py-1 rounded-full text-[9px] font-black uppercase ${getVisitStatusClasses(vis.status)}`}>{vis.status}</span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center justify-end gap-2">
+                          <button onClick={(e) => { e.stopPropagation(); setSelectedVisit(vis); }} className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-950 dark:hover:bg-slate-800 text-slate-500" title="Voir"><Eye size={13} /></button>
+                          {vis.status === 'Planifiée' && (
+                            <button onClick={(e) => { e.stopPropagation(); updateVisitStatus(vis.id, 'Réalisée'); }} className="p-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-600" title="Marquer réalisée"><Check size={13} /></button>
+                          )}
+                          <button onClick={(e) => { e.stopPropagation(); deleteVisit(vis.id); }} className="p-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600" title="Supprimer"><Trash2 size={13} /></button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                  {paginatedVisites.length === 0 && (
+                    <tr>
+                      <td colSpan={7} className="px-4 py-12 text-center text-slate-400 font-light">Aucune visite trouvée avec ces filtres.</td>
+                    </tr>
                   )}
-                </div>
-                <span className={`px-2.5 py-1 rounded-full text-[9px] font-black uppercase ${
-                  vis.status === 'Planifiée' ? 'bg-sky-50 text-sky-700 dark:bg-sky-950/30 dark:text-sky-400' :
-                  vis.status === 'Réalisée' ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400' :
-                  vis.status === 'Annulée' ? 'bg-red-50 text-red-700 dark:bg-red-950/30 dark:text-red-400' :
-                  'bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400'
-                }`}>
-                  {vis.status}
-                </span>
-              </div>
+                </tbody>
+              </table>
+            </div>
 
-              <div className="space-y-1.5">
-                <h4 className="font-black text-slate-900 dark:text-white text-sm leading-tight">{vis.clientName}</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 font-light flex items-center gap-1">
-                  <MapPin size={12} className="text-accent shrink-0" /> {vis.address}
-                </p>
-                {vis.phone && (
-                  <p className="text-[10px] text-slate-400 flex items-center gap-1 font-bold">
-                    <Phone size={10} className="text-slate-400" /> {vis.phone}
-                  </p>
-                )}
-              </div>
-
-              {/* Volume & visit mode */}
-              <div className="flex gap-2 flex-wrap items-center">
-                {getVisitModeBadge(vis.visitMode)}
-                {vis.volumeEstimated ? (
-                  <span className="bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-350 text-[9px] px-2 py-0.5 rounded-md font-bold flex items-center gap-1 border border-emerald-100 dark:border-emerald-900/30">
-                    <Box size={10} /> Vol. estimé: {vis.volumeEstimated} m³
-                  </span>
-                ) : (
-                  <span className="bg-amber-50 text-amber-600 dark:bg-amber-950/20 dark:text-amber-400 text-[9px] px-2 py-0.5 rounded-md font-bold flex items-center gap-1">
-                    <HelpCircle size={10} /> Volume non défini
-                  </span>
-                )}
-              </div>
-
-              {vis.notes && (
-                <div className="bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 p-2.5 rounded-xl text-[10px] text-slate-500 dark:text-slate-400 italic">
-                  <span className="font-bold not-italic block mb-0.5 text-slate-400 uppercase tracking-wide text-[8px]">Notes</span>
-                  "{vis.notes}"
-                </div>
-              )}
-
-              <div className="pt-3 border-t border-slate-100 dark:border-slate-800/60 grid grid-cols-2 gap-2 text-xs">
-                <div>
-                  <span className="text-[9px] text-slate-400 block uppercase font-bold">Rendez-vous</span>
-                  <span className="font-semibold text-slate-800 dark:text-slate-200 capitalize">{vis.date.split('-').reverse().join('/')} à {vis.time}</span>
-                </div>
-                <div>
-                  <span className="text-[9px] text-slate-400 block uppercase font-bold">Commercial</span>
-                  <span className="font-semibold text-slate-800 dark:text-slate-200 truncate block">{vis.commercialAssigned}</span>
-                </div>
-              </div>
-
-              <div className="pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between gap-2">
-                {vis.status === 'Planifiée' && (
-                  <button
-                    onClick={() => updateVisitStatus(vis.id, 'Réalisée')}
-                    className="flex-1 bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/20 text-emerald-600 border border-emerald-500/10 py-2 rounded-xl text-[10px] font-black cursor-pointer transition-all text-center block"
-                  >
-                    Visite effectuée
-                  </button>
-                )}
-                {vis.status === 'Planifiée' && (
-                  <button
-                    onClick={() => updateVisitStatus(vis.id, 'Annulée')}
-                    className="px-3 py-2 bg-red-50 hover:bg-red-100 dark:bg-red-950/20 text-red-600 border border-red-500/10 rounded-xl text-[10px] font-black cursor-pointer transition-all"
-                  >
-                    Annuler
-                  </button>
-                )}
+            <div className="p-4 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <span className="text-[10px] font-bold text-slate-400 uppercase">
+                Page {safeVisitListPage} / {totalListPages}
+              </span>
+              <div className="flex items-center gap-2">
                 <button
-                  onClick={() => deleteVisit(vis.id)}
-                  className="p-2 bg-slate-50 hover:bg-red-50 hover:text-red-600 dark:bg-slate-950 dark:hover:bg-red-950/20 text-slate-400 border border-slate-200/50 dark:border-slate-800 rounded-xl transition-all cursor-pointer"
-                  title="Supprimer définitivement"
+                  onClick={() => setVisitListPage((page) => Math.max(1, page - 1))}
+                  disabled={safeVisitListPage <= 1}
+                  className="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-black disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50 dark:hover:bg-slate-950"
                 >
-                  <Trash2 size={12} />
+                  Précédent
+                </button>
+                <button
+                  onClick={() => setVisitListPage((page) => Math.min(totalListPages, page + 1))}
+                  disabled={safeVisitListPage >= totalListPages}
+                  className="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-black disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50 dark:hover:bg-slate-950"
+                >
+                  Suivant
                 </button>
               </div>
             </div>
-          ))}
-          {getFilteredVisites().length === 0 && (
-            <div className="col-span-full py-16 text-center text-slate-400 font-light border-2 border-dashed rounded-3xl">
-              Aucune visite programmée trouvée.
-            </div>
-          )}
+          </section>
         </div>
       )}
-
       {/* Calendar Week View */}
       {viewMode === 'week' && (
         <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl p-5 shadow-sm space-y-4 overflow-x-auto">
