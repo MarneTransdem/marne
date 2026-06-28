@@ -435,7 +435,9 @@ export function AdminPlanning({
     devisId: '', 
     volume: 25, 
     fromCity: '', 
+    fromAddress: '',
     toCity: '', 
+    toAddress: '',
     date: '', 
     teamLeader: 'Hervé Le Gall', 
     status: 'À planifier', 
@@ -598,7 +600,9 @@ export function AdminPlanning({
         devisId: move.devisId,
         volume: move.volume,
         fromCity: move.fromCity,
+        fromAddress: move.fromAddress || '',
         toCity: move.toCity,
+        toAddress: move.toAddress || '',
         date: move.date,
         teamLeader: move.teamLeader,
         status: move.status,
@@ -636,7 +640,9 @@ export function AdminPlanning({
             devisId: newDemenagement.devisId || m.devisId,
             volume: Number(newDemenagement.volume) || m.volume,
             fromCity: newDemenagement.fromCity || m.fromCity,
+            fromAddress: newDemenagement.fromAddress || m.fromAddress,
             toCity: newDemenagement.toCity || m.toCity,
+            toAddress: newDemenagement.toAddress || m.toAddress,
             date: newDemenagement.date || m.date,
             teamLeader: newDemenagement.teamLeader || m.teamLeader,
             crewSize: Number(newDemenagement.crewSize) || m.crewSize,
@@ -657,7 +663,9 @@ export function AdminPlanning({
         devisId: newDemenagement.devisId || 'SANS-DEVIS',
         volume: Number(newDemenagement.volume) || 20,
         fromCity: newDemenagement.fromCity || 'Mantes',
+        fromAddress: newDemenagement.fromAddress || '',
         toCity: newDemenagement.toCity || 'Versailles',
+        toAddress: newDemenagement.toAddress || '',
         date: newDemenagement.date || new Date().toISOString().split('T')[0],
         teamLeader: newDemenagement.teamLeader || 'Hervé Le Gall',
         status: (newDemenagement.status || 'À planifier') as any,
@@ -669,7 +677,7 @@ export function AdminPlanning({
     }
     setShowAddDemenagement(false);
     setNewDemenagement({ 
-      clientName: '', devisId: '', volume: 20, fromCity: '', toCity: '', date: '', teamLeader: 'Hervé Le Gall', status: 'À planifier', crewSize: 3 
+      clientName: '', devisId: '', volume: 20, fromCity: '', fromAddress: '', toCity: '', toAddress: '', date: '', teamLeader: 'Hervé Le Gall', status: 'À planifier', crewSize: 3
     });
   };
 
@@ -1055,8 +1063,16 @@ export function AdminPlanning({
               <input required type="text" className="w-full bg-white dark:bg-slate-950 p-2.5 border rounded-lg focus:outline-accent" placeholder="Paris" value={newDemenagement.fromCity} onChange={e=>setNewDemenagement({...newDemenagement, fromCity: e.target.value})} />
             </div>
             <div>
+              <label className="block font-bold mb-1">Adresse de départ</label>
+              <input type="text" className="w-full bg-white dark:bg-slate-950 p-2.5 border rounded-lg focus:outline-accent" placeholder="43 rue des Maraîchers" value={newDemenagement.fromAddress || ''} onChange={e=>setNewDemenagement({...newDemenagement, fromAddress: e.target.value})} />
+            </div>
+            <div>
               <label className="block font-bold mb-1">Ville de destination</label>
               <input type="text" className="w-full bg-white dark:bg-slate-950 p-2.5 border rounded-lg focus:outline-accent" placeholder="Lyon" value={newDemenagement.toCity} onChange={e=>setNewDemenagement({...newDemenagement, toCity: e.target.value})} />
+            </div>
+            <div>
+              <label className="block font-bold mb-1">Adresse de destination</label>
+              <input type="text" className="w-full bg-white dark:bg-slate-950 p-2.5 border rounded-lg focus:outline-accent" placeholder="12 avenue de la République" value={newDemenagement.toAddress || ''} onChange={e=>setNewDemenagement({...newDemenagement, toAddress: e.target.value})} />
             </div>
             <div>
               <label className="block font-bold mb-1">Date du transport</label>

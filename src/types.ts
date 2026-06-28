@@ -75,6 +75,10 @@ export interface Demenagement {
   volume: number;
   fromCity: string;
   toCity: string;
+  fromAddress?: string;
+  fromZip?: string;
+  toAddress?: string;
+  toZip?: string;
   date: string;
   teamLeader: string;
   status: 'À planifier' | 'Programmé' | 'En cours' | 'Terminé';

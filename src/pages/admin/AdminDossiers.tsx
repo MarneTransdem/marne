@@ -633,6 +633,8 @@ export function AdminDossiers() {
       volume: quote.volume,
       fromCity: quote.fromCity,
       toCity: quote.toCity,
+      fromAddress: quote.fromAddress,
+      toAddress: quote.toAddress,
       date: quote.date || toIsoDate(),
       teamLeader: getDefaultTeamLeader(),
       status: 'À planifier',

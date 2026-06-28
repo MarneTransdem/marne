@@ -48,7 +48,9 @@ export function AdminDevis() {
       const moveId = getNextSequencedId('DEM', demenagements.map((move) => move.id));
       const newMove: Demenagement = {
         id: moveId, dossierId, clientName: quote.clientName, devisId: quote.id, volume: quote.volume,
-        fromCity: quote.fromCity, toCity: quote.toCity, date: quote.date || new Date().toISOString().split('T')[0],
+        fromCity: quote.fromCity, toCity: quote.toCity,
+        fromAddress: quote.fromAddress, toAddress: quote.toAddress,
+        date: quote.date || new Date().toISOString().split('T')[0],
         teamLeader: 'Hervé Le Gall', status: 'À planifier', crewSize: 3,
         trackingToken: self.crypto?.randomUUID ? self.crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now().toString(36)
       };
