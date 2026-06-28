@@ -10,7 +10,9 @@ export type AdminTab =
   | 'planning'
   | 'collaborateurs'
   | 'simulateur'
-  | 'analytics';
+  | 'analytics'
+  | 'profil'
+  | 'parametres';
 
 export type AdminCollection =
   | 'quotes'
@@ -76,14 +78,24 @@ export const ADMIN_TAB_LABELS: Record<AdminTab, { desktop: string; mobile: strin
     desktop: 'Analyses & Stats',
     mobile: 'Stats',
     title: 'Statistiques & Performance'
+  },
+  profil: {
+    desktop: 'Mon profil',
+    mobile: 'Profil',
+    title: 'Mon Profil CRM'
+  },
+  parametres: {
+    desktop: 'Paramètres',
+    mobile: 'Param.',
+    title: 'Paramètres CRM'
   }
 };
 
 const ROLE_TABS: Record<Role, AdminTab[]> = {
-  gérant: ['overview', 'dossiers', 'demandes', 'devis', 'factures', 'visites', 'planning', 'collaborateurs', 'analytics'],
-  secrétaire: ['dossiers', 'demandes', 'devis', 'factures', 'visites', 'planning'],
-  commercial: ['dossiers', 'demandes', 'visites', 'planning', 'simulateur'],
-  chef_equipe: ['dossiers', 'planning']
+  gérant: ['overview', 'dossiers', 'demandes', 'devis', 'factures', 'visites', 'planning', 'collaborateurs', 'analytics', 'profil', 'parametres'],
+  secrétaire: ['dossiers', 'demandes', 'devis', 'factures', 'visites', 'planning', 'profil', 'parametres'],
+  commercial: ['dossiers', 'demandes', 'visites', 'planning', 'simulateur', 'profil', 'parametres'],
+  chef_equipe: ['dossiers', 'planning', 'profil', 'parametres']
 };
 
 const ROLE_COLLECTIONS: Record<Role, AdminCollection[]> = {

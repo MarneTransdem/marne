@@ -66,7 +66,21 @@ service cloud.firestore {
     // 0. Users
     match /users/{userId} {
       allow read: if isSignedIn() && (request.auth.uid == userId || isManager());
-      allow create, update, delete: if isManager();
+      allow create: if isManager() || (
+        isSignedIn()
+        && request.auth.uid == userId
+        && incoming().keys().hasOnly(['uid', 'email', 'name', 'phone', 'updatedAt'])
+        && incoming().uid == userId
+        && incoming().email == request.auth.token.email
+      );
+      allow update: if isManager() || (
+        isSignedIn()
+        && request.auth.uid == userId
+        && incoming().diff(resource.data).affectedKeys().hasOnly(['uid', 'email', 'name', 'phone', 'updatedAt'])
+        && incoming().uid == userId
+        && incoming().email == request.auth.token.email
+      );
+      allow delete: if isManager();
     }
 
     // 0.b CRM role mirror by email, used by Google sign-in.
@@ -172,6 +186,11 @@ service cloud.firestore {
     match /notification_templates/{templateId} {
       allow read: if isOperationsStaff();
       allow write: if isOfficeStaff();
+    }
+
+    match /crm_settings/{settingId} {
+      allow read: if isOperationsStaff();
+      allow write: if isManager();
     }
 
     match /collaborateurs/{collaborateurId} {

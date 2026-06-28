@@ -33,6 +33,8 @@ const AdminPlanning = lazy(() => import('./pages/admin/AdminPlanning').then(modu
 const AdminCollaborateurs = lazy(() => import('./pages/admin/AdminCollaborateurs').then(module => ({ default: module.AdminCollaborateurs })));
 const AdminSimulateur = lazy(() => import('./pages/admin/AdminSimulateur').then(module => ({ default: module.AdminSimulateur })));
 const AdminAnalytics = lazy(() => import('./pages/admin/AdminAnalytics').then(module => ({ default: module.AdminAnalytics })));
+const AdminProfil = lazy(() => import('./pages/admin/AdminProfil').then(module => ({ default: module.AdminProfil })));
+const AdminParametres = lazy(() => import('./pages/admin/AdminParametres').then(module => ({ default: module.AdminParametres })));
 const Login = lazy(() => import('./pages/Login'));
 const ClientTracking = lazy(() => import('./pages/ClientTracking'));
 const Blog = lazy(() => import('./pages/Blog'));
@@ -96,6 +98,8 @@ function AppRoutes() {
         <Route path="collaborateurs" element={<AdminCollaborateurs />} />
         <Route path="simulateur" element={<AdminSimulateur />} />
         <Route path="analytics" element={<AdminAnalytics />} />
+        <Route path="profil" element={<AdminProfil />} />
+        <Route path="parametres" element={<AdminParametres />} />
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/suivi/:moveId" element={<ClientTracking />} />
