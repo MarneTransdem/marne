@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { 
   ArrowRight, Phone, MapPin, CheckCircle2, Building2, Package, Calculator, 
@@ -13,18 +13,23 @@ import { sectorsData, Sector } from '../constants/sectorsData';
 import NotFound from './NotFound';
 
 export const SectorPage: React.FC = () => {
-  const { slug } = useParams<{ slug: string }>();
+  const { slug, sectorPath } = useParams<{ slug?: string; sectorPath?: string }>();
+  const resolvedSlug = slug || (sectorPath?.startsWith('demenagement-') ? sectorPath.slice('demenagement-'.length) : undefined);
   
-  if (!slug) {
+  if (!resolvedSlug) {
     return <NotFound />;
   }
 
-  const sector = sectorsData.find(s => s.slug === slug);
+  if (resolvedSlug === 'paris' || resolvedSlug === 'paris-8') {
+    return <Navigate to="/secteurs-desservis" replace />;
+  }
+
+  const sector = sectorsData.find(s => s.slug === resolvedSlug);
   if (!sector) {
     return <NotFound />;
   }
 
-  const path = `/demenagement-${slug}`;
+  const path = `/demenagement-${resolvedSlug}`;
 
   // Default fallback images
   const heroImage = sector.seoImage || (sector.type === 'longue-distance' 

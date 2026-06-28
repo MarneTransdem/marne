@@ -101,7 +101,7 @@ function AppRoutes() {
       <Route path="/suivi/:moveId" element={<ClientTracking />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/blog/:id" element={<BlogPost />} />
-      <Route path="/demenagement-:slug" element={<SectorPage />} />
+      <Route path="/:sectorPath" element={<SectorPage />} />
       <Route path="/demenagement-oeuvres-art" element={<DemenagementOeuvresArt />} />
       <Route path="/demenagement-etudiant" element={<DemenagementEtudiant />} />
       <Route path="/demenagement-militaire" element={<DemenagementMilitaire />} />

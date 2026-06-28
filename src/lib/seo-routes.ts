@@ -41,6 +41,8 @@ export const CANONICAL_ALIASES: Record<string, string> = {
   '/blog/2': '/blog/comment-estimer-volume-demenagement',
   '/blog/estimer-volume-demenagement': '/blog/comment-estimer-volume-demenagement',
   '/blog/demenagement-entreprise-paris': '/blog/demenagement-entreprise-paris-checklist',
+  '/demenagement-paris': '/secteurs-desservis',
+  '/demenagement-paris-8': '/secteurs-desservis',
 };
 
 const MAIN_ROUTES = [
