@@ -1,16 +1,25 @@
 import React, { useState, useMemo } from 'react';
+import { useOutletContext } from 'react-router-dom';
+import { doc, setDoc } from 'firebase/firestore';
 import { useSyncedCollection } from '../../hooks/useData';
+import { useAuth } from '../../context/AuthContext';
 import { Devis, Facture, Demenagement } from '../../types';
 import { AdminPublicRequest } from '../../lib/admin-dossiers';
 import { buildDossierIdFromReference } from '../../lib/dossier-id';
 import { getNextSequencedId, getNextYearlyId } from '../../lib/admin-ids';
-import { Plus, Edit, Trash2, FileText, Check, X, MoveRight, Printer, Copy, Search, Calendar, AlertTriangle } from 'lucide-react';
+import { adminFetch } from '../../lib/admin-api';
+import { db } from '../../lib/firebase';
+import type { AdminOutletContextType } from '../../components/admin/layout/AdminLayout';
+import { buildCommunicationLog, renderCommunication, type CommunicationLog, type CommunicationTask } from '../../lib/crm-communications';
+import { Plus, Edit, Trash2, FileText, Check, X, MoveRight, Printer, Copy, Search, Calendar, AlertTriangle, Mail, Loader2 } from 'lucide-react';
 import { PdfGenerator } from '../../components/admin/PdfGenerator';
 
 const COLUMNS = ['Brouillon', 'Envoyé', 'En attente', 'Signé', 'Refusé'] as const;
 type DevisStatus = typeof COLUMNS[number];
 
 export function AdminDevis() {
+  const { user } = useAuth();
+  const context = useOutletContext<AdminOutletContextType>();
   const [devisList, setDevisList, { daysLimit: devisDays, setDaysLimit: setDevisDays }] = useSyncedCollection<Devis>('devis', [], { timeField: 'createdAt' });
   const [allDevisForIds] = useSyncedCollection<Devis>('devis');
   const [factures, setFactures] = useSyncedCollection<Facture>('factures');
@@ -21,6 +30,7 @@ export function AdminDevis() {
   const [showAddDevis, setShowAddDevis] = useState(false);
   const [editingDevisId, setEditingDevisId] = useState<string | null>(null);
   const [selectedPdfQuote, setSelectedPdfQuote] = useState<Devis | null>(null);
+  const [sendingQuoteId, setSendingQuoteId] = useState<string | null>(null);
   const [newDevis, setNewDevis] = useState<Partial<Devis>>({
     clientName: '', phone: '', email: '', fromCity: '', toCity: '', fromAddress: '', toAddress: '', volume: 20, formula: 'Standard', price: 1200, status: 'Brouillon',
     fromFloor: '2', toFloor: '0 (RDC)', fromElevator: 'Oui', toElevator: 'Non', fromLift: 'Oui', toLift: 'Non', fromPortage: '-20m', toPortage: '-', distance: '', voyageType: undefined
@@ -110,6 +120,80 @@ export function AdminDevis() {
     resetForm();
   };
 
+  const registerQuoteSendLog = async (quote: Devis, status: CommunicationLog['status'], error?: string) => {
+    const rendered = renderCommunication('quote_send', quote, 'devis');
+    const task: CommunicationTask = {
+      id: `quote-send-${quote.id}`,
+      documentType: 'devis',
+      documentId: quote.id,
+      dossierId: quote.dossierId,
+      action: 'quote_send',
+      priority: 'normal',
+      title: 'Envoi devis',
+      description: `Envoi direct du devis ${quote.id}.`,
+      clientName: quote.clientName,
+      clientEmail: quote.email,
+      amount: Number(quote.price || 0),
+      dateLabel: quote.date || '',
+      badgeLabel: 'Envoyé',
+      ctaLabel: 'Envoyer devis',
+      document: quote,
+      subject: rendered.subject,
+      body: rendered.body,
+      sentToday: false
+    };
+    const log = buildCommunicationLog(task, status, user?.email || user?.displayName || 'CRM', error);
+    await setDoc(doc(db, 'communication_logs', log.id), log, { merge: true });
+  };
+
+  const sendQuoteByEmail = async (quote: Devis) => {
+    const targetEmail = quote.email?.trim();
+    if (!targetEmail) {
+      context?.pushNotification('Email manquant', 'Ajoutez une adresse email au devis avant de l’envoyer.', 'warning');
+      return;
+    }
+
+    setSendingQuoteId(quote.id);
+    try {
+      const sentQuote: Devis = {
+        ...quote,
+        email: targetEmail,
+        status: quote.status === 'Signé' || quote.status === 'Refusé' ? quote.status : 'Envoyé',
+        sentAt: new Date().toISOString()
+      };
+
+      const response = await adminFetch('/api/send-email', {
+        method: 'POST',
+        body: JSON.stringify({
+          type: 'admin-doc',
+          documentType: 'devis',
+          data: {
+            id: quote.id,
+            clientName: quote.clientName,
+            clientEmail: targetEmail,
+            pdfName: `Devis_${quote.id}.pdf`,
+            docData: sentQuote
+          }
+        })
+      });
+
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || result.details || 'Envoi du devis impossible.');
+      }
+
+      await setDevisList(prev => prev.map(item => item.id === quote.id ? { ...item, email: targetEmail, status: sentQuote.status, sentAt: sentQuote.sentAt } : item));
+      await registerQuoteSendLog(sentQuote, 'sent').catch(() => undefined);
+      context?.pushNotification('Devis envoyé', `Le devis ${quote.id} a été envoyé à ${targetEmail}.`, 'success');
+    } catch (error: any) {
+      const message = error?.message || 'Envoi du devis impossible.';
+      await registerQuoteSendLog({ ...quote, email: targetEmail }, 'failed', message).catch(() => undefined);
+      context?.pushNotification('Échec de l’envoi', message, 'warning');
+    } finally {
+      setSendingQuoteId(null);
+    }
+  };
+
   const duplicateQuote = (quote: Devis) => {
     const duplicated: Partial<Devis> = {
       ...quote,
@@ -168,7 +252,8 @@ export function AdminDevis() {
 
   const formatDateFr = (dateStr?: string) => {
     if (!dateStr) return '';
-    const parts = dateStr.split('-');
+    const cleanDate = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr;
+    const parts = cleanDate.split('-');
     if (parts.length === 3) {
       return `${parts[2]}/${parts[1]}/${parts[0]}`;
     }
@@ -496,6 +581,9 @@ export function AdminDevis() {
               <div className="flex-1 space-y-3 min-h-[300px]">
                 {columnQuotes.map(quote => {
                   const expirationBadge = getExpirationBadge(quote);
+                  const canSendQuote = quote.status !== 'Signé' && quote.status !== 'Refusé';
+                  const quoteHasEmail = Boolean(quote.email?.trim());
+                  const quoteIsSending = sendingQuoteId === quote.id;
 
                   return (
                     <div
@@ -539,12 +627,32 @@ export function AdminDevis() {
                       )}
                       
                       {/* Footer & Actions */}
-                      <div className="flex justify-between items-center pt-3 border-t border-slate-100 dark:border-slate-900">
-                        <span className={`text-[9px] px-2 py-0.5 rounded-md font-bold shrink-0 ${getFormulaStyle(quote.formula)}`}>
-                          {quote.volume} m³ • {quote.formula}
-                        </span>
-                        
-                        <div className="flex gap-1">
+                      <div className="flex flex-col gap-2 pt-3 border-t border-slate-100 dark:border-slate-900">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className={`text-[9px] px-2 py-0.5 rounded-md font-bold shrink-0 ${getFormulaStyle(quote.formula)}`}>
+                            {quote.volume} m³ • {quote.formula}
+                          </span>
+                          {quote.sentAt && (
+                            <span className="text-[9px] text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 min-w-0">
+                              <Mail size={10} className="shrink-0" /> {formatDateFr(quote.sentAt)}
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="flex flex-wrap justify-end gap-1">
+                          {canSendQuote && (
+                            <button
+                              type="button"
+                              onClick={() => sendQuoteByEmail(quote)}
+                              disabled={quoteIsSending || !quoteHasEmail}
+                              className={`px-2 py-1.5 font-bold text-[9px] uppercase rounded-lg transition-colors flex items-center gap-0.5 ${quoteHasEmail ? 'text-emerald-700 bg-emerald-50 hover:bg-emerald-100 dark:text-emerald-300 dark:bg-emerald-950/25 dark:hover:bg-emerald-900/40' : 'text-slate-350 bg-slate-50 dark:bg-slate-900 cursor-not-allowed opacity-60'}`}
+                              title={quoteHasEmail ? 'Envoyer le devis par email' : 'Email client manquant'}
+                            >
+                              {quoteIsSending ? <Loader2 size={10} className="animate-spin" /> : <Mail size={10} />}
+                              {quote.sentAt ? 'Renvoyer' : 'Envoyer'}
+                            </button>
+                          )}
+
                           <button 
                             onClick={() => setSelectedPdfQuote(quote)} 
                             className="px-2 py-1.5 text-slate-500 font-bold text-[9px] uppercase hover:text-brand-900 dark:hover:text-white bg-slate-50 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-colors flex items-center gap-0.5" 
