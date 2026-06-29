@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, enableMultiTabIndexedDbPersistence, enableIndexedDbPersistence } from 'firebase/firestore';
 import { getFunctions } from 'firebase/functions';
+import { getStorage } from 'firebase/storage';
 import firebaseConfig from '../../firebase-applet-config.json';
 
 function getRuntimeFirebaseConfig() {
@@ -28,6 +29,7 @@ export const db = firebaseConfig.firestoreDatabaseId && firebaseConfig.firestore
   : getFirestore(app);
 export const auth = getAuth();
 export const cloudFunctions = getFunctions(app, FIREBASE_FUNCTIONS_REGION);
+export const storage = getStorage(app);
 
 export let analytics: any = null;
 

@@ -17,7 +17,7 @@ import {
 } from '../../lib/admin-dossiers';
 import { buildClientDossiers, normalizeDossierKey } from '../../lib/admin-dossier-engine';
 import { buildDossierIdFromReference } from '../../lib/dossier-id';
-import type { AdminTab } from '../../lib/admin-permissions';
+import { getAccessibleTabs, type AdminTab } from '../../lib/admin-permissions';
 import { AdminWorkflowRail } from '../../components/admin/AdminWorkflowRail';
 import { ClientDossierDrawer, type ClientDossierWorkflowAction } from '../../components/admin/ClientDossierDrawer';
 import type { AdminOutletContextType } from '../../components/admin/layout/AdminLayout';
@@ -328,7 +328,7 @@ const hasMeaningfulOwner = (owner?: string) => {
 };
 
 export function AdminDossiers() {
-  const { user, role } = useAuth();
+  const { user, role, moduleAccess } = useAuth();
   const navigate = useNavigate();
   const context = useOutletContext<AdminOutletContextType>();
 
@@ -531,15 +531,9 @@ export function AdminDossiers() {
     return Array.from(new Set([...dbUsers, ...existingOwners, currentUserLabel].filter(Boolean)));
   }, [activeCollaborateurs, allDossiers, currentUserLabel]);
 
-  const availableTabs = useMemo(() => {
-    const roles: Record<string, AdminTab[]> = {
-      gérant: ['overview', 'dossiers', 'demandes', 'devis', 'factures', 'visites', 'planning', 'collaborateurs'],
-      secrétaire: ['dossiers', 'demandes', 'devis', 'factures', 'visites', 'planning'],
-      commercial: ['dossiers', 'demandes', 'visites', 'planning', 'simulateur'],
-      chef_equipe: ['dossiers', 'planning']
-    };
-    return role ? roles[role] ?? [] : ['dossiers'];
-  }, [role]);
+  const availableTabs = useMemo(() => (
+    role ? getAccessibleTabs(role, moduleAccess) : (['dossiers'] as AdminTab[])
+  ), [role, moduleAccess]);
 
   // Notification placeholders helper
   const renderTemplate = (body: string, dossier: ClientDossier | null) => {

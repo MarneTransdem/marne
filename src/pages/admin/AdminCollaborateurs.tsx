@@ -35,6 +35,7 @@ export function AdminCollaborateurs() {
                 name: collab.name,
                 phone: collab.phone,
                 status: collab.status,
+                moduleAccess: collab.moduleAccess,
                 provider: 'crm-email'
               })
             )
@@ -107,6 +108,7 @@ export function AdminCollaborateurs() {
       email: cleanEmail,
       phone: newCollab.phone?.trim() || '',
       role: (newCollab.role as Role) || 'commercial',
+      moduleAccess: { grantedTabs: [], revokedTabs: [] },
       status: (newCollab.status as 'Actif' | 'Inactif') || 'Actif'
     };
 
@@ -118,6 +120,7 @@ export function AdminCollaborateurs() {
         name: createdItem.name,
         phone: createdItem.phone,
         status: createdItem.status,
+        moduleAccess: createdItem.moduleAccess,
         provider: 'crm-email'
       });
     } catch (fsErr) {
@@ -163,6 +166,7 @@ export function AdminCollaborateurs() {
         name: editingCollab.name.trim(),
         phone: editingCollab.phone || '',
         status: editingCollab.status,
+        moduleAccess: editingCollab.moduleAccess,
         provider: 'crm-email'
       });
 

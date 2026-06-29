@@ -28,6 +28,11 @@ export type AdminCollection =
   | 'movers'
   | 'trucks';
 
+export type ModuleAccess = {
+  grantedTabs?: AdminTab[];
+  revokedTabs?: AdminTab[];
+};
+
 export const ADMIN_TAB_LABELS: Record<AdminTab, { desktop: string; mobile: string; title: string }> = {
   overview: {
     desktop: "Vue d'ensemble",
@@ -50,9 +55,9 @@ export const ADMIN_TAB_LABELS: Record<AdminTab, { desktop: string; mobile: strin
     title: 'Gestion des Devis'
   },
   factures: {
-    desktop: 'Factures & Règl.',
-    mobile: 'Fact.',
-    title: 'Factures & Règl.'
+    desktop: 'Factures & Trésorerie',
+    mobile: 'Tréso.',
+    title: 'Factures & Trésorerie'
   },
   visites: {
     desktop: 'Visites techniques',
@@ -91,6 +96,33 @@ export const ADMIN_TAB_LABELS: Record<AdminTab, { desktop: string; mobile: strin
   }
 };
 
+const ADMIN_TAB_ORDER: AdminTab[] = [
+  'overview',
+  'dossiers',
+  'demandes',
+  'devis',
+  'factures',
+  'visites',
+  'planning',
+  'collaborateurs',
+  'simulateur',
+  'analytics',
+  'profil',
+  'parametres'
+];
+
+export const MANAGEABLE_ADMIN_TABS: AdminTab[] = [
+  'overview',
+  'dossiers',
+  'demandes',
+  'devis',
+  'factures',
+  'visites',
+  'planning',
+  'simulateur',
+  'analytics'
+];
+
 const ROLE_TABS: Record<Role, AdminTab[]> = {
   gérant: ['overview', 'dossiers', 'demandes', 'devis', 'factures', 'visites', 'planning', 'collaborateurs', 'analytics', 'profil', 'parametres'],
   secrétaire: ['dossiers', 'demandes', 'devis', 'factures', 'visites', 'planning', 'profil', 'parametres'],
@@ -105,17 +137,106 @@ const ROLE_COLLECTIONS: Record<Role, AdminCollection[]> = {
   chef_equipe: ['demenagements', 'dossierNotes', 'dossierTasks', 'dossierOwners', 'notification_templates', 'movers', 'trucks']
 };
 
-export function getAccessibleTabs(role: Role | null | undefined): AdminTab[] {
+function isAdminTab(value: unknown): value is AdminTab {
+  return typeof value === 'string' && ADMIN_TAB_ORDER.includes(value as AdminTab);
+}
+
+function uniqueTabs(values: unknown): AdminTab[] {
+  if (!Array.isArray(values)) return [];
+  return Array.from(new Set(values.filter(isAdminTab)));
+}
+
+export function normalizeModuleAccess(access?: Partial<ModuleAccess> | null): ModuleAccess {
+  const grantedTabs = uniqueTabs(access?.grantedTabs).filter(tab => MANAGEABLE_ADMIN_TABS.includes(tab));
+  const revokedTabs = uniqueTabs(access?.revokedTabs).filter(tab => MANAGEABLE_ADMIN_TABS.includes(tab));
+
+  return {
+    grantedTabs,
+    revokedTabs: revokedTabs.filter(tab => !grantedTabs.includes(tab))
+  };
+}
+
+export function getBaseAccessibleTabs(role: Role | null | undefined): AdminTab[] {
   return role ? ROLE_TABS[role] ?? [] : [];
 }
 
-export function canAccessTab(role: Role | null | undefined, tab: AdminTab): boolean {
-  return getAccessibleTabs(role).includes(tab);
+export function getAccessibleTabs(role: Role | null | undefined, moduleAccess?: Partial<ModuleAccess> | null): AdminTab[] {
+  if (!role) return [];
+  if (role === 'gérant') return [...ROLE_TABS.gérant];
+
+  const normalizedAccess = normalizeModuleAccess(moduleAccess);
+  const tabs = new Set<AdminTab>(getBaseAccessibleTabs(role));
+
+  normalizedAccess.grantedTabs?.forEach(tab => tabs.add(tab));
+  normalizedAccess.revokedTabs?.forEach(tab => {
+    if (tab !== 'profil') tabs.delete(tab);
+  });
+
+  tabs.add('profil');
+  return ADMIN_TAB_ORDER.filter(tab => tabs.has(tab));
+}
+
+export function canAccessTab(role: Role | null | undefined, tab: AdminTab, moduleAccess?: Partial<ModuleAccess> | null): boolean {
+  return getAccessibleTabs(role, moduleAccess).includes(tab);
+}
+
+export function setModuleAccessForTab(
+  role: Role | null | undefined,
+  currentAccess: Partial<ModuleAccess> | null | undefined,
+  tab: AdminTab,
+  enabled: boolean
+): ModuleAccess {
+  const normalizedAccess = normalizeModuleAccess(currentAccess);
+  const baseHasTab = getBaseAccessibleTabs(role).includes(tab);
+  const grantedTabs = new Set(normalizedAccess.grantedTabs);
+  const revokedTabs = new Set(normalizedAccess.revokedTabs);
+
+  if (enabled) {
+    revokedTabs.delete(tab);
+    if (!baseHasTab) grantedTabs.add(tab);
+  } else {
+    grantedTabs.delete(tab);
+    if (baseHasTab) revokedTabs.add(tab);
+  }
+
+  return normalizeModuleAccess({
+    grantedTabs: Array.from(grantedTabs),
+    revokedTabs: Array.from(revokedTabs)
+  });
+}
+
+export function getModuleAccessState(role: Role | null | undefined, currentAccess: Partial<ModuleAccess> | null | undefined, tab: AdminTab) {
+  const normalizedAccess = normalizeModuleAccess(currentAccess);
+  const baseEnabled = getBaseAccessibleTabs(role).includes(tab);
+  const granted = normalizedAccess.grantedTabs?.includes(tab) ?? false;
+  const revoked = normalizedAccess.revokedTabs?.includes(tab) ?? false;
+  const enabled = granted || (baseEnabled && !revoked);
+
+  return {
+    enabled,
+    baseEnabled,
+    granted,
+    revoked
+  };
 }
 
 export function canAccessCollection(
   role: Role | null | undefined,
-  collectionName: AdminCollection
+  collectionName: AdminCollection,
+  moduleAccess?: Partial<ModuleAccess> | null
 ): boolean {
-  return role ? ROLE_COLLECTIONS[role]?.includes(collectionName) ?? false : false;
+  if (!role) return false;
+  if (role === 'gérant') return true;
+
+  if (collectionName === 'factures') return canAccessTab(role, 'factures', moduleAccess);
+  if (collectionName === 'quotes') return canAccessTab(role, 'demandes', moduleAccess);
+  if (collectionName === 'devis') return canAccessTab(role, 'devis', moduleAccess);
+  if (collectionName === 'visites') return canAccessTab(role, 'visites', moduleAccess);
+  if (collectionName === 'demenagements') return canAccessTab(role, 'planning', moduleAccess);
+  if (collectionName === 'movers' || collectionName === 'trucks') return canAccessTab(role, 'planning', moduleAccess);
+  if (collectionName === 'dossierNotes' || collectionName === 'dossierTasks' || collectionName === 'dossierOwners') return canAccessTab(role, 'dossiers', moduleAccess);
+  if (collectionName === 'notification_templates') return canAccessTab(role, 'dossiers', moduleAccess);
+  if (collectionName === 'collaborateurs') return canAccessTab(role, 'collaborateurs', moduleAccess);
+
+  return ROLE_COLLECTIONS[role]?.includes(collectionName) ?? false;
 }

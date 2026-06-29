@@ -361,6 +361,7 @@ async function startServer() {
             "https://*.firebaseio.com",
             "https://*.tile.openstreetmap.org",
             "https://*.basemaps.cartocdn.com",
+            "https://firebasestorage.googleapis.com",
             "https://api-adresse.data.gouv.fr",
             "https://router.project-osrm.org",
             "https://identitytoolkit.googleapis.com",

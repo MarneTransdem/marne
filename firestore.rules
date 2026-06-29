@@ -61,6 +61,68 @@ service cloud.firestore {
       return isSalesStaff() || isTeamLead();
     }
 
+    function userProfilePath() {
+      return /databases/$(database)/documents/users/$(request.auth.uid);
+    }
+
+    function emailProfilePath() {
+      return /databases/$(database)/documents/userRolesByEmail/$(request.auth.token.email);
+    }
+
+    function hasUserProfile() {
+      return isSignedIn() && exists(userProfilePath());
+    }
+
+    function hasEmailProfile() {
+      return isSignedIn()
+        && request.auth.token.email is string
+        && exists(emailProfilePath());
+    }
+
+    function profileHasGrantedTab(profile, tab) {
+      return profile.keys().hasAny(['moduleAccess'])
+        && profile.moduleAccess is map
+        && profile.moduleAccess.keys().hasAny(['grantedTabs'])
+        && profile.moduleAccess.grantedTabs is list
+        && profile.moduleAccess.grantedTabs.hasAny([tab]);
+    }
+
+    function profileHasRevokedTab(profile, tab) {
+      return profile.keys().hasAny(['moduleAccess'])
+        && profile.moduleAccess is map
+        && profile.moduleAccess.keys().hasAny(['revokedTabs'])
+        && profile.moduleAccess.revokedTabs is list
+        && profile.moduleAccess.revokedTabs.hasAny([tab]);
+    }
+
+    function hasGrantedTab(tab) {
+      return (hasUserProfile() && profileHasGrantedTab(get(userProfilePath()).data, tab))
+        || (hasEmailProfile() && profileHasGrantedTab(get(emailProfilePath()).data, tab));
+    }
+
+    function hasRevokedTab(tab) {
+      return (hasUserProfile() && profileHasRevokedTab(get(userProfilePath()).data, tab))
+        || (hasEmailProfile() && profileHasRevokedTab(get(emailProfilePath()).data, tab));
+    }
+
+    function hasBaseModuleAccess(tab) {
+      return isManager()
+        || (isSecretary() && (
+          tab == 'dossiers' || tab == 'demandes' || tab == 'devis' || tab == 'factures' || tab == 'visites' || tab == 'planning'
+        ))
+        || (isCommercial() && (
+          tab == 'dossiers' || tab == 'demandes' || tab == 'visites' || tab == 'planning' || tab == 'simulateur'
+        ))
+        || (isTeamLead() && (
+          tab == 'dossiers' || tab == 'planning'
+        ));
+    }
+
+    function hasModuleAccess(tab) {
+      return isManager()
+        || (isSignedIn() && !hasRevokedTab(tab) && (hasBaseModuleAccess(tab) || hasGrantedTab(tab)));
+    }
+
     // --- Collections ---
 
     // 0. Users
@@ -69,14 +131,14 @@ service cloud.firestore {
       allow create: if isManager() || (
         isSignedIn()
         && request.auth.uid == userId
-        && incoming().keys().hasOnly(['uid', 'email', 'name', 'phone', 'updatedAt'])
+        && incoming().keys().hasOnly(['uid', 'email', 'name', 'phone', 'photoURL', 'updatedAt'])
         && incoming().uid == userId
         && incoming().email == request.auth.token.email
       );
       allow update: if isManager() || (
         isSignedIn()
         && request.auth.uid == userId
-        && incoming().diff(resource.data).affectedKeys().hasOnly(['uid', 'email', 'name', 'phone', 'updatedAt'])
+        && incoming().diff(resource.data).affectedKeys().hasOnly(['uid', 'email', 'name', 'phone', 'photoURL', 'updatedAt'])
         && incoming().uid == userId
         && incoming().email == request.auth.token.email
       );
@@ -92,9 +154,9 @@ service cloud.firestore {
     // 1. Quotes
     match /quotes/{quoteId} {
       allow create: if isValidQuote(incoming());
-      allow read: if isSalesStaff();
-      allow update: if isSalesStaff();
-      allow delete: if isOfficeStaff();
+      allow read: if hasModuleAccess('demandes');
+      allow update: if hasModuleAccess('demandes');
+      allow delete: if isManager() || (isSecretary() && hasModuleAccess('demandes'));
       
       function isValidQuote(data) {
         return data.keys().hasAll(['fullName', 'phone', 'email', 'fromAddress', 'fromCity', 'fromZip', 'toAddress', 'toCity', 'toZip', 'date', 'housingType', 'surface', 'formula', 'createdAt'])
@@ -147,24 +209,24 @@ service cloud.firestore {
 
     // 4. Admin CRM collections
     match /devis/{devisId} {
-      allow read, create, update: if isSalesStaff();
-      allow delete: if isOfficeStaff();
+      allow read, create, update: if hasModuleAccess('devis');
+      allow delete: if isManager() || (isSecretary() && hasModuleAccess('devis'));
     }
 
     match /factures/{factureId} {
-      allow read, write: if isOfficeStaff();
+      allow read, write: if hasModuleAccess('factures');
     }
 
     match /visites/{visiteId} {
-      allow read, write: if isSalesStaff();
+      allow read, write: if hasModuleAccess('visites');
     }
 
     match /demenagements/{moveId} {
-      allow get: if isOperationsStaff() || (resource.data.trackingToken != null);
-      allow list: if isOperationsStaff();
-      allow create, delete: if isOfficeStaff();
-      allow update: if isOfficeStaff()
-        || (isTeamLead() && incoming().diff(resource.data).affectedKeys().hasOnly(['status']))
+      allow get: if hasModuleAccess('planning') || (resource.data.trackingToken != null);
+      allow list: if hasModuleAccess('planning');
+      allow create, delete: if isManager() || (isSecretary() && hasModuleAccess('planning')) || (hasGrantedTab('planning') && !hasRevokedTab('planning'));
+      allow update: if isManager() || (isSecretary() && hasModuleAccess('planning')) || (hasGrantedTab('planning') && !hasRevokedTab('planning'))
+        || (isTeamLead() && hasModuleAccess('planning') && incoming().diff(resource.data).affectedKeys().hasOnly(['status']))
         || (resource.data.trackingToken != null 
             && incoming().trackingToken == resource.data.trackingToken
             && incoming().diff(resource.data).affectedKeys().hasOnly(['clientSignature', 'signedAt', 'status']) 
@@ -172,20 +234,20 @@ service cloud.firestore {
     }
 
     match /dossierNotes/{noteId} {
-      allow read, write: if isOperationsStaff();
+      allow read, write: if hasModuleAccess('dossiers');
     }
 
     match /dossierTasks/{taskId} {
-      allow read, write: if isOperationsStaff();
+      allow read, write: if hasModuleAccess('dossiers');
     }
 
     match /dossierOwners/{ownerId} {
-      allow read, write: if isOperationsStaff();
+      allow read, write: if hasModuleAccess('dossiers');
     }
 
     match /notification_templates/{templateId} {
-      allow read: if isOperationsStaff();
-      allow write: if isOfficeStaff();
+      allow read: if hasModuleAccess('dossiers');
+      allow write: if isManager() || (isSecretary() && hasModuleAccess('dossiers'));
     }
 
     match /crm_settings/{settingId} {
@@ -198,13 +260,13 @@ service cloud.firestore {
     }
 
     match /movers/{moverId} {
-      allow read: if isOperationsStaff();
-      allow write: if isOfficeStaff();
+      allow read: if hasModuleAccess('planning');
+      allow write: if isManager() || (isSecretary() && hasModuleAccess('planning'));
     }
 
     match /trucks/{truckId} {
-      allow read: if isOperationsStaff();
-      allow write: if isOfficeStaff();
+      allow read: if hasModuleAccess('planning');
+      allow write: if isManager() || (isSecretary() && hasModuleAccess('planning'));
     }
   }
 }

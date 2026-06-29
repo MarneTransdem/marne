@@ -1,24 +1,55 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import type { User } from 'firebase/auth';
 import type { Role } from '../types';
+import { normalizeModuleAccess, type ModuleAccess } from '../lib/admin-permissions';
 
 interface AuthContextType {
   user: User | null;
   role: Role | null;
+  moduleAccess: ModuleAccess;
   loading: boolean;
   accessError: string | null;
 }
 
+const EMPTY_MODULE_ACCESS = normalizeModuleAccess(null);
+
 const AuthContext = createContext<AuthContextType>({
   user: null,
   role: null,
+  moduleAccess: EMPTY_MODULE_ACCESS,
   loading: true,
   accessError: null
 });
 
+const normalizeEmail = (email?: string | null) => (email || '').trim().toLowerCase();
+
+type ModuleAccessTab = NonNullable<ModuleAccess['grantedTabs']>[number];
+
+const mergeModuleAccess = (...accessList: Array<Partial<ModuleAccess> | null | undefined>) => {
+  const grantedTabs = new Set<ModuleAccessTab>();
+  const revokedTabs = new Set<ModuleAccessTab>();
+
+  accessList.forEach((access) => {
+    const normalized = normalizeModuleAccess(access);
+    normalized.grantedTabs?.forEach(tab => grantedTabs.add(tab));
+    normalized.revokedTabs?.forEach(tab => revokedTabs.add(tab));
+  });
+
+  return normalizeModuleAccess({
+    grantedTabs: Array.from(grantedTabs),
+    revokedTabs: Array.from(revokedTabs)
+  });
+};
+
+const readModuleAccess = (data: unknown) => {
+  const profile = data as { moduleAccess?: Partial<ModuleAccess> } | undefined;
+  return normalizeModuleAccess(profile?.moduleAccess);
+};
+
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [role, setRole] = useState<Role | null>(null);
+  const [moduleAccess, setModuleAccess] = useState<ModuleAccess>(EMPTY_MODULE_ACCESS);
   const [accessError, setAccessError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -48,6 +79,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
           if (!firebaseUser) {
             setRole(null);
+            setModuleAccess(EMPTY_MODULE_ACCESS);
             setLoading(false);
             return;
           }
@@ -115,8 +147,77 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!user) {
+      setModuleAccess(EMPTY_MODULE_ACCESS);
+      return undefined;
+    }
+
+    let cancelled = false;
+    let userAccess = EMPTY_MODULE_ACCESS;
+    let emailAccess = EMPTY_MODULE_ACCESS;
+    let unsubscribeUser: (() => void) | null = null;
+    let unsubscribeEmail: (() => void) | null = null;
+
+    const publishAccess = () => {
+      if (!cancelled) {
+        setModuleAccess(mergeModuleAccess(emailAccess, userAccess));
+      }
+    };
+
+    const subscribe = async () => {
+      const { db } = await import('../lib/firebase');
+      const { doc, onSnapshot } = await import('firebase/firestore');
+
+      if (cancelled) return;
+
+      unsubscribeUser = onSnapshot(
+        doc(db, 'users', user.uid),
+        (snapshot) => {
+          userAccess = snapshot.exists() ? readModuleAccess(snapshot.data()) : EMPTY_MODULE_ACCESS;
+          publishAccess();
+        },
+        (error) => {
+          console.warn('Impossible de suivre les droits par utilisateur :', error);
+          userAccess = EMPTY_MODULE_ACCESS;
+          publishAccess();
+        }
+      );
+
+      const cleanEmail = normalizeEmail(user.email);
+      if (!cleanEmail) {
+        publishAccess();
+        return;
+      }
+
+      unsubscribeEmail = onSnapshot(
+        doc(db, 'userRolesByEmail', cleanEmail),
+        (snapshot) => {
+          emailAccess = snapshot.exists() ? readModuleAccess(snapshot.data()) : EMPTY_MODULE_ACCESS;
+          publishAccess();
+        },
+        (error) => {
+          console.warn('Impossible de suivre les droits par email :', error);
+          emailAccess = EMPTY_MODULE_ACCESS;
+          publishAccess();
+        }
+      );
+    };
+
+    subscribe().catch((error) => {
+      console.warn('Erreur de chargement des accès modulaires CRM :', error);
+      setModuleAccess(EMPTY_MODULE_ACCESS);
+    });
+
+    return () => {
+      cancelled = true;
+      if (unsubscribeUser) unsubscribeUser();
+      if (unsubscribeEmail) unsubscribeEmail();
+    };
+  }, [user]);
+
   return (
-    <AuthContext.Provider value={{ user, role, loading, accessError }}>
+    <AuthContext.Provider value={{ user, role, moduleAccess, loading, accessError }}>
       {children}
     </AuthContext.Provider>
   );

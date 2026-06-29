@@ -62,7 +62,7 @@ export type AdminOutletContextType = {
 };
 
 export function AdminLayout() {
-  const { user, role, loading } = useAuth();
+  const { user, role, moduleAccess, loading } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
@@ -145,7 +145,7 @@ export function AdminLayout() {
     return () => window.removeEventListener('marne_firestore_sync_error', handleSyncError);
   }, []);
 
-  const tabs = useMemo(() => getAccessibleTabs(role), [role]);
+  const tabs = useMemo(() => getAccessibleTabs(role, moduleAccess), [role, moduleAccess]);
 
   // Determine current active tab from the URL
   const currentPathSegments = location.pathname.split('/').filter(Boolean);

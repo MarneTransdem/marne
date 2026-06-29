@@ -2,6 +2,7 @@ import type { Firestore } from 'firebase/firestore';
 import { deleteDoc, doc, getDoc, setDoc } from 'firebase/firestore';
 import type { Functions } from 'firebase/functions';
 import type { Role } from '../types';
+import { normalizeModuleAccess, type ModuleAccess } from './admin-permissions';
 
 const VALID_CRM_ROLES: Role[] = ['gérant', 'secrétaire', 'commercial', 'chef_equipe'];
 const MANAGER_EMAIL = 'contact@marnetransdem.com';
@@ -14,6 +15,7 @@ type CrmAccessProfile = {
   phone?: string;
   status?: 'Actif' | 'Inactif';
   provider?: string;
+  moduleAccess?: Partial<ModuleAccess> | null;
 };
 
 export function normalizeCrmEmail(email?: string | null) {
@@ -99,6 +101,10 @@ export async function upsertCrmAccessProfile(db: Firestore, profile: CrmAccessPr
     provider: profile.provider || 'crm',
     updatedAt: new Date().toISOString()
   };
+
+  if (profile.moduleAccess !== undefined) {
+    Object.assign(payload, { moduleAccess: normalizeModuleAccess(profile.moduleAccess) });
+  }
 
   const writes = [setDoc(doc(db, 'userRolesByEmail', cleanEmail), payload, { merge: true })];
 

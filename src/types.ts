@@ -110,12 +110,31 @@ export interface FieldTruck {
   nextMaintenanceDate?: string;
 }
 
+export type AdminModuleAccessTab =
+  | 'overview'
+  | 'dossiers'
+  | 'demandes'
+  | 'devis'
+  | 'factures'
+  | 'visites'
+  | 'planning'
+  | 'collaborateurs'
+  | 'simulateur'
+  | 'analytics'
+  | 'profil'
+  | 'parametres';
+
 export interface UserProfile {
   uid: string;
   email: string;
   role: Role;
   name: string;
   phone?: string;
+  photoURL?: string;
+  moduleAccess?: {
+    grantedTabs?: AdminModuleAccessTab[];
+    revokedTabs?: AdminModuleAccessTab[];
+  };
   status: 'Actif' | 'Inactif';
   createdAt?: string;
 }
