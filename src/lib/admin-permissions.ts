@@ -6,6 +6,7 @@ export type AdminTab =
   | 'demandes'
   | 'devis'
   | 'factures'
+  | 'relances'
   | 'visites'
   | 'planning'
   | 'collaborateurs'
@@ -24,6 +25,7 @@ export type AdminCollection =
   | 'dossierTasks'
   | 'dossierOwners'
   | 'notification_templates'
+  | 'communication_logs'
   | 'collaborateurs'
   | 'movers'
   | 'trucks';
@@ -58,6 +60,11 @@ export const ADMIN_TAB_LABELS: Record<AdminTab, { desktop: string; mobile: strin
     desktop: 'Factures & Trésorerie',
     mobile: 'Tréso.',
     title: 'Factures & Trésorerie'
+  },
+  relances: {
+    desktop: 'Envois & Relances',
+    mobile: 'Envois',
+    title: 'Envois & Relances'
   },
   visites: {
     desktop: 'Visites techniques',
@@ -102,6 +109,7 @@ const ADMIN_TAB_ORDER: AdminTab[] = [
   'demandes',
   'devis',
   'factures',
+  'relances',
   'visites',
   'planning',
   'collaborateurs',
@@ -117,6 +125,7 @@ export const MANAGEABLE_ADMIN_TABS: AdminTab[] = [
   'demandes',
   'devis',
   'factures',
+  'relances',
   'visites',
   'planning',
   'simulateur',
@@ -124,14 +133,14 @@ export const MANAGEABLE_ADMIN_TABS: AdminTab[] = [
 ];
 
 const ROLE_TABS: Record<Role, AdminTab[]> = {
-  gérant: ['overview', 'dossiers', 'demandes', 'devis', 'factures', 'visites', 'planning', 'collaborateurs', 'analytics', 'profil', 'parametres'],
-  secrétaire: ['dossiers', 'demandes', 'devis', 'factures', 'visites', 'planning', 'profil', 'parametres'],
+  gérant: ['overview', 'dossiers', 'demandes', 'devis', 'factures', 'relances', 'visites', 'planning', 'collaborateurs', 'analytics', 'profil', 'parametres'],
+  secrétaire: ['dossiers', 'demandes', 'devis', 'factures', 'relances', 'visites', 'planning', 'profil', 'parametres'],
   commercial: ['dossiers', 'demandes', 'visites', 'planning', 'simulateur', 'profil', 'parametres'],
   chef_equipe: ['dossiers', 'planning', 'profil', 'parametres']
 };
 
 const ROLE_COLLECTIONS: Record<Role, AdminCollection[]> = {
-  gérant: ['quotes', 'devis', 'factures', 'visites', 'demenagements', 'dossierNotes', 'dossierTasks', 'dossierOwners', 'notification_templates', 'collaborateurs', 'movers', 'trucks'],
+  gérant: ['quotes', 'devis', 'factures', 'visites', 'demenagements', 'dossierNotes', 'dossierTasks', 'dossierOwners', 'notification_templates', 'communication_logs', 'collaborateurs', 'movers', 'trucks'],
   secrétaire: ['quotes', 'devis', 'factures', 'visites', 'demenagements', 'dossierNotes', 'dossierTasks', 'dossierOwners', 'notification_templates', 'movers', 'trucks'],
   commercial: ['quotes', 'devis', 'visites', 'demenagements', 'dossierNotes', 'dossierTasks', 'dossierOwners', 'notification_templates', 'movers', 'trucks'],
   chef_equipe: ['demenagements', 'dossierNotes', 'dossierTasks', 'dossierOwners', 'notification_templates', 'movers', 'trucks']
@@ -229,6 +238,7 @@ export function canAccessCollection(
   if (role === 'gérant') return true;
 
   if (collectionName === 'factures') return canAccessTab(role, 'factures', moduleAccess);
+  if (collectionName === 'communication_logs') return canAccessTab(role, 'relances', moduleAccess);
   if (collectionName === 'quotes') return canAccessTab(role, 'demandes', moduleAccess);
   if (collectionName === 'devis') return canAccessTab(role, 'devis', moduleAccess);
   if (collectionName === 'visites') return canAccessTab(role, 'visites', moduleAccess);

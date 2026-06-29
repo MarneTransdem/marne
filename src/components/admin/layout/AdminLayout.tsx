@@ -25,14 +25,15 @@ import {
   RefreshCw,
   TrendingUp,
   UserCircle,
-  Settings
+  Settings,
+  Send
 } from 'lucide-react';
 import { ADMIN_TAB_LABELS, getAccessibleTabs, type AdminTab } from '../../../lib/admin-permissions';
 
 const CRM_SIDEBAR_SECTIONS: Array<{ title: string; tabs: AdminTab[] }> = [
   { title: 'Pilotage', tabs: ['overview', 'dossiers', 'analytics'] },
   { title: 'Relation client', tabs: ['demandes', 'visites', 'devis'] },
-  { title: 'Finance', tabs: ['factures'] },
+  { title: 'Finance', tabs: ['factures', 'relances'] },
   { title: 'Opérations', tabs: ['planning'] },
   { title: 'Équipe & outils', tabs: ['collaborateurs', 'simulateur'] },
   { title: 'Compte', tabs: ['profil', 'parametres'] }
@@ -44,6 +45,7 @@ const getAdminTabIcon = (tab: AdminTab, size = 16) => {
   if (tab === 'demandes') return <FolderOpen size={size} />;
   if (tab === 'devis') return <FileText size={size} />;
   if (tab === 'factures') return <CreditCard size={size} />;
+  if (tab === 'relances') return <Send size={size} />;
   if (tab === 'visites') return <MapPin size={size} />;
   if (tab === 'planning') return <Calendar size={size} />;
   if (tab === 'collaborateurs') return <Users size={size} />;

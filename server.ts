@@ -136,6 +136,7 @@ function getBearerToken(req: any): string | null {
 function getAdminEmailRoles(type: unknown): CrmRoleKey[] | null {
   if (type === 'admin-doc') return ['gerant', 'secretaire', 'commercial'];
   if (type === 'invoice-reminder') return ['gerant', 'secretaire'];
+  if (type === 'quote-reminder') return ['gerant', 'secretaire', 'commercial'];
   if (type === 'devis-tracking') return ['gerant', 'secretaire', 'commercial'];
   return null;
 }
@@ -602,6 +603,74 @@ async function startServer() {
       }
     }
 
+    if (type === 'quote-reminder') {
+      const { quote, reminderStage } = data;
+      if (!quote) {
+        return res.status(400).json({ error: "Données du devis manquantes" });
+      }
+
+      const clientName = quote.clientName || "Client";
+      const clientEmail = quote.email || quote.clientEmail || "";
+      if (!clientEmail) {
+        return res.status(400).json({ error: "Adresse email du client manquante" });
+      }
+
+      try {
+        const buffer = await generateServerPdfBuffer('devis', quote);
+        const base64Attachment = buffer.toString('base64');
+
+        const formatDateFr = (dateStr?: string) => {
+          if (!dateStr) return 'non précisée';
+          const parts = dateStr.split('T')[0].split('-');
+          if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
+          return dateStr;
+        };
+
+        const isExpiringReminder = reminderStage === 'quote_reminder_expiring';
+        const routeLabel = [quote.fromCity, quote.toCity].filter(Boolean).join(' vers ') || 'votre déménagement';
+        const amountLabel = `${Math.round(Number(quote.price || 0)).toLocaleString('fr-FR')} €`;
+        const subject = isExpiringReminder
+          ? `Votre devis Marne Transdem N° ${quote.id} arrive bientôt à expiration`
+          : `Suite à votre devis Marne Transdem N° ${quote.id}`;
+        const emailHtml = isExpiringReminder ? `
+          <p>Bonjour <strong>${clientName}</strong>,</p>
+          <p>Votre devis <strong>N° ${quote.id}</strong> pour ${routeLabel} arrive bientôt à expiration${quote.expiresAt ? ` le <strong>${formatDateFr(quote.expiresAt)}</strong>` : ''}.</p>
+          <p>Pour garantir la disponibilité de l'équipe et du véhicule à la date souhaitée, nous vous invitons à nous confirmer votre accord dès que possible.</p>
+          <p>Le devis d'un montant de <strong>${amountLabel}</strong> est joint à ce message.</p>
+          <p style="margin-top: 24px;">Cordialement,<br/><strong>L'équipe Marne Transdem</strong></p>
+        ` : `
+          <p>Bonjour <strong>${clientName}</strong>,</p>
+          <p>Je me permets de revenir vers vous concernant le devis <strong>N° ${quote.id}</strong> transmis pour ${routeLabel}.</p>
+          <p>Avez-vous pu en prendre connaissance ? Nous restons disponibles pour répondre à vos questions, ajuster certains points ou bloquer la date dès votre validation.</p>
+          <p>Le devis d'un montant de <strong>${amountLabel}</strong> est de nouveau joint à ce message.</p>
+          <p style="margin-top: 24px;">Cordialement,<br/><strong>L'équipe Marne Transdem</strong></p>
+        `;
+
+        if (!process.env.GMAIL_APP_PASSWORD || !process.env.GMAIL_USER) {
+          return res.status(500).json({ error: "Configuration email manquante" });
+        }
+
+        await transporter.sendMail({
+          from: `"Marne Transdem" <${process.env.GMAIL_USER}>`,
+          to: clientEmail,
+          cc: process.env.GMAIL_USER,
+          subject,
+          html: getEmailContainer(`Relance Devis N° ${quote.id}`, emailHtml),
+          attachments: [
+            {
+              filename: `Devis_${quote.id}.pdf`,
+              content: base64Attachment,
+              encoding: 'base64'
+            }
+          ]
+        });
+
+        return res.json({ success: true });
+      } catch (error: any) {
+        console.error("Quote Reminder Email Error:", error);
+        return res.status(500).json({ error: "Échec de l'envoi de la relance devis", details: error.message || error });
+      }
+    }
     if (type === 'invoice-reminder') {
       const { invoice } = data;
       if (!invoice) {

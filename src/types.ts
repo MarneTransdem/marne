@@ -19,6 +19,8 @@ export interface Devis {
   sourceRequestId?: string;
   sourceVisitId?: string;
   sentAt?: string;
+  lastReminderAt?: string;
+  reminderCount?: number;
   acceptedAt?: string;
   refusedAt?: string;
   expiresAt?: string;
@@ -48,6 +50,9 @@ export interface Facture {
   date: string;
   dueDate: string;
   status: 'Payée' | 'En attente' | 'En retard';
+  sentAt?: string;
+  lastReminderAt?: string;
+  reminderCount?: number;
   overdueSince?: string;
 }
 
@@ -116,6 +121,7 @@ export type AdminModuleAccessTab =
   | 'demandes'
   | 'devis'
   | 'factures'
+  | 'relances'
   | 'visites'
   | 'planning'
   | 'collaborateurs'

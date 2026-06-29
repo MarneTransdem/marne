@@ -28,6 +28,7 @@ const AdminDossiers = lazy(() => import('./pages/admin/AdminDossiers').then(modu
 const AdminDemandes = lazy(() => import('./pages/admin/AdminDemandes').then(module => ({ default: module.AdminDemandes })));
 const AdminDevis = lazy(() => import('./pages/admin/AdminDevis').then(module => ({ default: module.AdminDevis })));
 const AdminFactures = lazy(() => import('./pages/admin/AdminFactures').then(module => ({ default: module.AdminFactures })));
+const AdminEnvoisRelances = lazy(() => import('./pages/admin/AdminEnvoisRelances').then(module => ({ default: module.AdminEnvoisRelances })));
 const AdminVisites = lazy(() => import('./pages/admin/AdminVisites').then(module => ({ default: module.AdminVisites })));
 const AdminPlanning = lazy(() => import('./pages/admin/AdminPlanning').then(module => ({ default: module.AdminPlanning })));
 const AdminCollaborateurs = lazy(() => import('./pages/admin/AdminCollaborateurs').then(module => ({ default: module.AdminCollaborateurs })));
@@ -93,6 +94,7 @@ function AppRoutes() {
         <Route path="demandes" element={<AdminDemandes />} />
         <Route path="devis" element={<AdminDevis />} />
         <Route path="factures" element={<AdminFactures />} />
+        <Route path="relances" element={<AdminEnvoisRelances />} />
         <Route path="visites" element={<AdminVisites />} />
         <Route path="planning" element={<AdminPlanning />} />
         <Route path="collaborateurs" element={<AdminCollaborateurs />} />

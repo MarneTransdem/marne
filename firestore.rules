@@ -108,7 +108,7 @@ service cloud.firestore {
     function hasBaseModuleAccess(tab) {
       return isManager()
         || (isSecretary() && (
-          tab == 'dossiers' || tab == 'demandes' || tab == 'devis' || tab == 'factures' || tab == 'visites' || tab == 'planning'
+          tab == 'dossiers' || tab == 'demandes' || tab == 'devis' || tab == 'factures' || tab == 'relances' || tab == 'visites' || tab == 'planning'
         ))
         || (isCommercial() && (
           tab == 'dossiers' || tab == 'demandes' || tab == 'visites' || tab == 'planning' || tab == 'simulateur'
@@ -245,6 +245,10 @@ service cloud.firestore {
       allow read, write: if hasModuleAccess('dossiers');
     }
 
+
+    match /communication_logs/{logId} {
+      allow read, write: if hasModuleAccess('relances');
+    }
     match /notification_templates/{templateId} {
       allow read: if hasModuleAccess('dossiers');
       allow write: if isManager() || (isSecretary() && hasModuleAccess('dossiers'));
