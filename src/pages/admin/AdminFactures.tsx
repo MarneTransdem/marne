@@ -1,16 +1,20 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
+import { doc, setDoc } from 'firebase/firestore';
 import { useSyncedCollection } from '../../hooks/useData';
+import { useAuth } from '../../context/AuthContext';
 import { Facture } from '../../types';
 import { 
   Plus, FileText, X, Coins, CreditCard, AlertTriangle, 
-  Search, ShieldAlert, BadgePercent, ArrowUpRight, CheckCircle2 
+  Search, ShieldAlert, BadgePercent, ArrowUpRight, CheckCircle2, Mail, Loader2
 } from 'lucide-react';
 import { PdfGenerator } from '../../components/admin/PdfGenerator';
 import type { AdminOutletContextType } from '../../components/admin/layout/AdminLayout';
 import { buildDossierIdFromReference } from '../../lib/dossier-id';
 import { getNextYearlyId } from '../../lib/admin-ids';
 import { adminFetch } from '../../lib/admin-api';
+import { db } from '../../lib/firebase';
+import { buildCommunicationLog, renderCommunication, type CommunicationLog, type CommunicationTask } from '../../lib/crm-communications';
 
 interface AdminFacturesProps {
   factures?: Facture[];
@@ -25,6 +29,7 @@ export function AdminFactures({
   setSelectedPdfDoc, 
   searchQuery 
 }: AdminFacturesProps) {
+  const { user } = useAuth();
   const context = useOutletContext<AdminOutletContextType>();
   const activeSearchQuery = searchQuery || context?.searchQuery || '';
 
@@ -37,6 +42,7 @@ export function AdminFactures({
   const [showAddFacture, setShowAddFacture] = useState(false);
   const [localPdfFacture, setLocalPdfFacture] = useState<Facture | null>(null);
   const [sendingReminderId, setSendingReminderId] = useState<string | null>(null);
+  const [sendingInvoiceId, setSendingInvoiceId] = useState<string | null>(null);
   
   // Financial filter state
   const [filterStatus, setFilterStatus] = useState<'all' | 'En attente' | 'Payée' | 'En retard'>('all');
@@ -160,6 +166,78 @@ export function AdminFactures({
     link.click();
     document.body.removeChild(link);
   };
+  const registerInvoiceSendLog = async (invoice: Facture, status: CommunicationLog['status'], error?: string) => {
+    const rendered = renderCommunication('invoice_send', invoice, 'facture');
+    const task: CommunicationTask = {
+      id: `invoice-send-${invoice.id}`,
+      documentType: 'facture',
+      documentId: invoice.id,
+      dossierId: invoice.dossierId,
+      action: 'invoice_send',
+      priority: 'normal',
+      title: 'Envoi facture',
+      description: `Envoi direct de la facture ${invoice.id}.`,
+      clientName: invoice.clientName,
+      clientEmail: invoice.email,
+      amount: Number(invoice.amount || 0),
+      dateLabel: invoice.dueDate || invoice.date || '',
+      badgeLabel: 'Envoyée',
+      ctaLabel: 'Envoyer facture',
+      document: invoice,
+      subject: rendered.subject,
+      body: rendered.body,
+      sentToday: false
+    };
+    const log = buildCommunicationLog(task, status, user?.email || user?.displayName || 'CRM', error);
+    await setDoc(doc(db, 'communication_logs', log.id), log, { merge: true });
+  };
+
+  const handleSendInvoice = async (fac: Facture) => {
+    const targetEmail = fac.email?.trim();
+    if (!targetEmail) {
+      context?.pushNotification('Email manquant', 'Ajoutez une adresse email à la facture avant de l’envoyer.', 'warning');
+      return;
+    }
+
+    setSendingInvoiceId(fac.id);
+    try {
+      const sentInvoice: Facture = {
+        ...fac,
+        email: targetEmail,
+        sentAt: new Date().toISOString()
+      };
+
+      const response = await adminFetch('/api/send-email', {
+        method: 'POST',
+        body: JSON.stringify({
+          type: 'admin-doc',
+          documentType: 'facture',
+          data: {
+            id: fac.id,
+            clientName: fac.clientName,
+            clientEmail: targetEmail,
+            pdfName: `Facture_${fac.id}.pdf`,
+            docData: sentInvoice
+          }
+        })
+      });
+
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || result.details || 'Envoi de la facture impossible.');
+      }
+
+      await activeSetFactures(prev => prev.map(item => item.id === fac.id ? { ...item, email: targetEmail, sentAt: sentInvoice.sentAt } : item));
+      await registerInvoiceSendLog(sentInvoice, 'sent').catch(() => undefined);
+      context?.pushNotification('Facture envoyée', `La facture ${fac.id} a été envoyée à ${targetEmail}.`, 'success');
+    } catch (error: any) {
+      const message = error?.message || 'Envoi de la facture impossible.';
+      await registerInvoiceSendLog({ ...fac, email: targetEmail }, 'failed', message).catch(() => undefined);
+      context?.pushNotification('Échec de l’envoi', message, 'warning');
+    } finally {
+      setSendingInvoiceId(null);
+    }
+  };
 
   const handleRelance = async (fac: Facture) => {
     if (!fac.email) {
@@ -241,7 +319,8 @@ export function AdminFactures({
 
   const formatDateFr = (dateStr?: string) => {
     if (!dateStr) return '';
-    const parts = dateStr.split('-');
+    const cleanDate = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr;
+    const parts = cleanDate.split('-');
     if (parts.length === 3) {
       return `${parts[2]}/${parts[1]}/${parts[0]}`;
     }
@@ -447,6 +526,8 @@ export function AdminFactures({
               <tbody className="text-xs divide-y divide-slate-100 dark:divide-slate-800">
                 {filteredFactures.map((fac) => {
                   const isOverdue = fac.status === 'En retard';
+                  const invoiceHasEmail = Boolean(fac.email?.trim());
+                  const invoiceIsSending = sendingInvoiceId === fac.id;
                   return (
                     <tr 
                       key={fac.id} 
@@ -474,7 +555,7 @@ export function AdminFactures({
                         </span>
                       </td>
 
-                      <td className="py-4 px-6 flex items-center gap-2">
+                      <td className="py-4 px-6 flex flex-wrap items-center gap-2">
                         <button
                           onClick={() => handlePdfClick(fac)}
                           className="bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 py-1.5 px-2.5 rounded-lg text-[10px] font-extrabold cursor-pointer inline-flex items-center gap-1 active:scale-95 whitespace-nowrap"
@@ -482,16 +563,33 @@ export function AdminFactures({
                         >
                           <FileText size={11} /> PDF Pro
                         </button>
+
+                        <button
+                          type="button"
+                          onClick={() => handleSendInvoice(fac)}
+                          disabled={sendingInvoiceId !== null || !invoiceHasEmail}
+                          className={`py-1.5 px-2.5 rounded-lg text-[10px] font-extrabold inline-flex items-center gap-1 active:scale-95 whitespace-nowrap transition-colors disabled:opacity-55 disabled:cursor-not-allowed ${invoiceHasEmail ? 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 dark:bg-emerald-950/25 dark:hover:bg-emerald-900/40 dark:text-emerald-300' : 'bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500'}`}
+                          title={invoiceHasEmail ? 'Envoyer la facture par email' : 'Email client manquant'}
+                        >
+                          {invoiceIsSending ? <Loader2 size={11} className="animate-spin" /> : <Mail size={11} />}
+                          {fac.sentAt ? 'Renvoyer' : 'Envoyer'}
+                        </button>
+
+                        {fac.sentAt && (
+                          <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold inline-flex items-center gap-1 whitespace-nowrap">
+                            <Mail size={11} /> {formatDateFr(fac.sentAt)}
+                          </span>
+                        )}
                         
                         {fac.status === 'Payée' ? (
                           <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-black flex items-center gap-1">
                             <CheckCircle2 size={12} /> Réglé
                           </span>
                         ) : (
-                          <div className="flex gap-1">
+                          <div className="flex flex-wrap gap-1">
                             <button
                               onClick={() => updateInvoiceStatus(fac.id, 'Payée')}
-                              disabled={sendingReminderId !== null}
+                              disabled={sendingReminderId !== null || sendingInvoiceId !== null}
                               className="bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold px-3 py-1.5 rounded-xl text-[10px] cursor-pointer inline-block active:scale-95 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                               Encaisser
@@ -499,7 +597,7 @@ export function AdminFactures({
                             {fac.status === 'En attente' && (
                               <button
                                 onClick={() => updateInvoiceStatus(fac.id, 'En retard')}
-                                disabled={sendingReminderId !== null}
+                                disabled={sendingReminderId !== null || sendingInvoiceId !== null}
                                 className="bg-red-100 hover:bg-red-200 text-red-700 font-extrabold px-2.5 py-1.5 rounded-xl text-[10px] cursor-pointer inline-block active:scale-95 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
                               >
                                 Déclarer en retard
@@ -508,7 +606,7 @@ export function AdminFactures({
                             {(fac.status === 'En attente' || fac.status === 'En retard') && (
                               <button
                                 onClick={() => handleRelance(fac)}
-                                disabled={sendingReminderId !== null}
+                                disabled={sendingReminderId !== null || sendingInvoiceId !== null}
                                 className="bg-amber-100 hover:bg-amber-200 text-amber-800 font-extrabold px-2.5 py-1.5 rounded-xl text-[10px] cursor-pointer inline-flex items-center gap-1 active:scale-95 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
                               >
                                 {sendingReminderId === fac.id ? (
