@@ -30,22 +30,22 @@ const rateLimitMap = new Map<string, RateLimitEntry>();
 function isRateLimited(ip: string, limit: number, windowMs: number): boolean {
   const now = Date.now();
   const entry = rateLimitMap.get(ip);
-  
+
   if (!entry) {
     rateLimitMap.set(ip, { count: 1, resetTime: now + windowMs });
     return false;
   }
-  
+
   if (now > entry.resetTime) {
     entry.count = 1;
     entry.resetTime = now + windowMs;
     return false;
   }
-  
+
   if (entry.count >= limit) {
     return true;
   }
-  
+
   entry.count++;
   return false;
 }
@@ -463,9 +463,19 @@ async function startServer() {
         }
       }
 
+      const origin = req.headers.origin || 'https://marnetransdem.com';
+      const signUrl = `${origin}/signature-devis/${id}`;
+
       const emailHtml = `
         <p>Bonjour <strong>${clientName}</strong>,</p>
         <p>Veuillez trouver ci-joint votre <strong>${documentTypeName.toLowerCase()} N° ${id}</strong> concernant votre déménagement avec Marne Transdem.</p>
+        ${req.body.documentType === 'devis' ? `
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${signUrl}" style="background-color: #f59e0b; color: #fff; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            ✍️ Consulter & Signer mon devis en ligne
+          </a>
+        </div>
+        ` : ''}
         <p>Nous restons à votre entière disposition pour tout renseignement complémentaire.</p>
         <p>Cordialement,<br/>L'équipe Marne Transdem</p>
       `;
@@ -476,9 +486,9 @@ async function startServer() {
             hasUser: !!process.env.GMAIL_USER,
             hasPass: !!process.env.GMAIL_APP_PASSWORD
           });
-          return res.status(500).json({ 
-            error: "Configuration email manquante", 
-            details: "Veuillez configurer GMAIL_USER et GMAIL_APP_PASSWORD" 
+          return res.status(500).json({
+            error: "Configuration email manquante",
+            details: "Veuillez configurer GMAIL_USER et GMAIL_APP_PASSWORD"
           });
         }
 
@@ -543,10 +553,10 @@ async function startServer() {
 
     if (type === 'signed-lettre-voiture') {
       const { id, moveData } = data;
-      
+
       try {
         let finalMoveData = moveData;
-        
+
         if (admin.apps.length > 0) {
           try {
             const dbAdmin = admin.firestore();
@@ -803,9 +813,9 @@ async function startServer() {
           hasUser: !!process.env.GMAIL_USER,
           hasPass: !!process.env.GMAIL_APP_PASSWORD
         });
-        return res.status(500).json({ 
-          error: "Configuration email manquante", 
-          details: "Veuillez configurer GMAIL_USER et GMAIL_APP_PASSWORD" 
+        return res.status(500).json({
+          error: "Configuration email manquante",
+          details: "Veuillez configurer GMAIL_USER et GMAIL_APP_PASSWORD"
         });
       }
 
@@ -815,9 +825,9 @@ async function startServer() {
         to: adminEmail,
         subject: isQuote ? `[Urgent Devis] ${clientName}` : `[Contact Site] ${data.subject}`,
         html: getEmailContainer(
-          isQuote 
-            ? '<span style="background-color: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 6px; margin-right: 8px; display: inline-block; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.2;">[Urgent Devis]</span> Nouvelle demande de devis' 
-            : 'Nouveau message de contact', 
+          isQuote
+            ? '<span style="background-color: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 6px; margin-right: 8px; display: inline-block; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.2;">[Urgent Devis]</span> Nouvelle demande de devis'
+            : 'Nouveau message de contact',
           adminHtml
         )
       });
@@ -843,7 +853,7 @@ async function startServer() {
     if (!type || !data || !data.id) {
       return res.status(400).json({ error: "Paramètres 'type' et 'data' requis." });
     }
-    
+
     const validTypes = ['devis', 'facture', 'lettre_voiture', 'declaration_valeur', 'fiche_equipe'];
     if (!validTypes.includes(type)) {
       return res.status(400).json({ error: "Type de document invalide (doit être 'devis', 'facture', 'lettre_voiture', 'declaration_valeur' ou 'fiche_equipe')." });
@@ -861,7 +871,7 @@ async function startServer() {
     }
     try {
       const buffer = await generateServerPdfBuffer(type, data);
-      
+
       const crypto = await import("crypto");
       const hash = crypto.createHash("sha256").update(buffer).digest("hex");
 
@@ -870,7 +880,7 @@ async function startServer() {
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
-      
+
       const localFileName = `${type}_${data.id}_${hash.substring(0, 10)}.pdf`;
       const localFilePath = path.join(dir, localFileName);
       fs.writeFileSync(localFilePath, buffer);
@@ -889,6 +899,334 @@ async function startServer() {
       res.status(500).json({ error: "Échec de la génération du document PDF en local.", details: error.message || error });
     }
   });
+
+  // API Route: Virtual Commercial Agent (Chatbot/Voicebot)
+  app.post("/api/ai/chat", async (req, res) => {
+    try {
+      if (isRateLimited(req.ip || "unknown", 30, 60000)) {
+        return res.status(429).json({ error: "Trop de requêtes au Chatbot." });
+      }
+
+      const { messages } = req.body;
+      if (!messages || !Array.isArray(messages)) {
+        return res.status(400).json({ error: "L'historique des messages est requis." });
+      }
+
+      const client = getGeminiClient();
+
+      const systemInstruction = `Tu es l'assistant vocal et textuel de Marne Transdem, une entreprise de déménagement haut de gamme à Paris.
+Ton objectif est de qualifier les prospects et de générer des demandes de devis.
+Pose des questions de manière conversationnelle pour obtenir :
+- Nom et prénom
+- Numéro de téléphone
+- Email (optionnel)
+- Ville de départ
+- Ville d'arrivée
+- Volume estimé (ou description de l'appartement si le client ne sait pas)
+- Date souhaitée
+
+Dès que tu as assez d'informations (Nom, Téléphone, Villes de départ et arrivée), utilise l'outil "create_quote_request" pour enregistrer la demande.
+Ne dis jamais que tu as utilisé un outil, dis juste "Votre demande a bien été enregistrée et un conseiller va vous rappeler".
+Sois concis, professionnel et chaleureux. Ne fais pas de grosses listes à puces.`;
+
+      const tools = [{
+        functionDeclarations: [{
+          name: "create_quote_request",
+          description: "Crée une demande de devis dans le CRM. Appeler cet outil dès que le nom, téléphone, et villes de départ/arrivée sont connus.",
+          parameters: {
+            type: Type.OBJECT,
+            properties: {
+              fullName: { type: Type.STRING, description: "Nom complet du client" },
+              phone: { type: Type.STRING, description: "Numéro de téléphone" },
+              email: { type: Type.STRING, description: "Adresse e-mail du client" },
+              fromCity: { type: Type.STRING, description: "Ville de départ" },
+              toCity: { type: Type.STRING, description: "Ville d'arrivée" },
+              volume: { type: Type.STRING, description: "Volume estimé en m3 ou description du logement" },
+              date: { type: Type.STRING, description: "Date souhaitée pour le déménagement" }
+            },
+            required: ["fullName", "phone", "fromCity", "toCity"]
+          }
+        }]
+      }];
+
+      let response = await client.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: messages,
+        config: { tools, systemInstruction },
+      });
+
+      let updatedMessages = [...messages];
+
+      if (response.functionCalls && response.functionCalls.length > 0) {
+        const call = response.functionCalls[0];
+        let toolResult = {};
+
+        if (call.name === 'create_quote_request') {
+          try {
+            const args = call.args as any;
+            await admin.firestore().collection('quotes').add({
+              fullName: args.fullName || '',
+              phone: args.phone || '',
+              email: args.email || '',
+              fromCity: args.fromCity || '',
+              toCity: args.toCity || '',
+              volume: args.volume || '',
+              date: args.date || '',
+              status: 'Nouveau',
+              source: 'chatbot',
+              createdAt: admin.firestore.FieldValue.serverTimestamp()
+            });
+            toolResult = { success: true, message: "Devis généré avec succès dans le CRM." };
+          } catch (e: any) {
+            console.error("Chatbot Tool Error:", e);
+            toolResult = { success: false, error: e.message };
+          }
+        }
+
+        // Add the model's function call to history
+        updatedMessages.push({
+          role: "model",
+          parts: [{ functionCall: call }]
+        });
+
+        // Add the tool execution result
+        updatedMessages.push({
+          role: "user",
+          parts: [{ functionResponse: { name: call.name, response: toolResult } }]
+        });
+
+        // Re-call Gemini to get the final text response based on the tool success
+        response = await client.models.generateContent({
+          model: 'gemini-2.5-flash',
+          contents: updatedMessages,
+          config: { tools, systemInstruction },
+        });
+      }
+
+      res.json({
+        text: response.text,
+        history: [...updatedMessages, { role: "model", parts: [{ text: response.text }] }]
+      });
+
+    } catch (error: any) {
+      console.error("Chatbot API Error:", error);
+      res.status(500).json({ error: "Erreur de l'assistant virtuel." });
+    }
+  });
+
+  // AI Auto-Followup Logic
+  async function runAutoFollowups() {
+    try {
+      const db = admin.firestore();
+      
+      const now = Date.now();
+      const FORTY_EIGHT_HOURS = 48 * 60 * 60 * 1000;
+      
+      const devisSnapshot = await db.collection('devis')
+        .where('status', '==', 'Envoyé')
+        .get();
+
+      const eligibleDevis: any[] = [];
+      devisSnapshot.forEach(doc => {
+        const data = doc.data();
+        if (data.reminderCount && data.reminderCount > 0) return;
+        if (!data.sentAt) return;
+        
+        const sentDate = new Date(data.sentAt).getTime();
+        if (now - sentDate > FORTY_EIGHT_HOURS) {
+          eligibleDevis.push({ id: doc.id, ...data });
+        }
+      });
+
+      if (eligibleDevis.length === 0) return { processed: 0, sent: 0 };
+
+      const movesSnapshot = await db.collection('moves')
+        .where('status', 'in', ['Programmé', 'À planifier'])
+        .get();
+        
+      const plannedMoves: any[] = [];
+      movesSnapshot.forEach(doc => plannedMoves.push({ id: doc.id, ...doc.data() }));
+
+      const client = getGeminiClient();
+      let sentCount = 0;
+
+      for (const devis of eligibleDevis) {
+        if (!devis.email) continue;
+
+        const devisDate = new Date(devis.date).getTime();
+        
+        let matchingMove = null;
+        for (const move of plannedMoves) {
+           if (!move.date) continue;
+           const moveDate = new Date(move.date).getTime();
+           const daysDiff = Math.abs(devisDate - moveDate) / (1000 * 60 * 60 * 24);
+           
+           // Same cities, opposite direction within 2 days
+           if (daysDiff <= 2 && move.toCity === devis.fromCity && move.fromCity === devis.toCity) {
+              matchingMove = move;
+              break;
+           }
+        }
+
+        let aiPrompt = `Tu es le commercial de Marne Transdem. Rédige un e-mail de relance TRÈS CONVAINCANT et professionnel à un prospect (Nom: ${devis.clientName}) dont le devis pour le déménagement ${devis.fromCity} -> ${devis.toCity} prévu le ${devis.date} est en attente de signature depuis 48h.`;
+        
+        if (matchingMove) {
+          aiPrompt += `\n\nEXCELLENTE NOUVELLE (l'argument massue) : Dis-lui que nous avons justement un de nos camions qui fera le trajet inverse (${matchingMove.fromCity} -> ${matchingMove.toCity}) le ${matchingMove.date} et qui rentrera à vide. 
+          Pour optimiser ce retour à vide, propose-lui UNE REMISE FLASH DE 5% s'il valide son devis dans les 24 heures.`;
+        } else {
+          aiPrompt += `\n\nDemande simplement au client s'il a bien reçu le devis, s'il a la moindre question, et rappelle que notre équipe est à sa disposition pour l'accompagner.`;
+        }
+
+        aiPrompt += `\n\nFormate ton e-mail pour qu'il soit directement lisible, n'ajoute pas d'objet dans le texte, commence par "Bonjour ${devis.clientName}".`;
+
+        const response = await client.models.generateContent({
+          model: 'gemini-2.5-flash',
+          contents: aiPrompt,
+        });
+
+        const emailContent = response.text || "Bonjour, avez-vous des questions sur votre devis ?";
+
+        await transporter.sendMail({
+          from: '"Marne Transdem" <contact@marnetransdem.com>',
+          to: devis.email,
+          subject: matchingMove ? "Une opportunité à saisir pour votre devis Marne Transdem" : "Suivi de votre devis Marne Transdem",
+          html: getEmailContainer("Votre Devis Marne Transdem", emailContent.replace(/\n/g, '<br>'))
+        });
+
+        await db.collection('devis').doc(devis.id).update({
+          reminderCount: admin.firestore.FieldValue.increment(1),
+          lastReminderAt: new Date().toISOString()
+        });
+        
+        const dId = devis.dossierKey || devis.dossierId;
+        if (dId) {
+           await db.collection('dossiers').doc(dId).collection('notes').add({
+              author: 'IA Marne Transdem',
+              content: `Relance automatique envoyée par email.${matchingMove ? ' Remise 5% proposée (retour à vide détecté).' : ''}`,
+              createdAt: new Date().toISOString()
+           });
+        }
+        sentCount++;
+      }
+      return { processed: eligibleDevis.length, sent: sentCount };
+    } catch (e) {
+      console.error("Auto Follow-up error:", e);
+      throw e;
+    }
+  }
+
+  // Run automatically every 12 hours
+  setInterval(() => {
+    runAutoFollowups().catch(console.error);
+  }, 12 * 60 * 60 * 1000);
+
+  // API endpoint to trigger manually
+  app.post("/api/cron/auto-followup", async (req, res) => {
+    try {
+      const actor = await requireCrmRole(req, res, ['gerant', 'commercial', 'secrétaire']);
+      if (!actor) return;
+      
+      const result = await runAutoFollowups();
+      res.json({ success: true, ...result });
+    } catch (error: any) {
+      res.status(500).json({ error: "Erreur lors de la relance IA", details: error.message });
+    }
+  });
+
+  // API Route: Get Quote for Public Signature
+  app.get("/api/public/devis/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const db = admin.firestore();
+      const devisDoc = await db.collection('devis').doc(id).get();
+      
+      if (!devisDoc.exists) {
+        return res.status(404).json({ error: "Devis introuvable." });
+      }
+
+      const data = devisDoc.data();
+      // We only return public fields
+      res.json({
+        success: true,
+        devis: {
+          id: devisDoc.id,
+          clientName: data?.clientName,
+          fromCity: data?.fromCity,
+          toCity: data?.toCity,
+          volume: data?.volume,
+          price: data?.price,
+          date: data?.date,
+          status: data?.status,
+          clientSignature: data?.clientSignature
+        }
+      });
+    } catch (error: any) {
+      console.error("Public Devis Fetch Error:", error);
+      res.status(500).json({ error: "Erreur serveur." });
+    }
+  });
+
+  // API Route: Submit Quote Signature
+  app.post("/api/public/devis/:id/sign", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { signatureBase64 } = req.body;
+      
+      if (!signatureBase64) {
+        return res.status(400).json({ error: "Signature manquante." });
+      }
+
+      const db = admin.firestore();
+      const devisRef = db.collection('devis').doc(id);
+      const devisDoc = await devisRef.get();
+
+      if (!devisDoc.exists) {
+        return res.status(404).json({ error: "Devis introuvable." });
+      }
+
+      if (devisDoc.data()?.status === 'Signé' || devisDoc.data()?.clientSignature) {
+        return res.status(400).json({ error: "Ce devis est déjà signé." });
+      }
+
+      await devisRef.update({
+        status: 'Signé',
+        clientSignature: signatureBase64,
+        acceptedAt: new Date().toISOString()
+      });
+
+      // Add note in the dossier if possible
+      const dId = devisDoc.data()?.dossierKey || devisDoc.data()?.dossierId;
+      if (dId) {
+         await db.collection('dossiers').doc(dId).collection('notes').add({
+            author: 'Système',
+            content: `Le devis a été signé électroniquement par le client.`,
+            createdAt: new Date().toISOString()
+         });
+      }
+
+      // Notify admins via email about the signed quote
+      try {
+        await transporter.sendMail({
+          from: '"Marne Transdem Web" <contact@marnetransdem.com>',
+          to: 'contact@marnetransdem.com',
+          subject: `[Devis Signé] ${devisDoc.data()?.clientName} a signé son devis !`,
+          html: getEmailContainer(
+            '<span style="background-color: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 6px; font-weight: 800; font-size: 12px; text-transform: uppercase;">Devis Signé</span>',
+            `<p>Excellente nouvelle, le client <strong>${devisDoc.data()?.clientName}</strong> vient de signer son devis (N° ${id}) électroniquement en ligne !</p>
+             <p>Montant : ${devisDoc.data()?.price} €</p>
+             <p>Trajet : ${devisDoc.data()?.fromCity} -> ${devisDoc.data()?.toCity}</p>`
+          )
+        });
+      } catch(e) {}
+
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error("Public Devis Sign Error:", error);
+      res.status(500).json({ error: "Erreur serveur." });
+    }
+  });
+
+
 
   // API Route: AI-powered image/video analysis for volume calculations
   app.post("/api/gemini/analyze-images", async (req, res) => {
@@ -1012,9 +1350,9 @@ Pour chaque objet détecté :
 
     } catch (error: any) {
       console.error("Gemini Image Analysis Error:", error);
-      res.status(500).json({ 
-        error: "Échec de l'analyse visuelle par l'IA", 
-        details: error.message || error 
+      res.status(500).json({
+        error: "Échec de l'analyse visuelle par l'IA",
+        details: error.message || error
       });
     }
   });
@@ -1085,9 +1423,9 @@ Retournez les résultats strictement au format JSON selon le schéma demandé.`
 
     } catch (error: any) {
       console.error("Gemini Speech Analysis Error:", error);
-      res.status(500).json({ 
-        error: "Échec de l'analyse vocale par l'IA", 
-        details: error.message || error 
+      res.status(500).json({
+        error: "Échec de l'analyse vocale par l'IA",
+        details: error.message || error
       });
     }
   });
@@ -1102,7 +1440,7 @@ Retournez les résultats strictement au format JSON selon le schéma demandé.`
     const availableTrucks = trucks && Array.isArray(trucks) && trucks.length > 0
       ? trucks
       : ['Camion 20m³ (A)', 'Camion 12m³ (B)'];
-      
+
     const availableLeaders = teamLeaders && Array.isArray(teamLeaders) && teamLeaders.length > 0
       ? teamLeaders
       : ['Hervé Le Gall', 'Ahmed Bensalah'];
@@ -1157,7 +1495,7 @@ Retournez les résultats strictement au format JSON selon le schéma demandé.`
       });
 
       unassignedMoves.sort((a, b) => (b.volume || 0) - (a.volume || 0));
-      
+
       unassignedMoves.forEach(m => {
         let bestTruck = availableTrucks[0];
         let minVolume = Infinity;

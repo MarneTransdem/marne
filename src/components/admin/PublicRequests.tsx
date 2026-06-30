@@ -2,11 +2,12 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { 
   FolderOpen, Search, ArrowRight, User, Phone, Mail, MapPin, 
   Calendar, CheckCircle, RefreshCw, Layers, Sliders, Play, Plus, Clock, Eye,
-  ChevronLeft, ChevronRight
+  ChevronLeft, ChevronRight, Flame, TrendingUp
 } from 'lucide-react';
 import { collection, doc, updateDoc, deleteDoc, onSnapshot, writeBatch } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { buildDossierIdFromReference } from '../../lib/dossier-id';
+import { analyzeQuotePricing, formatPremiumCurrency, scorePublicRequest } from '../../lib/crm-premium';
 
 interface PublicRequest {
   id: string;
@@ -53,6 +54,7 @@ type StatusFilter = 'all' | 'Nouveau' | 'Visite_planifiée' | 'Étudié_Converti
 type VisitFilter = 'all' | 'domicile' | 'visio' | 'a_definir';
 type FormulaFilter = 'all' | 'Économique' | 'Standard' | 'Luxe';
 type ServiceFilter = 'all' | 'lift' | 'packing' | 'storage';
+type SortMode = 'priority' | 'recent' | 'moveDate' | 'volume';
 
 const safeLower = (value: unknown) => String(value ?? '').toLowerCase();
 
@@ -63,6 +65,21 @@ const normalizeFormula = (value: unknown): FormulaFilter => {
   return 'Standard';
 };
 
+
+const getOpportunityClasses = (level: string) => {
+  if (level === 'urgent') return 'bg-red-50 text-red-700 border-red-200 dark:bg-red-950/25 dark:text-red-300 dark:border-red-900/40';
+  if (level === 'hot') return 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/25 dark:text-amber-300 dark:border-amber-900/40';
+  if (level === 'warm') return 'bg-sky-50 text-sky-700 border-sky-200 dark:bg-sky-950/25 dark:text-sky-300 dark:border-sky-900/40';
+  if (level === 'done') return 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/25 dark:text-emerald-300 dark:border-emerald-900/40';
+  return 'bg-slate-50 text-slate-600 border-slate-200 dark:bg-slate-950 dark:text-slate-300 dark:border-slate-800';
+};
+
+const getPricingClasses = (level: string) => {
+  if (level === 'danger') return 'bg-red-50 text-red-700 border-red-200 dark:bg-red-950/25 dark:text-red-300 dark:border-red-900/40';
+  if (level === 'watch') return 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/25 dark:text-amber-300 dark:border-amber-900/40';
+  if (level === 'premium') return 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/25 dark:text-indigo-300 dark:border-indigo-900/40';
+  return 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/25 dark:text-emerald-300 dark:border-emerald-900/40';
+};
 const getStatusLabel = (status?: PublicRequest['status']) => {
   if (status === 'Étudié_Converti') return 'Devis brouillon';
   if (status === 'Visite_planifiée') return 'Visite planifiée';
@@ -78,6 +95,7 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
   const [visitFilter, setVisitFilter] = useState<VisitFilter>('all');
   const [formulaFilter, setFormulaFilter] = useState<FormulaFilter>('all');
   const [serviceFilter, setServiceFilter] = useState<ServiceFilter>('all');
+  const [sortMode, setSortMode] = useState<SortMode>('priority');
   const [pageSize, setPageSize] = useState<PageSize>(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRequest, setSelectedRequest] = useState<PublicRequest | null>(null);
@@ -150,29 +168,38 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
       );
       setVisitDate('');
       setVisitTime('10:00');
-      
-      // Smart estimated price base (e.g. 50€/m3 and formula/lift multipliers)
-      let priceBase = volNum * 55;
-      if (form === 'Luxe') priceBase *= 1.4;
-      if (form === 'Économique') priceBase *= 0.85;
-      if (selectedRequest.needsLift === 'oui') priceBase += 300;
-      if (selectedRequest.needsStorage === 'oui') priceBase += 200;
-      
-      setPricingPrice(Math.round(priceBase));
+      const pricing = analyzeQuotePricing({
+        volume: volNum,
+        formula: form,
+        price: 0,
+        date: selectedRequest.date,
+        fromCity: selectedRequest.fromCity,
+        toCity: selectedRequest.toCity,
+        needsLift: selectedRequest.needsLift,
+        needsPacking: selectedRequest.needsPacking,
+        needsStorage: selectedRequest.needsStorage
+      });
+      setPricingPrice(pricing.recommendedPrice);
     }
   }, [selectedRequest]);
 
   // Recalculate price live with parameters modifications
   useEffect(() => {
     if (selectedRequest) {
-      let base = pricingVolume * 55;
-      if (pricingFormula === 'Luxe') base *= 1.4;
-      if (pricingFormula === 'Économique') base *= 0.85;
-      if (selectedRequest.needsLift === 'oui') base += 300;
-      if (selectedRequest.needsStorage === 'oui') base += 200;
-      setPricingPrice(Math.round(base));
+      const pricing = analyzeQuotePricing({
+        volume: pricingVolume,
+        formula: pricingFormula,
+        price: 0,
+        date: selectedRequest.date,
+        fromCity: selectedRequest.fromCity,
+        toCity: selectedRequest.toCity,
+        needsLift: selectedRequest.needsLift,
+        needsPacking: selectedRequest.needsPacking,
+        needsStorage: selectedRequest.needsStorage
+      });
+      setPricingPrice(pricing.recommendedPrice);
     }
-  }, [pricingVolume, pricingFormula]);
+  }, [pricingVolume, pricingFormula, selectedRequest]);
 
   const handleStudy = (req: PublicRequest) => {
     setSelectedRequest(req);
@@ -299,12 +326,12 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [search, statusFilter, visitFilter, formulaFilter, serviceFilter, pageSize]);
+  }, [search, statusFilter, visitFilter, formulaFilter, serviceFilter, pageSize, sortMode]);
 
   const filtered = useMemo(() => {
     const query = safeLower(search.trim());
 
-    return requests.filter((r) => {
+    const visibleRequests = requests.filter((r) => {
       const currentStatus = r.status || 'Nouveau';
       const currentVisit = r.visitPreference === 'domicile' || r.visitPreference === 'visio'
         ? r.visitPreference
@@ -335,7 +362,22 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
 
       return matchesSearch && matchesStatus && matchesVisit && matchesFormula && matchesService;
     });
-  }, [requests, search, statusFilter, visitFilter, formulaFilter, serviceFilter]);
+
+    return visibleRequests.sort((a, b) => {
+      if (sortMode === 'priority') {
+        return scorePublicRequest(b).score - scorePublicRequest(a).score;
+      }
+      if (sortMode === 'moveDate') {
+        return String(a.date || '9999-12-31').localeCompare(String(b.date || '9999-12-31'));
+      }
+      if (sortMode === 'volume') {
+        return Number(b.volume || 0) - Number(a.volume || 0);
+      }
+      const tA = a.createdAt?.seconds ? a.createdAt.seconds * 1000 : new Date(a.createdAt || 0).getTime();
+      const tB = b.createdAt?.seconds ? b.createdAt.seconds * 1000 : new Date(b.createdAt || 0).getTime();
+      return tB - tA;
+    });
+  }, [requests, search, statusFilter, visitFilter, formulaFilter, serviceFilter, sortMode]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
   const safeCurrentPage = Math.min(currentPage, totalPages);
@@ -352,6 +394,26 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
     }
   }, [currentPage, totalPages]);
 
+  const leadPulse = useMemo(() => {
+    const scored = requests.map((request) => scorePublicRequest(request));
+    return {
+      hot: scored.filter((item) => item.level === 'urgent' || item.level === 'hot').length,
+      urgent: scored.filter((item) => item.level === 'urgent').length
+    };
+  }, [requests]);
+
+  const selectedLeadScore = selectedRequest ? scorePublicRequest(selectedRequest) : null;
+  const selectedPricingInsight = selectedRequest ? analyzeQuotePricing({
+    volume: pricingVolume,
+    formula: pricingFormula,
+    price: pricingPrice,
+    date: selectedRequest.date,
+    fromCity: selectedRequest.fromCity,
+    toCity: selectedRequest.toCity,
+    needsLift: selectedRequest.needsLift,
+    needsPacking: selectedRequest.needsPacking,
+    needsStorage: selectedRequest.needsStorage
+  }) : null;
   return (
     <div className="space-y-6">
       <div className="bg-white/90 dark:bg-slate-900/90 p-4 border border-slate-200/75 dark:border-slate-800 rounded-2xl shadow-sm space-y-4">
@@ -362,6 +424,9 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
               <h2 className="text-lg font-black text-slate-900 dark:text-white">Demandes Entrantes du Site Web</h2>
               <span className="bg-amber-100 text-amber-800 dark:bg-amber-950/40 dark:text-amber-300 text-[10px] font-black px-2 py-0.5 rounded-full">
                 {requests.filter(r => r.status === 'Nouveau' || !r.status).length} Nouvelles
+              </span>
+              <span className="bg-red-50 text-red-700 dark:bg-red-950/35 dark:text-red-300 text-[10px] font-black px-2 py-0.5 rounded-full inline-flex items-center gap-1 border border-red-200/60 dark:border-red-900/40">
+                <Flame size={11} /> {leadPulse.hot} chaudes
               </span>
               <span className="bg-slate-100 text-slate-600 dark:bg-slate-950 dark:text-slate-300 text-[10px] font-black px-2 py-0.5 rounded-full">
                 {filtered.length} résultat{filtered.length > 1 ? 's' : ''}
@@ -392,7 +457,7 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-6 gap-3">
           <select
             value={statusFilter}
             onChange={(event) => setStatusFilter(event.target.value as StatusFilter)}
@@ -439,6 +504,16 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
           </select>
 
           <select
+            value={sortMode}
+            onChange={(event) => setSortMode(event.target.value as SortMode)}
+            className="bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+          >
+            <option value="priority">Priorité commerciale</option>
+            <option value="recent">Plus récentes</option>
+            <option value="moveDate">Date déménagement</option>
+            <option value="volume">Volume décroissant</option>
+          </select>
+          <select
             value={pageSize}
             onChange={(event) => setPageSize(Number(event.target.value) as PageSize)}
             className="bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
@@ -461,6 +536,7 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
               setVisitFilter('all');
               setFormulaFilter('all');
               setServiceFilter('all');
+              setSortMode('priority');
               setPageSize(10);
             }}
             className="self-start sm:self-auto text-[10px] font-black uppercase tracking-wider text-slate-500 hover:text-brand-900 dark:hover:text-white"
@@ -508,6 +584,9 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
                       }`}>
                         {getStatusLabel(req.status)}
                       </span>
+                      <span className={`px-2 py-0.5 text-[9px] font-black rounded-lg border shrink-0 ${getOpportunityClasses(scorePublicRequest(req).level)}`}>
+                        Score {scorePublicRequest(req).score}
+                      </span>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-[11px] text-slate-600 dark:text-slate-300">
@@ -528,12 +607,9 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
                     </div>
 
                     <div className="mt-3 flex items-center justify-between text-[11px] border-t border-dashed border-slate-150 dark:border-slate-800/60 pt-2.5">
-                      <span className="text-slate-400 italic">
-                        {req.visitPreference === 'domicile'
-                          ? 'Visite souhaitée : domicile'
-                          : req.visitPreference === 'visio'
-                            ? 'Visite souhaitée : visio'
-                            : `Formule d'origine: ${req.formula}`}
+                      <span className="text-slate-500 dark:text-slate-300 font-bold inline-flex items-center gap-1.5 min-w-0">
+                        <TrendingUp size={12} className="text-accent shrink-0" />
+                        <span className="truncate">{scorePublicRequest(req).nextAction}</span>
                       </span>
                       <div className="flex gap-2">
                         <button 
@@ -604,7 +680,21 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
                   Étude Technique de : {selectedRequest.fullName}
                 </h3>
               </div>
-
+              {selectedLeadScore && (
+                <div className={`rounded-2xl border p-4 ${getOpportunityClasses(selectedLeadScore.level)}`}>
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <span className="text-[9px] font-black uppercase tracking-wider opacity-80">Priorité commerciale</span>
+                      <h4 className="text-sm font-black mt-1">{selectedLeadScore.label} · Score {selectedLeadScore.score}</h4>
+                      <p className="text-[11px] mt-1 font-semibold opacity-85">{selectedLeadScore.nextAction}</p>
+                    </div>
+                    <Flame size={18} className="shrink-0" />
+                  </div>
+                  {selectedLeadScore.reasons.length > 0 && (
+                    <p className="text-[10px] mt-3 font-medium opacity-75">{selectedLeadScore.reasons.join(' · ')}</p>
+                  )}
+                </div>
+              )}
               {/* Informative details */}
               <div className="space-y-4 text-xs">
                 {/* Contact grid */}
@@ -771,6 +861,20 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
                       className="w-full bg-slate-50 dark:bg-slate-950 p-2 border border-slate-200 dark:border-slate-800 rounded-lg focus:outline-accent font-extrabold text-brand-900 dark:text-accent"
                     />
                   </div>
+                {selectedPricingInsight && (
+                  <div className={`sm:col-span-2 rounded-2xl border p-3.5 ${getPricingClasses(selectedPricingInsight.riskLevel)}`}>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                      <div>
+                        <span className="text-[9px] font-black uppercase tracking-wider opacity-75">Prix recommandé</span>
+                        <p className="text-[11px] font-semibold mt-1">{selectedPricingInsight.action}</p>
+                      </div>
+                      <div className="text-left sm:text-right">
+                        <strong className="block text-lg font-black">{formatPremiumCurrency(selectedPricingInsight.recommendedPrice)}</strong>
+                        <span className="text-[10px] font-bold opacity-75">marge {selectedPricingInsight.marginRate}% · coût {formatPremiumCurrency(selectedPricingInsight.estimatedCost)}</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                   <div>
                     <label className="block font-extrabold mb-1">Formule Commerciale retenue</label>

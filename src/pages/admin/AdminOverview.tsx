@@ -9,7 +9,21 @@ import {
 import { useSyncedCollection } from '../../hooks/useData';
 import type { Devis, Facture, Visite, Demenagement } from '../../types';
 import type { AdminPublicRequest } from '../../lib/admin-dossiers';
+import { buildPremiumCockpit, formatPremiumCurrency } from '../../lib/crm-premium';
 
+const getPremiumToneClasses = (tone: 'critical' | 'warning' | 'growth' | 'success') => {
+  if (tone === 'critical') return 'bg-red-50 text-red-800 border-red-200 dark:bg-red-950/20 dark:text-red-300 dark:border-red-900/40';
+  if (tone === 'warning') return 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/20 dark:text-amber-300 dark:border-amber-900/40';
+  if (tone === 'growth') return 'bg-sky-50 text-sky-800 border-sky-200 dark:bg-sky-950/20 dark:text-sky-300 dark:border-sky-900/40';
+  return 'bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-300 dark:border-emerald-900/40';
+};
+
+const getPremiumButtonClasses = (tone: 'critical' | 'warning' | 'growth' | 'success') => {
+  if (tone === 'critical') return 'bg-red-600 hover:bg-red-700 text-white';
+  if (tone === 'warning') return 'bg-amber-600 hover:bg-amber-700 text-white';
+  if (tone === 'growth') return 'bg-sky-600 hover:bg-sky-700 text-white';
+  return 'bg-emerald-600 hover:bg-emerald-700 text-white';
+};
 export function AdminOverview() {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -20,6 +34,13 @@ export function AdminOverview() {
   const [devisList] = useSyncedCollection<Devis>('devis');
   const [demenagements] = useSyncedCollection<Demenagement>('demenagements');
 
+  const premiumCockpit = useMemo(() => buildPremiumCockpit({
+    publicRequests,
+    devisList,
+    factures,
+    visites,
+    demenagements
+  }), [publicRequests, devisList, factures, visites, demenagements]);
   const todayStr = useMemo(() => {
     const d = new Date();
     const year = d.getFullYear();
@@ -244,6 +265,133 @@ export function AdminOverview() {
           </div>
         </div>
       </div>
+
+      {/* Cockpit Premium */}
+      <section className="grid grid-cols-1 xl:grid-cols-12 gap-6">
+        <div className="xl:col-span-4 bg-brand-950 text-white rounded-3xl p-6 shadow-sm border border-brand-900 overflow-hidden relative">
+          <div className="absolute right-0 top-0 h-32 w-32 bg-accent/10 rounded-bl-[48px]" />
+          <div className="relative z-10 space-y-5">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">Cockpit Premium</span>
+                <h3 className="text-xl font-black mt-1">Maîtrise opérationnelle</h3>
+              </div>
+              <ShieldCheck className="text-accent shrink-0" size={28} />
+            </div>
+
+            <div className="flex items-end gap-3">
+              <span className="text-6xl font-black leading-none">{premiumCockpit.score}</span>
+              <div className="pb-2">
+                <span className="text-sm font-black">/100</span>
+                <p className="text-xs text-slate-300 font-semibold">{premiumCockpit.scoreLabel}</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-2">
+              <div className="bg-white/8 border border-white/10 rounded-2xl p-3">
+                <span className="text-[9px] uppercase font-black text-slate-400">Aujourd'hui</span>
+                <strong className="block text-lg mt-0.5">{premiumCockpit.metrics.visitsToday + premiumCockpit.metrics.movesToday}</strong>
+              </div>
+              <div className="bg-white/8 border border-white/10 rounded-2xl p-3">
+                <span className="text-[9px] uppercase font-black text-slate-400">À 7 jours</span>
+                <strong className="block text-lg mt-0.5">{premiumCockpit.metrics.visitsNext7}</strong>
+              </div>
+              <div className="bg-white/8 border border-white/10 rounded-2xl p-3">
+                <span className="text-[9px] uppercase font-black text-slate-400">Risques</span>
+                <strong className="block text-lg mt-0.5">{premiumCockpit.metrics.movesUnassigned + premiumCockpit.metrics.overdueInvoices}</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="xl:col-span-8 bg-white/90 dark:bg-slate-900/90 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 md:p-6 shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
+            <div>
+              <span className="text-[10px] font-black uppercase tracking-[0.18em] text-accent">Ordre de bataille</span>
+              <h3 className="text-lg font-black text-brand-900 dark:text-white">Priorités à traiter maintenant</h3>
+            </div>
+            <button
+              onClick={() => navigate('/admin/relances')}
+              className="self-start sm:self-center px-3 py-2 rounded-xl bg-slate-950 text-white dark:bg-accent dark:text-brand-950 text-[10px] font-black uppercase tracking-wider hover:opacity-90 transition-opacity flex items-center gap-1.5"
+            >
+              Centre relances <ArrowUpRight size={12} />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
+            <div className="lg:col-span-3 space-y-3">
+              {premiumCockpit.actions.length === 0 ? (
+                <div className="border border-emerald-200 dark:border-emerald-900/40 bg-emerald-50 dark:bg-emerald-950/20 rounded-2xl p-4 text-emerald-800 dark:text-emerald-300">
+                  <p className="text-xs font-black">Aucune urgence détectée.</p>
+                  <p className="text-[11px] mt-1 font-medium opacity-80">Le flux commercial, planning et trésorerie est sous contrôle.</p>
+                </div>
+              ) : premiumCockpit.actions.map(action => (
+                <div key={action.id} className={`border rounded-2xl p-4 flex items-center justify-between gap-4 ${getPremiumToneClasses(action.severity)}`}>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl font-black leading-none">{action.metric}</span>
+                      <h4 className="text-xs font-black truncate">{action.title}</h4>
+                    </div>
+                    <p className="text-[11px] mt-1 font-medium opacity-80 leading-relaxed">{action.description}</p>
+                  </div>
+                  <button
+                    onClick={() => navigate(action.route)}
+                    className={`px-3 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider shrink-0 ${getPremiumButtonClasses(action.severity)}`}
+                  >
+                    {action.cta}
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            <div className="lg:col-span-2 grid grid-cols-2 lg:grid-cols-1 gap-3">
+              <div className="rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/75 dark:border-slate-800 p-4">
+                <span className="text-[9px] font-black uppercase text-slate-400 tracking-wider">Portefeuille signé</span>
+                <strong className="block text-xl font-black mt-1 text-brand-900 dark:text-white">{formatPremiumCurrency(premiumCockpit.metrics.signedRevenue)}</strong>
+                <p className="text-[10px] text-slate-500 mt-1">CA sécurisé par devis signés</p>
+              </div>
+              <div className="rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/75 dark:border-slate-800 p-4">
+                <span className="text-[9px] font-black uppercase text-slate-400 tracking-wider">Potentiel ouvert</span>
+                <strong className="block text-xl font-black mt-1 text-brand-900 dark:text-white">{formatPremiumCurrency(premiumCockpit.metrics.quotePotential)}</strong>
+                <p className="text-[10px] text-slate-500 mt-1">{premiumCockpit.metrics.conversionRate}% de conversion actuelle</p>
+              </div>
+              <div className="rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/75 dark:border-slate-800 p-4 col-span-2 lg:col-span-1">
+                <span className="text-[9px] font-black uppercase text-slate-400 tracking-wider">Panier moyen devis</span>
+                <strong className="block text-xl font-black mt-1 text-brand-900 dark:text-white">{formatPremiumCurrency(premiumCockpit.metrics.averageQuoteValue)}</strong>
+                <p className="text-[10px] text-slate-500 mt-1">Base pour marge et tarification intelligente</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {premiumCockpit.nextOperations.length > 0 && (
+        <section className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 md:p-6 shadow-sm">
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <div>
+              <span className="text-[10px] font-black uppercase tracking-[0.18em] text-accent">Terrain</span>
+              <h3 className="text-lg font-black text-brand-900 dark:text-white">Visites et chantiers des 7 prochains jours</h3>
+            </div>
+            <Calendar className="text-slate-400" size={20} />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+            {premiumCockpit.nextOperations.map(operation => (
+              <button
+                key={operation.id}
+                onClick={() => navigate(operation.route)}
+                className="text-left border border-slate-200/75 dark:border-slate-800 rounded-2xl p-4 bg-slate-50/70 dark:bg-slate-950/50 hover:border-accent transition-colors"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-[10px] font-black uppercase text-slate-400">{formatDateFr(operation.date)}</span>
+                  {operation.type === 'visite' ? <MapPin size={14} className="text-sky-500" /> : <Truck size={14} className="text-indigo-500" />}
+                </div>
+                <h4 className="mt-2 text-xs font-black text-slate-900 dark:text-white truncate">{operation.title}</h4>
+                <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400 truncate">{operation.description}</p>
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Priorités & Alertes */}
       {alertes.length > 0 && (

@@ -3,6 +3,7 @@ import { useSyncedCollection } from '../../hooks/useData';
 import type { Devis } from '../../types';
 import { buildDossierIdFromReference } from '../../lib/dossier-id';
 import { getNextYearlyId } from '../../lib/admin-ids';
+import { analyzeQuotePricing, formatPremiumCurrency } from '../../lib/crm-premium';
 import { 
   Plus, Minus, Sparkles, RefreshCw, X, Box, CheckCircle2, 
   FileText, ArrowRight, User, Phone, MapPin, Calculator, HelpCircle, Calendar
@@ -104,6 +105,14 @@ export function AdminSimulateur() {
     });
     return Math.round(rawSum * multiplier * 10) / 10; // 1 decimal place precision
   }, [inventory, multiplier]);
+  const simulatorPricing = useMemo(() => analyzeQuotePricing({
+    volume: totalVolume || 20,
+    formula: clientInfo.formula,
+    price: 0,
+    date: clientInfo.date,
+    fromCity: clientInfo.fromCity,
+    toCity: clientInfo.toCity
+  }), [totalVolume, clientInfo.formula, clientInfo.date, clientInfo.fromCity, clientInfo.toCity]);
 
   // Convert to quote handler
   const handleConvertToQuote = (e: React.FormEvent) => {
@@ -114,13 +123,14 @@ export function AdminSimulateur() {
     }
 
     const quoteId = getNextYearlyId('DEV', devisList.map((quote) => quote.id));
-    
-    // Simple mock calculation logic for price
-    // Base € per m3: 45€. Luxe multiplier: 1.5, Eco: 0.8
-    let calculatedPrice = totalVolume * 45;
-    if (clientInfo.formula === 'Luxe') calculatedPrice *= 1.4;
-    if (clientInfo.formula === 'Économique') calculatedPrice *= 0.8;
-    calculatedPrice = Math.round(calculatedPrice);
+    const calculatedPrice = analyzeQuotePricing({
+      volume: totalVolume,
+      formula: clientInfo.formula,
+      price: 0,
+      date: clientInfo.date,
+      fromCity: clientInfo.fromCity,
+      toCity: clientInfo.toCity
+    }).recommendedPrice;
 
     const createdAt = new Date().toISOString().split('T')[0];
     const expiresAt = new Date(Date.now() + 30 * 24 * 3600 * 1000).toISOString().split('T')[0];
@@ -270,6 +280,17 @@ export function AdminSimulateur() {
               </p>
             </div>
 
+
+            <div className="grid grid-cols-2 gap-2 pb-4">
+              <div className="bg-slate-950/70 rounded-2xl border border-slate-800 p-3">
+                <span className="text-[9px] uppercase font-black text-slate-500 tracking-wider">Prix conseillé CRM</span>
+                <strong className="block text-lg text-accent mt-1">{formatPremiumCurrency(simulatorPricing.recommendedPrice)}</strong>
+              </div>
+              <div className="bg-slate-950/70 rounded-2xl border border-slate-800 p-3">
+                <span className="text-[9px] uppercase font-black text-slate-500 tracking-wider">Coût estimé</span>
+                <strong className="block text-lg text-white mt-1">{formatPremiumCurrency(simulatorPricing.estimatedCost)}</strong>
+              </div>
+            </div>
             {/* Multiplier control */}
             <div className="space-y-2 pb-4">
               <label className="block text-[9px] uppercase tracking-wider text-slate-400 font-black">Coefficient d'encombrement</label>
@@ -328,7 +349,7 @@ export function AdminSimulateur() {
             </div>
 
             <div className="bg-slate-50 dark:bg-slate-950 p-3.5 rounded-xl border border-slate-200/50 dark:border-slate-800 text-[11px] text-slate-500 dark:text-slate-400">
-              Le devis contiendra un volume de <span className="font-extrabold text-slate-800 dark:text-white">{totalVolume.toFixed(1)} m³</span>. Son prix estimatif sera calculé automatiquement d'après la formule choisie.
+              Le devis contiendra un volume de <span className="font-extrabold text-slate-800 dark:text-white">{totalVolume.toFixed(1)} m³</span>. Prix conseillé actuel : <span className="font-extrabold text-slate-800 dark:text-white">{formatPremiumCurrency(simulatorPricing.recommendedPrice)}</span>.
             </div>
 
             <form onSubmit={handleConvertToQuote} className="grid grid-cols-1 sm:grid-cols-2 gap-4">

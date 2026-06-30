@@ -11,12 +11,28 @@ import { adminFetch } from '../../lib/admin-api';
 import { db } from '../../lib/firebase';
 import type { AdminOutletContextType } from '../../components/admin/layout/AdminLayout';
 import { buildCommunicationLog, renderCommunication, type CommunicationLog, type CommunicationTask } from '../../lib/crm-communications';
-import { Plus, Edit, Trash2, FileText, Check, X, MoveRight, Printer, Copy, Search, Calendar, AlertTriangle, Mail, Loader2 } from 'lucide-react';
+import { analyzeQuotePricing, formatPremiumCurrency, scoreQuoteOpportunity } from '../../lib/crm-premium';
+import { Plus, Edit, Trash2, FileText, Check, X, MoveRight, Printer, Copy, Search, Calendar, AlertTriangle, Mail, Loader2, Flame, TrendingUp, ShieldCheck } from 'lucide-react';
 import { PdfGenerator } from '../../components/admin/PdfGenerator';
 
 const COLUMNS = ['Brouillon', 'Envoyé', 'En attente', 'Signé', 'Refusé'] as const;
 type DevisStatus = typeof COLUMNS[number];
+type QuoteSortMode = 'priority' | 'recent' | 'amount' | 'moveDate';
 
+const getQuoteOpportunityClasses = (level: string) => {
+  if (level === 'urgent') return 'bg-red-50 text-red-700 border-red-200 dark:bg-red-950/25 dark:text-red-300 dark:border-red-900/40';
+  if (level === 'hot') return 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/25 dark:text-amber-300 dark:border-amber-900/40';
+  if (level === 'warm') return 'bg-sky-50 text-sky-700 border-sky-200 dark:bg-sky-950/25 dark:text-sky-300 dark:border-sky-900/40';
+  if (level === 'done') return 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/25 dark:text-emerald-300 dark:border-emerald-900/40';
+  return 'bg-slate-50 text-slate-600 border-slate-200 dark:bg-slate-950 dark:text-slate-300 dark:border-slate-800';
+};
+
+const getPricingRiskClasses = (level: string) => {
+  if (level === 'danger') return 'bg-red-50 text-red-700 border-red-200 dark:bg-red-950/25 dark:text-red-300 dark:border-red-900/40';
+  if (level === 'watch') return 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/25 dark:text-amber-300 dark:border-amber-900/40';
+  if (level === 'premium') return 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/25 dark:text-indigo-300 dark:border-indigo-900/40';
+  return 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/25 dark:text-emerald-300 dark:border-emerald-900/40';
+};
 export function AdminDevis() {
   const { user } = useAuth();
   const context = useOutletContext<AdminOutletContextType>();
@@ -27,6 +43,7 @@ export function AdminDevis() {
   const [publicRequests, setPublicRequests] = useSyncedCollection<AdminPublicRequest>('quotes');
 
   const [filterQuery, setFilterQuery] = useState('');
+  const [quoteSortMode, setQuoteSortMode] = useState<QuoteSortMode>('priority');
   const [showAddDevis, setShowAddDevis] = useState(false);
   const [editingDevisId, setEditingDevisId] = useState<string | null>(null);
   const [selectedPdfQuote, setSelectedPdfQuote] = useState<Devis | null>(null);
@@ -35,6 +52,7 @@ export function AdminDevis() {
     clientName: '', phone: '', email: '', fromCity: '', toCity: '', fromAddress: '', toAddress: '', volume: 20, formula: 'Standard', price: 1200, status: 'Brouillon',
     fromFloor: '2', toFloor: '0 (RDC)', fromElevator: 'Oui', toElevator: 'Non', fromLift: 'Oui', toLift: 'Non', fromPortage: '-20m', toPortage: '-', distance: '', voyageType: undefined
   });
+  const draftPricingInsight = useMemo(() => analyzeQuotePricing(newDevis), [newDevis]);
 
   const resetForm = () => {
     setNewDevis({ clientName: '', phone: '', email: '', fromCity: '', toCity: '', fromAddress: '', toAddress: '', volume: 20, formula: 'Standard', price: 1200, status: 'Brouillon',
@@ -313,6 +331,34 @@ export function AdminDevis() {
     );
   }, [devisList, filterQuery]);
 
+  const quotePulse = useMemo(() => {
+    const insights = devisList.map((quote) => scoreQuoteOpportunity(quote));
+    return {
+      hot: insights.filter((item) => item.level === 'urgent' || item.level === 'hot').length,
+      toSend: devisList.filter((quote) => quote.status === 'Brouillon').length,
+      toFollowUp: devisList.filter((quote) => scoreQuoteOpportunity(quote).nextAction.includes('Relancer') || scoreQuoteOpportunity(quote).nextAction.includes('expiration')).length,
+      pricingAlerts: devisList.filter((quote) => {
+        const pricing = analyzeQuotePricing(quote);
+        return quote.status !== 'Signé' && quote.status !== 'Refusé' && (pricing.riskLevel === 'danger' || pricing.riskLevel === 'watch');
+      }).length,
+      marginGap: devisList.reduce((sum, quote) => {
+        const pricing = analyzeQuotePricing(quote);
+        return sum + Math.max(0, pricing.recommendedMin - (quote.price || 0));
+      }, 0),
+      potential: devisList
+        .filter((quote) => quote.status !== 'Signé' && quote.status !== 'Refusé')
+        .reduce((sum, quote) => sum + (quote.price || 0), 0)
+    };
+  }, [devisList]);
+
+  const sortQuotesForColumn = (quotes: Devis[]) => {
+    return [...quotes].sort((a, b) => {
+      if (quoteSortMode === 'priority') return scoreQuoteOpportunity(b).score - scoreQuoteOpportunity(a).score;
+      if (quoteSortMode === 'amount') return (b.price || 0) - (a.price || 0);
+      if (quoteSortMode === 'moveDate') return String(a.date || '9999-12-31').localeCompare(String(b.date || '9999-12-31'));
+      return String(b.createdAt || '').localeCompare(String(a.createdAt || ''));
+    });
+  };
   // Kanban view
   return (
     <div className="space-y-6">
@@ -355,6 +401,19 @@ export function AdminDevis() {
           </select>
         </div>
 
+        <div className="flex items-center gap-2 shrink-0">
+          <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Tri :</label>
+          <select
+            value={quoteSortMode}
+            onChange={(e) => setQuoteSortMode(e.target.value as QuoteSortMode)}
+            className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl py-2 px-3 text-xs font-black text-slate-700 dark:text-slate-350 focus:outline-none focus:ring-2 focus:ring-accent/20 cursor-pointer"
+          >
+            <option value="priority">Priorité commerciale</option>
+            <option value="recent">Plus récents</option>
+            <option value="amount">Montant décroissant</option>
+            <option value="moveDate">Date déménagement</option>
+          </select>
+        </div>
         <button
           onClick={() => { resetForm(); setShowAddDevis(true); }}
           className="bg-accent hover:bg-accent-hover text-brand-900 border border-accent font-black py-2.5 px-5 rounded-2xl text-xs transition-all duration-300 flex items-center justify-center gap-2 shrink-0"
@@ -363,6 +422,24 @@ export function AdminDevis() {
         </button>
       </div>
 
+      <section className="grid grid-cols-1 md:grid-cols-4 gap-3">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
+          <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">Devis chauds</span>
+          <strong className="mt-1 flex items-center gap-1 text-xl font-black text-red-600 dark:text-red-300"><Flame size={16} /> {quotePulse.hot}</strong>
+        </div>
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
+          <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">À corriger marge</span>
+          <strong className="block mt-1 text-xl font-black text-red-600 dark:text-red-300">{quotePulse.pricingAlerts}</strong>
+        </div>
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
+          <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">Relances utiles</span>
+          <strong className="block mt-1 text-xl font-black text-amber-600 dark:text-amber-300">{quotePulse.toFollowUp}</strong>
+        </div>
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
+          <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">Potentiel ouvert</span>
+          <strong className="block mt-1 text-xl font-black text-brand-900 dark:text-accent">{formatPremiumCurrency(quotePulse.potential)}</strong>
+        </div>
+      </section>
       {showAddDevis && (
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-lg space-y-6 animate-fade-in">
           {/* Form UI Header */}
@@ -542,6 +619,28 @@ export function AdminDevis() {
               </div>
             </div>
 
+              <div className={`rounded-2xl border p-4 ${getPricingRiskClasses(draftPricingInsight.riskLevel)}`}>
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                  <div>
+                    <span className="text-[9px] font-black uppercase tracking-wider opacity-75">Assistant rentabilité</span>
+                    <h4 className="text-sm font-black mt-1">{draftPricingInsight.label} · marge {draftPricingInsight.marginRate}%</h4>
+                    <p className="text-[11px] mt-1 font-semibold opacity-85">{draftPricingInsight.action}</p>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <div className="text-right">
+                      <span className="block text-[9px] font-black uppercase opacity-70">Prix conseillé</span>
+                      <strong className="text-lg font-black">{formatPremiumCurrency(draftPricingInsight.recommendedPrice)}</strong>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setNewDevis({ ...newDevis, price: draftPricingInsight.recommendedPrice })}
+                      className="px-3 py-2 rounded-xl bg-slate-950 text-white dark:bg-accent dark:text-brand-950 text-[10px] font-black uppercase tracking-wider hover:opacity-90"
+                    >
+                      Appliquer
+                    </button>
+                  </div>
+                </div>
+              </div>
             <div className="pt-2">
               <button type="submit" className="w-full bg-brand-900 hover:bg-brand-hover text-white py-3 rounded-2xl font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg active:scale-98">
                 Enregistrer et Générer le Devis
@@ -554,7 +653,7 @@ export function AdminDevis() {
       {/* Kanban Board */}
       <div className="flex gap-4 overflow-x-auto pb-4 snap-x">
         {COLUMNS.map(column => {
-          const columnQuotes = filteredDevisList.filter(q => q.status === column);
+          const columnQuotes = sortQuotesForColumn(filteredDevisList.filter(q => q.status === column));
           const totalCA = columnQuotes.reduce((sum, q) => sum + q.price, 0);
 
           return (
@@ -584,6 +683,8 @@ export function AdminDevis() {
                   const canSendQuote = quote.status !== 'Signé' && quote.status !== 'Refusé';
                   const quoteHasEmail = Boolean(quote.email?.trim());
                   const quoteIsSending = sendingQuoteId === quote.id;
+                  const quoteInsight = scoreQuoteOpportunity(quote);
+                  const pricingInsight = analyzeQuotePricing(quote);
 
                   return (
                     <div
@@ -615,7 +716,15 @@ export function AdminDevis() {
                         <MoveRight size={10} className="text-slate-400 shrink-0" /> 
                         <span className="truncate max-w-[100px]" title={quote.toCity}>{quote.toCity}</span>
                       </p>
-
+                      <div className={`mb-2 rounded-xl border px-3 py-2 ${getQuoteOpportunityClasses(quoteInsight.level)}`}>
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-[9px] font-black uppercase tracking-wider">Score {quoteInsight.score}</span>
+                          <span className="text-[9px] font-black">{quoteInsight.label}</span>
+                        </div>
+                        <p className="text-[10px] mt-1 font-semibold opacity-85 flex items-center gap-1">
+                          <TrendingUp size={10} /> {quoteInsight.nextAction}
+                        </p>
+                      </div>
                       {/* Expiration date/badge */}
                       {quote.expiresAt && (
                         <div className="flex items-center justify-between gap-2 mb-3 pt-2 border-t border-dashed border-slate-100 dark:border-slate-900">
@@ -623,6 +732,26 @@ export function AdminDevis() {
                             <Calendar size={10} /> Exp: {formatDateFr(quote.expiresAt)}
                           </span>
                           {expirationBadge}
+                        </div>
+                      )}
+
+                      <div className={`mb-3 rounded-xl border px-3 py-2 ${getPricingRiskClasses(pricingInsight.riskLevel)}`}>
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-[9px] font-black uppercase tracking-wider">{pricingInsight.label}</span>
+                          <span className="text-[9px] font-black">Marge {pricingInsight.marginRate}%</span>
+                        </div>
+                        <p className="text-[10px] mt-1 font-semibold opacity-85 flex items-center gap-1">
+                          <ShieldCheck size={10} /> {pricingInsight.action}
+                        </p>
+                      </div>
+                      {/* Signature Display (if signed) */}
+                      {quote.status === 'Signé' && quote.clientSignature && (
+                        <div className="mb-3 p-2 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/50 rounded-xl flex items-center justify-between gap-3">
+                          <div className="flex flex-col gap-0.5">
+                            <span className="text-[9px] font-black uppercase text-emerald-700 dark:text-emerald-400">Signé le</span>
+                            <span className="text-[10px] text-emerald-600 dark:text-emerald-500 font-bold">{quote.acceptedAt ? formatDateFr(quote.acceptedAt) : 'N/A'}</span>
+                          </div>
+                          <img src={quote.clientSignature} alt="Signature" className="h-8 w-20 object-contain mix-blend-multiply dark:mix-blend-normal bg-white rounded-md p-1" />
                         </div>
                       )}
                       

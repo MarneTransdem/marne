@@ -10,7 +10,8 @@ import {
   RefreshCw,
   Search,
   Send,
-  ShieldCheck
+  ShieldCheck,
+  Bot
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useSyncedCollection } from '../../hooks/useData';
@@ -62,6 +63,21 @@ export function AdminEnvoisRelances() {
   const [query, setQuery] = useState('');
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
   const [sendingTaskId, setSendingTaskId] = useState<string | null>(null);
+  const [isAiRunning, setIsAiRunning] = useState(false);
+
+  const triggerAIFollowups = async () => {
+    setIsAiRunning(true);
+    try {
+      const response = await adminFetch('/api/cron/auto-followup', { method: 'POST' });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.success) throw new Error(result.error || result.details || 'Erreur lors du déclenchement IA.');
+      context?.pushNotification('IA de Relance Terminée', `${result.sent} devis relancé(s) sur ${result.processed} analysé(s).`, 'success');
+    } catch (e: any) {
+      context?.pushNotification('Erreur IA', e.message || 'Échec', 'warning');
+    } finally {
+      setIsAiRunning(false);
+    }
+  };
 
   const tasks = useMemo(() => buildCommunicationTasks(devisList, factures, logs), [devisList, factures, logs]);
   const visibleTasks = useMemo(() => {
@@ -242,7 +258,18 @@ export function AdminEnvoisRelances() {
             </div>
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.18em] text-accent">Centre opérationnel</p>
-              <h2 className="text-xl md:text-2xl font-black tracking-tight">Envois & Relances</h2>
+              <div className="flex items-center gap-4">
+                <h2 className="text-xl md:text-2xl font-black tracking-tight">Envois & Relances</h2>
+                <button
+                  onClick={triggerAIFollowups}
+                  disabled={isAiRunning}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-900 text-white text-xs font-bold shadow-sm hover:bg-brand-hover transition-colors disabled:opacity-50"
+                  title="Analyser les plannings et relancer les devis de plus de 48h par IA"
+                >
+                  {isAiRunning ? <RefreshCw size={14} className="animate-spin" /> : <Bot size={14} className="text-accent" />}
+                  {isAiRunning ? 'Analyse...' : 'Déclencher l\'IA de Relance'}
+                </button>
+              </div>
               <p className="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400 max-w-3xl">
                 File unique pour envoyer les devis, transmettre les factures et relancer les clients au bon moment.
               </p>

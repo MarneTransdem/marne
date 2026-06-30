@@ -38,6 +38,7 @@ const AdminProfil = lazy(() => import('./pages/admin/AdminProfil').then(module =
 const AdminParametres = lazy(() => import('./pages/admin/AdminParametres').then(module => ({ default: module.AdminParametres })));
 const Login = lazy(() => import('./pages/Login'));
 const ClientTracking = lazy(() => import('./pages/ClientTracking'));
+const ClientQuoteSignature = lazy(() => import('./pages/ClientQuoteSignature'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Legal = lazy(() => import('./pages/Legal'));
@@ -105,6 +106,7 @@ function AppRoutes() {
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/suivi/:moveId" element={<ClientTracking />} />
+      <Route path="/signature-devis/:id" element={<ClientQuoteSignature />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/blog/:id" element={<BlogPost />} />
       <Route path="/:sectorPath" element={<SectorPage />} />
@@ -142,7 +144,7 @@ function AppRoutes() {
 
 function AppContent() {
   const location = useLocation();
-  const isMinimalPage = location.pathname.startsWith('/admin') || location.pathname === '/login' || location.pathname.startsWith('/suivi');
+  const isMinimalPage = location.pathname.startsWith('/admin') || location.pathname === '/login' || location.pathname.startsWith('/suivi') || location.pathname.startsWith('/signature-devis');
   const needsAuthProvider = location.pathname.startsWith('/admin') || location.pathname === '/login';
 
   useEffect(() => {

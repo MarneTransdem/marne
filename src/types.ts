@@ -28,6 +28,7 @@ export interface Devis {
   toFloor?: string;
   fromElevator?: 'Oui' | 'Non';
   toElevator?: 'Oui' | 'Non';
+  clientSignature?: string;
   fromLift?: 'Oui' | 'Non';
   toLift?: 'Oui' | 'Non';
   fromPortage?: string;
