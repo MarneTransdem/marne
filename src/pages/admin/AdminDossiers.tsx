@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useSyncedCollection } from '../../hooks/useData';
 import { useAuth } from '../../context/AuthContext';
 import { useOutletContext, useNavigate } from 'react-router-dom';
+import { doc, setDoc } from 'firebase/firestore';
 import {
   Plus, Search, Mail, MessageSquare, Settings, FolderOpen,
   Users, Check, Save, RefreshCw, AlertTriangle, Calendar,
@@ -13,6 +14,7 @@ import {
   type ClientDossier,
   type DossierNote,
   type DossierTask,
+  type DossierEvent,
   type AdminPublicRequest
 } from '../../lib/admin-dossiers';
 import { buildClientDossiers, normalizeDossierKey } from '../../lib/admin-dossier-engine';
@@ -21,6 +23,16 @@ import { getAccessibleTabs, type AdminTab } from '../../lib/admin-permissions';
 import { AdminWorkflowRail } from '../../components/admin/AdminWorkflowRail';
 import { ClientDossierDrawer, type ClientDossierWorkflowAction } from '../../components/admin/ClientDossierDrawer';
 import type { AdminOutletContextType } from '../../components/admin/layout/AdminLayout';
+import { adminFetch } from '../../lib/admin-api';
+import { db } from '../../lib/firebase';
+import { useCrmSettings } from '../../hooks/useCrmSettings';
+import {
+  buildCommunicationLog,
+  renderCommunication,
+  type CommunicationAction,
+  type CommunicationLog,
+  type CommunicationTask
+} from '../../lib/crm-communications';
 
 const DOSSIER_PAGE_SIZE_OPTIONS = [10, 20, 50, 100] as const;
 const KANBAN_STAGE_BATCH_SIZE = 10;
@@ -232,8 +244,8 @@ const getDossierWorkflowActions = (dossier: ClientDossier): ClientDossierWorkflo
       }
       actions.push({
         id: 'confirm_j3',
-        label: 'Confirmer J-3',
-        description: 'Envoyer le rappel logistique par SMS',
+        label: 'Preparer J-3',
+        description: 'Archiver le message logistique avant envoi SMS',
         tone: 'success'
       });
       break;
@@ -331,6 +343,7 @@ export function AdminDossiers() {
   const { user, role, moduleAccess } = useAuth();
   const navigate = useNavigate();
   const context = useOutletContext<AdminOutletContextType>();
+  const { communicationSettings } = useCrmSettings();
 
   // Fetch all operational data
   const [publicRequests, setPublicRequests] = useSyncedCollection<AdminPublicRequest>('quotes');
@@ -345,6 +358,7 @@ export function AdminDossiers() {
   // Dossier specific metadata tables
   const [dossierNotes, setDossierNotes] = useSyncedCollection<DossierNote>('dossierNotes');
   const [dossierTasks, setDossierTasks] = useSyncedCollection<DossierTask>('dossierTasks');
+  const [dossierEvents, setDossierEvents] = useSyncedCollection<DossierEvent>('dossierEvents');
   const [dossierOwners, setDossierOwners] = useSyncedCollection<{ id?: string; key: string; dossierId?: string; owner: string }>('dossierOwners');
   const [templates, setTemplates] = useSyncedCollection<NotificationTemplate>('notification_templates', SEED_TEMPLATES);
 
@@ -505,6 +519,14 @@ export function AdminDossiers() {
       });
   }, [activeDossierKeys, dossierTasks, selectedDossierKey]);
 
+  const activeEvents = useMemo(() => {
+    if (!selectedDossierKey) return [];
+    return dossierEvents
+      .filter(event => activeDossierKeys.has(event.dossierId || event.dossierKey))
+      .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+      .slice(0, 30);
+  }, [activeDossierKeys, dossierEvents, selectedDossierKey]);
+
   const activeCollaborateurs = useMemo(() => (
     collaborateurs.filter((collaborateur) => collaborateur.status === 'Actif')
   ), [collaborateurs]);
@@ -605,6 +627,7 @@ export function AdminDossiers() {
       dossierId,
       devisId: quote.id,
       clientName: quote.clientName,
+      email: quote.email || '',
       amount: quote.price,
       date: toIsoDate(),
       dueDate: addDaysIso(30),
@@ -627,8 +650,8 @@ export function AdminDossiers() {
       volume: quote.volume,
       fromCity: quote.fromCity,
       toCity: quote.toCity,
-      fromAddress: quote.fromAddress,
-      toAddress: quote.toAddress,
+      fromAddress: quote.fromAddress || '',
+      toAddress: quote.toAddress || '',
       date: quote.date || toIsoDate(),
       teamLeader: getDefaultTeamLeader(),
       status: 'À planifier',
@@ -639,37 +662,350 @@ export function AdminDossiers() {
     return newMove;
   };
 
-  const sendSimulatedNotification = async (templateId: string, dossier: ClientDossier) => {
+  const createEntityId = (prefix: string) => `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  const nowIso = () => new Date().toISOString();
+
+  type DossierEventInput = Omit<DossierEvent, 'id' | 'dossierId' | 'dossierKey' | 'createdAt' | 'actor' | 'status'> & {
+    status?: DossierEvent['status'];
+  };
+
+  const registerDossierEvent = async (
+    dossier: Pick<ClientDossier, 'key' | 'dossierId' | 'clientName'>,
+    input: DossierEventInput
+  ) => {
+    const event: DossierEvent = {
+      id: createEntityId('EVT'),
+      dossierId: dossier.dossierId || dossier.key,
+      dossierKey: dossier.key || dossier.dossierId,
+      type: input.type,
+      title: input.title,
+      status: input.status || 'info',
+      actor: currentUserLabel || 'CRM',
+      createdAt: nowIso()
+    };
+
+    if (input.description) event.description = input.description;
+    if (input.documentType) event.documentType = input.documentType;
+    if (input.documentId) event.documentId = input.documentId;
+    if (input.channel) event.channel = input.channel;
+    if (input.recipient) event.recipient = input.recipient;
+    if (input.metadata) event.metadata = input.metadata;
+
+    await setDossierEvents(prev => [event, ...prev]);
+    return event;
+  };
+
+  const findDossierForKey = (key: string) => (
+    allDossiers.find(dossier => dossier.key === key || dossier.dossierId === key) || activeDossier
+  );
+
+  const registerDossierEventForKey = async (key: string, input: DossierEventInput) => {
+    const dossier = findDossierForKey(key);
+    if (!dossier) return;
+    await registerDossierEvent(dossier, input);
+  };
+
+  const registerCommunicationLog = async (
+    task: CommunicationTask,
+    status: CommunicationLog['status'],
+    error?: string
+  ) => {
+    const log = buildCommunicationLog(task, status, currentUserLabel || 'CRM', error);
+    await setDoc(doc(db, 'communication_logs', log.id), log, { merge: true });
+    return log;
+  };
+
+  const buildDossierCommunicationTask = (
+    dossier: ClientDossier,
+    documentType: 'devis' | 'facture',
+    document: Devis | Facture,
+    action: CommunicationAction,
+    subject: string,
+    body: string,
+    clientEmail: string
+  ): CommunicationTask => {
+    const isQuote = documentType === 'devis';
+    const amount = isQuote ? Number((document as Devis).price || 0) : Number((document as Facture).amount || 0);
+    return {
+      id: `${action}-${document.id}-${Date.now()}`,
+      documentType,
+      documentId: document.id,
+      dossierId: dossier.dossierId,
+      action,
+      priority: action.includes('overdue') || action.includes('expiring') ? 'high' : 'normal',
+      title: isQuote ? 'Envoi devis depuis dossier' : 'Envoi facture depuis dossier',
+      description: `${isQuote ? 'Devis' : 'Facture'} ${document.id} traite depuis le dossier client.`,
+      clientName: dossier.clientName,
+      clientEmail,
+      amount,
+      dateLabel: isQuote ? ((document as Devis).date || '') : ((document as Facture).dueDate || ''),
+      badgeLabel: 'Dossier',
+      ctaLabel: action === 'quote_send' ? 'Envoyer devis' : action === 'invoice_send' ? 'Envoyer facture' : 'Envoyer relance',
+      document,
+      subject,
+      body,
+      sentToday: false
+    };
+  };
+
+  const getQuoteReminderAction = (quote: Devis): CommunicationAction => {
+    const expiryTime = quote.expiresAt ? Date.parse(quote.expiresAt) : NaN;
+    if (Number.isFinite(expiryTime)) {
+      const daysLeft = Math.ceil((expiryTime - Date.now()) / (24 * 60 * 60 * 1000));
+      if (daysLeft <= 7) return 'quote_reminder_expiring';
+    }
+    return 'quote_reminder_soft';
+  };
+
+  const sendQuoteEmailFromDossier = async (dossier: ClientDossier, action: CommunicationAction) => {
+    if (!dossier.quote) return false;
+    const quote = dossier.quote;
+    const recipient = cleanText(quote.email || dossier.request?.email);
+    if (!recipient) {
+      await registerDossierEvent(dossier, {
+        type: 'communication',
+        title: 'Email devis bloque',
+        description: `Impossible d'envoyer ${quote.id}: adresse email client manquante.`,
+        status: 'warning',
+        documentType: 'devis',
+        documentId: quote.id,
+        channel: 'Email'
+      });
+      context?.pushNotification('Email manquant', 'Ajoutez une adresse email au devis avant de lancer l\'envoi.', 'warning');
+      return false;
+    }
+
+    const sentAt = nowIso();
+    const quoteForEmail: Devis = { ...quote, email: recipient };
+    const rendered = renderCommunication(action, quoteForEmail, 'devis', communicationSettings);
+    const task = buildDossierCommunicationTask(dossier, 'devis', quoteForEmail, action, rendered.subject, rendered.body, recipient);
+
+    try {
+      const response = action === 'quote_send'
+        ? await adminFetch('/api/send-email', {
+            method: 'POST',
+            body: JSON.stringify({
+              type: 'admin-doc',
+              documentType: 'devis',
+              data: {
+                id: quote.id,
+                clientName: quote.clientName,
+                clientEmail: recipient,
+                pdfName: `Devis_${quote.id}.pdf`,
+                docData: quoteForEmail,
+                subject: rendered.subject,
+                body: rendered.body
+              }
+            })
+          })
+        : await adminFetch('/api/send-email', {
+            method: 'POST',
+            body: JSON.stringify({
+              type: 'quote-reminder',
+              data: {
+                quote: quoteForEmail,
+                reminderStage: action,
+                subject: rendered.subject,
+                body: rendered.body
+              }
+            })
+          });
+
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || result.details || 'Envoi du devis impossible.');
+      }
+
+      await setDevisList(prev => prev.map(item => {
+        if (item.id !== quote.id) return item;
+        if (action === 'quote_send') {
+          return {
+            ...item,
+            email: recipient,
+            status: item.status === 'Signé' || item.status === 'Refusé' ? item.status : 'Envoyé',
+            sentAt
+          };
+        }
+        return {
+          ...item,
+          email: recipient,
+          status: 'En attente',
+          sentAt: item.sentAt || sentAt,
+          lastReminderAt: sentAt,
+          reminderCount: (item.reminderCount || 0) + 1
+        };
+      }));
+
+      await registerCommunicationLog(task, 'sent');
+      await registerDossierEvent(dossier, {
+        type: 'communication',
+        title: action === 'quote_send' ? 'Devis envoye au client' : 'Relance devis envoyee',
+        description: `${quote.id} transmis a ${recipient}.`,
+        status: 'success',
+        documentType: 'devis',
+        documentId: quote.id,
+        channel: 'Email',
+        recipient,
+        metadata: { action }
+      });
+      context?.pushNotification(action === 'quote_send' ? 'Devis envoye' : 'Relance envoyee', `${quote.id} a ete transmis a ${recipient}.`, 'success');
+      return true;
+    } catch (error: any) {
+      const message = error?.message || 'Envoi du devis impossible.';
+      await registerCommunicationLog(task, 'failed', message).catch(() => undefined);
+      await registerDossierEvent(dossier, {
+        type: 'communication',
+        title: action === 'quote_send' ? 'Echec envoi devis' : 'Echec relance devis',
+        description: message,
+        status: 'error',
+        documentType: 'devis',
+        documentId: quote.id,
+        channel: 'Email',
+        recipient,
+        metadata: { action }
+      });
+      context?.pushNotification('Echec de l\'envoi', message, 'warning');
+      return false;
+    }
+  };
+
+  const sendInvoiceEmailFromDossier = async (dossier: ClientDossier, invoice: Facture, action: CommunicationAction) => {
+    const recipient = cleanText(invoice.email || dossier.quote?.email || dossier.request?.email);
+    if (!recipient) {
+      await registerDossierEvent(dossier, {
+        type: 'communication',
+        title: 'Email facture bloque',
+        description: `Impossible d'envoyer ${invoice.id}: adresse email client manquante.`,
+        status: 'warning',
+        documentType: 'facture',
+        documentId: invoice.id,
+        channel: 'Email'
+      });
+      context?.pushNotification('Email manquant', 'Ajoutez une adresse email a la facture avant de lancer l\'envoi.', 'warning');
+      return false;
+    }
+
+    const sentAt = nowIso();
+    const invoiceForEmail: Facture = { ...invoice, email: recipient };
+    const rendered = renderCommunication(action, invoiceForEmail, 'facture', communicationSettings);
+    const task = buildDossierCommunicationTask(dossier, 'facture', invoiceForEmail, action, rendered.subject, rendered.body, recipient);
+
+    try {
+      const response = action === 'invoice_send'
+        ? await adminFetch('/api/send-email', {
+            method: 'POST',
+            body: JSON.stringify({
+              type: 'admin-doc',
+              documentType: 'facture',
+              data: {
+                id: invoice.id,
+                clientName: invoice.clientName,
+                clientEmail: recipient,
+                pdfName: `Facture_${invoice.id}.pdf`,
+                docData: invoiceForEmail,
+                subject: rendered.subject,
+                body: rendered.body
+              }
+            })
+          })
+        : await adminFetch('/api/send-email', {
+            method: 'POST',
+            body: JSON.stringify({
+              type: 'invoice-reminder',
+              data: {
+                invoice: invoiceForEmail,
+                subject: rendered.subject,
+                body: rendered.body
+              }
+            })
+          });
+
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || result.details || 'Envoi de la facture impossible.');
+      }
+
+      await setFactures(prev => prev.map(item => {
+        if (item.id !== invoice.id) return item;
+        const nextInvoice: Facture = {
+          ...item,
+          email: recipient,
+          sentAt: item.sentAt || sentAt
+        };
+        if (action !== 'invoice_send') {
+          nextInvoice.lastReminderAt = sentAt;
+          nextInvoice.reminderCount = (item.reminderCount || 0) + 1;
+          if (action === 'invoice_overdue') nextInvoice.status = 'En retard';
+        }
+        return nextInvoice;
+      }));
+
+      await registerCommunicationLog(task, 'sent');
+      await registerDossierEvent(dossier, {
+        type: 'communication',
+        title: action === 'invoice_send' ? 'Facture envoyee au client' : 'Relance facture envoyee',
+        description: `${invoice.id} transmis a ${recipient}.`,
+        status: 'success',
+        documentType: 'facture',
+        documentId: invoice.id,
+        channel: 'Email',
+        recipient,
+        metadata: { action }
+      });
+      context?.pushNotification(action === 'invoice_send' ? 'Facture envoyee' : 'Relance envoyee', `${invoice.id} a ete transmis a ${recipient}.`, 'success');
+      return true;
+    } catch (error: any) {
+      const message = error?.message || 'Envoi de la facture impossible.';
+      await registerCommunicationLog(task, 'failed', message).catch(() => undefined);
+      await registerDossierEvent(dossier, {
+        type: 'communication',
+        title: action === 'invoice_send' ? 'Echec envoi facture' : 'Echec relance facture',
+        description: message,
+        status: 'error',
+        documentType: 'facture',
+        documentId: invoice.id,
+        channel: 'Email',
+        recipient,
+        metadata: { action }
+      });
+      context?.pushNotification('Echec de l\'envoi', message, 'warning');
+      return false;
+    }
+  };
+
+  const prepareDossierNotification = async (templateId: string, dossier: ClientDossier) => {
     const template = templates.find(t => t.id === templateId) || SEED_TEMPLATES.find(t => t.id === templateId);
     if (!template) return;
 
     const renderedBody = renderTemplate(template.body, dossier);
     const renderedSubject = template.subject ? renderTemplate(template.subject, dossier) : '';
+    const recipient = template.channel === 'SMS'
+      ? getDossierPhone(dossier)
+      : cleanText(dossier.quote?.email || dossier.invoice?.email || dossier.request?.email);
 
-    // Push notification feedback
-    if (context?.pushNotification) {
-      context.pushNotification(
-        `Alerte client (${template.channel}) ✉️`,
-        `Notification "${template.title}" envoyée à ${dossier.clientName}.`,
-        'success'
-      );
-    } else {
-      alert(`Notification "${template.title}" simulée avec succès pour ${dossier.clientName}.`);
-    }
-
-    // Append internal note logging the email
-    const noteId = `NOTE-${Date.now()}`;
+    const noteId = createEntityId('NOTE');
     const newNote: DossierNote = {
       id: noteId,
       dossierId: dossier.dossierId,
       dossierKey: dossier.key,
-      author: `${user?.email || 'Secrétariat'} (Auto)`,
-      content: `[Notification ${template.channel}] ${template.title}\n\n${template.subject ? `Objet : ${renderedSubject}\n` : ''}${renderedBody}`,
+      author: `${user?.email || 'Secretariat'} (CRM)`,
+      content: `[Message prepare ${template.channel}] ${template.title}\n\n${template.subject ? `Objet : ${renderedSubject}\n` : ''}${renderedBody}`,
       createdAt: toIsoDate()
     };
     await setDossierNotes(prev => [newNote, ...prev]);
+    const eventInput: DossierEventInput = {
+      type: 'communication',
+      title: `Message prepare: ${template.title}`,
+      description: template.channel === 'SMS'
+        ? 'SMS prepare dans le dossier. Aucun fournisseur SMS reel n est encore connecte.'
+        : 'Message prepare et archive dans les notes CRM.',
+      status: template.channel === 'SMS' ? 'warning' : 'info',
+      channel: template.channel
+    };
+    if (recipient) eventInput.recipient = recipient;
+    await registerDossierEvent(dossier, eventInput);
+    context?.pushNotification('Message prepare', `Le message "${template.title}" est archive dans le dossier de ${dossier.clientName}.`, 'info');
   };
-
   const createAcceptedQuoteArtifacts = async (quote: Devis) => {
     await createMoveFromQuote(quote);
   };
@@ -702,6 +1038,14 @@ export function AdminDossiers() {
         if (dossier.request?.id) {
           await setPublicRequests(prev => prev.map(r => r.id === dossier.request?.id ? { ...r, dossierId, status: 'Visite_planifiée', plannedVisitId: visitId } : r));
         }
+        await registerDossierEvent(dossier, {
+          type: 'workflow',
+          title: 'Visite planifiee',
+          description: `Rendez-vous ${newVisit.id} fixe le ${newVisit.date} a ${newVisit.time}.`,
+          status: 'success',
+          documentType: 'visite',
+          documentId: newVisit.id
+        });
         context?.pushNotification('Visite Planifiée 📅', `Rendez-vous fixé pour ${dossier.clientName}.`, 'success');
         break;
       }
@@ -715,11 +1059,11 @@ export function AdminDossiers() {
           dossierId,
           clientName: dossier.clientName,
           phone: getDossierPhone(dossier),
-          email: dossier.request?.email || undefined,
+          email: dossier.request?.email || '',
           fromCity: getDossierFromCity(dossier),
           toCity: getDossierToCity(dossier),
-          fromAddress: dossier.request?.fromAddress,
-          toAddress: dossier.request?.toAddress,
+          fromAddress: dossier.request?.fromAddress || '',
+          toAddress: dossier.request?.toAddress || '',
           volume,
           formula,
           price: estimateQuotePrice(volume, formula),
@@ -733,12 +1077,28 @@ export function AdminDossiers() {
         if (dossier.request?.id) {
           await setPublicRequests(prev => prev.map(r => r.id === dossier.request?.id ? { ...r, dossierId, status: 'Étudié_Converti', convertedDevisId: devisId } : r));
         }
+        await registerDossierEvent(dossier, {
+          type: 'workflow',
+          title: 'Devis brouillon cree',
+          description: `Devis ${devisId} cree directement depuis la demande.`,
+          status: 'success',
+          documentType: 'devis',
+          documentId: devisId
+        });
         context?.pushNotification('Devis Créé 🚀', `Devis brouillon ${devisId} créé directement.`, 'success');
         break;
       }
       case 'archive_request': {
         if (dossier.request?.id) {
           await setPublicRequests(prev => prev.map(r => r.id === dossier.request?.id ? { ...r, status: 'Archivé' } : r));
+          await registerDossierEvent(dossier, {
+            type: 'workflow',
+            title: 'Demande archivee',
+            description: 'Demande classee sans suite depuis le dossier.',
+            status: 'info',
+            documentType: 'demande',
+            documentId: dossier.request.id
+          });
           context?.pushNotification('Demande Classée 📂', `Demande archivée pour ${dossier.clientName}.`, 'info');
         }
         break;
@@ -746,6 +1106,14 @@ export function AdminDossiers() {
       case 'realize_visit': {
         if (dossier.visit?.id) {
           await setVisites(prev => prev.map(v => v.id === dossier.visit?.id ? { ...v, status: 'Réalisée' } : v));
+          await registerDossierEvent(dossier, {
+            type: 'workflow',
+            title: 'Visite realisee',
+            description: `Visite ${dossier.visit.id} marquee comme realisee.`,
+            status: 'success',
+            documentType: 'visite',
+            documentId: dossier.visit.id
+          });
           context?.pushNotification('Visite Effectuée ✅', `Visite marquée réalisée.`, 'success');
         }
         break;
@@ -761,11 +1129,11 @@ export function AdminDossiers() {
             dossierId,
             clientName: dossier.clientName,
             phone: getDossierPhone(dossier),
-            email: dossier.request?.email || undefined,
+            email: dossier.request?.email || '',
             fromCity: getDossierFromCity(dossier),
             toCity: getDossierToCity(dossier),
-            fromAddress: dossier.request?.fromAddress,
-            toAddress: dossier.request?.toAddress,
+            fromAddress: dossier.request?.fromAddress || '',
+            toAddress: dossier.request?.toAddress || '',
             volume,
             formula,
             price: estimateQuotePrice(volume, formula),
@@ -777,6 +1145,14 @@ export function AdminDossiers() {
           };
           await setDevisList(prev => [item, ...prev]);
           await setVisites(prev => prev.map(v => v.id === dossier.visit?.id ? { ...v, status: 'Chiffrée' } : v));
+          await registerDossierEvent(dossier, {
+            type: 'workflow',
+            title: 'Devis genere depuis visite',
+            description: `Devis ${devisId} genere depuis la visite ${dossier.visit.id}.`,
+            status: 'success',
+            documentType: 'devis',
+            documentId: devisId
+          });
           context?.pushNotification('Devis Émis 📝', `Devis ${devisId} généré depuis la visite.`, 'success');
         }
         break;
@@ -784,20 +1160,27 @@ export function AdminDossiers() {
       case 'cancel_visit': {
         if (dossier.visit?.id) {
           await setVisites(prev => prev.map(v => v.id === dossier.visit?.id ? { ...v, status: 'Annulée' } : v));
+          await registerDossierEvent(dossier, {
+            type: 'workflow',
+            title: 'Visite annulee',
+            description: `Visite ${dossier.visit.id} annulee depuis le dossier.`,
+            status: 'warning',
+            documentType: 'visite',
+            documentId: dossier.visit.id
+          });
           context?.pushNotification('Visite Annulée ❌', `Visite annulée.`, 'info');
         }
         break;
       }
       case 'send_quote': {
         if (dossier.quote?.id) {
-          await setDevisList(prev => prev.map(q => q.id === dossier.quote?.id ? { ...q, status: 'Envoyé', sentAt: toIsoDate() } : q));
-          await sendSimulatedNotification('devis_envoye', dossier);
+          await sendQuoteEmailFromDossier(dossier, 'quote_send');
         }
         break;
       }
       case 'remind_quote': {
         if (dossier.quote?.id) {
-          await sendSimulatedNotification('devis_expirant', dossier);
+          await sendQuoteEmailFromDossier(dossier, getQuoteReminderAction(dossier.quote));
         }
         break;
       }
@@ -810,6 +1193,14 @@ export function AdminDossiers() {
           };
           await setDevisList(prev => prev.map(q => q.id === dossier.quote?.id ? updatedQuote : q));
           await createAcceptedQuoteArtifacts(updatedQuote);
+          await registerDossierEvent(dossier, {
+            type: 'workflow',
+            title: 'Devis signe',
+            description: `Devis ${dossier.quote.id} accepte. Facture et mission controlees.`,
+            status: 'success',
+            documentType: 'devis',
+            documentId: dossier.quote.id
+          });
           context?.pushNotification('Devis Signé ✍️', `Devis accepté ! Lancement logistique.`, 'success');
         }
         break;
@@ -817,6 +1208,14 @@ export function AdminDossiers() {
       case 'refuse_quote': {
         if (dossier.quote?.id) {
           await setDevisList(prev => prev.map(q => q.id === dossier.quote?.id ? { ...q, status: 'Refusé', refusedAt: toIsoDate() } : q));
+          await registerDossierEvent(dossier, {
+            type: 'workflow',
+            title: 'Devis refuse',
+            description: `Devis ${dossier.quote.id} marque comme refuse.`,
+            status: 'info',
+            documentType: 'devis',
+            documentId: dossier.quote.id
+          });
           context?.pushNotification('Devis Refusé 🛑', `Devis marqué comme refusé.`, 'info');
         }
         break;
@@ -830,8 +1229,16 @@ export function AdminDossiers() {
           if (alreadyExists) {
             context?.pushNotification('Facture déjà présente', `La facture ${invoice.id} existe déjà pour ce devis.`, 'info');
           } else {
+            await registerDossierEvent(dossierWithInvoice, {
+              type: 'workflow',
+              title: 'Facture generee',
+              description: `Facture ${invoice.id} creee depuis le devis ${dossier.quote.id}.`,
+              status: 'success',
+              documentType: 'facture',
+              documentId: invoice.id
+            });
             context?.pushNotification('Facture générée', `Facture ${invoice.id} créée pour ${dossier.clientName}.`, 'success');
-            await sendSimulatedNotification('facture_emise', dossierWithInvoice);
+            await sendInvoiceEmailFromDossier(dossierWithInvoice, invoice, 'invoice_send');
           }
         }
         break;
@@ -839,13 +1246,22 @@ export function AdminDossiers() {
       case 'pay_invoice': {
         if (dossier.invoice?.id) {
           await setFactures(prev => prev.map(f => f.id === dossier.invoice?.id ? { ...f, status: 'Payée' } : f));
+          await registerDossierEvent(dossier, {
+            type: 'workflow',
+            title: 'Paiement enregistre',
+            description: `Facture ${dossier.invoice.id} marquee payee.`,
+            status: 'success',
+            documentType: 'facture',
+            documentId: dossier.invoice.id
+          });
           context?.pushNotification('Paiement Reçu 💳', `Facture ${dossier.invoice.id} réglée.`, 'success');
         }
         break;
       }
       case 'remind_invoice': {
         if (dossier.invoice?.id) {
-          await sendSimulatedNotification('facture_emise', dossier);
+          const invoiceAction: CommunicationAction = dossier.invoice.status === 'En retard' ? 'invoice_overdue' : 'invoice_reminder';
+          await sendInvoiceEmailFromDossier(dossier, dossier.invoice, invoiceAction);
         }
         break;
       }
@@ -864,12 +1280,28 @@ export function AdminDossiers() {
         ));
 
         if (!hasAssignableMovers || !hasAssignableTruck) {
+          await registerDossierEvent(dossier, {
+            type: 'assignment',
+            title: 'Affectation bloquee',
+            description: 'Equipe ou vehicule disponible manquant pour planifier la mission.',
+            status: 'warning',
+            documentType: 'demenagement',
+            documentId: dossier.move.id
+          });
           context?.pushNotification(
             'Ressources à compléter',
             'Ajoutez au moins un équipier disponible et un véhicule disponible dans Équipe & outils.',
             'warning'
           );
         } else {
+          await registerDossierEvent(dossier, {
+            type: 'assignment',
+            title: 'Affectation ouverte',
+            description: 'Le dossier a ete ouvert pour affecter equipe, chef de mission et vehicule.',
+            status: 'info',
+            documentType: 'demenagement',
+            documentId: dossier.move.id
+          });
           context?.pushNotification(
             'Affectation ouverte',
             'Sélectionnez le chef de mission, les équipiers et le véhicule dans le dossier.',
@@ -886,18 +1318,32 @@ export function AdminDossiers() {
             context?.pushNotification('Planning incomplet', `Affectez d'abord l'équipe et le véhicule pour ${dossier.clientName}.`, 'warning');
             break;
           }
-          await sendSimulatedNotification('planning_j3', dossier);
+          await prepareDossierNotification('planning_j3', dossier);
         }
         break;
       }
       case 'complete_move': {
         if (dossier.move?.id) {
           await setDemenagements(prev => prev.map(m => m.id === dossier.move?.id ? { ...m, status: 'Terminé' } : m));
+          await registerDossierEvent(dossier, {
+            type: 'workflow',
+            title: 'Mission terminee',
+            description: `Demenagement ${dossier.move.id} marque termine.`,
+            status: 'success',
+            documentType: 'demenagement',
+            documentId: dossier.move.id
+          });
           context?.pushNotification('Chantier Clos 🏆', `Déménagement de ${dossier.clientName} terminé.`, 'success');
         }
         break;
       }
       case 'archive_dossier': {
+        await registerDossierEvent(dossier, {
+          type: 'workflow',
+          title: 'Dossier archive',
+          description: 'Archivage demande depuis le pipeline dossier.',
+          status: 'info'
+        });
         context?.pushNotification('Dossier Archivé 🗄️', `Dossier de ${dossier.clientName} archivé.`, 'info');
         setSelectedDossierKey(null);
         break;
@@ -918,14 +1364,20 @@ export function AdminDossiers() {
           : o
       )));
     } else {
-      const id = `OWN-${Date.now()}`;
+      const id = createEntityId('OWN');
       await setDossierOwners(prev => [{ id, key, dossierId: key, owner }, ...prev]);
     }
+    await registerDossierEventForKey(key, {
+      type: 'assignment',
+      title: 'Responsable modifie',
+      description: `Dossier assigne a ${owner}.`,
+      status: 'success'
+    });
     context?.pushNotification('Assignation Mise à jour 👤', `Responsable mis à jour pour ce dossier.`, 'success');
   };
 
   const handleAddNote = async (key: string, content: string) => {
-    const noteId = `NOTE-${Date.now()}`;
+    const noteId = createEntityId('NOTE');
     const newNote: DossierNote = {
       id: noteId,
       dossierId: key,
@@ -935,11 +1387,17 @@ export function AdminDossiers() {
       createdAt: toIsoDate()
     };
     await setDossierNotes(prev => [newNote, ...prev]);
+    await registerDossierEventForKey(key, {
+      type: 'note',
+      title: 'Note interne ajoutee',
+      description: content.length > 120 ? `${content.slice(0, 120)}...` : content,
+      status: 'info'
+    });
     context?.pushNotification('Note Ajoutée 📝', `Note interne enregistrée.`, 'success');
   };
 
   const handleAddTask = async (task: Omit<DossierTask, 'id' | 'createdAt' | 'done'>) => {
-    const taskId = `TSK-${Date.now()}`;
+    const taskId = createEntityId('TSK');
     const newTask: DossierTask = {
       ...task,
       dossierId: task.dossierKey,
@@ -948,15 +1406,39 @@ export function AdminDossiers() {
       createdAt: toIsoDate()
     };
     await setDossierTasks(prev => [newTask, ...prev]);
+    await registerDossierEventForKey(task.dossierKey, {
+      type: 'task',
+      title: 'Tache creee',
+      description: `${newTask.title} - ${newTask.owner}`,
+      status: newTask.priority === 'urgent' ? 'warning' : 'info'
+    });
     context?.pushNotification('Tâche Ajoutée 📌', `Nouvelle tâche de suivi créée.`, 'success');
   };
 
   const handleToggleTask = async (taskId: string) => {
+    const task = dossierTasks.find(item => item.id === taskId);
     await setDossierTasks(prev => prev.map(t => t.id === taskId ? { ...t, done: !t.done } : t));
+    if (task) {
+      await registerDossierEventForKey(task.dossierId || task.dossierKey, {
+        type: 'task',
+        title: task.done ? 'Tache reouverte' : 'Tache terminee',
+        description: task.title,
+        status: task.done ? 'info' : 'success'
+      });
+    }
   };
 
   const handleDeleteTask = async (taskId: string) => {
+    const task = dossierTasks.find(item => item.id === taskId);
     await setDossierTasks(prev => prev.filter(t => t.id !== taskId));
+    if (task) {
+      await registerDossierEventForKey(task.dossierId || task.dossierKey, {
+        type: 'task',
+        title: 'Tache supprimee',
+        description: task.title,
+        status: 'info'
+      });
+    }
     context?.pushNotification('Tâche Supprimée 🗑️', `La tâche a été retirée du dossier.`, 'info');
   };
 
@@ -968,9 +1450,19 @@ export function AdminDossiers() {
       teamLeader: assignment.teamLeader,
       status: 'Programmé'
     } : m));
+    const dossier = allDossiers.find(item => item.move?.id === moveId);
+    if (dossier) {
+      await registerDossierEvent(dossier, {
+        type: 'assignment',
+        title: 'Equipe et vehicule affectes',
+        description: `Chef: ${assignment.teamLeader}. Vehicule: ${assignment.assignedTruck}. Equipe: ${assignment.assignedMovers.join(', ')}.`,
+        status: 'success',
+        documentType: 'demenagement',
+        documentId: moveId
+      });
+    }
     context?.pushNotification('Planning Mis à jour 🚚', `Ressources de terrain affectées avec succès.`, 'success');
   };
-
   // Save template settings
   const handleSaveTemplate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -1772,11 +2264,11 @@ export function AdminDossiers() {
                   <div className="flex justify-end pt-1">
                     <button
                       type="button"
-                      onClick={() => sendSimulatedNotification(editingTemplate.id!, allDossiers[previewDossierIndex])}
+                      onClick={() => prepareDossierNotification(editingTemplate.id!, allDossiers[previewDossierIndex])}
                       className="bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider flex items-center gap-1.5 cursor-pointer"
                     >
                       <Mail size={13} />
-                      Simuler l'envoi de notification (Push & Note CRM)
+                      Preparer le message dans le dossier
                     </button>
                   </div>
                 )}
@@ -1794,6 +2286,7 @@ export function AdminDossiers() {
           dossier={activeDossier}
           notes={activeNotes}
           tasks={activeTasks}
+          events={activeEvents}
           ownerOptions={ownerOptions}
           availableTabs={availableTabs}
           workflowActions={drawerWorkflowActions}
@@ -1808,6 +2301,14 @@ export function AdminDossiers() {
           onAssignMoveResources={(moveId, assignment) => handleAssignMoveResources(moveId, assignment)}
           onUpdateMove={async (moveId, updates) => {
             await setDemenagements(prev => prev.map(m => m.id === moveId ? { ...m, ...updates } : m));
+            await registerDossierEvent(activeDossier, {
+              type: 'workflow',
+              title: 'Demenagement mis a jour',
+              description: 'Informations de suivi ou de mission modifiees.',
+              status: 'success',
+              documentType: 'demenagement',
+              documentId: moveId
+            });
             context?.pushNotification('Dossier Mis à jour 💾', 'Le déménagement a été mis à jour.', 'success');
           }}
           onAssignOwner={(key, owner) => handleAssignOwner(key, owner)}
@@ -1815,6 +2316,7 @@ export function AdminDossiers() {
           onAddTask={(task) => handleAddTask(task)}
           onToggleTask={(taskId) => handleToggleTask(taskId)}
           onDeleteTask={(taskId) => handleDeleteTask(taskId)}
+          onRegisterEvent={(event) => registerDossierEvent(activeDossier, event)}
         />
       )}
 

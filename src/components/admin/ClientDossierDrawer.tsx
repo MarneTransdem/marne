@@ -4,12 +4,15 @@ import {
   ArrowRight,
   Calendar,
   CheckCircle2,
+  ClockDot,
   ClipboardList,
   CreditCard,
   FileText,
   FolderOpen,
+  Mail,
   MapPin,
   Plus,
+  ShieldCheck,
   StickyNote,
   Trash2,
   Truck,
@@ -22,7 +25,8 @@ import {
   DOSSIER_STAGES,
   type ClientDossier,
   type DossierNote,
-  type DossierTask
+  type DossierTask,
+  type DossierEvent
 } from '../../lib/admin-dossiers';
 import {
   getDossierActionTab,
@@ -38,10 +42,15 @@ export interface ClientDossierWorkflowAction {
   tone?: 'primary' | 'success' | 'warning' | 'neutral';
 }
 
+type DossierEventDraft = Omit<DossierEvent, 'id' | 'dossierId' | 'dossierKey' | 'createdAt' | 'actor' | 'status'> & {
+  status?: DossierEvent['status'];
+};
+
 interface ClientDossierDrawerProps {
   dossier: ClientDossier | null;
   notes: DossierNote[];
   tasks: DossierTask[];
+  events: DossierEvent[];
   ownerOptions: string[];
   availableTabs: AdminTab[];
   workflowActions: ClientDossierWorkflowAction[];
@@ -60,12 +69,14 @@ interface ClientDossierDrawerProps {
   onAddTask: (task: Omit<DossierTask, 'id' | 'createdAt' | 'done'>) => void;
   onToggleTask: (taskId: string) => void;
   onDeleteTask: (taskId: string) => void;
+  onRegisterEvent?: (event: DossierEventDraft) => void | Promise<void>;
 }
 
 export function ClientDossierDrawer({
   dossier,
   notes,
   tasks,
+  events,
   ownerOptions,
   availableTabs,
   workflowActions,
@@ -80,7 +91,8 @@ export function ClientDossierDrawer({
   onAddNote,
   onAddTask,
   onToggleTask,
-  onDeleteTask
+  onDeleteTask,
+  onRegisterEvent
 }: ClientDossierDrawerProps) {
   const [noteContent, setNoteContent] = useState('');
   const [taskTitle, setTaskTitle] = useState('');
@@ -96,6 +108,7 @@ export function ClientDossierDrawer({
 
   const handleSendTrackingEmail = async () => {
     if (!dossier?.move || !dossier.move.trackingToken) return;
+    const clientEmail = dossier.quote?.email || dossier.invoice?.email || dossier.request?.email || '';
     setSendingTrackingEmail(true);
     setEmailSuccessMessage(null);
     setEmailErrorMessage(null);
@@ -107,7 +120,7 @@ export function ClientDossierDrawer({
           type: 'devis-tracking',
           data: {
             clientName: dossier.clientName,
-            clientEmail: dossier.quote?.email || dossier.invoice?.email || dossier.request?.email || '',
+            clientEmail,
             id: dossier.move.id,
             trackingToken: dossier.move.trackingToken
           }
@@ -119,10 +132,32 @@ export function ClientDossierDrawer({
         throw new Error(result.error || result.details || "Erreur lors de l'envoi");
       }
 
+      const successEvent: DossierEventDraft = {
+        type: 'communication',
+        title: 'Lien de suivi envoye',
+        description: `Lien de suivi public envoye a ${clientEmail || 'email non renseigne'}.`,
+        status: 'success',
+        documentType: 'demenagement',
+        documentId: dossier.move.id,
+        channel: 'Email'
+      };
+      if (clientEmail) successEvent.recipient = clientEmail;
+      await onRegisterEvent?.(successEvent);
       setEmailSuccessMessage("Lien de suivi envoyé avec succès !");
       setTimeout(() => setEmailSuccessMessage(null), 5000);
     } catch (err: any) {
       console.error("Failed to send tracking email:", err);
+      const errorEvent: DossierEventDraft = {
+        type: 'communication',
+        title: 'Echec envoi lien de suivi',
+        description: err.message || "Impossible d'envoyer l'e-mail.",
+        status: 'error',
+        documentType: 'demenagement',
+        documentId: dossier.move.id,
+        channel: 'Email'
+      };
+      if (clientEmail) errorEvent.recipient = clientEmail;
+      await onRegisterEvent?.(errorEvent);
       setEmailErrorMessage(err.message || "Impossible d'envoyer l'e-mail.");
       setTimeout(() => setEmailErrorMessage(null), 5000);
     } finally {
@@ -245,6 +280,27 @@ export function ClientDossierDrawer({
       ? 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/20 dark:text-amber-300 dark:border-amber-900/40'
       : 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-300 dark:border-emerald-900/40';
 
+  const getEventClass = (status: DossierEvent['status']) => {
+    if (status === 'success') return 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-300 dark:border-emerald-900/40';
+    if (status === 'warning') return 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/20 dark:text-amber-300 dark:border-amber-900/40';
+    if (status === 'error') return 'bg-red-50 text-red-700 border-red-200 dark:bg-red-950/20 dark:text-red-300 dark:border-red-900/40';
+    return 'bg-slate-50 text-slate-600 border-slate-200 dark:bg-slate-950 dark:text-slate-300 dark:border-slate-800';
+  };
+
+  const formatEventDate = (value: string) => {
+    const parsed = new Date(value);
+    if (Number.isNaN(parsed.getTime())) return value;
+    return parsed.toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' });
+  };
+
+  const getEventIcon = (event: DossierEvent) => {
+    if (event.type === 'communication') return <Mail size={13} />;
+    if (event.type === 'assignment') return <User size={13} />;
+    if (event.type === 'task') return <ClipboardList size={13} />;
+    if (event.type === 'note') return <StickyNote size={13} />;
+    return <ShieldCheck size={13} />;
+  };
+
   const submitNote = (event: React.FormEvent) => {
     event.preventDefault();
     const content = noteContent.trim();
@@ -261,7 +317,7 @@ export function ClientDossierDrawer({
       dossierKey: dossier.key,
       title,
       owner: taskOwner || dossier.owner,
-      dueDate: taskDueDate || undefined,
+      dueDate: taskDueDate || '',
       priority: taskPriority
     });
     setTaskTitle('');
@@ -640,6 +696,39 @@ export function ClientDossierDrawer({
             </div>
           </section>
 
+          <section className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/75 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
+            <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 flex items-center gap-2">
+              <ShieldCheck size={14} className="text-accent" />
+              Historique CRM
+            </h3>
+            <div className="mt-4 space-y-2">
+              {events.map((event) => (
+                <div key={event.id} className={`rounded-2xl border p-3 ${getEventClass(event.status)}`}>
+                  <div className="flex items-start gap-3">
+                    <div className="mt-0.5 shrink-0">{getEventIcon(event)}</div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <p className="text-xs font-black text-current truncate">{event.title}</p>
+                        <span className="text-[10px] font-bold opacity-70">{formatEventDate(event.createdAt)}</span>
+                      </div>
+                      {event.description && (
+                        <p className="mt-1 text-[11px] font-semibold opacity-80 leading-relaxed">{event.description}</p>
+                      )}
+                      <div className="mt-2 flex flex-wrap items-center gap-1.5 text-[9px] font-black uppercase tracking-wider opacity-75">
+                        <span>{event.type}</span>
+                        {event.channel && <span>- {event.channel}</span>}
+                        {event.recipient && <span className="normal-case tracking-normal">- {event.recipient}</span>}
+                        {event.actor && <span className="normal-case tracking-normal">- {event.actor}</span>}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {events.length === 0 && (
+                <p className="text-xs text-slate-500">Aucune preuve CRM encore enregistree sur ce dossier.</p>
+              )}
+            </div>
+          </section>
           <section className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/75 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
             <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 flex items-center gap-2">
               <FolderOpen size={14} className="text-accent" />

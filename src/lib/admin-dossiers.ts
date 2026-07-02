@@ -77,6 +77,26 @@ export interface DossierOwnerAssignment {
   updatedAt: string;
 }
 
+export type DossierEventType = 'workflow' | 'communication' | 'assignment' | 'note' | 'task' | 'system';
+export type DossierEventStatus = 'success' | 'warning' | 'error' | 'info';
+
+export interface DossierEvent {
+  id: string;
+  dossierId?: string;
+  dossierKey: string;
+  type: DossierEventType;
+  title: string;
+  description?: string;
+  status: DossierEventStatus;
+  actor?: string;
+  createdAt: string;
+  documentType?: 'demande' | 'visite' | 'devis' | 'facture' | 'demenagement';
+  documentId?: string;
+  channel?: 'Email' | 'SMS' | 'Both' | 'Internal';
+  recipient?: string;
+  metadata?: Record<string, string | number | boolean | null>;
+}
+
 export const DOSSIER_STAGES: Array<{ key: DossierStage; label: string; shortLabel: string }> = [
   { key: 'demande', label: 'Demande', shortLabel: 'Dem.' },
   { key: 'visite', label: 'Visite', shortLabel: 'Visit.' },
