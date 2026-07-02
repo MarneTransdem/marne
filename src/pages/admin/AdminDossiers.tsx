@@ -33,12 +33,19 @@ import {
   type CommunicationLog,
   type CommunicationTask
 } from '../../lib/crm-communications';
+import {
+  analyzeDossierQuality,
+  matchesDossierQualityFilter,
+  type DossierQualityFilter,
+  type DossierQualitySeverity
+} from '../../lib/admin-dossier-quality';
 
 const DOSSIER_PAGE_SIZE_OPTIONS = [10, 20, 50, 100] as const;
 const KANBAN_STAGE_BATCH_SIZE = 10;
 
 type DossierPageSize = typeof DOSSIER_PAGE_SIZE_OPTIONS[number];
 type DossierRiskFilter = 'all' | ClientDossier['risk'];
+type DossierQualityFilterOption = 'all' | DossierQualityFilter;
 type DossierSortOption = 'priority' | 'date_asc' | 'amount_desc' | 'client_asc' | 'completion_asc';
 
 const DOSSIER_RISK_WEIGHT: Record<ClientDossier['risk'], number> = {
@@ -63,6 +70,28 @@ const getDossierComparableDate = (dossier: ClientDossier) => {
   return Number.isFinite(timestamp) ? timestamp : Number.MAX_SAFE_INTEGER;
 };
 
+const DOSSIER_QUALITY_FILTERS: Array<{ value: DossierQualityFilterOption; label: string }> = [
+  { value: 'all', label: 'Tous controles' },
+  { value: 'blocked', label: 'Dossiers bloques' },
+  { value: 'missing_email', label: 'Sans email' },
+  { value: 'followup', label: 'A relancer' },
+  { value: 'planning_incomplete', label: 'Planning incomplet' },
+  { value: 'invoice_risk', label: 'Factures a risque' },
+  { value: 'move_soon', label: 'Dem. proche' }
+];
+
+const getDossierQualityPillClass = (severity: DossierQualitySeverity) => {
+  if (severity === 'blocking') return 'bg-red-50 text-red-700 border-red-200 dark:bg-red-950/25 dark:text-red-300 dark:border-red-900/50';
+  if (severity === 'warning') return 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/25 dark:text-amber-300 dark:border-amber-900/50';
+  return 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/25 dark:text-emerald-300 dark:border-emerald-900/50';
+};
+
+const getDossierQualityScoreClass = (score: number) => {
+  if (score >= 85) return 'text-red-700 dark:text-red-300';
+  if (score >= 55) return 'text-amber-700 dark:text-amber-300';
+  if (score >= 25) return 'text-sky-700 dark:text-sky-300';
+  return 'text-emerald-700 dark:text-emerald-300';
+};
 const SEED_TEMPLATES: NotificationTemplate[] = [
   {
     id: 'visite_planifiee',
@@ -376,6 +405,7 @@ export function AdminDossiers() {
   const [selectedDossierKey, setSelectedDossierKey] = useState<string | null>(null);
   const [localSearchQuery, setLocalSearchQuery] = useState('');
   const [dossierRiskFilter, setDossierRiskFilter] = useState<DossierRiskFilter>('all');
+  const [dossierQualityFilter, setDossierQualityFilter] = useState<DossierQualityFilterOption>('all');
   const [dossierOwnerFilter, setDossierOwnerFilter] = useState('all');
   const [dossierSort, setDossierSort] = useState<DossierSortOption>('priority');
   const [dossierPageSize, setDossierPageSize] = useState<DossierPageSize>(20);
@@ -419,6 +449,13 @@ export function AdminDossiers() {
     });
   }, [publicRequests, visites, devisList, factures, demenagements, dossierOwnerOverrides]);
 
+  const dossierQualityByKey = useMemo(() => (
+    new Map(allDossiers.map((dossier) => [dossier.key, analyzeDossierQuality(dossier)]))
+  ), [allDossiers]);
+
+  const getDossierQualitySummary = (dossier: ClientDossier) => (
+    dossierQualityByKey.get(dossier.key) || analyzeDossierQuality(dossier)
+  );
   const activeDossier = useMemo(() => {
     if (!selectedDossierKey) return null;
     return allDossiers.find(d => d.key === selectedDossierKey) || null;
@@ -450,6 +487,8 @@ export function AdminDossiers() {
     const sortedDossiers = allDossiers.filter(dossier => {
       const matchesStage = workflowStageFilter === 'all' || dossier.stage === workflowStageFilter;
       const matchesRisk = dossierRiskFilter === 'all' || dossier.risk === dossierRiskFilter;
+      const qualitySummary = dossierQualityByKey.get(dossier.key) || analyzeDossierQuality(dossier);
+      const matchesQuality = matchesDossierQualityFilter(qualitySummary, dossierQualityFilter);
       const matchesOwner = dossierOwnerFilter === 'all' || dossier.owner === dossierOwnerFilter;
 
       const queryLower = activeSearch.toLowerCase().trim();
@@ -465,7 +504,7 @@ export function AdminDossiers() {
         (dossier.invoice?.id && dossier.invoice.id.toLowerCase().includes(queryLower)) ||
         (dossier.move?.id && dossier.move.id.toLowerCase().includes(queryLower));
 
-      return matchesStage && matchesRisk && matchesOwner && matchesSearch;
+      return matchesStage && matchesRisk && matchesQuality && matchesOwner && matchesSearch;
     });
 
     return sortedDossiers.sort((a, b) => {
@@ -474,11 +513,14 @@ export function AdminDossiers() {
       if (dossierSort === 'completion_asc') return a.completion - b.completion;
       if (dossierSort === 'date_asc') return getDossierComparableDate(a) - getDossierComparableDate(b);
 
+      const qualityDelta = (dossierQualityByKey.get(b.key)?.score || 0) - (dossierQualityByKey.get(a.key)?.score || 0);
+      if (qualityDelta !== 0) return qualityDelta;
+
       const riskDelta = DOSSIER_RISK_WEIGHT[a.risk] - DOSSIER_RISK_WEIGHT[b.risk];
       if (riskDelta !== 0) return riskDelta;
       return getDossierComparableDate(a) - getDossierComparableDate(b);
     });
-  }, [allDossiers, workflowStageFilter, dossierRiskFilter, dossierOwnerFilter, activeSearch, dossierSort]);
+  }, [allDossiers, workflowStageFilter, dossierRiskFilter, dossierQualityFilter, dossierOwnerFilter, activeSearch, dossierSort, dossierQualityByKey]);
 
   const totalDossierPages = Math.max(1, Math.ceil(filteredDossiers.length / dossierPageSize));
   const safeDossierCurrentPage = Math.min(dossierCurrentPage, totalDossierPages);
@@ -492,7 +534,7 @@ export function AdminDossiers() {
   useEffect(() => {
     setDossierCurrentPage(1);
     setKanbanVisibleByStage({});
-  }, [activeSearch, workflowStageFilter, dossierRiskFilter, dossierOwnerFilter, dossierSort, dossierPageSize]);
+  }, [activeSearch, workflowStageFilter, dossierRiskFilter, dossierQualityFilter, dossierOwnerFilter, dossierSort, dossierPageSize]);
 
   useEffect(() => {
     if (dossierCurrentPage > totalDossierPages) {
@@ -1478,20 +1520,23 @@ export function AdminDossiers() {
 
   const cockpitMetrics = useMemo(() => {
     const openDossiers = allDossiers.filter((dossier) => dossier.stage !== 'termine');
+    const getQuality = (dossier: ClientDossier) => dossierQualityByKey.get(dossier.key) || analyzeDossierQuality(dossier);
     const urgentDossiers = allDossiers.filter((dossier) => dossier.risk === 'urgent');
+    const blockedDossiers = openDossiers.filter((dossier) => getQuality(dossier).blocked);
     const quoteFollowUps = allDossiers.filter((dossier) => (
-      dossier.quote?.status === 'Envoyé' || dossier.quote?.status === 'En attente'
+      getQuality(dossier).filters.includes('followup')
     ));
     const incompletePlanning = allDossiers.filter((dossier) => (
-      dossier.move &&
-      dossier.stage === 'planning' &&
-      (!dossier.move.assignedTruck || !dossier.move.teamLeader || !dossier.move.assignedMovers?.length)
+      getQuality(dossier).filters.includes('planning_incomplete')
     ));
-    const overdueInvoices = allDossiers.filter((dossier) => dossier.invoice?.status === 'En retard');
+    const overdueInvoices = allDossiers.filter((dossier) => getQuality(dossier).filters.includes('invoice_risk'));
+    const moveSoonDossiers = openDossiers.filter((dossier) => getQuality(dossier).filters.includes('move_soon'));
     const openAmount = openDossiers.reduce((sum, dossier) => sum + dossier.amount, 0);
 
     const priorityDossiers = [...openDossiers]
       .sort((a, b) => {
+        const qualityDelta = getQuality(b).score - getQuality(a).score;
+        if (qualityDelta !== 0) return qualityDelta;
         const riskDelta = DOSSIER_RISK_WEIGHT[a.risk] - DOSSIER_RISK_WEIGHT[b.risk];
         if (riskDelta !== 0) return riskDelta;
         return getDossierComparableDate(a) - getDossierComparableDate(b);
@@ -1501,13 +1546,15 @@ export function AdminDossiers() {
     return {
       openCount: openDossiers.length,
       urgentCount: urgentDossiers.length,
+      blockedCount: blockedDossiers.length,
       quoteFollowUpCount: quoteFollowUps.length,
       incompletePlanningCount: incompletePlanning.length,
       overdueInvoiceCount: overdueInvoices.length,
+      moveSoonCount: moveSoonDossiers.length,
       openAmount,
       priorityDossiers
     };
-  }, [allDossiers]);
+  }, [allDossiers, dossierQualityByKey]);
 
   return (
     <div className="space-y-6">
@@ -1553,12 +1600,13 @@ export function AdminDossiers() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-2 text-xs">
+              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-7 gap-2 text-xs">
                 <button
                   type="button"
                   onClick={() => {
                     setWorkflowStageFilter('all');
                     setDossierRiskFilter('all');
+                    setDossierQualityFilter('all');
                     setDossierSort('priority');
                   }}
                   className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/40 px-3 py-2 text-left hover:border-accent/50 transition-all"
@@ -1570,7 +1618,26 @@ export function AdminDossiers() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setDossierRiskFilter('urgent')}
+                  onClick={() => {
+                    setWorkflowStageFilter('all');
+                    setDossierRiskFilter('all');
+                    setDossierQualityFilter('blocked');
+                    setDossierSort('priority');
+                  }}
+                  className="rounded-lg border border-red-200 dark:border-red-900/40 bg-red-50/70 dark:bg-red-950/10 px-3 py-2 text-left hover:border-red-300 transition-all"
+                >
+                  <span className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-red-600 dark:text-red-300">
+                    <AlertTriangle size={11} /> Bloques
+                  </span>
+                  <strong className="mt-1 block text-lg font-black text-red-700 dark:text-red-300">{cockpitMetrics.blockedCount}</strong>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setWorkflowStageFilter('all');
+                    setDossierRiskFilter('urgent');
+                    setDossierQualityFilter('all');
+                  }}
                   className="rounded-lg border border-red-200 dark:border-red-900/40 bg-red-50/70 dark:bg-red-950/10 px-3 py-2 text-left hover:border-red-300 transition-all"
                 >
                   <span className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-red-600 dark:text-red-300">
@@ -1580,7 +1647,12 @@ export function AdminDossiers() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setWorkflowStageFilter('devis')}
+                  onClick={() => {
+                    setWorkflowStageFilter('all');
+                    setDossierRiskFilter('all');
+                    setDossierQualityFilter('followup');
+                    setDossierSort('priority');
+                  }}
                   className="rounded-lg border border-amber-200 dark:border-amber-900/40 bg-amber-50/70 dark:bg-amber-950/10 px-3 py-2 text-left hover:border-amber-300 transition-all"
                 >
                   <span className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-amber-700 dark:text-amber-300">
@@ -1590,7 +1662,12 @@ export function AdminDossiers() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setWorkflowStageFilter('planning')}
+                  onClick={() => {
+                    setWorkflowStageFilter('all');
+                    setDossierRiskFilter('all');
+                    setDossierQualityFilter('planning_incomplete');
+                    setDossierSort('priority');
+                  }}
                   className="rounded-lg border border-sky-200 dark:border-sky-900/40 bg-sky-50/70 dark:bg-sky-950/10 px-3 py-2 text-left hover:border-sky-300 transition-all"
                 >
                   <span className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-sky-700 dark:text-sky-300">
@@ -1601,8 +1678,10 @@ export function AdminDossiers() {
                 <button
                   type="button"
                   onClick={() => {
-                    setWorkflowStageFilter('facturation');
-                    setDossierRiskFilter('urgent');
+                    setWorkflowStageFilter('all');
+                    setDossierRiskFilter('all');
+                    setDossierQualityFilter('invoice_risk');
+                    setDossierSort('priority');
                   }}
                   className="rounded-lg border border-rose-200 dark:border-rose-900/40 bg-rose-50/70 dark:bg-rose-950/10 px-3 py-2 text-left hover:border-rose-300 transition-all"
                 >
@@ -1645,6 +1724,7 @@ export function AdminDossiers() {
                 <div className="mt-4 grid grid-cols-1 xl:grid-cols-3 gap-3">
                   {cockpitMetrics.priorityDossiers.map((dossier) => {
                     const action = getDossierWorkflowActions(dossier)[0];
+                    const quality = getDossierQualitySummary(dossier);
                     return (
                       <article
                         key={dossier.key}
@@ -1662,10 +1742,15 @@ export function AdminDossiers() {
                               {getDossierStageLabel(dossier.stage)}
                             </span>
                             <h4 className="mt-2 truncate text-sm font-black text-brand-950 dark:text-white">{dossier.clientName}</h4>
-                            <p className="mt-1 line-clamp-2 text-xs font-medium text-slate-500 dark:text-slate-400">{dossier.nextAction}</p>
+                            <div className="mt-2 space-y-1">
+                              <span className={`inline-flex border px-2 py-0.5 rounded-md text-[9px] font-black uppercase ${quality.primaryIssue ? getDossierQualityPillClass(quality.primaryIssue.severity) : 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/25 dark:text-emerald-300 dark:border-emerald-900/50'}`}>
+                                {quality.primaryIssue?.label || quality.label}
+                              </span>
+                              <p className="line-clamp-2 text-xs font-medium text-slate-500 dark:text-slate-400">{quality.reason}</p>
+                            </div>
                           </div>
-                          <strong className="shrink-0 text-xs font-black text-slate-900 dark:text-white">
-                            {dossier.amount > 0 ? `${dossier.amount.toLocaleString('fr-FR')} €` : '-'}
+                          <strong className={`shrink-0 text-xs font-black ${getDossierQualityScoreClass(quality.score)}`}>
+                            {quality.score > 0 ? `${quality.score}/100` : dossier.amount > 0 ? `${dossier.amount.toLocaleString('fr-FR')} €` : '-'}
                           </strong>
                         </div>
                         <div className="mt-3 flex items-center justify-between gap-2 border-t border-slate-200/70 dark:border-slate-800 pt-3">
@@ -1682,7 +1767,7 @@ export function AdminDossiers() {
                               onClick={() => runDossierWorkflowAction(action.id, dossier)}
                               className="rounded-md bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:text-brand-950 px-2.5 py-1.5 text-[10px] font-black uppercase text-white"
                             >
-                              {action.label}
+                              {quality.actionLabel || action.label}
                             </button>
                           )}
                         </div>
@@ -1703,9 +1788,11 @@ export function AdminDossiers() {
                 <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Santé portefeuille</span>
                 <div className="mt-3 space-y-3">
                   {[
+                    { label: 'Dossiers bloqués', value: cockpitMetrics.blockedCount, icon: <AlertTriangle size={14} className="text-red-600" /> },
                     { label: 'Devis à relancer', value: cockpitMetrics.quoteFollowUpCount, icon: <Mail size={14} className="text-amber-600" /> },
                     { label: 'Plannings incomplets', value: cockpitMetrics.incompletePlanningCount, icon: <Users size={14} className="text-sky-600" /> },
-                    { label: 'Factures en retard', value: cockpitMetrics.overdueInvoiceCount, icon: <AlertTriangle size={14} className="text-red-600" /> }
+                    { label: 'Factures à risque', value: cockpitMetrics.overdueInvoiceCount, icon: <FileText size={14} className="text-rose-600" /> },
+                    { label: 'Interventions proches', value: cockpitMetrics.moveSoonCount, icon: <Calendar size={14} className="text-emerald-600" /> }
                   ].map((item) => (
                     <div key={item.label} className="flex items-center justify-between gap-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 p-3">
                       <div className="flex items-center gap-2">
@@ -1767,7 +1854,7 @@ export function AdminDossiers() {
             </div>
 
             <div className="p-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20 space-y-3 print:hidden">
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-7 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-8 gap-3">
                 {isUsingGlobalSearch ? (
                   <div className="xl:col-span-2 rounded-lg border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2">
                     <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Recherche globale active</span>
@@ -1806,6 +1893,16 @@ export function AdminDossiers() {
                   <option value="urgent">Urgent</option>
                   <option value="attention">À surveiller</option>
                   <option value="normal">Normal</option>
+                </select>
+
+                <select
+                  value={dossierQualityFilter}
+                  onChange={(event) => setDossierQualityFilter(event.target.value as DossierQualityFilterOption)}
+                  className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-lg px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+                >
+                  {DOSSIER_QUALITY_FILTERS.map((filter) => (
+                    <option key={filter.value} value={filter.value}>{filter.label}</option>
+                  ))}
                 </select>
 
                 <select
@@ -1854,6 +1951,9 @@ export function AdminDossiers() {
                   {workflowStageFilter !== 'all' && (
                     <span className="ml-1 text-slate-400">· Étape {getDossierStageLabel(workflowStageFilter)}</span>
                   )}
+                  {dossierQualityFilter !== 'all' && (
+                    <span className="ml-1 text-slate-400">· Contrôle {DOSSIER_QUALITY_FILTERS.find((filter) => filter.value === dossierQualityFilter)?.label}</span>
+                  )}
                 </p>
                 <button
                   type="button"
@@ -1861,6 +1961,7 @@ export function AdminDossiers() {
                     setLocalSearchQuery('');
                     setWorkflowStageFilter('all');
                     setDossierRiskFilter('all');
+                    setDossierQualityFilter('all');
                     setDossierOwnerFilter('all');
                     setDossierSort('priority');
                     setDossierPageSize(20);
@@ -1892,6 +1993,7 @@ export function AdminDossiers() {
                   {paginatedDossiers.map(d => {
                     const isUrgent = d.risk === 'urgent';
                     const isAttention = d.risk === 'attention';
+                    const quality = getDossierQualitySummary(d);
 
                     return (
                       <tr
@@ -1905,6 +2007,16 @@ export function AdminDossiers() {
                             <div>
                               <strong className="font-extrabold text-slate-900 dark:text-white text-xs">{d.clientName}</strong>
                               <p className="text-[10px] text-slate-400 mt-0.5">{d.phone || 'Pas de téléphone'}</p>
+                              {quality.primaryIssue && (
+                                <div className="mt-1 flex flex-wrap items-center gap-1">
+                                  <span className={`inline-flex border px-1.5 py-0.5 rounded text-[8px] font-black uppercase ${getDossierQualityPillClass(quality.primaryIssue.severity)}`}>
+                                    {quality.primaryIssue.label}
+                                  </span>
+                                  {quality.issues.length > 1 && (
+                                    <span className="text-[8px] font-black text-slate-400">+{quality.issues.length - 1}</span>
+                                  )}
+                                </div>
+                              )}
                             </div>
                           </div>
                         </td>
@@ -1937,8 +2049,9 @@ export function AdminDossiers() {
                           </span>
                         </td>
                         <td className="p-4">
-                          <div className="max-w-[190px] rounded-md bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 px-2 py-1 font-bold truncate text-slate-650 dark:text-slate-300">
-                            {d.nextAction}
+                          <div className="max-w-[220px] rounded-md bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 px-2 py-1 text-slate-650 dark:text-slate-300">
+                            <p className="truncate font-black">{quality.actionLabel}</p>
+                            <p className="mt-0.5 truncate text-[9px] font-semibold text-slate-400">{quality.reason}</p>
                           </div>
                         </td>
                         <td className="p-4 text-right">
@@ -2037,6 +2150,7 @@ export function AdminDossiers() {
                           {visibleStageDossiers.map(d => {
                             const isUrgent = d.risk === 'urgent';
                             const isAttention = d.risk === 'attention';
+                            const quality = getDossierQualitySummary(d);
 
                             return (
                               <div
@@ -2049,8 +2163,8 @@ export function AdminDossiers() {
                                   <strong className="font-extrabold text-slate-900 dark:text-white text-xs truncate pr-2">
                                     {d.clientName}
                                   </strong>
-                                  <span className="text-[10px] font-black text-brand-900 dark:text-brand-300 whitespace-nowrap bg-brand-50 dark:bg-brand-900/30 px-1.5 py-0.5 rounded-md">
-                                    {d.amount > 0 ? d.amount.toLocaleString('fr-FR') + ' €' : '-'}
+                                  <span className={`text-[10px] font-black whitespace-nowrap bg-brand-50 dark:bg-brand-900/30 px-1.5 py-0.5 rounded-md ${getDossierQualityScoreClass(quality.score)}`}>
+                                    {quality.score > 0 ? `${quality.score}/100` : d.amount > 0 ? d.amount.toLocaleString('fr-FR') + ' €' : '-'}
                                   </span>
                                 </div>
 
@@ -2058,8 +2172,13 @@ export function AdminDossiers() {
                                   {d.fromCity} ➔ {d.toCity}
                                 </div>
 
+                                {quality.primaryIssue && (
+                                  <span className={`mb-2 inline-flex border px-1.5 py-0.5 rounded text-[8px] font-black uppercase ${getDossierQualityPillClass(quality.primaryIssue.severity)}`}>
+                                    {quality.primaryIssue.label}
+                                  </span>
+                                )}
                                 <p className="line-clamp-2 text-[10px] font-bold text-slate-500 dark:text-slate-400">
-                                  {d.nextAction}
+                                  {quality.actionLabel}
                                 </p>
 
                                 <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
@@ -2077,7 +2196,7 @@ export function AdminDossiers() {
                                       className="bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:hover:bg-accent-hover text-white dark:text-brand-950 text-[9px] font-black px-2 py-1 rounded-md"
                                       title={getDossierWorkflowActions(d)[0].label}
                                     >
-                                      {getDossierWorkflowActions(d)[0].label}
+                                      {quality.actionLabel || getDossierWorkflowActions(d)[0].label}
                                     </button>
                                   )}
                                 </div>
@@ -2316,7 +2435,9 @@ export function AdminDossiers() {
           onAddTask={(task) => handleAddTask(task)}
           onToggleTask={(taskId) => handleToggleTask(taskId)}
           onDeleteTask={(taskId) => handleDeleteTask(taskId)}
-          onRegisterEvent={(event) => registerDossierEvent(activeDossier, event)}
+          onRegisterEvent={async (event) => {
+            await registerDossierEvent(activeDossier, event);
+          }}
         />
       )}
 

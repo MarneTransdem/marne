@@ -4,7 +4,6 @@ import {
   ArrowRight,
   Calendar,
   CheckCircle2,
-  ClockDot,
   ClipboardList,
   CreditCard,
   FileText,
@@ -34,6 +33,7 @@ import {
   getWorkflowStep
 } from '../../lib/admin-workflow';
 import { adminFetch } from '../../lib/admin-api';
+import { analyzeDossierQuality, type DossierQualitySeverity } from '../../lib/admin-dossier-quality';
 
 export interface ClientDossierWorkflowAction {
   id: string;
@@ -280,6 +280,20 @@ export function ClientDossierDrawer({
       ? 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/20 dark:text-amber-300 dark:border-amber-900/40'
       : 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-300 dark:border-emerald-900/40';
 
+  const qualitySummary = analyzeDossierQuality(dossier);
+  const getQualityIssueClass = (severity: DossierQualitySeverity) => {
+    if (severity === 'blocking') return 'bg-red-50 text-red-700 border-red-200 dark:bg-red-950/20 dark:text-red-300 dark:border-red-900/40';
+    if (severity === 'warning') return 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/20 dark:text-amber-300 dark:border-amber-900/40';
+    return 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-300 dark:border-emerald-900/40';
+  };
+  const qualityScoreClass = qualitySummary.score >= 85
+    ? 'text-red-700 dark:text-red-300'
+    : qualitySummary.score >= 55
+      ? 'text-amber-700 dark:text-amber-300'
+      : qualitySummary.score >= 25
+        ? 'text-sky-700 dark:text-sky-300'
+        : 'text-emerald-700 dark:text-emerald-300';
+
   const getEventClass = (status: DossierEvent['status']) => {
     if (status === 'success') return 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-300 dark:border-emerald-900/40';
     if (status === 'warning') return 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/20 dark:text-amber-300 dark:border-amber-900/40';
@@ -369,6 +383,37 @@ export function ClientDossierDrawer({
         </div>
 
         <div className="p-5 space-y-5">
+          <section className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/75 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+              <div>
+                <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 flex items-center gap-2">
+                  <ShieldCheck size={14} className="text-accent" />
+                  Qualite dossier
+                </h3>
+                <p className="mt-2 text-sm font-black text-brand-950 dark:text-white">{qualitySummary.actionLabel}</p>
+                <p className="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400">{qualitySummary.reason}</p>
+              </div>
+              <div className="shrink-0 text-right">
+                <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Score risque</span>
+                <strong className={`block text-lg font-black ${qualityScoreClass}`}>{qualitySummary.score}/100</strong>
+                <span className="text-[10px] font-black uppercase text-slate-400">{qualitySummary.label}</span>
+              </div>
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {qualitySummary.issues.slice(0, 6).map((issue) => (
+                <span key={issue.kind} className={`inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 text-[10px] font-black uppercase ${getQualityIssueClass(issue.severity)}`} title={issue.detail}>
+                  {issue.label}
+                </span>
+              ))}
+              {qualitySummary.issues.length === 0 && (
+                <span className="inline-flex items-center gap-1 rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[10px] font-black uppercase text-emerald-700 dark:bg-emerald-950/20 dark:border-emerald-900/40 dark:text-emerald-300">
+                  Aucun blocage detecte
+                </span>
+              )}
+            </div>
+          </section>
+
           <section className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/75 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
               <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-slate-500">
@@ -391,7 +436,7 @@ export function ClientDossierDrawer({
                 <ClipboardList size={14} className="text-accent" />
                 Action prioritaire
               </div>
-              <p className="mt-3 text-sm font-black text-brand-950 dark:text-white">{dossier.nextAction}</p>
+              <p className="mt-3 text-sm font-black text-brand-950 dark:text-white">{qualitySummary.actionLabel}</p>
               <button
                 type="button"
                 disabled={!canRunPrimaryAction}
@@ -404,7 +449,7 @@ export function ClientDossierDrawer({
                 }}
                 className="mt-4 w-full bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:hover:bg-accent-hover text-white dark:text-brand-950 rounded-xl px-3 py-2 text-xs font-black flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {primaryWorkflowAction?.label || primaryActionLabel}
+                {qualitySummary.actionLabel || primaryWorkflowAction?.label || primaryActionLabel}
                 <ArrowRight size={14} />
               </button>
             </div>
