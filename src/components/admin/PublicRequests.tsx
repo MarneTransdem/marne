@@ -8,6 +8,7 @@ import { collection, doc, updateDoc, deleteDoc, onSnapshot, writeBatch } from 'f
 import { db } from '../../lib/firebase';
 import { buildDossierIdFromReference } from '../../lib/dossier-id';
 import { analyzeQuotePricing, formatPremiumCurrency, scorePublicRequest } from '../../lib/crm-premium';
+import { useCrmSettings } from '../../hooks/useCrmSettings';
 
 interface PublicRequest {
   id: string;
@@ -111,6 +112,7 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
   const [visitTime, setVisitTime] = useState<string>('10:00');
   const [visitCommercial, setVisitCommercial] = useState<string>('Jean-Marc Tardieu');
   const [isPlanningVisit, setIsPlanningVisit] = useState(false);
+  const { pricingSettings } = useCrmSettings();
   
   const sortRequests = (list: PublicRequest[]) => {
     return [...list].sort((a, b) => {
@@ -178,10 +180,10 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
         needsLift: selectedRequest.needsLift,
         needsPacking: selectedRequest.needsPacking,
         needsStorage: selectedRequest.needsStorage
-      });
+      }, pricingSettings);
       setPricingPrice(pricing.recommendedPrice);
     }
-  }, [selectedRequest]);
+  }, [selectedRequest, pricingSettings]);
 
   // Recalculate price live with parameters modifications
   useEffect(() => {
@@ -196,10 +198,10 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
         needsLift: selectedRequest.needsLift,
         needsPacking: selectedRequest.needsPacking,
         needsStorage: selectedRequest.needsStorage
-      });
+      }, pricingSettings);
       setPricingPrice(pricing.recommendedPrice);
     }
-  }, [pricingVolume, pricingFormula, selectedRequest]);
+  }, [pricingVolume, pricingFormula, selectedRequest, pricingSettings]);
 
   const handleStudy = (req: PublicRequest) => {
     setSelectedRequest(req);
@@ -413,7 +415,7 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
     needsLift: selectedRequest.needsLift,
     needsPacking: selectedRequest.needsPacking,
     needsStorage: selectedRequest.needsStorage
-  }) : null;
+  }, pricingSettings) : null;
   return (
     <div className="space-y-6">
       <div className="bg-white/90 dark:bg-slate-900/90 p-4 border border-slate-200/75 dark:border-slate-800 rounded-2xl shadow-sm space-y-4">

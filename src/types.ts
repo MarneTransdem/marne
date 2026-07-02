@@ -29,6 +29,10 @@ export interface Devis {
   fromElevator?: 'Oui' | 'Non';
   toElevator?: 'Oui' | 'Non';
   clientSignature?: string;
+  paymentStatus?: 'En attente' | 'Acompte Payé' | 'Intégralement Payé';
+  stripeSessionId?: string;
+  acompteAmount?: number;
+  acomptePayedAt?: string;
   fromLift?: 'Oui' | 'Non';
   toLift?: 'Oui' | 'Non';
   fromPortage?: string;

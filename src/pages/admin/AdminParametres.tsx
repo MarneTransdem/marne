@@ -19,59 +19,44 @@ import {
 import { useAuth } from '../../context/AuthContext';
 import { useSyncedCollection } from '../../hooks/useData';
 import { CONTACT } from '../../constants';
+import { normalizeCrmSettings, readLocalCrmSettings, writeLocalCrmSettings, type CrmSettings } from '../../lib/crm-settings';
+import { normalizePremiumPricingSettings, type PremiumPricingFormulaKey, type PremiumPricingFormulaSettings, type PremiumPricingSettings } from '../../lib/crm-premium';
 import { db } from '../../lib/firebase';
 import type { NotificationTemplate, Role } from '../../types';
 import type { AdminOutletContextType } from '../../components/admin/layout/AdminLayout';
 import { ADMIN_TAB_LABELS, getAccessibleTabs } from '../../lib/admin-permissions';
 
-type CrmSettings = {
-  id: string;
-  companyName: string;
-  contactEmail: string;
-  phone: string;
-  address: string;
-  quoteValidityDays: number;
-  invoicePaymentDelayDays: number;
-  visitDurationMinutes: number;
-  planningReminderHours: number;
-  updatedAt: string;
-  updatedBy: string;
-};
+type PricingNumberField = Exclude<keyof PremiumPricingSettings, 'formulaMargins' | 'reserveRate' | 'minMarginRate'>;
+type PricingRateField = 'reserveRate' | 'minMarginRate';
 
-const SETTINGS_STORAGE_KEY = 'marne_crm_settings_default';
+const PRICING_NUMBER_FIELDS: Array<{ field: PricingNumberField; label: string; step?: number }> = [
+  { field: 'baseCost', label: 'Base dossier (EUR)', step: 10 },
+  { field: 'localFallbackKm', label: 'Km local par defaut', step: 1 },
+  { field: 'nationalFallbackKm', label: 'Km national par defaut', step: 10 },
+  { field: 'localFixedCost', label: 'Forfait transport local', step: 10 },
+  { field: 'localCostPerKm', label: 'Cout / km local', step: 0.05 },
+  { field: 'longDistanceFixedCost', label: 'Forfait longue distance', step: 10 },
+  { field: 'longDistanceCostPerKm', label: 'Cout / km longue distance', step: 0.05 },
+  { field: 'floorCost', label: 'Cout etage sans ascenseur', step: 1 },
+  { field: 'portageCostPerMeter', label: 'Portage / metre', step: 0.1 },
+  { field: 'liftCost', label: 'Monte-meuble', step: 10 },
+  { field: 'packingCostPerM3', label: 'Emballage / m3', step: 1 },
+  { field: 'storageCost', label: 'Garde-meuble', step: 10 }
+];
 
-const DEFAULT_SETTINGS: CrmSettings = {
-  id: 'default',
-  companyName: CONTACT.name,
-  contactEmail: CONTACT.email,
-  phone: CONTACT.phone,
-  address: CONTACT.fullAddress,
-  quoteValidityDays: 15,
-  invoicePaymentDelayDays: 7,
-  visitDurationMinutes: 45,
-  planningReminderHours: 24,
-  updatedAt: '',
-  updatedBy: 'Système'
-};
+const PRICING_RATE_FIELDS: Array<{ field: PricingRateField; label: string }> = [
+  { field: 'reserveRate', label: 'Reserve risque (%)' },
+  { field: 'minMarginRate', label: 'Marge minimum (%)' }
+];
+
+const PRICING_FORMULA_FIELDS: Array<{ key: PremiumPricingFormulaKey; label: string }> = [
+  { key: 'economique', label: 'Economique' },
+  { key: 'standard', label: 'Standard' },
+  { key: 'luxe', label: 'Luxe' },
+  { key: 'dynamic', label: 'Dynamic' }
+];
 
 const CRM_ROLES: Role[] = ['gérant', 'secrétaire', 'commercial', 'chef_equipe'];
-
-const readLocalSettings = (): CrmSettings => {
-  if (typeof window === 'undefined') return DEFAULT_SETTINGS;
-  try {
-    const raw = window.localStorage.getItem(SETTINGS_STORAGE_KEY);
-    if (!raw) return DEFAULT_SETTINGS;
-    return { ...DEFAULT_SETTINGS, ...JSON.parse(raw), id: 'default' };
-  } catch {
-    return DEFAULT_SETTINGS;
-  }
-};
-
-const writeLocalSettings = (settings: CrmSettings) => {
-  if (typeof window === 'undefined') return;
-  window.localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
-};
-
 const roleLabel = (role: Role) => {
   if (role === 'chef_equipe') return 'Chef équipe';
   return role.charAt(0).toUpperCase() + role.slice(1);
@@ -81,6 +66,13 @@ const asPositiveNumber = (value: string, fallback: number) => {
   const parsed = Number(value);
   return Number.isFinite(parsed) && parsed >= 0 ? parsed : fallback;
 };
+
+const percentToRate = (value: string, fallbackRate: number) => {
+  const parsed = asPositiveNumber(value, Math.round(fallbackRate * 100));
+  return Math.max(0, Math.min(90, parsed)) / 100;
+};
+
+const rateToPercent = (value: number) => Math.round((Number.isFinite(value) ? value : 0) * 100);
 
 const formatDateTime = (value?: string) => {
   if (!value) return 'Jamais';
@@ -96,8 +88,8 @@ export function AdminParametres() {
   const [templates] = useSyncedCollection<NotificationTemplate>('notification_templates');
   const [cloudStatus, setCloudStatus] = useState<'sync' | 'local' | 'saving'>('local');
   const [saving, setSaving] = useState(false);
-  const [currentSettings, setCurrentSettings] = useState<CrmSettings>(() => readLocalSettings());
-  const [form, setForm] = useState<CrmSettings>(() => readLocalSettings());
+  const [currentSettings, setCurrentSettings] = useState<CrmSettings>(() => readLocalCrmSettings());
+  const [form, setForm] = useState<CrmSettings>(() => readLocalCrmSettings());
 
   useEffect(() => {
     const settingsRef = doc(db, 'crm_settings', 'default');
@@ -108,10 +100,10 @@ export function AdminParametres() {
           setCloudStatus('local');
           return;
         }
-        const nextSettings = { ...DEFAULT_SETTINGS, ...snapshot.data(), id: 'default' } as CrmSettings;
+        const nextSettings = normalizeCrmSettings(snapshot.data() as Partial<CrmSettings>);
         setCurrentSettings(nextSettings);
         setForm(nextSettings);
-        writeLocalSettings(nextSettings);
+        writeLocalCrmSettings(nextSettings);
         setCloudStatus('sync');
       },
       (error) => {
@@ -130,6 +122,53 @@ export function AdminParametres() {
     }, {});
   }, [templates]);
 
+
+  const setPricingNumberField = (field: PricingNumberField, value: string) => {
+    setForm(prev => ({
+      ...prev,
+      pricing: normalizePremiumPricingSettings({
+        ...prev.pricing,
+        [field]: asPositiveNumber(value, prev.pricing[field])
+      })
+    }));
+  };
+
+  const setPricingRateField = (field: PricingRateField, value: string) => {
+    setForm(prev => ({
+      ...prev,
+      pricing: normalizePremiumPricingSettings({
+        ...prev.pricing,
+        [field]: percentToRate(value, prev.pricing[field])
+      })
+    }));
+  };
+
+  const setFormulaPricingField = (
+    formula: PremiumPricingFormulaKey,
+    field: keyof PremiumPricingFormulaSettings,
+    value: string
+  ) => {
+    setForm(prev => {
+      const currentFormula = prev.pricing.formulaMargins[formula];
+      const nextValue = field === 'targetMargin'
+        ? percentToRate(value, currentFormula.targetMargin)
+        : asPositiveNumber(value, currentFormula.variableCost);
+
+      return {
+        ...prev,
+        pricing: normalizePremiumPricingSettings({
+          ...prev.pricing,
+          formulaMargins: {
+            ...prev.pricing.formulaMargins,
+            [formula]: {
+              ...currentFormula,
+              [field]: nextValue
+            }
+          }
+        })
+      };
+    });
+  };
   const handleSave = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!canEdit) {
@@ -148,6 +187,7 @@ export function AdminParametres() {
       invoicePaymentDelayDays: Math.max(0, Math.round(form.invoicePaymentDelayDays)),
       visitDurationMinutes: Math.max(15, Math.round(form.visitDurationMinutes)),
       planningReminderHours: Math.max(1, Math.round(form.planningReminderHours)),
+      pricing: normalizePremiumPricingSettings(form.pricing),
       updatedAt: new Date().toISOString(),
       updatedBy: user?.email || 'CRM'
     };
@@ -156,7 +196,7 @@ export function AdminParametres() {
     setCloudStatus('saving');
     setCurrentSettings(nextSettings);
     setForm(nextSettings);
-    writeLocalSettings(nextSettings);
+    writeLocalCrmSettings(nextSettings);
 
     try {
       await setDoc(doc(db, 'crm_settings', 'default'), nextSettings, { merge: true });
@@ -258,6 +298,63 @@ export function AdminParametres() {
               <button type="submit" disabled={!canEdit || saving} className="inline-flex items-center justify-center gap-2 bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:text-brand-950 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-2xl px-5 py-3 text-xs font-black transition-colors">
                 {saving ? <RefreshCw size={15} className="animate-spin" /> : <Save size={15} />}
                 Enregistrer
+              </button>
+            </div>
+
+          </section>
+
+          <section className="bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
+              <div className="flex items-center gap-2">
+                <SlidersHorizontal size={17} className="text-accent" />
+                <h3 className="text-sm font-black uppercase tracking-tight">Rentabilite & prix conseilles</h3>
+              </div>
+              <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Marge standard {rateToPercent(form.pricing.formulaMargins.standard.targetMargin)}%</span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {PRICING_RATE_FIELDS.map(({ field, label }) => (
+                <label key={field} className="space-y-1.5">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">{label}</span>
+                  <input type="number" min={0} max={90} value={rateToPercent(form.pricing[field])} onChange={(e) => setPricingRateField(field, e.target.value)} disabled={!canEdit || saving} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl px-4 py-3 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-accent/25 disabled:opacity-70" />
+                </label>
+              ))}
+            </div>
+
+            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+              {PRICING_NUMBER_FIELDS.map(({ field, label, step }) => (
+                <label key={field} className="space-y-1.5">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">{label}</span>
+                  <input type="number" min={0} step={step || 1} value={form.pricing[field]} onChange={(e) => setPricingNumberField(field, e.target.value)} disabled={!canEdit || saving} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl px-4 py-3 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-accent/25 disabled:opacity-70" />
+                </label>
+              ))}
+            </div>
+
+            <div className="mt-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/40 p-4">
+              <h4 className="text-xs font-black uppercase tracking-tight mb-4 text-slate-600 dark:text-slate-300">Formules commerciales</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {PRICING_FORMULA_FIELDS.map(({ key, label }) => (
+                  <div key={key} className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4">
+                    <p className="text-xs font-black uppercase text-slate-700 dark:text-slate-200 mb-3">{label}</p>
+                    <div className="grid grid-cols-2 gap-3">
+                      <label className="space-y-1.5">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Cout / m3</span>
+                        <input type="number" min={0} step={1} value={form.pricing.formulaMargins[key].variableCost} onChange={(e) => setFormulaPricingField(key, 'variableCost', e.target.value)} disabled={!canEdit || saving} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl px-3 py-2.5 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-accent/25 disabled:opacity-70" />
+                      </label>
+                      <label className="space-y-1.5">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Marge %</span>
+                        <input type="number" min={5} max={85} value={rateToPercent(form.pricing.formulaMargins[key].targetMargin)} onChange={(e) => setFormulaPricingField(key, 'targetMargin', e.target.value)} disabled={!canEdit || saving} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl px-3 py-2.5 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-accent/25 disabled:opacity-70" />
+                      </label>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-5 flex justify-end">
+              <button type="submit" disabled={!canEdit || saving} className="inline-flex items-center justify-center gap-2 bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:text-brand-950 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-2xl px-5 py-3 text-xs font-black transition-colors">
+                {saving ? <RefreshCw size={15} className="animate-spin" /> : <Save size={15} />}
+                Enregistrer les regles
               </button>
             </div>
           </section>

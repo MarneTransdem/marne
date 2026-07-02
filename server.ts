@@ -393,6 +393,32 @@ async function startServer() {
   // Middleware for parsing JSON with increased limit for base64 images/videos
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  // Reusable email template (global helper accessible by all routes)
+  const createMailTransporter = () => nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.GMAIL_USER || 'contact@marnetransdem.com',
+      pass: process.env.GMAIL_APP_PASSWORD
+    }
+  });
+  const getEmailContainer = (title: string, content: string) => `
+    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background-color: #ffffff;">
+      <div style="background-color: #0c1c3d; padding: 24px; text-align: center;">
+        <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.025em;">MARNE TRANSDEM</h1>
+        <p style="color: #F5A400; margin: 8px 0 0; font-size: 14px; font-weight: 500;">Déménageur Professionnel</p>
+      </div>
+      <div style="padding: 32px; color: #1e293b;">
+        <h2 style="color: #0c1c3d; font-size: 20px; margin-top: 0; border-bottom: 2px solid #ef4444; padding-bottom: 12px; display: inline-block;">${title}</h2>
+        <div style="margin-top: 24px; line-height: 1.6;">
+          ${content}
+        </div>
+      </div>
+      <div style="background-color: #f8fafc; padding: 24px; text-align: center; border-top: 1px solid #e2e8f0;">
+        <p style="margin: 0; color: #64748b; font-size: 13px;">© ${new Date().getFullYear()} Marne Transdem. Tous droits réservés.</p>
+        <p style="margin: 8px 0 0; color: #64748b; font-size: 13px;">43 rue des Maraîchers, 75020 Paris</p>
+      </div>
+    </div>
+  `;
 
   // API Route: Send Email
   app.post("/api/send-email", async (req, res) => {
@@ -420,33 +446,8 @@ async function startServer() {
       }
     }
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.GMAIL_USER || 'contact@marnetransdem.com',
-        pass: process.env.GMAIL_APP_PASSWORD
-      }
-    });
+    const transporter = createMailTransporter();
 
-    // Reusable Style Template
-    const getEmailContainer = (title: string, content: string) => `
-      <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background-color: #ffffff;">
-        <div style="background-color: #0c1c3d; padding: 24px; text-align: center;">
-          <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.025em;">MARNE TRANSDEM</h1>
-          <p style="color: #F5A400; margin: 8px 0 0; font-size: 14px; font-weight: 500;">Déménageur Professionnel</p>
-        </div>
-        <div style="padding: 32px; color: #1e293b;">
-          <h2 style="color: #0c1c3d; font-size: 20px; margin-top: 0; border-bottom: 2px solid #ef4444; padding-bottom: 12px; display: inline-block;">${title}</h2>
-          <div style="margin-top: 24px; line-height: 1.6;">
-            ${content}
-          </div>
-        </div>
-        <div style="background-color: #f8fafc; padding: 24px; text-align: center; border-top: 1px solid #e2e8f0;">
-          <p style="margin: 0; color: #64748b; font-size: 13px;">© ${new Date().getFullYear()} Marne Transdem. Tous droits réservés.</p>
-          <p style="margin: 8px 0 0; color: #64748b; font-size: 13px;">43 rue des Maraîchers, 75020 Paris</p>
-        </div>
-      </div>
-    `;
 
     // Handle Admin Document Email Sending
     if (type === 'admin-doc') {
@@ -1018,10 +1019,10 @@ Sois concis, professionnel et chaleureux. Ne fais pas de grosses listes à puces
   async function runAutoFollowups() {
     try {
       const db = admin.firestore();
-      
+
       const now = Date.now();
       const FORTY_EIGHT_HOURS = 48 * 60 * 60 * 1000;
-      
+
       const devisSnapshot = await db.collection('devis')
         .where('status', '==', 'Envoyé')
         .get();
@@ -1031,7 +1032,7 @@ Sois concis, professionnel et chaleureux. Ne fais pas de grosses listes à puces
         const data = doc.data();
         if (data.reminderCount && data.reminderCount > 0) return;
         if (!data.sentAt) return;
-        
+
         const sentDate = new Date(data.sentAt).getTime();
         if (now - sentDate > FORTY_EIGHT_HOURS) {
           eligibleDevis.push({ id: doc.id, ...data });
@@ -1040,10 +1041,10 @@ Sois concis, professionnel et chaleureux. Ne fais pas de grosses listes à puces
 
       if (eligibleDevis.length === 0) return { processed: 0, sent: 0 };
 
-      const movesSnapshot = await db.collection('moves')
+      const movesSnapshot = await db.collection('demenagements')
         .where('status', 'in', ['Programmé', 'À planifier'])
         .get();
-        
+
       const plannedMoves: any[] = [];
       movesSnapshot.forEach(doc => plannedMoves.push({ id: doc.id, ...doc.data() }));
 
@@ -1054,13 +1055,13 @@ Sois concis, professionnel et chaleureux. Ne fais pas de grosses listes à puces
         if (!devis.email) continue;
 
         const devisDate = new Date(devis.date).getTime();
-        
+
         let matchingMove = null;
         for (const move of plannedMoves) {
            if (!move.date) continue;
            const moveDate = new Date(move.date).getTime();
            const daysDiff = Math.abs(devisDate - moveDate) / (1000 * 60 * 60 * 24);
-           
+
            // Same cities, opposite direction within 2 days
            if (daysDiff <= 2 && move.toCity === devis.fromCity && move.fromCity === devis.toCity) {
               matchingMove = move;
@@ -1069,9 +1070,9 @@ Sois concis, professionnel et chaleureux. Ne fais pas de grosses listes à puces
         }
 
         let aiPrompt = `Tu es le commercial de Marne Transdem. Rédige un e-mail de relance TRÈS CONVAINCANT et professionnel à un prospect (Nom: ${devis.clientName}) dont le devis pour le déménagement ${devis.fromCity} -> ${devis.toCity} prévu le ${devis.date} est en attente de signature depuis 48h.`;
-        
+
         if (matchingMove) {
-          aiPrompt += `\n\nEXCELLENTE NOUVELLE (l'argument massue) : Dis-lui que nous avons justement un de nos camions qui fera le trajet inverse (${matchingMove.fromCity} -> ${matchingMove.toCity}) le ${matchingMove.date} et qui rentrera à vide. 
+          aiPrompt += `\n\nEXCELLENTE NOUVELLE (l'argument massue) : Dis-lui que nous avons justement un de nos camions qui fera le trajet inverse (${matchingMove.fromCity} -> ${matchingMove.toCity}) le ${matchingMove.date} et qui rentrera à vide.
           Pour optimiser ce retour à vide, propose-lui UNE REMISE FLASH DE 5% s'il valide son devis dans les 24 heures.`;
         } else {
           aiPrompt += `\n\nDemande simplement au client s'il a bien reçu le devis, s'il a la moindre question, et rappelle que notre équipe est à sa disposition pour l'accompagner.`;
@@ -1086,7 +1087,7 @@ Sois concis, professionnel et chaleureux. Ne fais pas de grosses listes à puces
 
         const emailContent = response.text || "Bonjour, avez-vous des questions sur votre devis ?";
 
-        await transporter.sendMail({
+        await createMailTransporter().sendMail({
           from: '"Marne Transdem" <contact@marnetransdem.com>',
           to: devis.email,
           subject: matchingMove ? "Une opportunité à saisir pour votre devis Marne Transdem" : "Suivi de votre devis Marne Transdem",
@@ -1097,7 +1098,7 @@ Sois concis, professionnel et chaleureux. Ne fais pas de grosses listes à puces
           reminderCount: admin.firestore.FieldValue.increment(1),
           lastReminderAt: new Date().toISOString()
         });
-        
+
         const dId = devis.dossierKey || devis.dossierId;
         if (dId) {
            await db.collection('dossiers').doc(dId).collection('notes').add({
@@ -1123,9 +1124,9 @@ Sois concis, professionnel et chaleureux. Ne fais pas de grosses listes à puces
   // API endpoint to trigger manually
   app.post("/api/cron/auto-followup", async (req, res) => {
     try {
-      const actor = await requireCrmRole(req, res, ['gerant', 'commercial', 'secrétaire']);
+      const actor = await requireCrmRole(req, res, ['gerant', 'commercial', 'secretaire']);
       if (!actor) return;
-      
+
       const result = await runAutoFollowups();
       res.json({ success: true, ...result });
     } catch (error: any) {
@@ -1139,7 +1140,7 @@ Sois concis, professionnel et chaleureux. Ne fais pas de grosses listes à puces
       const { id } = req.params;
       const db = admin.firestore();
       const devisDoc = await db.collection('devis').doc(id).get();
-      
+
       if (!devisDoc.exists) {
         return res.status(404).json({ error: "Devis introuvable." });
       }
@@ -1171,7 +1172,7 @@ Sois concis, professionnel et chaleureux. Ne fais pas de grosses listes à puces
     try {
       const { id } = req.params;
       const { signatureBase64 } = req.body;
-      
+
       if (!signatureBase64) {
         return res.status(400).json({ error: "Signature manquante." });
       }
@@ -1206,7 +1207,7 @@ Sois concis, professionnel et chaleureux. Ne fais pas de grosses listes à puces
 
       // Notify admins via email about the signed quote
       try {
-        await transporter.sendMail({
+        await createMailTransporter().sendMail({
           from: '"Marne Transdem Web" <contact@marnetransdem.com>',
           to: 'contact@marnetransdem.com',
           subject: `[Devis Signé] ${devisDoc.data()?.clientName} a signé son devis !`,
@@ -1227,6 +1228,173 @@ Sois concis, professionnel et chaleureux. Ne fais pas de grosses listes à puces
   });
 
 
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // STRIPE PAYMENT ROUTES
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  function getStripeClient() {
+    const key = process.env.STRIPE_SECRET_KEY;
+    if (!key || key.startsWith('sk_test_REMPLACEZ')) {
+      throw new Error('Stripe non configuré : ajoutez STRIPE_SECRET_KEY dans votre fichier .env');
+    }
+    const Stripe = require('stripe');
+    return new Stripe(key, { apiVersion: '2025-05-28.basil' });
+  }
+
+  // API Route: Create Stripe Checkout Session for acompte
+  app.post('/api/public/devis/:id/create-checkout-session', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const db = admin.firestore();
+      const devisDoc = await db.collection('devis').doc(id).get();
+
+      if (!devisDoc.exists) {
+        return res.status(404).json({ error: 'Devis introuvable.' });
+      }
+
+      const data = devisDoc.data()!;
+
+      if (data.status !== 'Signé') {
+        return res.status(400).json({ error: 'Le devis doit être signé avant de payer l\'acompte.' });
+      }
+
+      if (data.paymentStatus === 'Acompte Payé') {
+        return res.status(400).json({ error: 'L\'acompte a déjà été payé.' });
+      }
+
+      const stripe = getStripeClient();
+      const acomptePercent = parseInt(process.env.STRIPE_ACOMPTE_PERCENT || '30', 10);
+      const acompteAmount = Math.round(data.price * (acomptePercent / 100) * 100); // en centimes
+
+      const origin = req.headers.origin || req.headers.referer?.replace(/\/$/, '') || 'http://localhost:5173';
+
+      const session = await stripe.checkout.sessions.create({
+        mode: 'payment',
+        currency: 'eur',
+        line_items: [
+          {
+            quantity: 1,
+            price_data: {
+              currency: 'eur',
+              unit_amount: acompteAmount,
+              product_data: {
+                name: `Acompte de réservation - Déménagement Marne Transdem`,
+                description: `${acomptePercent}% d'acompte sur votre devis N° ${id} (${data.fromCity} → ${data.toCity}). Solde à régler le jour du déménagement.`,
+              },
+            },
+          },
+        ],
+        customer_email: data.email || undefined,
+        metadata: {
+          devisId: id,
+          clientName: data.clientName,
+          acomptePercent: String(acomptePercent),
+        },
+        success_url: `${origin}/signature-devis/${id}?payment=success`,
+        cancel_url: `${origin}/signature-devis/${id}?payment=cancel`,
+        payment_intent_data: {
+          description: `Acompte devis ${id} - ${data.clientName}`,
+        },
+      });
+
+      // Store session ID on the devis document
+      await db.collection('devis').doc(id).update({
+        stripeSessionId: session.id,
+        paymentStatus: 'En attente',
+        acompteAmount: acompteAmount / 100,
+      });
+
+      res.json({ success: true, url: session.url });
+    } catch (error: any) {
+      console.error('Stripe Checkout Session Error:', error);
+      const msg = error.message?.includes('non configuré')
+        ? error.message
+        : 'Erreur lors de la création de la session de paiement.';
+      res.status(500).json({ error: msg });
+    }
+  });
+
+  // API Route: Stripe Webhook - payment confirmation
+  // NOTE: This route requires the raw body, so it must be registered BEFORE express.json()
+  // Since express.json() is already set up above, we use express.raw() here for this route
+  app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
+    const sig = req.headers['stripe-signature'];
+    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+    let event: any;
+
+    try {
+      if (webhookSecret && sig && !webhookSecret.startsWith('whsec_REMPLACEZ')) {
+        const stripe = getStripeClient();
+        event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
+      } else {
+        // In development without webhook secret, parse body directly
+        event = JSON.parse(req.body.toString());
+      }
+    } catch (err: any) {
+      console.error('Stripe Webhook signature verification failed:', err.message);
+      return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
+
+    if (event.type === 'checkout.session.completed') {
+      const session = event.data.object;
+      const devisId = session.metadata?.devisId;
+
+      if (devisId && session.payment_status === 'paid') {
+        try {
+          const db = admin.firestore();
+          const devisRef = db.collection('devis').doc(devisId);
+          const devisDoc = await devisRef.get();
+          const devisData = devisDoc.data();
+
+          await devisRef.update({
+            paymentStatus: 'Acompte Payé',
+            acomptePayedAt: new Date().toISOString(),
+          });
+
+          // Notify admin
+          if (devisData) {
+            const acompteAmt = (session.amount_total / 100).toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' });
+            await createMailTransporter().sendMail({
+              from: '"Marne Transdem Paiement" <contact@marnetransdem.com>',
+              to: 'contact@marnetransdem.com',
+              subject: `[Acompte Reçu 💰] ${devisData.clientName} - ${acompteAmt}`,
+              html: getEmailContainer(
+                '<span style="background-color:#dcfce7;color:#166534;padding:4px 10px;border-radius:6px;font-weight:800;font-size:12px;text-transform:uppercase;">Acompte Reçu</span>',
+                `<p>Le client <strong>${devisData.clientName}</strong> vient de payer son acompte de <strong>${acompteAmt}</strong> pour le devis N° ${devisId}.</p>
+                 <p>Trajet : ${devisData.fromCity} → ${devisData.toCity}</p>
+                 <p>La réservation est confirmée.</p>`
+              )
+            }).catch(e => console.error('Admin notification email failed:', e));
+
+            // Confirm to client
+            if (devisData.email) {
+              await createMailTransporter().sendMail({
+                from: '"Marne Transdem" <contact@marnetransdem.com>',
+                to: devisData.email,
+                subject: `Confirmation de votre acompte - Marne Transdem`,
+                html: getEmailContainer(
+                  'Votre acompte a bien été reçu ✅',
+                  `<p>Bonjour <strong>${devisData.clientName}</strong>,</p>
+                   <p>Nous confirmons la bonne réception de votre acompte de <strong>${acompteAmt}</strong>.</p>
+                   <p>Votre déménagement est maintenant officiellement réservé. Vous serez recontacté par notre équipe pour confirmer les derniers détails.</p>
+                   <p>Merci de votre confiance !</p>
+                   <p>Cordialement,<br/>L'équipe Marne Transdem</p>`
+                )
+              }).catch(e => console.error('Client confirmation email failed:', e));
+            }
+          }
+
+          console.log(`✅ Acompte payé pour le devis ${devisId}`);
+        } catch (dbErr) {
+          console.error('Error updating devis after payment:', dbErr);
+        }
+      }
+    }
+
+    res.json({ received: true });
+  });
 
   // API Route: AI-powered image/video analysis for volume calculations
   app.post("/api/gemini/analyze-images", async (req, res) => {

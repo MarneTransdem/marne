@@ -10,6 +10,7 @@ import { useSyncedCollection } from '../../hooks/useData';
 import type { Devis, Facture, Visite, Demenagement } from '../../types';
 import type { AdminPublicRequest } from '../../lib/admin-dossiers';
 import { buildPremiumCockpit, formatPremiumCurrency } from '../../lib/crm-premium';
+import { useCrmSettings } from '../../hooks/useCrmSettings';
 
 const getPremiumToneClasses = (tone: 'critical' | 'warning' | 'growth' | 'success') => {
   if (tone === 'critical') return 'bg-red-50 text-red-800 border-red-200 dark:bg-red-950/20 dark:text-red-300 dark:border-red-900/40';
@@ -25,8 +26,9 @@ const getPremiumButtonClasses = (tone: 'critical' | 'warning' | 'growth' | 'succ
   return 'bg-emerald-600 hover:bg-emerald-700 text-white';
 };
 export function AdminOverview() {
-  const { user } = useAuth();
+  const { user, role } = useAuth();
   const navigate = useNavigate();
+  const { pricingSettings } = useCrmSettings();
   
   const [factures] = useSyncedCollection<Facture>('factures');
   const [publicRequests] = useSyncedCollection<AdminPublicRequest>('quotes');
@@ -39,8 +41,9 @@ export function AdminOverview() {
     devisList,
     factures,
     visites,
-    demenagements
-  }), [publicRequests, devisList, factures, visites, demenagements]);
+    demenagements,
+    pricingSettings
+  }), [publicRequests, devisList, factures, visites, demenagements, pricingSettings]);
   const todayStr = useMemo(() => {
     const d = new Date();
     const year = d.getFullYear();
@@ -103,6 +106,16 @@ export function AdminOverview() {
       });
     }
 
+
+    if (premiumCockpit.metrics.quotesMarginAtRisk > 0) {
+      list.push({
+        id: 'alerte-quote-margin',
+        type: premiumCockpit.metrics.quoteMarginGap >= 1000 ? 'error' : 'warning',
+        message: `${premiumCockpit.metrics.quotesMarginAtRisk} devis sous surveillance marge. Manque à récupérer : ${formatPremiumCurrency(premiumCockpit.metrics.quoteMarginGap)}.`,
+        actionPath: '/admin/devis',
+        actionLabel: 'Corriger les prix'
+      });
+    }
     // Factures en retard
     const overdueInvoices = factures.filter(f => f.status === 'En retard' || (f.status === 'En attente' && f.dueDate < todayStr));
     if (overdueInvoices.length > 0) {
@@ -116,7 +129,7 @@ export function AdminOverview() {
     }
 
     return list;
-  }, [visites, demenagements, factures, todayStr]);
+  }, [visites, demenagements, factures, todayStr, premiumCockpit]);
 
   // 2. Taux de conversion devis
   const conversionStats = useMemo(() => {
@@ -237,6 +250,65 @@ export function AdminOverview() {
   const quoteFollowUpCount = devisList.filter((quote) => quote.status === 'Brouillon' || quote.status === 'Envoyé' || quote.status === 'En attente').length;
   const planningToAssignCount = demenagements.filter((move) => move.status === 'À planifier').length;
 
+  const roleFocus = useMemo(() => {
+    if (role === 'secrétaire') {
+      return {
+        eyebrow: 'Cockpit secrétaire',
+        title: 'Accélérer les documents et les relances',
+        description: 'Votre priorité est de faire partir les devis, transmettre les factures, relancer proprement et garder les visites cadrées.',
+        primaryRoute: '/admin/relances',
+        primaryCta: 'Traiter les envois',
+        checks: [
+          { label: 'Devis à envoyer', value: premiumCockpit.metrics.quotesToSend },
+          { label: 'Finance à suivre', value: premiumCockpit.metrics.invoicesToSend + premiumCockpit.metrics.dueSoonInvoices + premiumCockpit.metrics.overdueInvoices },
+          { label: 'Visites 7 jours', value: premiumCockpit.metrics.visitsNext7 }
+        ]
+      };
+    }
+
+    if (role === 'commercial') {
+      return {
+        eyebrow: 'Cockpit commercial',
+        title: 'Transformer les demandes en visites et devis signés',
+        description: 'Votre priorité est de rappeler les leads chauds, planifier les visites utiles et envoyer des devis rentables sans perdre le timing.',
+        primaryRoute: '/admin/demandes',
+        primaryCta: 'Qualifier les demandes',
+        checks: [
+          { label: 'Demandes ouvertes', value: premiumCockpit.metrics.openRequests },
+          { label: 'Visites 7 jours', value: premiumCockpit.metrics.visitsNext7 },
+          { label: 'Potentiel devis', value: formatPremiumCurrency(premiumCockpit.metrics.quotePotential) }
+        ]
+      };
+    }
+
+    if (role === 'chef_equipe') {
+      return {
+        eyebrow: 'Cockpit terrain',
+        title: 'Sécuriser les chantiers du jour',
+        description: 'Votre priorité est de savoir quoi faire, avec qui, quel camion, et de remonter les informations terrain sans friction.',
+        primaryRoute: '/admin/planning',
+        primaryCta: 'Voir le planning',
+        checks: [
+          { label: 'Chantiers aujourd’hui', value: premiumCockpit.metrics.movesToday },
+          { label: 'À affecter', value: premiumCockpit.metrics.movesUnassigned },
+          { label: 'Prochaines opérations', value: premiumCockpit.nextOperations.length }
+        ]
+      };
+    }
+
+    return {
+      eyebrow: 'Cockpit gérant',
+      title: 'Piloter marge, trésorerie et risques opérationnels',
+      description: 'Votre priorité est de voir vite ce qui rapporte, ce qui bloque, ce qui met la qualité en risque et où déléguer.',
+      primaryRoute: '/admin/analytics',
+      primaryCta: 'Analyser la performance',
+      checks: [
+        { label: 'CA prévisionnel', value: formatPremiumCurrency(premiumCockpit.metrics.forecastRevenue) },
+        { label: 'Marge à récupérer', value: formatPremiumCurrency(premiumCockpit.metrics.quoteMarginGap) },
+        { label: 'Conversion', value: `${premiumCockpit.metrics.conversionRate}%` }
+      ]
+    };
+  }, [role, premiumCockpit]);
   return (
     <div className="space-y-8 animate-fade-in text-slate-800 dark:text-slate-100">
       {/* Banner */}
@@ -266,6 +338,34 @@ export function AdminOverview() {
         </div>
       </div>
 
+      <section className='bg-white/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-5 md:p-6 shadow-sm'>
+        <div className='grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_minmax(300px,420px)] gap-5 items-center'>
+          <div className='space-y-2'>
+            <span className='text-[10px] font-black uppercase tracking-[0.2em] text-accent'>{roleFocus.eyebrow}</span>
+            <h3 className='text-xl md:text-2xl font-black tracking-tight text-brand-950 dark:text-white'>{roleFocus.title}</h3>
+            <p className='text-sm font-medium text-slate-500 dark:text-slate-400 max-w-3xl'>{roleFocus.description}</p>
+          </div>
+          <div className='grid grid-cols-3 gap-2'>
+            {roleFocus.checks.map((item) => (
+              <div key={item.label} className='rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/75 dark:border-slate-800 p-3 min-h-20'>
+                <span className='block text-[9px] font-black uppercase tracking-wider text-slate-400 leading-tight'>{item.label}</span>
+                <strong className='mt-2 block text-lg font-black text-brand-900 dark:text-white truncate'>{item.value}</strong>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className='mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-t border-slate-100 dark:border-slate-800 pt-4'>
+          <p className='text-[11px] font-semibold text-slate-500 dark:text-slate-400'>Vue personnalisée selon le rôle connecté, pour réduire les clics et éviter les priorités noyées.</p>
+          <button
+            type='button'
+            onClick={() => navigate(roleFocus.primaryRoute)}
+            className='inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-900 px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-white transition-colors hover:bg-brand-hover dark:bg-accent dark:text-brand-950'
+          >
+            {roleFocus.primaryCta}
+            <ArrowUpRight size={13} />
+          </button>
+        </div>
+      </section>
       {/* Cockpit Premium */}
       <section className="grid grid-cols-1 xl:grid-cols-12 gap-6">
         <div className="xl:col-span-4 bg-brand-950 text-white rounded-3xl p-6 shadow-sm border border-brand-900 overflow-hidden relative">
@@ -287,7 +387,7 @@ export function AdminOverview() {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 gap-2">
               <div className="bg-white/8 border border-white/10 rounded-2xl p-3">
                 <span className="text-[9px] uppercase font-black text-slate-400">Aujourd'hui</span>
                 <strong className="block text-lg mt-0.5">{premiumCockpit.metrics.visitsToday + premiumCockpit.metrics.movesToday}</strong>
@@ -295,6 +395,10 @@ export function AdminOverview() {
               <div className="bg-white/8 border border-white/10 rounded-2xl p-3">
                 <span className="text-[9px] uppercase font-black text-slate-400">À 7 jours</span>
                 <strong className="block text-lg mt-0.5">{premiumCockpit.metrics.visitsNext7}</strong>
+              </div>
+              <div className="bg-white/8 border border-white/10 rounded-2xl p-3">
+                <span className="text-[9px] uppercase font-black text-slate-400">Devis marge</span>
+                <strong className="block text-lg mt-0.5">{premiumCockpit.metrics.quotesMarginAtRisk}</strong>
               </div>
               <div className="bg-white/8 border border-white/10 rounded-2xl p-3">
                 <span className="text-[9px] uppercase font-black text-slate-400">Risques</span>

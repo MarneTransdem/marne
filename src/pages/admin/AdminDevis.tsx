@@ -12,12 +12,14 @@ import { db } from '../../lib/firebase';
 import type { AdminOutletContextType } from '../../components/admin/layout/AdminLayout';
 import { buildCommunicationLog, renderCommunication, type CommunicationLog, type CommunicationTask } from '../../lib/crm-communications';
 import { analyzeQuotePricing, formatPremiumCurrency, scoreQuoteOpportunity } from '../../lib/crm-premium';
+import { useCrmSettings } from '../../hooks/useCrmSettings';
 import { Plus, Edit, Trash2, FileText, Check, X, MoveRight, Printer, Copy, Search, Calendar, AlertTriangle, Mail, Loader2, Flame, TrendingUp, ShieldCheck } from 'lucide-react';
 import { PdfGenerator } from '../../components/admin/PdfGenerator';
 
 const COLUMNS = ['Brouillon', 'Envoyé', 'En attente', 'Signé', 'Refusé'] as const;
 type DevisStatus = typeof COLUMNS[number];
 type QuoteSortMode = 'priority' | 'recent' | 'amount' | 'moveDate';
+type QuoteProfitabilityFilter = 'all' | 'marginRisk' | 'priceAdjust' | 'premium' | 'ready' | 'followUp';
 
 const getQuoteOpportunityClasses = (level: string) => {
   if (level === 'urgent') return 'bg-red-50 text-red-700 border-red-200 dark:bg-red-950/25 dark:text-red-300 dark:border-red-900/40';
@@ -36,6 +38,7 @@ const getPricingRiskClasses = (level: string) => {
 export function AdminDevis() {
   const { user } = useAuth();
   const context = useOutletContext<AdminOutletContextType>();
+  const { pricingSettings } = useCrmSettings();
   const [devisList, setDevisList, { daysLimit: devisDays, setDaysLimit: setDevisDays }] = useSyncedCollection<Devis>('devis', [], { timeField: 'createdAt' });
   const [allDevisForIds] = useSyncedCollection<Devis>('devis');
   const [factures, setFactures] = useSyncedCollection<Facture>('factures');
@@ -44,6 +47,7 @@ export function AdminDevis() {
 
   const [filterQuery, setFilterQuery] = useState('');
   const [quoteSortMode, setQuoteSortMode] = useState<QuoteSortMode>('priority');
+  const [profitabilityFilter, setProfitabilityFilter] = useState<QuoteProfitabilityFilter>('all');
   const [showAddDevis, setShowAddDevis] = useState(false);
   const [editingDevisId, setEditingDevisId] = useState<string | null>(null);
   const [selectedPdfQuote, setSelectedPdfQuote] = useState<Devis | null>(null);
@@ -52,7 +56,7 @@ export function AdminDevis() {
     clientName: '', phone: '', email: '', fromCity: '', toCity: '', fromAddress: '', toAddress: '', volume: 20, formula: 'Standard', price: 1200, status: 'Brouillon',
     fromFloor: '2', toFloor: '0 (RDC)', fromElevator: 'Oui', toElevator: 'Non', fromLift: 'Oui', toLift: 'Non', fromPortage: '-20m', toPortage: '-', distance: '', voyageType: undefined
   });
-  const draftPricingInsight = useMemo(() => analyzeQuotePricing(newDevis), [newDevis]);
+  const draftPricingInsight = useMemo(() => analyzeQuotePricing(newDevis, pricingSettings), [newDevis, pricingSettings]);
 
   const resetForm = () => {
     setNewDevis({ clientName: '', phone: '', email: '', fromCity: '', toCity: '', fromAddress: '', toAddress: '', volume: 20, formula: 'Standard', price: 1200, status: 'Brouillon',
@@ -252,6 +256,37 @@ export function AdminDevis() {
     }
   };
 
+
+  const applyRecommendedPrice = async (quote: Devis, recommendedPrice: number) => {
+    const nextPrice = Math.round(recommendedPrice);
+    await setDevisList(prev => prev.map(item => item.id === quote.id ? { ...item, price: nextPrice } : item));
+    context?.pushNotification('Prix conseillé appliqué', `Le devis ${quote.id} est passé à ${formatPremiumCurrency(nextPrice)}.`, 'success');
+  };
+
+  const buildPricingArgument = (quote: Devis, pricingInsight: ReturnType<typeof analyzeQuotePricing>) => {
+    const accessLine = pricingInsight.reasons.includes('Accès à valoriser')
+      ? 'Les accès, le portage ou le monte-meuble nécessitent une préparation spécifique.'
+      : 'Les accès restent simples, ce qui permet de maintenir un prix maîtrisé.';
+
+    return [
+      `Proposition ${quote.formula} pour ${quote.volume} m³ entre ${quote.fromCity} et ${quote.toCity}.`,
+      `Le prix recommandé est de ${formatPremiumCurrency(pricingInsight.recommendedPrice)} pour sécuriser une marge cible de ${pricingInsight.targetMarginRate}%.`,
+      `Coût estimé interne : ${formatPremiumCurrency(pricingInsight.estimatedCost)}. Prix minimum à ne pas franchir : ${formatPremiumCurrency(pricingInsight.recommendedMin)}.`,
+      accessLine,
+      'Argument client : organisation cadrée, équipe adaptée, protections, ponctualité et responsabilité opérationnelle jusqu’à la livraison.'
+    ].join('\n');
+  };
+
+  const copyPricingArgument = async (quote: Devis, pricingInsight: ReturnType<typeof analyzeQuotePricing>) => {
+    const argument = buildPricingArgument(quote, pricingInsight);
+    try {
+      if (!navigator.clipboard) throw new Error('Clipboard indisponible');
+      await navigator.clipboard.writeText(argument);
+      context?.pushNotification('Argumentaire copié', `La justification commerciale du devis ${quote.id} est prête.`, 'success');
+    } catch {
+      window.prompt('Argumentaire commercial à copier', argument);
+    }
+  };
   const handleDragStart = (e: React.DragEvent, quoteId: string) => {
     e.dataTransfer.setData('quoteId', quoteId);
   };
@@ -317,39 +352,70 @@ export function AdminDevis() {
     }
   };
 
-  // Filter quotes dynamically
-  const filteredDevisList = useMemo(() => {
-    if (!filterQuery) return devisList;
-    const query = filterQuery.toLowerCase();
-    return devisList.filter(quote => 
-      quote.clientName.toLowerCase().includes(query) ||
-      quote.id.toLowerCase().includes(query) ||
-      quote.fromCity.toLowerCase().includes(query) ||
-      quote.toCity.toLowerCase().includes(query) ||
-      quote.formula.toLowerCase().includes(query) ||
-      (quote.email && quote.email.toLowerCase().includes(query))
-    );
-  }, [devisList, filterQuery]);
-
   const quotePulse = useMemo(() => {
-    const insights = devisList.map((quote) => scoreQuoteOpportunity(quote));
+    const enriched = devisList.map((quote) => ({
+      quote,
+      opportunity: scoreQuoteOpportunity(quote),
+      pricing: analyzeQuotePricing(quote, pricingSettings)
+    }));
+    const activeQuotes = enriched.filter(({ quote }) => quote.status !== 'Signé' && quote.status !== 'Refusé');
+    const followUps = enriched.filter(({ opportunity }) => opportunity.nextAction.includes('Relancer') || opportunity.nextAction.includes('expiration'));
+    const pricingAlerts = activeQuotes.filter(({ pricing }) => pricing.riskLevel === 'danger' || pricing.riskLevel === 'watch');
+    const readyToSend = activeQuotes.filter(({ quote, pricing }) =>
+      quote.status === 'Brouillon' && Boolean(quote.email?.trim()) && pricing.riskLevel !== 'danger' && pricing.riskLevel !== 'watch'
+    );
+
     return {
-      hot: insights.filter((item) => item.level === 'urgent' || item.level === 'hot').length,
+      hot: enriched.filter((item) => item.opportunity.level === 'urgent' || item.opportunity.level === 'hot').length,
       toSend: devisList.filter((quote) => quote.status === 'Brouillon').length,
-      toFollowUp: devisList.filter((quote) => scoreQuoteOpportunity(quote).nextAction.includes('Relancer') || scoreQuoteOpportunity(quote).nextAction.includes('expiration')).length,
-      pricingAlerts: devisList.filter((quote) => {
-        const pricing = analyzeQuotePricing(quote);
-        return quote.status !== 'Signé' && quote.status !== 'Refusé' && (pricing.riskLevel === 'danger' || pricing.riskLevel === 'watch');
-      }).length,
-      marginGap: devisList.reduce((sum, quote) => {
-        const pricing = analyzeQuotePricing(quote);
-        return sum + Math.max(0, pricing.recommendedMin - (quote.price || 0));
-      }, 0),
-      potential: devisList
-        .filter((quote) => quote.status !== 'Signé' && quote.status !== 'Refusé')
-        .reduce((sum, quote) => sum + (quote.price || 0), 0)
+      toFollowUp: followUps.length,
+      pricingAlerts: pricingAlerts.length,
+      dangerPricing: activeQuotes.filter(({ pricing }) => pricing.riskLevel === 'danger').length,
+      watchPricing: activeQuotes.filter(({ pricing }) => pricing.riskLevel === 'watch').length,
+      premiumPricing: activeQuotes.filter(({ pricing }) => pricing.riskLevel === 'premium').length,
+      readyToSend: readyToSend.length,
+      marginGap: activeQuotes.reduce((sum, item) => sum + Math.max(0, item.pricing.recommendedMin - (item.quote.price || 0)), 0),
+      recommendedGap: activeQuotes.reduce((sum, item) => sum + Math.max(0, item.pricing.recommendedPrice - (item.quote.price || 0)), 0),
+      estimatedMargin: activeQuotes.reduce((sum, item) => sum + item.pricing.marginAmount, 0),
+      averageMarginRate: activeQuotes.length > 0 ? Math.round(activeQuotes.reduce((sum, item) => sum + item.pricing.marginRate, 0) / activeQuotes.length) : 0,
+      potential: activeQuotes.reduce((sum, item) => sum + (item.quote.price || 0), 0)
     };
-  }, [devisList]);
+  }, [devisList, pricingSettings]);
+
+  const quoteQualityFilters: Array<{ id: QuoteProfitabilityFilter; label: string; count: number; tone: string }> = [
+    { id: 'all', label: 'Tous', count: devisList.length, tone: 'text-slate-600 dark:text-slate-300' },
+    { id: 'marginRisk', label: 'Marge faible', count: quotePulse.dangerPricing, tone: 'text-red-700 dark:text-red-300' },
+    { id: 'priceAdjust', label: 'Prix à ajuster', count: quotePulse.pricingAlerts, tone: 'text-amber-700 dark:text-amber-300' },
+    { id: 'premium', label: 'Premium à justifier', count: quotePulse.premiumPricing, tone: 'text-indigo-700 dark:text-indigo-300' },
+    { id: 'ready', label: 'Prêt à envoyer', count: quotePulse.readyToSend, tone: 'text-emerald-700 dark:text-emerald-300' },
+    { id: 'followUp', label: 'À relancer', count: quotePulse.toFollowUp, tone: 'text-sky-700 dark:text-sky-300' }
+  ];
+
+  const filteredDevisList = useMemo(() => {
+    const query = filterQuery.toLowerCase().trim();
+
+    return devisList.filter((quote) => {
+      const pricing = analyzeQuotePricing(quote, pricingSettings);
+      const opportunity = scoreQuoteOpportunity(quote);
+      const activeQuote = quote.status !== 'Signé' && quote.status !== 'Refusé';
+      const matchesSearch = !query ||
+        quote.clientName.toLowerCase().includes(query) ||
+        quote.id.toLowerCase().includes(query) ||
+        quote.fromCity.toLowerCase().includes(query) ||
+        quote.toCity.toLowerCase().includes(query) ||
+        quote.formula.toLowerCase().includes(query) ||
+        Boolean(quote.email?.toLowerCase().includes(query));
+
+      if (!matchesSearch) return false;
+
+      if (profitabilityFilter === 'marginRisk') return activeQuote && pricing.riskLevel === 'danger';
+      if (profitabilityFilter === 'priceAdjust') return activeQuote && (pricing.riskLevel === 'danger' || pricing.riskLevel === 'watch');
+      if (profitabilityFilter === 'premium') return activeQuote && pricing.riskLevel === 'premium';
+      if (profitabilityFilter === 'ready') return activeQuote && quote.status === 'Brouillon' && Boolean(quote.email?.trim()) && pricing.riskLevel !== 'danger' && pricing.riskLevel !== 'watch';
+      if (profitabilityFilter === 'followUp') return opportunity.nextAction.includes('Relancer') || opportunity.nextAction.includes('expiration');
+      return true;
+    });
+  }, [devisList, filterQuery, profitabilityFilter, pricingSettings]);
 
   const sortQuotesForColumn = (quotes: Devis[]) => {
     return [...quotes].sort((a, b) => {
@@ -422,22 +488,60 @@ export function AdminDevis() {
         </button>
       </div>
 
-      <section className="grid grid-cols-1 md:grid-cols-4 gap-3">
+      <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-6 gap-3">
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
           <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">Devis chauds</span>
           <strong className="mt-1 flex items-center gap-1 text-xl font-black text-red-600 dark:text-red-300"><Flame size={16} /> {quotePulse.hot}</strong>
         </div>
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
-          <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">À corriger marge</span>
-          <strong className="block mt-1 text-xl font-black text-red-600 dark:text-red-300">{quotePulse.pricingAlerts}</strong>
+          <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">Marge à récupérer</span>
+          <strong className="block mt-1 text-xl font-black text-red-600 dark:text-red-300">{formatPremiumCurrency(quotePulse.marginGap)}</strong>
         </div>
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
-          <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">Relances utiles</span>
-          <strong className="block mt-1 text-xl font-black text-amber-600 dark:text-amber-300">{quotePulse.toFollowUp}</strong>
+          <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">Marge prévisionnelle</span>
+          <strong className={`block mt-1 text-xl font-black ${quotePulse.estimatedMargin >= 0 ? 'text-emerald-600 dark:text-emerald-300' : 'text-red-600 dark:text-red-300'}`}>{formatPremiumCurrency(quotePulse.estimatedMargin)}</strong>
+          <span className="text-[9px] font-bold text-slate-400">Moyenne {quotePulse.averageMarginRate}%</span>
+        </div>
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
+          <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">À corriger</span>
+          <strong className="block mt-1 text-xl font-black text-amber-600 dark:text-amber-300">{quotePulse.pricingAlerts}</strong>
+          <span className="text-[9px] font-bold text-slate-400">{quotePulse.dangerPricing} critiques</span>
+        </div>
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
+          <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">Prêts à envoyer</span>
+          <strong className="block mt-1 text-xl font-black text-emerald-600 dark:text-emerald-300">{quotePulse.readyToSend}</strong>
         </div>
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
           <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">Potentiel ouvert</span>
           <strong className="block mt-1 text-xl font-black text-brand-900 dark:text-accent">{formatPremiumCurrency(quotePulse.potential)}</strong>
+        </div>
+      </section>
+
+      <section className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-3 shadow-sm">
+        <div className="flex flex-wrap items-center gap-2">
+          {quoteQualityFilters.map((filter) => {
+            const active = profitabilityFilter === filter.id;
+            return (
+              <button
+                key={filter.id}
+                type="button"
+                onClick={() => setProfitabilityFilter(filter.id)}
+                className={`inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-[10px] font-black uppercase tracking-wider transition-colors ${active ? 'border-accent bg-accent text-brand-950' : 'border-slate-200 bg-slate-50 text-slate-500 hover:border-accent/60 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300'}`}
+              >
+                {filter.label}
+                <span className={`rounded-lg bg-white/80 px-1.5 py-0.5 text-[9px] ${active ? 'text-brand-950' : filter.tone}`}>{filter.count}</span>
+              </button>
+            );
+          })}
+          {(profitabilityFilter !== 'all' || filterQuery) && (
+            <button
+              type="button"
+              onClick={() => { setProfitabilityFilter('all'); setFilterQuery(''); }}
+              className="ml-auto inline-flex items-center gap-1 rounded-xl px-3 py-2 text-[10px] font-black uppercase tracking-wider text-slate-400 hover:text-slate-700 dark:hover:text-white"
+            >
+              <X size={12} /> Effacer
+            </button>
+          )}
         </div>
       </section>
       {showAddDevis && (
@@ -684,7 +788,10 @@ export function AdminDevis() {
                   const quoteHasEmail = Boolean(quote.email?.trim());
                   const quoteIsSending = sendingQuoteId === quote.id;
                   const quoteInsight = scoreQuoteOpportunity(quote);
-                  const pricingInsight = analyzeQuotePricing(quote);
+                  const pricingInsight = analyzeQuotePricing(quote, pricingSettings);
+                  const pricingGap = Math.max(0, pricingInsight.recommendedMin - (quote.price || 0));
+                  const recommendedGap = Math.max(0, pricingInsight.recommendedPrice - (quote.price || 0));
+                  const canApplyRecommendedPrice = canSendQuote && recommendedGap > 0 && (pricingInsight.riskLevel === 'danger' || pricingInsight.riskLevel === 'watch');
 
                   return (
                     <div
@@ -743,6 +850,42 @@ export function AdminDevis() {
                         <p className="text-[10px] mt-1 font-semibold opacity-85 flex items-center gap-1">
                           <ShieldCheck size={10} /> {pricingInsight.action}
                         </p>
+                        <div className="mt-2 grid grid-cols-3 gap-1.5 text-[9px] font-black uppercase tracking-wider">
+                          <div className="rounded-lg bg-white/55 dark:bg-slate-950/35 px-2 py-1">
+                            <span className="block opacity-60">Min</span>
+                            <strong>{formatPremiumCurrency(pricingInsight.recommendedMin)}</strong>
+                          </div>
+                          <div className="rounded-lg bg-white/55 dark:bg-slate-950/35 px-2 py-1">
+                            <span className="block opacity-60">Reco</span>
+                            <strong>{formatPremiumCurrency(pricingInsight.recommendedPrice)}</strong>
+                          </div>
+                          <div className="rounded-lg bg-white/55 dark:bg-slate-950/35 px-2 py-1">
+                            <span className="block opacity-60">Écart</span>
+                            <strong>{pricingGap > 0 ? formatPremiumCurrency(pricingGap) : 'OK'}</strong>
+                          </div>
+                        </div>
+                        {(canApplyRecommendedPrice || pricingInsight.riskLevel === 'premium') && (
+                          <div className="mt-2 flex flex-wrap gap-1.5">
+                            {canApplyRecommendedPrice && (
+                              <button
+                                type="button"
+                                onClick={() => applyRecommendedPrice(quote, pricingInsight.recommendedPrice)}
+                                className="inline-flex items-center gap-1 rounded-lg bg-slate-950 px-2 py-1.5 text-[9px] font-black uppercase text-white hover:opacity-90 dark:bg-accent dark:text-brand-950"
+                              >
+                                <ShieldCheck size={10} /> Appliquer reco
+                              </button>
+                            )}
+                            {pricingInsight.riskLevel === 'premium' && (
+                              <button
+                                type="button"
+                                onClick={() => copyPricingArgument(quote, pricingInsight)}
+                                className="inline-flex items-center gap-1 rounded-lg bg-white/75 px-2 py-1.5 text-[9px] font-black uppercase hover:bg-white dark:bg-slate-950/50"
+                              >
+                                <Copy size={10} /> Argumentaire
+                              </button>
+                            )}
+                          </div>
+                        )}
                       </div>
                       {/* Signature Display (if signed) */}
                       {quote.status === 'Signé' && quote.clientSignature && (
@@ -752,6 +895,19 @@ export function AdminDevis() {
                             <span className="text-[10px] text-emerald-600 dark:text-emerald-500 font-bold">{quote.acceptedAt ? formatDateFr(quote.acceptedAt) : 'N/A'}</span>
                           </div>
                           <img src={quote.clientSignature} alt="Signature" className="h-8 w-20 object-contain mix-blend-multiply dark:mix-blend-normal bg-white rounded-md p-1" />
+                        </div>
+                      )}
+
+                      {/* Payment Status Badge */}
+                      {quote.paymentStatus === 'Acompte Payé' && (
+                        <div className="mb-3 p-2 bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/50 rounded-xl flex items-center gap-2">
+                          <span className="text-blue-600 dark:text-blue-400 text-sm">💰</span>
+                          <div className="flex flex-col gap-0.5">
+                            <span className="text-[9px] font-black uppercase text-blue-700 dark:text-blue-400">Acompte payé en ligne</span>
+                            <span className="text-[10px] text-blue-600 dark:text-blue-500 font-bold">
+                              {quote.acompteAmount?.toLocaleString('fr-FR')} € reçus{quote.acomptePayedAt ? ` · ${formatDateFr(quote.acomptePayedAt)}` : ''}
+                            </span>
+                          </div>
                         </div>
                       )}
                       

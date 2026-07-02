@@ -4,6 +4,7 @@ import type { Devis } from '../../types';
 import { buildDossierIdFromReference } from '../../lib/dossier-id';
 import { getNextYearlyId } from '../../lib/admin-ids';
 import { analyzeQuotePricing, formatPremiumCurrency } from '../../lib/crm-premium';
+import { useCrmSettings } from '../../hooks/useCrmSettings';
 import { 
   Plus, Minus, Sparkles, RefreshCw, X, Box, CheckCircle2, 
   FileText, ArrowRight, User, Phone, MapPin, Calculator, HelpCircle, Calendar
@@ -59,6 +60,7 @@ const FURNITURE_CATALOG: FurnitureCategory[] = [
 
 export function AdminSimulateur() {
   const [devisList, setDevisList] = useSyncedCollection<Devis>('devis');
+  const { pricingSettings } = useCrmSettings();
 
   // Inventory quantities state
   const [inventory, setInventory] = useState<Record<string, number>>({});
@@ -112,7 +114,7 @@ export function AdminSimulateur() {
     date: clientInfo.date,
     fromCity: clientInfo.fromCity,
     toCity: clientInfo.toCity
-  }), [totalVolume, clientInfo.formula, clientInfo.date, clientInfo.fromCity, clientInfo.toCity]);
+  }, pricingSettings), [totalVolume, clientInfo.formula, clientInfo.date, clientInfo.fromCity, clientInfo.toCity, pricingSettings]);
 
   // Convert to quote handler
   const handleConvertToQuote = (e: React.FormEvent) => {
@@ -130,7 +132,7 @@ export function AdminSimulateur() {
       date: clientInfo.date,
       fromCity: clientInfo.fromCity,
       toCity: clientInfo.toCity
-    }).recommendedPrice;
+    }, pricingSettings).recommendedPrice;
 
     const createdAt = new Date().toISOString().split('T')[0];
     const expiresAt = new Date(Date.now() + 30 * 24 * 3600 * 1000).toISOString().split('T')[0];

@@ -33,6 +33,11 @@ export interface PremiumCockpit {
     pendingRevenue: number;
     quotePotential: number;
     forecastRevenue: number;
+    quoteEstimatedMargin: number;
+    quoteMarginGap: number;
+    quoteRecommendedGap: number;
+    quotesMarginAtRisk: number;
+    quotesPremiumToJustify: number;
     conversionRate: number;
     averageQuoteValue: number;
   };
@@ -383,11 +388,99 @@ export interface PremiumPricingAnalysis {
   costBreakdown: Array<{ label: string; amount: number }>;
 }
 
-type PremiumPricingInput = Partial<Devis> & {
+export type PremiumPricingInput = Partial<Devis> & {
   needsLift?: string;
   needsPacking?: string;
   needsStorage?: string;
 };
+
+export type PremiumPricingFormulaKey = 'economique' | 'standard' | 'luxe' | 'dynamic';
+
+export interface PremiumPricingFormulaSettings {
+  variableCost: number;
+  targetMargin: number;
+}
+
+export interface PremiumPricingSettings {
+  baseCost: number;
+  reserveRate: number;
+  localFallbackKm: number;
+  nationalFallbackKm: number;
+  localFixedCost: number;
+  localCostPerKm: number;
+  longDistanceFixedCost: number;
+  longDistanceCostPerKm: number;
+  floorCost: number;
+  portageCostPerMeter: number;
+  liftCost: number;
+  packingCostPerM3: number;
+  storageCost: number;
+  minMarginRate: number;
+  formulaMargins: Record<PremiumPricingFormulaKey, PremiumPricingFormulaSettings>;
+}
+
+export const DEFAULT_PREMIUM_PRICING_SETTINGS: PremiumPricingSettings = {
+  baseCost: 240,
+  reserveRate: 0.08,
+  localFallbackKm: 22,
+  nationalFallbackKm: 280,
+  localFixedCost: 110,
+  localCostPerKm: 1.15,
+  longDistanceFixedCost: 280,
+  longDistanceCostPerKm: 1.35,
+  floorCost: 42,
+  portageCostPerMeter: 2.8,
+  liftCost: 280,
+  packingCostPerM3: 8,
+  storageCost: 180,
+  minMarginRate: 0.22,
+  formulaMargins: {
+    economique: { variableCost: 31, targetMargin: 0.32 },
+    standard: { variableCost: 38, targetMargin: 0.38 },
+    luxe: { variableCost: 48, targetMargin: 0.44 },
+    dynamic: { variableCost: 42, targetMargin: 0.4 }
+  }
+};
+
+const PRICING_FORMULA_KEYS: PremiumPricingFormulaKey[] = ['economique', 'standard', 'luxe', 'dynamic'];
+
+function clampConfigNumber(value: unknown, fallback: number, min = 0, max = Number.POSITIVE_INFINITY) {
+  const parsed = typeof value === 'number' ? value : Number(String(value ?? '').replace(',', '.'));
+  if (!Number.isFinite(parsed)) return fallback;
+  return Math.min(max, Math.max(min, parsed));
+}
+
+export function normalizePremiumPricingSettings(value?: Partial<PremiumPricingSettings> | null): PremiumPricingSettings {
+  const source = value || {};
+  const formulas = (source.formulaMargins || {}) as Partial<Record<PremiumPricingFormulaKey, Partial<PremiumPricingFormulaSettings>>>;
+  const formulaMargins = PRICING_FORMULA_KEYS.reduce((acc, key) => {
+    const defaults = DEFAULT_PREMIUM_PRICING_SETTINGS.formulaMargins[key];
+    const current = formulas[key] || {};
+    acc[key] = {
+      variableCost: clampConfigNumber(current.variableCost, defaults.variableCost, 0, 300),
+      targetMargin: clampConfigNumber(current.targetMargin, defaults.targetMargin, 0.05, 0.85)
+    };
+    return acc;
+  }, {} as Record<PremiumPricingFormulaKey, PremiumPricingFormulaSettings>);
+
+  return {
+    baseCost: clampConfigNumber(source.baseCost, DEFAULT_PREMIUM_PRICING_SETTINGS.baseCost, 0, 5000),
+    reserveRate: clampConfigNumber(source.reserveRate, DEFAULT_PREMIUM_PRICING_SETTINGS.reserveRate, 0, 0.5),
+    localFallbackKm: clampConfigNumber(source.localFallbackKm, DEFAULT_PREMIUM_PRICING_SETTINGS.localFallbackKm, 0, 300),
+    nationalFallbackKm: clampConfigNumber(source.nationalFallbackKm, DEFAULT_PREMIUM_PRICING_SETTINGS.nationalFallbackKm, 0, 1500),
+    localFixedCost: clampConfigNumber(source.localFixedCost, DEFAULT_PREMIUM_PRICING_SETTINGS.localFixedCost, 0, 5000),
+    localCostPerKm: clampConfigNumber(source.localCostPerKm, DEFAULT_PREMIUM_PRICING_SETTINGS.localCostPerKm, 0, 20),
+    longDistanceFixedCost: clampConfigNumber(source.longDistanceFixedCost, DEFAULT_PREMIUM_PRICING_SETTINGS.longDistanceFixedCost, 0, 10000),
+    longDistanceCostPerKm: clampConfigNumber(source.longDistanceCostPerKm, DEFAULT_PREMIUM_PRICING_SETTINGS.longDistanceCostPerKm, 0, 20),
+    floorCost: clampConfigNumber(source.floorCost, DEFAULT_PREMIUM_PRICING_SETTINGS.floorCost, 0, 500),
+    portageCostPerMeter: clampConfigNumber(source.portageCostPerMeter, DEFAULT_PREMIUM_PRICING_SETTINGS.portageCostPerMeter, 0, 50),
+    liftCost: clampConfigNumber(source.liftCost, DEFAULT_PREMIUM_PRICING_SETTINGS.liftCost, 0, 3000),
+    packingCostPerM3: clampConfigNumber(source.packingCostPerM3, DEFAULT_PREMIUM_PRICING_SETTINGS.packingCostPerM3, 0, 100),
+    storageCost: clampConfigNumber(source.storageCost, DEFAULT_PREMIUM_PRICING_SETTINGS.storageCost, 0, 5000),
+    minMarginRate: clampConfigNumber(source.minMarginRate, DEFAULT_PREMIUM_PRICING_SETTINGS.minMarginRate, 0.05, 0.75),
+    formulaMargins
+  };
+}
 
 function roundToNearest(value: number, step = 10) {
   return Math.round(value / step) * step;
@@ -413,21 +506,28 @@ function parsePortageMeters(value?: string) {
   return Number.isFinite(meters) ? Math.min(120, meters) : 0;
 }
 
-function formulaPricingProfile(formula?: string) {
+function formulaPricingKey(formula?: string): PremiumPricingFormulaKey {
   const normalized = normalizePremiumText(formula);
-  if (normalized.includes('luxe')) {
-    return { variableCost: 48, targetMargin: 0.44, label: 'Luxe' };
-  }
-  if (normalized.includes('economique') || normalized.includes('eco')) {
-    return { variableCost: 31, targetMargin: 0.32, label: 'Économique' };
-  }
-  if (normalized.includes('dynamic')) {
-    return { variableCost: 42, targetMargin: 0.4, label: 'Dynamic' };
-  }
-  return { variableCost: 38, targetMargin: 0.38, label: 'Standard' };
+  if (normalized.includes('luxe')) return 'luxe';
+  if (normalized.includes('economique') || normalized.includes('eco')) return 'economique';
+  if (normalized.includes('dynamic')) return 'dynamic';
+  return 'standard';
 }
 
-function computeAccessCost(quote: PremiumPricingInput) {
+function formulaPricingLabel(key: PremiumPricingFormulaKey) {
+  if (key === 'luxe') return 'Luxe';
+  if (key === 'economique') return 'Économique';
+  if (key === 'dynamic') return 'Dynamic';
+  return 'Standard';
+}
+
+function formulaPricingProfile(formula: string | undefined, settings: PremiumPricingSettings) {
+  const key = formulaPricingKey(formula);
+  const profile = settings.formulaMargins[key];
+  return { variableCost: profile.variableCost, targetMargin: profile.targetMargin, label: formulaPricingLabel(key) };
+}
+
+function computeAccessCost(quote: PremiumPricingInput, settings: PremiumPricingSettings) {
   const fromFloor = parseFloor(quote.fromFloor);
   const toFloor = parseFloor(quote.toFloor);
   const fromElevator = normalizePremiumText(quote.fromElevator).includes('oui');
@@ -435,31 +535,38 @@ function computeAccessCost(quote: PremiumPricingInput) {
   const fromLift = normalizePremiumText(quote.fromLift).includes('oui');
   const toLift = normalizePremiumText(quote.toLift).includes('oui');
   const declaredLift = isYes(quote.needsLift);
-  const floorCost = (fromElevator ? 0 : fromFloor * 42) + (toElevator ? 0 : toFloor * 42);
-  const portageCost = (parsePortageMeters(quote.fromPortage) + parsePortageMeters(quote.toPortage)) * 2.8;
-  const liftCost = (fromLift || toLift || declaredLift) ? 280 : 0;
+  const floorCost = (fromElevator ? 0 : fromFloor * settings.floorCost) + (toElevator ? 0 : toFloor * settings.floorCost);
+  const portageCost = (parsePortageMeters(quote.fromPortage) + parsePortageMeters(quote.toPortage)) * settings.portageCostPerMeter;
+  const liftCost = (fromLift || toLift || declaredLift) ? settings.liftCost : 0;
   return Math.round(floorCost + portageCost + liftCost);
 }
 
-export function analyzeQuotePricing(quote: PremiumPricingInput): PremiumPricingAnalysis {
+export function analyzeQuotePricing(quote: PremiumPricingInput, pricingSettings?: Partial<PremiumPricingSettings> | null): PremiumPricingAnalysis {
+  const settings = normalizePremiumPricingSettings(pricingSettings);
   const volume = Math.max(5, asNumber(quote.volume) || 20);
-  const profile = formulaPricingProfile(quote.formula);
-  const distanceKm = parseDistanceKm(quote.distance) || (quote.voyageType === 'National' ? 280 : 22);
+  const profile = formulaPricingProfile(quote.formula, settings);
+  const distanceKm = parseDistanceKm(quote.distance) || (quote.voyageType === 'National' ? settings.nationalFallbackKm : settings.localFallbackKm);
   const currentPrice = Math.max(0, Math.round(asNumber(quote.price)));
-  const baseCost = 240;
+  const baseCost = settings.baseCost;
   const volumeCost = volume * profile.variableCost;
-  const distanceCost = distanceKm <= 45 ? 110 + distanceKm * 1.15 : 280 + distanceKm * 1.35;
+  const distanceCost = distanceKm <= 45
+    ? settings.localFixedCost + distanceKm * settings.localCostPerKm
+    : settings.longDistanceFixedCost + distanceKm * settings.longDistanceCostPerKm;
   const crewCost = volume >= 45 ? 680 : volume >= 30 ? 520 : volume >= 18 ? 390 : 290;
-  const accessCost = computeAccessCost(quote);
-  const serviceCost = (isYes(quote.needsPacking) ? volume * 8 : 0) + (isYes(quote.needsStorage) ? 180 : 0);
-  const reserve = (baseCost + volumeCost + distanceCost + crewCost + accessCost + serviceCost) * 0.08;
-  const estimatedCost = roundToNearest(baseCost + volumeCost + distanceCost + crewCost + accessCost + serviceCost + reserve);
-  const recommendedPrice = ceilToNearest(estimatedCost / (1 - profile.targetMargin));
-  const recommendedMin = ceilToNearest(estimatedCost / (1 - Math.max(0.22, profile.targetMargin - 0.08)));
+  const accessCost = computeAccessCost(quote, settings);
+  const serviceCost = (isYes(quote.needsPacking) ? volume * settings.packingCostPerM3 : 0) + (isYes(quote.needsStorage) ? settings.storageCost : 0);
+  const subtotal = baseCost + volumeCost + distanceCost + crewCost + accessCost + serviceCost;
+  const reserve = subtotal * settings.reserveRate;
+  const estimatedCost = roundToNearest(subtotal + reserve);
+  const targetMargin = Math.min(0.9, Math.max(0.05, profile.targetMargin));
+  const minimumMargin = Math.min(0.9, Math.max(settings.minMarginRate, targetMargin - 0.08));
+  const recommendedPrice = ceilToNearest(estimatedCost / (1 - targetMargin));
+  const recommendedMin = ceilToNearest(estimatedCost / (1 - minimumMargin));
   const recommendedMax = ceilToNearest(recommendedPrice * 1.18);
   const marginAmount = currentPrice - estimatedCost;
   const marginRate = currentPrice > 0 ? Math.round((marginAmount / currentPrice) * 100) : 0;
   const deltaToRecommended = currentPrice - recommendedPrice;
+  const minimumMarginPercent = Math.round(settings.minMarginRate * 100);
 
   const reasons = [
     `${volume} m³`,
@@ -476,11 +583,11 @@ export function analyzeQuotePricing(quote: PremiumPricingInput): PremiumPricingA
     riskLevel = 'watch';
     label = 'Prix à définir';
     action = 'Appliquer le prix recommandé';
-  } else if (currentPrice < recommendedMin || marginRate < 22) {
+  } else if (currentPrice < recommendedMin || marginRate < minimumMarginPercent) {
     riskLevel = 'danger';
     label = 'Marge en danger';
     action = `Rehausser vers ${formatPremiumCurrency(recommendedPrice)}`;
-  } else if (marginRate < Math.round(profile.targetMargin * 100) - 4) {
+  } else if (marginRate < Math.round(targetMargin * 100) - 4) {
     riskLevel = 'watch';
     label = 'Marge à surveiller';
     action = `Ajuster idéalement vers ${formatPremiumCurrency(recommendedPrice)}`;
@@ -498,7 +605,7 @@ export function analyzeQuotePricing(quote: PremiumPricingInput): PremiumPricingA
     currentPrice,
     marginAmount,
     marginRate,
-    targetMarginRate: Math.round(profile.targetMargin * 100),
+    targetMarginRate: Math.round(targetMargin * 100),
     deltaToRecommended,
     riskLevel,
     label,
@@ -513,7 +620,6 @@ export function analyzeQuotePricing(quote: PremiumPricingInput): PremiumPricingA
     ]
   };
 }
-
 export function buildPremiumCockpit(input: {
   publicRequests: AdminPublicRequest[];
   devisList: Devis[];
@@ -521,6 +627,7 @@ export function buildPremiumCockpit(input: {
   visites: Visite[];
   demenagements: Demenagement[];
   today?: Date;
+  pricingSettings?: Partial<PremiumPricingSettings> | null;
 }): PremiumCockpit {
   const today = input.today || new Date();
   const todayStr = toLocalIsoDate(today);
@@ -559,6 +666,12 @@ export function buildPremiumCockpit(input: {
     .filter(invoice => invoice.status === 'En attente' || invoice.status === 'En retard')
     .reduce((sum, invoice) => sum + (invoice.amount || 0), 0);
   const quotePotential = activeQuotes.reduce((sum, quote) => sum + (quote.price || 0), 0);
+  const quotePricing = activeQuotes.map(quote => ({ quote, pricing: analyzeQuotePricing(quote, input.pricingSettings) }));
+  const quoteEstimatedMargin = quotePricing.reduce((sum, item) => sum + item.pricing.marginAmount, 0);
+  const quoteMarginGap = quotePricing.reduce((sum, item) => sum + Math.max(0, item.pricing.recommendedMin - (item.quote.price || 0)), 0);
+  const quoteRecommendedGap = quotePricing.reduce((sum, item) => sum + Math.max(0, item.pricing.recommendedPrice - (item.quote.price || 0)), 0);
+  const quotesMarginAtRisk = quotePricing.filter(item => item.pricing.riskLevel === 'danger' || item.pricing.riskLevel === 'watch').length;
+  const quotesPremiumToJustify = quotePricing.filter(item => item.pricing.riskLevel === 'premium').length;
   const forecastRevenue = signedRevenue + quotePotential;
   const conversionRate = sentQuotes.length > 0 ? Math.round((signedQuotes.length / sentQuotes.length) * 100) : 0;
   const averageQuoteValue = input.devisList.length > 0
@@ -569,6 +682,7 @@ export function buildPremiumCockpit(input: {
     (openRequests * 5) +
     (quotesToSend * 4) +
     (quotesToFollowUp * 5) +
+    (quotesMarginAtRisk * 6) +
     (movesUnassigned * 8) +
     (overdueInvoices * 8) +
     (invoicesToSend * 3) +
@@ -620,6 +734,25 @@ export function buildPremiumCockpit(input: {
     metric: String(overdueInvoices + dueSoonInvoices + invoicesToSend),
     route: '/admin/factures',
     cta: 'Encaisser'
+  });
+  addAction(actions, {
+    id: 'quote-margin',
+    severity: quotesMarginAtRisk >= 3 || quoteMarginGap >= 1000 ? 'critical' : 'warning',
+    title: 'Corriger les devis sous marge',
+    description: 'Appliquer le prix conseillé ou justifier la valeur avant envoi pour protéger la rentabilité.',
+    metric: String(quotesMarginAtRisk),
+    route: '/admin/devis',
+    cta: 'Corriger'
+  });
+
+  addAction(actions, {
+    id: 'quote-premium',
+    severity: 'growth',
+    title: 'Justifier les devis premium',
+    description: 'Les prix hauts doivent être accompagnés d’un argumentaire clair sur accès, équipe, protections et planning.',
+    metric: String(quotesPremiumToJustify),
+    route: '/admin/devis',
+    cta: 'Argumenter'
   });
 
   const nextOperations = [
@@ -674,6 +807,11 @@ export function buildPremiumCockpit(input: {
       pendingRevenue,
       quotePotential,
       forecastRevenue,
+      quoteEstimatedMargin,
+      quoteMarginGap,
+      quoteRecommendedGap,
+      quotesMarginAtRisk,
+      quotesPremiumToJustify,
       conversionRate,
       averageQuoteValue
     },

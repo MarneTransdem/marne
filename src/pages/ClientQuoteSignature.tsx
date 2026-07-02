@@ -1,14 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { 
-  CheckCircle2, AlertCircle, FileText, Download, RotateCcw,
-  MapPin, Calendar, Truck, ShieldCheck
+  CheckCircle2, AlertCircle, FileText, RotateCcw,
+  MapPin, Calendar, Truck, ShieldCheck, CreditCard, Lock, Loader2, X
 } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import type { Devis } from '../types';
 
+const ACOMPTE_PERCENT = 30;
+
 export default function ClientQuoteSignature() {
   const { id } = useParams<{ id: string }>();
+  const [searchParams] = useSearchParams();
+
   const [devis, setDevis] = useState<Partial<Devis> | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -18,9 +22,14 @@ export default function ClientQuoteSignature() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
 
-  useEffect(() => {
+  const [paymentLoading, setPaymentLoading] = useState(false);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
+
+  // Payment result from Stripe redirect
+  const paymentResult = searchParams.get('payment');
+
+  const fetchDevis = () => {
     if (!id) return;
-    
     fetch(`/api/public/devis/${id}`)
       .then(res => res.json())
       .then(data => {
@@ -32,7 +41,18 @@ export default function ClientQuoteSignature() {
         setError("Impossible de charger le devis. Le lien est peut-être expiré.");
       })
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchDevis();
   }, [id]);
+
+  // Refresh after coming back from Stripe (success)
+  useEffect(() => {
+    if (paymentResult === 'success') {
+      setTimeout(fetchDevis, 1500);
+    }
+  }, [paymentResult]);
 
   useEffect(() => {
     if (loading || error || !devis || devis.status === 'Signé') return;
@@ -153,6 +173,27 @@ export default function ClientQuoteSignature() {
     }
   };
 
+  const handlePayAcompte = async () => {
+    if (!id) return;
+    setPaymentLoading(true);
+    setPaymentError(null);
+    try {
+      const response = await fetch(`/api/public/devis/${id}/create-checkout-session`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.error);
+
+      // Redirect to Stripe Checkout
+      window.location.href = result.url;
+    } catch (err: any) {
+      console.error(err);
+      setPaymentError(err.message || 'Erreur lors de la création du paiement.');
+      setPaymentLoading(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
@@ -174,9 +215,11 @@ export default function ClientQuoteSignature() {
   }
 
   const isSigned = devis.status === 'Signé';
+  const isAcomptePaid = devis.paymentStatus === 'Acompte Payé' || devis.paymentStatus === 'Intégralement Payé';
+  const acompteAmount = devis.price ? Math.round(devis.price * ACOMPTE_PERCENT / 100) : 0;
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans pb-12">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans pb-16">
       <Helmet>
         <title>Signature Devis - Marne Transdem</title>
         <meta name="robots" content="noindex, nofollow" />
@@ -194,10 +237,62 @@ export default function ClientQuoteSignature() {
               <h1 className="text-sm font-bold text-slate-900 tracking-tight leading-none">Validation de Devis</h1>
             </div>
           </div>
+          {isSigned && (
+            <span className="text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-1 rounded-full flex items-center gap-1.5">
+              <CheckCircle2 size={12} /> Signé
+            </span>
+          )}
         </div>
       </header>
 
       <main className="flex-1 max-w-2xl w-full mx-auto px-4 mt-8 space-y-6">
+
+        {/* Payment result banners */}
+        {paymentResult === 'success' && (
+          <div className="bg-emerald-50 border border-emerald-200 rounded-2xl px-5 py-4 flex items-center gap-3">
+            <CheckCircle2 size={20} className="text-emerald-500 shrink-0" />
+            <p className="text-emerald-800 text-sm font-semibold">
+              🎉 Paiement confirmé ! Votre acompte a bien été reçu. Vous recevrez un email de confirmation.
+            </p>
+          </div>
+        )}
+        {paymentResult === 'cancel' && (
+          <div className="bg-amber-50 border border-amber-200 rounded-2xl px-5 py-4 flex items-center gap-3">
+            <X size={20} className="text-amber-500 shrink-0" />
+            <p className="text-amber-800 text-sm font-semibold">
+              Le paiement a été annulé. Vous pouvez réessayer ci-dessous.
+            </p>
+          </div>
+        )}
+
+        {/* Progress Steps */}
+        <div className="bg-white border border-slate-200 rounded-3xl px-6 py-4 shadow-sm">
+          <div className="flex items-center gap-0">
+            {/* Step 1 */}
+            <div className="flex flex-col items-center gap-1 flex-1">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center font-black text-xs border-2 ${isSigned ? 'bg-emerald-500 border-emerald-400 text-white' : 'bg-brand-900 border-brand-900 text-white'}`}>
+                {isSigned ? <CheckCircle2 size={16} /> : '1'}
+              </div>
+              <span className="text-[10px] font-black uppercase text-slate-500">Signature</span>
+            </div>
+            <div className={`h-0.5 flex-1 mb-5 ${isSigned ? 'bg-emerald-400' : 'bg-slate-200'}`} />
+            {/* Step 2 */}
+            <div className="flex flex-col items-center gap-1 flex-1">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center font-black text-xs border-2 ${isAcomptePaid ? 'bg-emerald-500 border-emerald-400 text-white' : isSigned ? 'bg-brand-900 border-brand-900 text-white' : 'bg-slate-100 border-slate-200 text-slate-400'}`}>
+                {isAcomptePaid ? <CheckCircle2 size={16} /> : '2'}
+              </div>
+              <span className="text-[10px] font-black uppercase text-slate-500">Acompte</span>
+            </div>
+            <div className={`h-0.5 flex-1 mb-5 ${isAcomptePaid ? 'bg-emerald-400' : 'bg-slate-200'}`} />
+            {/* Step 3 */}
+            <div className="flex flex-col items-center gap-1 flex-1">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center font-black text-xs border-2 ${isAcomptePaid ? 'bg-brand-900 border-brand-900 text-white' : 'bg-slate-100 border-slate-200 text-slate-400'}`}>
+                3
+              </div>
+              <span className="text-[10px] font-black uppercase text-slate-500">Confirmé</span>
+            </div>
+          </div>
+        </div>
         
         {/* Devis Summary */}
         <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-6">
@@ -206,13 +301,11 @@ export default function ClientQuoteSignature() {
               <h2 className="text-2xl font-black tracking-tight text-slate-900">
                 Devis pour {devis.clientName}
               </h2>
-              <p className="text-sm text-slate-500 font-medium mt-1">
-                Réf: {devis.id}
-              </p>
+              <p className="text-sm text-slate-500 font-medium mt-1">Réf: {devis.id}</p>
             </div>
-            <div className="text-right">
+            <div className="text-right shrink-0">
               <p className="text-[10px] font-black uppercase text-slate-400 mb-1">Montant TTC</p>
-              <p className="text-2xl font-black text-brand-900">{devis.price} €</p>
+              <p className="text-2xl font-black text-brand-900">{devis.price?.toLocaleString('fr-FR')} €</p>
             </div>
           </div>
 
@@ -220,29 +313,25 @@ export default function ClientQuoteSignature() {
             <div className="space-y-1">
               <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Départ</span>
               <div className="flex items-center gap-1.5 font-bold text-slate-700">
-                <MapPin size={14} className="text-slate-400" />
-                {devis.fromCity}
+                <MapPin size={14} className="text-slate-400" /> {devis.fromCity}
               </div>
             </div>
             <div className="space-y-1">
               <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Arrivée</span>
               <div className="flex items-center gap-1.5 font-bold text-slate-700">
-                <MapPin size={14} className="text-brand-900" />
-                {devis.toCity}
+                <MapPin size={14} className="text-brand-900" /> {devis.toCity}
               </div>
             </div>
             <div className="space-y-1 pt-4 border-t border-slate-50">
               <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Date</span>
               <div className="flex items-center gap-1.5 font-bold text-slate-700">
-                <Calendar size={14} className="text-slate-400" />
-                {devis.date}
+                <Calendar size={14} className="text-slate-400" /> {devis.date}
               </div>
             </div>
             <div className="space-y-1 pt-4 border-t border-slate-50">
               <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Volume</span>
               <div className="flex items-center gap-1.5 font-bold text-slate-700">
-                <Truck size={14} className="text-slate-400" />
-                {devis.volume} m³
+                <Truck size={14} className="text-slate-400" /> {devis.volume} m³
               </div>
             </div>
           </div>
@@ -254,11 +343,9 @@ export default function ClientQuoteSignature() {
             <>
               <div className="space-y-1 text-center">
                 <ShieldCheck size={32} className="mx-auto text-brand-900 mb-2" />
-                <h3 className="text-lg font-black text-slate-900">
-                  Signature Électronique
-                </h3>
+                <h3 className="text-lg font-black text-slate-900">Étape 1 — Signature Électronique</h3>
                 <p className="text-slate-500 text-sm">
-                  Pour valider votre devis, veuillez apposer votre signature ci-dessous.
+                  Veuillez apposer votre signature ci-dessous pour valider votre accord.
                 </p>
               </div>
 
@@ -288,8 +375,7 @@ export default function ClientQuoteSignature() {
                     onClick={clearCanvas}
                     className="text-slate-500 hover:text-slate-900 text-sm font-bold flex items-center gap-1.5 transition-colors"
                   >
-                    <RotateCcw size={16} />
-                    Effacer
+                    <RotateCcw size={16} /> Effacer
                   </button>
                   <button
                     type="button"
@@ -297,32 +383,104 @@ export default function ClientQuoteSignature() {
                     onClick={handleSaveSignature}
                     className="bg-brand-900 hover:bg-brand-800 disabled:bg-slate-300 text-white rounded-xl px-6 py-3 text-sm font-black flex items-center gap-2 shadow-md transition-colors"
                   >
-                    {signing ? 'Enregistrement...' : 'Accepter & Signer'}
+                    {signing ? <><Loader2 size={16} className="animate-spin" /> Enregistrement...</> : 'Accepter & Signer'}
                   </button>
                 </div>
               </div>
             </>
           ) : (
-            <div className="text-center py-6 space-y-6">
-              <div className="w-20 h-20 bg-emerald-100 border-4 border-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto shadow-sm">
-                <CheckCircle2 size={40} />
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center shrink-0">
+                <CheckCircle2 size={24} />
               </div>
-              <div className="space-y-2">
-                <h3 className="text-2xl font-black text-slate-900">Devis Validé !</h3>
-                <p className="text-slate-500 text-sm max-w-sm mx-auto">
-                  Votre devis a bien été signé. Notre équipe vous recontactera très rapidement pour préparer votre déménagement.
-                </p>
+              <div>
+                <p className="font-black text-slate-900">Devis signé électroniquement</p>
+                <p className="text-slate-500 text-xs mt-0.5">Votre signature a bien été enregistrée et archivée.</p>
               </div>
               {devis.clientSignature && (
-                <div className="mt-6 border border-slate-200 rounded-2xl p-4 bg-slate-50 inline-block">
-                  <p className="text-[10px] font-black uppercase text-slate-400 mb-2">Votre signature :</p>
-                  <img src={devis.clientSignature} alt="Signature" className="h-16 w-auto mix-blend-multiply" />
-                </div>
+                <img src={devis.clientSignature} alt="Signature" className="ml-auto h-10 w-24 object-contain mix-blend-multiply bg-white rounded border border-slate-100 p-1" />
               )}
             </div>
           )}
         </div>
+
+        {/* Payment Area — only shown once signed */}
+        {isSigned && (
+          <div className={`rounded-3xl p-6 shadow-sm space-y-5 border ${isAcomptePaid ? 'bg-emerald-50 border-emerald-200' : 'bg-white border-slate-200'}`}>
+            {isAcomptePaid ? (
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-emerald-500 text-white rounded-full flex items-center justify-center shrink-0">
+                  <CheckCircle2 size={24} />
+                </div>
+                <div>
+                  <p className="font-black text-emerald-800">Acompte payé ✓</p>
+                  <p className="text-emerald-600 text-xs mt-0.5">
+                    {devis.acompteAmount?.toLocaleString('fr-FR')} € reçus — Votre réservation est confirmée !
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <CreditCard size={20} className="text-brand-900" />
+                    <h3 className="text-lg font-black text-slate-900">Étape 2 — Sécurisez votre réservation</h3>
+                  </div>
+                  <p className="text-slate-500 text-sm leading-relaxed">
+                    Pour confirmer définitivement votre déménagement, réglez votre acompte de {ACOMPTE_PERCENT}% en ligne par carte bancaire. Le solde sera réglé le jour J.
+                  </p>
+                </div>
+
+                {/* Acompte recap */}
+                <div className="bg-slate-50 rounded-2xl border border-slate-200 divide-y divide-slate-100">
+                  <div className="flex justify-between items-center px-4 py-3 text-sm">
+                    <span className="text-slate-500">Total devis</span>
+                    <span className="font-bold">{devis.price?.toLocaleString('fr-FR')} €</span>
+                  </div>
+                  <div className="flex justify-between items-center px-4 py-3 text-sm">
+                    <span className="text-slate-500">Acompte ({ACOMPTE_PERCENT}%)</span>
+                    <span className="font-black text-brand-900 text-base">{acompteAmount.toLocaleString('fr-FR')} €</span>
+                  </div>
+                  <div className="flex justify-between items-center px-4 py-3 text-sm">
+                    <span className="text-slate-500">Solde à régler le jour du déménagement</span>
+                    <span className="font-bold">{(devis.price! - acompteAmount).toLocaleString('fr-FR')} €</span>
+                  </div>
+                </div>
+
+                {paymentError && (
+                  <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-red-700 text-sm font-semibold flex items-center gap-2">
+                    <AlertCircle size={16} className="shrink-0" />
+                    {paymentError}
+                  </div>
+                )}
+
+                <button
+                  type="button"
+                  disabled={paymentLoading}
+                  onClick={handlePayAcompte}
+                  className="w-full bg-brand-900 hover:bg-brand-800 disabled:opacity-60 text-white rounded-2xl px-6 py-4 font-black text-base flex items-center justify-center gap-3 shadow-lg transition-all active:scale-95"
+                >
+                  {paymentLoading ? (
+                    <><Loader2 size={20} className="animate-spin" /> Redirection vers le paiement...</>
+                  ) : (
+                    <><CreditCard size={20} /> Payer {acompteAmount.toLocaleString('fr-FR')} € par carte</>
+                  )}
+                </button>
+
+                <div className="flex items-center justify-center gap-2 text-slate-400 text-xs">
+                  <Lock size={12} />
+                  <span>Paiement 100% sécurisé par <strong>Stripe</strong> · Visa, Mastercard, CB acceptés</span>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+
       </main>
+
+      <footer className="mt-auto pt-12 text-center text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+        © 2026 Marne Transdem · Tous droits réservés
+      </footer>
     </div>
   );
 }
