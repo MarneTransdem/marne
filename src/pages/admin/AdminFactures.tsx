@@ -3,6 +3,7 @@ import { useOutletContext } from 'react-router-dom';
 import { doc, setDoc } from 'firebase/firestore';
 import { useSyncedCollection } from '../../hooks/useData';
 import { useAuth } from '../../context/AuthContext';
+import { useCrmSettings } from '../../hooks/useCrmSettings';
 import { Facture } from '../../types';
 import { 
   Plus, FileText, X, Coins, CreditCard, AlertTriangle, 
@@ -31,6 +32,7 @@ export function AdminFactures({
 }: AdminFacturesProps) {
   const { user } = useAuth();
   const context = useOutletContext<AdminOutletContextType>();
+  const { communicationSettings } = useCrmSettings();
   const activeSearchQuery = searchQuery || context?.searchQuery || '';
 
   const [syncedFactures, setSyncedFactures, { daysLimit: facturesDays, setDaysLimit: setFacturesDays }] = useSyncedCollection<Facture>('factures', [], { timeField: 'date' });
@@ -167,7 +169,7 @@ export function AdminFactures({
     document.body.removeChild(link);
   };
   const registerInvoiceSendLog = async (invoice: Facture, status: CommunicationLog['status'], error?: string) => {
-    const rendered = renderCommunication('invoice_send', invoice, 'facture');
+    const rendered = renderCommunication('invoice_send', invoice, 'facture', communicationSettings);
     const task: CommunicationTask = {
       id: `invoice-send-${invoice.id}`,
       documentType: 'facture',
@@ -207,6 +209,7 @@ export function AdminFactures({
         sentAt: new Date().toISOString()
       };
 
+      const rendered = renderCommunication('invoice_send', sentInvoice, 'facture', communicationSettings);
       const response = await adminFetch('/api/send-email', {
         method: 'POST',
         body: JSON.stringify({
@@ -217,7 +220,9 @@ export function AdminFactures({
             clientName: fac.clientName,
             clientEmail: targetEmail,
             pdfName: `Facture_${fac.id}.pdf`,
-            docData: sentInvoice
+            docData: sentInvoice,
+            subject: rendered.subject,
+            body: rendered.body
           }
         })
       });
@@ -251,12 +256,16 @@ export function AdminFactures({
 
     setSendingReminderId(fac.id);
     try {
+      const reminderAction = fac.status === 'En retard' ? 'invoice_overdue' : 'invoice_reminder';
+      const rendered = renderCommunication(reminderAction, fac, 'facture', communicationSettings);
       const response = await adminFetch('/api/send-email', {
         method: 'POST',
         body: JSON.stringify({
           type: 'invoice-reminder',
           data: {
-            invoice: fac
+            invoice: fac,
+            subject: rendered.subject,
+            body: rendered.body
           }
         }),
       });

@@ -4,6 +4,7 @@ import {
   AlertTriangle,
   CheckCircle2,
   Clock,
+  Copy,
   ExternalLink,
   FileText,
   Mail,
@@ -15,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useSyncedCollection } from '../../hooks/useData';
+import { useCrmSettings } from '../../hooks/useCrmSettings';
 import { adminFetch } from '../../lib/admin-api';
 import type { AdminOutletContextType } from '../../components/admin/layout/AdminLayout';
 import type { Devis, Facture } from '../../types';
@@ -29,7 +31,10 @@ import {
   type CommunicationTask
 } from '../../lib/crm-communications';
 
-const FILTERS: Array<{ id: 'all' | 'devis' | 'facture' | 'urgent' | 'history'; label: string }> = [
+const FILTERS: Array<{ id: 'today' | 'ready' | 'blocked' | 'all' | 'devis' | 'facture' | 'urgent' | 'history'; label: string }> = [
+  { id: 'today', label: 'Aujourd’hui' },
+  { id: 'ready', label: 'Prêtes' },
+  { id: 'blocked', label: 'Bloquées' },
   { id: 'all', label: 'Tout' },
   { id: 'devis', label: 'Devis' },
   { id: 'facture', label: 'Factures' },
@@ -49,6 +54,20 @@ const getActionTone = (action: CommunicationAction) => {
   return 'text-emerald-700 bg-emerald-50 border-emerald-100 dark:text-emerald-300 dark:bg-emerald-950/25 dark:border-emerald-900/30';
 };
 
+const isReadyTask = (task: CommunicationTask) => !task.blockedReason && !task.sentToday;
+
+const getLogStatusLabel = (status: CommunicationLog['status']) => {
+  if (status === 'sent') return 'Envoyé';
+  if (status === 'done') return 'Fait';
+  return 'Échec';
+};
+
+const getLogStatusClasses = (status: CommunicationLog['status']) => {
+  if (status === 'sent') return 'text-emerald-600';
+  if (status === 'done') return 'text-sky-600 dark:text-sky-300';
+  return 'text-red-600';
+};
+
 const isQuoteTask = (task: CommunicationTask): task is CommunicationTask & { document: Devis } => task.documentType === 'devis';
 const isInvoiceTask = (task: CommunicationTask): task is CommunicationTask & { document: Facture } => task.documentType === 'facture';
 
@@ -56,13 +75,15 @@ export function AdminEnvoisRelances() {
   const { user } = useAuth();
   const context = useOutletContext<AdminOutletContextType>();
   const navigate = useNavigate();
+  const { communicationSettings } = useCrmSettings();
   const [devisList, setDevisList] = useSyncedCollection<Devis>('devis');
   const [factures, setFactures] = useSyncedCollection<Facture>('factures');
   const [logs, setLogs] = useSyncedCollection<CommunicationLog>('communication_logs');
-  const [activeFilter, setActiveFilter] = useState<typeof FILTERS[number]['id']>('all');
+  const [activeFilter, setActiveFilter] = useState<typeof FILTERS[number]['id']>('today');
   const [query, setQuery] = useState('');
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
   const [sendingTaskId, setSendingTaskId] = useState<string | null>(null);
+  const [markingTaskId, setMarkingTaskId] = useState<string | null>(null);
   const [isAiRunning, setIsAiRunning] = useState(false);
 
   const triggerAIFollowups = async () => {
@@ -79,11 +100,14 @@ export function AdminEnvoisRelances() {
     }
   };
 
-  const tasks = useMemo(() => buildCommunicationTasks(devisList, factures, logs), [devisList, factures, logs]);
+  const tasks = useMemo(() => buildCommunicationTasks(devisList, factures, logs, new Date(), communicationSettings), [devisList, factures, logs, communicationSettings]);
   const visibleTasks = useMemo(() => {
     const cleanQuery = query.trim().toLowerCase();
     return tasks.filter((task) => {
       if (activeFilter === 'history') return false;
+      if (activeFilter === 'today' && task.sentToday) return false;
+      if (activeFilter === 'ready' && !isReadyTask(task)) return false;
+      if (activeFilter === 'blocked' && !task.blockedReason) return false;
       if (activeFilter === 'devis' && task.documentType !== 'devis') return false;
       if (activeFilter === 'facture' && task.documentType !== 'facture') return false;
       if (activeFilter === 'urgent' && task.priority !== 'high') return false;
@@ -98,10 +122,25 @@ export function AdminEnvoisRelances() {
     return visibleTasks.find(task => task.id === selectedTaskId) || visibleTasks[0] || null;
   }, [selectedTaskId, visibleTasks]);
 
-  const sentToday = logs.filter(log => log.status === 'sent' && log.sentAt.startsWith(new Date().toISOString().split('T')[0])).length;
+  const todayIso = new Date().toISOString().split('T')[0];
+  const todayCount = tasks.filter(task => !task.sentToday).length;
+  const readyCount = tasks.filter(isReadyTask).length;
+  const blockedCount = tasks.filter(task => Boolean(task.blockedReason)).length;
+  const completedToday = logs.filter(log => (log.status === 'sent' || log.status === 'done') && log.sentAt.startsWith(todayIso)).length;
   const urgentCount = tasks.filter(task => task.priority === 'high').length;
   const quoteCount = tasks.filter(task => task.documentType === 'devis').length;
   const invoiceCount = tasks.filter(task => task.documentType === 'facture').length;
+
+  const getFilterCount = (filterId: typeof FILTERS[number]['id']) => {
+    if (filterId === 'today') return todayCount;
+    if (filterId === 'ready') return readyCount;
+    if (filterId === 'blocked') return blockedCount;
+    if (filterId === 'all') return tasks.length;
+    if (filterId === 'devis') return quoteCount;
+    if (filterId === 'facture') return invoiceCount;
+    if (filterId === 'urgent') return urgentCount;
+    return logs.length;
+  };
 
   const registerLog = async (task: CommunicationTask, status: CommunicationLog['status'], error?: string) => {
     const log = buildCommunicationLog(task, status, user?.email || user?.displayName || 'CRM', error);
@@ -153,6 +192,39 @@ export function AdminEnvoisRelances() {
     }));
   };
 
+  const copyTaskMessage = async (task: CommunicationTask) => {
+    const message = `Objet : ${task.subject}\n\n${task.body}`;
+    try {
+      await navigator.clipboard.writeText(message);
+      context?.pushNotification('Message copié', 'Le texte est prêt à coller dans un email ou un SMS.', 'success');
+    } catch {
+      window.prompt('Copiez le message', message);
+    }
+  };
+
+  const markTaskDone = async (task: CommunicationTask) => {
+    if (task.sentToday) {
+      context?.pushNotification('Déjà traité aujourd’hui', 'Cette action est déjà dans le journal du jour.', 'warning');
+      return;
+    }
+
+    setMarkingTaskId(task.id);
+    try {
+      await registerLog(task, 'done');
+
+      if (!task.blockedReason) {
+        if (task.documentType === 'devis') await updateQuoteAfterSend(task);
+        if (task.documentType === 'facture') await updateInvoiceAfterSend(task);
+      }
+
+      context?.pushNotification('Action marquée faite', `${COMMUNICATION_ACTION_LABELS[task.action]} traité pour ${task.clientName}.`, 'success');
+    } catch (error: any) {
+      context?.pushNotification('Action non enregistrée', error?.message || 'Impossible de créer le journal CRM.', 'warning');
+    } finally {
+      setMarkingTaskId(null);
+    }
+  };
+
   const sendTask = async (task: CommunicationTask) => {
     if (task.blockedReason) {
       context?.pushNotification('Envoi impossible', task.blockedReason, 'warning');
@@ -160,7 +232,7 @@ export function AdminEnvoisRelances() {
     }
 
     if (task.sentToday) {
-      context?.pushNotification('Déjà traité aujourd’hui', 'Cette relance a déjà été envoyée aujourd’hui.', 'warning');
+      context?.pushNotification('Déjà traité aujourd’hui', 'Cette action est déjà dans le journal du jour.', 'warning');
       return;
     }
 
@@ -179,7 +251,9 @@ export function AdminEnvoisRelances() {
                 clientName: quote.clientName,
                 clientEmail: task.clientEmail,
                 pdfName: `Devis_${quote.id}.pdf`,
-                docData: quote
+                docData: quote,
+                subject: task.subject,
+                body: task.body
               }
             })
           });
@@ -192,7 +266,9 @@ export function AdminEnvoisRelances() {
               type: 'quote-reminder',
               data: {
                 quote: task.document,
-                reminderStage: task.action
+                reminderStage: task.action,
+                subject: task.subject,
+                body: task.body
               }
             })
           });
@@ -213,7 +289,9 @@ export function AdminEnvoisRelances() {
                 clientName: invoice.clientName,
                 clientEmail: task.clientEmail,
                 pdfName: `Facture_${invoice.id}.pdf`,
-                docData: invoice
+                docData: invoice,
+                subject: task.subject,
+                body: task.body
               }
             })
           });
@@ -224,7 +302,7 @@ export function AdminEnvoisRelances() {
             method: 'POST',
             body: JSON.stringify({
               type: 'invoice-reminder',
-              data: { invoice }
+              data: { invoice, subject: task.subject, body: task.body }
             })
           });
           const result = await response.json().catch(() => ({}));
@@ -278,20 +356,20 @@ export function AdminEnvoisRelances() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 min-w-full xl:min-w-[560px]">
             <div className="rounded-2xl border border-slate-200 dark:border-slate-800 p-3 bg-slate-50/80 dark:bg-slate-950/40">
-              <p className="text-[10px] font-black uppercase text-slate-400">À traiter</p>
-              <p className="mt-1 text-xl font-black">{tasks.length}</p>
+              <p className="text-[10px] font-black uppercase text-slate-400">Aujourd’hui</p>
+              <p className="mt-1 text-xl font-black">{todayCount}</p>
+            </div>
+            <div className="rounded-2xl border border-emerald-100 dark:border-emerald-900/40 p-3 bg-emerald-50/70 dark:bg-emerald-950/20">
+              <p className="text-[10px] font-black uppercase text-emerald-600">Prêtes</p>
+              <p className="mt-1 text-xl font-black text-emerald-700 dark:text-emerald-300">{readyCount}</p>
             </div>
             <div className="rounded-2xl border border-red-100 dark:border-red-900/40 p-3 bg-red-50/70 dark:bg-red-950/20">
-              <p className="text-[10px] font-black uppercase text-red-500">Urgents</p>
-              <p className="mt-1 text-xl font-black text-red-700 dark:text-red-300">{urgentCount}</p>
+              <p className="text-[10px] font-black uppercase text-red-500">Bloquées</p>
+              <p className="mt-1 text-xl font-black text-red-700 dark:text-red-300">{blockedCount}</p>
             </div>
             <div className="rounded-2xl border border-slate-200 dark:border-slate-800 p-3 bg-slate-50/80 dark:bg-slate-950/40">
-              <p className="text-[10px] font-black uppercase text-slate-400">Devis</p>
-              <p className="mt-1 text-xl font-black">{quoteCount}</p>
-            </div>
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 p-3 bg-slate-50/80 dark:bg-slate-950/40">
-              <p className="text-[10px] font-black uppercase text-slate-400">Envoyés jour</p>
-              <p className="mt-1 text-xl font-black">{sentToday}</p>
+              <p className="text-[10px] font-black uppercase text-slate-400">Faits jour</p>
+              <p className="mt-1 text-xl font-black">{completedToday}</p>
             </div>
           </div>
         </div>
@@ -314,7 +392,7 @@ export function AdminEnvoisRelances() {
                     }`}
                   >
                     {filter.label}
-                    {filter.id === 'devis' ? ` (${quoteCount})` : filter.id === 'facture' ? ` (${invoiceCount})` : filter.id === 'urgent' ? ` (${urgentCount})` : ''}
+                    {` (${getFilterCount(filter.id)})`}
                   </button>
                 ))}
               </div>
@@ -351,7 +429,7 @@ export function AdminEnvoisRelances() {
                       <p className="mt-1 text-slate-500 dark:text-slate-400 truncate">{log.subject}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className={`font-black ${log.status === 'sent' ? 'text-emerald-600' : 'text-red-600'}`}>{log.status === 'sent' ? 'Envoyé' : 'Échec'}</p>
+                      <p className={`font-black ${getLogStatusClasses(log.status)}`}>{getLogStatusLabel(log.status)}</p>
                       <p className="text-[10px] text-slate-400">{formatDateFr(log.sentAt)}</p>
                     </div>
                   </div>
@@ -366,11 +444,18 @@ export function AdminEnvoisRelances() {
               {visibleTasks.map(task => {
                 const isSelected = selectedTask?.id === task.id;
                 return (
-                  <button
+                  <div
                     key={task.id}
-                    type="button"
+                    role="button"
+                    tabIndex={0}
                     onClick={() => setSelectedTaskId(task.id)}
-                    className={`w-full text-left rounded-3xl border p-4 transition-all ${
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        setSelectedTaskId(task.id);
+                      }
+                    }}
+                    className={`w-full text-left rounded-3xl border p-4 transition-all cursor-pointer ${
                       isSelected
                         ? 'border-accent bg-amber-50/50 dark:bg-amber-950/10 shadow-sm'
                         : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-accent/60'
@@ -400,11 +485,11 @@ export function AdminEnvoisRelances() {
                           <span>{formatCurrency(task.amount)}</span>
                         </div>
                       </div>
-                      <div className="flex md:flex-col items-stretch gap-2 shrink-0 md:w-40">
+                      <div className="flex flex-wrap md:flex-col items-stretch gap-2 shrink-0 md:w-44">
                         <button
                           type="button"
                           onClick={(event) => { event.stopPropagation(); sendTask(task); }}
-                          disabled={sendingTaskId !== null || Boolean(task.blockedReason) || task.sentToday}
+                          disabled={sendingTaskId !== null || markingTaskId !== null || Boolean(task.blockedReason) || task.sentToday}
                           className="h-10 flex-1 md:flex-none inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-900 text-white dark:bg-accent dark:text-brand-950 px-3 text-[11px] font-black disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           {sendingTaskId === task.id ? <RefreshCw size={14} className="animate-spin" /> : <Mail size={14} />}
@@ -412,8 +497,27 @@ export function AdminEnvoisRelances() {
                         </button>
                         <button
                           type="button"
+                          onClick={(event) => { event.stopPropagation(); copyTaskMessage(task); }}
+                          className="h-10 flex-1 md:flex-none inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-600 hover:text-slate-950 dark:hover:text-white px-3 text-[11px] font-black"
+                          title="Copier le message"
+                        >
+                          <Copy size={14} />
+                          <span className="hidden md:inline">Copier</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={(event) => { event.stopPropagation(); markTaskDone(task); }}
+                          disabled={sendingTaskId !== null || markingTaskId !== null || task.sentToday}
+                          className="h-10 flex-1 md:flex-none inline-flex items-center justify-center gap-2 rounded-2xl border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:border-emerald-900/40 dark:bg-emerald-950/20 dark:text-emerald-300 px-3 text-[11px] font-black disabled:opacity-50 disabled:cursor-not-allowed"
+                          title="Marquer cette action comme faite"
+                        >
+                          {markingTaskId === task.id ? <RefreshCw size={14} className="animate-spin" /> : <CheckCircle2 size={14} />}
+                          <span className="hidden md:inline">{markingTaskId === task.id ? 'Action...' : 'Fait'}</span>
+                        </button>
+                        <button
+                          type="button"
                           onClick={(event) => { event.stopPropagation(); openDocument(task); }}
-                          className="h-10 w-10 md:w-full inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-500 hover:text-slate-900 dark:hover:text-white text-[11px] font-black"
+                          className="h-10 flex-1 md:flex-none inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-500 hover:text-slate-900 dark:hover:text-white px-3 text-[11px] font-black"
                           title="Ouvrir le module source"
                         >
                           <ExternalLink size={14} />
@@ -421,7 +525,7 @@ export function AdminEnvoisRelances() {
                         </button>
                       </div>
                     </div>
-                  </button>
+                  </div>
                 );
               })}
 
@@ -463,6 +567,34 @@ export function AdminEnvoisRelances() {
                     {selectedTask.blockedReason}
                   </div>
                 )}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => copyTaskMessage(selectedTask)}
+                    className="h-10 inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 text-[11px] font-black text-slate-600 hover:text-slate-950 dark:hover:text-white"
+                  >
+                    <Copy size={14} />
+                    Copier
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => markTaskDone(selectedTask)}
+                    disabled={sendingTaskId !== null || markingTaskId !== null || selectedTask.sentToday}
+                    className="h-10 inline-flex items-center justify-center gap-2 rounded-2xl border border-emerald-200 bg-emerald-50 px-3 text-[11px] font-black text-emerald-700 hover:bg-emerald-100 dark:border-emerald-900/40 dark:bg-emerald-950/20 dark:text-emerald-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {markingTaskId === selectedTask.id ? <RefreshCw size={14} className="animate-spin" /> : <CheckCircle2 size={14} />}
+                    Fait
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => sendTask(selectedTask)}
+                    disabled={sendingTaskId !== null || markingTaskId !== null || Boolean(selectedTask.blockedReason) || selectedTask.sentToday}
+                    className="h-10 inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-900 px-3 text-[11px] font-black text-white hover:bg-brand-hover dark:bg-accent dark:text-brand-950 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {sendingTaskId === selectedTask.id ? <RefreshCw size={14} className="animate-spin" /> : <Mail size={14} />}
+                    Envoyer
+                  </button>
+                </div>
               </div>
             ) : (
               <p className="text-sm font-semibold text-slate-500">Sélectionnez une action pour prévisualiser le message.</p>
@@ -472,7 +604,7 @@ export function AdminEnvoisRelances() {
           <div className="bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30 rounded-3xl p-5 text-xs text-emerald-800 dark:text-emerald-200 flex items-start gap-3">
             <ShieldCheck size={17} className="shrink-0 mt-0.5" />
             <p className="font-semibold leading-relaxed">
-              Les emails envoyés depuis cette file créent un journal CRM et mettent à jour le statut du document. Les PDF restent joints automatiquement.
+              Les emails envoyés et les actions marquées faites créent un journal CRM. Quand l’action n’est pas bloquée, le statut du document est mis à jour automatiquement.
             </p>
           </div>
         </aside>

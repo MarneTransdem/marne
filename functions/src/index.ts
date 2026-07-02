@@ -61,6 +61,31 @@ function getAdminPdfRoles(type: unknown): CrmRoleKey[] | null {
   return null;
 }
 
+function escapeEmailHtml(value: unknown): string {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function getCustomEmailSubject(value: unknown): string | null {
+  if (typeof value !== 'string') return null;
+  const subject = value.trim().replace(/\s+/g, ' ');
+  return subject ? subject.slice(0, 180) : null;
+}
+
+function renderCustomEmailBody(value: unknown): string | null {
+  if (typeof value !== 'string') return null;
+  const body = value.trim();
+  if (!body) return null;
+  return body
+    .split(/\n{2,}/)
+    .map(block => `<p>${escapeEmailHtml(block).replace(/\n/g, '<br/>')}</p>`)
+    .join('\n');
+}
+
 async function requireCrmRole(req: any, res: any, allowedRoles: CrmRoleKey[]): Promise<AdminActor | null> {
   const token = getBearerToken(req);
   if (!token) {
@@ -388,7 +413,8 @@ api.post('/api/send-email', async (req, res): Promise<void> => {
       }
     }
 
-    const emailHtml = `
+    const customSubject = getCustomEmailSubject(data.subject);
+    const emailHtml = renderCustomEmailBody(data.body) || `
       <p>Bonjour <strong>${clientName}</strong>,</p>
       <p>Veuillez trouver ci-joint votre <strong>${documentTypeName.toLowerCase()} N° ${id}</strong> concernant votre déménagement avec Marne Transdem.</p>
       <p>Nous restons à votre entière disposition pour tout renseignement complémentaire.</p>
@@ -412,7 +438,7 @@ api.post('/api/send-email', async (req, res): Promise<void> => {
         from: `"Marne Transdem" <${process.env.GMAIL_USER}>`,
         to: clientEmail,
         cc: process.env.GMAIL_USER,
-        subject: `${documentTypeName} Marne Transdem N° ${id}`,
+        subject: customSubject || `${documentTypeName} Marne Transdem N° ${id}`,
         html: getEmailContainer(`${documentTypeName} N° ${id}`, emailHtml),
         attachments: [
           {
@@ -563,10 +589,11 @@ api.post('/api/send-email', async (req, res): Promise<void> => {
       const isExpiringReminder = reminderStage === 'quote_reminder_expiring';
       const routeLabel = [quote.fromCity, quote.toCity].filter(Boolean).join(' vers ') || 'votre déménagement';
       const amountLabel = `${Math.round(Number(quote.price || 0)).toLocaleString('fr-FR')} €`;
-      const subject = isExpiringReminder
+      const customSubject = getCustomEmailSubject(data.subject);
+      const subject = customSubject || (isExpiringReminder
         ? `Votre devis Marne Transdem N° ${quote.id} arrive bientôt à expiration`
-        : `Suite à votre devis Marne Transdem N° ${quote.id}`;
-      const emailHtml = isExpiringReminder ? `
+        : `Suite à votre devis Marne Transdem N° ${quote.id}`);
+      const emailHtml = renderCustomEmailBody(data.body) || (isExpiringReminder ? `
         <p>Bonjour <strong>${clientName}</strong>,</p>
         <p>Votre devis <strong>N° ${quote.id}</strong> pour ${routeLabel} arrive bientôt à expiration${quote.expiresAt ? ` le <strong>${formatDateFr(quote.expiresAt)}</strong>` : ''}.</p>
         <p>Pour garantir la disponibilité de l'équipe et du véhicule à la date souhaitée, nous vous invitons à nous confirmer votre accord dès que possible.</p>
@@ -578,7 +605,7 @@ api.post('/api/send-email', async (req, res): Promise<void> => {
         <p>Avez-vous pu en prendre connaissance ? Nous restons disponibles pour répondre à vos questions, ajuster certains points ou bloquer la date dès votre validation.</p>
         <p>Le devis d'un montant de <strong>${amountLabel}</strong> est de nouveau joint à ce message.</p>
         <p style="margin-top: 24px;">Cordialement,<br/><strong>L'équipe Marne Transdem</strong></p>
-      `;
+      `);
 
       if (!process.env.GMAIL_APP_PASSWORD || !process.env.GMAIL_USER) {
         res.status(500).json({ error: "Configuration email manquante" });
@@ -635,7 +662,8 @@ api.post('/api/send-email', async (req, res): Promise<void> => {
         return dateStr;
       };
 
-      const emailHtml = `
+      const customSubject = getCustomEmailSubject(data.subject);
+      const emailHtml = renderCustomEmailBody(data.body) || `
         <p>Bonjour <strong>${clientName}</strong>,</p>
         <p>Nous vous contactons aujourd'hui pour vous rappeler que le règlement de votre <strong>facture N° ${invoice.id}</strong> d'un montant de <strong>${invoice.amount.toLocaleString('fr-FR')} €</strong>, émise le ${formatDateFr(invoice.date)}, est en attente.</p>
         ${invoice.status === 'En retard' ? `
@@ -661,7 +689,7 @@ api.post('/api/send-email', async (req, res): Promise<void> => {
         from: `"Marne Transdem" <${process.env.GMAIL_USER}>`,
         to: clientEmail,
         cc: process.env.GMAIL_USER,
-        subject: `Rappel de paiement : Facture Marne Transdem N° ${invoice.id}`,
+        subject: customSubject || `Rappel de paiement : Facture Marne Transdem N° ${invoice.id}`,
         html: getEmailContainer(`Rappel de Paiement — Facture N° ${invoice.id}`, emailHtml),
         attachments: [
           {

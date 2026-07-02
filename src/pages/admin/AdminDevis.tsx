@@ -38,7 +38,7 @@ const getPricingRiskClasses = (level: string) => {
 export function AdminDevis() {
   const { user } = useAuth();
   const context = useOutletContext<AdminOutletContextType>();
-  const { pricingSettings } = useCrmSettings();
+  const { pricingSettings, communicationSettings } = useCrmSettings();
   const [devisList, setDevisList, { daysLimit: devisDays, setDaysLimit: setDevisDays }] = useSyncedCollection<Devis>('devis', [], { timeField: 'createdAt' });
   const [allDevisForIds] = useSyncedCollection<Devis>('devis');
   const [factures, setFactures] = useSyncedCollection<Facture>('factures');
@@ -143,7 +143,7 @@ export function AdminDevis() {
   };
 
   const registerQuoteSendLog = async (quote: Devis, status: CommunicationLog['status'], error?: string) => {
-    const rendered = renderCommunication('quote_send', quote, 'devis');
+    const rendered = renderCommunication('quote_send', quote, 'devis', communicationSettings);
     const task: CommunicationTask = {
       id: `quote-send-${quote.id}`,
       documentType: 'devis',
@@ -184,6 +184,7 @@ export function AdminDevis() {
         sentAt: new Date().toISOString()
       };
 
+      const rendered = renderCommunication('quote_send', sentQuote, 'devis', communicationSettings);
       const response = await adminFetch('/api/send-email', {
         method: 'POST',
         body: JSON.stringify({
@@ -194,7 +195,9 @@ export function AdminDevis() {
             clientName: quote.clientName,
             clientEmail: targetEmail,
             pdfName: `Devis_${quote.id}.pdf`,
-            docData: sentQuote
+            docData: sentQuote,
+            subject: rendered.subject,
+            body: rendered.body
           }
         })
       });

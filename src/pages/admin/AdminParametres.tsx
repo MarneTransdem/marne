@@ -19,8 +19,9 @@ import {
 import { useAuth } from '../../context/AuthContext';
 import { useSyncedCollection } from '../../hooks/useData';
 import { CONTACT } from '../../constants';
-import { normalizeCrmSettings, readLocalCrmSettings, writeLocalCrmSettings, type CrmSettings } from '../../lib/crm-settings';
+import { normalizeCrmCommunicationSettings, normalizeCrmSettings, readLocalCrmSettings, writeLocalCrmSettings, type CrmCommunicationActionKey, type CrmCommunicationSettings, type CrmSettings } from '../../lib/crm-settings';
 import { normalizePremiumPricingSettings, type PremiumPricingFormulaKey, type PremiumPricingFormulaSettings, type PremiumPricingSettings } from '../../lib/crm-premium';
+import { COMMUNICATION_ACTION_LABELS, DEFAULT_COMMUNICATION_TEMPLATES } from '../../lib/crm-communications';
 import { db } from '../../lib/firebase';
 import type { NotificationTemplate, Role } from '../../types';
 import type { AdminOutletContextType } from '../../components/admin/layout/AdminLayout';
@@ -28,6 +29,7 @@ import { ADMIN_TAB_LABELS, getAccessibleTabs } from '../../lib/admin-permissions
 
 type PricingNumberField = Exclude<keyof PremiumPricingSettings, 'formulaMargins' | 'reserveRate' | 'minMarginRate'>;
 type PricingRateField = 'reserveRate' | 'minMarginRate';
+type CommunicationNumberField = Exclude<keyof CrmCommunicationSettings, 'quoteRemindersEnabled' | 'invoiceRemindersEnabled' | 'tone' | 'templates'>;
 
 const PRICING_NUMBER_FIELDS: Array<{ field: PricingNumberField; label: string; step?: number }> = [
   { field: 'baseCost', label: 'Base dossier (EUR)', step: 10 },
@@ -54,6 +56,29 @@ const PRICING_FORMULA_FIELDS: Array<{ key: PremiumPricingFormulaKey; label: stri
   { key: 'standard', label: 'Standard' },
   { key: 'luxe', label: 'Luxe' },
   { key: 'dynamic', label: 'Dynamic' }
+];
+
+const COMMUNICATION_NUMBER_FIELDS: Array<{ field: CommunicationNumberField; label: string; min: number }> = [
+  { field: 'quoteFirstReminderDays', label: '1re relance devis (jours)', min: 0 },
+  { field: 'quoteReminderCooldownDays', label: 'Intervalle devis (jours)', min: 1 },
+  { field: 'quoteExpirationAlertDays', label: 'Alerte expiration (jours)', min: 0 },
+  { field: 'invoiceDueSoonDays', label: 'Facture avant échéance (jours)', min: 0 },
+  { field: 'invoiceReminderCooldownDays', label: 'Intervalle facture (jours)', min: 1 }
+];
+
+const COMMUNICATION_TEMPLATE_FIELDS: CrmCommunicationActionKey[] = [
+  'quote_send',
+  'quote_reminder_soft',
+  'quote_reminder_expiring',
+  'invoice_send',
+  'invoice_reminder',
+  'invoice_overdue'
+];
+
+const COMMUNICATION_TONE_OPTIONS: Array<{ value: CrmCommunicationSettings['tone']; label: string }> = [
+  { value: 'balanced', label: 'Équilibré' },
+  { value: 'soft', label: 'Doux' },
+  { value: 'firm', label: 'Ferme' }
 ];
 
 const CRM_ROLES: Role[] = ['gérant', 'secrétaire', 'commercial', 'chef_equipe'];
@@ -90,6 +115,7 @@ export function AdminParametres() {
   const [saving, setSaving] = useState(false);
   const [currentSettings, setCurrentSettings] = useState<CrmSettings>(() => readLocalCrmSettings());
   const [form, setForm] = useState<CrmSettings>(() => readLocalCrmSettings());
+  const [selectedTemplateAction, setSelectedTemplateAction] = useState<CrmCommunicationActionKey>('quote_reminder_soft');
 
   useEffect(() => {
     const settingsRef = doc(db, 'crm_settings', 'default');
@@ -169,6 +195,58 @@ export function AdminParametres() {
       };
     });
   };
+
+  const setCommunicationNumberField = (field: CommunicationNumberField, value: string) => {
+    setForm(prev => ({
+      ...prev,
+      communication: normalizeCrmCommunicationSettings({
+        ...prev.communication,
+        [field]: Math.max(COMMUNICATION_NUMBER_FIELDS.find(item => item.field === field)?.min || 0, Math.round(asPositiveNumber(value, prev.communication[field])))
+      })
+    }));
+  };
+
+  const setCommunicationToggle = (field: 'quoteRemindersEnabled' | 'invoiceRemindersEnabled', value: boolean) => {
+    setForm(prev => ({
+      ...prev,
+      communication: normalizeCrmCommunicationSettings({
+        ...prev.communication,
+        [field]: value
+      })
+    }));
+  };
+
+  const setCommunicationTone = (value: CrmCommunicationSettings['tone']) => {
+    setForm(prev => ({
+      ...prev,
+      communication: normalizeCrmCommunicationSettings({
+        ...prev.communication,
+        tone: value
+      })
+    }));
+  };
+
+  const setCommunicationTemplateField = (field: 'subject' | 'body', value: string) => {
+    setForm(prev => ({
+      ...prev,
+      communication: normalizeCrmCommunicationSettings({
+        ...prev.communication,
+        templates: {
+          ...prev.communication.templates,
+          [selectedTemplateAction]: {
+            subject: prev.communication.templates[selectedTemplateAction]?.subject || DEFAULT_COMMUNICATION_TEMPLATES[selectedTemplateAction].subject,
+            body: prev.communication.templates[selectedTemplateAction]?.body || DEFAULT_COMMUNICATION_TEMPLATES[selectedTemplateAction].body,
+            [field]: value
+          }
+        }
+      })
+    }));
+  };
+
+  const selectedTemplate = {
+    subject: form.communication.templates[selectedTemplateAction]?.subject || DEFAULT_COMMUNICATION_TEMPLATES[selectedTemplateAction].subject,
+    body: form.communication.templates[selectedTemplateAction]?.body || DEFAULT_COMMUNICATION_TEMPLATES[selectedTemplateAction].body
+  };
   const handleSave = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!canEdit) {
@@ -187,6 +265,7 @@ export function AdminParametres() {
       invoicePaymentDelayDays: Math.max(0, Math.round(form.invoicePaymentDelayDays)),
       visitDurationMinutes: Math.max(15, Math.round(form.visitDurationMinutes)),
       planningReminderHours: Math.max(1, Math.round(form.planningReminderHours)),
+      communication: normalizeCrmCommunicationSettings(form.communication),
       pricing: normalizePremiumPricingSettings(form.pricing),
       updatedAt: new Date().toISOString(),
       updatedBy: user?.email || 'CRM'
@@ -301,6 +380,76 @@ export function AdminParametres() {
               </button>
             </div>
 
+          </section>
+
+          <section className="bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
+              <div className="flex items-center gap-2">
+                <Mail size={17} className="text-accent" />
+                <h3 className="text-sm font-black uppercase tracking-tight">Relances intelligentes</h3>
+              </div>
+              <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Ton {COMMUNICATION_TONE_OPTIONS.find(option => option.value === form.communication.tone)?.label}</span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+              <label className="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/40 p-4">
+                <span className="text-xs font-black uppercase text-slate-600 dark:text-slate-300">Relances devis</span>
+                <input type="checkbox" checked={form.communication.quoteRemindersEnabled} onChange={(e) => setCommunicationToggle('quoteRemindersEnabled', e.target.checked)} disabled={!canEdit || saving} className="h-5 w-5 accent-brand-900" />
+              </label>
+              <label className="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/40 p-4">
+                <span className="text-xs font-black uppercase text-slate-600 dark:text-slate-300">Relances factures</span>
+                <input type="checkbox" checked={form.communication.invoiceRemindersEnabled} onChange={(e) => setCommunicationToggle('invoiceRemindersEnabled', e.target.checked)} disabled={!canEdit || saving} className="h-5 w-5 accent-brand-900" />
+              </label>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+              {COMMUNICATION_NUMBER_FIELDS.map(({ field, label, min }) => (
+                <label key={field} className="space-y-1.5">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">{label}</span>
+                  <input type="number" min={min} value={form.communication[field]} onChange={(e) => setCommunicationNumberField(field, e.target.value)} disabled={!canEdit || saving} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl px-4 py-3 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-accent/25 disabled:opacity-70" />
+                </label>
+              ))}
+              <label className="space-y-1.5">
+                <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Ton des relances</span>
+                <select value={form.communication.tone} onChange={(e) => setCommunicationTone(e.target.value as CrmCommunicationSettings['tone'])} disabled={!canEdit || saving} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl px-4 py-3 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-accent/25 disabled:opacity-70">
+                  {COMMUNICATION_TONE_OPTIONS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+                </select>
+              </label>
+            </div>
+
+            <div className="mt-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/40 p-4">
+              <div className="grid grid-cols-1 lg:grid-cols-[240px_minmax(0,1fr)] gap-4">
+                <div className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-1 lg:pb-0">
+                  {COMMUNICATION_TEMPLATE_FIELDS.map(action => (
+                    <button
+                      key={action}
+                      type="button"
+                      onClick={() => setSelectedTemplateAction(action)}
+                      className={`h-10 px-3 rounded-2xl border text-[10px] font-black uppercase whitespace-nowrap text-left transition-colors ${selectedTemplateAction === action ? 'bg-brand-900 text-white border-brand-900 dark:bg-accent dark:text-brand-950 dark:border-accent' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}
+                    >
+                      {COMMUNICATION_ACTION_LABELS[action]}
+                    </button>
+                  ))}
+                </div>
+                <div className="space-y-3 min-w-0">
+                  <label className="space-y-1.5 block">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Objet</span>
+                    <input value={selectedTemplate.subject} onChange={(e) => setCommunicationTemplateField('subject', e.target.value)} disabled={!canEdit || saving} className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl px-4 py-3 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-accent/25 disabled:opacity-70" />
+                  </label>
+                  <label className="space-y-1.5 block">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Message</span>
+                    <textarea value={selectedTemplate.body} onChange={(e) => setCommunicationTemplateField('body', e.target.value)} disabled={!canEdit || saving} rows={8} className="w-full resize-y bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl px-4 py-3 text-xs font-semibold leading-relaxed focus:outline-none focus:ring-2 focus:ring-accent/25 disabled:opacity-70" />
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-5 flex justify-end">
+              <button type="submit" disabled={!canEdit || saving} className="inline-flex items-center justify-center gap-2 bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:text-brand-950 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-2xl px-5 py-3 text-xs font-black transition-colors">
+                {saving ? <RefreshCw size={15} className="animate-spin" /> : <Save size={15} />}
+                Enregistrer les relances
+              </button>
+            </div>
           </section>
 
           <section className="bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm">

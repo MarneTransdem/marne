@@ -43,6 +43,7 @@ export function useCrmSettings() {
   return {
     settings,
     pricingSettings: settings.pricing || DEFAULT_CRM_SETTINGS.pricing,
+    communicationSettings: settings.communication || DEFAULT_CRM_SETTINGS.communication,
     status
   };
 }

@@ -1,4 +1,5 @@
 import type { Devis, Facture } from '../types';
+import { normalizeCrmCommunicationSettings, type CrmCommunicationSettings } from './crm-settings';
 
 export type CommunicationDocumentType = 'devis' | 'facture';
 
@@ -10,7 +11,7 @@ export type CommunicationAction =
   | 'invoice_reminder'
   | 'invoice_overdue';
 
-export type CommunicationLogStatus = 'sent' | 'failed';
+export type CommunicationLogStatus = 'sent' | 'failed' | 'done';
 
 export interface CommunicationLog {
   id: string;
@@ -61,7 +62,7 @@ export interface CommunicationTask {
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
-const COMMUNICATION_TEMPLATES: Record<CommunicationAction, { subject: string; body: string }> = {
+export const DEFAULT_COMMUNICATION_TEMPLATES: Record<CommunicationAction, { subject: string; body: string }> = {
   quote_send: {
     subject: 'Votre devis Marne Transdem {documentId}',
     body: `Bonjour {clientName},
@@ -83,6 +84,8 @@ Je me permets de revenir vers vous concernant le devis {documentId} envoyé pour
 
 Avez-vous pu le consulter ? Nous pouvons ajuster la proposition si besoin ou bloquer la date dès votre accord.
 
+{toneLine}
+
 Cordialement,
 L'équipe Marne Transdem`
   },
@@ -93,6 +96,8 @@ L'équipe Marne Transdem`
 Votre devis {documentId} pour votre déménagement {routeLabel} arrive bientôt à expiration le {expiresAt}.
 
 Pour garantir la disponibilité de l'équipe et du camion à la date prévue, nous vous invitons à nous confirmer votre accord dès que possible.
+
+{toneLine}
 
 Cordialement,
 L'équipe Marne Transdem`
@@ -116,6 +121,8 @@ Nous vous rappelons que la facture {documentId}, d'un montant de {amount}, est e
 
 Date d'échéance : {dueDate}. Vous trouverez la facture en pièce jointe avec les informations de paiement.
 
+{toneLine}
+
 Cordialement,
 L'équipe Marne Transdem`
   },
@@ -126,6 +133,8 @@ L'équipe Marne Transdem`
 Sauf erreur de notre part, la facture {documentId}, d'un montant de {amount}, a dépassé sa date d'échéance du {dueDate}.
 
 Nous vous remercions de bien vouloir régulariser le règlement dans les meilleurs délais. La facture est jointe à ce message.
+
+{toneLine}
 
 Cordialement,
 L'équipe Marne Transdem`
@@ -190,7 +199,7 @@ function isToday(value?: string, now = new Date()) {
 
 function getLogsForDocument(logs: CommunicationLog[], documentType: CommunicationDocumentType, documentId: string) {
   return logs
-    .filter(log => log.documentType === documentType && log.documentId === documentId && log.status === 'sent')
+    .filter(log => log.documentType === documentType && log.documentId === documentId && (log.status === 'sent' || log.status === 'done'))
     .sort((a, b) => b.sentAt.localeCompare(a.sentAt));
 }
 
@@ -207,7 +216,26 @@ function getQuoteRouteLabel(quote: Devis) {
   return [quote.fromCity, quote.toCity].filter(Boolean).join(' vers ') || 'à planifier';
 }
 
-function getTemplateValues(document: Devis | Facture, documentType: CommunicationDocumentType) {
+function getToneLine(action: CommunicationAction, tone: CrmCommunicationSettings['tone']) {
+  if (action === 'quote_send' || action === 'invoice_send') return '';
+
+  if (action.startsWith('quote_')) {
+    if (tone === 'soft') return 'Si votre projet a évolué, dites-nous simplement ce qu’il faut ajuster.';
+    if (tone === 'firm') return 'Sans retour rapide, nous ne pourrons pas garantir durablement la disponibilité de l’équipe et du véhicule.';
+    return 'Nous pouvons vous répondre rapidement et sécuriser la date dès votre accord.';
+  }
+
+  if (tone === 'soft') return 'Si le règlement est déjà parti ou si vous avez besoin d’un délai, vous pouvez simplement nous répondre.';
+  if (tone === 'firm') return 'Sans retour ou règlement rapide, ce dossier restera suivi en priorité par notre service administratif.';
+  return 'Si le règlement a déjà été effectué, nous vous remercions de ne pas tenir compte de ce rappel.';
+}
+
+function getTemplateValues(
+  action: CommunicationAction,
+  document: Devis | Facture,
+  documentType: CommunicationDocumentType,
+  communicationSettings: CrmCommunicationSettings
+) {
   const isQuote = documentType === 'devis';
   const quote = isQuote ? document as Devis : null;
   const invoice = !isQuote ? document as Facture : null;
@@ -218,26 +246,43 @@ function getTemplateValues(document: Devis | Facture, documentType: Communicatio
     amount: formatCurrency(isQuote ? quote?.price : invoice?.amount),
     routeLabel: quote ? getQuoteRouteLabel(quote) : 'réalisé avec Marne Transdem',
     expiresAt: formatDateFr(quote?.expiresAt),
-    dueDate: formatDateFr(invoice?.dueDate)
+    dueDate: formatDateFr(invoice?.dueDate),
+    toneLine: getToneLine(action, communicationSettings.tone)
   };
 }
 
-export function renderCommunication(action: CommunicationAction, document: Devis | Facture, documentType: CommunicationDocumentType) {
-  const template = COMMUNICATION_TEMPLATES[action];
-  const values = getTemplateValues(document, documentType);
+export function renderCommunication(
+  action: CommunicationAction,
+  document: Devis | Facture,
+  documentType: CommunicationDocumentType,
+  communicationSettings?: Partial<CrmCommunicationSettings> | null
+) {
+  const settings = normalizeCrmCommunicationSettings(communicationSettings);
+  const customTemplate = settings.templates[action];
+  const fallbackTemplate = DEFAULT_COMMUNICATION_TEMPLATES[action];
+  const template = {
+    subject: customTemplate?.subject?.trim() || fallbackTemplate.subject,
+    body: customTemplate?.body?.trim() || fallbackTemplate.body
+  };
+  const values = getTemplateValues(action, document, documentType, settings);
 
   return {
-    subject: replaceTokens(template.subject, values),
-    body: replaceTokens(template.body, values)
+    subject: replaceTokens(template.subject, values).replace(/\s+/g, ' ').trim(),
+    body: replaceTokens(template.body, values).replace(/\n{3,}/g, '\n\n').trim()
   };
 }
 
-function getTaskTemplate(action: CommunicationAction, document: Devis | Facture, documentType: CommunicationDocumentType) {
-  return renderCommunication(action, document, documentType);
+function getTaskTemplate(
+  action: CommunicationAction,
+  document: Devis | Facture,
+  documentType: CommunicationDocumentType,
+  communicationSettings: CrmCommunicationSettings
+) {
+  return renderCommunication(action, document, documentType, communicationSettings);
 }
 
-function createTask(input: Omit<CommunicationTask, 'subject' | 'body'>): CommunicationTask {
-  const rendered = getTaskTemplate(input.action, input.document, input.documentType);
+function createTask(input: Omit<CommunicationTask, 'subject' | 'body'>, communicationSettings: CrmCommunicationSettings): CommunicationTask {
+  const rendered = getTaskTemplate(input.action, input.document, input.documentType, communicationSettings);
   return { ...input, subject: rendered.subject, body: rendered.body };
 }
 
@@ -245,8 +290,10 @@ export function buildCommunicationTasks(
   devisList: Devis[],
   factures: Facture[],
   logs: CommunicationLog[],
-  now = new Date()
+  now = new Date(),
+  communicationSettings?: Partial<CrmCommunicationSettings> | null
 ): CommunicationTask[] {
+  const communication = normalizeCrmCommunicationSettings(communicationSettings);
   const tasks: CommunicationTask[] = [];
 
   devisList.forEach((quote) => {
@@ -279,7 +326,7 @@ export function buildCommunicationTasks(
         lastSentAt: sentLog?.sentAt,
         sentToday: isToday(sentLog?.sentAt, now),
         blockedReason: hasEmail ? undefined : 'Ajoutez une adresse email au devis.'
-      }));
+      }, communication));
       return;
     }
 
@@ -288,8 +335,10 @@ export function buildCommunicationTasks(
 
     const daysSinceSent = diffDays(sentAt || quote.createdAt || quote.date, now);
     const daysSinceReminder = lastReminderAt ? diffDays(lastReminderAt, now) : Number.POSITIVE_INFINITY;
-    const shouldExpiringReminder = expiresIn !== null && expiresIn <= 5;
-    const shouldSoftReminder = daysSinceSent >= 2 && (reminderCount === 0 || daysSinceReminder >= 3);
+    if (!communication.quoteRemindersEnabled) return;
+
+    const shouldExpiringReminder = expiresIn !== null && expiresIn <= communication.quoteExpirationAlertDays;
+    const shouldSoftReminder = daysSinceSent >= communication.quoteFirstReminderDays && (reminderCount === 0 || daysSinceReminder >= communication.quoteReminderCooldownDays);
 
     if (!shouldExpiringReminder && !shouldSoftReminder) return;
 
@@ -317,7 +366,7 @@ export function buildCommunicationTasks(
       lastSentAt: lastReminderAt || sentAt,
       sentToday: alreadySentToday,
       blockedReason: hasEmail ? undefined : 'Ajoutez une adresse email au devis.'
-    }));
+    }, communication));
   });
 
   factures.forEach((invoice) => {
@@ -349,16 +398,18 @@ export function buildCommunicationTasks(
         lastSentAt: sentLog?.sentAt,
         sentToday: isToday(sentLog?.sentAt, now),
         blockedReason: hasEmail ? undefined : 'Ajoutez une adresse email à la facture.'
-      }));
+      }, communication));
       return;
     }
+
+    if (!communication.invoiceRemindersEnabled) return;
 
     const action: CommunicationAction = invoice.status === 'En retard' || (dueIn !== null && dueIn < 0)
       ? 'invoice_overdue'
       : 'invoice_reminder';
-    const shouldRemind = action === 'invoice_overdue' || (dueIn !== null && dueIn <= 3);
+    const shouldRemind = action === 'invoice_overdue' || (dueIn !== null && dueIn <= communication.invoiceDueSoonDays);
     const daysSinceReminder = reminderLog?.sentAt ? diffDays(reminderLog.sentAt, now) : Number.POSITIVE_INFINITY;
-    if (!shouldRemind || daysSinceReminder < 3) return;
+    if (!shouldRemind || daysSinceReminder < communication.invoiceReminderCooldownDays) return;
 
     tasks.push(createTask({
       id: `${action}-${invoice.id}`,
@@ -381,7 +432,7 @@ export function buildCommunicationTasks(
       lastSentAt: reminderLog?.sentAt,
       sentToday: invoiceLogs.some(log => log.action === action && isToday(log.sentAt, now)),
       blockedReason: hasEmail ? undefined : 'Ajoutez une adresse email à la facture.'
-    }));
+    }, communication));
   });
 
   const priorityWeight = { high: 0, medium: 1, normal: 2 };
