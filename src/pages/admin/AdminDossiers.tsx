@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { useSyncedCollection } from '../../hooks/useData';
 import { useAuth } from '../../context/AuthContext';
 import { useOutletContext, useNavigate, useLocation } from 'react-router-dom';
@@ -6,7 +6,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import {
   Plus, Search, Mail, MessageSquare, Settings, FolderOpen,
   Users, Check, Save, RefreshCw, AlertTriangle, Calendar,
-  ChevronLeft, ChevronRight, Info, FileText, CheckCircle2, Trash2, Edit3, Eye, LayoutList, Columns
+  ChevronLeft, ChevronRight, Info, FileText, CheckCircle2, Trash2, Edit3, Eye, LayoutList, Columns, Phone, Send
 } from 'lucide-react';
 import type { Devis, Facture, Visite, Demenagement, UserProfile, FieldMover, FieldTruck, NotificationTemplate } from '../../types';
 import {
@@ -37,7 +37,8 @@ import {
   analyzeDossierQuality,
   matchesDossierQualityFilter,
   type DossierQualityFilter,
-  type DossierQualitySeverity
+  type DossierQualitySeverity,
+  type DossierQualitySummary
 } from '../../lib/admin-dossier-quality';
 import {
   buildTodayActions,
@@ -54,6 +55,16 @@ type DossierPageSize = typeof DOSSIER_PAGE_SIZE_OPTIONS[number];
 type DossierRiskFilter = 'all' | ClientDossier['risk'];
 type DossierQualityFilterOption = 'all' | DossierQualityFilter;
 type DossierSortOption = 'priority' | 'date_asc' | 'amount_desc' | 'client_asc' | 'completion_asc';
+type DossierWorkQueueFilter = 'all' | 'no_task' | 'quote' | 'invoice' | 'planning' | 'move_soon';
+
+const WORK_QUEUE_FILTER_LABELS: Record<DossierWorkQueueFilter, string> = {
+  all: 'Tous',
+  no_task: 'Sans tache',
+  quote: 'Devis',
+  invoice: 'Factures',
+  planning: 'Planning',
+  move_soon: 'Proches'
+};
 
 const DOSSIER_RISK_WEIGHT: Record<ClientDossier['risk'], number> = {
   urgent: 0,
@@ -253,6 +264,14 @@ const getDossierWorkflowActions = (dossier: ClientDossier): ClientDossierWorkflo
           tone: 'primary'
         });
       } else {
+        if (dossier.invoice.status === 'En attente' && !dossier.invoice.sentAt) {
+          actions.push({
+            id: 'send_invoice',
+            label: 'Envoyer facture',
+            description: 'Transmettre la facture au client',
+            tone: 'primary'
+          });
+        }
         actions.push({
           id: 'pay_invoice',
           label: 'Enregistrer le règlement',
@@ -276,6 +295,14 @@ const getDossierWorkflowActions = (dossier: ClientDossier): ClientDossierWorkflo
         description: 'Planifier les compagnons et le camion',
         tone: 'primary'
       });
+      if (dossier.invoice?.status === 'En attente' && !dossier.invoice.sentAt) {
+        actions.push({
+          id: 'send_invoice',
+          label: 'Envoyer facture',
+          description: 'Transmettre la facture au client',
+          tone: 'primary'
+        });
+      }
       if (!dossier.invoice && dossier.quote?.status === 'Signé') {
         actions.push({
           id: 'create_invoice',
@@ -422,6 +449,7 @@ export function AdminDossiers() {
   const [dossierQualityFilter, setDossierQualityFilter] = useState<DossierQualityFilterOption>('all');
   const [dossierOwnerFilter, setDossierOwnerFilter] = useState('all');
   const [dossierSort, setDossierSort] = useState<DossierSortOption>('priority');
+  const [workQueueFilter, setWorkQueueFilter] = useState<DossierWorkQueueFilter>('all');
   const [dossierPageSize, setDossierPageSize] = useState<DossierPageSize>(20);
   const [dossierCurrentPage, setDossierCurrentPage] = useState(1);
   const [kanbanVisibleByStage, setKanbanVisibleByStage] = useState<Record<string, number>>({});
@@ -510,6 +538,37 @@ export function AdminDossiers() {
       .sort((a, b) => a.localeCompare(b, 'fr'))
   ), [allDossiers]);
 
+  const openTaskCountByDossierKey = useMemo(() => {
+    const counts = new Map<string, number>();
+    const addKey = (key?: string) => {
+      const normalizedKey = cleanText(key);
+      if (!normalizedKey) return;
+      counts.set(normalizedKey, (counts.get(normalizedKey) || 0) + 1);
+    };
+
+    dossierTasks.forEach((task) => {
+      if (task.done) return;
+      addKey(task.dossierKey);
+      addKey(task.dossierId);
+    });
+
+    return counts;
+  }, [dossierTasks]);
+
+  const getDossierOpenTaskCount = useCallback((dossier: ClientDossier) => Math.max(
+    openTaskCountByDossierKey.get(dossier.key) || 0,
+    openTaskCountByDossierKey.get(dossier.dossierId) || 0
+  ), [openTaskCountByDossierKey]);
+
+  const matchesWorkQueueFilter = useCallback((dossier: ClientDossier, qualitySummary: DossierQualitySummary) => {
+    if (workQueueFilter === 'all') return true;
+    if (workQueueFilter === 'no_task') return dossier.stage !== 'termine' && getDossierOpenTaskCount(dossier) === 0;
+    if (workQueueFilter === 'quote') return qualitySummary.filters.includes('followup');
+    if (workQueueFilter === 'invoice') return qualitySummary.filters.includes('invoice_risk');
+    if (workQueueFilter === 'planning') return qualitySummary.filters.includes('planning_incomplete') || qualitySummary.filters.includes('move_soon');
+    return qualitySummary.filters.includes('move_soon');
+  }, [getDossierOpenTaskCount, workQueueFilter]);
+
   // Filter dossiers
   const filteredDossiers = useMemo(() => {
     const sortedDossiers = allDossiers.filter(dossier => {
@@ -517,6 +576,7 @@ export function AdminDossiers() {
       const matchesRisk = dossierRiskFilter === 'all' || dossier.risk === dossierRiskFilter;
       const qualitySummary = dossierQualityByKey.get(dossier.key) || analyzeDossierQuality(dossier);
       const matchesQuality = matchesDossierQualityFilter(qualitySummary, dossierQualityFilter);
+      const matchesWorkQueue = matchesWorkQueueFilter(dossier, qualitySummary);
       const matchesOwner = dossierOwnerFilter === 'all' || dossier.owner === dossierOwnerFilter;
 
       const queryLower = activeSearch.toLowerCase().trim();
@@ -532,7 +592,7 @@ export function AdminDossiers() {
         (dossier.invoice?.id && dossier.invoice.id.toLowerCase().includes(queryLower)) ||
         (dossier.move?.id && dossier.move.id.toLowerCase().includes(queryLower));
 
-      return matchesStage && matchesRisk && matchesQuality && matchesOwner && matchesSearch;
+      return matchesStage && matchesRisk && matchesQuality && matchesWorkQueue && matchesOwner && matchesSearch;
     });
 
     return sortedDossiers.sort((a, b) => {
@@ -548,7 +608,7 @@ export function AdminDossiers() {
       if (riskDelta !== 0) return riskDelta;
       return getDossierComparableDate(a) - getDossierComparableDate(b);
     });
-  }, [allDossiers, workflowStageFilter, dossierRiskFilter, dossierQualityFilter, dossierOwnerFilter, activeSearch, dossierSort, dossierQualityByKey]);
+  }, [allDossiers, workflowStageFilter, dossierRiskFilter, dossierQualityFilter, workQueueFilter, dossierOwnerFilter, activeSearch, dossierSort, dossierQualityByKey, openTaskCountByDossierKey, matchesWorkQueueFilter]);
 
   const totalDossierPages = Math.max(1, Math.ceil(filteredDossiers.length / dossierPageSize));
   const safeDossierCurrentPage = Math.min(dossierCurrentPage, totalDossierPages);
@@ -562,7 +622,7 @@ export function AdminDossiers() {
   useEffect(() => {
     setDossierCurrentPage(1);
     setKanbanVisibleByStage({});
-  }, [activeSearch, workflowStageFilter, dossierRiskFilter, dossierQualityFilter, dossierOwnerFilter, dossierSort, dossierPageSize]);
+  }, [activeSearch, workflowStageFilter, dossierRiskFilter, dossierQualityFilter, workQueueFilter, dossierOwnerFilter, dossierSort, dossierPageSize]);
 
   useEffect(() => {
     if (dossierCurrentPage > totalDossierPages) {
@@ -654,6 +714,10 @@ export function AdminDossiers() {
 
   const getDossierPhone = (dossier: ClientDossier) => (
     cleanText(dossier.phone || dossier.request?.phone || dossier.quote?.phone || dossier.visit?.phone)
+  );
+
+  const getDossierEmail = (dossier: ClientDossier) => (
+    cleanText(dossier.quote?.email || dossier.invoice?.email || dossier.request?.email)
   );
 
   const getDossierFromCity = (dossier: ClientDossier) => (
@@ -1313,6 +1377,12 @@ export function AdminDossiers() {
         }
         break;
       }
+      case 'send_invoice': {
+        if (dossier.invoice?.id) {
+          await sendInvoiceEmailFromDossier(dossier, dossier.invoice, 'invoice_send');
+        }
+        break;
+      }
       case 'pay_invoice': {
         if (dossier.invoice?.id) {
           await setFactures(prev => prev.map(f => f.id === dossier.invoice?.id ? { ...f, status: 'Payée' } : f));
@@ -1626,9 +1696,11 @@ export function AdminDossiers() {
     ));
     const overdueInvoices = allDossiers.filter((dossier) => getQuality(dossier).filters.includes('invoice_risk'));
     const moveSoonDossiers = openDossiers.filter((dossier) => getQuality(dossier).filters.includes('move_soon'));
+    const noTaskDossiers = openDossiers.filter((dossier) => getDossierOpenTaskCount(dossier) === 0);
     const openAmount = openDossiers.reduce((sum, dossier) => sum + dossier.amount, 0);
 
     const priorityDossiers = [...openDossiers]
+      .filter((dossier) => matchesWorkQueueFilter(dossier, getQuality(dossier)))
       .sort((a, b) => {
         const qualityDelta = getQuality(b).score - getQuality(a).score;
         if (qualityDelta !== 0) return qualityDelta;
@@ -1636,12 +1708,13 @@ export function AdminDossiers() {
         if (riskDelta !== 0) return riskDelta;
         return getDossierComparableDate(a) - getDossierComparableDate(b);
       })
-      .slice(0, 3);
+      .slice(0, 6);
 
     return {
       openCount: openDossiers.length,
       urgentCount: urgentDossiers.length,
       blockedCount: blockedDossiers.length,
+      noTaskCount: noTaskDossiers.length,
       quoteFollowUpCount: quoteFollowUps.length,
       incompletePlanningCount: incompletePlanning.length,
       overdueInvoiceCount: overdueInvoices.length,
@@ -1649,7 +1722,7 @@ export function AdminDossiers() {
       openAmount,
       priorityDossiers
     };
-  }, [allDossiers, dossierQualityByKey]);
+  }, [allDossiers, dossierQualityByKey, getDossierOpenTaskCount, matchesWorkQueueFilter]);
 
   return (
     <div className="space-y-6">
@@ -1877,6 +1950,34 @@ export function AdminDossiers() {
                   </div>
                 </section>
 
+                <div className="mb-4 flex flex-wrap gap-2">
+                  {[
+                    { id: 'all' as DossierWorkQueueFilter, label: 'Tous', count: cockpitMetrics.openCount },
+                    { id: 'no_task' as DossierWorkQueueFilter, label: 'Sans tache', count: cockpitMetrics.noTaskCount },
+                    { id: 'quote' as DossierWorkQueueFilter, label: 'Devis', count: cockpitMetrics.quoteFollowUpCount },
+                    { id: 'invoice' as DossierWorkQueueFilter, label: 'Factures', count: cockpitMetrics.overdueInvoiceCount },
+                    { id: 'planning' as DossierWorkQueueFilter, label: 'Planning', count: cockpitMetrics.incompletePlanningCount },
+                    { id: 'move_soon' as DossierWorkQueueFilter, label: 'Proches', count: cockpitMetrics.moveSoonCount }
+                  ].map((filter) => {
+                    const active = workQueueFilter === filter.id;
+                    return (
+                      <button
+                        key={filter.id}
+                        type="button"
+                        onClick={() => {
+                          setWorkQueueFilter(filter.id);
+                          setDossierSort('priority');
+                          setDossierCurrentPage(1);
+                        }}
+                        className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-[10px] font-black uppercase tracking-wider transition-all ${active ? 'border-brand-900 bg-brand-900 text-white shadow-sm dark:border-accent dark:bg-accent dark:text-brand-950' : 'border-slate-200 bg-white text-slate-500 hover:border-slate-300 hover:text-brand-900 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300 dark:hover:text-white'}`}
+                      >
+                        <span>{filter.label}</span>
+                        <strong className={`rounded-md px-1.5 py-0.5 text-[9px] ${active ? 'bg-white/15 text-current dark:bg-brand-950/10' : 'bg-slate-100 text-slate-500 dark:bg-slate-900 dark:text-slate-300'}`}>{filter.count}</strong>
+                      </button>
+                    );
+                  })}
+                </div>
+
                 <div className="flex items-center justify-between gap-3">
                   <div>
                     <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">À traiter maintenant</span>
@@ -1887,6 +1988,7 @@ export function AdminDossiers() {
                     onClick={() => {
                       setWorkflowStageFilter('all');
                       setDossierRiskFilter('all');
+                      setWorkQueueFilter('all');
                       setDossierSort('priority');
                     }}
                     className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-800 px-3 py-2 text-[10px] font-black uppercase text-slate-600 dark:text-slate-200"
@@ -2128,6 +2230,9 @@ export function AdminDossiers() {
                   {dossierQualityFilter !== 'all' && (
                     <span className="ml-1 text-slate-400">· Contrôle {DOSSIER_QUALITY_FILTERS.find((filter) => filter.value === dossierQualityFilter)?.label}</span>
                   )}
+                  {workQueueFilter !== 'all' && (
+                    <span className="ml-1 text-slate-400">- File {WORK_QUEUE_FILTER_LABELS[workQueueFilter]}</span>
+                  )}
                 </p>
                 <button
                   type="button"
@@ -2136,6 +2241,7 @@ export function AdminDossiers() {
                     setWorkflowStageFilter('all');
                     setDossierRiskFilter('all');
                     setDossierQualityFilter('all');
+                    setWorkQueueFilter('all');
                     setDossierOwnerFilter('all');
                     setDossierSort('priority');
                     setDossierPageSize(20);
@@ -2168,6 +2274,20 @@ export function AdminDossiers() {
                     const isUrgent = d.risk === 'urgent';
                     const isAttention = d.risk === 'attention';
                     const quality = getDossierQualitySummary(d);
+                    const phone = getDossierPhone(d);
+                    const email = getDossierEmail(d);
+                    const workflowActions = getDossierWorkflowActions(d);
+                    const primaryAction = workflowActions[0];
+                    const quoteQuickAction = quality.issues.some((issue) => issue.kind === 'quote_to_send')
+                      ? { id: 'send_quote', title: 'Envoyer le devis' }
+                      : quality.issues.some((issue) => issue.kind === 'quote_to_follow_up' || issue.kind === 'quote_expiring')
+                        ? { id: 'remind_quote', title: 'Relancer le devis' }
+                        : null;
+                    const invoiceQuickAction = quality.issues.some((issue) => issue.kind === 'invoice_to_send')
+                      ? { id: 'send_invoice', title: 'Envoyer la facture' }
+                      : quality.issues.some((issue) => issue.kind === 'invoice_overdue')
+                        ? { id: 'remind_invoice', title: 'Relancer la facture' }
+                        : null;
 
                     return (
                       <tr
@@ -2180,7 +2300,7 @@ export function AdminDossiers() {
                             <span className={`w-2 h-2 rounded-full shrink-0 ${isUrgent ? 'bg-red-500 animate-pulse' : isAttention ? 'bg-amber-500' : 'bg-emerald-500'}`} />
                             <div>
                               <strong className="font-extrabold text-slate-900 dark:text-white text-xs">{d.clientName}</strong>
-                              <p className="text-[10px] text-slate-400 mt-0.5">{d.phone || 'Pas de téléphone'}</p>
+                              <p className="text-[10px] text-slate-400 mt-0.5">{phone || 'Pas de téléphone'}</p>
                               {quality.primaryIssue && (
                                 <div className="mt-1 flex flex-wrap items-center gap-1">
                                   <span className={`inline-flex border px-1.5 py-0.5 rounded text-[8px] font-black uppercase ${getDossierQualityPillClass(quality.primaryIssue.severity)}`}>
@@ -2229,26 +2349,79 @@ export function AdminDossiers() {
                           </div>
                         </td>
                         <td className="p-4 text-right">
-                          <div className="flex items-center justify-end gap-1.5 opacity-80 group-hover:opacity-100 transition-opacity">
+                          <div className="flex flex-wrap items-center justify-end gap-1.5 opacity-80 group-hover:opacity-100 transition-opacity">
+                            {phone && (
+                              <a
+                                href={`tel:${phone.replace(/\s+/g, '')}`}
+                                onClick={(e) => e.stopPropagation()}
+                                className="p-1.5 bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border dark:border-slate-800 rounded-md text-slate-600 dark:text-slate-300 shadow-sm"
+                                title="Appeler le client"
+                                aria-label="Appeler le client"
+                              >
+                                <Phone size={13} />
+                              </a>
+                            )}
+                            {email && (
+                              <a
+                                href={`mailto:${email}`}
+                                onClick={(e) => e.stopPropagation()}
+                                className="p-1.5 bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border dark:border-slate-800 rounded-md text-slate-600 dark:text-slate-300 shadow-sm"
+                                title="Envoyer un email"
+                                aria-label="Envoyer un email"
+                              >
+                                <Mail size={13} />
+                              </a>
+                            )}
+                            {quoteQuickAction && (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  runDossierWorkflowAction(quoteQuickAction.id, d);
+                                }}
+                                className="p-1.5 bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/30 dark:hover:bg-amber-950/50 border border-amber-200 dark:border-amber-900/50 rounded-md text-amber-700 dark:text-amber-300 shadow-sm"
+                                title={quoteQuickAction.title}
+                                aria-label={quoteQuickAction.title}
+                              >
+                                <Send size={13} />
+                              </button>
+                            )}
+                            {invoiceQuickAction && (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  runDossierWorkflowAction(invoiceQuickAction.id, d);
+                                }}
+                                className="p-1.5 bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/30 dark:hover:bg-rose-950/50 border border-rose-200 dark:border-rose-900/50 rounded-md text-rose-700 dark:text-rose-300 shadow-sm"
+                                title={invoiceQuickAction.title}
+                                aria-label={invoiceQuickAction.title}
+                              >
+                                <FileText size={13} />
+                              </button>
+                            )}
                             <button
+                              type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 setSelectedDossierKey(d.key);
                               }}
                               className="p-1.5 bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border dark:border-slate-800 rounded-md text-slate-600 dark:text-slate-300 shadow-sm"
                               title="Ouvrir le dossier"
+                              aria-label="Ouvrir le dossier"
                             >
                               <Eye size={13} />
                             </button>
-                            {getDossierWorkflowActions(d).length > 0 && (
+                            {primaryAction && (
                               <button
+                                type="button"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  const actions = getDossierWorkflowActions(d);
-                                  runDossierWorkflowAction(actions[0].id, d);
+                                  runDossierWorkflowAction(primaryAction.id, d);
                                 }}
                                 className="p-1.5 bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:hover:bg-accent-hover rounded-md text-white dark:text-brand-950 shadow-sm"
-                                title={getDossierWorkflowActions(d)[0].label}
+                                title={primaryAction.label}
+                                aria-label={primaryAction.label}
                               >
                                 <ChevronRight size={13} />
                               </button>
