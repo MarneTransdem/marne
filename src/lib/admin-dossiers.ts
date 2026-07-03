@@ -67,6 +67,10 @@ export interface DossierTask {
   priority: 'normal' | 'urgent';
   done: boolean;
   createdAt: string;
+  source?: 'manual' | 'today_action';
+  sourceActionId?: string;
+  sourceIssueKind?: string;
+  sourceLabel?: string;
 }
 
 export interface DossierOwnerAssignment {

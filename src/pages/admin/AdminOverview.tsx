@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { 
   ShieldCheck, Coins, CreditCard, FileText, Truck, MapPin, 
   AlertTriangle, TrendingUp, Clock, ArrowUpRight, ArrowUp, ArrowDown,
-  Calendar, UserCheck, AlertCircle, Sparkles
+  Calendar, UserCheck, AlertCircle, Sparkles, ClipboardList, CheckCircle2
 } from 'lucide-react';
 import { useSyncedCollection } from '../../hooks/useData';
 import type { Devis, Facture, Visite, Demenagement } from '../../types';
-import type { AdminPublicRequest } from '../../lib/admin-dossiers';
+import type { AdminPublicRequest, DossierTask } from '../../lib/admin-dossiers';
 import { buildPremiumCockpit, formatPremiumCurrency } from '../../lib/crm-premium';
+import { buildClientDossiers } from '../../lib/admin-dossier-engine';
+import { buildTodayActions, summarizeTodayActions, type TodayActionTone } from '../../lib/admin-today-actions';
 import { useCrmSettings } from '../../hooks/useCrmSettings';
 
 const getPremiumToneClasses = (tone: 'critical' | 'warning' | 'growth' | 'success') => {
@@ -25,6 +27,12 @@ const getPremiumButtonClasses = (tone: 'critical' | 'warning' | 'growth' | 'succ
   if (tone === 'growth') return 'bg-sky-600 hover:bg-sky-700 text-white';
   return 'bg-emerald-600 hover:bg-emerald-700 text-white';
 };
+
+const getTodayActionClasses = (tone: TodayActionTone) => {
+  if (tone === 'critical') return 'bg-red-50 text-red-900 border-red-200 dark:bg-red-950/20 dark:text-red-300 dark:border-red-900/40';
+  if (tone === 'warning') return 'bg-amber-50 text-amber-900 border-amber-200 dark:bg-amber-950/20 dark:text-amber-300 dark:border-amber-900/40';
+  return 'bg-sky-50 text-sky-900 border-sky-200 dark:bg-sky-950/20 dark:text-sky-300 dark:border-sky-900/40';
+};
 export function AdminOverview() {
   const { user, role } = useAuth();
   const navigate = useNavigate();
@@ -35,6 +43,36 @@ export function AdminOverview() {
   const [visites] = useSyncedCollection<Visite>('visites');
   const [devisList] = useSyncedCollection<Devis>('devis');
   const [demenagements] = useSyncedCollection<Demenagement>('demenagements');
+  const [dossierTasks] = useSyncedCollection<DossierTask>('dossierTasks');
+  const [dossierOwners] = useSyncedCollection<{ id?: string; key: string; dossierId?: string; owner: string }>('dossierOwners');
+
+  const dossierOwnerOverrides = useMemo(() => {
+    const overrides: Record<string, string> = {};
+    dossierOwners.forEach((owner) => {
+      if (owner.dossierId) overrides[owner.dossierId] = owner.owner;
+      if (owner.key) overrides[owner.key] = owner.owner;
+    });
+    return overrides;
+  }, [dossierOwners]);
+
+  const allDossiers = useMemo(() => buildClientDossiers({
+    publicRequests,
+    visites,
+    devisList,
+    factures,
+    demenagements,
+    dossierOwnerOverrides
+  }), [publicRequests, visites, devisList, factures, demenagements, dossierOwnerOverrides]);
+
+  const allTodayActions = useMemo(() => buildTodayActions({
+    dossiers: allDossiers,
+    tasks: dossierTasks,
+    role,
+    maxActions: 20
+  }), [allDossiers, dossierTasks, role]);
+
+  const todayActions = useMemo(() => allTodayActions.slice(0, 5), [allTodayActions]);
+  const todayActionStats = useMemo(() => summarizeTodayActions(allTodayActions), [allTodayActions]);
 
   const premiumCockpit = useMemo(() => buildPremiumCockpit({
     publicRequests,
@@ -364,6 +402,61 @@ export function AdminOverview() {
             {roleFocus.primaryCta}
             <ArrowUpRight size={13} />
           </button>
+        </div>
+      </section>
+
+      <section className="bg-white/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-5 md:p-6 shadow-sm">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+          <div>
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">Actions du jour</span>
+            <h3 className="mt-1 text-lg font-black text-brand-900 dark:text-white">Priorites CRM convertibles en taches</h3>
+            <p className="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400">
+              {todayActionStats.critical} critiques, {todayActionStats.warning} a suivre, {todayActionStats.alreadyTasked} deja couvertes.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => navigate('/admin/dossiers')}
+            className="inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-900 px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-white transition-colors hover:bg-brand-hover dark:bg-accent dark:text-brand-950"
+          >
+            Ouvrir dossiers
+            <ArrowUpRight size={13} />
+          </button>
+        </div>
+
+        <div className="mt-5 grid grid-cols-1 xl:grid-cols-5 gap-3">
+          {todayActions.map((action) => (
+            <button
+              key={action.id}
+              type="button"
+              onClick={() => navigate(action.route)}
+              className={`text-left rounded-2xl border p-4 transition-all hover:-translate-y-0.5 hover:shadow-md ${getTodayActionClasses(action.tone)}`}
+            >
+              <div className="flex items-start justify-between gap-3">
+                <ClipboardList size={16} className="mt-0.5 shrink-0 opacity-75" />
+                {action.alreadyTasked ? (
+                  <CheckCircle2 size={15} className="shrink-0 text-emerald-600 dark:text-emerald-300" />
+                ) : (
+                  <span className="rounded-md bg-white/70 px-1.5 py-0.5 text-[8px] font-black uppercase opacity-80 dark:bg-slate-950/40">A creer</span>
+                )}
+              </div>
+              <span className="mt-3 block text-[9px] font-black uppercase tracking-wider opacity-70 truncate">{action.clientName}</span>
+              <strong className="mt-1 block text-xs font-black leading-snug">{action.title}</strong>
+              <p className="mt-1 line-clamp-2 text-[11px] font-semibold opacity-80">{action.description}</p>
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                <span className="rounded-md bg-white/70 px-1.5 py-0.5 text-[8px] font-black uppercase opacity-80 dark:bg-slate-950/40">{action.priority === 'urgent' ? 'Urgent' : 'Normal'}</span>
+                <span className="rounded-md bg-white/70 px-1.5 py-0.5 text-[8px] font-black uppercase opacity-80 dark:bg-slate-950/40">{action.dueDate}</span>
+              </div>
+              <span className="mt-3 inline-flex text-[9px] font-black uppercase tracking-wider opacity-80">{action.cta}</span>
+            </button>
+          ))}
+
+          {todayActions.length === 0 && (
+            <div className="xl:col-span-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-emerald-800 dark:bg-emerald-950/20 dark:border-emerald-900/40 dark:text-emerald-300">
+              <p className="text-sm font-black">Aucune action sensible aujourd'hui.</p>
+              <p className="mt-1 text-xs font-semibold opacity-80">Les controles dossier ne signalent pas de priorite immediate pour votre role.</p>
+            </div>
+          )}
         </div>
       </section>
       {/* Cockpit Premium */}

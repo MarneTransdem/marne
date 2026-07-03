@@ -39,6 +39,13 @@ import {
   type DossierQualityFilter,
   type DossierQualitySeverity
 } from '../../lib/admin-dossier-quality';
+import {
+  buildTodayActions,
+  hasOpenTaskForTodayAction,
+  summarizeTodayActions,
+  type TodayAction,
+  type TodayActionTone
+} from '../../lib/admin-today-actions';
 
 const DOSSIER_PAGE_SIZE_OPTIONS = [10, 20, 50, 100] as const;
 const KANBAN_STAGE_BATCH_SIZE = 10;
@@ -91,6 +98,12 @@ const getDossierQualityScoreClass = (score: number) => {
   if (score >= 55) return 'text-amber-700 dark:text-amber-300';
   if (score >= 25) return 'text-sky-700 dark:text-sky-300';
   return 'text-emerald-700 dark:text-emerald-300';
+};
+
+const getTodayActionToneClasses = (tone: TodayActionTone) => {
+  if (tone === 'critical') return 'bg-red-50 text-red-800 border-red-200 dark:bg-red-950/20 dark:text-red-300 dark:border-red-900/40';
+  if (tone === 'warning') return 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/20 dark:text-amber-300 dark:border-amber-900/40';
+  return 'bg-sky-50 text-sky-800 border-sky-200 dark:bg-sky-950/20 dark:text-sky-300 dark:border-sky-900/40';
 };
 const SEED_TEMPLATES: NotificationTemplate[] = [
   {
@@ -1438,7 +1451,7 @@ export function AdminDossiers() {
     context?.pushNotification('Note Ajoutée 📝', `Note interne enregistrée.`, 'success');
   };
 
-  const handleAddTask = async (task: Omit<DossierTask, 'id' | 'createdAt' | 'done'>) => {
+  const handleAddTask = async (task: Omit<DossierTask, 'id' | 'createdAt' | 'done'>, options?: { notify?: boolean }) => {
     const taskId = createEntityId('TSK');
     const newTask: DossierTask = {
       ...task,
@@ -1454,9 +1467,41 @@ export function AdminDossiers() {
       description: `${newTask.title} - ${newTask.owner}`,
       status: newTask.priority === 'urgent' ? 'warning' : 'info'
     });
-    context?.pushNotification('Tâche Ajoutée 📌', `Nouvelle tâche de suivi créée.`, 'success');
+    if (options?.notify !== false) {
+      context?.pushNotification('Tache ajoutee', 'Nouvelle tache de suivi creee.', 'success');
+    }
   };
 
+  const handleCreateTaskFromTodayAction = async (action: TodayAction, options?: { notify?: boolean }) => {
+    const dossier = allDossiers.find((item) => item.key === action.dossierKey || item.dossierId === action.dossierId);
+    if (!dossier) {
+      if (options?.notify !== false) {
+        context?.pushNotification('Action indisponible', 'Le dossier lie a cette action est introuvable.', 'warning');
+      }
+      return false;
+    }
+
+    if (hasOpenTaskForTodayAction(dossierTasks, action)) {
+      if (options?.notify !== false) {
+        context?.pushNotification('Tache deja ouverte', 'Une tache identique existe deja sur ce dossier.', 'info');
+      }
+      return false;
+    }
+
+    await handleAddTask({
+      dossierId: dossier.dossierId,
+      dossierKey: dossier.key,
+      title: action.taskTitle,
+      owner: hasMeaningfulOwner(dossier.owner) ? dossier.owner : currentUserLabel || 'Administrateur',
+      dueDate: action.dueDate,
+      priority: action.priority,
+      source: 'today_action',
+      sourceActionId: action.id,
+      sourceIssueKind: action.issueKind,
+      sourceLabel: action.title
+    }, options);
+    return true;
+  };
   const handleToggleTask = async (taskId: string) => {
     const task = dossierTasks.find(item => item.id === taskId);
     await setDossierTasks(prev => prev.map(t => t.id === taskId ? { ...t, done: !t.done } : t));
@@ -1517,6 +1562,41 @@ export function AdminDossiers() {
   const drawerWorkflowActions = useMemo(() => {
     return activeDossier ? getDossierWorkflowActions(activeDossier) : [];
   }, [activeDossier]);
+
+  const allTodayActions = useMemo(() => buildTodayActions({
+    dossiers: allDossiers,
+    tasks: dossierTasks,
+    role,
+    maxActions: 20
+  }), [allDossiers, dossierTasks, role]);
+
+  const todayActions = useMemo(() => allTodayActions.slice(0, 6), [allTodayActions]);
+  const creatableTodayActions = useMemo(() => todayActions.filter((action) => !action.alreadyTasked).slice(0, 3), [todayActions]);
+  const todayActionStats = useMemo(() => summarizeTodayActions(allTodayActions), [allTodayActions]);
+
+  const handleCreateTopTodayTasks = async () => {
+    if (creatableTodayActions.length === 0) {
+      context?.pushNotification('Actions du jour', 'Toutes les actions visibles sont deja couvertes.', 'info');
+      return;
+    }
+
+    let createdCount = 0;
+    for (const action of creatableTodayActions) {
+      const created = await handleCreateTaskFromTodayAction(action, { notify: false });
+      if (created) createdCount += 1;
+    }
+
+    if (createdCount > 0) {
+      context?.pushNotification(
+        'Actions du jour',
+        `${createdCount} tache${createdCount > 1 ? 's' : ''} prioritaire${createdCount > 1 ? 's' : ''} creee${createdCount > 1 ? 's' : ''}.`,
+        'success'
+      );
+      return;
+    }
+
+    context?.pushNotification('Actions du jour', 'Aucune tache supplementaire creee.', 'info');
+  };
 
   const cockpitMetrics = useMemo(() => {
     const openDossiers = allDossiers.filter((dossier) => dossier.stage !== 'termine');
@@ -1703,6 +1783,85 @@ export function AdminDossiers() {
 
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-0">
               <div className="p-5">
+                <section className="mb-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 p-4 shadow-sm">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                    <div>
+                      <span className="text-[10px] font-black uppercase tracking-widest text-accent">Actions du jour</span>
+                      <h3 className="mt-1 text-sm font-black text-brand-950 dark:text-white">Taches proposees par le CRM</h3>
+                      <p className="mt-1 text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+                        {todayActionStats.openToCreate} a creer, {todayActionStats.alreadyTasked} deja couvertes par une tache ouverte.
+                      </p>
+                    </div>
+                    <div className="flex flex-col sm:items-end gap-2">
+                      <div className="grid grid-cols-3 gap-2 text-center text-[10px] font-black uppercase">
+                        <div className="rounded-lg border border-red-200 bg-red-50 px-2 py-1.5 text-red-700 dark:bg-red-950/20 dark:border-red-900/40 dark:text-red-300">
+                          {todayActionStats.critical} critiques
+                        </div>
+                        <div className="rounded-lg border border-amber-200 bg-amber-50 px-2 py-1.5 text-amber-700 dark:bg-amber-950/20 dark:border-amber-900/40 dark:text-amber-300">
+                          {todayActionStats.warning} suivis
+                        </div>
+                        <div className="rounded-lg border border-slate-200 bg-slate-50 px-2 py-1.5 text-slate-600 dark:bg-slate-950 dark:border-slate-800 dark:text-slate-300">
+                          {todayActionStats.total} total
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        disabled={creatableTodayActions.length === 0}
+                        onClick={handleCreateTopTodayTasks}
+                        className="inline-flex items-center justify-center rounded-lg bg-brand-900 px-3 py-2 text-[10px] font-black uppercase text-white shadow-sm transition-colors hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-50 dark:bg-accent dark:text-brand-950"
+                      >
+                        {creatableTodayActions.length > 0 ? `Creer ${creatableTodayActions.length} tache${creatableTodayActions.length > 1 ? 's' : ''}` : 'Tout couvert'}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 space-y-2">
+                    {todayActions.map((action) => (
+                      <div key={action.id} className={`rounded-xl border p-3 ${getTodayActionToneClasses(action.tone)}`}>
+                        <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-3">
+                          <div className="min-w-0">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <span className="text-[9px] font-black uppercase tracking-wider opacity-70">{action.clientName}</span>
+                              <span className="rounded-md bg-white/60 dark:bg-slate-950/40 px-1.5 py-0.5 text-[8px] font-black uppercase opacity-80">{getDossierStageLabel(action.stage)}</span>
+                              {action.alreadyTasked && (
+                                <span className="rounded-md bg-emerald-100 px-1.5 py-0.5 text-[8px] font-black uppercase text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300">Tache ouverte</span>
+                              )}
+                              <span className="rounded-md bg-white/60 px-1.5 py-0.5 text-[8px] font-black uppercase opacity-80 dark:bg-slate-950/40">{action.priority === 'urgent' ? 'Urgent' : 'Normal'}</span>
+                              <span className="rounded-md bg-white/60 px-1.5 py-0.5 text-[8px] font-black uppercase opacity-80 dark:bg-slate-950/40">Echeance {action.dueDate}</span>
+                            </div>
+                            <p className="mt-1 text-xs font-black text-current">{action.title}</p>
+                            <p className="mt-0.5 line-clamp-2 text-[11px] font-semibold opacity-80">{action.description}</p>
+                          </div>
+                          <div className="flex shrink-0 items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => setSelectedDossierKey(action.dossierKey)}
+                              className="rounded-lg bg-white/80 hover:bg-white px-3 py-2 text-[10px] font-black uppercase text-slate-700 shadow-sm dark:bg-slate-950/60 dark:text-slate-100"
+                            >
+                              Ouvrir
+                            </button>
+                            <button
+                              type="button"
+                              disabled={action.alreadyTasked}
+                              onClick={() => handleCreateTaskFromTodayAction(action)}
+                              className="rounded-lg bg-brand-900 hover:bg-brand-hover px-3 py-2 text-[10px] font-black uppercase text-white shadow-sm disabled:cursor-not-allowed disabled:opacity-50 dark:bg-accent dark:text-brand-950"
+                            >
+                              {action.alreadyTasked ? 'Couverte' : 'Creer tache'}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+
+                    {todayActions.length === 0 && (
+                      <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-800 dark:bg-emerald-950/20 dark:border-emerald-900/40 dark:text-emerald-300">
+                        <p className="text-xs font-black">Aucune action critique pour ce role.</p>
+                        <p className="mt-1 text-[11px] font-semibold opacity-80">Les dossiers ouverts ne demandent pas de tache immediate selon les controles actuels.</p>
+                      </div>
+                    )}
+                  </div>
+                </section>
+
                 <div className="flex items-center justify-between gap-3">
                   <div>
                     <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">À traiter maintenant</span>
