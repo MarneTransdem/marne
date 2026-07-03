@@ -221,7 +221,33 @@ export function ClientDossierDrawer({
   const selectedTruck = trucks.find((truck) => truck.plateNumber === assignmentTruck);
   const selectedTruckCapacityOk = !selectedTruck || !dossier.move || selectedTruck.capacity >= dossier.move.volume;
   const canSubmitAssignment = !!dossier.move && assignmentMoverNames.length > 0 && !!assignmentTruck && !!assignmentLeader && selectedTruckCapacityOk;
-  const canEditMoveAssignment = !!dossier.move && ['À planifier', 'Programmé'].includes(dossier.move.status);
+  const normalizedMoveStatus = String(dossier.move?.status || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+  const canEditMoveAssignment = !!dossier.move && (normalizedMoveStatus.includes('planifier') || normalizedMoveStatus.includes('programme'));
+  const clientEmail = dossier.quote?.email || dossier.invoice?.email || dossier.request?.email || '';
+  const clientPhone = dossier.phone || dossier.request?.phone || dossier.quote?.phone || dossier.visit?.phone || '';
+  const dossierDate = dossier.move?.date || dossier.visit?.date || dossier.quote?.date || dossier.request?.date || dossier.date || '';
+  const dossierVolume = dossier.move?.volume || dossier.quote?.volume || dossier.visit?.volumeEstimated || dossier.request?.volume || '';
+  const routeReady = Boolean(dossier.fromCity && dossier.toCity);
+  const contactReady = Boolean(clientEmail && clientPhone);
+  const dateReady = Boolean(dossierDate);
+  const volumeReady = Boolean(dossierVolume);
+  const quoteReady = dossier.quote ? dossier.quote.status !== 'Brouillon' : !['devis', 'facturation', 'planning', 'intervention'].includes(dossier.stage);
+  const invoiceReady = dossier.invoice ? dossier.invoice.status !== 'En retard' : true;
+  const planningReady = dossier.move ? Boolean(dossier.move.teamLeader && dossier.move.assignedTruck && dossier.move.assignedMovers?.length) : true;
+  const readyChecklist = [
+    { id: 'contact', label: 'Contact', detail: clientEmail && clientPhone ? 'Email et telephone OK' : 'Email ou telephone a completer', done: contactReady },
+    { id: 'route', label: 'Trajet', detail: routeReady ? `${dossier.fromCity} vers ${dossier.toCity}` : 'Depart ou arrivee a preciser', done: routeReady },
+    { id: 'date_volume', label: 'Date / volume', detail: dateReady && volumeReady ? `${dossierDate} - ${dossierVolume} m3` : 'Date ou volume a confirmer', done: dateReady && volumeReady },
+    { id: 'quote', label: 'Devis', detail: dossier.quote ? dossier.quote.status : 'A creer si necessaire', done: quoteReady },
+    { id: 'invoice', label: 'Facture', detail: dossier.invoice ? dossier.invoice.status : 'Pas de facture bloquante', done: invoiceReady },
+    { id: 'planning', label: 'Planning', detail: dossier.move ? (planningReady ? 'Equipe et camion affectes' : 'Equipe ou camion a affecter') : 'Pas encore en planning', done: planningReady }
+  ];
+  const readyCount = readyChecklist.filter((item) => item.done).length;
+  const readyPercent = Math.round((readyCount / readyChecklist.length) * 100);
+  const firstOpenTask = tasks.find((task) => !task.done);
 
   const toggleAssignmentMover = (moverName: string) => {
     setAssignmentMoverNames((current) => (
@@ -344,114 +370,143 @@ export function ClientDossierDrawer({
       <button type="button" className="hidden md:block flex-1 cursor-default" onClick={onClose} aria-label="Fermer le dossier" />
 
       <aside className="w-full md:max-w-3xl h-full bg-white dark:bg-slate-950 border-l border-slate-200/80 dark:border-slate-800 shadow-2xl overflow-y-auto">
-        <div className="sticky top-0 z-10 bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl border-b border-slate-200/75 dark:border-slate-800 p-5">
+        <div className="sticky top-0 z-10 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-b border-slate-200/75 dark:border-slate-800 p-5">
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
-              <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border text-[10px] font-black uppercase tracking-wider ${riskClass}`}>
-                <AlertCircle size={12} />
-                {stage?.label || 'Dossier'}
-              </span>
-              <h2 className="text-xl font-black text-brand-950 dark:text-white mt-3 tracking-tight truncate">{dossier.clientName}</h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                {dossier.fromCity || 'Départ à préciser'} → {dossier.toCity || 'Arrivée à préciser'}
+              <div className="flex flex-wrap items-center gap-2">
+                <span className={`inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-[10px] font-black uppercase tracking-wider ${riskClass}`}>
+                  <AlertCircle size={12} />
+                  {stage?.label || 'Dossier'}
+                </span>
+                <span className="rounded-md bg-slate-100 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-slate-500 dark:bg-slate-900 dark:text-slate-300">
+                  {dossier.dossierId}
+                </span>
+              </div>
+              <h2 className="mt-3 truncate text-2xl font-black tracking-tight text-brand-950 dark:text-white">{dossier.clientName}</h2>
+              <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">
+                {dossier.fromCity || 'Depart a preciser'} {'->'} {dossier.toCity || 'Arrivee a preciser'}
               </p>
             </div>
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-lg bg-white hover:bg-slate-50 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200/75 dark:border-slate-800 text-slate-600 dark:text-slate-300 shadow-sm"
+              className="rounded-xl border border-slate-200/75 bg-white p-2 text-slate-600 shadow-sm hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800"
               aria-label="Fermer"
             >
               <X size={18} />
             </button>
           </div>
 
-          <div className="mt-5 grid grid-cols-3 gap-3 text-xs">
-            <div className="bg-slate-50/80 dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-lg p-3 shadow-sm">
-              <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">Montant</span>
-              <p className="font-black text-brand-950 dark:text-white mt-1">{dossier.amount.toLocaleString('fr-FR')} €</p>
+          <div className="mt-4 grid grid-cols-2 gap-2 text-[11px] md:grid-cols-5">
+            <div className="rounded-xl bg-slate-50 px-3 py-2 dark:bg-slate-900">
+              <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Telephone</span>
+              <span className="mt-1 block truncate font-black text-brand-950 dark:text-white">{clientPhone || 'A completer'}</span>
             </div>
-            <div className="bg-slate-50/80 dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-lg p-3 shadow-sm">
-              <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">Avancement</span>
-              <p className="font-black text-brand-950 dark:text-white mt-1">{dossier.completion}%</p>
+            <div className="rounded-xl bg-slate-50 px-3 py-2 dark:bg-slate-900">
+              <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Email</span>
+              <span className="mt-1 block truncate font-black text-brand-950 dark:text-white">{clientEmail || 'A completer'}</span>
             </div>
-            <div className="bg-slate-50/80 dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-lg p-3 shadow-sm">
-              <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">Tâches</span>
-              <p className="font-black text-brand-950 dark:text-white mt-1">{openTaskCount} ouvertes</p>
+            <div className="rounded-xl bg-slate-50 px-3 py-2 dark:bg-slate-900">
+              <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Date</span>
+              <span className="mt-1 block truncate font-black text-brand-950 dark:text-white">{dossierDate || 'A fixer'}</span>
+            </div>
+            <div className="rounded-xl bg-slate-50 px-3 py-2 dark:bg-slate-900">
+              <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Montant</span>
+              <span className="mt-1 block truncate font-black text-brand-950 dark:text-white">{dossier.amount.toLocaleString('fr-FR')} EUR</span>
+            </div>
+            <div className="rounded-xl bg-slate-50 px-3 py-2 dark:bg-slate-900">
+              <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">A faire</span>
+              <span className="mt-1 block truncate font-black text-brand-950 dark:text-white">{openTaskCount} tache{openTaskCount > 1 ? 's' : ''}</span>
             </div>
           </div>
         </div>
 
         <div className="p-5 space-y-5">
-          <section className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/75 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
-            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-              <div>
-                <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 flex items-center gap-2">
-                  <ShieldCheck size={14} className="text-accent" />
-                  Qualite dossier
-                </h3>
-                <p className="mt-2 text-sm font-black text-brand-950 dark:text-white">{qualitySummary.actionLabel}</p>
-                <p className="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400">{qualitySummary.reason}</p>
+          <section className="grid grid-cols-1 gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="rounded-2xl border border-slate-200/75 bg-white/85 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/85">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">Prochaine action</span>
+                  <h3 className="mt-2 text-lg font-black text-brand-950 dark:text-white">{qualitySummary.actionLabel}</h3>
+                  <p className="mt-1 text-xs font-semibold leading-relaxed text-slate-500 dark:text-slate-400">{qualitySummary.reason}</p>
+                </div>
+                <div className="shrink-0 text-right">
+                  <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Risque</span>
+                  <strong className={`block text-xl font-black ${qualityScoreClass}`}>{qualitySummary.score}/100</strong>
+                </div>
               </div>
-              <div className="shrink-0 text-right">
-                <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Score risque</span>
-                <strong className={`block text-lg font-black ${qualityScoreClass}`}>{qualitySummary.score}/100</strong>
-                <span className="text-[10px] font-black uppercase text-slate-400">{qualitySummary.label}</span>
-              </div>
-            </div>
 
-            <div className="mt-4 flex flex-wrap gap-2">
-              {qualitySummary.issues.slice(0, 6).map((issue) => (
-                <span key={issue.kind} className={`inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 text-[10px] font-black uppercase ${getQualityIssueClass(issue.severity)}`} title={issue.detail}>
-                  {issue.label}
-                </span>
-              ))}
-              {qualitySummary.issues.length === 0 && (
-                <span className="inline-flex items-center gap-1 rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[10px] font-black uppercase text-emerald-700 dark:bg-emerald-950/20 dark:border-emerald-900/40 dark:text-emerald-300">
-                  Aucun blocage detecte
-                </span>
+              {firstOpenTask && (
+                <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 dark:border-amber-900/40 dark:bg-amber-950/20">
+                  <p className="text-[10px] font-black uppercase tracking-wider text-amber-700 dark:text-amber-300">Tache ouverte</p>
+                  <p className="mt-1 text-xs font-black text-amber-900 dark:text-amber-200">{firstOpenTask.title}</p>
+                </div>
               )}
-            </div>
-          </section>
 
-          <section className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/75 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
-              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-slate-500">
-                <User size={14} className="text-accent" />
-                Responsable
+              <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-[1fr_170px]">
+                <select
+                  value={dossier.owner}
+                  onChange={(event) => onAssignOwner(dossier.key, event.target.value)}
+                  className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-3 text-xs font-bold text-slate-800 focus:outline-none focus:border-accent dark:border-slate-800 dark:bg-slate-950 dark:text-white"
+                >
+                  {ownerOptions.map((owner) => (
+                    <option key={owner} value={owner}>{owner}</option>
+                  ))}
+                </select>
+                <button
+                  type="button"
+                  disabled={!canRunPrimaryAction}
+                  onClick={() => {
+                    if (primaryWorkflowAction) {
+                      onRunWorkflowAction(primaryWorkflowAction.id, dossier);
+                    } else if (primaryActionTab) {
+                      onNavigate(primaryActionTab);
+                    }
+                  }}
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-brand-900 px-3 text-xs font-black text-white hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-50 dark:bg-accent dark:text-brand-950"
+                >
+                  Traiter
+                  <ArrowRight size={14} />
+                </button>
               </div>
-              <select
-                value={dossier.owner}
-                onChange={(event) => onAssignOwner(dossier.key, event.target.value)}
-                className="mt-3 w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 dark:text-white focus:outline-none focus:border-accent"
-              >
-                {ownerOptions.map((owner) => (
-                  <option key={owner} value={owner}>{owner}</option>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200/75 bg-white/85 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/85">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">Dossier pret ?</span>
+                  <h3 className="mt-2 text-lg font-black text-brand-950 dark:text-white">{readyCount}/{readyChecklist.length} points OK</h3>
+                </div>
+                <strong className={`text-2xl font-black ${readyPercent === 100 ? 'text-emerald-600 dark:text-emerald-300' : readyPercent >= 70 ? 'text-amber-600 dark:text-amber-300' : 'text-red-600 dark:text-red-300'}`}>{readyPercent}%</strong>
+              </div>
+              <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+                <div className="h-full rounded-full bg-accent transition-all" style={{ width: `${readyPercent}%` }} />
+              </div>
+              <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {readyChecklist.map((item) => (
+                  <div key={item.id} className={`rounded-xl border px-3 py-2 ${item.done ? 'border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-900/40 dark:bg-emerald-950/20 dark:text-emerald-300' : 'border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200'}`}>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 size={13} className={item.done ? 'text-emerald-600 dark:text-emerald-300' : 'text-slate-300 dark:text-slate-600'} />
+                      <span className="text-[10px] font-black uppercase tracking-wider">{item.label}</span>
+                    </div>
+                    <p className="mt-1 truncate text-[10px] font-semibold opacity-75">{item.detail}</p>
+                  </div>
                 ))}
-              </select>
-            </div>
-
-            <div className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/75 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
-              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-slate-500">
-                <ClipboardList size={14} className="text-accent" />
-                Action prioritaire
               </div>
-              <p className="mt-3 text-sm font-black text-brand-950 dark:text-white">{qualitySummary.actionLabel}</p>
-              <button
-                type="button"
-                disabled={!canRunPrimaryAction}
-                onClick={() => {
-                  if (primaryWorkflowAction) {
-                    onRunWorkflowAction(primaryWorkflowAction.id, dossier);
-                  } else if (primaryActionTab) {
-                    onNavigate(primaryActionTab);
-                  }
-                }}
-                className="mt-4 w-full bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:hover:bg-accent-hover text-white dark:text-brand-950 rounded-xl px-3 py-2 text-xs font-black flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {qualitySummary.actionLabel || primaryWorkflowAction?.label || primaryActionLabel}
-                <ArrowRight size={14} />
-              </button>
+              {qualitySummary.issues.length > 0 && (
+                <details className="mt-3">
+                  <summary className="cursor-pointer text-[10px] font-black uppercase tracking-wider text-slate-500 hover:text-brand-900 dark:text-slate-400 dark:hover:text-white">
+                    Voir les points a corriger
+                  </summary>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {qualitySummary.issues.slice(0, 6).map((issue) => (
+                      <span key={issue.kind} className={`inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 text-[10px] font-black uppercase ${getQualityIssueClass(issue.severity)}`} title={issue.detail}>
+                        {issue.label}
+                      </span>
+                    ))}
+                  </div>
+                </details>
+              )}
             </div>
           </section>
 
@@ -713,90 +768,24 @@ export function ClientDossierDrawer({
             </section>
           )}
 
-          <section className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/75 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
-            <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 flex items-center gap-2">
+          <details className="rounded-2xl border border-slate-200/75 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
+            <summary className="flex cursor-pointer items-center gap-2 text-xs font-black uppercase tracking-wider text-slate-500">
               <ClockDot /> Timeline
-            </h3>
-            <div className="mt-4 space-y-3">
-              {timelineItems.map((item) => (
-                <div key={`${item.label}-${item.id}`} className="flex gap-3">
-                  <div className="mt-1 w-7 h-7 rounded-full bg-accent/10 text-accent flex items-center justify-center shrink-0">
-                    {item.icon}
-                  </div>
-                  <div className="min-w-0 flex-1 border-b border-slate-100 dark:border-slate-800 pb-3">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <p className="text-sm font-black text-brand-950 dark:text-white">{item.label}</p>
-                      <span className="text-[10px] font-bold text-slate-400">{item.date}</span>
-                    </div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{item.meta}</p>
-                    <span className="inline-flex mt-2 px-2 py-0.5 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-[10px] font-bold text-slate-500">
-                      {item.status}
-                    </span>
-                  </div>
-                </div>
-              ))}
-              {timelineItems.length === 0 && (
-                <p className="text-xs text-slate-500">Aucun jalon métier rattaché pour le moment.</p>
-              )}
-            </div>
-          </section>
+            </summary>$1
+          </details>
 
-          <section className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/75 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
-            <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 flex items-center gap-2">
+          <details className="rounded-2xl border border-slate-200/75 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
+            <summary className="flex cursor-pointer items-center gap-2 text-xs font-black uppercase tracking-wider text-slate-500">
               <ShieldCheck size={14} className="text-accent" />
               Historique CRM
-            </h3>
-            <div className="mt-4 space-y-2">
-              {events.map((event) => (
-                <div key={event.id} className={`rounded-2xl border p-3 ${getEventClass(event.status)}`}>
-                  <div className="flex items-start gap-3">
-                    <div className="mt-0.5 shrink-0">{getEventIcon(event)}</div>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <p className="text-xs font-black text-current truncate">{event.title}</p>
-                        <span className="text-[10px] font-bold opacity-70">{formatEventDate(event.createdAt)}</span>
-                      </div>
-                      {event.description && (
-                        <p className="mt-1 text-[11px] font-semibold opacity-80 leading-relaxed">{event.description}</p>
-                      )}
-                      <div className="mt-2 flex flex-wrap items-center gap-1.5 text-[9px] font-black uppercase tracking-wider opacity-75">
-                        <span>{event.type}</span>
-                        {event.channel && <span>- {event.channel}</span>}
-                        {event.recipient && <span className="normal-case tracking-normal">- {event.recipient}</span>}
-                        {event.actor && <span className="normal-case tracking-normal">- {event.actor}</span>}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-              {events.length === 0 && (
-                <p className="text-xs text-slate-500">Aucune preuve CRM encore enregistree sur ce dossier.</p>
-              )}
-            </div>
-          </section>
-          <section className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/75 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
-            <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 flex items-center gap-2">
+            </summary>$1
+          </details>
+          <details className="rounded-2xl border border-slate-200/75 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
+            <summary className="flex cursor-pointer items-center gap-2 text-xs font-black uppercase tracking-wider text-slate-500">
               <FolderOpen size={14} className="text-accent" />
-              Pièces liées
-            </h3>
-            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {linkedDocuments.map((document) => (
-                <button
-                  key={document.reference}
-                  type="button"
-                  disabled={!canNavigate(document.tab)}
-                  onClick={() => onNavigate(document.tab)}
-                  className="text-left bg-white/75 dark:bg-slate-950/40 border border-slate-200/75 dark:border-slate-800 rounded-2xl p-3 hover:border-accent disabled:opacity-50 disabled:hover:border-slate-100 dark:disabled:hover:border-slate-800 transition-colors"
-                >
-                  <p className="text-xs font-black text-brand-950 dark:text-white">{document.label}</p>
-                  <p className="text-[10px] text-slate-400 mt-1">{document.reference} · {document.status}</p>
-                </button>
-              ))}
-              {linkedDocuments.length === 0 && (
-                <p className="text-xs text-slate-500">Aucune pièce rattachée.</p>
-              )}
-            </div>
-          </section>
+              Pieces liees
+            </summary>$1
+          </details>
 
           <section className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/75 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
             <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 flex items-center gap-2">
@@ -872,43 +861,12 @@ export function ClientDossierDrawer({
             </div>
           </section>
 
-          <section className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/75 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
-            <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 flex items-center gap-2">
+          <details className="rounded-2xl border border-slate-200/75 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
+            <summary className="flex cursor-pointer items-center gap-2 text-xs font-black uppercase tracking-wider text-slate-500">
               <StickyNote size={14} className="text-accent" />
               Notes internes
-            </h3>
-            <form onSubmit={submitNote} className="mt-4 space-y-2">
-              <textarea
-                value={noteContent}
-                onChange={(event) => setNoteContent(event.target.value)}
-                placeholder="Ajouter une note interne"
-                rows={3}
-                className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-accent resize-none"
-              />
-              <button
-                type="submit"
-                disabled={!noteContent.trim()}
-                className="w-full bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white rounded-xl px-3 py-2 text-xs font-black disabled:opacity-50"
-              >
-                Enregistrer la note
-              </button>
-            </form>
-
-            <div className="mt-4 space-y-3">
-              {notes.map((note) => (
-                <div key={note.id} className="bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-3">
-                  <div className="flex items-center justify-between gap-2">
-                    <p className="text-[10px] font-black text-slate-500 truncate">{note.author}</p>
-                    <span className="text-[10px] text-slate-400">{note.createdAt}</span>
-                  </div>
-                  <p className="text-xs text-slate-700 dark:text-slate-300 mt-2 leading-relaxed">{note.content}</p>
-                </div>
-              ))}
-              {notes.length === 0 && (
-                <p className="text-xs text-slate-500">Aucune note interne enregistrée.</p>
-              )}
-            </div>
-          </section>
+            </summary>$1
+          </details>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pb-4">
             <button
