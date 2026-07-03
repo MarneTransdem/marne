@@ -1,12 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import {
-  AlertTriangle,
   ArrowUpRight,
-  CalendarDays,
   CheckCircle2,
   ClipboardList,
-  Clock,
   FileText,
   Filter,
   FolderOpen,
@@ -55,6 +52,9 @@ const TASK_FILTERS: Array<{ id: TaskFilter; label: string }> = [
   { id: 'done', label: 'Terminees' },
   { id: 'all', label: 'Tout' }
 ];
+
+const PRIMARY_TASK_FILTERS = TASK_FILTERS.filter((filter) => ['open', 'mine', 'today'].includes(filter.id));
+const ADVANCED_TASK_FILTERS = TASK_FILTERS.filter((filter) => !['open', 'mine', 'today'].includes(filter.id));
 
 const ISSUE_CATEGORY: Record<string, TaskCategory> = {
   quote_to_send: 'devis',
@@ -128,6 +128,20 @@ const getTaskSourceLabel = (task: DossierTask) => {
   return task.sourceLabel || 'Tache manuelle';
 };
 
+const getRecommendedActionLabel = (item: EnrichedTask) => {
+  const issueKind = item.task.sourceIssueKind;
+  if (issueKind === 'quote_to_send') return 'Envoyer le devis';
+  if (issueKind === 'quote_to_follow_up' || issueKind === 'quote_expiring') return 'Relancer le client';
+  if (issueKind === 'invoice_to_send') return 'Envoyer la facture';
+  if (issueKind === 'invoice_overdue') return 'Relancer le paiement';
+  if (issueKind === 'planning_incomplete') return 'Completer le planning';
+  if (issueKind === 'move_soon') return "Controler l'intervention";
+  if (item.category === 'devis') return 'Ouvrir les devis';
+  if (item.category === 'factures') return 'Ouvrir les factures';
+  if (item.category === 'planning') return 'Ouvrir le planning';
+  return 'Completer le dossier';
+};
+
 const getPriorityClasses = (task: DossierTask, isOverdue: boolean) => {
   if (isOverdue) return 'bg-red-50 text-red-700 border-red-200 dark:bg-red-950/25 dark:text-red-300 dark:border-red-900/40';
   if (task.priority === 'urgent') return 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/25 dark:text-amber-300 dark:border-amber-900/40';
@@ -165,6 +179,8 @@ export function AdminTaches() {
   const [localQuery, setLocalQuery] = useState('');
   const [ownerFilter, setOwnerFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+  const [dismissedRecommendationIds, setDismissedRecommendationIds] = useState<string[]>([]);
 
   const currentUserLabel = user?.displayName || user?.email || 'Utilisateur CRM';
   const currentUserEmail = user?.email || '';
@@ -296,9 +312,18 @@ export function AdminTaches() {
     done: filterCounts.get('done') || 0
   }), [filterCounts]);
 
+  const recommendedTask = useMemo(() => {
+    const candidates = enrichedTasks.filter((item) => !item.task.done && !dismissedRecommendationIds.includes(item.task.id));
+    return candidates.find((item) => sameOwner(item.task.owner, currentUserLabel, currentUserEmail)) || candidates[0] || null;
+  }, [currentUserEmail, currentUserLabel, dismissedRecommendationIds, enrichedTasks]);
+
   useEffect(() => {
     setCurrentPage(1);
   }, [activeFilter, ownerFilter, query]);
+
+  useEffect(() => {
+    setDismissedRecommendationIds((prev) => prev.filter((id) => enrichedTasks.some((item) => item.task.id === id && !item.task.done)));
+  }, [enrichedTasks]);
 
   const registerTaskEvent = async (task: DossierTask, done: boolean) => {
     const dossier = dossierByKey.get(normalize(task.dossierId || task.dossierKey)) || null;
@@ -339,6 +364,21 @@ export function AdminTaches() {
     navigate(`/admin/dossiers?dossier=${encodeURIComponent(key)}`);
   };
 
+  const renderFilterButton = (filter: typeof TASK_FILTERS[number]) => {
+    const active = activeFilter === filter.id;
+    return (
+      <button
+        key={filter.id}
+        type="button"
+        onClick={() => setActiveFilter(filter.id)}
+        className={`inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-[10px] font-black uppercase tracking-wider transition-all ${active ? 'border-accent bg-accent text-brand-950 shadow-sm' : 'border-slate-200 bg-white text-slate-600 hover:border-accent dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300'}`}
+      >
+        {filter.label}
+        <span className="rounded-md bg-white/70 px-1.5 py-0.5 text-[9px] text-brand-950 dark:bg-slate-900 dark:text-white">{filterCounts.get(filter.id) || 0}</span>
+      </button>
+    );
+  };
+
   const resultStart = visibleTasks.length === 0 ? 0 : (safePage - 1) * PAGE_SIZE + 1;
   const resultEnd = Math.min(visibleTasks.length, safePage * PAGE_SIZE);
 
@@ -363,56 +403,74 @@ export function AdminTaches() {
           </button>
         </div>
 
-        <div className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-5">
-          <button type="button" onClick={() => setActiveFilter('open')} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-left transition-colors hover:border-accent dark:border-slate-800 dark:bg-slate-950/50">
-            <ClipboardList size={17} className="text-slate-500" />
-            <span className="mt-3 block text-2xl font-black text-brand-950 dark:text-white">{metrics.open}</span>
-            <span className="text-[10px] font-black uppercase tracking-wider text-slate-500">Ouvertes</span>
-          </button>
-          <button type="button" onClick={() => setActiveFilter('urgent')} className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-left transition-colors hover:border-amber-300 dark:border-amber-900/40 dark:bg-amber-950/20">
-            <AlertTriangle size={17} className="text-amber-600" />
-            <span className="mt-3 block text-2xl font-black text-amber-800 dark:text-amber-300">{metrics.urgent}</span>
-            <span className="text-[10px] font-black uppercase tracking-wider text-amber-700 dark:text-amber-300">Urgentes</span>
-          </button>
-          <button type="button" onClick={() => setActiveFilter('overdue')} className="rounded-2xl border border-red-200 bg-red-50 p-4 text-left transition-colors hover:border-red-300 dark:border-red-900/40 dark:bg-red-950/20">
-            <Clock size={17} className="text-red-600" />
-            <span className="mt-3 block text-2xl font-black text-red-800 dark:text-red-300">{metrics.overdue}</span>
-            <span className="text-[10px] font-black uppercase tracking-wider text-red-700 dark:text-red-300">En retard</span>
-          </button>
-          <button type="button" onClick={() => setActiveFilter('today')} className="rounded-2xl border border-sky-200 bg-sky-50 p-4 text-left transition-colors hover:border-sky-300 dark:border-sky-900/40 dark:bg-sky-950/20">
-            <CalendarDays size={17} className="text-sky-600" />
-            <span className="mt-3 block text-2xl font-black text-sky-800 dark:text-sky-300">{metrics.today}</span>
-            <span className="text-[10px] font-black uppercase tracking-wider text-sky-700 dark:text-sky-300">Aujourd'hui</span>
-          </button>
-          <button type="button" onClick={() => setActiveFilter('done')} className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-left transition-colors hover:border-emerald-300 dark:border-emerald-900/40 dark:bg-emerald-950/20">
-            <CheckCircle2 size={17} className="text-emerald-600" />
-            <span className="mt-3 block text-2xl font-black text-emerald-800 dark:text-emerald-300">{metrics.done}</span>
-            <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700 dark:text-emerald-300">Terminees</span>
-          </button>
+        <div className="mt-6 grid gap-4 xl:grid-cols-[minmax(0,1fr)_280px]">
+          <div className="rounded-3xl border border-accent/30 bg-accent/10 p-4 dark:border-accent/25 dark:bg-accent/10 md:p-5">
+            {recommendedTask ? (
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <div className="min-w-0">
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-900 dark:text-accent">Prochaine action recommandee</span>
+                  <h3 className="mt-2 text-xl font-black text-brand-950 dark:text-white">{getRecommendedActionLabel(recommendedTask)}</h3>
+                  <p className="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">{recommendedTask.task.title}</p>
+                  <div className="mt-3 flex flex-wrap items-center gap-2 text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    <span className="rounded-lg bg-white/80 px-2 py-1 dark:bg-slate-950/50">{recommendedTask.dossier?.clientName || recommendedTask.task.dossierKey}</span>
+                    <span className="rounded-lg bg-white/80 px-2 py-1 dark:bg-slate-950/50">{formatDate(recommendedTask.task.dueDate)}</span>
+                    <span className="rounded-lg bg-white/80 px-2 py-1 dark:bg-slate-950/50">{recommendedTask.task.owner || 'Non assigne'}</span>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2 sm:flex-row lg:flex-col lg:w-40">
+                  <button
+                    type="button"
+                    onClick={() => navigate(CATEGORY_ROUTES[recommendedTask.category])}
+                    className="inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-900 px-4 py-3 text-[11px] font-black uppercase text-white hover:bg-brand-hover dark:bg-accent dark:text-brand-950"
+                  >
+                    Traiter
+                    <ArrowUpRight size={13} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => openDossier(recommendedTask)}
+                    className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-[11px] font-black uppercase text-slate-700 hover:border-accent dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200"
+                  >
+                    Dossier
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setDismissedRecommendationIds((prev) => [...prev, recommendedTask.task.id])}
+                    className="inline-flex items-center justify-center rounded-2xl px-4 py-2 text-[10px] font-black uppercase text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white"
+                  >
+                    Passer
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="py-2">
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-700 dark:text-emerald-300">Journee claire</span>
+                <h3 className="mt-2 text-xl font-black text-brand-950 dark:text-white">Aucune action ouverte prioritaire</h3>
+                <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">Les taches visibles sont terminees ou volontairement passees pour cette session.</p>
+              </div>
+            )}
+          </div>
+
+          <div className="grid grid-cols-3 gap-2 xl:grid-cols-1">
+            <button type="button" onClick={() => setActiveFilter('open')} className="rounded-2xl border border-slate-200 bg-white p-3 text-left transition-colors hover:border-accent dark:border-slate-800 dark:bg-slate-950/50">
+              <span className="block text-xl font-black text-brand-950 dark:text-white">{metrics.open}</span>
+              <span className="text-[9px] font-black uppercase tracking-wider text-slate-500">A faire</span>
+            </button>
+            <button type="button" onClick={() => setActiveFilter('overdue')} className="rounded-2xl border border-red-200 bg-red-50 p-3 text-left transition-colors hover:border-red-300 dark:border-red-900/40 dark:bg-red-950/20">
+              <span className="block text-xl font-black text-red-800 dark:text-red-300">{metrics.overdue}</span>
+              <span className="text-[9px] font-black uppercase tracking-wider text-red-700 dark:text-red-300">Retard</span>
+            </button>
+            <button type="button" onClick={() => setActiveFilter('urgent')} className="rounded-2xl border border-amber-200 bg-amber-50 p-3 text-left transition-colors hover:border-amber-300 dark:border-amber-900/40 dark:bg-amber-950/20">
+              <span className="block text-xl font-black text-amber-800 dark:text-amber-300">{metrics.urgent}</span>
+              <span className="text-[9px] font-black uppercase tracking-wider text-amber-700 dark:text-amber-300">Urgent</span>
+            </button>
+          </div>
         </div>
       </section>
 
       <section className="rounded-3xl border border-slate-200/80 bg-white/90 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/90 md:p-5">
-        <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
-          <div className="flex flex-wrap gap-2">
-            {TASK_FILTERS.map((filter) => {
-              const active = activeFilter === filter.id;
-              return (
-                <button
-                  key={filter.id}
-                  type="button"
-                  onClick={() => setActiveFilter(filter.id)}
-                  className={`inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-[10px] font-black uppercase tracking-wider transition-all ${active ? 'border-accent bg-accent text-brand-950 shadow-sm' : 'border-slate-200 bg-white text-slate-600 hover:border-accent dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300'}`}
-                >
-                  <Filter size={12} />
-                  {filter.label}
-                  <span className="rounded-md bg-white/70 px-1.5 py-0.5 text-[9px] text-brand-950 dark:bg-slate-900 dark:text-white">{filterCounts.get(filter.id) || 0}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-[minmax(220px,1fr)_190px] xl:w-[520px]">
+        <div className="flex flex-col gap-3">
+          <div className="grid grid-cols-1 gap-2 lg:grid-cols-[minmax(240px,1fr)_auto] lg:items-center">
             <label className="relative block">
               <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
               <input
@@ -423,17 +481,39 @@ export function AdminTaches() {
                 className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 pl-9 pr-3 text-xs font-semibold text-slate-700 outline-none transition-all focus:border-accent focus:ring-2 focus:ring-accent/20 disabled:opacity-60 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200"
               />
             </label>
-            <select
-              value={ownerFilter}
-              onChange={(event) => setOwnerFilter(event.target.value)}
-              className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-3 text-xs font-bold text-slate-700 outline-none transition-all focus:border-accent dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200"
+            <button
+              type="button"
+              onClick={() => setShowAdvancedFilters((value) => !value)}
+              className={`inline-flex h-11 items-center justify-center gap-2 rounded-xl border px-4 text-[10px] font-black uppercase tracking-wider transition-all ${showAdvancedFilters ? 'border-accent bg-accent text-brand-950' : 'border-slate-200 bg-white text-slate-600 hover:border-accent dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300'}`}
             >
-              <option value="all">Tous responsables</option>
-              {ownerOptions.map((owner) => (
-                <option key={owner} value={owner}>{owner}</option>
-              ))}
-            </select>
+              <Filter size={13} />
+              Plus de filtres
+            </button>
           </div>
+
+          <div className="flex flex-wrap gap-2">
+            {PRIMARY_TASK_FILTERS.map(renderFilterButton)}
+          </div>
+
+          {showAdvancedFilters && (
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-950/50">
+              <div className="flex flex-wrap gap-2">
+                {ADVANCED_TASK_FILTERS.map(renderFilterButton)}
+              </div>
+              <div className="mt-3 max-w-xs">
+                <select
+                  value={ownerFilter}
+                  onChange={(event) => setOwnerFilter(event.target.value)}
+                  className="h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-xs font-bold text-slate-700 outline-none transition-all focus:border-accent dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200"
+                >
+                  <option value="all">Tous responsables</option>
+                  {ownerOptions.map((owner) => (
+                    <option key={owner} value={owner}>{owner}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800">
