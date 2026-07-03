@@ -26,12 +26,13 @@ import {
   TrendingUp,
   UserCircle,
   Settings,
-  Send
+  Send,
+  ClipboardList
 } from 'lucide-react';
 import { ADMIN_TAB_LABELS, getAccessibleTabs, type AdminTab } from '../../../lib/admin-permissions';
 
 const CRM_SIDEBAR_SECTIONS: Array<{ title: string; tabs: AdminTab[] }> = [
-  { title: 'Pilotage', tabs: ['overview', 'dossiers', 'analytics'] },
+  { title: 'Pilotage', tabs: ['overview', 'dossiers', 'taches', 'analytics'] },
   { title: 'Relation client', tabs: ['demandes', 'visites', 'devis'] },
   { title: 'Finance', tabs: ['factures', 'relances'] },
   { title: 'Opérations', tabs: ['planning'] },
@@ -42,6 +43,7 @@ const CRM_SIDEBAR_SECTIONS: Array<{ title: string; tabs: AdminTab[] }> = [
 const getAdminTabIcon = (tab: AdminTab, size = 16) => {
   if (tab === 'overview') return <Briefcase size={size} />;
   if (tab === 'dossiers') return <FolderOpen size={size} />;
+  if (tab === 'taches') return <ClipboardList size={size} />;
   if (tab === 'demandes') return <FolderOpen size={size} />;
   if (tab === 'devis') return <FileText size={size} />;
   if (tab === 'factures') return <CreditCard size={size} />;

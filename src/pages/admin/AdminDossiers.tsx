@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSyncedCollection } from '../../hooks/useData';
 import { useAuth } from '../../context/AuthContext';
-import { useOutletContext, useNavigate } from 'react-router-dom';
+import { useOutletContext, useNavigate, useLocation } from 'react-router-dom';
 import { doc, setDoc } from 'firebase/firestore';
 import {
   Plus, Search, Mail, MessageSquare, Settings, FolderOpen,
@@ -384,6 +384,7 @@ const hasMeaningfulOwner = (owner?: string) => {
 export function AdminDossiers() {
   const { user, role, moduleAccess } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const context = useOutletContext<AdminOutletContextType>();
   const { communicationSettings } = useCrmSettings();
 
@@ -473,6 +474,20 @@ export function AdminDossiers() {
     if (!selectedDossierKey) return null;
     return allDossiers.find(d => d.key === selectedDossierKey) || null;
   }, [allDossiers, selectedDossierKey]);
+
+  useEffect(() => {
+    const rawDossierKey = new URLSearchParams(location.search).get('dossier');
+    if (!rawDossierKey) return;
+    const normalizedTarget = normalizeDossierKey(rawDossierKey);
+    const targetDossier = allDossiers.find((dossier) => (
+      normalizeDossierKey(dossier.key) === normalizedTarget ||
+      normalizeDossierKey(dossier.dossierId) === normalizedTarget ||
+      normalizeDossierKey(dossier.clientName) === normalizedTarget
+    ));
+    if (!targetDossier || selectedDossierKey === targetDossier.key) return;
+    setActiveTab('dossiers');
+    setSelectedDossierKey(targetDossier.key);
+  }, [allDossiers, location.search, selectedDossierKey]);
 
   const activeDossierKeys = useMemo(() => {
     if (!selectedDossierKey) return new Set<string>();

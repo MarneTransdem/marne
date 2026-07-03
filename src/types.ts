@@ -123,6 +123,7 @@ export interface FieldTruck {
 export type AdminModuleAccessTab =
   | 'overview'
   | 'dossiers'
+  | 'taches'
   | 'demandes'
   | 'devis'
   | 'factures'

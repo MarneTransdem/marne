@@ -25,6 +25,7 @@ const FormulasPage = lazy(() => import('./pages/Formulas'));
 const AdminLayout = lazy(() => import('./components/admin/layout/AdminLayout').then(module => ({ default: module.AdminLayout })));
 const AdminOverview = lazy(() => import('./pages/admin/AdminOverview').then(module => ({ default: module.AdminOverview })));
 const AdminDossiers = lazy(() => import('./pages/admin/AdminDossiers').then(module => ({ default: module.AdminDossiers })));
+const AdminTaches = lazy(() => import('./pages/admin/AdminTaches').then(module => ({ default: module.AdminTaches })));
 const AdminDemandes = lazy(() => import('./pages/admin/AdminDemandes').then(module => ({ default: module.AdminDemandes })));
 const AdminDevis = lazy(() => import('./pages/admin/AdminDevis').then(module => ({ default: module.AdminDevis })));
 const AdminFactures = lazy(() => import('./pages/admin/AdminFactures').then(module => ({ default: module.AdminFactures })));
@@ -92,6 +93,7 @@ function AppRoutes() {
         <Route index element={<Navigate to="overview" replace />} />
         <Route path="overview" element={<AdminOverview />} />
         <Route path="dossiers" element={<AdminDossiers />} />
+        <Route path="taches" element={<AdminTaches />} />
         <Route path="demandes" element={<AdminDemandes />} />
         <Route path="devis" element={<AdminDevis />} />
         <Route path="factures" element={<AdminFactures />} />

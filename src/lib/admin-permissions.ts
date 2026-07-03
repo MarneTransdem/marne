@@ -3,6 +3,7 @@ import type { Role } from '../types';
 export type AdminTab =
   | 'overview'
   | 'dossiers'
+  | 'taches'
   | 'demandes'
   | 'devis'
   | 'factures'
@@ -45,6 +46,11 @@ export const ADMIN_TAB_LABELS: Record<AdminTab, { desktop: string; mobile: strin
     desktop: 'Dossiers clients',
     mobile: 'Dossiers',
     title: 'Dossiers Clients'
+  },
+  taches: {
+    desktop: 'Travail du jour',
+    mobile: 'Taches',
+    title: 'Travail du Jour'
   },
   demandes: {
     desktop: 'Demandes publiques',
@@ -106,6 +112,7 @@ export const ADMIN_TAB_LABELS: Record<AdminTab, { desktop: string; mobile: strin
 const ADMIN_TAB_ORDER: AdminTab[] = [
   'overview',
   'dossiers',
+  'taches',
   'demandes',
   'devis',
   'factures',
@@ -122,6 +129,7 @@ const ADMIN_TAB_ORDER: AdminTab[] = [
 export const MANAGEABLE_ADMIN_TABS: AdminTab[] = [
   'overview',
   'dossiers',
+  'taches',
   'demandes',
   'devis',
   'factures',
@@ -133,10 +141,10 @@ export const MANAGEABLE_ADMIN_TABS: AdminTab[] = [
 ];
 
 const ROLE_TABS: Record<Role, AdminTab[]> = {
-  gérant: ['overview', 'dossiers', 'demandes', 'devis', 'factures', 'relances', 'visites', 'planning', 'collaborateurs', 'analytics', 'profil', 'parametres'],
-  secrétaire: ['dossiers', 'demandes', 'devis', 'factures', 'relances', 'visites', 'planning', 'profil', 'parametres'],
-  commercial: ['dossiers', 'demandes', 'visites', 'planning', 'simulateur', 'profil', 'parametres'],
-  chef_equipe: ['dossiers', 'planning', 'profil', 'parametres']
+  gérant: ['overview', 'dossiers', 'taches', 'demandes', 'devis', 'factures', 'relances', 'visites', 'planning', 'collaborateurs', 'analytics', 'profil', 'parametres'],
+  secrétaire: ['dossiers', 'taches', 'demandes', 'devis', 'factures', 'relances', 'visites', 'planning', 'profil', 'parametres'],
+  commercial: ['dossiers', 'taches', 'demandes', 'visites', 'planning', 'simulateur', 'profil', 'parametres'],
+  chef_equipe: ['dossiers', 'taches', 'planning', 'profil', 'parametres']
 };
 
 const ROLE_COLLECTIONS: Record<Role, AdminCollection[]> = {
@@ -244,7 +252,8 @@ export function canAccessCollection(
   if (collectionName === 'visites') return canAccessTab(role, 'visites', moduleAccess);
   if (collectionName === 'demenagements') return canAccessTab(role, 'planning', moduleAccess);
   if (collectionName === 'movers' || collectionName === 'trucks') return canAccessTab(role, 'planning', moduleAccess);
-  if (collectionName === 'dossierNotes' || collectionName === 'dossierTasks' || collectionName === 'dossierOwners') return canAccessTab(role, 'dossiers', moduleAccess);
+  if (collectionName === 'dossierTasks') return canAccessTab(role, 'dossiers', moduleAccess) || canAccessTab(role, 'taches', moduleAccess);
+  if (collectionName === 'dossierNotes' || collectionName === 'dossierOwners') return canAccessTab(role, 'dossiers', moduleAccess);
   if (collectionName === 'notification_templates') return canAccessTab(role, 'dossiers', moduleAccess);
   if (collectionName === 'collaborateurs') return canAccessTab(role, 'collaborateurs', moduleAccess);
 
