@@ -347,6 +347,67 @@ export function AdminOverview() {
       ]
     };
   }, [role, premiumCockpit]);
+
+  const managerDecisionCards = useMemo(() => {
+    const financeActions = premiumCockpit.metrics.invoicesToSend + premiumCockpit.metrics.dueSoonInvoices + premiumCockpit.metrics.overdueInvoices;
+    const planningRisk = premiumCockpit.metrics.movesUnassigned + premiumCockpit.metrics.visitsNext7;
+
+    return [
+      {
+        id: 'cash',
+        label: 'Argent à encaisser',
+        value: formatPremiumCurrency(pendingInvoicesSum),
+        helper: `${financeActions} action${financeActions > 1 ? 's' : ''} finance à traiter`,
+        route: '/admin/factures',
+        cta: 'Encaisser',
+        icon: CreditCard,
+        className: 'bg-emerald-50 text-emerald-900 border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-300 dark:border-emerald-900/40'
+      },
+      {
+        id: 'requests',
+        label: 'Demandes chaudes',
+        value: newPublicRequestCount,
+        helper: `${premiumCockpit.metrics.openRequests} demandes ouvertes au total`,
+        route: '/admin/demandes',
+        cta: 'Qualifier',
+        icon: UserCheck,
+        className: 'bg-sky-50 text-sky-900 border-sky-200 dark:bg-sky-950/20 dark:text-sky-300 dark:border-sky-900/40'
+      },
+      {
+        id: 'dossiers',
+        label: 'Dossiers critiques',
+        value: todayActionStats.critical,
+        helper: `${todayActionStats.openToCreate} action${todayActionStats.openToCreate > 1 ? 's' : ''} à créer`,
+        route: '/admin/dossiers',
+        cta: 'Débloquer',
+        icon: AlertTriangle,
+        className: 'bg-red-50 text-red-900 border-red-200 dark:bg-red-950/20 dark:text-red-300 dark:border-red-900/40'
+      },
+      {
+        id: 'margin',
+        label: 'Marge à corriger',
+        value: formatPremiumCurrency(premiumCockpit.metrics.quoteMarginGap),
+        helper: `${premiumCockpit.metrics.quotesMarginAtRisk} devis sous surveillance`,
+        route: '/admin/devis',
+        cta: 'Revoir',
+        icon: TrendingUp,
+        className: 'bg-amber-50 text-amber-900 border-amber-200 dark:bg-amber-950/20 dark:text-amber-300 dark:border-amber-900/40'
+      },
+      {
+        id: 'planning',
+        label: 'Planning à risque',
+        value: planningRisk,
+        helper: `${premiumCockpit.metrics.movesUnassigned} chantier${premiumCockpit.metrics.movesUnassigned > 1 ? 's' : ''} à affecter`,
+        route: '/admin/planning',
+        cta: 'Planifier',
+        icon: Calendar,
+        className: 'bg-slate-50 text-slate-900 border-slate-200 dark:bg-slate-950/60 dark:text-slate-200 dark:border-slate-800'
+      }
+    ];
+  }, [newPublicRequestCount, pendingInvoicesSum, premiumCockpit, todayActionStats]);
+
+  const isManagerView = roleFocus.eyebrow === 'Cockpit gérant';
+
   return (
     <div className="space-y-8 animate-fade-in text-slate-800 dark:text-slate-100">
       {/* Banner */}
@@ -377,31 +438,57 @@ export function AdminOverview() {
       </div>
 
       <section className='bg-white/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-5 md:p-6 shadow-sm'>
-        <div className='grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_minmax(300px,420px)] gap-5 items-center'>
-          <div className='space-y-2'>
-            <span className='text-[10px] font-black uppercase tracking-[0.2em] text-accent'>{roleFocus.eyebrow}</span>
-            <h3 className='text-xl md:text-2xl font-black tracking-tight text-brand-950 dark:text-white'>{roleFocus.title}</h3>
-            <p className='text-sm font-medium text-slate-500 dark:text-slate-400 max-w-3xl'>{roleFocus.description}</p>
+        <div className='flex flex-col gap-5'>
+          <div className='flex flex-col xl:flex-row xl:items-end xl:justify-between gap-4'>
+            <div className='space-y-2'>
+              <span className='text-[10px] font-black uppercase tracking-[0.2em] text-accent'>{roleFocus.eyebrow}</span>
+              <h3 className='text-xl md:text-2xl font-black tracking-tight text-brand-950 dark:text-white'>{isManagerView ? 'Les 5 décisions du matin' : roleFocus.title}</h3>
+              <p className='text-sm font-medium text-slate-500 dark:text-slate-400 max-w-3xl'>
+                {isManagerView ? 'Un résumé court, actionnable et connecté aux bons modules pour piloter sans se perdre dans les détails.' : roleFocus.description}
+              </p>
+            </div>
+            <button
+              type='button'
+              onClick={() => navigate(isManagerView ? '/admin/dossiers' : roleFocus.primaryRoute)}
+              className='inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-900 px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-white transition-colors hover:bg-brand-hover dark:bg-accent dark:text-brand-950'
+            >
+              {isManagerView ? 'Ouvrir les priorités' : roleFocus.primaryCta}
+              <ArrowUpRight size={13} />
+            </button>
           </div>
-          <div className='grid grid-cols-3 gap-2'>
-            {roleFocus.checks.map((item) => (
-              <div key={item.label} className='rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/75 dark:border-slate-800 p-3 min-h-20'>
-                <span className='block text-[9px] font-black uppercase tracking-wider text-slate-400 leading-tight'>{item.label}</span>
-                <strong className='mt-2 block text-lg font-black text-brand-900 dark:text-white truncate'>{item.value}</strong>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className='mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-t border-slate-100 dark:border-slate-800 pt-4'>
-          <p className='text-[11px] font-semibold text-slate-500 dark:text-slate-400'>Vue personnalisée selon le rôle connecté, pour réduire les clics et éviter les priorités noyées.</p>
-          <button
-            type='button'
-            onClick={() => navigate(roleFocus.primaryRoute)}
-            className='inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-900 px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-white transition-colors hover:bg-brand-hover dark:bg-accent dark:text-brand-950'
-          >
-            {roleFocus.primaryCta}
-            <ArrowUpRight size={13} />
-          </button>
+
+          {isManagerView ? (
+            <div className='grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-5 gap-3'>
+              {managerDecisionCards.map((card) => {
+                const Icon = card.icon;
+                return (
+                  <button
+                    key={card.id}
+                    type='button'
+                    onClick={() => navigate(card.route)}
+                    className={`text-left rounded-2xl border p-4 min-h-32 transition-all hover:-translate-y-0.5 hover:shadow-md ${card.className}`}
+                  >
+                    <div className='flex items-start justify-between gap-3'>
+                      <Icon size={18} className='shrink-0 opacity-80' />
+                      <span className='rounded-md bg-white/70 px-1.5 py-0.5 text-[8px] font-black uppercase tracking-wider opacity-80 dark:bg-slate-950/40'>{card.cta}</span>
+                    </div>
+                    <span className='mt-4 block text-[9px] font-black uppercase tracking-wider opacity-70'>{card.label}</span>
+                    <strong className='mt-1 block text-2xl font-black leading-tight'>{card.value}</strong>
+                    <p className='mt-2 text-[11px] font-semibold leading-snug opacity-80'>{card.helper}</p>
+                  </button>
+                );
+              })}
+            </div>
+          ) : (
+            <div className='grid grid-cols-1 sm:grid-cols-3 gap-2'>
+              {roleFocus.checks.map((item) => (
+                <div key={item.label} className='rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/75 dark:border-slate-800 p-3 min-h-20'>
+                  <span className='block text-[9px] font-black uppercase tracking-wider text-slate-400 leading-tight'>{item.label}</span>
+                  <strong className='mt-2 block text-lg font-black text-brand-900 dark:text-white truncate'>{item.value}</strong>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
