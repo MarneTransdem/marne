@@ -71,8 +71,9 @@ export function AdminOverview() {
     maxActions: 20
   }), [allDossiers, dossierTasks, role]);
 
-  const todayActions = useMemo(() => allTodayActions.slice(0, 5), [allTodayActions]);
+  const todayActions = useMemo(() => allTodayActions.slice(0, 3), [allTodayActions]);
   const todayActionStats = useMemo(() => summarizeTodayActions(allTodayActions), [allTodayActions]);
+  const hiddenTodayActionCount = Math.max(0, allTodayActions.length - todayActions.length);
 
   const premiumCockpit = useMemo(() => buildPremiumCockpit({
     publicRequests,
@@ -496,52 +497,59 @@ export function AdminOverview() {
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
           <div>
             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">Actions du jour</span>
-            <h3 className="mt-1 text-lg font-black text-brand-900 dark:text-white">Priorites CRM convertibles en taches</h3>
-            <p className="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400">
-              {todayActionStats.critical} critiques, {todayActionStats.warning} a suivre, {todayActionStats.alreadyTasked} deja couvertes.
+            <h3 className="mt-1 text-lg font-black text-brand-900 dark:text-white">3 priorités à traiter maintenant</h3>
+            <p className="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400 max-w-2xl">
+              On affiche seulement les dossiers les plus sensibles pour garder l'accueil lisible. {hiddenTodayActionCount > 0 ? `${hiddenTodayActionCount} autre${hiddenTodayActionCount > 1 ? 's' : ''} action${hiddenTodayActionCount > 1 ? 's' : ''} reste${hiddenTodayActionCount > 1 ? 'nt' : ''} disponible${hiddenTodayActionCount > 1 ? 's' : ''} dans Dossiers.` : 'Tout le reste est déjà sous contrôle.'}
             </p>
           </div>
-          <button
-            type="button"
-            onClick={() => navigate('/admin/dossiers')}
-            className="inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-900 px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-white transition-colors hover:bg-brand-hover dark:bg-accent dark:text-brand-950"
-          >
-            Ouvrir dossiers
-            <ArrowUpRight size={13} />
-          </button>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+            <div className="flex flex-wrap gap-1.5 text-[9px] font-black uppercase tracking-wider">
+              <span className="rounded-full bg-red-50 px-2.5 py-1 text-red-700 dark:bg-red-950/25 dark:text-red-300">{todayActionStats.critical} critiques</span>
+              <span className="rounded-full bg-amber-50 px-2.5 py-1 text-amber-700 dark:bg-amber-950/25 dark:text-amber-300">{todayActionStats.warning} à suivre</span>
+              <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-emerald-700 dark:bg-emerald-950/25 dark:text-emerald-300">{todayActionStats.alreadyTasked} déjà couvertes</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => navigate('/admin/dossiers')}
+              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-900 px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-white transition-colors hover:bg-brand-hover dark:bg-accent dark:text-brand-950"
+            >
+              Voir tout
+              <ArrowUpRight size={13} />
+            </button>
+          </div>
         </div>
 
-        <div className="mt-5 grid grid-cols-1 xl:grid-cols-5 gap-3">
+        <div className="mt-5 grid grid-cols-1 xl:grid-cols-3 gap-3">
           {todayActions.map((action) => (
             <button
               key={action.id}
               type="button"
               onClick={() => navigate(action.route)}
-              className={`text-left rounded-2xl border p-4 transition-all hover:-translate-y-0.5 hover:shadow-md ${getTodayActionClasses(action.tone)}`}
+              className={`text-left rounded-2xl border p-4 min-h-36 transition-all hover:-translate-y-0.5 hover:shadow-md ${getTodayActionClasses(action.tone)}`}
             >
               <div className="flex items-start justify-between gap-3">
                 <ClipboardList size={16} className="mt-0.5 shrink-0 opacity-75" />
                 {action.alreadyTasked ? (
                   <CheckCircle2 size={15} className="shrink-0 text-emerald-600 dark:text-emerald-300" />
                 ) : (
-                  <span className="rounded-md bg-white/70 px-1.5 py-0.5 text-[8px] font-black uppercase opacity-80 dark:bg-slate-950/40">A creer</span>
+                  <span className="rounded-md bg-white/70 px-1.5 py-0.5 text-[8px] font-black uppercase opacity-80 dark:bg-slate-950/40">À créer</span>
                 )}
               </div>
               <span className="mt-3 block text-[9px] font-black uppercase tracking-wider opacity-70 truncate">{action.clientName}</span>
-              <strong className="mt-1 block text-xs font-black leading-snug">{action.title}</strong>
+              <strong className="mt-1 block text-sm font-black leading-snug">{action.title}</strong>
               <p className="mt-1 line-clamp-2 text-[11px] font-semibold opacity-80">{action.description}</p>
               <div className="mt-3 flex flex-wrap gap-1.5">
                 <span className="rounded-md bg-white/70 px-1.5 py-0.5 text-[8px] font-black uppercase opacity-80 dark:bg-slate-950/40">{action.priority === 'urgent' ? 'Urgent' : 'Normal'}</span>
-                <span className="rounded-md bg-white/70 px-1.5 py-0.5 text-[8px] font-black uppercase opacity-80 dark:bg-slate-950/40">{action.dueDate}</span>
+                <span className="rounded-md bg-white/70 px-1.5 py-0.5 text-[8px] font-black uppercase opacity-80 dark:bg-slate-950/40">{formatDateFr(action.dueDate)}</span>
               </div>
               <span className="mt-3 inline-flex text-[9px] font-black uppercase tracking-wider opacity-80">{action.cta}</span>
             </button>
           ))}
 
           {todayActions.length === 0 && (
-            <div className="xl:col-span-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-emerald-800 dark:bg-emerald-950/20 dark:border-emerald-900/40 dark:text-emerald-300">
+            <div className="xl:col-span-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-emerald-800 dark:bg-emerald-950/20 dark:border-emerald-900/40 dark:text-emerald-300">
               <p className="text-sm font-black">Aucune action sensible aujourd'hui.</p>
-              <p className="mt-1 text-xs font-semibold opacity-80">Les controles dossier ne signalent pas de priorite immediate pour votre role.</p>
+              <p className="mt-1 text-xs font-semibold opacity-80">Les contrôles dossier ne signalent pas de priorité immédiate pour votre rôle.</p>
             </div>
           )}
         </div>
