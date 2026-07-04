@@ -379,7 +379,7 @@ export function AdminOverview() {
         label: 'Dossiers critiques',
         value: todayActionStats.critical,
         helper: `${todayActionStats.openToCreate} action${todayActionStats.openToCreate > 1 ? 's' : ''} à créer`,
-        route: '/admin/dossiers',
+        route: '/admin/dossiers?focus=actions',
         cta: 'Débloquer',
         icon: AlertTriangle,
         className: 'bg-red-50 text-red-900 border-red-200 dark:bg-red-950/20 dark:text-red-300 dark:border-red-900/40'
@@ -450,7 +450,7 @@ export function AdminOverview() {
             </div>
             <button
               type='button'
-              onClick={() => navigate(isManagerView ? '/admin/dossiers' : roleFocus.primaryRoute)}
+              onClick={() => navigate(isManagerView ? '/admin/dossiers?focus=actions' : roleFocus.primaryRoute)}
               className='inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-900 px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-white transition-colors hover:bg-brand-hover dark:bg-accent dark:text-brand-950'
             >
               {isManagerView ? 'Ouvrir les priorités' : roleFocus.primaryCta}
@@ -510,7 +510,7 @@ export function AdminOverview() {
             </div>
             <button
               type="button"
-              onClick={() => navigate('/admin/dossiers')}
+              onClick={() => navigate('/admin/dossiers?focus=actions')}
               className="inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-900 px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-white transition-colors hover:bg-brand-hover dark:bg-accent dark:text-brand-950"
             >
               Voir tout
