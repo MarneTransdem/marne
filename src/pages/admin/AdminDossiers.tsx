@@ -50,6 +50,7 @@ import {
 
 const DOSSIER_PAGE_SIZE_OPTIONS = [10, 20, 50, 100] as const;
 const KANBAN_STAGE_BATCH_SIZE = 10;
+const TODAY_ACTION_BATCH_SIZE = 3;
 
 type DossierPageSize = typeof DOSSIER_PAGE_SIZE_OPTIONS[number];
 type DossierRiskFilter = 'all' | ClientDossier['risk'];
@@ -460,6 +461,7 @@ export function AdminDossiers() {
   const [dossierPageSize, setDossierPageSize] = useState<DossierPageSize>(20);
   const [dossierCurrentPage, setDossierCurrentPage] = useState(1);
   const [kanbanVisibleByStage, setKanbanVisibleByStage] = useState<Record<string, number>>({});
+  const [todayActionVisibleCount, setTodayActionVisibleCount] = useState(TODAY_ACTION_BATCH_SIZE);
 
   // Active notification templates editor state
   const [selectedTemplateId, setSelectedTemplateId] = useState<string>('visite_planifiee');
@@ -1673,10 +1675,11 @@ export function AdminDossiers() {
     maxActions: 20
   }), [allDossiers, dossierTasks, role]);
 
-  const todayActions = useMemo(() => allTodayActions.slice(0, 3), [allTodayActions]);
+  const todayActions = useMemo(() => allTodayActions.slice(0, todayActionVisibleCount), [allTodayActions, todayActionVisibleCount]);
   const creatableTodayActions = useMemo(() => todayActions.filter((action) => !action.alreadyTasked).slice(0, 3), [todayActions]);
   const todayActionStats = useMemo(() => summarizeTodayActions(allTodayActions), [allTodayActions]);
   const hiddenTodayActionCount = Math.max(0, allTodayActions.length - todayActions.length);
+  const nextTodayActionBatchCount = Math.min(TODAY_ACTION_BATCH_SIZE, hiddenTodayActionCount);
 
   const handleCreateTopTodayTasks = async () => {
     if (creatableTodayActions.length === 0) {
@@ -1964,6 +1967,34 @@ export function AdminDossiers() {
                       <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-800 dark:bg-emerald-950/20 dark:border-emerald-900/40 dark:text-emerald-300">
                         <p className="text-xs font-black">Aucune action critique pour ce rôle.</p>
                         <p className="mt-1 text-[11px] font-semibold opacity-80">Les dossiers ouverts ne demandent pas de tâche immédiate selon les contrôles actuels.</p>
+                      </div>
+                    )}
+
+                    {allTodayActions.length > TODAY_ACTION_BATCH_SIZE && (
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-t border-slate-100 pt-3 dark:border-slate-800">
+                        <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+                          {todayActions.length} action{todayActions.length > 1 ? 's' : ''} affichée{todayActions.length > 1 ? 's' : ''} sur {allTodayActions.length}.
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {hiddenTodayActionCount > 0 && (
+                            <button
+                              type="button"
+                              onClick={() => setTodayActionVisibleCount((count) => Math.min(allTodayActions.length, count + TODAY_ACTION_BATCH_SIZE))}
+                              className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-[10px] font-black uppercase text-slate-600 transition-colors hover:border-brand-900 hover:text-brand-900 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 dark:hover:text-white"
+                            >
+                              Afficher {nextTodayActionBatchCount} de plus
+                            </button>
+                          )}
+                          {todayActions.length > TODAY_ACTION_BATCH_SIZE && (
+                            <button
+                              type="button"
+                              onClick={() => setTodayActionVisibleCount(TODAY_ACTION_BATCH_SIZE)}
+                              className="rounded-lg bg-slate-100 px-3 py-2 text-[10px] font-black uppercase text-slate-500 transition-colors hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+                            >
+                              Réduire
+                            </button>
+                          )}
+                        </div>
                       </div>
                     )}
                   </div>
