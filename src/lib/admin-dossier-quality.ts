@@ -36,7 +36,7 @@ export interface DossierQualityIssue {
 
 export interface DossierQualitySummary {
   score: number;
-  label: 'Critique' | 'Elevee' | 'A surveiller' | 'Stable';
+  label: 'Critique' | 'Élevée' | 'À surveiller' | 'Stable';
   blocked: boolean;
   issues: DossierQualityIssue[];
   primaryIssue?: DossierQualityIssue;
@@ -107,7 +107,7 @@ export const analyzeDossierQuality = (dossier: ClientDossier): DossierQualitySum
       quoteNeedsEmail || invoiceNeedsEmail ? 'blocking' : 'warning',
       'Email manquant',
       'Aucun email client exploitable pour envoyer devis, facture ou suivi.',
-      'Completer email client',
+      'Compléter email client',
       quoteNeedsEmail || invoiceNeedsEmail ? 95 : 45
     ));
   }
@@ -116,9 +116,9 @@ export const analyzeDossierQuality = (dossier: ClientDossier): DossierQualitySum
     issues.push(buildIssue(
       'missing_phone',
       'warning',
-      'Telephone manquant',
-      'Aucun telephone client disponible pour confirmer rapidement le dossier.',
-      'Completer telephone',
+      'Téléphone manquant',
+      'Aucun téléphone client disponible pour confirmer rapidement le dossier.',
+      'Compléter téléphone',
       30
     ));
   }
@@ -128,8 +128,8 @@ export const analyzeDossierQuality = (dossier: ClientDossier): DossierQualitySum
       'missing_route',
       'blocking',
       'Trajet incomplet',
-      'Ville de depart ou ville d arrivee manquante.',
-      'Completer le trajet',
+      'Ville de départ ou ville d’arrivée manquante.',
+      'Compléter le trajet',
       80
     ));
   }
@@ -149,9 +149,9 @@ export const analyzeDossierQuality = (dossier: ClientDossier): DossierQualitySum
     issues.push(buildIssue(
       'missing_volume',
       'warning',
-      'Volume a confirmer',
-      'Le volume n est pas renseigne ou pas fiable.',
-      'Verifier le volume',
+      'Volume à confirmer',
+      'Le volume n’est pas renseigné ou pas fiable.',
+      'Vérifier le volume',
       35
     ));
   }
@@ -161,7 +161,7 @@ export const analyzeDossierQuality = (dossier: ClientDossier): DossierQualitySum
       'unassigned_owner',
       'warning',
       'Responsable absent',
-      'Aucun responsable clair n est rattache au dossier.',
+      'Aucun responsable clair n’est rattaché au dossier.',
       'Assigner un responsable',
       40
     ));
@@ -171,8 +171,8 @@ export const analyzeDossierQuality = (dossier: ClientDossier): DossierQualitySum
     issues.push(buildIssue(
       'quote_to_send',
       clientEmail ? 'warning' : 'blocking',
-      'Devis non envoye',
-      'Le devis existe mais n a pas encore ete envoye au client.',
+      'Devis non envoyé',
+      'Le devis existe mais n’a pas encore été envoyé au client.',
       'Envoyer le devis',
       clientEmail ? 55 : 98
     ));
@@ -182,8 +182,8 @@ export const analyzeDossierQuality = (dossier: ClientDossier): DossierQualitySum
     issues.push(buildIssue(
       'quote_to_follow_up',
       'warning',
-      'Devis a relancer',
-      'Le devis est envoye mais aucune signature n est encore enregistree.',
+      'Devis à relancer',
+      'Le devis est envoyé mais aucune signature n’est encore enregistrée.',
       'Relancer le devis',
       58
     ));
@@ -194,7 +194,7 @@ export const analyzeDossierQuality = (dossier: ClientDossier): DossierQualitySum
     issues.push(buildIssue(
       'quote_expiring',
       'warning',
-      'Devis expire bientot',
+      'Devis expire bientôt',
       `Expiration dans ${daysUntilQuoteExpiry} jour${daysUntilQuoteExpiry > 1 ? 's' : ''}.`,
       'Relancer avant expiration',
       62
@@ -214,8 +214,8 @@ export const analyzeDossierQuality = (dossier: ClientDossier): DossierQualitySum
     issues.push(buildIssue(
       'invoice_to_send',
       clientEmail ? 'warning' : 'blocking',
-      'Facture non envoyee',
-      'La facture existe mais aucun envoi client n est historise.',
+      'Facture non envoyée',
+      'La facture existe mais aucun envoi client n’est historisé.',
       'Envoyer la facture',
       clientEmail ? 55 : 96
     ));
@@ -230,8 +230,8 @@ export const analyzeDossierQuality = (dossier: ClientDossier): DossierQualitySum
       'planning_incomplete',
       typeof daysUntilMove === 'number' && daysUntilMove <= 7 ? 'blocking' : 'warning',
       'Planning incomplet',
-      'Equipe, chef de mission ou camion non affecte.',
-      'Affecter equipe et camion',
+      'Équipe, chef de mission ou camion non affecté.',
+      'Affecter équipe et camion',
       typeof daysUntilMove === 'number' && daysUntilMove <= 7 ? 105 : 70
     ));
   }
@@ -240,9 +240,9 @@ export const analyzeDossierQuality = (dossier: ClientDossier): DossierQualitySum
     issues.push(buildIssue(
       'move_soon',
       daysUntilMove <= 2 ? 'blocking' : 'warning',
-      daysUntilMove <= 2 ? 'Intervention imminente' : 'Demenagement proche',
-      `Intervention prevue dans ${daysUntilMove} jour${daysUntilMove > 1 ? 's' : ''}.`,
-      'Controler le dossier',
+      daysUntilMove <= 2 ? 'Intervention imminente' : 'Déménagement proche',
+      `Intervention prévue dans ${daysUntilMove} jour${daysUntilMove > 1 ? 's' : ''}.`,
+      'Contrôler le dossier',
       daysUntilMove <= 2 ? 92 : 64
     ));
   }
@@ -261,14 +261,14 @@ export const analyzeDossierQuality = (dossier: ClientDossier): DossierQualitySum
 
   return {
     score,
-    label: score >= 85 ? 'Critique' : score >= 55 ? 'Elevee' : score >= 25 ? 'A surveiller' : 'Stable',
+    label: score >= 85 ? 'Critique' : score >= 55 ? 'Élevée' : score >= 25 ? 'À surveiller' : 'Stable',
     blocked: filters.has('blocked'),
     issues: sortedIssues,
     primaryIssue,
     filters: Array.from(filters),
     daysUntilMove,
     actionLabel: primaryIssue?.actionLabel || dossier.nextAction,
-    reason: primaryIssue?.detail || 'Aucun point bloquant detecte sur ce dossier.'
+    reason: primaryIssue?.detail || 'Aucun point bloquant détecté sur ce dossier.'
   };
 };
 

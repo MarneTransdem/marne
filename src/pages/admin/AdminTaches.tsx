@@ -49,7 +49,7 @@ const TASK_FILTERS: Array<{ id: TaskFilter; label: string }> = [
   { id: 'factures', label: 'Factures' },
   { id: 'planning', label: 'Planning' },
   { id: 'dossiers', label: 'Dossiers' },
-  { id: 'done', label: 'Terminees' },
+  { id: 'done', label: 'Terminées' },
   { id: 'all', label: 'Tout' }
 ];
 
@@ -125,7 +125,7 @@ const getTaskCategory = (task: DossierTask): TaskCategory => {
 
 const getTaskSourceLabel = (task: DossierTask) => {
   if (task.source === 'today_action') return task.sourceLabel || 'Action du jour';
-  return task.sourceLabel || 'Tache manuelle';
+  return task.sourceLabel || 'Tâche manuelle';
 };
 
 const getRecommendedActionLabel = (item: EnrichedTask) => {
@@ -134,12 +134,12 @@ const getRecommendedActionLabel = (item: EnrichedTask) => {
   if (issueKind === 'quote_to_follow_up' || issueKind === 'quote_expiring') return 'Relancer le client';
   if (issueKind === 'invoice_to_send') return 'Envoyer la facture';
   if (issueKind === 'invoice_overdue') return 'Relancer le paiement';
-  if (issueKind === 'planning_incomplete') return 'Completer le planning';
-  if (issueKind === 'move_soon') return "Controler l'intervention";
+  if (issueKind === 'planning_incomplete') return 'Compléter le planning';
+  if (issueKind === 'move_soon') return "Contrôler l'intervention";
   if (item.category === 'devis') return 'Ouvrir les devis';
   if (item.category === 'factures') return 'Ouvrir les factures';
   if (item.category === 'planning') return 'Ouvrir le planning';
-  return 'Completer le dossier';
+  return 'Compléter le dossier';
 };
 
 const getPriorityClasses = (task: DossierTask, isOverdue: boolean) => {
@@ -332,7 +332,7 @@ export function AdminTaches() {
       dossierId: dossier?.dossierId || task.dossierId || task.dossierKey,
       dossierKey: dossier?.key || task.dossierKey || task.dossierId || task.id,
       type: 'task',
-      title: done ? 'Tache terminee' : 'Tache reouverte',
+      title: done ? 'Tâche terminée' : 'Tâche réouverte',
       description: task.title,
       status: done ? 'success' : 'info',
       actor: currentUserLabel,
@@ -353,8 +353,8 @@ export function AdminTaches() {
     await setDossierTasks((prev) => prev.map((item) => item.id === taskId ? { ...item, done: nextDone } : item));
     await registerTaskEvent(task, nextDone);
     context?.pushNotification(
-      nextDone ? 'Tache terminee' : 'Tache reouverte',
-      nextDone ? 'La tache est sortie du travail ouvert.' : 'La tache revient dans le travail ouvert.',
+      nextDone ? 'Tâche terminée' : 'Tâche réouverte',
+      nextDone ? 'La tâche est sortie du travail ouvert.' : 'La tâche revient dans le travail ouvert.',
       nextDone ? 'success' : 'info'
     );
   };
@@ -388,9 +388,9 @@ export function AdminTaches() {
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">Travail du jour</span>
-            <h2 className="mt-1 text-2xl font-black text-brand-950 dark:text-white">Taches CRM a traiter</h2>
+            <h2 className="mt-1 text-2xl font-black text-brand-950 dark:text-white">Tâches CRM à traiter</h2>
             <p className="mt-1 max-w-2xl text-sm font-semibold text-slate-500 dark:text-slate-400">
-              Toutes les taches ouvertes, urgentes ou creees par les actions du jour sont regroupees ici pour piloter la journee sans chercher dans chaque dossier.
+              Toutes les tâches ouvertes, urgentes ou créées par les actions du jour sont regroupées ici pour piloter la journée sans chercher dans chaque dossier.
             </p>
           </div>
           <button
@@ -414,7 +414,7 @@ export function AdminTaches() {
                   <div className="mt-3 flex flex-wrap items-center gap-2 text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     <span className="rounded-lg bg-white/80 px-2 py-1 dark:bg-slate-950/50">{recommendedTask.dossier?.clientName || recommendedTask.task.dossierKey}</span>
                     <span className="rounded-lg bg-white/80 px-2 py-1 dark:bg-slate-950/50">{formatDate(recommendedTask.task.dueDate)}</span>
-                    <span className="rounded-lg bg-white/80 px-2 py-1 dark:bg-slate-950/50">{recommendedTask.task.owner || 'Non assigne'}</span>
+                    <span className="rounded-lg bg-white/80 px-2 py-1 dark:bg-slate-950/50">{recommendedTask.task.owner || 'Non assigné'}</span>
                   </div>
                 </div>
                 <div className="flex flex-col gap-2 sm:flex-row lg:flex-col lg:w-40">
@@ -444,9 +444,9 @@ export function AdminTaches() {
               </div>
             ) : (
               <div className="py-2">
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-700 dark:text-emerald-300">Journee claire</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-700 dark:text-emerald-300">Journée claire</span>
                 <h3 className="mt-2 text-xl font-black text-brand-950 dark:text-white">Aucune action ouverte prioritaire</h3>
-                <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">Les taches visibles sont terminees ou volontairement passees pour cette session.</p>
+                <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">Les tâches visibles sont terminées ou volontairement passées pour cette session.</p>
               </div>
             )}
           </div>
@@ -454,7 +454,7 @@ export function AdminTaches() {
           <div className="grid grid-cols-3 gap-2 xl:grid-cols-1">
             <button type="button" onClick={() => setActiveFilter('open')} className="rounded-2xl border border-slate-200 bg-white p-3 text-left transition-colors hover:border-accent dark:border-slate-800 dark:bg-slate-950/50">
               <span className="block text-xl font-black text-brand-950 dark:text-white">{metrics.open}</span>
-              <span className="text-[9px] font-black uppercase tracking-wider text-slate-500">A faire</span>
+              <span className="text-[9px] font-black uppercase tracking-wider text-slate-500">À faire</span>
             </button>
             <button type="button" onClick={() => setActiveFilter('overdue')} className="rounded-2xl border border-red-200 bg-red-50 p-3 text-left transition-colors hover:border-red-300 dark:border-red-900/40 dark:bg-red-950/20">
               <span className="block text-xl font-black text-red-800 dark:text-red-300">{metrics.overdue}</span>
@@ -476,7 +476,7 @@ export function AdminTaches() {
               <input
                 value={localQuery}
                 onChange={(event) => setLocalQuery(event.target.value)}
-                placeholder={context?.searchQuery?.trim() ? `Recherche globale: ${context.searchQuery}` : 'Rechercher client, tache, ville...'}
+                placeholder={context?.searchQuery?.trim() ? `Recherche globale: ${context.searchQuery}` : 'Rechercher client, tâche, ville...'}
                 disabled={Boolean(context?.searchQuery?.trim())}
                 className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 pl-9 pr-3 text-xs font-semibold text-slate-700 outline-none transition-all focus:border-accent focus:ring-2 focus:ring-accent/20 disabled:opacity-60 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200"
               />
@@ -518,9 +518,9 @@ export function AdminTaches() {
 
         <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800">
           <div className="hidden grid-cols-[minmax(260px,1.4fr)_1fr_130px_150px_210px] gap-3 border-b border-slate-200 bg-slate-50 px-4 py-3 text-[10px] font-black uppercase tracking-wider text-slate-500 dark:border-slate-800 dark:bg-slate-950/70 lg:grid">
-            <span>Tache</span>
+            <span>Tâche</span>
             <span>Dossier</span>
-            <span>Echeance</span>
+            <span>Échéance</span>
             <span>Responsable</span>
             <span>Actions</span>
           </div>
@@ -539,7 +539,7 @@ export function AdminTaches() {
                         {CATEGORY_LABELS[category]}
                       </span>
                       {task.done && (
-                        <span className="rounded-md border border-emerald-200 bg-emerald-50 px-1.5 py-0.5 text-[8px] font-black uppercase text-emerald-700 dark:border-emerald-900/40 dark:bg-emerald-950/25 dark:text-emerald-300">Terminee</span>
+                        <span className="rounded-md border border-emerald-200 bg-emerald-50 px-1.5 py-0.5 text-[8px] font-black uppercase text-emerald-700 dark:border-emerald-900/40 dark:bg-emerald-950/25 dark:text-emerald-300">Terminée</span>
                       )}
                     </div>
                     <h3 className={`mt-2 truncate text-sm font-black ${task.done ? 'text-slate-400 line-through' : 'text-brand-950 dark:text-white'}`}>{task.title}</h3>
@@ -549,19 +549,19 @@ export function AdminTaches() {
                   <div className="min-w-0">
                     <p className="truncate text-xs font-black text-brand-950 dark:text-white">{dossier?.clientName || task.dossierKey}</p>
                     <p className="mt-1 truncate text-[10px] font-semibold text-slate-500 dark:text-slate-400">
-                      {dossier ? `${getStageLabel(dossier.stage)} - ${dossier.fromCity || 'Depart ?'} vers ${dossier.toCity || 'Arrivee ?'}` : 'Dossier a rattacher'}
+                      {dossier ? `${getStageLabel(dossier.stage)} - ${dossier.fromCity || 'Départ ?'} vers ${dossier.toCity || 'Arrivée ?'}` : 'Dossier à rattacher'}
                     </p>
                     {dossier?.amount ? <p className="mt-1 text-[10px] font-black text-slate-500 dark:text-slate-400">{dossier.amount.toLocaleString('fr-FR')} EUR</p> : null}
                   </div>
 
                   <div>
                     <p className={`text-xs font-black ${isOverdue ? 'text-red-600 dark:text-red-300' : 'text-slate-700 dark:text-slate-200'}`}>{formatDate(task.dueDate)}</p>
-                    <p className="mt-1 text-[10px] font-semibold text-slate-400">Creee {formatDate(task.createdAt)}</p>
+                    <p className="mt-1 text-[10px] font-semibold text-slate-400">Créée {formatDate(task.createdAt)}</p>
                   </div>
 
                   <div className="flex items-center gap-2 text-xs font-bold text-slate-600 dark:text-slate-300">
                     <UserCircle size={14} className="text-slate-400" />
-                    <span className="truncate">{task.owner || 'Non assigne'}</span>
+                    <span className="truncate">{task.owner || 'Non assigné'}</span>
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2 lg:justify-end">
@@ -571,7 +571,7 @@ export function AdminTaches() {
                       className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-[10px] font-black uppercase transition-colors ${task.done ? 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200' : 'bg-emerald-600 text-white hover:bg-emerald-700'}`}
                     >
                       {task.done ? <RotateCcw size={13} /> : <CheckCircle2 size={13} />}
-                      {task.done ? 'Reouvrir' : 'Terminer'}
+                      {task.done ? 'Réouvrir' : 'Terminer'}
                     </button>
                     <button
                       type="button"
@@ -597,8 +597,8 @@ export function AdminTaches() {
             {paginatedTasks.length === 0 && (
               <div className="bg-white px-5 py-10 text-center dark:bg-slate-900">
                 <ClipboardList className="mx-auto text-slate-300" size={34} />
-                <p className="mt-3 text-sm font-black text-brand-950 dark:text-white">Aucune tache dans cette vue.</p>
-                <p className="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400">Change le filtre ou cree des taches depuis les actions du jour.</p>
+                <p className="mt-3 text-sm font-black text-brand-950 dark:text-white">Aucune tâche dans cette vue.</p>
+                <p className="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400">Change le filtre ou crée des tâches depuis les actions du jour.</p>
               </div>
             )}
           </div>
@@ -606,7 +606,7 @@ export function AdminTaches() {
 
         <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-            {resultStart}-{resultEnd} sur {visibleTasks.length} tache(s)
+            {resultStart}-{resultEnd} sur {visibleTasks.length} tâche(s)
           </p>
           <div className="flex items-center gap-2">
             <button
@@ -615,7 +615,7 @@ export function AdminTaches() {
               onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
               className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-[10px] font-black uppercase text-slate-600 disabled:opacity-40 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300"
             >
-              Precedent
+              Précédent
             </button>
             <span className="text-xs font-black text-slate-500 dark:text-slate-400">{safePage} / {totalPages}</span>
             <button

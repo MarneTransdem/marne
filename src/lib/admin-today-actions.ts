@@ -91,60 +91,60 @@ const ROLE_ISSUES: Record<TodayActionRole, DossierQualityIssueKind[]> = {
 const ISSUE_META: Record<DossierQualityIssueKind, { title: string; cta: string; route: string; taskPrefix: string }> = {
   missing_email: {
     title: 'Email client manquant',
-    cta: 'Completer',
+    cta: 'Compléter',
     route: '/admin/dossiers',
-    taskPrefix: 'Completer email client'
+    taskPrefix: 'Compléter email client'
   },
   missing_phone: {
-    title: 'Telephone client manquant',
-    cta: 'Completer',
+    title: 'Téléphone client manquant',
+    cta: 'Compléter',
     route: '/admin/dossiers',
-    taskPrefix: 'Completer telephone client'
+    taskPrefix: 'Compléter téléphone client'
   },
   missing_route: {
     title: 'Trajet incomplet',
-    cta: 'Controler',
+    cta: 'Contrôler',
     route: '/admin/dossiers',
-    taskPrefix: 'Completer trajet dossier'
+    taskPrefix: 'Compléter trajet dossier'
   },
   missing_date: {
-    title: 'Date a renseigner',
+    title: 'Date à renseigner',
     cta: 'Planifier',
     route: '/admin/dossiers',
     taskPrefix: 'Renseigner date dossier'
   },
   missing_volume: {
-    title: 'Volume a confirmer',
-    cta: 'Verifier',
+    title: 'Volume à confirmer',
+    cta: 'Vérifier',
     route: '/admin/dossiers',
-    taskPrefix: 'Verifier volume dossier'
+    taskPrefix: 'Vérifier volume dossier'
   },
   unassigned_owner: {
-    title: 'Responsable a assigner',
+    title: 'Responsable à assigner',
     cta: 'Assigner',
     route: '/admin/dossiers',
     taskPrefix: 'Assigner responsable dossier'
   },
   quote_to_send: {
-    title: 'Devis a envoyer',
+    title: 'Devis à envoyer',
     cta: 'Envoyer',
     route: '/admin/devis',
     taskPrefix: 'Envoyer devis client'
   },
   quote_to_follow_up: {
-    title: 'Devis a relancer',
+    title: 'Devis à relancer',
     cta: 'Relancer',
     route: '/admin/devis',
     taskPrefix: 'Relancer devis client'
   },
   quote_expiring: {
-    title: 'Devis expire bientot',
+    title: 'Devis expire bientôt',
     cta: 'Relancer',
     route: '/admin/devis',
     taskPrefix: 'Relancer devis avant expiration'
   },
   invoice_to_send: {
-    title: 'Facture a envoyer',
+    title: 'Facture à envoyer',
     cta: 'Envoyer',
     route: '/admin/factures',
     taskPrefix: 'Envoyer facture client'
@@ -159,13 +159,13 @@ const ISSUE_META: Record<DossierQualityIssueKind, { title: string; cta: string; 
     title: 'Planning incomplet',
     cta: 'Affecter',
     route: '/admin/planning',
-    taskPrefix: 'Affecter equipe et camion'
+    taskPrefix: 'Affecter équipe et camion'
   },
   move_soon: {
     title: 'Intervention proche',
-    cta: 'Controler',
+    cta: 'Contrôler',
     route: '/admin/planning',
-    taskPrefix: 'Controler dossier avant intervention'
+    taskPrefix: 'Contrôler dossier avant intervention'
   }
 };
 

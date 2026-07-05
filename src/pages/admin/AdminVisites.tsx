@@ -375,6 +375,10 @@ export function AdminVisites({ searchQuery }: AdminVisitesProps) {
   }, [filteredSortedVisites]);
 
   const visibleUpcomingVisites = upcomingVisites.slice(0, visibleUpcomingCount);
+  const visibleUpcomingTitleCount = Math.min(INITIAL_UPCOMING_COUNT, upcomingVisites.length);
+  const upcomingVisitsTitle = upcomingVisites.length === 0
+    ? 'Aucune visite à venir'
+    : `${visibleUpcomingTitleCount} prochaine${visibleUpcomingTitleCount > 1 ? 's' : ''} visite${visibleUpcomingTitleCount > 1 ? 's' : ''}`;
   const totalListPages = Math.max(1, Math.ceil(filteredSortedVisites.length / VISIT_LIST_PAGE_SIZE));
   const safeVisitListPage = Math.min(visitListPage, totalListPages);
   const paginatedVisites = filteredSortedVisites.slice(
@@ -612,7 +616,7 @@ export function AdminVisites({ searchQuery }: AdminVisitesProps) {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div>
                 <p className="text-[10px] font-black uppercase tracking-wider text-accent">Les plus proches</p>
-                <h3 className="text-sm font-black text-slate-900 dark:text-white">9 prochaines visites</h3>
+                <h3 className="text-sm font-black text-slate-900 dark:text-white">{upcomingVisitsTitle}</h3>
               </div>
               <span className="text-[10px] font-black uppercase text-slate-400">{upcomingVisites.length} à venir</span>
             </div>

@@ -134,8 +134,8 @@ export function ClientDossierDrawer({
 
       const successEvent: DossierEventDraft = {
         type: 'communication',
-        title: 'Lien de suivi envoye',
-        description: `Lien de suivi public envoye a ${clientEmail || 'email non renseigne'}.`,
+        title: 'Lien de suivi envoyé',
+        description: `Lien de suivi public envoyé à ${clientEmail || 'email non renseigné'}.`,
         status: 'success',
         documentType: 'demenagement',
         documentId: dossier.move.id,
@@ -149,7 +149,7 @@ export function ClientDossierDrawer({
       console.error("Failed to send tracking email:", err);
       const errorEvent: DossierEventDraft = {
         type: 'communication',
-        title: 'Echec envoi lien de suivi',
+        title: 'Échec envoi lien de suivi',
         description: err.message || "Impossible d'envoyer l'e-mail.",
         status: 'error',
         documentType: 'demenagement',
@@ -238,12 +238,12 @@ export function ClientDossierDrawer({
   const invoiceReady = dossier.invoice ? dossier.invoice.status !== 'En retard' : true;
   const planningReady = dossier.move ? Boolean(dossier.move.teamLeader && dossier.move.assignedTruck && dossier.move.assignedMovers?.length) : true;
   const readyChecklist = [
-    { id: 'contact', label: 'Contact', detail: clientEmail && clientPhone ? 'Email et telephone OK' : 'Email ou telephone a completer', done: contactReady },
-    { id: 'route', label: 'Trajet', detail: routeReady ? `${dossier.fromCity} vers ${dossier.toCity}` : 'Depart ou arrivee a preciser', done: routeReady },
-    { id: 'date_volume', label: 'Date / volume', detail: dateReady && volumeReady ? `${dossierDate} - ${dossierVolume} m3` : 'Date ou volume a confirmer', done: dateReady && volumeReady },
-    { id: 'quote', label: 'Devis', detail: dossier.quote ? dossier.quote.status : 'A creer si necessaire', done: quoteReady },
+    { id: 'contact', label: 'Contact', detail: clientEmail && clientPhone ? 'Email et téléphone OK' : 'Email ou téléphone à compléter', done: contactReady },
+    { id: 'route', label: 'Trajet', detail: routeReady ? `${dossier.fromCity} vers ${dossier.toCity}` : 'Départ ou arrivée à préciser', done: routeReady },
+    { id: 'date_volume', label: 'Date / volume', detail: dateReady && volumeReady ? `${dossierDate} - ${dossierVolume} m³` : 'Date ou volume à confirmer', done: dateReady && volumeReady },
+    { id: 'quote', label: 'Devis', detail: dossier.quote ? dossier.quote.status : 'À créer si nécessaire', done: quoteReady },
     { id: 'invoice', label: 'Facture', detail: dossier.invoice ? dossier.invoice.status : 'Pas de facture bloquante', done: invoiceReady },
-    { id: 'planning', label: 'Planning', detail: dossier.move ? (planningReady ? 'Equipe et camion affectes' : 'Equipe ou camion a affecter') : 'Pas encore en planning', done: planningReady }
+    { id: 'planning', label: 'Planning', detail: dossier.move ? (planningReady ? 'Équipe et camion affectés' : 'Équipe ou camion à affecter') : 'Pas encore en planning', done: planningReady }
   ];
   const readyCount = readyChecklist.filter((item) => item.done).length;
   const readyPercent = Math.round((readyCount / readyChecklist.length) * 100);
@@ -319,6 +319,13 @@ export function ClientDossierDrawer({
       : qualitySummary.score >= 25
         ? 'text-sky-700 dark:text-sky-300'
         : 'text-emerald-700 dark:text-emerald-300';
+  const qualityRiskLabel = qualitySummary.score >= 85
+    ? 'Contrôle urgent'
+    : qualitySummary.score >= 55
+      ? 'Risque élevé'
+      : qualitySummary.score >= 25
+        ? 'À surveiller'
+        : 'Stable';
 
   const getEventClass = (status: DossierEvent['status']) => {
     if (status === 'success') return 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-300 dark:border-emerald-900/40';
@@ -384,7 +391,7 @@ export function ClientDossierDrawer({
               </div>
               <h2 className="mt-3 truncate text-2xl font-black tracking-tight text-brand-950 dark:text-white">{dossier.clientName}</h2>
               <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">
-                {dossier.fromCity || 'Depart a preciser'} {'->'} {dossier.toCity || 'Arrivee a preciser'}
+                {dossier.fromCity || 'Départ à préciser'} {'->'} {dossier.toCity || 'Arrivée à préciser'}
               </p>
             </div>
             <button
@@ -399,24 +406,24 @@ export function ClientDossierDrawer({
 
           <div className="mt-4 grid grid-cols-2 gap-2 text-[11px] md:grid-cols-5">
             <div className="rounded-xl bg-slate-50 px-3 py-2 dark:bg-slate-900">
-              <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Telephone</span>
-              <span className="mt-1 block truncate font-black text-brand-950 dark:text-white">{clientPhone || 'A completer'}</span>
+              <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Téléphone</span>
+              <span className="mt-1 block truncate font-black text-brand-950 dark:text-white">{clientPhone || 'À compléter'}</span>
             </div>
             <div className="rounded-xl bg-slate-50 px-3 py-2 dark:bg-slate-900">
               <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Email</span>
-              <span className="mt-1 block truncate font-black text-brand-950 dark:text-white">{clientEmail || 'A completer'}</span>
+              <span className="mt-1 block truncate font-black text-brand-950 dark:text-white">{clientEmail || 'À compléter'}</span>
             </div>
             <div className="rounded-xl bg-slate-50 px-3 py-2 dark:bg-slate-900">
               <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Date</span>
-              <span className="mt-1 block truncate font-black text-brand-950 dark:text-white">{dossierDate || 'A fixer'}</span>
+              <span className="mt-1 block truncate font-black text-brand-950 dark:text-white">{dossierDate || 'À fixer'}</span>
             </div>
             <div className="rounded-xl bg-slate-50 px-3 py-2 dark:bg-slate-900">
               <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Montant</span>
               <span className="mt-1 block truncate font-black text-brand-950 dark:text-white">{dossier.amount.toLocaleString('fr-FR')} EUR</span>
             </div>
             <div className="rounded-xl bg-slate-50 px-3 py-2 dark:bg-slate-900">
-              <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">A faire</span>
-              <span className="mt-1 block truncate font-black text-brand-950 dark:text-white">{openTaskCount} tache{openTaskCount > 1 ? 's' : ''}</span>
+              <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">À faire</span>
+              <span className="mt-1 block truncate font-black text-brand-950 dark:text-white">{openTaskCount} tâche{openTaskCount > 1 ? 's' : ''}</span>
             </div>
           </div>
         </div>
@@ -432,13 +439,13 @@ export function ClientDossierDrawer({
                 </div>
                 <div className="shrink-0 text-right">
                   <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Risque</span>
-                  <strong className={`block text-xl font-black ${qualityScoreClass}`}>{qualitySummary.score}/100</strong>
+                  <strong className={`block max-w-[130px] text-right text-sm font-black leading-tight ${qualityScoreClass}`}>{qualityRiskLabel}</strong>
                 </div>
               </div>
 
               {firstOpenTask && (
                 <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 dark:border-amber-900/40 dark:bg-amber-950/20">
-                  <p className="text-[10px] font-black uppercase tracking-wider text-amber-700 dark:text-amber-300">Tache ouverte</p>
+                  <p className="text-[10px] font-black uppercase tracking-wider text-amber-700 dark:text-amber-300">Tâche ouverte</p>
                   <p className="mt-1 text-xs font-black text-amber-900 dark:text-amber-200">{firstOpenTask.title}</p>
                 </div>
               )}
@@ -496,7 +503,7 @@ export function ClientDossierDrawer({
               {qualitySummary.issues.length > 0 && (
                 <details className="mt-3">
                   <summary className="cursor-pointer text-[10px] font-black uppercase tracking-wider text-slate-500 hover:text-brand-900 dark:text-slate-400 dark:hover:text-white">
-                    Voir les points a corriger
+                    Voir les points à corriger
                   </summary>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {qualitySummary.issues.slice(0, 6).map((issue) => (

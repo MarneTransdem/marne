@@ -103,7 +103,7 @@ const DOSSIER_QUALITY_FILTERS: Array<{ value: DossierQualityFilterOption; label:
   { value: 'followup', label: 'À relancer' },
   { value: 'planning_incomplete', label: 'Planning incomplet' },
   { value: 'invoice_risk', label: 'Factures à risque' },
-  { value: 'move_soon', label: 'Dem. proche' }
+  { value: 'move_soon', label: 'Dém. proche' }
 ];
 
 const getDossierQualityPillClass = (severity: DossierQualitySeverity) => {
@@ -117,6 +117,13 @@ const getDossierQualityScoreClass = (score: number) => {
   if (score >= 55) return 'text-amber-700 dark:text-amber-300';
   if (score >= 25) return 'text-sky-700 dark:text-sky-300';
   return 'text-emerald-700 dark:text-emerald-300';
+};
+
+const getDossierRiskLabel = (score: number) => {
+  if (score >= 85) return 'Contrôle urgent';
+  if (score >= 55) return 'Risque élevé';
+  if (score >= 25) return 'À surveiller';
+  return 'Stable';
 };
 
 const getTodayActionToneClasses = (tone: TodayActionTone) => {
@@ -321,7 +328,7 @@ const getDossierWorkflowActions = (dossier: ClientDossier): ClientDossierWorkflo
       }
       actions.push({
         id: 'confirm_j3',
-        label: 'Preparer J-3',
+        label: 'Préparer J-3',
         description: 'Archiver le message logistique avant envoi SMS',
         tone: 'success'
       });
@@ -462,6 +469,7 @@ export function AdminDossiers() {
   const [dossierCurrentPage, setDossierCurrentPage] = useState(1);
   const [kanbanVisibleByStage, setKanbanVisibleByStage] = useState<Record<string, number>>({});
   const [todayActionVisibleCount, setTodayActionVisibleCount] = useState(TODAY_ACTION_BATCH_SIZE);
+  const [showDossierPipeline, setShowDossierPipeline] = useState(false);
 
   // Active notification templates editor state
   const [selectedTemplateId, setSelectedTemplateId] = useState<string>('visite_planifiee');
@@ -918,7 +926,7 @@ export function AdminDossiers() {
     if (!recipient) {
       await registerDossierEvent(dossier, {
         type: 'communication',
-        title: 'Email devis bloque',
+        title: 'Email devis bloqué',
         description: `Impossible d'envoyer ${quote.id}: adresse email client manquante.`,
         status: 'warning',
         documentType: 'devis',
@@ -993,8 +1001,8 @@ export function AdminDossiers() {
       await registerCommunicationLog(task, 'sent');
       await registerDossierEvent(dossier, {
         type: 'communication',
-        title: action === 'quote_send' ? 'Devis envoye au client' : 'Relance devis envoyee',
-        description: `${quote.id} transmis a ${recipient}.`,
+        title: action === 'quote_send' ? 'Devis envoyé au client' : 'Relance devis envoyée',
+        description: `${quote.id} transmis à ${recipient}.`,
         status: 'success',
         documentType: 'devis',
         documentId: quote.id,
@@ -1002,14 +1010,14 @@ export function AdminDossiers() {
         recipient,
         metadata: { action }
       });
-      context?.pushNotification(action === 'quote_send' ? 'Devis envoye' : 'Relance envoyee', `${quote.id} a ete transmis a ${recipient}.`, 'success');
+      context?.pushNotification(action === 'quote_send' ? 'Devis envoyé' : 'Relance envoyée', `${quote.id} a été transmis à ${recipient}.`, 'success');
       return true;
     } catch (error: any) {
       const message = error?.message || 'Envoi du devis impossible.';
       await registerCommunicationLog(task, 'failed', message).catch(() => undefined);
       await registerDossierEvent(dossier, {
         type: 'communication',
-        title: action === 'quote_send' ? 'Echec envoi devis' : 'Echec relance devis',
+        title: action === 'quote_send' ? 'Échec envoi devis' : 'Échec relance devis',
         description: message,
         status: 'error',
         documentType: 'devis',
@@ -1018,7 +1026,7 @@ export function AdminDossiers() {
         recipient,
         metadata: { action }
       });
-      context?.pushNotification('Echec de l\'envoi', message, 'warning');
+      context?.pushNotification('Échec de l\'envoi', message, 'warning');
       return false;
     }
   };
@@ -1035,7 +1043,7 @@ export function AdminDossiers() {
         documentId: invoice.id,
         channel: 'Email'
       });
-      context?.pushNotification('Email manquant', 'Ajoutez une adresse email a la facture avant de lancer l\'envoi.', 'warning');
+      context?.pushNotification('Email manquant', 'Ajoutez une adresse email à la facture avant de lancer l\'envoi.', 'warning');
       return false;
     }
 
@@ -1097,8 +1105,8 @@ export function AdminDossiers() {
       await registerCommunicationLog(task, 'sent');
       await registerDossierEvent(dossier, {
         type: 'communication',
-        title: action === 'invoice_send' ? 'Facture envoyee au client' : 'Relance facture envoyee',
-        description: `${invoice.id} transmis a ${recipient}.`,
+        title: action === 'invoice_send' ? 'Facture envoyée au client' : 'Relance facture envoyée',
+        description: `${invoice.id} transmis à ${recipient}.`,
         status: 'success',
         documentType: 'facture',
         documentId: invoice.id,
@@ -1106,14 +1114,14 @@ export function AdminDossiers() {
         recipient,
         metadata: { action }
       });
-      context?.pushNotification(action === 'invoice_send' ? 'Facture envoyee' : 'Relance envoyee', `${invoice.id} a ete transmis a ${recipient}.`, 'success');
+      context?.pushNotification(action === 'invoice_send' ? 'Facture envoyée' : 'Relance envoyée', `${invoice.id} a été transmis à ${recipient}.`, 'success');
       return true;
     } catch (error: any) {
       const message = error?.message || 'Envoi de la facture impossible.';
       await registerCommunicationLog(task, 'failed', message).catch(() => undefined);
       await registerDossierEvent(dossier, {
         type: 'communication',
-        title: action === 'invoice_send' ? 'Echec envoi facture' : 'Echec relance facture',
+        title: action === 'invoice_send' ? 'Échec envoi facture' : 'Échec relance facture',
         description: message,
         status: 'error',
         documentType: 'facture',
@@ -1122,7 +1130,7 @@ export function AdminDossiers() {
         recipient,
         metadata: { action }
       });
-      context?.pushNotification('Echec de l\'envoi', message, 'warning');
+      context?.pushNotification('Échec de l\'envoi', message, 'warning');
       return false;
     }
   };
@@ -1151,7 +1159,7 @@ export function AdminDossiers() {
       type: 'communication',
       title: `Message prepare: ${template.title}`,
       description: template.channel === 'SMS'
-        ? 'SMS prepare dans le dossier. Aucun fournisseur SMS reel n est encore connecte.'
+        ? 'SMS préparé dans le dossier. Aucun fournisseur SMS réel n’est encore connecté.'
         : 'Message prepare et archive dans les notes CRM.',
       status: template.channel === 'SMS' ? 'warning' : 'info',
       channel: template.channel
@@ -1195,7 +1203,7 @@ export function AdminDossiers() {
         await registerDossierEvent(dossier, {
           type: 'workflow',
           title: 'Visite planifiee',
-          description: `Rendez-vous ${newVisit.id} fixe le ${newVisit.date} a ${newVisit.time}.`,
+          description: `Rendez-vous ${newVisit.id} fixé le ${newVisit.date} à ${newVisit.time}.`,
           status: 'success',
           documentType: 'visite',
           documentId: newVisit.id
@@ -1233,8 +1241,8 @@ export function AdminDossiers() {
         }
         await registerDossierEvent(dossier, {
           type: 'workflow',
-          title: 'Devis brouillon cree',
-          description: `Devis ${devisId} cree directement depuis la demande.`,
+          title: 'Devis brouillon créé',
+          description: `Devis ${devisId} créé directement depuis la demande.`,
           status: 'success',
           documentType: 'devis',
           documentId: devisId
@@ -1386,7 +1394,7 @@ export function AdminDossiers() {
             await registerDossierEvent(dossierWithInvoice, {
               type: 'workflow',
               title: 'Facture generee',
-              description: `Facture ${invoice.id} creee depuis le devis ${dossier.quote.id}.`,
+              description: `Facture ${invoice.id} créée depuis le devis ${dossier.quote.id}.`,
               status: 'success',
               documentType: 'facture',
               documentId: invoice.id
@@ -1443,7 +1451,7 @@ export function AdminDossiers() {
           await registerDossierEvent(dossier, {
             type: 'assignment',
             title: 'Affectation bloquee',
-            description: 'Equipe ou vehicule disponible manquant pour planifier la mission.',
+            description: 'Équipe ou véhicule disponible manquant pour planifier la mission.',
             status: 'warning',
             documentType: 'demenagement',
             documentId: dossier.move.id
@@ -1457,7 +1465,7 @@ export function AdminDossiers() {
           await registerDossierEvent(dossier, {
             type: 'assignment',
             title: 'Affectation ouverte',
-            description: 'Le dossier a ete ouvert pour affecter equipe, chef de mission et vehicule.',
+            description: 'Le dossier a été ouvert pour affecter équipe, chef de mission et véhicule.',
             status: 'info',
             documentType: 'demenagement',
             documentId: dossier.move.id
@@ -1530,7 +1538,7 @@ export function AdminDossiers() {
     await registerDossierEventForKey(key, {
       type: 'assignment',
       title: 'Responsable modifie',
-      description: `Dossier assigne a ${owner}.`,
+      description: `Dossier assigné à ${owner}.`,
       status: 'success'
     });
     context?.pushNotification('Assignation Mise à jour 👤', `Responsable mis à jour pour ce dossier.`, 'success');
@@ -1568,12 +1576,12 @@ export function AdminDossiers() {
     await setDossierTasks(prev => [newTask, ...prev]);
     await registerDossierEventForKey(task.dossierKey, {
       type: 'task',
-      title: 'Tache creee',
+      title: 'Tâche créée',
       description: `${newTask.title} - ${newTask.owner}`,
       status: newTask.priority === 'urgent' ? 'warning' : 'info'
     });
     if (options?.notify !== false) {
-      context?.pushNotification('Tache ajoutee', 'Nouvelle tache de suivi creee.', 'success');
+      context?.pushNotification('Tâche ajoutée', 'Nouvelle tâche de suivi créée.', 'success');
     }
   };
 
@@ -1581,14 +1589,14 @@ export function AdminDossiers() {
     const dossier = allDossiers.find((item) => item.key === action.dossierKey || item.dossierId === action.dossierId);
     if (!dossier) {
       if (options?.notify !== false) {
-        context?.pushNotification('Action indisponible', 'Le dossier lie a cette action est introuvable.', 'warning');
+        context?.pushNotification('Action indisponible', 'Le dossier lié à cette action est introuvable.', 'warning');
       }
       return false;
     }
 
     if (hasOpenTaskForTodayAction(dossierTasks, action)) {
       if (options?.notify !== false) {
-        context?.pushNotification('Tache deja ouverte', 'Une tache identique existe deja sur ce dossier.', 'info');
+        context?.pushNotification('Tâche déjà ouverte', 'Une tâche identique existe déjà sur ce dossier.', 'info');
       }
       return false;
     }
@@ -1613,7 +1621,7 @@ export function AdminDossiers() {
     if (task) {
       await registerDossierEventForKey(task.dossierId || task.dossierKey, {
         type: 'task',
-        title: task.done ? 'Tache reouverte' : 'Tache terminee',
+        title: task.done ? 'Tâche réouverte' : 'Tâche terminée',
         description: task.title,
         status: task.done ? 'info' : 'success'
       });
@@ -1626,7 +1634,7 @@ export function AdminDossiers() {
     if (task) {
       await registerDossierEventForKey(task.dossierId || task.dossierKey, {
         type: 'task',
-        title: 'Tache supprimee',
+        title: 'Tâche supprimée',
         description: task.title,
         status: 'info'
       });
@@ -1646,8 +1654,8 @@ export function AdminDossiers() {
     if (dossier) {
       await registerDossierEvent(dossier, {
         type: 'assignment',
-        title: 'Equipe et vehicule affectes',
-        description: `Chef: ${assignment.teamLeader}. Vehicule: ${assignment.assignedTruck}. Equipe: ${assignment.assignedMovers.join(', ')}.`,
+        title: 'Équipe et véhicule affectés',
+        description: `Chef: ${assignment.teamLeader}. Véhicule: ${assignment.assignedTruck}. Équipe: ${assignment.assignedMovers.join(', ')}.`,
         status: 'success',
         documentType: 'demenagement',
         documentId: moveId
@@ -2075,8 +2083,8 @@ export function AdminDossiers() {
                               <p className="line-clamp-2 text-xs font-medium text-slate-500 dark:text-slate-400">{quality.reason}</p>
                             </div>
                           </div>
-                          <strong className={`shrink-0 text-xs font-black ${getDossierQualityScoreClass(quality.score)}`}>
-                            {quality.score > 0 ? `${quality.score}/100` : dossier.amount > 0 ? `${dossier.amount.toLocaleString('fr-FR')} €` : '-'}
+                          <strong className={`shrink-0 max-w-[100px] text-right text-[11px] font-black leading-tight ${getDossierQualityScoreClass(quality.score)}`}>
+                            {quality.score > 0 ? getDossierRiskLabel(quality.score) : dossier.amount > 0 ? `${dossier.amount.toLocaleString('fr-FR')} €` : '-'}
                           </strong>
                         </div>
                         <div className="mt-3 flex items-center justify-between gap-2 border-t border-slate-200/70 dark:border-slate-800 pt-3">
@@ -2133,21 +2141,39 @@ export function AdminDossiers() {
             </div>
           </section>
 
-          {/* Workflow Rail */}
-          <AdminWorkflowRail
-            dossiers={allDossiers}
-            activeStage={workflowStageFilter as any}
-            availableTabs={availableTabs}
-            onSelectStage={(stage) => setWorkflowStageFilter(stage)}
-            onOpenDossier={(key) => setSelectedDossierKey(key)}
-            onNavigate={(tab) => navigate(`/admin/${tab}`)}
-            onRunPrimaryAction={(dossier) => {
-              const actions = getDossierWorkflowActions(dossier);
-              if (actions.length > 0) {
-                runDossierWorkflowAction(actions[0].id, dossier);
-              }
-            }}
-          />
+          <section className="rounded-xl border border-slate-200/75 bg-white/95 shadow-sm dark:border-slate-800 dark:bg-slate-900/95">
+            <div className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Vue pipeline</span>
+                <h3 className="mt-1 text-sm font-black uppercase tracking-wider text-brand-950 dark:text-white">Parcours complet des dossiers</h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowDossierPipeline((open) => !open)}
+                className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-3 py-2 text-[10px] font-black uppercase text-slate-600 transition-colors hover:border-brand-900 hover:text-brand-900 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 dark:hover:text-white"
+              >
+                {showDossierPipeline ? 'Masquer le pipeline' : 'Afficher le pipeline'}
+              </button>
+            </div>
+            {showDossierPipeline && (
+              <div className="border-t border-slate-100 p-4 dark:border-slate-800">
+                <AdminWorkflowRail
+                  dossiers={allDossiers}
+                  activeStage={workflowStageFilter as any}
+                  availableTabs={availableTabs}
+                  onSelectStage={(stage) => setWorkflowStageFilter(stage)}
+                  onOpenDossier={(key) => setSelectedDossierKey(key)}
+                  onNavigate={(tab) => navigate(`/admin/${tab}`)}
+                  onRunPrimaryAction={(dossier) => {
+                    const actions = getDossierWorkflowActions(dossier);
+                    if (actions.length > 0) {
+                      runDossierWorkflowAction(actions[0].id, dossier);
+                    }
+                  }}
+                />
+              </div>
+            )}
+          </section>
 
           {/* Tabular Listing of Client Folders */}
           <div className="bg-white/95 dark:bg-slate-900/95 border border-slate-200/75 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
@@ -2560,8 +2586,8 @@ export function AdminDossiers() {
                                   <strong className="font-extrabold text-slate-900 dark:text-white text-xs truncate pr-2">
                                     {d.clientName}
                                   </strong>
-                                  <span className={`text-[10px] font-black whitespace-nowrap bg-brand-50 dark:bg-brand-900/30 px-1.5 py-0.5 rounded-md ${getDossierQualityScoreClass(quality.score)}`}>
-                                    {quality.score > 0 ? `${quality.score}/100` : d.amount > 0 ? d.amount.toLocaleString('fr-FR') + ' €' : '-'}
+                                  <span className={`max-w-[96px] text-right text-[9px] font-black leading-tight bg-brand-50 dark:bg-brand-900/30 px-1.5 py-0.5 rounded-md ${getDossierQualityScoreClass(quality.score)}`}>
+                                    {quality.score > 0 ? getDossierRiskLabel(quality.score) : d.amount > 0 ? d.amount.toLocaleString('fr-FR') + ' €' : '-'}
                                   </span>
                                 </div>
 
@@ -2784,7 +2810,7 @@ export function AdminDossiers() {
                       className="bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider flex items-center gap-1.5 cursor-pointer"
                     >
                       <Mail size={13} />
-                      Preparer le message dans le dossier
+                      Préparer le message dans le dossier
                     </button>
                   </div>
                 )}
@@ -2819,7 +2845,7 @@ export function AdminDossiers() {
             await setDemenagements(prev => prev.map(m => m.id === moveId ? { ...m, ...updates } : m));
             await registerDossierEvent(activeDossier, {
               type: 'workflow',
-              title: 'Demenagement mis a jour',
+              title: 'Déménagement mis à jour',
               description: 'Informations de suivi ou de mission modifiees.',
               status: 'success',
               documentType: 'demenagement',

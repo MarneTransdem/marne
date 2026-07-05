@@ -33,26 +33,26 @@ type CommunicationNumberField = Exclude<keyof CrmCommunicationSettings, 'quoteRe
 
 const PRICING_NUMBER_FIELDS: Array<{ field: PricingNumberField; label: string; step?: number }> = [
   { field: 'baseCost', label: 'Base dossier (EUR)', step: 10 },
-  { field: 'localFallbackKm', label: 'Km local par defaut', step: 1 },
-  { field: 'nationalFallbackKm', label: 'Km national par defaut', step: 10 },
+  { field: 'localFallbackKm', label: 'Km local par défaut', step: 1 },
+  { field: 'nationalFallbackKm', label: 'Km national par défaut', step: 10 },
   { field: 'localFixedCost', label: 'Forfait transport local', step: 10 },
-  { field: 'localCostPerKm', label: 'Cout / km local', step: 0.05 },
+  { field: 'localCostPerKm', label: 'Coût / km local', step: 0.05 },
   { field: 'longDistanceFixedCost', label: 'Forfait longue distance', step: 10 },
-  { field: 'longDistanceCostPerKm', label: 'Cout / km longue distance', step: 0.05 },
-  { field: 'floorCost', label: 'Cout etage sans ascenseur', step: 1 },
-  { field: 'portageCostPerMeter', label: 'Portage / metre', step: 0.1 },
+  { field: 'longDistanceCostPerKm', label: 'Coût / km longue distance', step: 0.05 },
+  { field: 'floorCost', label: 'Coût étage sans ascenseur', step: 1 },
+  { field: 'portageCostPerMeter', label: 'Portage / mètre', step: 0.1 },
   { field: 'liftCost', label: 'Monte-meuble', step: 10 },
-  { field: 'packingCostPerM3', label: 'Emballage / m3', step: 1 },
+  { field: 'packingCostPerM3', label: 'Emballage / m³', step: 1 },
   { field: 'storageCost', label: 'Garde-meuble', step: 10 }
 ];
 
 const PRICING_RATE_FIELDS: Array<{ field: PricingRateField; label: string }> = [
-  { field: 'reserveRate', label: 'Reserve risque (%)' },
+  { field: 'reserveRate', label: 'Réserve risque (%)' },
   { field: 'minMarginRate', label: 'Marge minimum (%)' }
 ];
 
 const PRICING_FORMULA_FIELDS: Array<{ key: PremiumPricingFormulaKey; label: string }> = [
-  { key: 'economique', label: 'Economique' },
+  { key: 'economique', label: 'Économique' },
   { key: 'standard', label: 'Standard' },
   { key: 'luxe', label: 'Luxe' },
   { key: 'dynamic', label: 'Dynamic' }
@@ -80,6 +80,20 @@ const COMMUNICATION_TONE_OPTIONS: Array<{ value: CrmCommunicationSettings['tone'
   { value: 'soft', label: 'Doux' },
   { value: 'firm', label: 'Ferme' }
 ];
+
+type SettingsSectionId = 'company' | 'operations' | 'communication' | 'pricing' | 'roles' | 'templates' | 'system';
+
+const SETTINGS_SECTIONS: Array<{ id: SettingsSectionId; label: string; target: string }> = [
+  { id: 'company', label: 'Société', target: 'settings-company' },
+  { id: 'operations', label: 'Délais', target: 'settings-operations' },
+  { id: 'communication', label: 'Relances', target: 'settings-communication' },
+  { id: 'pricing', label: 'Prix', target: 'settings-pricing' },
+  { id: 'roles', label: 'Droits', target: 'settings-roles' },
+  { id: 'templates', label: 'Modèles', target: 'settings-templates' },
+  { id: 'system', label: 'Système', target: 'settings-system' }
+];
+
+
 
 const CRM_ROLES: Role[] = ['gérant', 'secrétaire', 'commercial', 'chef_equipe'];
 const roleLabel = (role: Role) => {
@@ -116,6 +130,7 @@ export function AdminParametres() {
   const [currentSettings, setCurrentSettings] = useState<CrmSettings>(() => readLocalCrmSettings());
   const [form, setForm] = useState<CrmSettings>(() => readLocalCrmSettings());
   const [selectedTemplateAction, setSelectedTemplateAction] = useState<CrmCommunicationActionKey>('quote_reminder_soft');
+  const [activeSettingsSection, setActiveSettingsSection] = useState<SettingsSectionId>('company');
 
   useEffect(() => {
     const settingsRef = doc(db, 'crm_settings', 'default');
@@ -247,6 +262,13 @@ export function AdminParametres() {
     subject: form.communication.templates[selectedTemplateAction]?.subject || DEFAULT_COMMUNICATION_TEMPLATES[selectedTemplateAction].subject,
     body: form.communication.templates[selectedTemplateAction]?.body || DEFAULT_COMMUNICATION_TEMPLATES[selectedTemplateAction].body
   };
+  const jumpToSettingsSection = (section: { id: SettingsSectionId; target: string }) => {
+    setActiveSettingsSection(section.id);
+    if (typeof document !== 'undefined') {
+      document.getElementById(section.target)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   const handleSave = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!canEdit) {
@@ -322,9 +344,24 @@ export function AdminParametres() {
         </div>
       </section>
 
+      <nav className="sticky top-3 z-20 rounded-2xl border border-slate-200/75 bg-white/95 p-2 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-900/95">
+        <div className="flex gap-2 overflow-x-auto pb-0.5">
+          {SETTINGS_SECTIONS.map((section) => (
+            <button
+              key={section.id}
+              type="button"
+              onClick={() => jumpToSettingsSection(section)}
+              className={`shrink-0 rounded-xl px-3 py-2 text-[10px] font-black uppercase transition-colors ${activeSettingsSection === section.id ? 'bg-brand-900 text-white dark:bg-accent dark:text-brand-950' : 'text-slate-500 hover:bg-slate-100 hover:text-brand-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white'}`}
+            >
+              {section.label}
+            </button>
+          ))}
+        </div>
+      </nav>
+
       <form onSubmit={handleSave} className="grid grid-cols-1 xl:grid-cols-[1.1fr_0.9fr] gap-6">
         <div className="space-y-6">
-          <section className="bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm">
+          <section id="settings-company" className="scroll-mt-24 bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-5">
               <Building2 size={17} className="text-accent" />
               <h3 className="text-sm font-black uppercase tracking-tight">Coordonnées société</h3>
@@ -349,7 +386,7 @@ export function AdminParametres() {
             </div>
           </section>
 
-          <section className="bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm">
+          <section id="settings-operations" className="scroll-mt-24 bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-5">
               <SlidersHorizontal size={17} className="text-accent" />
               <h3 className="text-sm font-black uppercase tracking-tight">Délais opérationnels</h3>
@@ -382,7 +419,7 @@ export function AdminParametres() {
 
           </section>
 
-          <section className="bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm">
+          <section id="settings-communication" className="scroll-mt-24 bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
               <div className="flex items-center gap-2">
                 <Mail size={17} className="text-accent" />
@@ -452,11 +489,11 @@ export function AdminParametres() {
             </div>
           </section>
 
-          <section className="bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm">
+          <section id="settings-pricing" className="scroll-mt-24 bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
               <div className="flex items-center gap-2">
                 <SlidersHorizontal size={17} className="text-accent" />
-                <h3 className="text-sm font-black uppercase tracking-tight">Rentabilite & prix conseilles</h3>
+                <h3 className="text-sm font-black uppercase tracking-tight">Rentabilité & prix conseillés</h3>
               </div>
               <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Marge standard {rateToPercent(form.pricing.formulaMargins.standard.targetMargin)}%</span>
             </div>
@@ -487,7 +524,7 @@ export function AdminParametres() {
                     <p className="text-xs font-black uppercase text-slate-700 dark:text-slate-200 mb-3">{label}</p>
                     <div className="grid grid-cols-2 gap-3">
                       <label className="space-y-1.5">
-                        <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Cout / m3</span>
+                        <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Coût / m³</span>
                         <input type="number" min={0} step={1} value={form.pricing.formulaMargins[key].variableCost} onChange={(e) => setFormulaPricingField(key, 'variableCost', e.target.value)} disabled={!canEdit || saving} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl px-3 py-2.5 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-accent/25 disabled:opacity-70" />
                       </label>
                       <label className="space-y-1.5">
@@ -503,14 +540,14 @@ export function AdminParametres() {
             <div className="mt-5 flex justify-end">
               <button type="submit" disabled={!canEdit || saving} className="inline-flex items-center justify-center gap-2 bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:text-brand-950 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-2xl px-5 py-3 text-xs font-black transition-colors">
                 {saving ? <RefreshCw size={15} className="animate-spin" /> : <Save size={15} />}
-                Enregistrer les regles
+                Enregistrer les règles
               </button>
             </div>
           </section>
         </div>
 
         <aside className="space-y-6">
-          <section className="bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm">
+          <section id="settings-roles" className="scroll-mt-24 bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-5">
               <ShieldCheck size={17} className="text-accent" />
               <h3 className="text-sm font-black uppercase tracking-tight">Droits par rôle</h3>
@@ -540,7 +577,7 @@ export function AdminParametres() {
             </div>
           </section>
 
-          <section className="bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm">
+          <section id="settings-templates" className="scroll-mt-24 bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-5">
               <Bell size={17} className="text-accent" />
               <h3 className="text-sm font-black uppercase tracking-tight">Modèles de notification</h3>
@@ -569,7 +606,7 @@ export function AdminParametres() {
             </div>
           </section>
 
-          <section className="bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm">
+          <section id="settings-system" className="scroll-mt-24 bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-5">
               <LockKeyhole size={17} className="text-accent" />
               <h3 className="text-sm font-black uppercase tracking-tight">État système</h3>

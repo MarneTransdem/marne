@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { 
   FolderOpen, Search, ArrowRight, User, Phone, Mail, MapPin, 
   Calendar, CheckCircle, RefreshCw, Layers, Sliders, Play, Plus, Clock, Eye,
-  ChevronLeft, ChevronRight, Flame, TrendingUp
+  ChevronLeft, ChevronRight, Flame, TrendingUp, Trash2
 } from 'lucide-react';
 import { collection, doc, updateDoc, deleteDoc, onSnapshot, writeBatch } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
@@ -58,6 +58,16 @@ type ServiceFilter = 'all' | 'lift' | 'packing' | 'storage';
 type SortMode = 'priority' | 'recent' | 'moveDate' | 'volume';
 
 const safeLower = (value: unknown) => String(value ?? '').toLowerCase();
+
+const formatRequestVolume = (value: PublicRequest['volume']) => {
+  const rawValue = String(value ?? '').trim();
+  if (!rawValue) return 'Volume à confirmer';
+  const normalizedUnit = rawValue.replace(/m3/gi, 'm³');
+  if (/m\s*(3|³)/i.test(normalizedUnit)) return normalizedUnit;
+  const parsed = Number(rawValue.replace(',', '.'));
+  if (Number.isFinite(parsed) && parsed > 0) return `${parsed} m³`;
+  return normalizedUnit;
+};
 
 const normalizeFormula = (value: unknown): FormulaFilter => {
   const formula = safeLower(value);
@@ -574,7 +584,7 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
                       <div>
                         <h4 className="font-extrabold text-slate-950 dark:text-white text-sm">{req.fullName}</h4>
                         <p className="text-[10px] text-slate-400 flex items-center gap-1.5 mt-0.5">
-                          <Clock size={10} /> Recu le {req.createdAt?.seconds ? new Date(req.createdAt.seconds * 1000).toLocaleDateString('fr-FR') : 'Date récente'}
+                          <Clock size={10} /> Reçu le {req.createdAt?.seconds ? new Date(req.createdAt.seconds * 1000).toLocaleDateString('fr-FR') : 'Date récente'}
                         </p>
                       </div>
                       <span className={`px-2.5 py-0.5 text-[9px] font-extrabold rounded-lg ${
@@ -597,7 +607,7 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
                         <span className="truncate">{req.fromCity} ➔ {req.toCity}</span>
                       </div>
                       <div>
-                        <span className="font-extrabold text-slate-800 dark:text-slate-200">{req.volume} m³</span>
+                        <span className="font-extrabold text-slate-800 dark:text-slate-200">{formatRequestVolume(req.volume)}</span>
                         <span className="text-slate-400 mx-1">•</span>
                         <span className="italic">{req.housingType} ({req.surface}m²)</span>
                       </div>
@@ -618,14 +628,15 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
                           onClick={(e) => { e.stopPropagation(); handleStudy(req); }}
                           className="px-3 py-1 bg-brand-900 text-white dark:bg-accent dark:text-brand-950 rounded-lg font-black text-[10px] hover:opacity-90 active:scale-95 cursor-pointer"
                         >
-                          Etudier & Chiffrer
+                          Étudier & chiffrer
                         </button>
                         <button 
                           onClick={(e) => { e.stopPropagation(); handleDeleteRequest(req.id); }}
-                          className="p-1 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 rounded transition active:scale-95 cursor-pointer"
-                          title="Supprimer la demande public"
+                          className="inline-flex h-7 w-7 items-center justify-center rounded-lg text-slate-400 transition hover:bg-red-50 hover:text-red-600 active:scale-95 dark:hover:bg-red-950/20"
+                          title="Supprimer la demande publique"
+                          aria-label="Supprimer la demande publique"
                         >
-                          Supprimer
+                          <Trash2 size={13} />
                         </button>
                       </div>
                     </div>
