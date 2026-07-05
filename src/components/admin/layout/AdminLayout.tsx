@@ -27,7 +27,9 @@ import {
   UserCircle,
   Settings,
   Send,
-  ClipboardList
+  ClipboardList,
+  Menu,
+  X
 } from 'lucide-react';
 import { ADMIN_TAB_LABELS, getAccessibleTabs, type AdminTab } from '../../../lib/admin-permissions';
 
@@ -74,6 +76,7 @@ export function AdminLayout() {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
   const [notifications, setNotifications] = useState<Array<{
     id: string;
@@ -458,29 +461,89 @@ export function AdminLayout() {
           </div>
         </header>
 
-        {/* Mobile tab navigation */}
-        <nav className="lg:hidden sticky top-20 z-30 bg-white/95 dark:bg-slate-950/95 border-b border-slate-200/70 dark:border-slate-800/80 px-3 py-2 backdrop-blur-xl shadow-[0_8px_18px_rgba(15,23,42,0.05)]">
-          <div className="flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {tabs.map((tab) => {
-              const isActive = currentTab === tab;
+        {/* Mobile Bottom Tab Bar */}
+        <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-slate-900/95 border-t border-slate-200/80 dark:border-slate-800/80 backdrop-blur-xl shadow-[0_-2px_15px_rgba(15,23,42,0.06)] flex items-center justify-around px-2 py-2">
+          {/* Main quick access tabs (Filtered by access) */}
+          {['overview', 'dossiers', 'planning', 'relances']
+            .filter((tab) => tabs.includes(tab as AdminTab))
+            .map((tab) => {
+              const isActive = currentTab === tab && !showMobileMenu;
               return (
                 <button
                   key={tab}
-                  onClick={() => navigate(`/admin/${tab}`)}
-                  className={`h-11 min-w-20 px-3 rounded-xl border text-[10px] font-black uppercase tracking-wide flex items-center justify-center gap-1.5 shrink-0 transition-all active:scale-95 ${
-                    isActive
-                      ? 'bg-accent text-brand-900 border-accent shadow-sm'
-                      : 'bg-white/90 dark:bg-slate-900/80 text-slate-600 dark:text-slate-300 border-slate-200/80 dark:border-slate-800'
+                  onClick={() => {
+                    navigate(`/admin/${tab}`);
+                    setShowMobileMenu(false);
+                  }}
+                  className={`flex flex-col items-center justify-center gap-1 flex-1 py-1 transition-all active:scale-95 ${
+                    isActive ? 'text-brand-900 dark:text-accent font-black' : 'text-slate-400 dark:text-slate-500'
                   }`}
-                  title={ADMIN_TAB_LABELS[tab].desktop}
                 >
-                  {getAdminTabIcon(tab, 14)}
-                  <span>{ADMIN_TAB_LABELS[tab].mobile}</span>
+                  <span className={isActive ? 'text-brand-900 dark:text-accent' : 'text-slate-400 dark:text-slate-500'}>
+                    {getAdminTabIcon(tab as AdminTab, 20)}
+                  </span>
+                  <span className="text-[9px] uppercase tracking-wider">{ADMIN_TAB_LABELS[tab as AdminTab].mobile}</span>
                 </button>
               );
             })}
-          </div>
+
+          {/* Menu / "More" button */}
+          <button
+            onClick={() => setShowMobileMenu(!showMobileMenu)}
+            className={`flex flex-col items-center justify-center gap-1 flex-1 py-1 transition-all active:scale-95 ${
+              showMobileMenu ? 'text-brand-900 dark:text-accent font-black' : 'text-slate-400 dark:text-slate-500'
+            }`}
+          >
+            <span className={showMobileMenu ? 'text-brand-900 dark:text-accent' : 'text-slate-400 dark:text-slate-500'}>
+              {showMobileMenu ? <X size={20} /> : <Menu size={20} />}
+            </span>
+            <span className="text-[9px] uppercase tracking-wider">Menu</span>
+          </button>
         </nav>
+
+        {/* Fullscreen Mobile Menu Overlay */}
+        {showMobileMenu && (
+          <div className="lg:hidden fixed inset-0 z-30 bg-white/98 dark:bg-slate-950/98 backdrop-blur-md pt-36 pb-20 px-6 overflow-y-auto animate-fade-in">
+            <div className="space-y-6">
+              {CRM_SIDEBAR_SECTIONS.map((section) => {
+                const sectionTabs = section.tabs.filter((tab) => tabs.includes(tab));
+                if (sectionTabs.length === 0) return null;
+
+                return (
+                  <div key={section.title} className="space-y-2">
+                    <h3 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-2">
+                      {section.title}
+                    </h3>
+                    <div className="grid grid-cols-2 gap-2">
+                      {sectionTabs.map((tab) => {
+                        const isActive = currentTab === tab;
+                        return (
+                          <button
+                            key={tab}
+                            onClick={() => {
+                              navigate(`/admin/${tab}`);
+                              setShowMobileMenu(false);
+                            }}
+                            className={`flex items-center gap-3 px-4 py-3.5 rounded-2xl text-xs font-bold transition-all active:scale-98 ${
+                              isActive
+                                ? 'bg-accent text-brand-900 shadow-md'
+                                : 'bg-slate-50 hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
+                            }`}
+                          >
+                            <span className={isActive ? 'text-brand-900' : 'text-slate-400 dark:text-slate-500'}>
+                              {getAdminTabIcon(tab, 16)}
+                            </span>
+                            <span className="truncate">{ADMIN_TAB_LABELS[tab].desktop}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* PAGE CONTENT OUTLET */}
         <div className="flex-1 p-4 md:p-6 pb-24 lg:pb-6 relative max-w-7xl mx-auto w-full">

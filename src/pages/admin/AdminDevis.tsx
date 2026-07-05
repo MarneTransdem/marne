@@ -13,7 +13,7 @@ import type { AdminOutletContextType } from '../../components/admin/layout/Admin
 import { buildCommunicationLog, renderCommunication, type CommunicationLog, type CommunicationTask } from '../../lib/crm-communications';
 import { analyzeQuotePricing, formatPremiumCurrency, scoreQuoteOpportunity } from '../../lib/crm-premium';
 import { useCrmSettings } from '../../hooks/useCrmSettings';
-import { Plus, Edit, Trash2, FileText, Check, X, MoveRight, Printer, Copy, Search, Calendar, AlertTriangle, Mail, Loader2, Flame, TrendingUp, ShieldCheck } from 'lucide-react';
+import { Plus, Edit, Trash2, FileText, Check, X, MoveRight, Printer, Copy, Search, Calendar, AlertTriangle, Mail, Loader2, Flame, TrendingUp, ShieldCheck, Coins } from 'lucide-react';
 import { PdfGenerator } from '../../components/admin/PdfGenerator';
 
 const COLUMNS = ['Brouillon', 'Envoyé', 'En attente', 'Signé', 'Refusé'] as const;
@@ -53,13 +53,13 @@ export function AdminDevis() {
   const [selectedPdfQuote, setSelectedPdfQuote] = useState<Devis | null>(null);
   const [sendingQuoteId, setSendingQuoteId] = useState<string | null>(null);
   const [newDevis, setNewDevis] = useState<Partial<Devis>>({
-    clientName: '', phone: '', email: '', fromCity: '', toCity: '', fromAddress: '', toAddress: '', volume: 20, formula: 'Standard', price: 1200, status: 'Brouillon',
+    clientName: '', phone: '', email: '', fromCity: '', toCity: '', fromAddress: '', toAddress: '', volume: undefined, formula: 'Standard', price: undefined, status: 'Brouillon',
     fromFloor: '2', toFloor: '0 (RDC)', fromElevator: 'Oui', toElevator: 'Non', fromLift: 'Oui', toLift: 'Non', fromPortage: '-20m', toPortage: '-', distance: '', voyageType: undefined
   });
   const draftPricingInsight = useMemo(() => analyzeQuotePricing(newDevis, pricingSettings), [newDevis, pricingSettings]);
 
   const resetForm = () => {
-    setNewDevis({ clientName: '', phone: '', email: '', fromCity: '', toCity: '', fromAddress: '', toAddress: '', volume: 20, formula: 'Standard', price: 1200, status: 'Brouillon',
+    setNewDevis({ clientName: '', phone: '', email: '', fromCity: '', toCity: '', fromAddress: '', toAddress: '', volume: undefined, formula: 'Standard', price: undefined, status: 'Brouillon',
       fromFloor: '2', toFloor: '0 (RDC)', fromElevator: 'Oui', toElevator: 'Non', fromLift: 'Oui', toLift: 'Non', fromPortage: '-20m', toPortage: '-', distance: '', voyageType: undefined });
     setEditingDevisId(null);
   };
@@ -90,8 +90,49 @@ export function AdminDevis() {
     }
   };
 
+  const createAcompteInvoice = async (quote: Devis) => {
+    const dossierId = quote.dossierId || buildDossierIdFromReference('DEV', quote.id);
+    const existingInvoices = factures.filter(f => f.devisId === quote.id);
+    
+    // e.g. FAC-2026-001-AC
+    const id = getNextYearlyId('FAC', factures.map((invoice) => invoice.id)) + '-AC'; 
+    const ttc = Number((quote.price * 0.3).toFixed(2));
+    const rate = 20; // TVA à 20% par défaut
+    const ht = Number((ttc / 1.2).toFixed(2));
+    const tvaAmount = Number((ttc - ht).toFixed(2));
+
+    const invoice: Facture = {
+      id,
+      dossierId,
+      devisId: quote.id,
+      clientName: `${quote.clientName} (Acompte 30%)`,
+      email: quote.email,
+      amountHT: ht,
+      tvaRate: rate,
+      tvaAmount: tvaAmount,
+      amount: ttc,
+      date: new Date().toISOString().split('T')[0],
+      dueDate: new Date(Date.now() + 15 * 24 * 3600 * 1000).toISOString().split('T')[0], // 15 jours d'échéance pour l'acompte
+      status: 'En attente'
+    };
+
+    setFactures(prev => [invoice, ...prev]);
+    context?.pushNotification('Facture d’acompte créée', `La facture d’acompte ${id} (30% soit ${ttc} €) a été créée avec succès.`, 'success');
+  };
+
   const saveQuote = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (newDevis.volume === undefined || newDevis.volume <= 0) {
+      context?.pushNotification('Saisie requise', 'Veuillez saisir un volume global valide supérieur à 0.', 'warning');
+      return;
+    }
+
+    if (newDevis.price === undefined || newDevis.price <= 0) {
+      context?.pushNotification('Saisie requise', 'Veuillez saisir un prix TTC valide supérieur à 0.', 'warning');
+      return;
+    }
+
     const idSource = allDevisForIds.length > 0 ? allDevisForIds : devisList;
     const id = editingDevisId || getNextYearlyId('DEV', idSource.map((quote) => quote.id));
     const dossierId = newDevis.dossierId || buildDossierIdFromReference('DEV', id);
@@ -109,9 +150,9 @@ export function AdminDevis() {
       toCity: newDevis.toCity || 'Lyon',
       fromAddress: newDevis.fromAddress || '',
       toAddress: newDevis.toAddress || '',
-      volume: Number(newDevis.volume) || 20,
+      volume: Number(newDevis.volume),
       formula: (newDevis.formula || 'Standard') as any,
-      price: Number(newDevis.price) || 1200,
+      price: Number(newDevis.price),
       date: newDevis.date || new Date().toISOString().split('T')[0],
       createdAt,
       expiresAt: newDevis.expiresAt || defaultExpires,
@@ -683,11 +724,11 @@ export function AdminDevis() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block font-bold mb-1">Volume global (m³)</label>
-                  <input type="number" className="w-full bg-slate-50 dark:bg-slate-950 p-2.5 border border-slate-200 dark:border-slate-800 rounded-xl" value={newDevis.volume} onChange={e=>setNewDevis({...newDevis, volume: Number(e.target.value)})} />
+                  <input type="number" className="w-full bg-slate-50 dark:bg-slate-950 p-2.5 border border-slate-200 dark:border-slate-800 rounded-xl" value={newDevis.volume ?? ''} onChange={e=>setNewDevis({...newDevis, volume: e.target.value ? Number(e.target.value) : undefined})} />
                 </div>
                 <div>
                   <label className="block font-bold mb-1">Prix TTC (€)</label>
-                  <input type="number" className="w-full bg-slate-50 dark:bg-slate-950 p-2.5 border border-slate-200 dark:border-slate-800 rounded-xl" value={newDevis.price} onChange={e=>setNewDevis({...newDevis, price: Number(e.target.value)})} />
+                  <input type="number" className="w-full bg-slate-50 dark:bg-slate-950 p-2.5 border border-slate-200 dark:border-slate-800 rounded-xl" value={newDevis.price ?? ''} onChange={e=>setNewDevis({...newDevis, price: e.target.value ? Number(e.target.value) : undefined})} />
                 </div>
                 <div>
                   <label className="block font-bold mb-1">Formule choisie</label>
@@ -948,6 +989,16 @@ export function AdminDevis() {
                           >
                             <Printer size={10} /> PDF
                           </button>
+
+                          {quote.status === 'Signé' && (
+                            <button
+                              onClick={() => createAcompteInvoice(quote)}
+                              className="px-2 py-1.5 text-emerald-700 bg-emerald-50 dark:text-emerald-300 dark:bg-emerald-950/25 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 font-bold text-[9px] uppercase rounded-lg transition-colors flex items-center gap-0.5"
+                              title="Générer une facture d’acompte (30 %)"
+                            >
+                              <Coins size={10} /> Acompte 30%
+                            </button>
+                          )}
                           
                           <button 
                             onClick={() => duplicateQuote(quote)} 

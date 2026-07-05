@@ -7,7 +7,7 @@ import { useCrmSettings } from '../../hooks/useCrmSettings';
 import { Facture } from '../../types';
 import { 
   Plus, FileText, X, Coins, CreditCard, AlertTriangle, 
-  Search, ShieldAlert, BadgePercent, ArrowUpRight, CheckCircle2, Mail, Loader2
+  Search, ShieldAlert, BadgePercent, ArrowUpRight, CheckCircle2, Mail, Loader2, Copy
 } from 'lucide-react';
 import { PdfGenerator } from '../../components/admin/PdfGenerator';
 import type { AdminOutletContextType } from '../../components/admin/layout/AdminLayout';
@@ -129,6 +129,23 @@ export function AdminFactures({
       date: new Date().toISOString().split('T')[0],
       dueDate: new Date(Date.now() + 30 * 24 * 3600 * 1000).toISOString().split('T')[0]
     });
+  };
+
+  const duplicateInvoice = (invoice: Facture) => {
+    const duplicated: Partial<Facture> = {
+      devisId: invoice.devisId || 'DEV-MANUEL',
+      dossierId: invoice.dossierId,
+      clientName: `${invoice.clientName} (Copie)`,
+      email: invoice.email || '',
+      amount: invoice.amount,
+      tvaRate: invoice.tvaRate || 20,
+      status: 'En attente',
+      date: new Date().toISOString().split('T')[0],
+      dueDate: new Date(Date.now() + 30 * 24 * 3600 * 1000).toISOString().split('T')[0]
+    };
+    setNewFacture(duplicated);
+    setShowAddFacture(true);
+    context?.pushNotification('Facture pré-remplie', 'Les informations de la facture ont été copiées dans le formulaire.', 'info');
   };
 
   const updateInvoiceStatus = (id: string, newStatus: Facture['status']) => {
@@ -571,6 +588,14 @@ export function AdminFactures({
                           title="Visualiser la facture pro Marne Transdem"
                         >
                           <FileText size={11} /> PDF Pro
+                        </button>
+
+                        <button
+                          onClick={() => duplicateInvoice(fac)}
+                          className="bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 py-1.5 px-2.5 rounded-lg text-[10px] font-extrabold cursor-pointer inline-flex items-center gap-1 active:scale-95 whitespace-nowrap"
+                          title="Dupliquer cette facture"
+                        >
+                          <Copy size={11} /> Dupliquer
                         </button>
 
                         <button
