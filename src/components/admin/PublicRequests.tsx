@@ -106,7 +106,7 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
   const [visitFilter, setVisitFilter] = useState<VisitFilter>('all');
   const [formulaFilter, setFormulaFilter] = useState<FormulaFilter>('all');
   const [serviceFilter, setServiceFilter] = useState<ServiceFilter>('all');
-  const [sortMode, setSortMode] = useState<SortMode>('priority');
+  const [sortMode, setSortMode] = useState<SortMode>('recent');
   const [pageSize, setPageSize] = useState<PageSize>(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRequest, setSelectedRequest] = useState<PublicRequest | null>(null);
@@ -520,8 +520,8 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
             onChange={(event) => setSortMode(event.target.value as SortMode)}
             className="bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
           >
-            <option value="priority">Priorité commerciale</option>
             <option value="recent">Plus récentes</option>
+            <option value="priority">Priorité commerciale</option>
             <option value="moveDate">Date déménagement</option>
             <option value="volume">Volume décroissant</option>
           </select>
@@ -548,7 +548,7 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
               setVisitFilter('all');
               setFormulaFilter('all');
               setServiceFilter('all');
-              setSortMode('priority');
+              setSortMode('recent');
               setPageSize(10);
             }}
             className="self-start sm:self-auto text-[10px] font-black uppercase tracking-wider text-slate-500 hover:text-brand-900 dark:hover:text-white"
