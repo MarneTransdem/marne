@@ -362,41 +362,41 @@ export function AdminOverview() {
         route: '/admin/factures',
         cta: 'Encaisser',
         icon: CreditCard,
-        className: 'bg-emerald-50 text-emerald-900 border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-300 dark:border-emerald-900/40'
+        className: 'bg-white text-slate-800 border-slate-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800'
       },
       {
         id: 'requests',
-        label: 'Demandes chaudes',
+        label: 'Demandes à traiter',
         value: newPublicRequestCount,
         helper: `${premiumCockpit.metrics.openRequests} demandes ouvertes au total`,
         route: '/admin/demandes',
         cta: 'Qualifier',
         icon: UserCheck,
-        className: 'bg-sky-50 text-sky-900 border-sky-200 dark:bg-sky-950/20 dark:text-sky-300 dark:border-sky-900/40'
+        className: 'bg-white text-slate-800 border-slate-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800'
       },
       {
         id: 'dossiers',
-        label: 'Dossiers critiques',
+        label: 'Dossiers à vérifier',
         value: todayActionStats.critical,
         helper: `${todayActionStats.openToCreate} action${todayActionStats.openToCreate > 1 ? 's' : ''} à créer`,
         route: '/admin/dossiers?focus=actions',
-        cta: 'Débloquer',
+        cta: 'Voir',
         icon: AlertTriangle,
-        className: 'bg-red-50 text-red-900 border-red-200 dark:bg-red-950/20 dark:text-red-300 dark:border-red-900/40'
+        className: 'bg-white text-slate-800 border-slate-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800'
       },
       {
         id: 'margin',
-        label: 'Marge à corriger',
+        label: 'Prix à revoir',
         value: formatPremiumCurrency(premiumCockpit.metrics.quoteMarginGap),
         helper: `${premiumCockpit.metrics.quotesMarginAtRisk} devis sous surveillance`,
         route: '/admin/devis',
         cta: 'Revoir',
         icon: TrendingUp,
-        className: 'bg-amber-50 text-amber-900 border-amber-200 dark:bg-amber-950/20 dark:text-amber-300 dark:border-amber-900/40'
+        className: 'bg-white text-slate-800 border-slate-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800'
       },
       {
         id: 'planning',
-        label: 'Planning à risque',
+        label: 'Planning à compléter',
         value: planningRisk,
         helper: `${premiumCockpit.metrics.movesUnassigned} chantier${premiumCockpit.metrics.movesUnassigned > 1 ? 's' : ''} à affecter`,
         route: '/admin/planning',
@@ -410,562 +410,290 @@ export function AdminOverview() {
   const isManagerView = roleFocus.eyebrow === 'Cockpit gérant';
 
   return (
-    <div className="space-y-8 animate-fade-in text-slate-800 dark:text-slate-100">
-      {/* Banner */}
-      <div className="bg-white/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-850 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm ring-1 ring-slate-100 dark:ring-slate-800 backdrop-blur-md">
-        <div className="space-y-2 z-10">
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] font-black uppercase text-accent tracking-[0.2em] bg-accent/10 px-2.5 py-1 rounded-full block">MarneTransdem CRM</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
-          </div>
-          <h2 className="text-2xl md:text-3xl font-black tracking-tight text-brand-900 dark:text-white">
-            Bonjour, {user?.email?.split('@')[0]}
-          </h2>
-          <p className="text-slate-500 dark:text-slate-400 font-medium text-xs max-w-xl">
-            Pilotez votre activité en temps réel. Suivez vos performances, vos tournées et encaissez vos factures.
-          </p>
-        </div>
-        <div className="bg-slate-50/95 dark:bg-slate-950/70 border border-slate-200/80 dark:border-slate-800 p-5 rounded-2xl shrink-0 z-10 min-w-[200px] shadow-sm">
-          <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">Tâches en attente</span>
-          <span className="text-3xl font-black text-brand-900 dark:text-white block mt-1">
-            {newPublicRequestCount + quoteFollowUpCount + planningToAssignCount}
-          </span>
-          <div className="text-[10px] text-slate-500 mt-1 flex flex-col gap-0.5">
-            <span>• {newPublicRequestCount} demandes web</span>
-            <span>• {quoteFollowUpCount} devis à relancer</span>
-            <span>• {planningToAssignCount} chantiers à planifier</span>
-          </div>
-        </div>
-      </div>
-
-      <section className='bg-white/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-5 md:p-6 shadow-sm'>
-        <div className='flex flex-col gap-5'>
-          <div className='flex flex-col xl:flex-row xl:items-end xl:justify-between gap-4'>
-            <div className='space-y-2'>
-              <span className='text-[10px] font-black uppercase tracking-[0.2em] text-accent'>{roleFocus.eyebrow}</span>
-              <h3 className='text-xl md:text-2xl font-black tracking-tight text-brand-950 dark:text-white'>{isManagerView ? 'Les 5 décisions du matin' : roleFocus.title}</h3>
-              <p className='text-sm font-medium text-slate-500 dark:text-slate-400 max-w-3xl'>
-                {isManagerView ? 'Un résumé court, actionnable et connecté aux bons modules pour piloter sans se perdre dans les détails.' : roleFocus.description}
-              </p>
-            </div>
-            <button
-              type='button'
-              onClick={() => navigate(isManagerView ? '/admin/dossiers?focus=actions' : roleFocus.primaryRoute)}
-              className='inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-900 px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-white transition-colors hover:bg-brand-hover dark:bg-accent dark:text-brand-950'
-            >
-              {isManagerView ? 'Ouvrir les priorités' : roleFocus.primaryCta}
-              <ArrowUpRight size={13} />
-            </button>
+    <div className="space-y-6 animate-fade-in text-slate-800 dark:text-slate-100">
+      <section className="rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 md:p-6">
+        <div className="grid grid-cols-1 gap-5 xl:grid-cols-[1.1fr_0.9fr] xl:items-center">
+          <div className="max-w-3xl">
+            <span className="text-[10px] font-black uppercase tracking-[0.22em] text-accent">Tableau de bord</span>
+            <h2 className="mt-2 text-2xl font-black tracking-tight text-brand-950 dark:text-white md:text-3xl">
+              Bonjour, {user?.email?.split('@')[0] || 'équipe'}
+            </h2>
+            <p className="mt-2 text-sm font-medium leading-relaxed text-slate-500 dark:text-slate-400">
+              Voici l'essentiel pour avancer aujourd'hui, sans bruit inutile. Les détails restent accessibles dans chaque module.
+            </p>
           </div>
 
-          {isManagerView ? (
-            <div className='grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-5 gap-3'>
-              {managerDecisionCards.map((card) => {
-                const Icon = card.icon;
-                return (
-                  <button
-                    key={card.id}
-                    type='button'
-                    onClick={() => navigate(card.route)}
-                    className={`text-left rounded-2xl border p-4 min-h-32 transition-all hover:-translate-y-0.5 hover:shadow-md ${card.className}`}
-                  >
-                    <div className='flex items-start justify-between gap-3'>
-                      <Icon size={18} className='shrink-0 opacity-80' />
-                      <span className='rounded-md bg-white/70 px-1.5 py-0.5 text-[8px] font-black uppercase tracking-wider opacity-80 dark:bg-slate-950/40'>{card.cta}</span>
-                    </div>
-                    <span className='mt-4 block text-[9px] font-black uppercase tracking-wider opacity-70'>{card.label}</span>
-                    <strong className='mt-1 block text-2xl font-black leading-tight'>{card.value}</strong>
-                    <p className='mt-2 text-[11px] font-semibold leading-snug opacity-80'>{card.helper}</p>
-                  </button>
-                );
-              })}
-            </div>
-          ) : (
-            <div className='grid grid-cols-1 sm:grid-cols-3 gap-2'>
-              {roleFocus.checks.map((item) => (
-                <div key={item.label} className='rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/75 dark:border-slate-800 p-3 min-h-20'>
-                  <span className='block text-[9px] font-black uppercase tracking-wider text-slate-400 leading-tight'>{item.label}</span>
-                  <strong className='mt-2 block text-lg font-black text-brand-900 dark:text-white truncate'>{item.value}</strong>
-                </div>
-              ))}
-            </div>
-          )}
+          <div className="grid grid-cols-2 gap-2">
+            {[
+              { label: 'Demandes', value: newPublicRequestCount, detail: 'à qualifier', route: '/admin/demandes', icon: UserCheck },
+              { label: 'Devis', value: quoteFollowUpCount, detail: 'à suivre', route: '/admin/devis', icon: FileText },
+              { label: 'Factures', value: formatPremiumCurrency(pendingInvoicesSum), detail: 'en attente', route: '/admin/factures', icon: CreditCard },
+              { label: 'Planning', value: planningToAssignCount, detail: 'à compléter', route: '/admin/planning', icon: Calendar }
+            ].map((item) => {
+              const Icon = item.icon;
+              return (
+                <button
+                  key={item.label}
+                  type="button"
+                  onClick={() => navigate(item.route)}
+                  className="rounded-2xl border border-slate-200 bg-slate-50/70 p-3 text-left transition-colors hover:border-accent hover:bg-white dark:border-slate-800 dark:bg-slate-950/40 dark:hover:bg-slate-900"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">{item.label}</span>
+                    <Icon size={14} className="text-slate-400" />
+                  </div>
+                  <strong className="mt-2 block truncate text-lg font-black text-brand-950 dark:text-white">{item.value}</strong>
+                  <span className="mt-0.5 block text-[10px] font-semibold text-slate-500 dark:text-slate-400">{item.detail}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      <section className="bg-white/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-5 md:p-6 shadow-sm">
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+      <section className="rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 md:p-6">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">Actions du jour</span>
-            <h3 className="mt-1 text-lg font-black text-brand-900 dark:text-white">3 priorités à traiter maintenant</h3>
-            <p className="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400 max-w-2xl">
-              On affiche seulement les dossiers les plus sensibles pour garder l'accueil lisible. {hiddenTodayActionCount > 0 ? `${hiddenTodayActionCount} autre${hiddenTodayActionCount > 1 ? 's' : ''} action${hiddenTodayActionCount > 1 ? 's' : ''} reste${hiddenTodayActionCount > 1 ? 'nt' : ''} disponible${hiddenTodayActionCount > 1 ? 's' : ''} dans Dossiers.` : 'Tout le reste est déjà sous contrôle.'}
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{isManagerView ? 'Vue du jour' : roleFocus.eyebrow}</span>
+            <h3 className="mt-1 text-xl font-black tracking-tight text-brand-950 dark:text-white">{isManagerView ? "Aujourd'hui en clair" : roleFocus.title}</h3>
+            <p className="mt-1 max-w-3xl text-sm font-medium leading-relaxed text-slate-500 dark:text-slate-400">
+              {isManagerView ? 'Les informations utiles sont regroupées ici pour décider vite, déléguer facilement et garder une vision sereine.' : roleFocus.description}
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-            <div className="flex flex-wrap gap-1.5 text-[9px] font-black uppercase tracking-wider">
-              <span className="rounded-full bg-red-50 px-2.5 py-1 text-red-700 dark:bg-red-950/25 dark:text-red-300">{todayActionStats.critical} critiques</span>
-              <span className="rounded-full bg-amber-50 px-2.5 py-1 text-amber-700 dark:bg-amber-950/25 dark:text-amber-300">{todayActionStats.warning} à suivre</span>
-              <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-emerald-700 dark:bg-emerald-950/25 dark:text-emerald-300">{todayActionStats.alreadyTasked} déjà couvertes</span>
-            </div>
-            <button
-              type="button"
-              onClick={() => navigate('/admin/dossiers?focus=actions')}
-              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-900 px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-white transition-colors hover:bg-brand-hover dark:bg-accent dark:text-brand-950"
-            >
-              Voir tout
-              <ArrowUpRight size={13} />
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => navigate(isManagerView ? '/admin/dossiers?focus=actions' : roleFocus.primaryRoute)}
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-900 px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-white transition-colors hover:bg-brand-hover dark:bg-accent dark:text-brand-950"
+          >
+            {isManagerView ? 'Voir les actions' : roleFocus.primaryCta}
+            <ArrowUpRight size={13} />
+          </button>
         </div>
 
-        <div className="mt-5 grid grid-cols-1 xl:grid-cols-3 gap-3">
+        {isManagerView ? (
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-5">
+            {managerDecisionCards.map((card) => {
+              const Icon = card.icon;
+              return (
+                <button
+                  key={card.id}
+                  type="button"
+                  onClick={() => navigate(card.route)}
+                  className={`min-h-28 rounded-2xl border p-4 text-left transition-colors hover:border-accent hover:shadow-sm ${card.className}`}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <span className="rounded-xl bg-slate-50 p-2 text-slate-500 dark:bg-slate-950/60 dark:text-slate-300"><Icon size={16} /></span>
+                    <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">{card.cta}</span>
+                  </div>
+                  <span className="mt-3 block text-[9px] font-black uppercase tracking-wider text-slate-400">{card.label}</span>
+                  <strong className="mt-1 block truncate text-xl font-black text-brand-950 dark:text-white">{card.value}</strong>
+                  <p className="mt-1 line-clamp-2 text-[11px] font-semibold leading-snug text-slate-500 dark:text-slate-400">{card.helper}</p>
+                </button>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {roleFocus.checks.map((item) => (
+              <div key={item.label} className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 dark:border-slate-800 dark:bg-slate-950/40">
+                <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">{item.label}</span>
+                <strong className="mt-2 block truncate text-lg font-black text-brand-950 dark:text-white">{item.value}</strong>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <section className="rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 md:p-6">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">À faire maintenant</span>
+            <h3 className="mt-1 text-lg font-black text-brand-950 dark:text-white">Les 3 prochaines actions utiles</h3>
+            <p className="mt-1 max-w-2xl text-xs font-semibold leading-relaxed text-slate-500 dark:text-slate-400">
+              L'accueil reste volontairement court. {hiddenTodayActionCount > 0 ? `${hiddenTodayActionCount} autre${hiddenTodayActionCount > 1 ? 's' : ''} action${hiddenTodayActionCount > 1 ? 's' : ''} reste${hiddenTodayActionCount > 1 ? 'nt' : ''} disponible${hiddenTodayActionCount > 1 ? 's' : ''} dans Dossiers.` : 'Tout le reste est déjà couvert.'}
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => navigate('/admin/dossiers?focus=actions')}
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-slate-700 transition-colors hover:border-brand-900 hover:text-brand-900 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 dark:hover:text-white"
+          >
+            Tout voir
+            <ArrowUpRight size={13} />
+          </button>
+        </div>
+
+        <div className="mt-5 grid grid-cols-1 gap-3 xl:grid-cols-3">
           {todayActions.map((action) => (
             <button
               key={action.id}
               type="button"
               onClick={() => navigate(action.route)}
-              className={`text-left rounded-2xl border p-4 min-h-36 transition-all hover:-translate-y-0.5 hover:shadow-md ${getTodayActionClasses(action.tone)}`}
+              className={`min-h-32 rounded-2xl border border-l-4 p-4 text-left transition-colors hover:border-accent hover:shadow-sm ${getTodayActionClasses(action.tone)}`}
             >
               <div className="flex items-start justify-between gap-3">
-                <ClipboardList size={16} className="mt-0.5 shrink-0 opacity-75" />
+                <ClipboardList size={16} className="mt-0.5 shrink-0 text-slate-400" />
                 {action.alreadyTasked ? (
-                  <CheckCircle2 size={15} className="shrink-0 text-emerald-600 dark:text-emerald-300" />
+                  <span className="rounded-full bg-emerald-50 px-2 py-1 text-[9px] font-black uppercase text-emerald-700 dark:bg-emerald-950/25 dark:text-emerald-300">Préparée</span>
                 ) : (
-                  <span className="rounded-md bg-white/70 px-1.5 py-0.5 text-[8px] font-black uppercase opacity-80 dark:bg-slate-950/40">À créer</span>
+                  <span className="rounded-full bg-slate-100 px-2 py-1 text-[9px] font-black uppercase text-slate-500 dark:bg-slate-800 dark:text-slate-300">À préparer</span>
                 )}
               </div>
-              <span className="mt-3 block text-[9px] font-black uppercase tracking-wider opacity-70 truncate">{action.clientName}</span>
-              <strong className="mt-1 block text-sm font-black leading-snug">{action.title}</strong>
-              <p className="mt-1 line-clamp-2 text-[11px] font-semibold opacity-80">{action.description}</p>
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                <span className="rounded-md bg-white/70 px-1.5 py-0.5 text-[8px] font-black uppercase opacity-80 dark:bg-slate-950/40">{action.priority === 'urgent' ? 'Urgent' : 'Normal'}</span>
-                <span className="rounded-md bg-white/70 px-1.5 py-0.5 text-[8px] font-black uppercase opacity-80 dark:bg-slate-950/40">{formatDateFr(action.dueDate)}</span>
+              <span className="mt-3 block truncate text-[9px] font-black uppercase tracking-wider text-slate-400">{action.clientName}</span>
+              <strong className="mt-1 block text-sm font-black leading-snug text-brand-950 dark:text-white">{action.title}</strong>
+              <p className="mt-1 line-clamp-2 text-[11px] font-semibold leading-relaxed text-slate-500 dark:text-slate-400">{action.description}</p>
+              <div className="mt-3 flex flex-wrap gap-1.5 text-[8px] font-black uppercase tracking-wider text-slate-400">
+                <span className="rounded-md bg-slate-50 px-1.5 py-0.5 dark:bg-slate-950/60">{action.priority === 'urgent' ? 'À traiter' : 'Suivi'}</span>
+                <span className="rounded-md bg-slate-50 px-1.5 py-0.5 dark:bg-slate-950/60">{formatDateFr(action.dueDate)}</span>
               </div>
-              <span className="mt-3 inline-flex text-[9px] font-black uppercase tracking-wider opacity-80">{action.cta}</span>
             </button>
           ))}
 
           {todayActions.length === 0 && (
-            <div className="xl:col-span-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-emerald-800 dark:bg-emerald-950/20 dark:border-emerald-900/40 dark:text-emerald-300">
-              <p className="text-sm font-black">Aucune action sensible aujourd'hui.</p>
-              <p className="mt-1 text-xs font-semibold opacity-80">Les contrôles dossier ne signalent pas de priorité immédiate pour votre rôle.</p>
+            <div className="xl:col-span-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-emerald-800 dark:border-emerald-900/40 dark:bg-emerald-950/20 dark:text-emerald-300">
+              <p className="text-sm font-black">Rien de sensible à traiter maintenant.</p>
+              <p className="mt-1 text-xs font-semibold opacity-80">Le flux est propre pour votre rôle.</p>
             </div>
           )}
         </div>
       </section>
-      {/* Cockpit Premium */}
-      <section className="grid grid-cols-1 xl:grid-cols-12 gap-6">
-        <div className="xl:col-span-4 bg-brand-950 text-white rounded-3xl p-6 shadow-sm border border-brand-900 overflow-hidden relative">
-          <div className="absolute right-0 top-0 h-32 w-32 bg-accent/10 rounded-bl-[48px]" />
-          <div className="relative z-10 space-y-5">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">Cockpit Premium</span>
-                <h3 className="text-xl font-black mt-1">Maîtrise opérationnelle</h3>
-              </div>
-              <ShieldCheck className="text-accent shrink-0" size={28} />
-            </div>
 
-            <div className="flex items-end gap-3">
-              <span className="text-6xl font-black leading-none">{premiumCockpit.score}</span>
-              <div className="pb-2">
-                <span className="text-sm font-black">/100</span>
-                <p className="text-xs text-slate-300 font-semibold">{premiumCockpit.scoreLabel}</p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2">
-              <div className="bg-white/8 border border-white/10 rounded-2xl p-3">
-                <span className="text-[9px] uppercase font-black text-slate-400">Aujourd'hui</span>
-                <strong className="block text-lg mt-0.5">{premiumCockpit.metrics.visitsToday + premiumCockpit.metrics.movesToday}</strong>
-              </div>
-              <div className="bg-white/8 border border-white/10 rounded-2xl p-3">
-                <span className="text-[9px] uppercase font-black text-slate-400">À 7 jours</span>
-                <strong className="block text-lg mt-0.5">{premiumCockpit.metrics.visitsNext7}</strong>
-              </div>
-              <div className="bg-white/8 border border-white/10 rounded-2xl p-3">
-                <span className="text-[9px] uppercase font-black text-slate-400">Devis marge</span>
-                <strong className="block text-lg mt-0.5">{premiumCockpit.metrics.quotesMarginAtRisk}</strong>
-              </div>
-              <div className="bg-white/8 border border-white/10 rounded-2xl p-3">
-                <span className="text-[9px] uppercase font-black text-slate-400">Risques</span>
-                <strong className="block text-lg mt-0.5">{premiumCockpit.metrics.movesUnassigned + premiumCockpit.metrics.overdueInvoices}</strong>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="xl:col-span-8 bg-white/90 dark:bg-slate-900/90 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 md:p-6 shadow-sm">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
+      {alertes.length > 0 && (
+        <section className="rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 md:p-6">
+          <div className="mb-4 flex items-center justify-between gap-3">
             <div>
-              <span className="text-[10px] font-black uppercase tracking-[0.18em] text-accent">Ordre de bataille</span>
-              <h3 className="text-lg font-black text-brand-900 dark:text-white">Priorités à traiter maintenant</h3>
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">À surveiller</span>
+              <h3 className="mt-1 text-lg font-black text-brand-950 dark:text-white">Points à ne pas oublier</h3>
             </div>
-            <button
-              onClick={() => navigate('/admin/relances')}
-              className="self-start sm:self-center px-3 py-2 rounded-xl bg-slate-950 text-white dark:bg-accent dark:text-brand-950 text-[10px] font-black uppercase tracking-wider hover:opacity-90 transition-opacity flex items-center gap-1.5"
-            >
-              Centre relances <ArrowUpRight size={12} />
-            </button>
+            <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-black text-slate-500 dark:bg-slate-800 dark:text-slate-300">{alertes.length}</span>
           </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
-            <div className="lg:col-span-3 space-y-3">
-              {premiumCockpit.actions.length === 0 ? (
-                <div className="border border-emerald-200 dark:border-emerald-900/40 bg-emerald-50 dark:bg-emerald-950/20 rounded-2xl p-4 text-emerald-800 dark:text-emerald-300">
-                  <p className="text-xs font-black">Aucune urgence détectée.</p>
-                  <p className="text-[11px] mt-1 font-medium opacity-80">Le flux commercial, planning et trésorerie est sous contrôle.</p>
-                </div>
-              ) : premiumCockpit.actions.map(action => (
-                <div key={action.id} className={`border rounded-2xl p-4 flex items-center justify-between gap-4 ${getPremiumToneClasses(action.severity)}`}>
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="text-xl font-black leading-none">{action.metric}</span>
-                      <h4 className="text-xs font-black truncate">{action.title}</h4>
-                    </div>
-                    <p className="text-[11px] mt-1 font-medium opacity-80 leading-relaxed">{action.description}</p>
-                  </div>
-                  <button
-                    onClick={() => navigate(action.route)}
-                    className={`px-3 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider shrink-0 ${getPremiumButtonClasses(action.severity)}`}
-                  >
-                    {action.cta}
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            <div className="lg:col-span-2 grid grid-cols-2 lg:grid-cols-1 gap-3">
-              <div className="rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/75 dark:border-slate-800 p-4">
-                <span className="text-[9px] font-black uppercase text-slate-400 tracking-wider">Portefeuille signé</span>
-                <strong className="block text-xl font-black mt-1 text-brand-900 dark:text-white">{formatPremiumCurrency(premiumCockpit.metrics.signedRevenue)}</strong>
-                <p className="text-[10px] text-slate-500 mt-1">CA sécurisé par devis signés</p>
-              </div>
-              <div className="rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/75 dark:border-slate-800 p-4">
-                <span className="text-[9px] font-black uppercase text-slate-400 tracking-wider">Potentiel ouvert</span>
-                <strong className="block text-xl font-black mt-1 text-brand-900 dark:text-white">{formatPremiumCurrency(premiumCockpit.metrics.quotePotential)}</strong>
-                <p className="text-[10px] text-slate-500 mt-1">{premiumCockpit.metrics.conversionRate}% de conversion actuelle</p>
-              </div>
-              <div className="rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/75 dark:border-slate-800 p-4 col-span-2 lg:col-span-1">
-                <span className="text-[9px] font-black uppercase text-slate-400 tracking-wider">Panier moyen devis</span>
-                <strong className="block text-xl font-black mt-1 text-brand-900 dark:text-white">{formatPremiumCurrency(premiumCockpit.metrics.averageQuoteValue)}</strong>
-                <p className="text-[10px] text-slate-500 mt-1">Base pour marge et tarification intelligente</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {premiumCockpit.nextOperations.length > 0 && (
-        <section className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 md:p-6 shadow-sm">
-          <div className="flex items-center justify-between gap-3 mb-4">
-            <div>
-              <span className="text-[10px] font-black uppercase tracking-[0.18em] text-accent">Terrain</span>
-              <h3 className="text-lg font-black text-brand-900 dark:text-white">Visites et chantiers des 7 prochains jours</h3>
-            </div>
-            <Calendar className="text-slate-400" size={20} />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-            {premiumCockpit.nextOperations.map(operation => (
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+            {alertes.slice(0, 4).map((alerte) => (
               <button
-                key={operation.id}
-                onClick={() => navigate(operation.route)}
-                className="text-left border border-slate-200/75 dark:border-slate-800 rounded-2xl p-4 bg-slate-50/70 dark:bg-slate-950/50 hover:border-accent transition-colors"
+                key={alerte.id}
+                type="button"
+                onClick={() => navigate(alerte.actionPath)}
+                className="flex items-start justify-between gap-4 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-left transition-colors hover:border-accent hover:bg-white dark:border-slate-800 dark:bg-slate-950/40 dark:hover:bg-slate-900"
               >
-                <div className="flex items-center justify-between gap-3">
-                  <span className="text-[10px] font-black uppercase text-slate-400">{formatDateFr(operation.date)}</span>
-                  {operation.type === 'visite' ? <MapPin size={14} className="text-sky-500" /> : <Truck size={14} className="text-indigo-500" />}
+                <div className="min-w-0">
+                  <p className="text-xs font-bold leading-relaxed text-slate-700 dark:text-slate-200">{alerte.message}</p>
+                  <span className="mt-2 inline-flex text-[10px] font-black uppercase tracking-wider text-slate-400">{alerte.actionLabel}</span>
                 </div>
-                <h4 className="mt-2 text-xs font-black text-slate-900 dark:text-white truncate">{operation.title}</h4>
-                <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400 truncate">{operation.description}</p>
+                <ArrowUpRight size={14} className="mt-0.5 shrink-0 text-slate-400" />
               </button>
             ))}
           </div>
         </section>
       )}
 
-      {/* Priorités & Alertes */}
-      {alertes.length > 0 && (
-        <div className="space-y-3">
-          <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
-            <AlertCircle size={14} className="text-red-500" />
-            Priorités opérationnelles ({alertes.length})
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {alertes.map(alerte => (
-              <div 
-                key={alerte.id} 
-                className={`p-4 rounded-2xl border flex items-start justify-between gap-4 transition-all duration-200 shadow-sm backdrop-blur-sm ${
-                  alerte.type === 'error' 
-                    ? 'bg-red-50/70 dark:bg-red-950/10 border-red-200/70 dark:border-red-900/30 text-red-950 dark:text-red-300' 
-                    : alerte.type === 'warning'
-                    ? 'bg-amber-50/70 dark:bg-amber-950/10 border-amber-200/70 dark:border-amber-900/30 text-amber-950 dark:text-amber-300'
-                    : 'bg-sky-50/70 dark:bg-sky-950/10 border-sky-200/70 dark:border-sky-900/30 text-sky-950 dark:text-sky-300'
-                }`}
-              >
-                <div className="flex gap-3 items-start">
-                  <div className={`p-2 rounded-xl mt-0.5 ${
-                    alerte.type === 'error' 
-                      ? 'bg-red-100 dark:bg-red-900/30 text-red-600' 
-                      : alerte.type === 'warning'
-                      ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-600'
-                      : 'bg-sky-100 dark:bg-sky-900/30 text-sky-600'
-                  }`}>
-                    <AlertTriangle size={16} />
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-xs font-bold leading-normal">{alerte.message}</p>
-                    <p className="text-[10px] opacity-75">Action requise immédiatement</p>
-                  </div>
-                </div>
-                <button 
-                  onClick={() => navigate(alerte.actionPath)}
-                  className={`px-3 py-1.5 rounded-xl text-[10px] font-extrabold tracking-wide uppercase transition-colors shrink-0 ${
-                    alerte.type === 'error'
-                      ? 'bg-red-600 hover:bg-red-700 text-white shadow-sm shadow-red-600/10'
-                      : alerte.type === 'warning'
-                      ? 'bg-amber-600 hover:bg-amber-700 text-white shadow-sm shadow-amber-600/10'
-                      : 'bg-sky-600 hover:bg-sky-700 text-white shadow-sm shadow-sky-600/10'
-                  }`}
-                >
-                  {alerte.actionLabel}
-                </button>
+      <section className="grid grid-cols-1 gap-4 lg:grid-cols-4">
+        {[
+          { label: 'Trésorerie encaissée', value: `${activeInvoicesSum.toLocaleString('fr-FR')} €`, detail: `Ce mois : ${caStats.currentCA.toLocaleString('fr-FR')} €`, icon: Coins },
+          { label: 'En attente', value: `${pendingInvoicesSum.toLocaleString('fr-FR')} €`, detail: 'Factures à encaisser', icon: CreditCard },
+          { label: 'Conversion', value: `${conversionStats.rate}%`, detail: `${conversionStats.signed}/${conversionStats.total} devis`, icon: TrendingUp },
+          { label: 'Chantiers', value: demenagements.filter(d => d.status === 'Programmé' || d.status === 'En cours').length, detail: 'en cours ou programmés', icon: Truck }
+        ].map((metric) => {
+          const Icon = metric.icon;
+          return (
+            <div key={metric.label} className="rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">{metric.label}</span>
+                <Icon size={16} className="text-slate-400" />
               </div>
+              <strong className="mt-3 block truncate text-2xl font-black text-brand-950 dark:text-white">{metric.value}</strong>
+              <p className="mt-1 text-[11px] font-semibold text-slate-500 dark:text-slate-400">{metric.detail}</p>
+            </div>
+          );
+        })}
+      </section>
+
+      {premiumCockpit.nextOperations.length > 0 && (
+        <section className="rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 md:p-6">
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <div>
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Agenda</span>
+              <h3 className="mt-1 text-lg font-black text-brand-950 dark:text-white">Prochains rendez-vous</h3>
+            </div>
+            <Calendar className="text-slate-400" size={18} />
+          </div>
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+            {premiumCockpit.nextOperations.slice(0, 3).map((operation) => (
+              <button
+                key={operation.id}
+                type="button"
+                onClick={() => navigate(operation.route)}
+                className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-left transition-colors hover:border-accent hover:bg-white dark:border-slate-800 dark:bg-slate-950/40 dark:hover:bg-slate-900"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-[10px] font-black uppercase text-slate-400">{formatDateFr(operation.date)}</span>
+                  {operation.type === 'visite' ? <MapPin size={14} className="text-slate-400" /> : <Truck size={14} className="text-slate-400" />}
+                </div>
+                <h4 className="mt-2 truncate text-xs font-black text-brand-950 dark:text-white">{operation.title}</h4>
+                <p className="mt-1 truncate text-[11px] font-semibold text-slate-500 dark:text-slate-400">{operation.description}</p>
+              </button>
             ))}
           </div>
-        </div>
+        </section>
       )}
 
-      {/* Metrics Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {/* CA Card */}
-        <div className="bg-white/90 dark:bg-slate-900/90 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm hover:shadow-md transition-all">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Trésorerie Encaissée</span>
-            <div className="p-2.5 bg-emerald-50 dark:bg-emerald-950/20 rounded-xl">
-              <Coins className="text-emerald-600" size={18} />
-            </div>
+      <section className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1.15fr]">
+        <div className="rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 md:p-6">
+          <div className="mb-5 flex items-center gap-2">
+            <Sparkles size={16} className="text-accent" />
+            <h3 className="text-xs font-black uppercase tracking-widest text-slate-500">Raccourcis</h3>
           </div>
-          <h3 className="text-2xl font-black text-brand-900 dark:text-white">{activeInvoicesSum.toLocaleString('fr-FR')} €</h3>
-          
-          {/* CA Mensuel & Comparaison */}
-          <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
-            <div className="space-y-0.5">
-              <span className="text-[9px] text-slate-400 uppercase block font-bold">Ce mois ({caStats.currentCA.toLocaleString('fr-FR')} €)</span>
-              <span className="text-[10px] text-slate-500 dark:text-slate-400">
-                vs {caStats.prevCA.toLocaleString('fr-FR')} € (M-1)
-              </span>
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { label: 'Devis', detail: 'Créer ou envoyer', route: '/admin/devis', icon: FileText },
+              { label: 'Visites', detail: 'Planifier', route: '/admin/visites', icon: Calendar },
+              { label: 'Planning', detail: 'Affecter', route: '/admin/planning', icon: UserCheck },
+              { label: 'Factures', detail: 'Encaisser', route: '/admin/factures', icon: CreditCard }
+            ].map((item) => {
+              const Icon = item.icon;
+              return (
+                <button
+                  key={item.label}
+                  type="button"
+                  onClick={() => navigate(item.route)}
+                  className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-left transition-colors hover:border-accent hover:bg-white dark:border-slate-800 dark:bg-slate-950/40 dark:hover:bg-slate-900"
+                >
+                  <Icon size={17} className="text-slate-400" />
+                  <span className="mt-3 block text-xs font-black text-brand-950 dark:text-white">{item.label}</span>
+                  <span className="mt-0.5 block text-[10px] font-semibold text-slate-500 dark:text-slate-400">{item.detail}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 md:p-6">
+          <div className="mb-5 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <Clock size={16} className="text-slate-400" />
+              <h3 className="text-xs font-black uppercase tracking-widest text-slate-500">Dernières activités</h3>
             </div>
-            {caStats.pct !== 0 && (
-              <span className={`flex items-center gap-0.5 text-[10px] font-extrabold px-2 py-0.5 rounded-lg ${
-                caStats.diff >= 0 ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400' : 'bg-red-100 text-red-700 dark:bg-red-950/30 dark:text-red-400'
-              }`}>
-                {caStats.diff >= 0 ? <ArrowUp size={10} /> : <ArrowDown size={10} />}
-                {Math.abs(caStats.pct)}%
-              </span>
+            <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">5 éléments</span>
+          </div>
+          <div className="space-y-4">
+            {timelineEvents.length === 0 ? (
+              <p className="rounded-2xl bg-slate-50 p-4 text-center text-xs font-semibold text-slate-400 dark:bg-slate-950/40">Aucune activité récente.</p>
+            ) : (
+              timelineEvents.map((event) => (
+                <div key={event.id} className="flex gap-3 border-b border-slate-100 pb-4 last:border-0 last:pb-0 dark:border-slate-800">
+                  <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-accent" />
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-3">
+                      <h4 className="truncate text-xs font-black text-brand-950 dark:text-white">{event.title}</h4>
+                      <span className="shrink-0 text-[9px] font-bold text-slate-400">{formatDateFr(event.date)}</span>
+                    </div>
+                    <p className="mt-1 line-clamp-2 text-[11px] font-semibold leading-relaxed text-slate-500 dark:text-slate-400">{event.desc}</p>
+                  </div>
+                </div>
+              ))
             )}
           </div>
         </div>
-
-        {/* Factures en attente */}
-        <div className="bg-white/90 dark:bg-slate-900/90 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm hover:shadow-md transition-all">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">En Attente Encaissement</span>
-            <div className="p-2.5 bg-amber-50 dark:bg-amber-950/20 rounded-xl">
-              <CreditCard className="text-amber-600" size={18} />
-            </div>
-          </div>
-          <h3 className="text-2xl font-black text-brand-900 dark:text-white">{pendingInvoicesSum.toLocaleString('fr-FR')} €</h3>
-          <p className="text-[10px] text-slate-400 mt-1">Factures de déménagements signés en cours</p>
-        </div>
-
-        {/* Conversion rate Card */}
-        <div className="bg-white/90 dark:bg-slate-900/90 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm hover:shadow-md transition-all">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Taux de Conversion</span>
-            <div className="p-2.5 bg-sky-50 dark:bg-sky-950/20 rounded-xl">
-              <TrendingUp className="text-sky-600" size={18} />
-            </div>
-          </div>
-          <div className="flex items-end justify-between">
-            <div>
-              <h3 className="text-2xl font-black text-brand-900 dark:text-white">{conversionStats.rate}%</h3>
-              <p className="text-[10px] text-slate-400 mt-1">
-                {conversionStats.signed} devis signés / {conversionStats.total} envoyés
-              </p>
-            </div>
-            
-            {/* Circular Progress Micro-indicator */}
-            <div className="relative w-10 h-10">
-              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                <path
-                  className="text-slate-100 dark:text-slate-800"
-                  strokeWidth="3.5"
-                  stroke="currentColor"
-                  fill="none"
-                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                />
-                <path
-                  className="text-sky-500"
-                  strokeWidth="3.5"
-                  strokeDasharray={`${conversionStats.rate}, 100`}
-                  strokeLinecap="round"
-                  stroke="currentColor"
-                  fill="none"
-                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center text-[9px] font-black text-sky-600 dark:text-sky-400">
-                {conversionStats.rate}%
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Chantiers planifiés */}
-        <div className="bg-white/90 dark:bg-slate-900/90 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm hover:shadow-md transition-all">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Déménagements</span>
-            <div className="p-2.5 bg-indigo-50 dark:bg-indigo-950/20 rounded-xl">
-              <Truck className="text-indigo-600" size={18} />
-            </div>
-          </div>
-          <h3 className="text-2xl font-black text-brand-900 dark:text-white">
-            {demenagements.filter(d => d.status === 'Programmé' || d.status === 'En cours').length}
-          </h3>
-          <p className="text-[10px] text-slate-400 mt-1">Chantiers en cours ou programmés ce mois</p>
-        </div>
-      </div>
-
-      {/* Main Sections Split */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        {/* Left Side: Timeline & Quick Actions */}
-        <div className="lg:col-span-2 space-y-8">
-          
-          {/* Action Rapides */}
-          <div className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-6 shadow-sm backdrop-blur-md">
-            <div className="flex items-center gap-2 mb-6">
-              <Sparkles size={16} className="text-accent" />
-              <h3 className="text-xs font-black uppercase tracking-widest text-slate-500">Actions Rapides</h3>
-            </div>
-            
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <button 
-                onClick={() => navigate('/admin/devis')}
-                className="flex flex-col items-center justify-center p-4 rounded-2xl border border-slate-200/70 dark:border-slate-800 hover:border-accent dark:hover:border-accent hover:bg-white dark:hover:bg-slate-950 hover:shadow-md transition-all group gap-2 text-center"
-              >
-                <div className="p-3 bg-brand-50 dark:bg-brand-950/30 text-brand-700 dark:text-brand-300 rounded-2xl group-hover:bg-accent group-hover:text-brand-900 transition-all">
-                  <FileText size={20} />
-                </div>
-                <span className="text-[11px] font-extrabold text-slate-700 dark:text-slate-200">Nouveau Devis</span>
-                <span className="text-[9px] text-slate-400">Rédiger & envoyer</span>
-              </button>
-
-              <button 
-                onClick={() => navigate('/admin/visites')}
-                className="flex flex-col items-center justify-center p-4 rounded-2xl border border-slate-200/70 dark:border-slate-800 hover:border-accent dark:hover:border-accent hover:bg-white dark:hover:bg-slate-950 hover:shadow-md transition-all group gap-2 text-center"
-              >
-                <div className="p-3 bg-sky-50 dark:bg-sky-950/30 text-sky-700 dark:text-sky-300 rounded-2xl group-hover:bg-accent group-hover:text-brand-900 transition-all">
-                  <Calendar size={20} />
-                </div>
-                <span className="text-[11px] font-extrabold text-slate-700 dark:text-slate-200">Planifier Visite</span>
-                <span className="text-[9px] text-slate-400">Technique ou Visio</span>
-              </button>
-
-              <button 
-                onClick={() => navigate('/admin/planning')}
-                className="flex flex-col items-center justify-center p-4 rounded-2xl border border-slate-200/70 dark:border-slate-800 hover:border-accent dark:hover:border-accent hover:bg-white dark:hover:bg-slate-950 hover:shadow-md transition-all group gap-2 text-center"
-              >
-                <div className="p-3 bg-indigo-50 dark:bg-indigo-950/30 text-indigo-700 dark:text-indigo-300 rounded-2xl group-hover:bg-accent group-hover:text-brand-900 transition-all">
-                  <UserCheck size={20} />
-                </div>
-                <span className="text-[11px] font-extrabold text-slate-700 dark:text-slate-200">Assigner Équipe</span>
-                <span className="text-[9px] text-slate-400">Planification terrain</span>
-              </button>
-
-              <button 
-                onClick={() => navigate('/admin/factures')}
-                className="flex flex-col items-center justify-center p-4 rounded-2xl border border-slate-200/70 dark:border-slate-800 hover:border-accent dark:hover:border-accent hover:bg-white dark:hover:bg-slate-950 hover:shadow-md transition-all group gap-2 text-center"
-              >
-                <div className="p-3 bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300 rounded-2xl group-hover:bg-accent group-hover:text-brand-900 transition-all">
-                  <CreditCard size={20} />
-                </div>
-                <span className="text-[11px] font-extrabold text-slate-700 dark:text-slate-200">Suivi Factures</span>
-                <span className="text-[9px] text-slate-400">Encaisser & relancer</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Timeline d'événements récents */}
-          <div className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-6 shadow-sm backdrop-blur-md">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-2">
-                <Clock size={16} className="text-slate-500" />
-                <h3 className="text-xs font-black uppercase tracking-widest text-slate-500">Journal d'Activité Récente</h3>
-              </div>
-              <span className="text-[9px] font-black uppercase text-accent tracking-widest">5 Derniers Événements</span>
-            </div>
-
-            <div className="relative border-l border-slate-100 dark:border-slate-800 pl-4 ml-2 space-y-6">
-              {timelineEvents.length === 0 ? (
-                <p className="text-xs text-slate-400 py-4 italic text-center">Aucun événement enregistré.</p>
-              ) : (
-                timelineEvents.map(event => (
-                  <div key={event.id} className="relative group">
-                    {/* Circle Dot */}
-                    <span className={`absolute -left-[21px] top-1.5 w-3 h-3 rounded-full border bg-white dark:bg-slate-900 transition-transform group-hover:scale-125 ${
-                      event.type === 'devis' 
-                        ? 'border-brand-500' 
-                        : event.type === 'visite'
-                        ? 'border-sky-500'
-                        : event.type === 'demenagement'
-                        ? 'border-indigo-500'
-                        : 'border-emerald-500'
-                    }`} />
-                    
-                    <div className="space-y-1">
-                      <div className="flex items-center justify-between gap-4">
-                        <h4 className="text-xs font-extrabold text-slate-950 dark:text-slate-200">{event.title}</h4>
-                        <span className="text-[9px] text-slate-400 font-bold bg-slate-50 dark:bg-slate-950 px-2 py-0.5 rounded-md">
-                          {formatDateFr(event.date)}
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">{event.desc}</p>
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-          
-        </div>
-
-        {/* Right Side: Quick info / CRM Tips */}
-        <div className="space-y-8">
-          
-          <div className="bg-gradient-to-br from-brand-900 to-slate-950 text-white rounded-3xl p-6 shadow-sm border border-brand-950/50 flex flex-col justify-between min-h-[300px]">
-            <div className="space-y-4">
-              <ShieldCheck className="text-accent" size={32} />
-              <h3 className="text-lg font-black tracking-tight leading-tight">MarneTransdem CRM Sécurisé</h3>
-              <p className="text-xs text-slate-300 font-light leading-relaxed">
-                Toutes les opérations sensibles comme l'édition de factures, l'affectation de camions ou la signature de devis sont historisées localement. En cas de déconnexion réseau, vos modifications restent éditables hors-ligne et se synchronisent avec Cloud Firestore dès récupération du signal.
-              </p>
-            </div>
-            
-            <div className="pt-6 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
-              <span>Version CRM 2.1</span>
-              <span className="flex items-center gap-1 text-emerald-400 font-extrabold">
-                <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                Opérationnel
-              </span>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
+      </section>
     </div>
   );
 }
