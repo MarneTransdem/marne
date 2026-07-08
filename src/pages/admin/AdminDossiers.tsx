@@ -1905,6 +1905,7 @@ const openAmount = openDossiers.reduce((sum, dossier) => sum + dossier.amount, 0
                   </strong>
                 </div>
               </div>
+            </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-0">
               <div className="p-6">
@@ -2014,7 +2015,6 @@ const openAmount = openDossiers.reduce((sum, dossier) => sum + dossier.amount, 0
                     )}
                   </div>
                 </section>
-              </div>
 
                 <div className="mb-6 flex flex-wrap gap-2.5">
                   {[
