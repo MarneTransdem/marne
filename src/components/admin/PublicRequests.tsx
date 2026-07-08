@@ -38,6 +38,7 @@ interface PublicRequest {
   needsPacking?: string;
   needsStorage?: string;
   message?: string;
+  volumeEstimate?: any;
   createdAt: any;
   status?: 'Nouveau' | 'Visite_planifiée' | 'Étudié_Converti' | 'Archivé';
   plannedVisitId?: string;
@@ -165,7 +166,10 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
   // Pre-populate Pricing Calculator when a request is selected
   useEffect(() => {
     if (selectedRequest) {
-      const volNum = Number(selectedRequest.volume) || 20;
+      let volNum = Number(selectedRequest.volume) || 20;
+      if (selectedRequest.volumeEstimate?.estimatedVolume) {
+        volNum = Math.ceil(Number(selectedRequest.volumeEstimate.estimatedVolume));
+      }
       setPricingVolume(volNum);
       
       const form = selectedRequest.formula === 'Luxe' || selectedRequest.formula === 'Clé en main' ? 'Luxe' 
@@ -297,7 +301,8 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
         date: pricingDate || new Date(Date.now() + 14 * 24 * 3600 * 1000).toISOString().split('T')[0],
         createdAt: new Date().toISOString().split('T')[0],
         status: 'Brouillon',
-        sourceRequestId: selectedRequest.id
+        sourceRequestId: selectedRequest.id,
+        volumeEstimate: selectedRequest.volumeEstimate || null
       };
 
       // Call parent dashboard hook to populate local active devis registrations
@@ -833,6 +838,63 @@ export const PublicRequests: React.FC<PublicRequestsProps> = ({ onConvertToDevis
                     </strong>
                   </div>
                 </div>
+
+                {/* Detailed Client Inventory from Calculator */}
+                {selectedRequest.volumeEstimate && selectedRequest.volumeEstimate.rooms && (
+                  <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-850 rounded-2xl p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="text-base">📋</span>
+                        <h4 className="text-xs font-black text-brand-900 dark:text-white uppercase tracking-wider">Inventaire Détaillé du Client</h4>
+                      </div>
+                      <button 
+                        onClick={() => {
+                          const estVol = selectedRequest.volumeEstimate?.estimatedVolume;
+                          if (estVol) setPricingVolume(Math.ceil(estVol));
+                        }}
+                        className="text-[9px] bg-accent hover:bg-accent/90 text-brand-900 font-extrabold px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 shadow-sm cursor-pointer"
+                      >
+                        ⚡ Synchroniser volume ({Math.ceil(selectedRequest.volumeEstimate.estimatedVolume)} m³)
+                      </button>
+                    </div>
+
+                    <div className="space-y-2 max-h-[250px] overflow-y-auto pr-1 custom-scrollbar">
+                      {selectedRequest.volumeEstimate.rooms.map((room: any, rIdx: number) => {
+                        const roomVol = room.volume || room.items?.reduce((a: number, b: any) => a + (b.volume * b.quantity), 0) || 0;
+                        if (roomVol === 0) return null;
+                        return (
+                          <details key={rIdx} className="group bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-900 rounded-xl overflow-hidden shadow-sm">
+                            <summary className="flex items-center justify-between p-3 cursor-pointer select-none font-bold text-[11px] text-brand-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-900">
+                              <div className="flex items-center gap-1.5">
+                                <span className="transition-transform group-open:rotate-90 text-[8px] inline-block">▶</span>
+                                <span>{room.name}</span>
+                              </div>
+                              <span className="text-accent text-[10px] font-black">{roomVol.toFixed(1)} m³</span>
+                            </summary>
+                            <div className="p-3 pt-0 border-t border-slate-50 dark:border-slate-900 bg-slate-50/20 dark:bg-slate-950/20 space-y-1.5">
+                              {room.items?.map((item: any, iIdx: number) => (
+                                <div key={iIdx} className="flex justify-between items-center text-[10px] py-1 border-b border-dashed border-slate-100 dark:border-slate-900 last:border-b-0">
+                                  <span className="text-slate-650 dark:text-slate-400 font-medium">
+                                    {item.emoji || '📦'} {item.name}
+                                  </span>
+                                  <div className="flex items-center gap-3">
+                                    <span className="text-brand-900 dark:text-white font-black text-xs">x{item.quantity}</span>
+                                    <span className="text-slate-400 text-[9px] w-12 text-right">{(item.volume * item.quantity).toFixed(1)} m³</span>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </details>
+                        );
+                      })}
+                    </div>
+
+                    <div className="pt-2 border-t border-slate-150 dark:border-slate-800 text-[10px] text-slate-500 flex justify-between font-bold">
+                      <span>Total : {selectedRequest.volumeEstimate.itemsCount || 0} objets, {selectedRequest.volumeEstimate.cartonsCount || 0} cartons</span>
+                      <span>Marge incluse : {selectedRequest.volumeEstimate.safetyMarginEnabled ? '10%' : 'Non'}</span>
+                    </div>
+                  </div>
+                )}
 
                 {selectedRequest.message && (
                   <div className="p-3 bg-indigo-50/40 dark:bg-indigo-950/20 border border-indigo-200/20 rounded-xl">

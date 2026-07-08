@@ -29,9 +29,9 @@ const getPremiumButtonClasses = (tone: 'critical' | 'warning' | 'growth' | 'succ
 };
 
 const getTodayActionClasses = (tone: TodayActionTone) => {
-  if (tone === 'critical') return 'bg-red-50 text-red-900 border-red-200 dark:bg-red-950/20 dark:text-red-300 dark:border-red-900/40';
-  if (tone === 'warning') return 'bg-amber-50 text-amber-900 border-amber-200 dark:bg-amber-950/20 dark:text-amber-300 dark:border-amber-900/40';
-  return 'bg-sky-50 text-sky-900 border-sky-200 dark:bg-sky-950/20 dark:text-sky-300 dark:border-sky-900/40';
+  if (tone === 'critical') return 'bg-rose-50/55 text-slate-800 border-rose-100 border-l-rose-300 dark:bg-rose-950/12 dark:text-slate-100 dark:border-rose-900/35 dark:border-l-rose-700/70';
+  if (tone === 'warning') return 'bg-amber-50/60 text-slate-800 border-amber-100 border-l-amber-300 dark:bg-amber-950/15 dark:text-slate-100 dark:border-amber-900/35 dark:border-l-amber-700/70';
+  return 'bg-sky-50/55 text-slate-800 border-sky-100 border-l-sky-300 dark:bg-sky-950/12 dark:text-slate-100 dark:border-sky-900/35 dark:border-l-sky-700/70';
 };
 export function AdminOverview() {
   const { user, role } = useAuth();
@@ -362,7 +362,7 @@ export function AdminOverview() {
         route: '/admin/factures',
         cta: 'Encaisser',
         icon: CreditCard,
-        className: 'bg-white text-slate-800 border-slate-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800'
+        className: 'bg-emerald-50/70 text-slate-800 border-emerald-100 dark:bg-emerald-950/15 dark:text-slate-100 dark:border-emerald-900/35'
       },
       {
         id: 'requests',
@@ -372,7 +372,7 @@ export function AdminOverview() {
         route: '/admin/demandes',
         cta: 'Qualifier',
         icon: UserCheck,
-        className: 'bg-white text-slate-800 border-slate-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800'
+        className: 'bg-sky-50/70 text-slate-800 border-sky-100 dark:bg-sky-950/15 dark:text-slate-100 dark:border-sky-900/35'
       },
       {
         id: 'dossiers',
@@ -382,7 +382,7 @@ export function AdminOverview() {
         route: '/admin/dossiers?focus=actions',
         cta: 'Voir',
         icon: AlertTriangle,
-        className: 'bg-white text-slate-800 border-slate-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800'
+        className: 'bg-rose-50/55 text-slate-800 border-rose-100 dark:bg-rose-950/12 dark:text-slate-100 dark:border-rose-900/35'
       },
       {
         id: 'margin',
@@ -392,7 +392,7 @@ export function AdminOverview() {
         route: '/admin/devis',
         cta: 'Revoir',
         icon: TrendingUp,
-        className: 'bg-white text-slate-800 border-slate-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800'
+        className: 'bg-amber-50/65 text-slate-800 border-amber-100 dark:bg-amber-950/15 dark:text-slate-100 dark:border-amber-900/35'
       },
       {
         id: 'planning',
@@ -402,7 +402,7 @@ export function AdminOverview() {
         route: '/admin/planning',
         cta: 'Planifier',
         icon: Calendar,
-        className: 'bg-slate-50 text-slate-900 border-slate-200 dark:bg-slate-950/60 dark:text-slate-200 dark:border-slate-800'
+        className: 'bg-indigo-50/60 text-slate-800 border-indigo-100 dark:bg-indigo-950/15 dark:text-slate-100 dark:border-indigo-900/35'
       }
     ];
   }, [newPublicRequestCount, pendingInvoicesSum, premiumCockpit, todayActionStats]);
@@ -425,10 +425,10 @@ export function AdminOverview() {
 
           <div className="grid grid-cols-2 gap-2">
             {[
-              { label: 'Demandes', value: newPublicRequestCount, detail: 'à qualifier', route: '/admin/demandes', icon: UserCheck },
-              { label: 'Devis', value: quoteFollowUpCount, detail: 'à suivre', route: '/admin/devis', icon: FileText },
-              { label: 'Factures', value: formatPremiumCurrency(pendingInvoicesSum), detail: 'en attente', route: '/admin/factures', icon: CreditCard },
-              { label: 'Planning', value: planningToAssignCount, detail: 'à compléter', route: '/admin/planning', icon: Calendar }
+              { label: 'Demandes', value: newPublicRequestCount, detail: 'à qualifier', route: '/admin/demandes', icon: UserCheck, className: 'border-sky-100 bg-sky-50/70 dark:border-sky-900/35 dark:bg-sky-950/15', iconClassName: 'text-sky-500' },
+              { label: 'Devis', value: quoteFollowUpCount, detail: 'à suivre', route: '/admin/devis', icon: FileText, className: 'border-amber-100 bg-amber-50/65 dark:border-amber-900/35 dark:bg-amber-950/15', iconClassName: 'text-amber-500' },
+              { label: 'Factures', value: formatPremiumCurrency(pendingInvoicesSum), detail: 'en attente', route: '/admin/factures', icon: CreditCard, className: 'border-emerald-100 bg-emerald-50/70 dark:border-emerald-900/35 dark:bg-emerald-950/15', iconClassName: 'text-emerald-500' },
+              { label: 'Planning', value: planningToAssignCount, detail: 'à compléter', route: '/admin/planning', icon: Calendar, className: 'border-indigo-100 bg-indigo-50/65 dark:border-indigo-900/35 dark:bg-indigo-950/15', iconClassName: 'text-indigo-500' }
             ].map((item) => {
               const Icon = item.icon;
               return (
@@ -436,11 +436,11 @@ export function AdminOverview() {
                   key={item.label}
                   type="button"
                   onClick={() => navigate(item.route)}
-                  className="rounded-2xl border border-slate-200 bg-slate-50/70 p-3 text-left transition-colors hover:border-accent hover:bg-white dark:border-slate-800 dark:bg-slate-950/40 dark:hover:bg-slate-900"
+                  className={`rounded-2xl border p-3 text-left transition-colors hover:border-accent hover:bg-white dark:hover:bg-slate-900 ${item.className}`}
                 >
                   <div className="flex items-center justify-between gap-2">
                     <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">{item.label}</span>
-                    <Icon size={14} className="text-slate-400" />
+                    <Icon size={14} className={item.iconClassName} />
                   </div>
                   <strong className="mt-2 block truncate text-lg font-black text-brand-950 dark:text-white">{item.value}</strong>
                   <span className="mt-0.5 block text-[10px] font-semibold text-slate-500 dark:text-slate-400">{item.detail}</span>
@@ -588,17 +588,17 @@ export function AdminOverview() {
 
       <section className="grid grid-cols-1 gap-4 lg:grid-cols-4">
         {[
-          { label: 'Trésorerie encaissée', value: `${activeInvoicesSum.toLocaleString('fr-FR')} €`, detail: `Ce mois : ${caStats.currentCA.toLocaleString('fr-FR')} €`, icon: Coins },
-          { label: 'En attente', value: `${pendingInvoicesSum.toLocaleString('fr-FR')} €`, detail: 'Factures à encaisser', icon: CreditCard },
-          { label: 'Conversion', value: `${conversionStats.rate}%`, detail: `${conversionStats.signed}/${conversionStats.total} devis`, icon: TrendingUp },
-          { label: 'Chantiers', value: demenagements.filter(d => d.status === 'Programmé' || d.status === 'En cours').length, detail: 'en cours ou programmés', icon: Truck }
+          { label: 'Trésorerie encaissée', value: `${activeInvoicesSum.toLocaleString('fr-FR')} €`, detail: `Ce mois : ${caStats.currentCA.toLocaleString('fr-FR')} €`, icon: Coins, className: 'border-emerald-100 bg-emerald-50/55 dark:border-emerald-900/30 dark:bg-emerald-950/12', iconClassName: 'text-emerald-500' },
+          { label: 'En attente', value: `${pendingInvoicesSum.toLocaleString('fr-FR')} €`, detail: 'Factures à encaisser', icon: CreditCard, className: 'border-amber-100 bg-amber-50/55 dark:border-amber-900/30 dark:bg-amber-950/12', iconClassName: 'text-amber-500' },
+          { label: 'Conversion', value: `${conversionStats.rate}%`, detail: `${conversionStats.signed}/${conversionStats.total} devis`, icon: TrendingUp, className: 'border-sky-100 bg-sky-50/55 dark:border-sky-900/30 dark:bg-sky-950/12', iconClassName: 'text-sky-500' },
+          { label: 'Chantiers', value: demenagements.filter(d => d.status === 'Programmé' || d.status === 'En cours').length, detail: 'en cours ou programmés', icon: Truck, className: 'border-indigo-100 bg-indigo-50/55 dark:border-indigo-900/30 dark:bg-indigo-950/12', iconClassName: 'text-indigo-500' }
         ].map((metric) => {
           const Icon = metric.icon;
           return (
-            <div key={metric.label} className="rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            <div key={metric.label} className={`rounded-3xl border p-5 shadow-sm ${metric.className}`}>
               <div className="flex items-center justify-between gap-3">
                 <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">{metric.label}</span>
-                <Icon size={16} className="text-slate-400" />
+                <Icon size={16} className={metric.iconClassName} />
               </div>
               <strong className="mt-3 block truncate text-2xl font-black text-brand-950 dark:text-white">{metric.value}</strong>
               <p className="mt-1 text-[11px] font-semibold text-slate-500 dark:text-slate-400">{metric.detail}</p>
@@ -644,10 +644,10 @@ export function AdminOverview() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             {[
-              { label: 'Devis', detail: 'Créer ou envoyer', route: '/admin/devis', icon: FileText },
-              { label: 'Visites', detail: 'Planifier', route: '/admin/visites', icon: Calendar },
-              { label: 'Planning', detail: 'Affecter', route: '/admin/planning', icon: UserCheck },
-              { label: 'Factures', detail: 'Encaisser', route: '/admin/factures', icon: CreditCard }
+              { label: 'Devis', detail: 'Créer ou envoyer', route: '/admin/devis', icon: FileText, className: 'border-amber-100 bg-amber-50/60 dark:border-amber-900/30 dark:bg-amber-950/12', iconClassName: 'text-amber-500' },
+              { label: 'Visites', detail: 'Planifier', route: '/admin/visites', icon: Calendar, className: 'border-sky-100 bg-sky-50/60 dark:border-sky-900/30 dark:bg-sky-950/12', iconClassName: 'text-sky-500' },
+              { label: 'Planning', detail: 'Affecter', route: '/admin/planning', icon: UserCheck, className: 'border-indigo-100 bg-indigo-50/60 dark:border-indigo-900/30 dark:bg-indigo-950/12', iconClassName: 'text-indigo-500' },
+              { label: 'Factures', detail: 'Encaisser', route: '/admin/factures', icon: CreditCard, className: 'border-emerald-100 bg-emerald-50/60 dark:border-emerald-900/30 dark:bg-emerald-950/12', iconClassName: 'text-emerald-500' }
             ].map((item) => {
               const Icon = item.icon;
               return (
@@ -655,9 +655,9 @@ export function AdminOverview() {
                   key={item.label}
                   type="button"
                   onClick={() => navigate(item.route)}
-                  className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-left transition-colors hover:border-accent hover:bg-white dark:border-slate-800 dark:bg-slate-950/40 dark:hover:bg-slate-900"
+                  className={`rounded-2xl border p-4 text-left transition-colors hover:border-accent hover:bg-white dark:hover:bg-slate-900 ${item.className}`}
                 >
-                  <Icon size={17} className="text-slate-400" />
+                  <Icon size={17} className={item.iconClassName} />
                   <span className="mt-3 block text-xs font-black text-brand-950 dark:text-white">{item.label}</span>
                   <span className="mt-0.5 block text-[10px] font-semibold text-slate-500 dark:text-slate-400">{item.detail}</span>
                 </button>

@@ -100,6 +100,7 @@ export interface Demenagement {
   signedAt?: string;
   currentLocation?: { lat: number; lng: number };
   locationUpdatedAt?: string;
+  reportedIssues?: boolean;
 }
 
 export interface FieldMover {

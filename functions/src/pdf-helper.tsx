@@ -1378,6 +1378,108 @@ const FicheEquipePdfDocument = ({ data, logoUrl }: any) => {
   );
 };
 
+// Component FicheIncidentPdfDocument for native vector PDF
+const FicheIncidentPdfDocument = ({ data, logoUrl }: any) => {
+  const incNo = `INC-${(data.id || '').replace('DEM-', '')}`;
+  const date = data.date || 'Non programmée';
+  const assignedTruck = data.assignedTruck || 'Fourgon VL 20m³';
+
+  return (
+    <PdfDocument>
+      <Page size="A4" style={pdfStyles.page}>
+        <View>
+          {/* Header */}
+          <View style={pdfStyles.header}>
+            <View style={pdfStyles.logoContainer}>
+              <Image src={logoUrl} style={{ width: 120, height: 35, objectFit: 'contain' }} />
+              <Text style={pdfStyles.slogan}>Déménagez en toute sérénité !</Text>
+            </View>
+            <View style={pdfStyles.headerMeta}>
+              <Text style={[pdfStyles.badge, { backgroundColor: '#dc2626' }]}>Fiche d'Incident / Litiges</Text>
+              <Text style={pdfStyles.devisNo}>INCIDENT N° : {incNo}</Text>
+              <Text style={pdfStyles.dateText}>Date de mission : {date}</Text>
+              <Text style={[pdfStyles.dateText, { fontSize: 6.5 }]}>Rapport de non-conformité & Litiges qualité</Text>
+            </View>
+          </View>
+
+          {/* Alert Warning Box */}
+          <View style={{ backgroundColor: '#fef2f2', borderWidth: 1, borderColor: '#fee2e2', borderRadius: 8, padding: 10, marginTop: 15 }}>
+            <Text style={{ fontSize: 7.5, fontWeight: 'bold', color: '#991b1b', textTransform: 'uppercase', marginBottom: 3 }}>
+              DÉCLARATION FORMELLE DE CONSTATATIONS CONFLICTUELLES
+            </Text>
+            <Text style={{ fontSize: 7, color: '#7f1d1d', lineHeight: 1.3 }}>
+              Ce rapport consigne de manière officielle tout incident de livraison, défaut de conformité ou dégradation constaté sur le chantier. Il sert de pièce justificative pour l'instruction du dossier d'assurance AXA.
+            </Text>
+          </View>
+
+          {/* Cards grid */}
+          <View style={pdfStyles.addressesGrid}>
+            <View style={pdfStyles.addressCard}>
+              <Text style={pdfStyles.colTitle}>👤 IDENTIFICATION CLIENT</Text>
+              <View style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <Text style={pdfStyles.clientName}>{data.clientName}</Text>
+                <Text style={pdfStyles.addressDetails}>Date de mission : {date}</Text>
+                <Text style={pdfStyles.addressDetails}>Trajet : {data.fromCity} ➔ {data.toCity}</Text>
+              </View>
+            </View>
+            <View style={pdfStyles.addressCard}>
+              <Text style={[pdfStyles.colTitle, { color: '#991b1b' }]}>🚚 ENCADREMENT LOGISTIQUE</Text>
+              <View style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <Text style={pdfStyles.addressDetails}>Chef d'équipe : {data.teamLeader}</Text>
+                <Text style={pdfStyles.addressDetails}>Véhicule impliqué : {assignedTruck}</Text>
+                <Text style={[pdfStyles.addressDetails, { color: '#dc2626', fontWeight: 'bold' }]}>Incident signalé : OUI</Text>
+              </View>
+            </View>
+          </View>
+
+          {/* Incident Notes Box */}
+          <Text style={[pdfStyles.sectionTitle, { marginTop: 20 }]}>📋 CONSTATATIONS DÉTAILLÉES DE L'ÉQUIPE (DICTÉE VOCALE IA)</Text>
+          <View style={{ borderWidth: 1, borderColor: '#cbd5e1', borderRadius: 8, padding: 10, minHeight: 120, backgroundColor: '#f8fafc' }}>
+            <Text style={{ fontSize: 7.5, color: '#334155', lineHeight: 1.4 }}>
+              {data.notes ? data.notes : "Aucune description détaillée consignée. Rapport généré pour non-conformité contradictoire."}
+            </Text>
+          </View>
+
+          {/* Signatures */}
+          <View style={[pdfStyles.signaturesBlock, { marginTop: 30 }]}>
+            <Text style={pdfStyles.sectionTitle}>5. VALIDATION & ACCORD DE CONSTATATION CONTRADICTOIRE</Text>
+            <View style={pdfStyles.signaturesGrid}>
+              <View style={[pdfStyles.signatureBox, { width: '48%', height: 80, justifyContent: 'space-between', alignItems: 'stretch' }]}>
+                <Text style={{ fontSize: 7.5, fontWeight: 'bold', color: '#1e293b', borderBottomWidth: 0.5, borderBottomColor: '#cbd5e1', paddingBottom: 2 }}>
+                  Pour Marne Transdem (Chef d'équipe)
+                </Text>
+                <Text style={{ fontSize: 6.5, color: '#64748b' }}>
+                  Je certifie l'exactitude des constatations d'incidents consignées ci-dessus.
+                </Text>
+                <Text style={{ fontSize: 6.5, fontWeight: 'bold', color: '#64748b', textAlign: 'center' }}>
+                  {data.teamLeader}
+                </Text>
+              </View>
+              <View style={[pdfStyles.signatureBox, { width: '48%', height: 80, justifyContent: 'space-between', alignItems: 'stretch' }]}>
+                <Text style={{ fontSize: 7.5, fontWeight: 'bold', color: '#1e293b', borderBottomWidth: 0.5, borderBottomColor: '#cbd5e1', paddingBottom: 2 }}>
+                  Pour le Client (Signature)
+                </Text>
+                <Text style={{ fontSize: 6.5, color: '#64748b' }}>
+                  Prise d'acte des constatations contradictoires d'incidents ci-dessus.
+                </Text>
+                <Text style={{ fontSize: 6.5, fontWeight: 'bold', color: '#64748b', textAlign: 'center' }}>
+                  Signature Client
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+
+        <View>
+          <Text style={pdfStyles.footerPageNum}>
+            © Marne Transdem Logistique — Ce document officiel fait foi devant la DREAL et le Tribunal de commerce compétents.
+          </Text>
+        </View>
+      </Page>
+    </PdfDocument>
+  );
+};
+
 // Helper function to extract prestations based on formula
 function getPrestations(formula: string) {
   switch ((formula || 'Standard').toLowerCase()) {
@@ -1442,7 +1544,7 @@ function getPrestations(formula: string) {
 
 // Main helper generator
 export async function generatePdfBuffer(
-  type: 'devis' | 'facture' | 'lettre_voiture' | 'declaration_valeur' | 'fiche_equipe',
+  type: 'devis' | 'facture' | 'lettre_voiture' | 'declaration_valeur' | 'fiche_equipe' | 'fiche_incident',
   data: any
 ): Promise<Buffer> {
   const cleanPrice = data.price || 1200;
@@ -1527,6 +1629,13 @@ export async function generatePdfBuffer(
   } else if (type === 'fiche_equipe') {
     doc = (
       <FicheEquipePdfDocument
+        data={data}
+        logoUrl={logoUrl}
+      />
+    );
+  } else if (type === 'fiche_incident') {
+    doc = (
+      <FicheIncidentPdfDocument
         data={data}
         logoUrl={logoUrl}
       />

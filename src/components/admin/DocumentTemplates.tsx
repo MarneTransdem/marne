@@ -16,12 +16,14 @@ interface DocumentTemplatesProps {
     crewSize: number;
     assignedMovers?: string[];
     assignedTruck?: string;
+    notes?: string;
+    reportedIssues?: boolean;
   };
   onClose: () => void;
 }
 
 export const DocumentTemplates: React.FC<DocumentTemplatesProps> = ({ move, onClose }) => {
-  const [activeTemplate, setActiveTemplate] = useState<'lettre_voiture' | 'declaration_valeur' | 'fiche_equipe'>('lettre_voiture');
+  const [activeTemplate, setActiveTemplate] = useState<'lettre_voiture' | 'declaration_valeur' | 'fiche_equipe' | 'fiche_incident'>('lettre_voiture');
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
 
   const handlePrint = () => {
@@ -50,6 +52,7 @@ export const DocumentTemplates: React.FC<DocumentTemplatesProps> = ({ move, onCl
       let docName = 'Lettre_de_Voiture';
       if (activeTemplate === 'declaration_valeur') docName = 'Declaration_de_Valeur';
       if (activeTemplate === 'fiche_equipe') docName = 'Fiche_Equipe';
+      if (activeTemplate === 'fiche_incident') docName = 'Fiche_Incident';
       downloadGeneratedPdf(result, `${docName}_${move.id}.pdf`);
     } catch (e: any) {
       console.error("Failed to generate official document PDF:", e);
@@ -95,6 +98,12 @@ export const DocumentTemplates: React.FC<DocumentTemplatesProps> = ({ move, onCl
               className={`px-3 py-1.5 rounded-xl text-[10px] font-black transition cursor-pointer ${activeTemplate === 'fiche_equipe' ? 'bg-accent text-brand-950' : 'text-slate-400 hover:text-white'}`}
             >
               Fiche Équipe
+            </button>
+            <button
+              onClick={() => setActiveTemplate('fiche_incident')}
+              className={`px-3 py-1.5 rounded-xl text-[10px] font-black transition cursor-pointer ${activeTemplate === 'fiche_incident' ? 'bg-accent text-brand-950' : 'text-slate-400 hover:text-white'}`}
+            >
+              Fiche Incident
             </button>
           </div>
 
@@ -149,7 +158,7 @@ export const DocumentTemplates: React.FC<DocumentTemplatesProps> = ({ move, onCl
                       }}
                     />
                     <div>
-                      <h1 className="text-sm font-black text-slate-950 leading-none font-black">MARNE TRANSDEM</h1>
+                      <h1 className="text-sm font-black text-slate-950 leading-none">MARNE TRANSDEM</h1>
                       <p style={{ fontFamily: '"Caveat", cursive' }} className="text-indigo-600 text-[10px] font-bold mt-1">Déménagez en toute sérénité !</p>
                       <p className="text-[7px] text-slate-400 font-light mt-1 uppercase tracking-wider">
                         14 Avenue du Général de Gaulle, 94000 Créteil<br />
@@ -200,7 +209,7 @@ export const DocumentTemplates: React.FC<DocumentTemplatesProps> = ({ move, onCl
                       </h4>
                       <div className="space-y-1.5 text-slate-750 text-[8.5px]">
                         <p className="flex justify-between border-b border-indigo-50 pb-1"><span className="text-slate-400">Lieu de chargement :</span> <strong className="text-slate-900">{move.fromCity}</strong></p>
-                        <p className="flex justify-between border-b border-indigo-50 pb-1"><span className="text-slate-400">Volume estimé :</span> <strong className="text-indigo-750">{move.volume} m³</strong></p>
+                        <p className="flex justify-between border-b border-indigo-50 pb-1"><span className="text-slate-450">Volume estimé :</span> <strong className="text-indigo-750">{move.volume} m³</strong></p>
                         <p className="flex justify-between"><span className="text-slate-400">Date programmée :</span> <strong className="text-slate-900">{move.date}</strong></p>
                       </div>
                     </div>
@@ -295,7 +304,7 @@ export const DocumentTemplates: React.FC<DocumentTemplatesProps> = ({ move, onCl
                       }}
                     />
                     <div>
-                      <h1 className="text-sm font-black text-slate-950 leading-none font-black">MARNE TRANSDEM</h1>
+                      <h1 className="text-sm font-black text-slate-950 leading-none">MARNE TRANSDEM</h1>
                       <p style={{ fontFamily: '"Caveat", cursive' }} className="text-indigo-600 text-[10px] font-bold mt-1">Déménagez en toute sérénité !</p>
                       <p className="text-[7px] text-slate-400 font-light mt-1 uppercase tracking-wider">
                         RC Professionnelle AXA Assurances N° 843210-94<br />
@@ -419,7 +428,7 @@ export const DocumentTemplates: React.FC<DocumentTemplatesProps> = ({ move, onCl
                       }}
                     />
                     <div>
-                      <h1 className="text-sm font-black text-slate-950 leading-none font-black">MARNE TRANSDEM</h1>
+                      <h1 className="text-sm font-black text-slate-955 leading-none">MARNE TRANSDEM</h1>
                       <p style={{ fontFamily: '"Caveat", cursive' }} className="text-indigo-600 text-[10px] font-bold mt-1">Déménagez en toute sérénité !</p>
                       <p className="text-[7px] text-slate-400 font-light mt-1 uppercase tracking-wider">
                         Fiche de Route Interne Confidentielle<br />
@@ -471,9 +480,9 @@ export const DocumentTemplates: React.FC<DocumentTemplatesProps> = ({ move, onCl
                         1
                       </span>
                       <div className="bg-slate-50/60 border border-slate-200 rounded-2xl p-4 shadow-2xs">
-                        <h5 className="font-black text-[10.5px] text-slate-900 flex items-center justify-between font-black">
+                        <h5 className="font-black text-[10.5px] text-slate-900 flex items-center justify-between">
                           <span>08h00 - CHARGEMENT TECHNIQUE</span>
-                          <span className="bg-indigo-100 text-indigo-800 font-extrabold text-[7.5px] uppercase px-2 py-0.5 rounded-lg font-black">Départ</span>
+                          <span className="bg-indigo-100 text-indigo-800 font-extrabold text-[7.5px] uppercase px-2 py-0.5 rounded-lg">Départ</span>
                         </h5>
                         <p className="text-slate-450 font-light text-[8px] mt-1 flex items-center gap-1">
                           <MapPin size={10} className="text-slate-450" /> Client : {move.clientName} | Ville : {move.fromCity}
@@ -490,9 +499,9 @@ export const DocumentTemplates: React.FC<DocumentTemplatesProps> = ({ move, onCl
                         2
                       </span>
                       <div className="bg-slate-50/60 border border-slate-200 rounded-2xl p-4 shadow-2xs">
-                        <h5 className="font-black text-[10.5px] text-slate-900 flex items-center justify-between font-black">
+                        <h5 className="font-black text-[10.5px] text-slate-900 flex items-center justify-between">
                           <span>12h00 - ACHEMINEMENT ROUTIER</span>
-                          <span className="bg-blue-100 text-blue-800 font-extrabold text-[7.5px] uppercase px-2 py-0.5 rounded-lg font-black">Trajet</span>
+                          <span className="bg-blue-100 text-blue-800 font-extrabold text-[7.5px] uppercase px-2 py-0.5 rounded-lg">Trajet</span>
                         </h5>
                         <p className="text-slate-650 font-light mt-2 leading-relaxed text-[8.5px]">
                           Vérifier le bon arrimage de la cargaison et la fermeture sécurisée du hayon avant le départ. Conduire de façon rationnelle. Respecter le temps de pause règlementaire et les restrictions de tonnage.
@@ -506,9 +515,9 @@ export const DocumentTemplates: React.FC<DocumentTemplatesProps> = ({ move, onCl
                         3
                       </span>
                       <div className="bg-slate-50/60 border border-slate-200 rounded-2xl p-4 shadow-2xs">
-                        <h5 className="font-black text-[10.5px] text-slate-900 flex items-center justify-between font-black">
+                        <h5 className="font-black text-[10.5px] text-slate-900 flex items-center justify-between">
                           <span>15h00 - LIVRAISON & RESTITUTION</span>
-                          <span className="bg-emerald-100 text-emerald-800 font-extrabold text-[7.5px] uppercase px-2 py-0.5 rounded-lg font-black">Arrivée</span>
+                          <span className="bg-emerald-100 text-emerald-800 font-extrabold text-[7.5px] uppercase px-2 py-0.5 rounded-lg">Arrivée</span>
                         </h5>
                         <p className="text-slate-450 font-light text-[8px] mt-1 flex items-center gap-1">
                           <MapPin size={10} className="text-slate-450" /> Destination : {move.toCity}
@@ -548,6 +557,115 @@ export const DocumentTemplates: React.FC<DocumentTemplatesProps> = ({ move, onCl
                         </div>
                       </>
                     )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* 4. FICHE INCIDENT TEMPLATE */}
+            {activeTemplate === 'fiche_incident' && (
+              <div className="space-y-6">
+                {/* Header */}
+                <div className="grid grid-cols-2 border-b pb-5 border-slate-200">
+                  <div className="flex items-start gap-3">
+                    <img 
+                      src="/images/logo-clair.webp" 
+                      alt="Marne Transdem Logo" 
+                      className="h-10 w-auto object-contain shrink-0" 
+                      referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
+                    <div>
+                      <h1 className="text-sm font-black text-slate-950 leading-none">MARNE TRANSDEM</h1>
+                      <p style={{ fontFamily: '"Caveat", cursive' }} className="text-indigo-600 text-[10px] font-bold mt-1">Déménagez en toute sérénité !</p>
+                      <p className="text-[7px] text-slate-400 font-light mt-1 uppercase tracking-wider">
+                        Rapport de non-conformité & Litiges<br />
+                        Gestion de la qualité de service
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <span className="bg-red-600 text-white font-black px-3 py-1.5 rounded-xl text-[8.5px] uppercase tracking-wider shadow-sm">
+                      Fiche d'Incident / Non-Conformité
+                    </span>
+                    <p className="font-mono mt-3 font-black text-red-950 text-[11px] uppercase tracking-wider">
+                      INCIDENT N° : INC-{move.id.replace('DEM-', '')}
+                    </p>
+                    <p className="text-slate-400 text-[7.5px] mt-0.5 font-medium">Déclaration d'incident terrain & conformité</p>
+                  </div>
+                </div>
+
+                {/* Status Indicator */}
+                <div className="bg-red-50 border border-red-150 rounded-2xl p-4 text-[8.5px] text-red-955 leading-relaxed flex items-start gap-3">
+                  <ShieldAlert size={16} className="text-red-600 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-black block uppercase text-[8px] tracking-wider text-red-900 mb-0.5">DÉCLARATION FORMELLE DE CONSTATATIONS CONFLICTUELLES</span>
+                    Ce rapport consigne de manière officielle tout incident de livraison, défaut de conformité ou dégradation constaté sur le chantier. Il sert de pièce justificative pour l'instruction du dossier d'assurance AXA.
+                  </div>
+                </div>
+
+                {/* Identification Grid */}
+                <div className="grid grid-cols-2 gap-5 mt-4">
+                  <div className="border border-slate-200 rounded-2xl p-4 bg-slate-50/30 border-l-4 border-l-slate-800 shadow-xs">
+                    <h4 className="font-black text-[9px] uppercase tracking-wider text-slate-800 mb-2">👤 IDENTIFICATION CLIENT</h4>
+                    <div className="space-y-1.5 text-slate-700 text-[8.5px]">
+                      <p className="flex justify-between border-b pb-1"><span className="text-slate-400">Client :</span> <strong className="text-slate-900 uppercase">{move.clientName}</strong></p>
+                      <p className="flex justify-between border-b pb-1"><span className="text-slate-400">Date du transport :</span> <strong>{move.date}</strong></p>
+                      <p className="flex justify-between"><span className="text-slate-400">Trajet :</span> <strong>{move.fromCity} ➔ {move.toCity}</strong></p>
+                    </div>
+                  </div>
+
+                  <div className="border border-slate-200 rounded-2xl p-4 bg-red-50/10 border-l-4 border-l-red-600 shadow-xs">
+                    <h4 className="font-black text-[9px] uppercase tracking-wider text-red-950 mb-2">🚚 ENCADREMENT LOGISTIQUE</h4>
+                    <div className="space-y-1.5 text-slate-700 text-[8.5px]">
+                      <p className="flex justify-between border-b pb-1"><span className="text-slate-400">Chef d'équipe :</span> <strong className="text-slate-900">{move.teamLeader}</strong></p>
+                      <p className="flex justify-between border-b pb-1"><span className="text-slate-400">Véhicule impliqué :</span> <strong className="text-slate-900 font-mono">{move.assignedTruck || 'Non spécifié'}</strong></p>
+                      <p className="flex justify-between"><span className="text-slate-400">Incident signalé :</span> <strong className="text-red-700">{move.reportedIssues ? 'OUI' : 'NON'}</strong></p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* AI Prefilled Incident Notes */}
+                <div className="space-y-2 mt-4">
+                  <h4 className="font-black text-[9px] uppercase tracking-wider text-slate-400">📋 CONSTATIONS DÉTAILLÉES DE L'ÉQUIPE (TRANSCRIPTION DICTÉE VOCALE IA)</h4>
+                  <div className="border border-slate-200 rounded-2xl p-4 bg-slate-50/40 min-h-24 text-[8.5px] leading-relaxed text-slate-700 whitespace-pre-wrap">
+                    {move.notes ? move.notes : "Aucune description détaillée n'a été rédigée. L'équipe terrain est priée de consigner ici ou via la dictée vocale du planning les anomalies constatées."}
+                  </div>
+                </div>
+
+                {/* Incident resolution notice */}
+                <div className="pt-3">
+                  <h4 className="font-black text-[9px] uppercase tracking-wider text-slate-400 mb-3">5. VALIDATION & ACCORD DE CONSTATATION CONTRADICTOIRE</h4>
+                  <div className="grid grid-cols-2 gap-5">
+                    {/* Chef equipe signatures */}
+                    <div className="border border-dashed border-slate-200 p-4 rounded-2xl text-[8px] text-slate-500 bg-slate-50/50 flex flex-col justify-between h-32">
+                      <div className="space-y-1">
+                        <span className="font-black text-slate-800 uppercase block tracking-wider text-[8px] border-b pb-1">Pour Marne Transdem (Chef d'équipe)</span>
+                        <p className="leading-relaxed">Je certifie l'exactitude des constatations logistiques d'incidents consignées ci-dessus.</p>
+                      </div>
+                      <div className="space-y-1">
+                        <p className="font-mono text-[7px]">{move.teamLeader}</p>
+                        <div className="border-t pt-1 border-slate-200 text-center font-bold text-slate-400 uppercase text-[7px]">
+                          Signature Chef d'équipe
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Client signatures */}
+                    <div className="border border-dashed border-slate-200 p-4 rounded-2xl text-[8px] text-slate-500 bg-slate-50/50 flex flex-col justify-between h-32">
+                      <div className="space-y-1">
+                        <span className="font-black text-slate-800 uppercase block tracking-wider text-[8px] border-b pb-1">Pour le Client (Signature)</span>
+                        <p className="leading-relaxed">Je déclare avoir pris acte des constatations d'anomalies ci-dessus dans le cadre de la réception de livraison.</p>
+                      </div>
+                      <div className="space-y-1">
+                        <p className="font-mono text-[7px]">Fait à {move.toCity}, le {move.date}</p>
+                        <div className="border-t pt-1 border-slate-200 text-center font-bold text-slate-400 uppercase text-[7px]">
+                          Signature Client (Accord de constat)
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

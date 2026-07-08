@@ -57,7 +57,7 @@ function getAdminEmailRoles(type: unknown): CrmRoleKey[] | null {
 function getAdminPdfRoles(type: unknown): CrmRoleKey[] | null {
   if (type === 'devis') return ['gerant', 'secretaire', 'commercial'];
   if (type === 'facture') return ['gerant', 'secretaire'];
-  if (type === 'declaration_valeur' || type === 'fiche_equipe') return ['gerant', 'secretaire', 'chef_equipe'];
+  if (type === 'declaration_valeur' || type === 'fiche_equipe' || type === 'lettre_voiture' || type === 'fiche_incident') return ['gerant', 'secretaire', 'chef_equipe'];
   return null;
 }
 
@@ -211,6 +211,7 @@ api.use(
           "'self'",
           "https://*.googleapis.com",
           "https://*.firebaseio.com",
+          "https://*.cloudfunctions.net",
           "https://*.tile.openstreetmap.org",
           "https://*.basemaps.cartocdn.com",
           "https://firebasestorage.googleapis.com",
@@ -816,9 +817,9 @@ api.post('/api/pdf/generate', async (req, res): Promise<void> => {
     return;
   }
   
-  const validTypes = ['devis', 'facture', 'lettre_voiture', 'declaration_valeur', 'fiche_equipe'];
+  const validTypes = ['devis', 'facture', 'lettre_voiture', 'declaration_valeur', 'fiche_equipe', 'fiche_incident'];
   if (!validTypes.includes(type)) {
-    res.status(400).json({ error: "Type de document invalide (doit être 'devis', 'facture', 'lettre_voiture', 'declaration_valeur' ou 'fiche_equipe')." });
+    res.status(400).json({ error: "Type de document invalide (doit être 'devis', 'facture', 'lettre_voiture', 'declaration_valeur', 'fiche_equipe' ou 'fiche_incident')." });
     return;
   }
 

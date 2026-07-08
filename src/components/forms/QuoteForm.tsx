@@ -259,6 +259,7 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
       const { website, ...cleanData } = formData;
       await addDoc(collection(db, path), {
         ...cleanData,
+        volumeEstimate: estimate || null,
         createdAt: serverTimestamp()
       });
 

@@ -99,6 +99,193 @@ export function AdminPlanning({
   const [selectedMove, setSelectedMove] = useState<Demenagement | null>(null);
   const [editingMoveId, setEditingMoveId] = useState<string | null>(null);
 
+  const schedulingConflicts = useMemo(() => {
+    const conflicts: Record<string, string[]> = {};
+    const dateGroups: Record<string, Demenagement[]> = {};
+
+    activeMoves.forEach(m => {
+      if (!m.date || m.status === 'Terminé') return;
+      dateGroups[m.date] = dateGroups[m.date] || [];
+      dateGroups[m.date].push(m);
+    });
+
+    Object.entries(dateGroups).forEach(([date, movesInDay]) => {
+      const moverBookings: Record<string, string[]> = {};
+      const truckBookings: Record<string, string[]> = {};
+      const leaderBookings: Record<string, string[]> = {};
+
+      movesInDay.forEach(m => {
+        if (m.assignedMovers) {
+          m.assignedMovers.forEach(mover => {
+            moverBookings[mover] = moverBookings[mover] || [];
+            moverBookings[mover].push(m.id);
+          });
+        }
+        if (m.assignedTruck) {
+          truckBookings[m.assignedTruck] = truckBookings[m.assignedTruck] || [];
+          truckBookings[m.assignedTruck].push(m.id);
+        }
+        if (m.teamLeader) {
+          leaderBookings[m.teamLeader] = leaderBookings[m.teamLeader] || [];
+          leaderBookings[m.teamLeader].push(m.id);
+        }
+      });
+
+      Object.entries(moverBookings).forEach(([mover, moveIds]) => {
+        if (moveIds.length > 1) {
+          moveIds.forEach(id => {
+            conflicts[id] = conflicts[id] || [];
+            const otherIds = moveIds.filter(x => x !== id);
+            const otherNames = otherIds.map(oid => {
+              const om = activeMoves.find(x => x.id === oid);
+              return om ? om.clientName : oid;
+            });
+            conflicts[id].push(`Déménageur ${mover} affecté aussi sur : ${otherNames.join(', ')}`);
+          });
+        }
+      });
+
+      Object.entries(truckBookings).forEach(([truck, moveIds]) => {
+        if (moveIds.length > 1) {
+          moveIds.forEach(id => {
+            conflicts[id] = conflicts[id] || [];
+            const otherIds = moveIds.filter(x => x !== id);
+            const otherNames = otherIds.map(oid => {
+              const om = activeMoves.find(x => x.id === oid);
+              return om ? om.clientName : oid;
+            });
+            conflicts[id].push(`Véhicule ${truck} affecté aussi sur : ${otherNames.join(', ')}`);
+          });
+        }
+      });
+
+      Object.entries(leaderBookings).forEach(([leader, moveIds]) => {
+        if (moveIds.length > 1) {
+          moveIds.forEach(id => {
+            conflicts[id] = conflicts[id] || [];
+            const otherIds = moveIds.filter(x => x !== id);
+            const otherNames = otherIds.map(oid => {
+              const om = activeMoves.find(x => x.id === oid);
+              return om ? om.clientName : oid;
+            });
+            conflicts[id].push(`Chef d'équipe ${leader} affecté aussi sur : ${otherNames.join(', ')}`);
+          });
+        }
+      });
+    });
+
+    return conflicts;
+  }, [activeMoves]);
+
+  const handleDragResourceStartWithSource = (
+    e: React.DragEvent, 
+    type: 'mover' | 'truck', 
+    name: string,
+    sourceMoveId: string
+  ) => {
+    e.dataTransfer.setData('resourceType', type);
+    e.dataTransfer.setData('resourceName', name);
+    e.dataTransfer.setData('sourceMoveId', sourceMoveId);
+  };
+
+  const handleDropResource = async (e: React.DragEvent, moveId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const resourceType = e.dataTransfer.getData('resourceType');
+    const resourceName = e.dataTransfer.getData('resourceName');
+    const sourceMoveId = e.dataTransfer.getData('sourceMoveId');
+    
+    if (!resourceType || !resourceName) return;
+
+    if (sourceMoveId === moveId) return;
+
+    const targetMove = activeMoves.find(m => m.id === moveId);
+    if (!targetMove) return;
+
+    let nextMovers = [...(targetMove.assignedMovers || [])];
+    let nextTruck = targetMove.assignedTruck || '';
+
+    if (resourceType === 'mover') {
+      if (nextMovers.includes(resourceName)) return;
+      nextMovers.push(resourceName);
+    } else if (resourceType === 'truck') {
+      nextTruck = resourceName;
+    }
+
+    try {
+      if (sourceMoveId) {
+        const sourceMove = activeMoves.find(m => m.id === sourceMoveId);
+        if (sourceMove) {
+          let sourceMovers = [...(sourceMove.assignedMovers || [])];
+          let sourceTruck = sourceMove.assignedTruck || '';
+
+          if (resourceType === 'mover') {
+            sourceMovers = sourceMovers.filter(m => m !== resourceName);
+          } else if (resourceType === 'truck') {
+            sourceTruck = '';
+          }
+
+          const sourceDocRef = doc(db, 'demenagements', sourceMoveId);
+          await updateDoc(sourceDocRef, {
+            assignedMovers: sourceMovers,
+            assignedTruck: sourceTruck
+          });
+
+          activeSetMoves(prev => prev.map(m => m.id === sourceMoveId ? {
+            ...m,
+            assignedMovers: sourceMovers,
+            assignedTruck: sourceTruck
+          } : m));
+        }
+      }
+
+      const docRef = doc(db, 'demenagements', moveId);
+      await updateDoc(docRef, {
+        assignedMovers: nextMovers,
+        assignedTruck: nextTruck,
+        status: targetMove.status === 'À planifier' ? 'Programmé' : targetMove.status
+      });
+
+      activeSetMoves(prev => prev.map(m => m.id === moveId ? {
+        ...m,
+        assignedMovers: nextMovers,
+        assignedTruck: nextTruck,
+        status: m.status === 'À planifier' ? 'Programmé' : m.status
+      } : m));
+
+      if (context?.pushNotification) {
+        context.pushNotification(
+          sourceMoveId ? 'Ressource réassignée' : 'Ressource assignée', 
+          `${resourceName} a été ${sourceMoveId ? 'réassigné' : 'affecté'} à ${targetMove.clientName} via glisser-déposer.`, 
+          'success'
+        );
+      }
+    } catch (err: any) {
+      console.error("Failed to drop resource:", err);
+      alert("Erreur lors de l'affectation par glisser-déposer : " + err.message);
+    }
+  };
+
+  const handleDropOnCard = async (e: React.DragEvent, moveId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const resourceType = e.dataTransfer.getData('resourceType');
+    const resourceName = e.dataTransfer.getData('resourceName');
+    
+    if (resourceType && resourceName) {
+      await handleDropResource(e, moveId);
+    } else {
+      const draggedMoveId = e.dataTransfer.getData('text/plain');
+      if (draggedMoveId && draggedMoveId !== moveId) {
+        const targetMove = activeMoves.find(m => m.id === moveId);
+        if (targetMove && targetMove.date) {
+          await handleDropMove(e, targetMove.date);
+        }
+      }
+    }
+  };
+
+
   // Voice Recording / Speech-to-Task states
   const [isRecording, setIsRecording] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
@@ -447,6 +634,12 @@ export function AdminPlanning({
   const handleDragStart = (e: React.DragEvent, moveId: string) => {
     e.dataTransfer.setData('text/plain', moveId);
   };
+
+  const handleDragResourceStart = (e: React.DragEvent, type: 'mover' | 'truck', name: string) => {
+    e.dataTransfer.setData('resourceType', type);
+    e.dataTransfer.setData('resourceName', name);
+  };
+
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -1159,6 +1352,13 @@ export function AdminPlanning({
                           {countdownInfo.text}
                         </span>
                       )}
+
+                      {/* Conflict warning badge */}
+                      {schedulingConflicts[move.id] && schedulingConflicts[move.id].length > 0 && (
+                        <span className="flex items-center gap-1 bg-red-100 text-red-800 dark:bg-red-955/35 dark:text-red-450 px-2 py-1 rounded-md border border-red-200/50 dark:border-red-900/30 text-[9px] font-black uppercase" title={schedulingConflicts[move.id].join('\n')}>
+                          <AlertCircle size={10} className="animate-pulse" /> Conflit
+                        </span>
+                      )}
                     </div>
                     
                     <h4 className="text-[15px] font-black text-brand-950 dark:text-white tracking-tight flex items-center gap-1.5 truncate">
@@ -1173,6 +1373,18 @@ export function AdminPlanning({
                       <ArrowRight size={10} className="text-accent shrink-0" />
                       <span className="truncate">{move.toCity}</span>
                     </div>
+
+                    {/* Conflict warnings list */}
+                    {schedulingConflicts[move.id] && schedulingConflicts[move.id].length > 0 && (
+                      <div className="mt-1.5 p-2 bg-red-50/50 dark:bg-red-955/15 border border-red-200/40 dark:border-red-900/20 rounded-lg text-[10px] font-semibold text-red-750 dark:text-red-400 space-y-0.5">
+                        {schedulingConflicts[move.id].map((conflict, i) => (
+                          <div key={i} className="flex items-center gap-1.5">
+                            <AlertCircle size={10} className="text-red-500 shrink-0" />
+                            <span>{conflict}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   {/* Middle metrics */}
@@ -1202,7 +1414,12 @@ export function AdminPlanning({
                       <div className="flex flex-wrap gap-1 mt-1">
                         {move.assignedMovers && move.assignedMovers.length > 0 ? (
                           move.assignedMovers.map(name => (
-                            <span key={name} className="bg-white text-brand-800 dark:bg-slate-900 dark:text-brand-350 px-2 py-1 rounded-md border border-slate-200/70 dark:border-slate-800 text-[10px] font-semibold">
+                            <span 
+                              key={name} 
+                              draggable={true}
+                              onDragStart={(e) => { e.stopPropagation(); handleDragResourceStartWithSource(e, 'mover', name, move.id); }}
+                              className="bg-white text-brand-800 dark:bg-slate-900 dark:text-brand-350 px-2 py-1 rounded-md border border-slate-200/70 dark:border-slate-800 text-[10px] font-semibold cursor-grab active:cursor-grabbing hover:border-accent hover:shadow-xs transition-all"
+                            >
                               {name.split(' ')[0]}
                             </span>
                           ))
@@ -1217,7 +1434,11 @@ export function AdminPlanning({
                     <div className="pt-2 border-t border-dashed border-slate-200 dark:border-slate-800">
                       <span className="text-[8.5px] text-slate-400 block uppercase font-black tracking-wider">Véhicule</span>
                       {move.assignedTruck ? (
-                        <span className="text-brand-950 dark:text-accent font-extrabold flex items-center gap-1 mt-0.5">
+                        <span 
+                          draggable={true}
+                          onDragStart={(e) => { e.stopPropagation(); handleDragResourceStartWithSource(e, 'truck', move.assignedTruck, move.id); }}
+                          className="text-brand-950 dark:text-accent font-extrabold flex items-center gap-1 mt-0.5 cursor-grab active:cursor-grabbing hover:text-accent-hover transition-colors"
+                        >
                           <Truck size={10} /> {move.assignedTruck}
                         </span>
                       ) : (
@@ -1438,6 +1659,59 @@ export function AdminPlanning({
             </div>
           </div>
 
+          {/* Pool de Ressources Glisser-Déposer */}
+          <div className="bg-slate-50/50 dark:bg-slate-950/20 border border-slate-100 dark:border-slate-800/80 rounded-2xl p-4 space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2">
+              <h4 className="text-xs font-black uppercase text-slate-500 tracking-wider flex items-center gap-1.5">
+                <Grid size={14} className="text-accent" />
+                Pool de Ressources (Glisser-Déposer sur les chantiers)
+              </h4>
+              <span className="text-[10px] text-slate-400 font-bold">
+                💡 Glissez un équipier ou un véhicule sur un chantier ci-dessous pour l'affecter
+              </span>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Movers Column */}
+              <div className="space-y-2">
+                <span className="text-[9.5px] uppercase font-black tracking-wider text-slate-400 block">Déménageurs Disponibles</span>
+                <div className="flex flex-wrap gap-2">
+                  {movers.filter(m => m.status === 'Disponible' || m.status === 'En mission').map(mover => (
+                    <div
+                      key={mover.id}
+                      draggable={true}
+                      onDragStart={(e) => handleDragResourceStart(e, 'mover', mover.name)}
+                      className="px-2.5 py-1.5 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-250 cursor-grab active:cursor-grabbing hover:border-accent dark:hover:border-accent hover:shadow-xs transition-all flex items-center gap-1.5 select-none"
+                    >
+                      <UserCheck size={12} className="text-brand-900 dark:text-accent" />
+                      <span>{mover.name}</span>
+                      <span className="text-[8px] bg-slate-100 dark:bg-slate-950 px-1 py-0.5 rounded text-slate-400 font-bold">{mover.role.split(' ')[0]}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Trucks Column */}
+              <div className="space-y-2">
+                <span className="text-[9.5px] uppercase font-black tracking-wider text-slate-400 block">Véhicules Disponibles</span>
+                <div className="flex flex-wrap gap-2">
+                  {trucks.filter(t => t.status === 'Disponible' || t.status === 'En mission').map(truck => (
+                    <div
+                      key={truck.id}
+                      draggable={true}
+                      onDragStart={(e) => handleDragResourceStart(e, 'truck', truck.plateNumber)}
+                      className="px-2.5 py-1.5 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-250 cursor-grab active:cursor-grabbing hover:border-accent dark:hover:border-accent hover:shadow-xs transition-all flex items-center gap-1.5 select-none"
+                    >
+                      <Truck size={12} className="text-accent" />
+                      <span>{truck.plateNumber}</span>
+                      <span className="text-[8px] bg-slate-100 dark:bg-slate-950 px-1 py-0.5 rounded text-slate-400 font-bold">{truck.capacity}m³</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Grille */}
           <div className="min-w-[800px] grid grid-cols-5 gap-4 items-stretch">
             {weekDays.map(day => {
@@ -1473,16 +1747,20 @@ export function AdminPlanning({
                         key={move.id} 
                         draggable={true}
                         onDragStart={(e) => handleDragStart(e, move.id)}
+                        onDragOver={handleDragOver}
+                        onDrop={(e) => handleDropOnCard(e, move.id)}
                         onClick={() => setSelectedMove(move)}
                         onContextMenu={(e) => handleContextMenu(e, move.id)}
-                        className={`p-3.5 rounded-2xl border text-xs leading-tight space-y-2 hover:shadow-md transition-all shadow-2xs cursor-pointer select-none ${
-                          move.status === 'Terminé'
-                            ? 'bg-emerald-50/70 border-emerald-100 dark:bg-emerald-950/20 dark:border-emerald-900/30 text-emerald-955 dark:text-emerald-300'
-                            : move.status === 'En cours'
-                              ? 'bg-purple-50/70 border-purple-100 dark:bg-purple-950/20 dark:border-purple-900/30 text-purple-955 dark:text-purple-300'
-                              : isMovePast(move.date)
-                                ? 'bg-slate-50 dark:bg-slate-950/45 text-slate-400 border border-slate-200 dark:border-slate-800 opacity-60'
-                                : 'bg-amber-50/70 border-amber-100 dark:bg-amber-950/20 dark:border-amber-900/30 text-amber-955 dark:text-amber-300'
+                        className={`p-3.5 rounded-2xl border text-xs leading-tight space-y-2 hover:shadow-md transition-all shadow-2xs cursor-pointer select-none relative ${
+                          schedulingConflicts[move.id] && schedulingConflicts[move.id].length > 0
+                            ? 'border-red-500 dark:border-red-900 ring-2 ring-red-500/20 bg-red-50/20 dark:bg-red-955/5 animate-pulse'
+                            : move.status === 'Terminé'
+                              ? 'bg-emerald-50/70 border-emerald-100 dark:bg-emerald-950/20 dark:border-emerald-900/30 text-emerald-955 dark:text-emerald-300'
+                              : move.status === 'En cours'
+                                ? 'bg-purple-50/70 border-purple-100 dark:bg-purple-950/20 dark:border-purple-900/30 text-purple-955 dark:text-purple-300'
+                                : isMovePast(move.date)
+                                  ? 'bg-slate-50 dark:bg-slate-950/45 text-slate-400 border border-slate-200 dark:border-slate-800 opacity-60'
+                                  : 'bg-amber-50/70 border-amber-100 dark:bg-amber-950/20 dark:border-amber-900/30 text-amber-955 dark:text-amber-300'
                         }`}
                       >
                         <div className="flex justify-between items-start font-black">
@@ -1505,9 +1783,40 @@ export function AdminPlanning({
                           <span className="truncate">{move.fromCity.split(' ')[0]} ➔ {move.toCity.split(' ')[0]}</span>
                         </div>
 
+                        {move.assignedMovers && move.assignedMovers.length > 0 && (
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {move.assignedMovers.map(name => (
+                              <span 
+                                key={name}
+                                draggable={true}
+                                onDragStart={(e) => { e.stopPropagation(); handleDragResourceStartWithSource(e, 'mover', name, move.id); }}
+                                className="bg-white/80 dark:bg-slate-800 text-brand-900 dark:text-accent-hover px-1.5 py-0.5 rounded-lg border border-slate-200/50 dark:border-slate-700 text-[8.5px] font-bold cursor-grab active:cursor-grabbing hover:border-accent hover:shadow-xs transition-all flex items-center gap-0.5 select-none"
+                              >
+                                <span className="w-1 h-1 rounded-full bg-indigo-500" />
+                                {name.split(' ')[0]}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+
                         {move.assignedTruck && (
-                          <div className="text-[9px] font-bold text-accent-hover dark:text-accent flex items-center gap-1 pt-1">
+                          <div 
+                            draggable={true}
+                            onDragStart={(e) => { e.stopPropagation(); handleDragResourceStartWithSource(e, 'truck', move.assignedTruck, move.id); }}
+                            className="text-[9px] font-bold text-accent-hover dark:text-accent flex items-center gap-1 pt-1 cursor-grab active:cursor-grabbing hover:text-accent-hover transition-colors"
+                          >
                             <Truck size={10} /> {move.assignedTruck}
+                          </div>
+                        )}
+
+                        {schedulingConflicts[move.id] && schedulingConflicts[move.id].length > 0 && (
+                          <div className="p-1.5 mt-2 bg-red-50 dark:bg-red-955/20 border border-red-200/50 dark:border-red-900/30 rounded-xl text-[9px] font-bold text-red-750 dark:text-red-400 space-y-0.5" title={schedulingConflicts[move.id].join('\n')}>
+                            {schedulingConflicts[move.id].map((conflict, i) => (
+                              <div key={i} className="flex items-center gap-1">
+                                <AlertCircle size={10} className="text-red-500 shrink-0" />
+                                <span className="truncate">{conflict}</span>
+                              </div>
+                            ))}
                           </div>
                         )}
                       </div>
@@ -1616,18 +1925,23 @@ export function AdminPlanning({
                           onClick={(e) => { e.stopPropagation(); setSelectedMove(move); }}
                           onContextMenu={(e) => handleContextMenu(e, move.id)}
                           className={`p-1 px-1.5 rounded-lg text-[8.5px] leading-tight space-y-0.5 hover:border-accent dark:hover:border-accent transition-all shadow-2xs truncate cursor-pointer select-none ${
-                            move.status === 'Terminé'
-                              ? 'bg-emerald-50/80 dark:bg-emerald-950/30 border border-emerald-100/50 dark:border-emerald-900/30 text-emerald-900 dark:text-emerald-300'
-                              : move.status === 'En cours'
-                                ? 'bg-purple-50/80 dark:bg-purple-950/30 border border-purple-100/50 dark:border-purple-900/30 text-purple-900 dark:text-purple-300'
-                                : isMovePast(move.date)
-                                  ? 'bg-slate-50 dark:bg-slate-950/55 text-slate-400 border border-slate-200 dark:border-slate-800 opacity-60'
-                                  : 'bg-amber-50/80 dark:bg-amber-950/30 border border-amber-100/50 dark:border-amber-900/30 text-amber-900 dark:text-amber-300'
+                            schedulingConflicts[move.id] && schedulingConflicts[move.id].length > 0
+                              ? 'bg-red-50/80 dark:bg-red-955/20 border border-red-200/50 dark:border-red-900/30 text-red-900 dark:text-red-300 ring-1 ring-red-500/10'
+                              : move.status === 'Terminé'
+                                ? 'bg-emerald-50/80 dark:bg-emerald-950/30 border border-emerald-100/50 dark:border-emerald-900/30 text-emerald-900 dark:text-emerald-300'
+                                : move.status === 'En cours'
+                                  ? 'bg-purple-50/80 dark:bg-purple-950/30 border border-purple-100/50 dark:border-purple-900/30 text-purple-900 dark:text-purple-300'
+                                  : isMovePast(move.date)
+                                    ? 'bg-slate-50 dark:bg-slate-950/55 text-slate-400 border border-slate-200 dark:border-slate-800 opacity-60'
+                                    : 'bg-amber-50/80 dark:bg-amber-950/30 border border-amber-100/50 dark:border-amber-900/30 text-amber-900 dark:text-amber-300'
                           }`}
-                          title={`${move.clientName} - ${move.volume}m³ - ${move.fromCity} ➔ ${move.toCity}`}
+                          title={`${move.clientName} - ${move.volume}m³ - ${move.fromCity} ➔ ${move.toCity}${schedulingConflicts[move.id] && schedulingConflicts[move.id].length > 0 ? ' (⚠️ Conflit: ' + schedulingConflicts[move.id].join(', ') + ')' : ''}`}
                         >
                           <div className="flex justify-between items-center font-bold">
                             <span className="truncate max-w-[65px] flex items-center gap-0.5">
+                              {schedulingConflicts[move.id] && schedulingConflicts[move.id].length > 0 && (
+                                <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping shrink-0" />
+                              )}
                               {move.clientName}
                               {pendingActions.some(a => a.moveId === move.id) && (
                                 <Clock size={8} className="text-amber-500 animate-pulse shrink-0" title="En attente de synchronisation" />
@@ -1683,6 +1997,9 @@ export function AdminPlanning({
                       <div className="flex items-center gap-1.5">
                         <span className="text-[8px] font-bold text-slate-400">{move.id}</span>
                         <h4 className="text-xs font-extrabold text-slate-800 dark:text-slate-200 truncate max-w-[120px] hover:text-brand-900 dark:hover:text-white transition-colors flex items-center gap-1">
+                          {schedulingConflicts[move.id] && schedulingConflicts[move.id].length > 0 && (
+                            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping shrink-0" />
+                          )}
                           {move.clientName}
                           {pendingActions.some(a => a.moveId === move.id) && (
                             <Clock size={10} className="text-amber-500 animate-pulse shrink-0" title="En attente de synchronisation" />
@@ -1707,12 +2024,13 @@ export function AdminPlanning({
                               <div 
                                 onClick={() => setSelectedMove(move)}
                                 className={`absolute inset-x-0.5 h-6 rounded-lg text-[8px] font-black uppercase text-center flex items-center justify-center shadow-sm cursor-pointer hover:scale-105 active:scale-95 transition-all truncate px-0.5 ${
+                                  schedulingConflicts[move.id] && schedulingConflicts[move.id].length > 0 ? 'bg-red-100 text-red-800 dark:bg-red-955 dark:text-red-400 border border-red-300/40 hover:bg-red-200 dark:hover:bg-red-900 animate-pulse' :
                                   move.status === 'À planifier' ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-400 border border-amber-300/40 hover:bg-amber-200 dark:hover:bg-amber-900' :
                                   move.status === 'Programmé' ? 'bg-sky-100 text-sky-800 dark:bg-sky-950 dark:text-sky-400 border border-sky-300/40 hover:bg-sky-200 dark:hover:bg-sky-900' :
                                   move.status === 'En cours' ? 'bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-400 border border-purple-300/40 hover:bg-purple-200 dark:hover:bg-purple-900' :
                                   'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-450 border border-emerald-300/40 hover:bg-emerald-200 dark:hover:bg-emerald-900'
                                 }`}
-                                title={`${move.clientName} (${move.volume} m³) - ${move.status}`}
+                                title={`${move.clientName} (${move.volume} m³)${schedulingConflicts[move.id] && schedulingConflicts[move.id].length > 0 ? ' - ⚠️ CONFLIT: ' + schedulingConflicts[move.id].join('; ') : ' - ' + move.status}`}
                               >
                                 {move.volume}m³
                               </div>

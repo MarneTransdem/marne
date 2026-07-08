@@ -72,7 +72,7 @@ function getGeminiClient(): GoogleGenAI {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-type PdfDocumentType = 'devis' | 'facture' | 'lettre_voiture' | 'declaration_valeur' | 'fiche_equipe';
+type PdfDocumentType = 'devis' | 'facture' | 'lettre_voiture' | 'declaration_valeur' | 'fiche_equipe' | 'fiche_incident';
 type PdfHelperModule = {
   generatePdfBuffer: (type: PdfDocumentType, data: unknown) => Promise<Buffer>;
 };
@@ -360,6 +360,7 @@ async function startServer() {
             "'self'",
             "https://*.googleapis.com",
             "https://*.firebaseio.com",
+            "https://*.cloudfunctions.net",
             "https://*.tile.openstreetmap.org",
             "https://*.basemaps.cartocdn.com",
             "https://firebasestorage.googleapis.com",
