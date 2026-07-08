@@ -776,22 +776,85 @@ export function ClientDossierDrawer({
           )}
 
           <details className="rounded-2xl border border-slate-200/75 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
-            <summary className="flex cursor-pointer items-center gap-2 text-xs font-black uppercase tracking-wider text-slate-500">
+            <summary className="flex cursor-pointer items-center gap-2 text-xs font-black uppercase tracking-wider text-slate-550 select-none outline-none">
               <ClockDot /> Timeline
-            </summary>$1
+            </summary>
+            <div className="mt-4 space-y-3.5 pl-1">
+              {timelineItems.map((item) => (
+                <div key={item.id} className="flex items-start gap-3 text-xs">
+                  <div className="mt-0.5 p-1.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800 text-slate-500 shrink-0">
+                    {item.icon}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex justify-between items-center">
+                      <strong className="font-extrabold text-slate-800 dark:text-slate-200">{item.label}</strong>
+                      <span className="text-[10px] text-slate-400 font-bold">{item.date}</span>
+                    </div>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">{item.meta}</p>
+                    <span className="inline-block mt-1.5 text-[8px] font-black uppercase tracking-wider bg-slate-100 dark:bg-slate-900 text-slate-500 px-2 py-0.5 rounded-full">{item.status}</span>
+                  </div>
+                </div>
+              ))}
+              {timelineItems.length === 0 && <p className="text-xs text-slate-450 italic pl-1">Aucun élément de timeline.</p>}
+            </div>
           </details>
 
           <details className="rounded-2xl border border-slate-200/75 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
-            <summary className="flex cursor-pointer items-center gap-2 text-xs font-black uppercase tracking-wider text-slate-500">
+            <summary className="flex cursor-pointer items-center gap-2 text-xs font-black uppercase tracking-wider text-slate-550 select-none outline-none">
               <ShieldCheck size={14} className="text-accent" />
               Historique CRM
-            </summary>$1
+            </summary>
+            <div className="mt-4 space-y-3.5 pl-1 max-h-64 overflow-y-auto pr-1">
+              {events.map((event) => (
+                <div key={event.id} className="flex items-start gap-3 text-xs">
+                  <div className={`mt-0.5 p-1.5 rounded-lg border shrink-0 ${getEventClass(event.status)}`}>
+                    {getEventIcon(event)}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex justify-between items-center">
+                      <strong className="font-extrabold text-slate-850 dark:text-slate-200">{event.title}</strong>
+                      <span className="text-[10px] text-slate-400 font-bold">{formatEventDate(event.createdAt)}</span>
+                    </div>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">{event.description}</p>
+                    {event.actor && (
+                      <span className="text-[9px] font-bold text-slate-400 mt-1 block">Par {event.actor}</span>
+                    )}
+                  </div>
+                </div>
+              ))}
+              {events.length === 0 && <p className="text-xs text-slate-450 italic pl-1">Aucun historique enregistré.</p>}
+            </div>
           </details>
+
           <details className="rounded-2xl border border-slate-200/75 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
-            <summary className="flex cursor-pointer items-center gap-2 text-xs font-black uppercase tracking-wider text-slate-500">
+            <summary className="flex cursor-pointer items-center gap-2 text-xs font-black uppercase tracking-wider text-slate-550 select-none outline-none">
               <FolderOpen size={14} className="text-accent" />
-              Pieces liees
-            </summary>$1
+              Pièces liées
+            </summary>
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 pl-1">
+              {linkedDocuments.map((doc) => (
+                <div
+                  key={doc.reference}
+                  onClick={() => {
+                    if (canNavigate(doc.tab)) {
+                      onNavigate(doc.tab);
+                      onClose();
+                    }
+                  }}
+                  className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100/50 dark:bg-slate-900 dark:hover:bg-slate-850 border border-slate-200/50 dark:border-slate-800 cursor-pointer transition-all active:scale-[0.98]"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <FileText size={15} className="text-slate-400 shrink-0" />
+                    <div className="min-w-0">
+                      <span className="block text-xs font-black text-slate-800 dark:text-slate-200 truncate">{doc.label}</span>
+                      <span className="block text-[9px] text-slate-400 font-bold truncate mt-0.5">{doc.reference}</span>
+                    </div>
+                  </div>
+                  <span className="text-[8px] font-black uppercase tracking-wider bg-slate-200/50 dark:bg-slate-800 text-slate-650 dark:text-slate-450 px-2 py-0.5 rounded-full shrink-0">{doc.status}</span>
+                </div>
+              ))}
+              {linkedDocuments.length === 0 && <p className="text-xs text-slate-450 italic col-span-2 pl-1">Aucun document lié.</p>}
+            </div>
           </details>
 
           <section className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/75 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
@@ -869,10 +932,40 @@ export function ClientDossierDrawer({
           </section>
 
           <details className="rounded-2xl border border-slate-200/75 bg-white/80 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
-            <summary className="flex cursor-pointer items-center gap-2 text-xs font-black uppercase tracking-wider text-slate-500">
+            <summary className="flex cursor-pointer items-center gap-2 text-xs font-black uppercase tracking-wider text-slate-550 select-none outline-none">
               <StickyNote size={14} className="text-accent" />
               Notes internes
-            </summary>$1
+            </summary>
+            <div className="mt-4 space-y-4 pl-1">
+              <form onSubmit={submitNote} className="flex gap-2">
+                <input
+                  type="text"
+                  placeholder="Ajouter une note interne..."
+                  value={noteContent}
+                  onChange={(e) => setNoteContent(e.target.value)}
+                  className="flex-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2 text-xs focus:outline-none focus:border-accent"
+                />
+                <button
+                  type="submit"
+                  disabled={!noteContent.trim()}
+                  className="bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:hover:bg-accent-hover text-white dark:text-brand-950 px-4 py-2 rounded-xl text-xs font-black cursor-pointer disabled:opacity-50 transition-colors"
+                >
+                  Ajouter
+                </button>
+              </form>
+              <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
+                {notes.map((note) => (
+                  <div key={note.id} className="p-3.5 bg-slate-50 dark:bg-slate-900 border border-slate-150/50 dark:border-slate-850 rounded-xl">
+                    <div className="flex justify-between items-center mb-1.5 text-[9px] font-bold text-slate-400">
+                      <span>{note.actor || note.author}</span>
+                      <span>{note.createdAt}</span>
+                    </div>
+                    <p className="text-xs font-semibold text-slate-700 dark:text-slate-350 leading-relaxed whitespace-pre-wrap">{note.content}</p>
+                  </div>
+                ))}
+                {notes.length === 0 && <p className="text-xs text-slate-450 italic pl-1">Aucune note interne sur ce dossier.</p>}
+              </div>
+            </div>
           </details>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pb-4">

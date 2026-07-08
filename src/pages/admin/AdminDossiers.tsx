@@ -127,9 +127,9 @@ const getDossierRiskLabel = (score: number) => {
 };
 
 const getTodayActionToneClasses = (tone: TodayActionTone) => {
-  if (tone === 'critical') return 'bg-red-50 text-red-800 border-red-200 dark:bg-red-950/20 dark:text-red-300 dark:border-red-900/40';
-  if (tone === 'warning') return 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/20 dark:text-amber-300 dark:border-amber-900/40';
-  return 'bg-sky-50 text-sky-800 border-sky-200 dark:bg-sky-950/20 dark:text-sky-300 dark:border-sky-900/40';
+  if (tone === 'critical') return 'bg-red-50/40 text-red-900 border-red-200/50 dark:bg-red-950/10 dark:text-red-300 dark:border-red-900/30 border-l-4 border-l-red-500';
+  if (tone === 'warning') return 'bg-amber-50/40 text-amber-900 border-amber-200/50 dark:bg-amber-950/10 dark:text-amber-300 dark:border-amber-900/30 border-l-4 border-l-amber-500';
+  return 'bg-sky-50/40 text-sky-900 border-sky-200/50 dark:bg-sky-950/10 dark:text-sky-300 dark:border-sky-900/30 border-l-4 border-l-sky-500';
 };
 const SEED_TEMPLATES: NotificationTemplate[] = [
   {
@@ -1727,7 +1727,7 @@ export function AdminDossiers() {
     const overdueInvoices = allDossiers.filter((dossier) => getQuality(dossier).filters.includes('invoice_risk'));
     const moveSoonDossiers = openDossiers.filter((dossier) => getQuality(dossier).filters.includes('move_soon'));
     const noTaskDossiers = openDossiers.filter((dossier) => getDossierOpenTaskCount(dossier) === 0);
-    const openAmount = openDossiers.reduce((sum, dossier) => sum + dossier.amount, 0);
+const openAmount = openDossiers.reduce((sum, dossier) => sum + dossier.amount, 0);
 
     const priorityDossiers = [...openDossiers]
       .filter((dossier) => matchesWorkQueueFilter(dossier, getQuality(dossier)))
@@ -1758,22 +1758,30 @@ export function AdminDossiers() {
     <div className="space-y-6">
 
       {/* Tab Navigation header */}
-      <div className="flex border-b border-slate-200 dark:border-slate-800 gap-6 print:hidden">
+      <div className="flex bg-slate-100/80 dark:bg-slate-900/60 p-1.5 rounded-full w-fit gap-1.5 print:hidden border border-slate-200/50 dark:border-slate-800 shadow-sm">
         <button
           onClick={() => setActiveTab('dossiers')}
-          className={`pb-4 text-xs font-black uppercase tracking-wider transition-all relative ${activeTab === 'dossiers' ? 'text-accent border-b-2 border-accent' : 'text-slate-400 hover:text-slate-600'}`}
+          className={`px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+            activeTab === 'dossiers'
+              ? 'bg-brand-900 text-white shadow-md dark:bg-accent dark:text-brand-950'
+              : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'
+          }`}
         >
           <span className="flex items-center gap-2">
-            <FolderOpen size={16} />
+            <FolderOpen size={14} />
             Pipeline & Dossiers Clients
           </span>
         </button>
         <button
           onClick={() => setActiveTab('templates')}
-          className={`pb-4 text-xs font-black uppercase tracking-wider transition-all relative ${activeTab === 'templates' ? 'text-accent border-b-2 border-accent' : 'text-slate-400 hover:text-slate-600'}`}
+          className={`px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+            activeTab === 'templates'
+              ? 'bg-brand-900 text-white shadow-md dark:bg-accent dark:text-brand-950'
+              : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'
+          }`}
         >
           <span className="flex items-center gap-2">
-            <Settings size={16} />
+            <Settings size={14} />
             Modèles de Notifications
           </span>
         </button>
@@ -1783,8 +1791,8 @@ export function AdminDossiers() {
       {activeTab === 'dossiers' && (
         <div className="space-y-6 animate-fade-in">
 
-          <section className="bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden">
-            <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-5">
+          <section className="bg-white dark:bg-slate-900 border border-slate-200/75 dark:border-slate-800 rounded-3xl shadow-premium overflow-hidden">
+            <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-6">
               <div className="min-w-0">
                 <div className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.22em] text-accent">
                   <FolderOpen size={14} />
@@ -1798,7 +1806,7 @@ export function AdminDossiers() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-7 gap-2 text-xs">
+              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-7 gap-2.5 text-xs">
                 <button
                   type="button"
                   onClick={() => {
@@ -1807,12 +1815,12 @@ export function AdminDossiers() {
                     setDossierQualityFilter('all');
                     setDossierSort('priority');
                   }}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/40 px-3 py-2 text-left hover:border-accent/50 transition-all"
+                  className="rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/40 px-3 py-2.5 text-left hover:border-accent hover:-translate-y-0.5 hover:shadow-sm transition-all duration-300 cursor-pointer"
                 >
                   <span className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-slate-400">
-                    <FolderOpen size={11} /> Ouverts
+                    <FolderOpen size={11} className="text-slate-400" /> Ouverts
                   </span>
-                  <strong className="mt-1 block text-lg font-black text-slate-950 dark:text-white">{cockpitMetrics.openCount}</strong>
+                  <strong className="mt-1 block text-lg font-black text-slate-950 dark:text-white leading-none">{cockpitMetrics.openCount}</strong>
                 </button>
                 <button
                   type="button"
@@ -1822,12 +1830,12 @@ export function AdminDossiers() {
                     setDossierQualityFilter('blocked');
                     setDossierSort('priority');
                   }}
-                  className="rounded-lg border border-red-200 dark:border-red-900/40 bg-red-50/70 dark:bg-red-950/10 px-3 py-2 text-left hover:border-red-300 transition-all"
+                  className="rounded-xl border border-red-200 dark:border-red-900/40 bg-red-55/40 dark:bg-red-950/10 px-3 py-2.5 text-left hover:border-red-300 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-300 cursor-pointer"
                 >
                   <span className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-red-600 dark:text-red-300">
-                    <AlertTriangle size={11} /> Bloques
+                    <AlertTriangle size={11} /> Bloqués
                   </span>
-                  <strong className="mt-1 block text-lg font-black text-red-700 dark:text-red-300">{cockpitMetrics.blockedCount}</strong>
+                  <strong className="mt-1 block text-lg font-black text-red-700 dark:text-red-300 leading-none">{cockpitMetrics.blockedCount}</strong>
                 </button>
                 <button
                   type="button"
@@ -1836,12 +1844,12 @@ export function AdminDossiers() {
                     setDossierRiskFilter('urgent');
                     setDossierQualityFilter('all');
                   }}
-                  className="rounded-lg border border-red-200 dark:border-red-900/40 bg-red-50/70 dark:bg-red-950/10 px-3 py-2 text-left hover:border-red-300 transition-all"
+                  className="rounded-xl border border-red-200 dark:border-red-900/40 bg-red-55/40 dark:bg-red-950/10 px-3 py-2.5 text-left hover:border-red-300 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-300 cursor-pointer"
                 >
                   <span className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-red-600 dark:text-red-300">
                     <AlertTriangle size={11} /> Urgents
                   </span>
-                  <strong className="mt-1 block text-lg font-black text-red-700 dark:text-red-300">{cockpitMetrics.urgentCount}</strong>
+                  <strong className="mt-1 block text-lg font-black text-red-700 dark:text-red-300 leading-none">{cockpitMetrics.urgentCount}</strong>
                 </button>
                 <button
                   type="button"
@@ -1851,12 +1859,12 @@ export function AdminDossiers() {
                     setDossierQualityFilter('followup');
                     setDossierSort('priority');
                   }}
-                  className="rounded-lg border border-amber-200 dark:border-amber-900/40 bg-amber-50/70 dark:bg-amber-950/10 px-3 py-2 text-left hover:border-amber-300 transition-all"
+                  className="rounded-xl border border-amber-200 dark:border-amber-900/40 bg-amber-55/40 dark:bg-amber-950/10 px-3 py-2.5 text-left hover:border-amber-300 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-300 cursor-pointer"
                 >
                   <span className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-amber-700 dark:text-amber-300">
                     <Mail size={11} /> Relances
                   </span>
-                  <strong className="mt-1 block text-lg font-black text-amber-800 dark:text-amber-300">{cockpitMetrics.quoteFollowUpCount}</strong>
+                  <strong className="mt-1 block text-lg font-black text-amber-800 dark:text-amber-300 leading-none">{cockpitMetrics.quoteFollowUpCount}</strong>
                 </button>
                 <button
                   type="button"
@@ -1866,12 +1874,12 @@ export function AdminDossiers() {
                     setDossierQualityFilter('planning_incomplete');
                     setDossierSort('priority');
                   }}
-                  className="rounded-lg border border-sky-200 dark:border-sky-900/40 bg-sky-50/70 dark:bg-sky-950/10 px-3 py-2 text-left hover:border-sky-300 transition-all"
+                  className="rounded-xl border border-sky-200 dark:border-sky-900/40 bg-sky-55/40 dark:bg-sky-950/10 px-3 py-2.5 text-left hover:border-sky-300 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-300 cursor-pointer"
                 >
                   <span className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-sky-700 dark:text-sky-300">
                     <Users size={11} /> Planning
                   </span>
-                  <strong className="mt-1 block text-lg font-black text-sky-800 dark:text-sky-300">{cockpitMetrics.incompletePlanningCount}</strong>
+                  <strong className="mt-1 block text-lg font-black text-sky-800 dark:text-sky-300 leading-none">{cockpitMetrics.incompletePlanningCount}</strong>
                 </button>
                 <button
                   type="button"
@@ -1881,44 +1889,43 @@ export function AdminDossiers() {
                     setDossierQualityFilter('invoice_risk');
                     setDossierSort('priority');
                   }}
-                  className="rounded-lg border border-rose-200 dark:border-rose-900/40 bg-rose-50/70 dark:bg-rose-950/10 px-3 py-2 text-left hover:border-rose-300 transition-all"
+                  className="rounded-xl border border-rose-200 dark:border-rose-900/40 bg-rose-55/40 dark:bg-rose-950/10 px-3 py-2.5 text-left hover:border-rose-300 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-300 cursor-pointer"
                 >
                   <span className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-rose-700 dark:text-rose-300">
                     <FileText size={11} /> Retard
                   </span>
-                  <strong className="mt-1 block text-lg font-black text-rose-800 dark:text-rose-300">{cockpitMetrics.overdueInvoiceCount}</strong>
+                  <strong className="mt-1 block text-lg font-black text-rose-800 dark:text-rose-300 leading-none">{cockpitMetrics.overdueInvoiceCount}</strong>
                 </button>
-                <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2">
+                <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2.5 text-left shadow-sm">
                   <span className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-slate-400">
                     <CheckCircle2 size={11} /> Ouvert
                   </span>
-                  <strong className="mt-1 block text-lg font-black text-brand-950 dark:text-white">
+                  <strong className="mt-1 block text-base font-black text-brand-950 dark:text-white leading-none whitespace-nowrap">
                     {cockpitMetrics.openAmount.toLocaleString('fr-FR')} €
                   </strong>
                 </div>
               </div>
-            </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-0">
-              <div className="p-5">
-                <section className="mb-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 p-4 shadow-sm">
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+              <div className="p-6">
+                <section className="mb-6 rounded-2xl border border-slate-200/50 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20 backdrop-blur-sm p-5 shadow-sm">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                     <div>
-                      <span className="text-[10px] font-black uppercase tracking-widest text-accent">Actions du jour</span>
-                      <h3 className="mt-1 text-sm font-black text-brand-950 dark:text-white">3 priorités proposées par le CRM</h3>
+                      <span className="text-[10px] font-black uppercase tracking-[0.18em] text-accent">Actions du jour</span>
+                      <h3 className="mt-1 text-sm font-black text-brand-950 dark:text-white">3 priorités suggérées par le CRM</h3>
                       <p className="mt-1 max-w-2xl text-[11px] font-semibold text-slate-500 dark:text-slate-400">
                         {todayActionStats.openToCreate} à créer, {todayActionStats.alreadyTasked} déjà couvertes par une tâche ouverte. {hiddenTodayActionCount > 0 ? `${hiddenTodayActionCount} autre${hiddenTodayActionCount > 1 ? 's' : ''} action${hiddenTodayActionCount > 1 ? 's' : ''} accessible${hiddenTodayActionCount > 1 ? 's' : ''} dans la liste complète.` : 'Aucune action masquée.'}
                       </p>
                     </div>
-                    <div className="flex flex-col sm:items-end gap-2">
-                      <div className="grid grid-cols-3 gap-2 text-center text-[10px] font-black uppercase">
-                        <div className="rounded-lg border border-red-200 bg-red-50 px-2 py-1.5 text-red-700 dark:bg-red-950/20 dark:border-red-900/40 dark:text-red-300">
+                    <div className="flex flex-col sm:items-end gap-2.5">
+                      <div className="grid grid-cols-3 gap-2 text-center text-[9px] font-black uppercase tracking-wider">
+                        <div className="rounded-md border border-red-200/60 bg-red-50/40 px-2 py-1.5 text-red-700 dark:bg-red-950/20 dark:border-red-900/40 dark:text-red-300">
                           {todayActionStats.critical} critiques
                         </div>
-                        <div className="rounded-lg border border-amber-200 bg-amber-50 px-2 py-1.5 text-amber-700 dark:bg-amber-950/20 dark:border-amber-900/40 dark:text-amber-300">
+                        <div className="rounded-md border border-amber-200/60 bg-amber-50/40 px-2 py-1.5 text-amber-700 dark:bg-amber-950/20 dark:border-amber-900/40 dark:text-amber-300">
                           {todayActionStats.warning} suivis
                         </div>
-                        <div className="rounded-lg border border-slate-200 bg-slate-50 px-2 py-1.5 text-slate-600 dark:bg-slate-950 dark:border-slate-800 dark:text-slate-300">
+                        <div className="rounded-md border border-slate-200/65 bg-slate-100/60 px-2 py-1.5 text-slate-650 dark:bg-slate-900/50 dark:border-slate-800 dark:text-slate-300">
                           {todayActionStats.total} total
                         </div>
                       </div>
@@ -1926,7 +1933,7 @@ export function AdminDossiers() {
                         type="button"
                         disabled={creatableTodayActions.length === 0}
                         onClick={handleCreateTopTodayTasks}
-                        className="inline-flex items-center justify-center rounded-lg bg-brand-900 px-3 py-2 text-[10px] font-black uppercase text-white shadow-sm transition-colors hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-50 dark:bg-accent dark:text-brand-950"
+                        className="inline-flex items-center justify-center rounded-lg bg-brand-900 px-3.5 py-2 text-[10px] font-black uppercase tracking-wider text-white shadow-sm transition-all hover:bg-brand-hover hover:scale-[1.02] active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-accent dark:text-brand-950 cursor-pointer"
                       >
                         {creatableTodayActions.length > 0 ? `Créer ${creatableTodayActions.length} tâche${creatableTodayActions.length > 1 ? 's' : ''}` : 'Tout couvert'}
                       </button>
@@ -1935,26 +1942,26 @@ export function AdminDossiers() {
 
                   <div className="mt-4 space-y-2">
                     {todayActions.map((action) => (
-                      <div key={action.id} className={`rounded-xl border p-3 ${getTodayActionToneClasses(action.tone)}`}>
+                      <div key={action.id} className={`rounded-xl border p-3.5 shadow-sm transition-all hover:scale-[1.005] duration-200 ${getTodayActionToneClasses(action.tone)}`}>
                         <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-3">
                           <div className="min-w-0">
-                            <div className="flex flex-wrap items-center gap-2">
-                              <span className="text-[9px] font-black uppercase tracking-wider opacity-70">{action.clientName}</span>
-                              <span className="rounded-md bg-white/60 dark:bg-slate-950/40 px-1.5 py-0.5 text-[8px] font-black uppercase opacity-80">{getDossierStageLabel(action.stage)}</span>
+                            <div className="flex flex-wrap items-center gap-1.5">
+                              <span className="text-[9px] font-black uppercase tracking-wider opacity-80">{action.clientName}</span>
+                              <span className="rounded-full bg-white/70 dark:bg-slate-950/50 px-2 py-0.5 text-[8px] font-extrabold uppercase tracking-wider opacity-90">{getDossierStageLabel(action.stage)}</span>
                               {action.alreadyTasked && (
-                                <span className="rounded-md bg-emerald-100 px-1.5 py-0.5 text-[8px] font-black uppercase text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300">Tâche ouverte</span>
+                                <span className="rounded-full bg-emerald-100 dark:bg-emerald-950/40 px-2 py-0.5 text-[8px] font-black uppercase text-emerald-700 dark:text-emerald-300">Tâche ouverte</span>
                               )}
-                              <span className="rounded-md bg-white/60 px-1.5 py-0.5 text-[8px] font-black uppercase opacity-80 dark:bg-slate-950/40">{action.priority === 'urgent' ? 'Urgent' : 'Normal'}</span>
-                              <span className="rounded-md bg-white/60 px-1.5 py-0.5 text-[8px] font-black uppercase opacity-80 dark:bg-slate-950/40">Échéance {formatDossierDateFr(action.dueDate)}</span>
+                              <span className="rounded-full bg-white/70 dark:bg-slate-950/50 px-2 py-0.5 text-[8px] font-extrabold uppercase tracking-wider opacity-90">{action.priority === 'urgent' ? 'Urgent' : 'Normal'}</span>
+                              <span className="rounded-full bg-white/70 dark:bg-slate-950/50 px-2 py-0.5 text-[8px] font-extrabold uppercase tracking-wider opacity-90">Échéance {formatDossierDateFr(action.dueDate)}</span>
                             </div>
-                            <p className="mt-1 text-xs font-black text-current">{action.title}</p>
-                            <p className="mt-0.5 line-clamp-2 text-[11px] font-semibold opacity-80">{action.description}</p>
+                            <p className="mt-1.5 text-xs font-black text-slate-900 dark:text-white">{action.title}</p>
+                            <p className="mt-0.5 line-clamp-2 text-[11px] font-semibold opacity-80 text-slate-650 dark:text-slate-300">{action.description}</p>
                           </div>
                           <div className="flex shrink-0 items-center gap-2">
                             <button
                               type="button"
                               onClick={() => setSelectedDossierKey(action.dossierKey)}
-                              className="rounded-lg bg-white/80 hover:bg-white px-3 py-2 text-[10px] font-black uppercase text-slate-700 shadow-sm dark:bg-slate-950/60 dark:text-slate-100"
+                              className="rounded-lg bg-white/95 hover:bg-white px-3 py-2 text-[10px] font-black uppercase tracking-wider text-slate-700 shadow-sm border border-slate-200/50 hover:border-slate-300 dark:bg-slate-900 dark:hover:bg-slate-850 dark:border-slate-800 dark:text-slate-200 cursor-pointer active:scale-95 transition-all"
                             >
                               Ouvrir
                             </button>
@@ -1962,7 +1969,7 @@ export function AdminDossiers() {
                               type="button"
                               disabled={action.alreadyTasked}
                               onClick={() => handleCreateTaskFromTodayAction(action)}
-                              className="rounded-lg bg-brand-900 hover:bg-brand-hover px-3 py-2 text-[10px] font-black uppercase text-white shadow-sm disabled:cursor-not-allowed disabled:opacity-50 dark:bg-accent dark:text-brand-950"
+                              className="rounded-lg bg-brand-900 hover:bg-brand-hover px-3 py-2 text-[10px] font-black uppercase tracking-wider text-white shadow-sm disabled:cursor-not-allowed disabled:opacity-50 dark:bg-accent dark:text-brand-950 cursor-pointer active:scale-95 transition-all"
                             >
                               {action.alreadyTasked ? 'Couverte' : 'Créer tâche'}
                             </button>
@@ -1997,7 +2004,7 @@ export function AdminDossiers() {
                             <button
                               type="button"
                               onClick={() => setTodayActionVisibleCount(TODAY_ACTION_BATCH_SIZE)}
-                              className="rounded-lg bg-slate-100 px-3 py-2 text-[10px] font-black uppercase text-slate-500 transition-colors hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+                              className="rounded-lg bg-slate-100 px-3 py-2 text-[10px] font-black uppercase text-slate-500 transition-colors hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 cursor-pointer"
                             >
                               Réduire
                             </button>
@@ -2007,8 +2014,9 @@ export function AdminDossiers() {
                     )}
                   </div>
                 </section>
+              </div>
 
-                <div className="mb-4 flex flex-wrap gap-2">
+                <div className="mb-6 flex flex-wrap gap-2.5">
                   {[
                     { id: 'all' as DossierWorkQueueFilter, label: 'Tous', count: cockpitMetrics.openCount },
                     { id: 'no_task' as DossierWorkQueueFilter, label: 'Sans tâche', count: cockpitMetrics.noTaskCount },
@@ -2027,10 +2035,10 @@ export function AdminDossiers() {
                           setDossierSort('priority');
                           setDossierCurrentPage(1);
                         }}
-                        className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-[10px] font-black uppercase tracking-wider transition-all ${active ? 'border-brand-900 bg-brand-900 text-white shadow-sm dark:border-accent dark:bg-accent dark:text-brand-950' : 'border-slate-200 bg-white text-slate-500 hover:border-slate-300 hover:text-brand-900 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300 dark:hover:text-white'}`}
+                        className={`inline-flex items-center gap-2.5 rounded-full border px-4 py-2 text-[10px] font-black uppercase tracking-wider transition-all duration-300 cursor-pointer ${active ? 'border-brand-900 bg-brand-900 text-white shadow-md dark:border-accent dark:bg-accent dark:text-brand-950' : 'border-slate-200 bg-white text-slate-500 hover:border-slate-300 hover:text-brand-900 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-350 dark:hover:text-white'}`}
                       >
                         <span>{filter.label}</span>
-                        <strong className={`rounded-md px-1.5 py-0.5 text-[9px] ${active ? 'bg-white/15 text-current dark:bg-brand-950/10' : 'bg-slate-100 text-slate-500 dark:bg-slate-900 dark:text-slate-300'}`}>{filter.count}</strong>
+                        <strong className={`rounded-full px-2 py-0.5 text-[9px] font-black ${active ? 'bg-white/20 text-current dark:bg-brand-950/15' : 'bg-slate-100 text-slate-500 dark:bg-slate-900 dark:text-slate-400'}`}>{filter.count}</strong>
                       </button>
                     );
                   })}
@@ -2038,7 +2046,7 @@ export function AdminDossiers() {
 
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">À traiter maintenant</span>
+                    <span className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-450">À traiter maintenant</span>
                     <h3 className="mt-1 text-sm font-black text-brand-950 dark:text-white">Dossiers prioritaires</h3>
                   </div>
                   <button
@@ -2049,24 +2057,24 @@ export function AdminDossiers() {
                       setWorkQueueFilter('all');
                       setDossierSort('priority');
                     }}
-                    className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-800 px-3 py-2 text-[10px] font-black uppercase text-slate-600 dark:text-slate-200"
+                    className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white hover:bg-slate-55 dark:bg-slate-950 dark:hover:bg-slate-850 px-3.5 py-2 text-[10px] font-black uppercase tracking-wider text-slate-600 dark:text-slate-200 cursor-pointer transition-all duration-300"
                   >
                     Voir tout
                   </button>
                 </div>
 
-                <div className="mt-4 grid grid-cols-1 xl:grid-cols-3 gap-3">
+                <div className="mt-4 grid grid-cols-1 xl:grid-cols-3 gap-4">
                   {cockpitMetrics.priorityDossiers.map((dossier) => {
                     const action = getDossierWorkflowActions(dossier)[0];
                     const quality = getDossierQualitySummary(dossier);
                     return (
                       <article
                         key={dossier.key}
-                        className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/55 dark:bg-slate-950/30 p-4"
+                        className="rounded-2xl border border-slate-200/60 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20 p-5 flex flex-col justify-between hover:scale-[1.01] hover:shadow-md hover:border-slate-350 dark:hover:border-slate-700 transition-all duration-300"
                       >
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="min-w-0">
-                            <span className={`inline-flex rounded-md px-2 py-1 text-[9px] font-black uppercase ${
+                        <div>
+                          <div className="flex items-start justify-between gap-3">
+                            <span className={`inline-flex rounded-full px-2.5 py-0.5 text-[8px] font-black uppercase tracking-wider ${
                               dossier.risk === 'urgent'
                                 ? 'bg-red-100 text-red-700 dark:bg-red-950/30 dark:text-red-300'
                                 : dossier.risk === 'attention'
@@ -2075,23 +2083,26 @@ export function AdminDossiers() {
                             }`}>
                               {getDossierStageLabel(dossier.stage)}
                             </span>
-                            <h4 className="mt-2 truncate text-sm font-black text-brand-950 dark:text-white">{dossier.clientName}</h4>
-                            <div className="mt-2 space-y-1">
-                              <span className={`inline-flex border px-2 py-0.5 rounded-md text-[9px] font-black uppercase ${quality.primaryIssue ? getDossierQualityPillClass(quality.primaryIssue.severity) : 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/25 dark:text-emerald-300 dark:border-emerald-900/50'}`}>
-                                {quality.primaryIssue?.label || quality.label}
-                              </span>
-                              <p className="line-clamp-2 text-xs font-medium text-slate-500 dark:text-slate-400">{quality.reason}</p>
-                            </div>
+                            <strong className={`shrink-0 max-w-[100px] text-right text-[10px] font-black tracking-wider leading-tight ${getDossierQualityScoreClass(quality.score)}`}>
+                              {quality.score > 0 ? getDossierRiskLabel(quality.score) : dossier.amount > 0 ? `${dossier.amount.toLocaleString('fr-FR')} €` : '-'}
+                            </strong>
                           </div>
-                          <strong className={`shrink-0 max-w-[100px] text-right text-[11px] font-black leading-tight ${getDossierQualityScoreClass(quality.score)}`}>
-                            {quality.score > 0 ? getDossierRiskLabel(quality.score) : dossier.amount > 0 ? `${dossier.amount.toLocaleString('fr-FR')} €` : '-'}
-                          </strong>
+                          
+                          <h4 className="mt-3 truncate text-sm font-black text-brand-950 dark:text-white">{dossier.clientName}</h4>
+                          
+                          <div className="mt-2 space-y-1.5">
+                            <span className={`inline-flex border px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-wide ${quality.primaryIssue ? getDossierQualityPillClass(quality.primaryIssue.severity) : 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/25 dark:text-emerald-300 dark:border-emerald-900/50'}`}>
+                              {quality.primaryIssue?.label || quality.label}
+                            </span>
+                            <p className="line-clamp-2 text-xs font-semibold text-slate-500 dark:text-slate-400 leading-relaxed">{quality.reason}</p>
+                          </div>
                         </div>
-                        <div className="mt-3 flex items-center justify-between gap-2 border-t border-slate-200/70 dark:border-slate-800 pt-3">
+
+                        <div className="mt-4 flex items-center justify-between gap-2 border-t border-slate-200/50 dark:border-slate-800 pt-3">
                           <button
                             type="button"
                             onClick={() => setSelectedDossierKey(dossier.key)}
-                            className="text-[10px] font-black uppercase text-slate-500 hover:text-brand-900 dark:hover:text-white"
+                            className="text-[10px] font-black uppercase tracking-wider text-slate-400 hover:text-brand-900 dark:hover:text-white cursor-pointer transition-colors"
                           >
                             Ouvrir
                           </button>
@@ -2099,7 +2110,7 @@ export function AdminDossiers() {
                             <button
                               type="button"
                               onClick={() => runDossierWorkflowAction(action.id, dossier)}
-                              className="rounded-md bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:text-brand-950 px-2.5 py-1.5 text-[10px] font-black uppercase text-white"
+                              className="rounded-lg bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:text-brand-950 px-3 py-1.5 text-[10px] font-black uppercase tracking-wider text-white shadow-sm hover:scale-[1.02] cursor-pointer transition-all"
                             >
                               {quality.actionLabel || action.label}
                             </button>
@@ -2110,7 +2121,7 @@ export function AdminDossiers() {
                   })}
 
                   {cockpitMetrics.priorityDossiers.length === 0 && (
-                    <div className="xl:col-span-3 rounded-lg border border-dashed border-slate-250 dark:border-slate-800 p-6 text-center">
+                    <div className="xl:col-span-3 rounded-2xl border border-dashed border-slate-250 dark:border-slate-800 p-8 text-center bg-slate-50/20">
                       <CheckCircle2 className="mx-auto text-emerald-500" size={24} />
                       <p className="mt-2 text-sm font-black text-slate-600 dark:text-slate-300">Aucun dossier prioritaire.</p>
                     </div>
@@ -2118,9 +2129,9 @@ export function AdminDossiers() {
                 </div>
               </div>
 
-              <aside className="border-t lg:border-t-0 lg:border-l border-slate-100 dark:border-slate-800 bg-slate-50/55 dark:bg-slate-950/20 p-5">
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Santé portefeuille</span>
-                <div className="mt-3 space-y-3">
+              <aside className="border-t lg:border-t-0 lg:border-l border-slate-100 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20 p-6 flex flex-col justify-start">
+                <span className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">Santé portefeuille</span>
+                <div className="mt-4 space-y-3">
                   {[
                     { label: 'Dossiers bloqués', value: cockpitMetrics.blockedCount, icon: <AlertTriangle size={14} className="text-red-600" /> },
                     { label: 'Devis à relancer', value: cockpitMetrics.quoteFollowUpCount, icon: <Mail size={14} className="text-amber-600" /> },
@@ -2128,10 +2139,10 @@ export function AdminDossiers() {
                     { label: 'Factures à risque', value: cockpitMetrics.overdueInvoiceCount, icon: <FileText size={14} className="text-rose-600" /> },
                     { label: 'Interventions proches', value: cockpitMetrics.moveSoonCount, icon: <Calendar size={14} className="text-emerald-600" /> }
                   ].map((item) => (
-                    <div key={item.label} className="flex items-center justify-between gap-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 p-3">
+                    <div key={item.label} className="flex items-center justify-between gap-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800 p-3.5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
                       <div className="flex items-center gap-2">
                         {item.icon}
-                        <p className="text-[11px] font-bold leading-relaxed text-slate-600 dark:text-slate-300">{item.label}</p>
+                        <p className="text-[11px] font-extrabold leading-relaxed text-slate-600 dark:text-slate-350">{item.label}</p>
                       </div>
                       <strong className="text-sm font-black text-brand-950 dark:text-white">{item.value}</strong>
                     </div>
@@ -2193,7 +2204,7 @@ export function AdminDossiers() {
                   </button>
                   <button
                     onClick={() => setViewMode('kanban')}
-                    className={`p-1.5 rounded-md transition-all ${viewMode === 'kanban' ? 'bg-white dark:bg-slate-900 shadow-sm text-brand-900 dark:text-white' : 'text-slate-400 hover:text-slate-600'}`}
+                    className={`p-1.5 rounded-md transition-all cursor-pointer ${viewMode === 'kanban' ? 'bg-white dark:bg-slate-900 shadow-sm text-brand-900 dark:text-white' : 'text-slate-400 hover:text-slate-600'}`}
                     title="Vue Pipeline"
                   >
                     <Columns size={16} />
@@ -2205,22 +2216,22 @@ export function AdminDossiers() {
               </div>
             </div>
 
-            <div className="p-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20 space-y-3 print:hidden">
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-8 gap-3">
+            <div className="p-5 border-b border-slate-200/50 dark:border-slate-800/50 bg-slate-50/30 dark:bg-slate-950/25 backdrop-blur-sm space-y-4 print:hidden">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-8 gap-3.5">
                 {isUsingGlobalSearch ? (
-                  <div className="xl:col-span-2 rounded-lg border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2">
-                    <span className="block text-[9px] font-black uppercase tracking-wider text-slate-400">Recherche globale active</span>
-                    <strong className="block truncate text-xs text-slate-700 dark:text-slate-100">{activeSearch}</strong>
+                  <div className="xl:col-span-2 rounded-xl border border-slate-250 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 py-2 flex flex-col justify-center">
+                    <span className="block text-[8px] font-black uppercase tracking-wider text-slate-400">Recherche globale active</span>
+                    <strong className="block truncate text-xs text-slate-700 dark:text-slate-200">{activeSearch}</strong>
                   </div>
                 ) : (
                   <div className="relative xl:col-span-2">
                     <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
                     <input
                       type="text"
-                      placeholder="Nom, téléphone, ville, email, référence..."
+                      placeholder="Nom, téléphone, ville, email..."
                       value={localSearchQuery}
                       onChange={(e) => setLocalSearchQuery(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-lg py-2.5 pl-9 pr-4 text-xs font-bold shadow-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
+                      className="w-full bg-white dark:bg-slate-950 border border-slate-200/70 dark:border-slate-800 rounded-xl py-2.5 pl-9.5 pr-4 text-xs font-bold text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/25 transition-all"
                     />
                   </div>
                 )}
@@ -2228,7 +2239,7 @@ export function AdminDossiers() {
                 <select
                   value={workflowStageFilter}
                   onChange={(event) => setWorkflowStageFilter(event.target.value)}
-                  className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-lg px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+                  className="bg-white dark:bg-slate-950 border border-slate-200/70 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/25 transition-all cursor-pointer"
                 >
                   <option value="all">Toutes les étapes</option>
                   {DOSSIER_STAGES.map((stage) => (
@@ -2239,7 +2250,7 @@ export function AdminDossiers() {
                 <select
                   value={dossierRiskFilter}
                   onChange={(event) => setDossierRiskFilter(event.target.value as DossierRiskFilter)}
-                  className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-lg px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+                  className="bg-white dark:bg-slate-950 border border-slate-200/70 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/25 transition-all cursor-pointer"
                 >
                   <option value="all">Toutes priorités</option>
                   <option value="urgent">Urgent</option>
@@ -2250,7 +2261,7 @@ export function AdminDossiers() {
                 <select
                   value={dossierQualityFilter}
                   onChange={(event) => setDossierQualityFilter(event.target.value as DossierQualityFilterOption)}
-                  className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-lg px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+                  className="bg-white dark:bg-slate-950 border border-slate-200/70 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/25 transition-all cursor-pointer"
                 >
                   {DOSSIER_QUALITY_FILTERS.map((filter) => (
                     <option key={filter.value} value={filter.value}>{filter.label}</option>
@@ -2260,7 +2271,7 @@ export function AdminDossiers() {
                 <select
                   value={dossierOwnerFilter}
                   onChange={(event) => setDossierOwnerFilter(event.target.value)}
-                  className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-lg px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+                  className="bg-white dark:bg-slate-950 border border-slate-200/70 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/25 transition-all cursor-pointer"
                 >
                   <option value="all">Tous responsables</option>
                   {dossierOwnerFilterOptions.map((owner) => (
@@ -2271,7 +2282,7 @@ export function AdminDossiers() {
                 <select
                   value={dossierSort}
                   onChange={(event) => setDossierSort(event.target.value as DossierSortOption)}
-                  className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-lg px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+                  className="bg-white dark:bg-slate-950 border border-slate-200/70 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/25 transition-all cursor-pointer"
                 >
                   <option value="priority">Priorité puis date</option>
                   <option value="date_asc">Date la plus proche</option>
@@ -2284,7 +2295,7 @@ export function AdminDossiers() {
                   <select
                     value={dossierPageSize}
                     onChange={(event) => setDossierPageSize(Number(event.target.value) as DossierPageSize)}
-                    className="bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-lg px-3 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-100 focus:outline-none focus:border-accent"
+                    className="bg-white dark:bg-slate-950 border border-slate-200/70 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/25 transition-all cursor-pointer"
                   >
                     {DOSSIER_PAGE_SIZE_OPTIONS.map((option) => (
                       <option key={option} value={option}>{option} par page</option>
@@ -2335,17 +2346,17 @@ export function AdminDossiers() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-slate-50/80 dark:bg-slate-950/30 text-slate-400 font-black uppercase text-[10px] tracking-wider border-b border-slate-100 dark:border-slate-800">
-                    <th className="p-4">Client</th>
-                    <th className="p-4">Avancement</th>
-                    <th className="p-4">Parcours & Villes</th>
-                    <th className="p-4">Montant</th>
-                    <th className="p-4">Responsable</th>
-                    <th className="p-4">Prochaine action</th>
-                    <th className="p-4 text-right">Actions</th>
+                  <tr className="bg-slate-50/50 dark:bg-slate-950/20 text-slate-400 font-extrabold uppercase text-[9px] tracking-wider border-b border-slate-200/50 dark:border-slate-800">
+                    <th className="p-4.5">Client</th>
+                    <th className="p-4.5">Avancement</th>
+                    <th className="p-4.5">Parcours & Villes</th>
+                    <th className="p-4.5">Montant</th>
+                    <th className="p-4.5">Responsable</th>
+                    <th className="p-4.5">Prochaine action</th>
+                    <th className="p-4.5 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-150 dark:divide-slate-800 text-slate-700 dark:text-slate-300">
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800/80 text-slate-700 dark:text-slate-350">
                   {paginatedDossiers.map(d => {
                     const isUrgent = d.risk === 'urgent';
                     const isAttention = d.risk === 'attention';
@@ -2369,17 +2380,17 @@ export function AdminDossiers() {
                       <tr
                         key={d.key}
                         onClick={() => setSelectedDossierKey(d.key)}
-                        className="hover:bg-slate-50/85 dark:hover:bg-slate-950/40 cursor-pointer transition-colors duration-200 group"
+                        className="hover:bg-slate-50/50 dark:hover:bg-slate-950/20 cursor-pointer transition-colors duration-200 group"
                       >
-                        <td className="p-4">
-                          <div className="flex items-center gap-2">
+                        <td className="p-4.5">
+                          <div className="flex items-center gap-2.5">
                             <span className={`w-2 h-2 rounded-full shrink-0 ${isUrgent ? 'bg-red-500 animate-pulse' : isAttention ? 'bg-amber-500' : 'bg-emerald-500'}`} />
                             <div>
-                              <strong className="font-extrabold text-slate-900 dark:text-white text-xs">{d.clientName}</strong>
-                              <p className="text-[10px] text-slate-400 mt-0.5">{phone || 'Pas de téléphone'}</p>
+                              <strong className="font-black text-slate-900 dark:text-white text-xs">{d.clientName}</strong>
+                              <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">{phone || 'Pas de téléphone'}</p>
                               {quality.primaryIssue && (
                                 <div className="mt-1 flex flex-wrap items-center gap-1">
-                                  <span className={`inline-flex border px-1.5 py-0.5 rounded text-[8px] font-black uppercase ${getDossierQualityPillClass(quality.primaryIssue.severity)}`}>
+                                  <span className={`inline-flex border px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-wide ${getDossierQualityPillClass(quality.primaryIssue.severity)}`}>
                                     {quality.primaryIssue.label}
                                   </span>
                                   {quality.issues.length > 1 && (
@@ -2390,7 +2401,7 @@ export function AdminDossiers() {
                             </div>
                           </div>
                         </td>
-                        <td className="p-4">
+                        <td className="p-4.5">
                           <div className="w-24">
                             <div className="flex items-center justify-between text-[9px] font-bold text-slate-400 mb-1">
                               <span>{getDossierStageLabel(d.stage)}</span>
@@ -2398,39 +2409,39 @@ export function AdminDossiers() {
                             </div>
                             <div className="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
                               <div
-                                className="bg-accent h-full transition-all duration-300"
+                                className="bg-gradient-to-r from-accent/80 to-accent h-full transition-all duration-300 rounded-full"
                                 style={{ width: `${d.completion}%` }}
                               />
                             </div>
                           </div>
                         </td>
-                        <td className="p-4 font-bold">
-                          <div className="truncate max-w-[160px]">
+                        <td className="p-4.5 font-bold">
+                          <div className="truncate max-w-[160px] text-slate-800 dark:text-slate-200">
                             {d.fromCity} ➔ {d.toCity}
                           </div>
                           <span className="text-[9px] text-slate-400 font-medium block mt-0.5">{d.date || 'Date non planifiée'}</span>
                         </td>
-                        <td className="p-4">
-                          <strong className="font-extrabold text-slate-950 dark:text-white">{d.amount.toLocaleString('fr-FR')} €</strong>
+                        <td className="p-4.5">
+                          <strong className="font-black text-slate-900 dark:text-white">{d.amount.toLocaleString('fr-FR')} €</strong>
                         </td>
-                        <td className="p-4">
-                          <span className="inline-flex items-center gap-1.5 bg-slate-50 dark:bg-slate-950 px-2 py-1 rounded-md border dark:border-slate-800 text-[10px] font-bold text-slate-600 dark:text-slate-400">
+                        <td className="p-4.5">
+                          <span className="inline-flex items-center gap-1.5 bg-slate-50 dark:bg-slate-950 px-2.5 py-1 rounded-full border border-slate-200/60 dark:border-slate-800 text-[10px] font-black uppercase tracking-wider text-slate-600 dark:text-slate-400">
                             {d.owner}
                           </span>
                         </td>
-                        <td className="p-4">
-                          <div className="max-w-[220px] rounded-md bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 px-2 py-1 text-slate-650 dark:text-slate-300">
-                            <p className="truncate font-black">{quality.actionLabel}</p>
+                        <td className="p-4.5">
+                          <div className="max-w-[220px] rounded-xl bg-slate-50/80 dark:bg-slate-950/60 border border-slate-200/50 dark:border-slate-800/80 px-2.5 py-1.5 text-slate-750 dark:text-slate-300">
+                            <p className="truncate font-black text-slate-800 dark:text-white text-[11px]">{quality.actionLabel}</p>
                             <p className="mt-0.5 truncate text-[9px] font-semibold text-slate-400">{quality.reason}</p>
                           </div>
                         </td>
-                        <td className="p-4 text-right">
+                        <td className="p-4.5 text-right">
                           <div className="flex flex-wrap items-center justify-end gap-1.5 opacity-80 group-hover:opacity-100 transition-opacity">
                             {phone && (
                               <a
                                 href={`tel:${phone.replace(/\s+/g, '')}`}
                                 onClick={(e) => e.stopPropagation()}
-                                className="p-1.5 bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border dark:border-slate-800 rounded-md text-slate-600 dark:text-slate-300 shadow-sm"
+                                className="p-2 bg-white hover:bg-slate-50 dark:bg-slate-905 dark:hover:bg-slate-800 border border-slate-200/50 dark:border-slate-800 rounded-xl text-slate-600 dark:text-slate-350 shadow-sm cursor-pointer transition-all hover:scale-105 active:scale-95"
                                 title="Appeler le client"
                                 aria-label="Appeler le client"
                               >
@@ -2441,7 +2452,7 @@ export function AdminDossiers() {
                               <a
                                 href={`mailto:${email}`}
                                 onClick={(e) => e.stopPropagation()}
-                                className="p-1.5 bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border dark:border-slate-800 rounded-md text-slate-600 dark:text-slate-300 shadow-sm"
+                                className="p-2 bg-white hover:bg-slate-50 dark:bg-slate-905 dark:hover:bg-slate-800 border border-slate-200/50 dark:border-slate-800 rounded-xl text-slate-600 dark:text-slate-350 shadow-sm cursor-pointer transition-all hover:scale-105 active:scale-95"
                                 title="Envoyer un email"
                                 aria-label="Envoyer un email"
                               >
@@ -2455,7 +2466,7 @@ export function AdminDossiers() {
                                   e.stopPropagation();
                                   runDossierWorkflowAction(quoteQuickAction.id, d);
                                 }}
-                                className="p-1.5 bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/30 dark:hover:bg-amber-950/50 border border-amber-200 dark:border-amber-900/50 rounded-md text-amber-700 dark:text-amber-300 shadow-sm"
+                                className="p-2 bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/20 dark:hover:bg-amber-950/40 border border-amber-200/60 dark:border-amber-900/40 rounded-xl text-amber-700 dark:text-amber-300 shadow-sm cursor-pointer transition-all hover:scale-105 active:scale-95"
                                 title={quoteQuickAction.title}
                                 aria-label={quoteQuickAction.title}
                               >
@@ -2469,7 +2480,7 @@ export function AdminDossiers() {
                                   e.stopPropagation();
                                   runDossierWorkflowAction(invoiceQuickAction.id, d);
                                 }}
-                                className="p-1.5 bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/30 dark:hover:bg-rose-950/50 border border-rose-200 dark:border-rose-900/50 rounded-md text-rose-700 dark:text-rose-300 shadow-sm"
+                                className="p-2 bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/20 dark:hover:bg-rose-950/40 border border-rose-200/60 dark:border-rose-900/40 rounded-xl text-rose-700 dark:text-rose-300 shadow-sm cursor-pointer transition-all hover:scale-105 active:scale-95"
                                 title={invoiceQuickAction.title}
                                 aria-label={invoiceQuickAction.title}
                               >
@@ -2479,10 +2490,10 @@ export function AdminDossiers() {
                             <button
                               type="button"
                               onClick={(e) => {
-                                e.stopPropagation();
-                                setSelectedDossierKey(d.key);
+                                  e.stopPropagation();
+                                  setSelectedDossierKey(d.key);
                               }}
-                              className="p-1.5 bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border dark:border-slate-800 rounded-md text-slate-600 dark:text-slate-300 shadow-sm"
+                              className="p-2 bg-white hover:bg-slate-50 dark:bg-slate-905 dark:hover:bg-slate-800 border border-slate-200/50 dark:border-slate-800 rounded-xl text-slate-600 dark:text-slate-350 shadow-sm cursor-pointer transition-all hover:scale-105 active:scale-95"
                               title="Ouvrir le dossier"
                               aria-label="Ouvrir le dossier"
                             >
@@ -2495,7 +2506,7 @@ export function AdminDossiers() {
                                   e.stopPropagation();
                                   runDossierWorkflowAction(primaryAction.id, d);
                                 }}
-                                className="p-1.5 bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:hover:bg-accent-hover rounded-md text-white dark:text-brand-950 shadow-sm"
+                                className="p-2 bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:hover:bg-accent-hover rounded-xl text-white dark:text-brand-950 shadow-sm cursor-pointer transition-all hover:scale-105 active:scale-95"
                                 title={primaryAction.label}
                                 aria-label={primaryAction.label}
                               >
@@ -2549,8 +2560,8 @@ export function AdminDossiers() {
             )}
               </>
             ) : (
-              <div className="p-4 bg-slate-50/60 dark:bg-slate-950/20 overflow-x-auto">
-                <div className="flex gap-4 min-w-max pb-4">
+              <div className="p-5 bg-slate-50/30 dark:bg-slate-950/10 overflow-x-auto">
+                <div className="flex gap-5 min-w-max pb-4">
                   {DOSSIER_STAGES.map(stage => {
                     // Filter dossiers for this specific stage column
                     const stageDossiers = filteredDossiers.filter(d => d.stage === stage.key);
@@ -2560,16 +2571,16 @@ export function AdminDossiers() {
 
                     return (
                       <div key={stage.key} className="w-72 flex flex-col shrink-0">
-                        <div className="flex items-center justify-between mb-3 px-1">
-                          <h4 className="text-xs font-black uppercase text-slate-700 dark:text-slate-300 tracking-wider flex items-center gap-2">
+                        <div className="flex items-center justify-between mb-3.5 px-1.5">
+                          <h4 className="text-xs font-black uppercase text-slate-700 dark:text-slate-350 tracking-wider flex items-center gap-2">
                             {stage.label}
-                            <span className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-[10px] py-0.5 px-2 rounded-md">
+                            <span className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-650 dark:text-slate-400 text-[10px] py-0.5 px-2.5 rounded-full font-black">
                               {stageDossiers.length}
                             </span>
                           </h4>
                         </div>
 
-                        <div className="flex-1 min-h-[220px] bg-white/60 dark:bg-slate-900/35 rounded-xl p-2 space-y-3 border border-slate-200/70 dark:border-slate-800/70">
+                        <div className="flex-1 min-h-[220px] bg-slate-50/50 dark:bg-slate-900/10 rounded-2xl p-3 space-y-3 border border-slate-200/50 dark:border-slate-800/50">
                           {visibleStageDossiers.map(d => {
                             const isUrgent = d.risk === 'urgent';
                             const isAttention = d.risk === 'attention';
@@ -2579,33 +2590,35 @@ export function AdminDossiers() {
                               <div
                                 key={d.key}
                                 onClick={() => setSelectedDossierKey(d.key)}
-                                className={`bg-white dark:bg-slate-950 p-3.5 rounded-lg border shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group
-                                  ${isUrgent ? 'border-l-4 border-l-red-500 border-red-100 dark:border-red-900/30' : isAttention ? 'border-l-4 border-l-amber-500 border-amber-100 dark:border-amber-900/30' : 'border-l-4 border-l-emerald-500 border-slate-200 dark:border-slate-800'}`}
+                                className="relative overflow-hidden pl-5 pr-3.5 py-3.5 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200/60 dark:border-slate-850 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group"
                               >
-                                <div className="flex justify-between items-start mb-2">
-                                  <strong className="font-extrabold text-slate-900 dark:text-white text-xs truncate pr-2">
+                                <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${isUrgent ? 'bg-red-500' : isAttention ? 'bg-amber-500' : 'bg-emerald-500'}`} />
+                                <div className="flex justify-between items-start mb-2.5">
+                                  <strong className="font-black text-slate-900 dark:text-white text-xs truncate pr-2">
                                     {d.clientName}
                                   </strong>
-                                  <span className={`max-w-[96px] text-right text-[9px] font-black leading-tight bg-brand-50 dark:bg-brand-900/30 px-1.5 py-0.5 rounded-md ${getDossierQualityScoreClass(quality.score)}`}>
+                                  <span className={`max-w-[96px] text-right text-[9px] font-black leading-tight bg-slate-50 dark:bg-slate-900 px-2 py-0.5 rounded-full border border-slate-200/50 dark:border-slate-800 ${getDossierQualityScoreClass(quality.score)}`}>
                                     {quality.score > 0 ? getDossierRiskLabel(quality.score) : d.amount > 0 ? d.amount.toLocaleString('fr-FR') + ' €' : '-'}
                                   </span>
                                 </div>
 
-                                <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 mb-2 truncate">
+                                <div className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 mb-2 truncate">
                                   {d.fromCity} ➔ {d.toCity}
                                 </div>
 
                                 {quality.primaryIssue && (
-                                  <span className={`mb-2 inline-flex border px-1.5 py-0.5 rounded text-[8px] font-black uppercase ${getDossierQualityPillClass(quality.primaryIssue.severity)}`}>
-                                    {quality.primaryIssue.label}
-                                  </span>
+                                  <div className="mb-2">
+                                    <span className={`inline-flex border px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-wider ${getDossierQualityPillClass(quality.primaryIssue.severity)}`}>
+                                      {quality.primaryIssue.label}
+                                    </span>
+                                  </div>
                                 )}
-                                <p className="line-clamp-2 text-[10px] font-bold text-slate-500 dark:text-slate-400">
+                                <p className="line-clamp-2 text-[10px] font-semibold text-slate-500 dark:text-slate-450 leading-relaxed">
                                   {quality.actionLabel}
                                 </p>
 
-                                <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
-                                  <div className="flex items-center gap-1.5 text-[9px] text-slate-400 font-bold">
+                                <div className="flex items-center justify-between mt-3.5 pt-3 border-t border-slate-100 dark:border-slate-800/80">
+                                  <div className="flex items-center gap-1.5 text-[9px] text-slate-400 dark:text-slate-500 font-bold">
                                     <Calendar size={10} />
                                     {d.date || 'À définir'}
                                   </div>
@@ -2616,7 +2629,7 @@ export function AdminDossiers() {
                                         const actions = getDossierWorkflowActions(d);
                                         runDossierWorkflowAction(actions[0].id, d);
                                       }}
-                                      className="bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:hover:bg-accent-hover text-white dark:text-brand-950 text-[9px] font-black px-2 py-1 rounded-md"
+                                      className="bg-brand-900 hover:bg-brand-hover dark:bg-accent dark:hover:bg-accent-hover text-white dark:text-brand-950 text-[9px] font-black px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors shadow-sm"
                                       title={getDossierWorkflowActions(d)[0].label}
                                     >
                                       {quality.actionLabel || getDossierWorkflowActions(d)[0].label}
@@ -2634,18 +2647,18 @@ export function AdminDossiers() {
                                 ...previous,
                                 [stage.key]: (previous[stage.key] ?? KANBAN_STAGE_BATCH_SIZE) + KANBAN_STAGE_BATCH_SIZE
                               }))}
-                              className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg border border-dashed border-slate-300 dark:border-slate-700 bg-white/80 dark:bg-slate-950/70 px-3 py-2.5 text-[10px] font-black uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:border-accent hover:text-brand-900 dark:hover:text-white transition-colors"
+                              className="w-full inline-flex items-center justify-center gap-1.5 rounded-xl border border-dashed border-slate-300 dark:border-slate-700 bg-white hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-900 px-3.5 py-3 text-[10px] font-black uppercase tracking-wider text-slate-600 dark:text-slate-350 hover:border-brand-900 dark:hover:border-accent hover:text-brand-900 dark:hover:text-white transition-all cursor-pointer shadow-sm"
                             >
                               <Plus size={12} />
                               Charger {Math.min(KANBAN_STAGE_BATCH_SIZE, remainingStageDossiers)} de plus
-                              <span className="font-bold normal-case tracking-normal text-slate-400">
-                                {remainingStageDossiers} restant{remainingStageDossiers > 1 ? 's' : ''}
+                              <span className="font-bold normal-case tracking-normal text-slate-400 dark:text-slate-550 ml-1">
+                                ({remainingStageDossiers} restants)
                               </span>
                             </button>
                           )}
 
                           {stageDossiers.length === 0 && (
-                            <div className="h-20 flex items-center justify-center text-[10px] text-slate-400">
+                            <div className="h-20 flex items-center justify-center text-[10px] text-slate-400 dark:text-slate-500 font-semibold italic">
                               Aucun dossier
                             </div>
                           )}
@@ -2665,30 +2678,30 @@ export function AdminDossiers() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 animate-fade-in print:hidden">
 
           {/* Left: Template Selector */}
-          <div className="lg:col-span-4 space-y-3">
-            <h3 className="text-xs font-black uppercase tracking-wider text-slate-400 pl-1">Modèles Disponibles</h3>
-            <div className="space-y-2">
+          <div className="lg:col-span-4 space-y-4">
+            <h3 className="text-xs font-black uppercase tracking-[0.18em] text-slate-400 pl-1">Modèles Disponibles</h3>
+            <div className="space-y-2.5">
               {templates.map(t => {
                 const isSelected = selectedTemplateId === t.id;
                 return (
                   <button
                     key={t.id}
                     onClick={() => setSelectedTemplateId(t.id)}
-                    className={`w-full text-left p-3.5 rounded-2xl border transition-all active:scale-[0.98] ${isSelected
-                        ? 'bg-accent/10 border-accent/30 text-brand-950 dark:text-white ring-1 ring-accent/30'
-                        : 'bg-white hover:bg-slate-50 dark:bg-slate-900 dark:hover:bg-slate-800 border-slate-200/70 dark:border-slate-800 text-slate-700 dark:text-slate-300'
+                    className={`w-full text-left p-4 rounded-2xl border transition-all duration-300 active:scale-[0.98] cursor-pointer ${isSelected
+                        ? 'bg-accent/10 border-accent/40 text-brand-950 dark:text-white ring-1 ring-accent/30 shadow-sm'
+                        : 'bg-white hover:bg-slate-50 dark:bg-slate-900 dark:hover:bg-slate-850 border-slate-200/70 dark:border-slate-800 text-slate-700 dark:text-slate-300'
                       }`}
                   >
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[9px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500">
                         {t.channel}
                       </span>
                       {t.lastUpdated && (
-                        <span className="text-[8px] text-slate-400 font-bold">Maj: {t.lastUpdated}</span>
+                        <span className="text-[8px] text-slate-400 dark:text-slate-500 font-bold">Maj: {t.lastUpdated}</span>
                       )}
                     </div>
-                    <strong className="block text-xs font-extrabold">{t.title}</strong>
-                    <p className="text-[10px] text-slate-400 mt-1 truncate">{t.body}</p>
+                    <strong className="block text-xs font-black text-slate-900 dark:text-white">{t.title}</strong>
+                    <p className="text-[10px] text-slate-450 dark:text-slate-400 mt-1 truncate">{t.body}</p>
                   </button>
                 );
               })}
@@ -2700,15 +2713,15 @@ export function AdminDossiers() {
             <div className="lg:col-span-8 space-y-6">
 
               {/* Form card */}
-              <form onSubmit={handleSaveTemplate} className="bg-white/90 dark:bg-slate-900/90 border border-slate-200/75 dark:border-slate-800 rounded-3xl p-5 shadow-sm space-y-4">
+              <form onSubmit={handleSaveTemplate} className="bg-white/95 dark:bg-slate-900/95 border border-slate-200/60 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-5">
                 <div className="flex items-center justify-between border-b pb-4 border-slate-100 dark:border-slate-800">
                   <div>
                     <h3 className="text-sm font-black text-brand-950 dark:text-white uppercase tracking-wider">Édition du Modèle</h3>
-                    <p className="text-xs text-slate-400 font-light mt-0.5">Personnalisez le sujet et le corps du message client</p>
+                    <p className="text-xs text-slate-400 dark:text-slate-500 font-semibold mt-0.5">Personnalisez le sujet et le corps du message client</p>
                   </div>
                   <button
                     type="submit"
-                    className="bg-accent hover:bg-accent-hover text-brand-950 px-4 py-2 rounded-xl text-xs font-black flex items-center gap-1.5 shadow-sm transition-all cursor-pointer active:scale-95"
+                    className="bg-accent hover:bg-accent-hover text-brand-950 px-4 py-2.5 rounded-xl text-xs font-black flex items-center gap-1.5 shadow-sm transition-all cursor-pointer active:scale-95 hover:scale-[1.02]"
                   >
                     <Save size={13} />
                     Enregistrer les modifications
@@ -2722,7 +2735,7 @@ export function AdminDossiers() {
                       type="text"
                       value={editingTemplate.title || ''}
                       onChange={(e) => setEditingTemplate(prev => ({ ...prev, title: e.target.value }))}
-                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-accent"
+                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 dark:text-white focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/25 transition-all"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -2730,7 +2743,7 @@ export function AdminDossiers() {
                     <select
                       value={editingTemplate.channel || 'Both'}
                       onChange={(e) => setEditingTemplate(prev => ({ ...prev, channel: e.target.value as any }))}
-                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-accent font-bold"
+                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/25 transition-all cursor-pointer font-bold"
                     >
                       <option value="Email">Email uniquement</option>
                       <option value="SMS">SMS uniquement</option>
@@ -2747,15 +2760,15 @@ export function AdminDossiers() {
                       placeholder="Sujet de l'e-mail..."
                       value={editingTemplate.subject || ''}
                       onChange={(e) => setEditingTemplate(prev => ({ ...prev, subject: e.target.value }))}
-                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-accent"
+                      className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 dark:text-white focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/25 transition-all"
                     />
                   </div>
                 )}
 
                 <div className="space-y-1.5">
-                  <div className="flex justify-between items-center mb-1">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1.5 mb-1">
                     <label className="text-[10px] font-black uppercase tracking-wider text-slate-400">Corps du message</label>
-                    <span className="text-[9px] font-bold text-slate-450 bg-slate-100 dark:bg-slate-950 rounded border px-1.5">
+                    <span className="text-[9px] font-black text-slate-500 bg-slate-105 dark:bg-slate-950 rounded-full border border-slate-200/60 dark:border-slate-800 px-2.5 py-0.5">
                       Placeholders : {`{clientName}`}, {`{date}`}, {`{fromCity}`}, {`{toCity}`}, {`{price}`}
                     </span>
                   </div>
@@ -2763,25 +2776,25 @@ export function AdminDossiers() {
                     rows={8}
                     value={editingTemplate.body || ''}
                     onChange={(e) => setEditingTemplate(prev => ({ ...prev, body: e.target.value }))}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-accent resize-none leading-relaxed font-mono"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-3 text-xs focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/25 transition-all resize-none leading-relaxed font-mono text-slate-800 dark:text-slate-200"
                   />
                 </div>
               </form>
 
               {/* Real-time Dynamic Preview panel */}
-              <div className="bg-slate-100/50 dark:bg-slate-950/20 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 space-y-4">
+              <div className="bg-slate-55/40 dark:bg-slate-950/20 border border-slate-200/60 dark:border-slate-800/80 rounded-3xl p-6 space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
                     <h4 className="text-xs font-black uppercase tracking-wider text-slate-500">Aperçu Réel Client</h4>
-                    <p className="text-[10px] text-slate-400 font-light mt-0.5">Visualisez le message généré avec un dossier existant</p>
+                    <p className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold mt-0.5">Visualisez le message généré avec un dossier existant</p>
                   </div>
                   {allDossiers.length > 0 && (
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-bold text-slate-450">Sélection dossier :</span>
+                      <span className="text-[10px] font-extrabold text-slate-400">Sélection dossier :</span>
                       <select
                         value={previewDossierIndex}
                         onChange={(e) => setPreviewDossierIndex(Number(e.target.value))}
-                        className="bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-lg px-2.5 py-1 text-[11px] focus:outline-none"
+                        className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 py-1 text-[11px] font-bold focus:outline-none cursor-pointer"
                       >
                         {allDossiers.slice(0, 10).map((d, i) => (
                           <option key={d.key} value={i}>{d.clientName} ({d.stage})</option>
@@ -2791,10 +2804,10 @@ export function AdminDossiers() {
                   )}
                 </div>
 
-                <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/60 dark:border-slate-800/80 p-4 shadow-sm space-y-3">
+                <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/60 dark:border-slate-800/80 p-5 shadow-sm space-y-3.5">
                   {editingTemplate.channel !== 'SMS' && (
                     <div className="text-xs pb-3 border-b border-slate-100 dark:border-slate-800">
-                      <p className="text-slate-400"><strong>Objet :</strong> <span className="text-slate-900 dark:text-slate-100 font-bold">{renderTemplate(editingTemplate.subject || '', allDossiers[previewDossierIndex] || null)}</span></p>
+                      <p className="text-slate-400 font-medium"><strong>Objet :</strong> <span className="text-slate-900 dark:text-slate-100 font-extrabold">{renderTemplate(editingTemplate.subject || '', allDossiers[previewDossierIndex] || null)}</span></p>
                     </div>
                   )}
                   <div className="text-xs leading-relaxed text-slate-800 dark:text-slate-200 whitespace-pre-wrap font-sans">
@@ -2807,7 +2820,7 @@ export function AdminDossiers() {
                     <button
                       type="button"
                       onClick={() => prepareDossierNotification(editingTemplate.id!, allDossiers[previewDossierIndex])}
-                      className="bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider flex items-center gap-1.5 cursor-pointer"
+                      className="bg-slate-900 hover:bg-slate-850 dark:bg-slate-800 dark:hover:bg-slate-750 text-white px-4.5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider flex items-center gap-1.5 cursor-pointer transition-all hover:scale-[1.01] active:scale-95"
                     >
                       <Mail size={13} />
                       Préparer le message dans le dossier
