@@ -12,6 +12,7 @@ import { getFAQSchema, getBreadcrumbSchema } from '../lib/schema';
 import { sectorsData, Sector } from '../constants/sectorsData';
 import NotFound from './NotFound';
 import { ResponsiveImage } from '../components/common/ResponsiveImage';
+import { getSectorLabel } from '../lib/sector-label';
 
 export const SectorPage: React.FC = () => {
   const { slug, sectorPath } = useParams<{ slug?: string; sectorPath?: string }>();
@@ -31,6 +32,7 @@ export const SectorPage: React.FC = () => {
   }
 
   const path = `/demenagement-${resolvedSlug}`;
+  const sectorLabel = getSectorLabel(sector);
 
   // Default fallback images
   const heroImage = sector.seoImage || (sector.type === 'longue-distance' 
@@ -46,7 +48,7 @@ export const SectorPage: React.FC = () => {
     : '/images/equipe-demenagement-93.jpg';
 
   const defaultHeroSubtitle = sector.type === 'longue-distance'
-    ? `Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement depuis Paris ou l’Île-de-France vers ${sector.name}, avec une organisation adaptée à la distance.`
+    ? `Marne Transdem accompagne les particuliers et les entreprises dans leur déménagement ${sectorLabel}, avec une organisation adaptée à la distance.`
     : `Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à ${sector.name}, dans les arrondissements voisins et en Île-de-France.`;
 
   return (
@@ -73,7 +75,7 @@ export const SectorPage: React.FC = () => {
         <div className="absolute inset-0 z-0">
           <ResponsiveImage
             src={heroImage} 
-            alt={`Déménagement professionnel à ${sector.name}`} 
+            alt={sector.type === 'longue-distance' ? `Déménagement ${sectorLabel}` : `Déménagement professionnel à ${sector.name}`}
             className="w-full h-full object-cover opacity-20 grayscale-[10%]"
             loading="eager"
             sizes="100vw"
@@ -101,8 +103,8 @@ export const SectorPage: React.FC = () => {
             </motion.div>
 
             <h1 className="text-4xl md:text-7xl font-black mb-8 leading-[1.1] tracking-tight italic uppercase">
-              {sector.type === 'longue-distance' ? 'Paris ' : 'Déménagement '} 
-              <span className="text-accent underline decoration-accent/20 underline-offset-8 italic">{sector.name}</span>
+              {'Déménagement '}
+              <span className="text-accent underline decoration-accent/20 underline-offset-8 italic">{sectorLabel}</span>
             </h1>
 
             <p className="text-lg md:text-xl text-slate-300 mb-12 leading-relaxed font-light max-w-3xl italic">
@@ -130,7 +132,7 @@ export const SectorPage: React.FC = () => {
             <div className="space-y-8">
               <span className="text-xs font-black uppercase tracking-widest text-accent">L'exigence Marne Transdem</span>
               <h2 className="text-3xl md:text-5xl font-black text-brand-900 leading-tight tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">
-                {sector.type === 'longue-distance' ? `Votre projet Paris - ${sector.name}` : `Votre déménagement à ${sector.name}`}
+                {sector.type === 'longue-distance' ? `Votre projet de déménagement ${sectorLabel}` : `Votre déménagement à ${sector.name}`}
               </h2>
               <div className="space-y-6 text-slate-600 text-[16px] font-light leading-relaxed text-left">
                 {sector.introParagraphs && sector.introParagraphs.length > 0 ? (

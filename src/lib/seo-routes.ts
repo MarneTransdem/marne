@@ -1,4 +1,5 @@
 import sectorsData from '../constants/sectorMetadata.json' with { type: 'json' };
+import { getSectorLabel } from './sector-label';
 export const SITE_URL = 'https://www.devisdemenagement-paris.com';
 export const SITE_NAME = 'Marne Transdem';
 export const DEFAULT_OG_IMAGE = '/images/demenagement-paris-9.webp';
@@ -510,7 +511,7 @@ export function getSeoRoute(pathname: string): SeoRoute {
 
   const sector = sectorsData.find(item => '/demenagement-' + item.slug === canonicalPath);
   const sectorSeo: Omit<SeoRoute, 'path' | 'canonicalPath'> | undefined = sector ? { title: sector.seoTitle, description: sector.seoDescription,
-    h1: sector.type === 'longue-distance' ? 'Déménagement Paris – ' + sector.name : 'Déménagement à ' + sector.name,
+    h1: sector.type === 'longue-distance' ? 'Déménagement ' + getSectorLabel(sector) : 'Déménagement à ' + sector.name,
     image: sector.seoImage || undefined, priority: '0.7' } : undefined;
   const route = blogPost || sectorSeo || EXPLICIT_ROUTES[canonicalPath] || defaultSeoForPath(canonicalPath);
   return {
