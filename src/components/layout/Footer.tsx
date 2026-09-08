@@ -42,9 +42,6 @@ export const Footer: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-4 justify-center sm:justify-start">
-               <a href="#" aria-label="Instagram" className="w-8 h-8 rounded-full border border-white/10 dark:border-white/20 flex items-center justify-center hover:border-accent hover:text-accent transition-all"><Instagram size={14} /></a>
-               <a href="#" aria-label="Facebook" className="w-8 h-8 rounded-full border border-white/10 dark:border-white/20 flex items-center justify-center hover:border-accent hover:text-accent transition-all"><Facebook size={14} /></a>
-               <a href="#" aria-label="LinkedIn" className="w-8 h-8 rounded-full border border-white/10 dark:border-white/20 flex items-center justify-center hover:border-accent hover:text-accent transition-all"><Linkedin size={14} /></a>
             </div>
           </div>
 

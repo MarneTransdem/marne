@@ -137,113 +137,32 @@ export function trackConversion(action: string, params: AnalyticsParams = {}) {
   }
 }
 
-function ratingForMetric(name: WebVitalName, value: number) {
-  const thresholds: Record<WebVitalName, [number, number]> = {
-    CLS: [0.1, 0.25],
-    FCP: [1800, 3000],
-    INP: [200, 500],
-    LCP: [2500, 4000],
-    TTFB: [800, 1800],
-  };
-  const [good, poor] = thresholds[name];
-  if (value <= good) return 'good';
-  if (value <= poor) return 'needs-improvement';
-  return 'poor';
-}
-
-function sendWebVital(name: WebVitalName, value: number) {
-  void trackEvent('web_vital', {
-    event_category: 'core_web_vitals',
-    metric_name: name,
-    metric_value: Math.round(name === 'CLS' ? value * 1000 : value),
-    metric_rating: ratingForMetric(name, value),
-    non_interaction: true,
-  });
-}
-
 function observeWebVitals() {
-  if (!isBrowser() || webVitalsStarted || !('PerformanceObserver' in window)) return;
+  if (!isBrowser() || webVitalsStarted || !hasAnalyticsConsent()) return;
   webVitalsStarted = true;
-
-  const observed = new Set<string>();
-
-  try {
-    const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
-    if (navigation?.responseStart) {
-      sendWebVital('TTFB', navigation.responseStart);
-    }
-  } catch {
-    // Ignore unsupported navigation timing implementations.
-  }
-
-  try {
-    new PerformanceObserver((list) => {
-      const fcp = list.getEntries().find((entry) => entry.name === 'first-contentful-paint');
-      if (fcp && !observed.has('FCP')) {
-        observed.add('FCP');
-        sendWebVital('FCP', fcp.startTime);
-      }
-    }).observe({ type: 'paint', buffered: true });
-  } catch {
-    // Paint timing is not available everywhere.
-  }
-
-  let lcpValue = 0;
-  try {
-    new PerformanceObserver((list) => {
-      const entries = list.getEntries();
-      const lastEntry = entries[entries.length - 1];
-      if (lastEntry) lcpValue = lastEntry.startTime;
-    }).observe({ type: 'largest-contentful-paint', buffered: true });
-  } catch {
-    // LCP observer unsupported.
-  }
-
-  let clsValue = 0;
-  try {
-    new PerformanceObserver((list) => {
-      for (const entry of list.getEntries() as Array<PerformanceEntry & { hadRecentInput?: boolean; value?: number }>) {
-        if (!entry.hadRecentInput) clsValue += entry.value || 0;
-      }
-    }).observe({ type: 'layout-shift', buffered: true });
-  } catch {
-    // CLS observer unsupported.
-  }
-
-  let inpValue = 0;
-  try {
-    new PerformanceObserver((list) => {
-      for (const entry of list.getEntries() as Array<PerformanceEntry & { duration?: number }>) {
-        inpValue = Math.max(inpValue, entry.duration || 0);
-      }
-    }).observe({ type: 'event', buffered: true, durationThreshold: 40 } as PerformanceObserverInit);
-  } catch {
-    // Event timing is not supported by all browsers.
-  }
-
-  const flushFinalMetrics = () => {
-    if (lcpValue > 0 && !observed.has('LCP')) {
-      observed.add('LCP');
-      sendWebVital('LCP', lcpValue);
-    }
-    if (clsValue > 0 && !observed.has('CLS')) {
-      observed.add('CLS');
-      sendWebVital('CLS', clsValue);
-    }
-    if (inpValue > 0 && !observed.has('INP')) {
-      observed.add('INP');
-      sendWebVital('INP', inpValue);
-    }
-  };
-
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') flushFinalMetrics();
-  });
-  window.addEventListener('pagehide', flushFinalMetrics);
+  // Attribute document-level metrics to the landing page, not to a later SPA route.
+  const landingPath = window.location.pathname;
+  void import('web-vitals').then(({ onCLS, onINP, onLCP, onFCP, onTTFB }) => {
+    const report = (metric: import('web-vitals').Metric) => {
+      void trackEvent('web_vital', {
+        page_path: landingPath,
+        metric_id: metric.id,
+        metric_name: metric.name,
+        metric_value: metric.value,
+        metric_delta: metric.delta,
+        metric_rating: metric.rating,
+        navigation_type: metric.navigationType,
+        non_interaction: true,
+      });
+    };
+    onCLS(report); onINP(report); onLCP(report); onFCP(report); onTTFB(report);
+  }).catch(() => { webVitalsStarted = false; });
 }
 
+let publicAnalyticsInitialized = false;
 export function initPublicAnalytics() {
-  if (!isBrowser()) return;
+  if (!isBrowser() || publicAnalyticsInitialized) return;
+  publicAnalyticsInitialized = true;
 
   if (hasAnalyticsConsent()) {
     void loadGtag();

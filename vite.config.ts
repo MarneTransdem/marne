@@ -62,6 +62,10 @@ export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   return {
     plugins: [react(), tailwindcss()],
+    ssr: {
+      noExternal: ['react-router-dom', 'react-router'],
+      resolve: { conditions: ['module', 'import', 'development'] },
+    },
     define: {
       'process.env.GOOGLE_MAPS_PLATFORM_KEY': JSON.stringify(env.VITE_GOOGLE_MAPS_PLATFORM_KEY || env.GOOGLE_MAPS_PLATFORM_KEY || '')
     },
@@ -84,7 +88,7 @@ export default defineConfig(({mode}) => {
     },
     build: {
       target: 'es2022',
-      sourcemap: true,
+      sourcemap: 'hidden',
       cssCodeSplit: true,
       chunkSizeWarningLimit: 800,
       rollupOptions: {

@@ -1,5 +1,5 @@
 import {StrictMode} from 'react';
-import {createRoot} from 'react-dom/client';
+import {createRoot, hydrateRoot} from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
@@ -24,9 +24,18 @@ async function prepareAdminRuntime() {
 }
 
 void prepareAdminRuntime().finally(() => {
-  createRoot(document.getElementById('root')!).render(
+  const root = document.getElementById('root')!;
+  // Head nodes were serialized outside the React root by the static renderer.
+  // Transfer ownership once before hydration so React does not retain duplicate metadata.
+  document.head.querySelectorAll('[data-seo="true"]').forEach(element => element.remove());
+  const app = (
     <StrictMode>
       <App />
-    </StrictMode>,
+    </StrictMode>
   );
+  if (root.dataset.ssr === 'true') hydrateRoot(root, app);
+  else {
+    document.head.querySelectorAll('[data-rh="true"]').forEach(element => element.remove());
+    createRoot(root).render(app);
+  }
 });

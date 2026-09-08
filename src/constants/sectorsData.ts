@@ -14,7 +14,7 @@ export interface Sector {
 export const sectorsData: Sector[] = [
   {
     "slug": "charenton-le-pont",
-    "name": "Charenton Le Pont",
+    "name": "Charenton-le-Pont",
     "type": "local",
     "seoTitle": "Déménageur Charenton-le-Pont (94220) | Devis gratuit | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Charenton-le-Pont avec Marne Transdem : particuliers, entreprises, garde-meuble, monte-meuble et devis gratuit pour le 94220.",
@@ -22,7 +22,7 @@ export const sectorsData: Sector[] = [
     "heroSubtitle": "",
     "introParagraphs": [
       "Charenton-le-Pont est une ville exigeante. Entre ses rues commerçantes animées, ses immeubles bourgeois et sa proximité immédiate avec Paris, chaque déménagement nécessite une logistique précise.",
-      "Chez **Marne Transdem**, nous connaissons chaque quartier (Val de Seine, Bercy, Plateau). Nous maîtrisons les contraintes de stationnement de la rue de Paris et les accès parfois complexes des résidences bordant le Bois.",
+      "Chez <strong>Marne Transdem</strong>, nous connaissons chaque quartier (Val de Seine, Bercy, Plateau). Nous maîtrisons les contraintes de stationnement de la rue de Paris et les accès parfois complexes des résidences bordant le Bois.",
       "Notre équipe de déménageurs professionnels ne se contente pas de porter des cartons ; elle organise votre transition de vie avec la rigueur d'un expert et la courtoisie d'un partenaire de proximité."
     ],
     "faqs": [
@@ -120,7 +120,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Paris 12",
@@ -209,7 +209,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Hauts-de-Seine (92)",
-        "l": "/demenagement-92-hauts-de-seine"
+        "l": "/demenagement-hauts-de-seine"
       },
       {
         "n": "Sceaux",
@@ -262,10 +262,6 @@ export const sectorsData: Sector[] = [
     ],
     "nearbySectors": [
       {
-        "n": "Bezons",
-        "l": "/demenagement-bezons"
-      },
-      {
         "n": "Sartrouville",
         "l": "/demenagement-sartrouville"
       },
@@ -312,24 +308,12 @@ export const sectorsData: Sector[] = [
     ],
     "nearbySectors": [
       {
-        "n": "Sevran",
-        "l": "/demenagement-sevran"
-      },
-      {
         "n": "Bondy",
         "l": "/demenagement-bondy"
       },
       {
         "n": "Drancy",
         "l": "/demenagement-drancy"
-      },
-      {
-        "n": "Le Blanc-Mesnil",
-        "l": "/demenagement-le-blanc-mesnil"
-      },
-      {
-        "n": "Aulnay-sous-Bois",
-        "l": "/demenagement-aulnay-sous-bois"
       },
       {
         "n": "Seine-Saint-Denis (93)",
@@ -378,7 +362,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Hauts-de-Seine",
-        "l": "/demenagement-92-hauts-de-seine"
+        "l": "/demenagement-hauts-de-seine"
       },
       {
         "n": "Montrouge",
@@ -769,7 +753,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Hauts-de-Seine",
-        "l": "/demenagement-92-hauts-de-seine"
+        "l": "/demenagement-hauts-de-seine"
       },
       {
         "n": "Sceaux (proche)",
@@ -798,8 +782,8 @@ export const sectorsData: Sector[] = [
     "seoImage": null,
     "heroSubtitle": "Accompagnement des projets de déménagement résidentiels et professionnels dans l’agglomération de Cergy-Pontoise. de l'emballage à la mise en place finale.",
     "introParagraphs": [
-      "Avec un développement urbain soutenu et un écosystème commercial important, l'agglomération de **Cergy-Pontoise** attire constamment de nouvelles familles et entreprises. Pour que votre déménagement y soit synonyme d'efficacité, il est crucial de faire appel à un prestataire maîtrisant le territoire.",
-      "Chez **Marne Transdem**, nous prenons en charge l'ensemble des particularités de votre déménagement à Cergy : l'autorisation de stationnement auprès de la commune, l'utilisation de nos monte-meubles récents pour les résidences de grande hauteur, et la mise à disposition d'emballages professionnels de haute résistance.",
+      "Avec un développement urbain soutenu et un écosystème commercial important, l'agglomération de <strong>Cergy-Pontoise</strong> attire constamment de nouvelles familles et entreprises. Pour que votre déménagement y soit synonyme d'efficacité, il est crucial de faire appel à un prestataire maîtrisant le territoire.",
+      "Chez <strong>Marne Transdem</strong>, nous prenons en charge l'ensemble des particularités de votre déménagement à Cergy : l'autorisation de stationnement auprès de la commune, l'utilisation de nos monte-meubles récents pour les résidences de grande hauteur, et la mise à disposition d'emballages professionnels de haute résistance.",
       "Que vous réalisiez un déménagement de pavillon, d'un appartement de standing ou un transfert de locaux d'entreprises, nous nous adaptons à vos contraintes de temps, de volume et budgétaires grâce à nos formules de déménagement sur-mesure."
     ],
     "faqs": [
@@ -885,7 +869,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Paris 12",
@@ -1043,7 +1027,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Hauts-de-Seine",
-        "l": "/demenagement-92-hauts-de-seine"
+        "l": "/demenagement-hauts-de-seine"
       },
       {
         "n": "Clamart (proche)",
@@ -1214,7 +1198,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Hauts-de-Seine",
-        "l": "/demenagement-92-hauts-de-seine"
+        "l": "/demenagement-hauts-de-seine"
       },
       {
         "n": "À Meudon (proche)",
@@ -1379,7 +1363,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Île-de-France",
@@ -1391,7 +1375,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Maisons-Laffitte",
-        "l": "/demenagement-mais-laffitte"
+        "l": "/demenagement-maisons-laffitte"
       }
     ]
   },
@@ -1657,10 +1641,6 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-bobigny"
       },
       {
-        "n": "Le Blanc-Mesnil",
-        "l": "/demenagement-le-blanc-mesnil"
-      },
-      {
         "n": "Bondy",
         "l": "/demenagement-bondy"
       },
@@ -1687,8 +1667,8 @@ export const sectorsData: Sector[] = [
     "seoImage": null,
     "heroSubtitle": "Déménagements résidentiels et professionnels soignés avec attention portée aux accès complexes et à la haute protection de vos biens.",
     "introParagraphs": [
-      "Réputée pour son lac, son casino emblématique, son centre thermal et ses magnifiques villas de standing, la commune d'**Enghien-les-Bains** impose des standards de service de premier ordre. Un déménagement dans ce secteur si particulier demande des qualifications spécifiques et une préparation méticuleuse.",
-      "Chez **Marne Transdem**, nous nous engageons à offrir une prestation d'exception s'inscrivant parfaitement dans vos exigences. Nous déployons des techniciens expérimentés formés à l'emballage et la protection minutieuse d'œuvres d'art, de miroirs et de meubles anciens de grande valeur.",
+      "Réputée pour son lac, son casino emblématique, son centre thermal et ses magnifiques villas de standing, la commune d'<strong>Enghien-les-Bains</strong> impose des standards de service de premier ordre. Un déménagement dans ce secteur si particulier demande des qualifications spécifiques et une préparation méticuleuse.",
+      "Chez <strong>Marne Transdem</strong>, nous nous engageons à offrir une prestation d'exception s'inscrivant parfaitement dans vos exigences. Nous déployons des techniciens expérimentés formés à l'emballage et la protection minutieuse d'œuvres d'art, de miroirs et de meubles anciens de grande valeur.",
       "Pour surmonter les obstacles typiques d'Enghien (immeubles anciens sans ascenseur ou escaliers étroits), nous disposons d'une flotte de monte-meubles performants, garantissant un transfert rapide et sans le moindre risque pour vos affaires ni pour les parties communes."
     ],
     "faqs": [
@@ -1717,10 +1697,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Montmorency",
         "l": "/demenagement-montmorency"
-      },
-      {
-        "n": "Ermont",
-        "l": "/demenagement-ermont"
       },
       {
         "n": "Val-d'Oise (95)",
@@ -1768,7 +1744,7 @@ export const sectorsData: Sector[] = [
     "nearbySectors": [
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Île-de-France",
@@ -1833,7 +1809,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Hauts-de-Seine",
-        "l": "/demenagement-92-hauts-de-seine"
+        "l": "/demenagement-hauts-de-seine"
       },
       {
         "n": "Bagneux (proche)",
@@ -1903,7 +1879,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Vincennes",
@@ -1968,8 +1944,8 @@ export const sectorsData: Sector[] = [
     "seoImage": null,
     "heroSubtitle": "Accompagnement de qualité pour les projets familiaux, déménagements de maisons et d'appartements dans le nord-ouest francilien.",
     "introParagraphs": [
-      "Bien intégrée au cœur du Parisis et desservie par d'importants axes de communication, la commune de **Franconville** attire de nombreuses familles et professionnels grâce à son cadre de vie exceptionnel, ses parcs et ses infrastructures scolaires de premier plan.",
-      "Afin de concrétiser votre déménagement en toute sérénité, **Marne Transdem** met à votre disposition l'excellence et la rigueur de ses compagnons déménageurs d'Île-de-France. Nous maîtrisons les règlements urbains locaux et les contraintes logistiques inhérentes aux résidences et pavillons de Franconville.",
+      "Bien intégrée au cœur du Parisis et desservie par d'importants axes de communication, la commune de <strong>Franconville</strong> attire de nombreuses familles et professionnels grâce à son cadre de vie exceptionnel, ses parcs et ses infrastructures scolaires de premier plan.",
+      "Afin de concrétiser votre déménagement en toute sérénité, <strong>Marne Transdem</strong> met à votre disposition l'excellence et la rigueur de ses compagnons déménageurs d'Île-de-France. Nous maîtrisons les règlements urbains locaux et les contraintes logistiques inhérentes aux résidences et pavillons de Franconville.",
       "Que vous prépariez une transition vers une belle maison familiale, un appartement moderne de centre-ville, ou un déménagement d'activités tertiaires, bénéficiez de matériel de pointe : camions capitonnés sécurisés, caisses spéciales pour objets fragiles, et notre flotte de monte-meubles performants."
     ],
     "faqs": [
@@ -2127,7 +2103,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Yvelines (78)",
@@ -2878,7 +2854,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Paris 13",
@@ -2972,7 +2948,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Paris 12",
@@ -3082,7 +3058,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Paris 13",
@@ -3371,7 +3347,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Paris 12",
@@ -3802,7 +3778,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Paris 12",
@@ -3956,7 +3932,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Hauts-de-Seine",
-        "l": "/demenagement-92-hauts-de-seine"
+        "l": "/demenagement-hauts-de-seine"
       },
       {
         "n": "Paris 14e (proche)",
@@ -4009,7 +3985,7 @@ export const sectorsData: Sector[] = [
     "nearbySectors": [
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Île-de-France",
@@ -4293,8 +4269,8 @@ export const sectorsData: Sector[] = [
     "seoImage": null,
     "heroSubtitle": "Déménagements premium pour pavillons de standing avec accès techniques complexes. Une prise en charge sur-mesure d’une sécurité rigoureuse.",
     "introParagraphs": [
-      "Perchée sur les hauteurs de la vallée éponyme, **Montmorency** se distingue par ses coteaux verdoyants, ses demeures historiques et ses belles propriétés de standing. Cependant, cette situation géographique privilégiée induit des contraintes majeures lors d'un déménagement : pentes fortes, impasses étroites et allées de jardin escarpées.",
-      "Chez **Marne Transdem**, nous avons developpé un savoir-faire spécifique pour relever ces défis techniques. Nous assurons la manutention méticuleuse de votre mobilier haut de gamme, de vos instruments de musique volumineux ou de vos objets précieux grâce à des techniques de portage sécurisées et une flotte de monte-meubles récents capables de contourner de nombreux obstacles de hauteur ou de recul.",
+      "Perchée sur les hauteurs de la vallée éponyme, <strong>Montmorency</strong> se distingue par ses coteaux verdoyants, ses demeures historiques et ses belles propriétés de standing. Cependant, cette situation géographique privilégiée induit des contraintes majeures lors d'un déménagement : pentes fortes, impasses étroites et allées de jardin escarpées.",
+      "Chez <strong>Marne Transdem</strong>, nous avons developpé un savoir-faire spécifique pour relever ces défis techniques. Nous assurons la manutention méticuleuse de votre mobilier haut de gamme, de vos instruments de musique volumineux ou de vos objets précieux grâce à des techniques de portage sécurisées et une flotte de monte-meubles récents capables de contourner de nombreux obstacles de hauteur ou de recul.",
       "Chaque étape est planifiée à l'avance par des conseillers qualifiés, depuis la déclaration de stationnement en mairie jusqu'au déploiement de protections spécifiques pour l’intérieur de vos demeures, pour un service haut de gamme exempt de tout tracas."
     ],
     "faqs": [
@@ -4323,10 +4299,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Saint-Gratien",
         "l": "/demenagement-saint-gratien"
-      },
-      {
-        "n": "Ermont",
-        "l": "/demenagement-ermont"
       },
       {
         "n": "Val-d'Oise (95)",
@@ -4380,7 +4352,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Paris 20",
@@ -4469,7 +4441,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Hauts-de-Seine",
-        "l": "/demenagement-92-hauts-de-seine"
+        "l": "/demenagement-hauts-de-seine"
       },
       {
         "n": "Paris 14e (proche)",
@@ -4699,7 +4671,7 @@ export const sectorsData: Sector[] = [
     "nearbySectors": [
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Hauts-de-Seine",
@@ -4731,7 +4703,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Saint-Maur",
-        "l": "/demenagement-saint-maur"
+        "l": "/demenagement-saint-maur-des-fosses"
       },
       {
         "n": "Créteil",
@@ -4859,7 +4831,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Paris 19",
@@ -5375,7 +5347,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris 8e",
-        "l": "/demenagement-paris-8"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Hauts-de-Seine",
@@ -5455,7 +5427,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris 8e",
-        "l": "/demenagement-paris-8"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Paris 9e",
@@ -5739,7 +5711,7 @@ export const sectorsData: Sector[] = [
     "nearbySectors": [
       {
         "n": "Paris 8e",
-        "l": "/demenagement-paris-8"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Paris 10e",
@@ -5820,7 +5792,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Île-de-France",
@@ -5911,7 +5883,7 @@ export const sectorsData: Sector[] = [
     "heroSubtitle": "Organisation des déménagements de particuliers et d’entreprises à Pontoise selon les accès, le volume et la formule. l'assurance d'un service soigné.",
     "introParagraphs": [
       "Pontoise, ville d’art et d'histoire, offre un cadre de vie prestigieux tout en présentant des caractéristiques d'accès spécifiques : ruelles pavées, habitations anciennes, immeubles dépourvus d'ascenseur... Confier son projet de transport de biens à un déménageur qualifié est capital.",
-      "Chez **Marne Transdem**, nous préparons méticuleusement votre aménagement à Pontoise. Nous anticipons toutes les composantes techniques : demande d'autorisation d'occupation temporaire pour le stationnement, déploiement d’un monte-meuble si nécessaire, et sélection d'un véhicule adapté de taille compacte pour les accès contraints.",
+      "Chez <strong>Marne Transdem</strong>, nous préparons méticuleusement votre aménagement à Pontoise. Nous anticipons toutes les composantes techniques : demande d'autorisation d'occupation temporaire pour le stationnement, déploiement d’un monte-meuble si nécessaire, et sélection d'un véhicule adapté de taille compacte pour les accès contraints.",
       "Nous proposons plusieurs formules personnalisées (économique, standard ou luxe) s'adaptant à l'ensemble des besoins des particuliers et des professionnels, facilitant votre transition en Île-de-France."
     ],
     "faqs": [
@@ -6068,7 +6040,7 @@ export const sectorsData: Sector[] = [
     "nearbySectors": [
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Île-de-France",
@@ -6089,18 +6061,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Versailles",
         "l": "/demenagement-versailles"
-      },
-      {
-        "n": "Maurepas",
-        "l": "/demenagement-maurepas"
-      },
-      {
-        "n": "Coignières",
-        "l": "/demenagement-coignières"
-      },
-      {
-        "n": "St-Arnoult",
-        "l": "/demenagement-saint-arnoult-en-yvelines"
       }
     ]
   },
@@ -6417,20 +6377,12 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-paris-18"
       },
       {
-        "n": "Aubervilliers",
-        "l": "/demenagement-aubervilliers"
-      },
-      {
         "n": "St-Ouen",
         "l": "/demenagement-saint-ouen"
       },
       {
         "n": "Pantin",
         "l": "/demenagement-pantin"
-      },
-      {
-        "n": "La Courneuve",
-        "l": "/demenagement-la-courneuve"
       },
       {
         "n": "Seine-Saint-Denis (93)",
@@ -6508,8 +6460,8 @@ export const sectorsData: Sector[] = [
     "seoImage": null,
     "heroSubtitle": "Solutions sur-mesure pour particuliers et entreprises proches du pôle Enghien-Soisy. De la préparation d'emballages à la manutention sécurisée.",
     "introParagraphs": [
-      "Idéalement ceinturée par d'importants pôles économiques et résidentiels comme **Enghien-les-Bains** et **Soisy-sous-Montmorency**, la commune de **Saint-Gratien** offre un cadre prisé et dynamique qui séduit autant les familles que les entrepreneurs en quête d'accessibilité.",
-      "Que vous emménagiez dans une maison bourgeoise, une copropriété moderne, ou que vous pilotiez le transfert de vos bureaux professionnels, **Marne Transdem** est votre partenaire logistique privilégié. Nous anticipons les difficultés techniques caractéristiques du secteur afin de rendre la transition efficace et sereine.",
+      "Idéalement ceinturée par d'importants pôles économiques et résidentiels comme <strong>Enghien-les-Bains</strong> et <strong>Soisy-sous-Montmorency</strong>, la commune de <strong>Saint-Gratien</strong> offre un cadre prisé et dynamique qui séduit autant les familles que les entrepreneurs en quête d'accessibilité.",
+      "Que vous emménagiez dans une maison bourgeoise, une copropriété moderne, ou que vous pilotiez le transfert de vos bureaux professionnels, <strong>Marne Transdem</strong> est votre partenaire logistique privilégié. Nous anticipons les difficultés techniques caractéristiques du secteur afin de rendre la transition efficace et sereine.",
       "Grâce à nos formules modulables (économique, standard, luxe) et nos options spécifiques de monte-meuble et garde-meuble, vous profitez d'une prestation de haut niveau encadrée par des déménageurs professionnels expérimentés d'Île-de-France."
     ],
     "faqs": [
@@ -6538,10 +6490,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Argenteuil",
         "l": "/demenagement-argenteuil"
-      },
-      {
-        "n": "Ermont",
-        "l": "/demenagement-ermont"
       },
       {
         "n": "Val-d'Oise (95)",
@@ -6743,7 +6691,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Paris 12",
@@ -6943,7 +6891,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Hauts-de-Seine",
-        "l": "/demenagement-92-hauts-de-seine"
+        "l": "/demenagement-hauts-de-seine"
       },
       {
         "n": "Fontenay (proche)",
@@ -6999,7 +6947,7 @@ export const sectorsData: Sector[] = [
     "nearbySectors": [
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Île-de-France",
@@ -7201,7 +7149,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Hauts-de-Seine",
-        "l": "/demenagement-92-hauts-de-seine"
+        "l": "/demenagement-hauts-de-seine"
       },
       {
         "n": "À Saint-Cloud (proche)",
@@ -7354,7 +7302,7 @@ export const sectorsData: Sector[] = [
     "nearbySectors": [
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Île-de-France",
@@ -7490,7 +7438,7 @@ export const sectorsData: Sector[] = [
     "nearbySectors": [
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Île-de-France",
@@ -7571,7 +7519,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Hauts-de-Seine",
-        "l": "/demenagement-92-hauts-de-seine"
+        "l": "/demenagement-hauts-de-seine"
       },
       {
         "n": "Paris 15e (proche)",
@@ -7913,7 +7861,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Vincennes",
@@ -8157,7 +8105,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Vincennes",
@@ -8253,7 +8201,7 @@ export const sectorsData: Sector[] = [
     "nearbySectors": [
       {
         "n": "Paris",
-        "l": "/demenagement-paris"
+        "l": "/secteurs-desservis"
       },
       {
         "n": "Île-de-France",

@@ -61,7 +61,7 @@ export const SERVICES = [
   {
     id: 'monte-meuble',
     title: 'Location Monte-meuble',
-    description: 'Solutions pour accès difficiles et charges lourdes jusqu’au 12e étage.',
+    description: 'Étude des accès difficiles et du matériel adapté à votre étage et à vos meubles.',
     icon: MoveUp,
     path: '/location-monte-meuble-paris'
   },
@@ -138,7 +138,7 @@ export const SERVICES = [
   {
     id: 'transfert-bureaux',
     title: 'Transfert de Bureaux',
-    description: 'Organisation millimétrée de votre déménagement tertiaire pour une continuité d’activité totale.',
+    description: 'Préparation du mobilier, étiquetage et planning de transfert convenu avec votre entreprise.',
     icon: Building2,
     path: '/transfert-bureaux-paris'
   },

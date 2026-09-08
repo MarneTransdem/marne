@@ -1,0 +1,44 @@
+[
+  {
+    "asset": "/assets/index-DX9DPlcR.js",
+    "decodedBytes": 23226,
+    "encoding": "br",
+    "cache": "public, max-age=31536000, immutable"
+  },
+  {
+    "asset": "/assets/vendor-commonjs-D6-XlEtG.js",
+    "decodedBytes": 784,
+    "encoding": null,
+    "cache": "public, max-age=31536000, immutable"
+  },
+  {
+    "asset": "/assets/vendor-react-core-BOHQqi4a.js",
+    "decodedBytes": 194889,
+    "encoding": "br",
+    "cache": "public, max-age=31536000, immutable"
+  },
+  {
+    "asset": "/assets/vendor-support-CyBUFtEX.js",
+    "decodedBytes": 3221,
+    "encoding": "br",
+    "cache": "public, max-age=31536000, immutable"
+  },
+  {
+    "asset": "/assets/vendor-router-helmet-CcrIHqeq.js",
+    "decodedBytes": 51981,
+    "encoding": "br",
+    "cache": "public, max-age=31536000, immutable"
+  },
+  {
+    "asset": "/assets/vendor-motion-B9e2Isdq.js",
+    "decodedBytes": 125821,
+    "encoding": "br",
+    "cache": "public, max-age=31536000, immutable"
+  },
+  {
+    "asset": "/assets/index-yTEeh2Zo.css",
+    "decodedBytes": 184930,
+    "encoding": "br",
+    "cache": "public, max-age=31536000, immutable"
+  }
+]

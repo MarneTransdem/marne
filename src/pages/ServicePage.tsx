@@ -27,7 +27,7 @@ const ServicePage: React.FC = () => {
               {service.description} Marne Transdem s’adapte à toutes les configurations pour vous offrir un service irréprochable.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link to="/devis" className="bg-accent text-white px-8 py-4 rounded-full font-bold hover:bg-accent-hover transition-all">
+              <Link to="/demande-de-devis" className="bg-accent text-white px-8 py-4 rounded-full font-bold hover:bg-accent-hover transition-all">
                 Devis personnalisé
               </Link>
               <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white/10 text-white border border-white/20 px-8 py-4 rounded-full font-bold hover:bg-white/20 transition-all flex items-center gap-2">
@@ -70,7 +70,7 @@ const ServicePage: React.FC = () => {
                 ].map((item, idx) => (
                   <motion.div 
                     key={idx}
-                    initial={{ opacity: 0, x: 20 }}
+                    initial={false}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.1 }}

@@ -1,0 +1,14 @@
+import fs from 'node:fs/promises';
+const out = 'docs/seo-audit-2026-09-08';
+await fs.mkdir(out,{recursive:true});
+const base='https://www.devisdemenagement-paris.com';
+const get=async(url)=>{const start=Date.now();try{const r=await fetch(url,{redirect:'manual',signal:AbortSignal.timeout(20000)});const body=await r.text();return {url,status:r.status,ms:Date.now()-start,headers:Object.fromEntries(r.headers),body};}catch(e){return {url,error:e.message};}};
+const sitemap=await get(base+'/sitemap.xml');
+await fs.writeFile(out+'/sitemap-response.json',JSON.stringify(sitemap,null,2));
+const urls=[...new Set([...sitemap.body?.matchAll(/<loc>(.*?)<\/loc>/g)||[]].map(x=>x[1]))];
+const probes=[base+'/',base+'/robots.txt',base+'/seo-audit-page-inexistante-20260908',base+'/devis',base+'/demenagement-paris-8',base+'/services/',base+'/logo.png','http://devisdemenagement-paris.com/','http://www.devisdemenagement-paris.com/','https://devisdemenagement-paris.com/'];
+const results=[];let cursor=0;
+const queue=[...new Set([...probes,...urls.map(x=>x.replace('https://devisdemenagement-paris.com',base))])];
+await Promise.all(Array.from({length:4},async()=>{while(cursor<queue.length){const row=await get(queue[cursor++]);if(row.body){row.title=row.body.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1];row.canonical=row.body.match(/<link[^>]*rel="canonical"[^>]*href="([^"]*)"/i)?.[1];row.h1=[...row.body.matchAll(/<h1[^>]*>([\s\S]*?)<\/h1>/gi)].map(x=>x[1]);row.links=[...row.body.matchAll(/<a\s[^>]*href="([^"]*)"/gi)].map(x=>x[1]);row.bytes=Buffer.byteLength(row.body);if(row.url===base+'/')await fs.writeFile(out+'/home-initial.html',row.body);delete row.body;}results.push(row);}}));
+await fs.writeFile(out+'/http-crawl.json',JSON.stringify(results,null,2));
+console.log(JSON.stringify({sitemapUrls:urls.length,tested:results.length,statuses:results.reduce((a,r)=>(a[r.status||'error']=(a[r.status||'error']||0)+1,a),{}),probes:results.filter(x=>probes.includes(x.url)),htmlLinkCounts:[...new Set(results.filter(r=>r.title).map(r=>r.links.length))]},null,2));

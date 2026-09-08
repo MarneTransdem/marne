@@ -34,7 +34,7 @@ const Services: React.FC = () => {
           </nav>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm mb-6 border border-white/20"
           >
@@ -67,7 +67,7 @@ const Services: React.FC = () => {
               {SERVICES.filter(s => ['garde-meuble', 'monte-meuble', 'emballage', 'cartons', 'longue-distance', 'oeuvres-art', 'piano'].includes(s.id)).map((service, idx) => (
                 <motion.div
                   key={service.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={false}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
@@ -101,7 +101,7 @@ const Services: React.FC = () => {
               {SERVICES.filter(s => ['transfert-bureaux', 'transfert-informatique', 'transfert-industriel', 'transfert-laboratoire', 'gestion-archives'].includes(s.id)).map((service, idx) => (
                 <motion.div
                   key={service.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={false}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
@@ -122,7 +122,7 @@ const Services: React.FC = () => {
                 </motion.div>
               ))}
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={false}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 className="bg-brand-900 dark:bg-slate-900 p-10 rounded-[2.5rem] text-white flex flex-col justify-center text-center italic"
@@ -145,7 +145,7 @@ const Services: React.FC = () => {
               {SERVICES.filter(s => ['etudiant', 'senior', 'militaire', 'mutation', 'petit-volume'].includes(s.id)).map((service, idx) => (
                 <motion.div
                   key={service.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={false}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}

@@ -99,7 +99,7 @@ const FormulasPage: React.FC = () => {
               <span className="text-white">Nos formules</span>
             </nav>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm mb-6 border border-white/20"
             >
@@ -160,7 +160,7 @@ const FormulasPage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Formule Économique */}
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="stay-white-bg p-10 rounded-[2.5rem] border border-slate-100 shadow-sm flex flex-col h-full hover:shadow-xl transition-all"
@@ -192,7 +192,7 @@ const FormulasPage: React.FC = () => {
 
             {/* Formule Standard */}
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
@@ -229,7 +229,7 @@ const FormulasPage: React.FC = () => {
 
             {/* Formule Luxe */}
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}

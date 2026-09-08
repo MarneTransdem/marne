@@ -11,6 +11,7 @@ import fs from "fs";
 import helmet from "helmet";
 import {
   CANONICAL_ALIASES,
+  SITE_URL,
   getRobotsTxt,
   getSeoRoute,
   getSitemapXml,
@@ -294,7 +295,8 @@ function renderHtmlDocument(template: string, requestUrl: string) {
   const pathname = new URL(requestUrl, "http://localhost").pathname;
   const route = getSeoRoute(pathname);
   const html = template
-    .replace(/<title>[\s\S]*?<\/title>/, `<title data-rh="true">${escapeHtml(route.title)}</title>`)
+    .replace(/<title>[\s\S]*?<\/title>/, "")
+    .replace("</head>", `<title data-rh="true">${escapeHtml(route.title)}</title></head>`)
     .replace("</head>", `    ${renderSeoHead(route)}\n  </head>`)
     .replace('<div id="root"></div>', `<div id="root">${renderPrerenderBody(route)}</div>`);
 
@@ -1739,6 +1741,22 @@ Retournez les résultats strictement au format JSON selon le schéma demandé.`
     res.json({ status: "ok" });
   });
 
+  // Normalize public URLs before resolving aliases or static HTML. Local development stays local.
+  app.use((req, res, next) => {
+    if (!['GET', 'HEAD'].includes(req.method) || req.path.startsWith('/api/')) return next();
+    const canonicalHost = new URL(SITE_URL).host;
+    const host = req.get('host') || '';
+    const query = req.originalUrl.includes('?') ? req.originalUrl.slice(req.originalUrl.indexOf('?')) : '';
+    let cleanPath = req.path.length > 1 ? req.path.replace(/\/+$/, '') : req.path;
+    if (cleanPath === '/index.html') cleanPath = '/';
+    else if (cleanPath.endsWith('.html') && getSeoRoute(cleanPath.slice(0, -5)).status === 200) cleanPath = cleanPath.slice(0, -5);
+    const targetPath = CANONICAL_ALIASES[cleanPath] || cleanPath;
+    if (host === 'devisdemenagement-paris.com' || host === canonicalHost) {
+      if (host !== canonicalHost || req.path !== targetPath) return res.redirect(301, `${SITE_URL}${targetPath}${query}`);
+    } else if (req.path !== targetPath) return res.redirect(301, `${targetPath}${query}`);
+    return next();
+  });
+
   Object.entries(CANONICAL_ALIASES).forEach(([from, to]) => {
     app.get(from, (req, res) => {
       const query = req.originalUrl.includes("?")
@@ -1839,6 +1857,14 @@ Retournez les résultats strictement au format JSON selon le schéma demandé.`
           req.originalUrl,
           fs.readFileSync(templatePath, "utf8")
         );
+        const route = getSeoRoute(req.path);
+        if (route.status === 200 && route.robots === 'index, follow') {
+          const { render } = await vite.ssrLoadModule('/src/entry-server.tsx');
+          const tags: string[] = [];
+          const markup = (await render(req.originalUrl)).replace(/<title\b[^>]*>[\s\S]*?<\/title>|<meta\b[^>]*>|<link\b[^>]*>/g, (tag: string) => { tags.push(tag); return ''; });
+          const html = template.replace(/<title>[\s\S]*?<\/title>/, '').replace('</head>', `${tags.join('\n')}</head>`).replace('<div id="root"></div>', `<div id="root" data-ssr="true">${markup}</div>`);
+          return res.status(200).type('html').send(html);
+        }
         const rendered = renderHtmlDocument(template, req.originalUrl);
         res.status(rendered.status).type("html").send(rendered.html);
       } catch (error) {
@@ -1848,6 +1874,14 @@ Retournez les résultats strictement au format JSON selon le schéma demandé.`
   } else {
     // Serve static files in production with optimized browser caching
     const distPath = path.join(process.cwd(), 'dist');
+    app.get('*', (req, res, next) => {
+      const route = getSeoRoute(req.path);
+      if (route.status !== 200 || route.robots !== 'index, follow') return next();
+      const file = path.join(distPath, route.canonicalPath === '/' ? 'index.html' : `${route.canonicalPath.slice(1)}.html`);
+      if (!fs.existsSync(file)) return next(new Error(`Missing public prerender: ${route.canonicalPath}`));
+      res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+      return res.type('html').sendFile(file);
+    });
     app.use(express.static(distPath, {
       index: false,
       maxAge: '1d',
@@ -1863,7 +1897,7 @@ Retournez les résultats strictement au format JSON selon le schéma demandé.`
     }));
 
     app.get('*', (req, res) => {
-      const template = fs.readFileSync(path.join(distPath, 'index.html'), 'utf8');
+      const template = fs.readFileSync(path.join(distPath, 'shell.html'), 'utf8');
       const rendered = renderHtmlDocument(template, req.originalUrl);
       res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
       res.status(rendered.status).type('html').send(rendered.html);

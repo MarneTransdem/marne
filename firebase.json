@@ -1,18 +1,107 @@
 {
   "hosting": {
     "public": "dist",
+    "cleanUrls": true,
+    "trailingSlash": false,
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
     "rewrites": [
+      { "source": "/admin", "destination": "/private.html" },
+      { "source": "/admin/**", "destination": "/private.html" },
+      { "source": "/login", "destination": "/private.html" },
+      { "source": "/suivi/**", "destination": "/private.html" },
+      { "source": "/signature-devis/**", "destination": "/private.html" },
       {
         "source": "**",
         "function": {
           "functionId": "app",
           "region": "europe-west4"
         }
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/demenagement-92-hauts-de-seine",
+        "destination": "/demenagement-hauts-de-seine",
+        "type": 301
+      },
+      {
+        "source": "/demenagement-mais-laffitte",
+        "destination": "/demenagement-maisons-laffitte",
+        "type": 301
+      },
+      {
+        "source": "/demenagement-saint-maur",
+        "destination": "/demenagement-saint-maur-des-fosses",
+        "type": 301
+      },
+      {
+        "source": "/demenagement-bureaux-paris",
+        "destination": "/transfert-bureaux-paris",
+        "type": 301
+      },
+      {
+        "source": "/devis",
+        "destination": "/demande-de-devis",
+        "type": 301
+      },
+      {
+        "source": "/particuliers",
+        "destination": "/demenagement-particuliers-paris",
+        "type": 301
+      },
+      {
+        "source": "/entreprises",
+        "destination": "/demenagement-entreprises-paris",
+        "type": 301
+      },
+      {
+        "source": "/garde-meuble",
+        "destination": "/garde-meuble-paris",
+        "type": 301
+      },
+      {
+        "source": "/monte-meuble",
+        "destination": "/location-monte-meuble-paris",
+        "type": 301
+      },
+      {
+        "source": "/emballage",
+        "destination": "/emballage-protection-demenagement",
+        "type": 301
+      },
+      {
+        "source": "/formules",
+        "destination": "/formules-demenagement",
+        "type": 301
+      },
+      {
+        "source": "/blog/2",
+        "destination": "/blog/comment-estimer-volume-demenagement",
+        "type": 301
+      },
+      {
+        "source": "/blog/estimer-volume-demenagement",
+        "destination": "/blog/comment-estimer-volume-demenagement",
+        "type": 301
+      },
+      {
+        "source": "/blog/demenagement-entreprise-paris",
+        "destination": "/blog/demenagement-entreprise-paris-checklist",
+        "type": 301
+      },
+      {
+        "source": "/demenagement-paris",
+        "destination": "/secteurs-desservis",
+        "type": 301
+      },
+      {
+        "source": "/demenagement-paris-8",
+        "destination": "/secteurs-desservis",
+        "type": 301
       }
     ]
   },

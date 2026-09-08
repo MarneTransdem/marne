@@ -11,6 +11,7 @@ import {
   PhoneCall,
   User,
 } from 'lucide-react';
+import NotFound from './NotFound';
 import { SEO } from '../components/SEO';
 import { CONTACT } from '../constants';
 import { SITE_URL } from '../lib/seo-routes';
@@ -28,6 +29,7 @@ type BlogPostData = {
   metaDesc: string;
   keywords: string;
   date: string;
+  updated?: string;
   readTime: string;
   category: string;
   image: string;
@@ -112,7 +114,7 @@ const posts: Record<string, BlogPostData> = {
     faqs: faqsDemenagementParis,
     related: [
       {
-        slug: 'estimer-volume-demenagement',
+        slug: 'comment-estimer-volume-demenagement',
         title: 'Comment estimer le volume de son déménagement ?',
         image: '/images/cartons-demenagement-paris.jpg',
         imageAlt: 'Cartons et mobilier pour calculer le volume d’un déménagement',
@@ -240,6 +242,7 @@ const posts: Record<string, BlogPostData> = {
   },
   'formalites-administratives-demenagement': {
     slug: 'formalites-administratives-demenagement',
+    updated: '8 septembre 2026',
     title: 'Les formalités administratives indispensables avant un déménagement',
     excerpt:
       'Un déménagement ne se limite pas aux cartons. Électricité, gaz, internet, impôts, CAF : découvrez toutes les formalités administratives à faire avant et après votre départ.',
@@ -437,6 +440,7 @@ const posts: Record<string, BlogPostData> = {
   },
   'combien-coute-demenagement-paris': {
     slug: 'combien-coute-demenagement-paris',
+    updated: '8 septembre 2026',
     title: 'Combien coûte un déménagement à Paris ? Prix, critères et exemples de devis',
     excerpt:
       'Le prix d’un déménagement à Paris dépend du volume, de l’étage, de l’ascenseur et des contraintes d’accès. Découvrez nos exemples de devis et conseils pour bien comparer.',
@@ -497,7 +501,7 @@ const posts: Record<string, BlogPostData> = {
 
       <p>Un studio au rez-de-chaussée avec stationnement facile ne représente pas la même organisation qu’un appartement familial au 5e étage sans ascenseur, situé dans une rue étroite du 11e, du 12e, du 15e ou du 20e arrondissement. À Paris, la logistique compte autant que le volume.</p>
 
-      <p>Les estimations publiques disponibles en 2025-2026 situent souvent le coût d’un déménagement professionnel dans des fourchettes très variables selon le volume, la distance et la formule choisie. Certains guides indiquent par exemple des budgets allant d’environ 400 à 800 € pour 10 m³, 500 à 1 000 € pour 20 m³, 800 à 1 200 € pour 30 m³, et davantage pour les volumes plus importants. Ces montants restent indicatifs, car les contraintes d’accès et la distance peuvent modifier fortement le devis final.</p>
+      <p>Pour comparer deux devis, partez du même inventaire, des mêmes accès et du même niveau de service. Demandez que le montant TTC, les options et les éventuels frais de stationnement soient explicités. Une estimation générale ne remplace pas l’étude de votre projet.</p>
 
       <p>Chez Marne Transdem, nous accompagnons les particuliers et les professionnels dans leurs déménagements à Paris, en Île-de-France et vers toute la France. Notre objectif est simple : vous proposer un devis clair, réaliste et adapté à votre situation réelle.</p>
 
@@ -510,8 +514,8 @@ const posts: Record<string, BlogPostData> = {
       <p>Un bon devis doit répondre à plusieurs questions : Quel volume faut-il transporter ? Quelle est la distance entre les deux adresses ? Le camion peut-il stationner devant l’immeuble ? Y a-t-il un ascenseur ? Les meubles passent-ils par l’escalier ? Faut-il démonter certains meubles ? Faut-il prévoir un monte-meuble ? Quelle formule le client souhaite-t-il ? Y a-t-il des objets fragiles, lourds ou spécifiques ? Le déménagement se fait-il en semaine, le week-end, en fin de mois ou en période chargée ?</p>
       <p>Plus ces informations sont précises, plus le prix est fiable.</p>
 
-      <h2>Prix moyen d’un déménagement à Paris selon le volume</h2>
-      <p>Les prix ci-dessous sont des ordres de grandeur indicatifs. Ils ne remplacent pas un devis personnalisé, mais ils permettent de comprendre les grandes fourchettes du marché.</p>
+      <h2>Budget indicatif selon le volume</h2>
+      <p>Les montants ci-dessous sont des repères indicatifs, pas une grille tarifaire Marne Transdem. Pour les comparer à votre projet, faites préciser la distance, les accès, la formule et le montant TTC dans un devis personnalisé.</p>
       <div class="overflow-x-auto my-8">
         <table class="w-full text-sm text-left border-collapse">
           <thead class="bg-slate-50 text-brand-900 font-bold uppercase text-[10px] tracking-widest border-b border-slate-200">
@@ -536,8 +540,8 @@ const posts: Record<string, BlogPostData> = {
 
       <h2>Le volume : le premier critère du prix</h2>
       <p>Le volume est la base du calcul. Il correspond à l’espace occupé par vos meubles, cartons, appareils électroménagers et objets divers dans le camion. Plus le volume est élevé, plus il faut un camion adapté, davantage de cartons, plus de temps de chargement, plus de manutention, parfois plus de déménageurs et une organisation plus précise.</p>
-      <p>Un logement de 20 m³ ne nécessite pas la même équipe qu’un logement de 50 m³. Le temps de préparation, de protection, de chargement et de déchargement sera différent. Pour estimer votre volume, vous pouvez partir de la surface de votre logement, mais cette méthode reste approximative. On considère souvent qu’un logement de 50 m² représente environ 25 m³, mais ce chiffre peut varier fortement selon votre niveau d’équipement, la présence d’une cave, d’un dressing, d’un balcon, d’une bibliothèque ou d’un garage.</p>
-      <p>C’est pourquoi Marne Transdem recommande toujours une estimation détaillée, pièce par pièce.</p>
+      <p>Un logement de 20 m³ ne nécessite pas la même équipe qu’un logement de 50 m³. Le temps de préparation, de protection, de chargement et de déchargement sera différent. Pour <a href="/calculateur-volume">estimer votre volume</a>, vous pouvez partir de la surface de votre logement, mais cette méthode reste approximative. On considère souvent qu’un logement de 50 m² représente environ 25 m³, mais ce chiffre peut varier fortement selon votre niveau d’équipement, la présence d’une cave, d’un dressing, d’un balcon, d’une bibliothèque ou d’un garage.</p>
+      <p>C’est pourquoi Marne Transdem recommande une estimation détaillée, pièce par pièce. Vous pouvez ensuite <a href="/formules-demenagement">comparer les formules de déménagement</a> sur un inventaire identique.</p>
 
       <h2>La distance entre les deux adresses</h2>
       <p>La distance joue également un rôle important dans le prix. Un déménagement dans Paris intra-muros ne représente pas le même coût qu’un déménagement de Paris vers Lyon, Nantes, Marseille, Bordeaux, Lille, Strasbourg ou Nice.</p>
@@ -549,7 +553,7 @@ const posts: Record<string, BlogPostData> = {
 
       <h2>Le stationnement du camion</h2>
       <p>Le stationnement est l’un des points les plus sensibles à Paris. Si le camion peut se garer juste devant l’immeuble, le déménagement sera plus rapide. Si le camion doit stationner à 30, 50 ou 80 mètres, la distance de portage augmente et le temps d’intervention aussi.</p>
-      <p>À Paris, une AOT de déménagement peut être nécessaire selon la situation. La Ville de Paris indique que cette autorisation est notamment indispensable pour stationner en dehors de la bande de stationnement payant, stationner plus de six heures au même emplacement ou utiliser un monte-meuble.</p>
+      <p>À Paris, une AOT de déménagement peut être nécessaire selon la situation. <a href="https://www.paris.fr/pages/faq-demenagements-4404">La Ville de Paris indique</a> que cette autorisation est notamment indispensable pour stationner en dehors de la bande de stationnement payant, stationner plus de six heures au même emplacement ou utiliser un monte-meuble.</p>
       <p>Le stationnement influence donc directement la durée du déménagement, le nombre d’allers-retours, la fatigue des équipes, la protection des biens et le besoin éventuel de panneaux ou d’une organisation spécifique. Chez Marne Transdem, cette contrainte est prise en compte dans l’analyse du déménagement afin d’éviter les blocages le jour J.</p>
 
       <h2>Le monte-meuble : un coût supplémentaire, mais souvent rentable</h2>
@@ -1066,6 +1070,7 @@ const posts: Record<string, BlogPostData> = {
 
   'demenagement-entreprise-paris-checklist': {
     slug: 'demenagement-entreprise-paris-checklist',
+    updated: '8 septembre 2026',
     title: 'Déménagement d’entreprise à Paris : checklist pour transférer vos bureaux sans interrompre votre activité',
     excerpt:
       'Planification, mobilier, informatique, archives, accès et stationnement : découvrez la checklist complète pour réussir votre déménagement d’entreprise à Paris sans interruption d’activité.',
@@ -1081,7 +1086,7 @@ const posts: Record<string, BlogPostData> = {
     imageAlt: 'Déménagement d’entreprise à Paris : transfert de bureaux professionnels',
     related: [
       {
-        slug: 'demenagement-entreprise-paris',
+        slug: 'demenagement-entreprise-paris-checklist',
         title: 'Réussir son déménagement pro',
         image: '/images/transfert-bureaux-entreprise-paris.jpg',
         imageAlt: 'Bureaux professionnels',
@@ -1274,17 +1279,17 @@ const posts: Record<string, BlogPostData> = {
       <p>Vous préparez le transfert de vos bureaux, de votre cabinet, de votre agence ou de votre local professionnel ? Contactez Marne Transdem pour obtenir un devis adapté à votre entreprise. Nous analysons votre volume, vos accès, vos délais, vos contraintes de stationnement, votre mobilier, vos archives et votre organisation interne afin de vous proposer une solution claire et efficace. Demandez votre devis professionnel dès maintenant et organisez votre déménagement d’entreprise à Paris avec méthode.</p>
 
       <div class="not-prose mt-16 pt-8 border-t border-slate-100">
-        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-300 mb-4">Maillage interne conseillé</p>
+        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-300 mb-4">Pour préparer votre transfert</p>
         <ul class="flex flex-wrap gap-x-6 gap-y-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-          <li><a href="/blog/demenagement-entreprise-paris" class="hover:text-accent">Déménagement entreprise Paris</a></li>
-          <li><a href="/blog/demenagement-bureaux-paris" class="hover:text-accent">Déménagement bureaux Paris</a></li>
-          <li><a href="/blog/demenagement-paris" class="hover:text-accent">Déménagement Paris</a></li>
+          <li><a href="/blog/demenagement-entreprise-paris-checklist" class="hover:text-accent">Déménagement entreprise Paris</a></li>
+          <li><a href="/transfert-bureaux-paris" class="hover:text-accent">Déménagement bureaux Paris</a></li>
+          <li><a href="/blog/10-conseils-demenagement-sans-stress-paris" class="hover:text-accent">Déménagement Paris</a></li>
           <li><a href="/blog/demenagement-monte-meuble-paris" class="hover:text-accent">Déménagement avec monte-meuble</a></li>
           <li><a href="/blog/combien-coute-demenagement-paris" class="hover:text-accent">Combien coûte un déménagement à Paris ?</a></li>
           <li><a href="/blog/comment-estimer-volume-demenagement" class="hover:text-accent">Comment estimer le volume de son déménagement ?</a></li>
           <li><a href="/blog/formalites-administratives-demenagement" class="hover:text-accent">Les formalités administratives indispensables</a></li>
           <li><a href="/demande-de-devis" class="hover:text-accent">Demande de devis déménagement</a></li>
-          <li><a href="/blog/demenagement-ile-de-france" class="hover:text-accent">Déménagement Île-de-France</a></li>
+          <li><a href="/demenagement-ile-de-france" class="hover:text-accent">Déménagement Île-de-France</a></li>
         </ul>
       </div>
     `,
@@ -1295,6 +1300,12 @@ const posts: Record<string, BlogPostData> = {
 posts['2'] = posts['comment-estimer-volume-demenagement'];
 posts['estimer-volume-demenagement'] = posts['comment-estimer-volume-demenagement'];
 posts['demenagement-entreprise-paris'] = posts['demenagement-entreprise-paris-checklist'];
+
+function getArticleDate(date: string) {
+  const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  const [day, month, year] = date.split(' ');
+  return year + '-' + String(months.indexOf(month) + 1).padStart(2, '0') + '-' + day.padStart(2, '0');
+}
 
 function buildJsonLd(post: BlogPostData) {
   const articleUrl = `${siteUrl}/blog/${post.slug}`;
@@ -1307,9 +1318,9 @@ function buildJsonLd(post: BlogPostData) {
         '@id': `${articleUrl}#article`,
         headline: post.title,
         description: post.metaDesc,
-        image: post.image,
-        datePublished: '2026-05-18',
-        dateModified: '2026-05-18',
+        image: new URL(post.image, siteUrl).href,
+        datePublished: getArticleDate(post.date),
+        dateModified: getArticleDate(post.updated || post.date),
         author: {
           '@type': 'Organization',
           name: 'Marne Transdem',
@@ -1378,9 +1389,10 @@ function getShareUrl(platform: 'facebook' | 'linkedin', post: BlogPostData) {
 const BlogPost: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const post = posts[id || '10-conseils-demenagement-sans-stress-paris'] || posts['10-conseils-demenagement-sans-stress-paris'];
+  const post = id ? posts[id] : undefined;
 
-  const schema = useMemo(() => buildJsonLd(post), [post]);
+  const schema = useMemo(() => post ? buildJsonLd(post) : null, [post]);
+  if (!post) return <NotFound />;
   const relatedPosts = post.related?.filter((relatedPost) => relatedPost.slug !== post.slug) || [];
   const postImageDimensions = getImageDimensions(post.image);
   const handleContentClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -1431,7 +1443,7 @@ const BlogPost: React.FC = () => {
 
             <header className="mb-12">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 className="mb-8 flex flex-wrap items-center gap-3 text-xs font-bold uppercase tracking-widest text-slate-400 md:gap-6"
               >
@@ -1453,6 +1465,8 @@ const BlogPost: React.FC = () => {
               <p className="max-w-3xl text-lg font-light leading-relaxed text-slate-500 md:text-xl">
                 {post.excerpt}
               </p>
+              {post.updated && <p className="mt-4 text-sm text-slate-600">Mis à jour le <time dateTime={getArticleDate(post.updated)}>{post.updated}</time>.</p>}
+              {post.slug === 'formalites-administratives-demenagement' && <p className="mt-5 text-slate-600">Le <a className="underline" href="https://www.service-public.gouv.fr/particuliers/vosdroits/R11193">téléservice officiel de changement d’adresse</a> permet de prévenir plusieurs organismes. Vérifiez ceux couverts par votre déclaration et contactez séparément les autres interlocuteurs. Ce service est gratuit.</p>}
             </header>
 
             <figure className="relative mb-16 aspect-[21/9] overflow-hidden rounded-[3rem] shadow-2xl">
@@ -1522,13 +1536,13 @@ const BlogPost: React.FC = () => {
                   <Link to="/demenagement-particuliers-paris" className="hover:text-accent">
                     Déménagement Paris
                   </Link>
-                  <Link to="/demenagement-bureaux-paris" className="hover:text-accent">
+                  <Link to="/transfert-bureaux-paris" className="hover:text-accent">
                     Déménagement entreprise Paris
                   </Link>
-                  <Link to="/monte-meuble" className="hover:text-accent">
+                  <Link to="/location-monte-meuble-paris" className="hover:text-accent">
                     Monte-meuble Paris
                   </Link>
-                  <Link to="/formules" className="hover:text-accent">
+                  <Link to="/formules-demenagement" className="hover:text-accent">
                     Formules
                   </Link>
                   <Link to="/demande-de-devis" className="hover:text-accent">

@@ -146,7 +146,7 @@ const SecteursDesservis: React.FC = () => {
   ];
 
   const departements = [
-    { h: "Paris", d: "Déménagements d’appartements, studios, logements familiaux, bureaux et commerces avec une attention aux accès.", p: "/demenagement-paris", e: true },
+    { h: "Paris", d: "Déménagements d’appartements, studios, logements familiaux, bureaux et commerces avec une attention aux accès.", p: "/", e: true },
     { h: "Hauts-de-Seine", d: "Déménagements de particuliers et d’entreprises dans les villes résidentielles de l’ouest parisien.", p: "/demenagement-hauts-de-seine", e: true },
     { h: "Seine-Saint-Denis", d: "Déménagements dans les villes proches de Paris pour appartements, maisons et bureaux.", p: "/demenagement-seine-saint-denis", e: true },
     { h: "Val-de-Marne", d: "Déménagements entre Paris, le sud-est parisien, les résidences et les locaux professionnels.", p: "/demenagement-val-de-marne", e: true },
@@ -181,7 +181,7 @@ const SecteursDesservis: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full mb-8 border border-white/10"
             >
@@ -416,7 +416,7 @@ const SecteursDesservis: React.FC = () => {
             <h2 className="text-2xl md:text-4xl font-black text-brand-900 uppercase italic tracking-tight italic italic italic italic underline underline-offset-8 transition-all italic underline italic italic transition-all font-sans italic">Quel secteur choisir <span className="text-accent italic transition-all italic transition-all transition-all italic font-sans italic transition-all">pour votre devis ?</span></h2>
             <div className="grid grid-cols-1 gap-6 italic font-sans italic italic transition-all italic transition-all italic transition-all italic transition-all">
                {[
-                 { t: "Déménagement dans Paris", d: "Choisissez votre arrondissement pour une étude spécifique des accès parisiens.", l: "/demenagement-paris" },
+                 { t: "Déménagement dans Paris", d: "Choisissez votre arrondissement pour une étude spécifique des accès parisiens.", l: "/" },
                  { t: "Déménagement en Île-de-France", d: "Consultez la page dédiée à l'ensemble de la région francilienne.", l: "/demenagement-ile-de-france" },
                  { t: "Déménagement Longue Distance", d: "Pour tout départ depuis Paris/IDF vers une autre région en province.", l: "/demenagement-longue-distance" }
                ].map((item, i) => (

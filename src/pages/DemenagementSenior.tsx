@@ -50,7 +50,7 @@ const DemenagementSenior: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full mb-8 border border-white/10"
             >
@@ -94,7 +94,7 @@ const DemenagementSenior: React.FC = () => {
                   Changer de logement après de nombreuses années dans un même foyer est une étape chargée d'émotion. Marne Transdem l'a compris et propose un service de <span className="font-bold text-brand-900">déménagement senior</span> basé sur l'écoute, la patience et une attention méticuleuse portée aux objets qui vous sont chers.
                 </p>
                 <p>
-                  Qu'il s'agisse de se rapprocher de votre famille, de s'installer dans un appartement plus adapté ou d'intégrer une <Link to="/demenagement-residence-senior" className="text-brand-900 font-bold hover:text-accent italic decoration-accent/30 underline underline-offset-4">résidence service</Link> ou un EHPAD, nos équipes sont formées pour agir avec discrétion et prévenance.
+                  Qu'il s'agisse de se rapprocher de votre famille, de s'installer dans un appartement plus adapté ou d'intégrer une <Link to="/contact" className="text-brand-900 font-bold hover:text-accent italic decoration-accent/30 underline underline-offset-4">résidence service</Link> ou un EHPAD, nos équipes sont formées pour agir avec discrétion et prévenance.
                 </p>
               </div>
             </div>

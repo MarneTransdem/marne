@@ -61,7 +61,7 @@ export const Header: React.FC = () => {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-3 xl:gap-5 whitespace-nowrap" aria-label="Navigation principale">
             {NAVIGATION.map((item) => {
               if (item.name === 'Services' || item.name === 'Particuliers' || item.name === 'Entreprises') {
                 const isOpen = 
@@ -171,7 +171,7 @@ export const Header: React.FC = () => {
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
             </button>
-            <div className="text-right hidden xl:block">
+            <div className="text-right hidden 2xl:block whitespace-nowrap shrink-0">
               <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Conseil & devis</p>
               <a 
                 href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}
@@ -207,7 +207,8 @@ export const Header: React.FC = () => {
             <button 
               className={`p-2 transition-colors ${isScrolled || theme === 'light' ? 'text-brand-900 dark:text-white' : 'text-white'}`}
               onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle menu"
+              aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+              aria-expanded={isOpen}
             >
               {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
@@ -236,6 +237,7 @@ export const Header: React.FC = () => {
               <button 
                 className="absolute top-6 right-6 text-brand-900 dark:text-white p-2"
                 onClick={closeMenu}
+                aria-label="Fermer la navigation"
               >
                 <X size={32} />
               </button>

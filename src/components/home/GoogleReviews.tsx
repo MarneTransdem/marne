@@ -18,7 +18,7 @@ const hasValidKey = Boolean(API_KEY) && API_KEY !== 'YOUR_API_KEY';
 const ReviewCard: React.FC<{ review: any; index: number }> = ({ review, index }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
@@ -103,7 +103,7 @@ export const GoogleReviews: React.FC = () => {
             ))}
             
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={false}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               className="bg-brand-900 rounded-[2rem] p-10 text-white flex flex-col justify-center items-center text-center italic relative overflow-hidden group min-h-[400px]"

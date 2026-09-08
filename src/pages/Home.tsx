@@ -80,7 +80,7 @@ const Home: React.FC = () => {
             {FORMULAS.map((formula, idx) => (
               <motion.div 
                 key={formula.name}
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
@@ -135,7 +135,7 @@ const Home: React.FC = () => {
                 {[
                    { t: "Expertise Urbaine", d: "Maîtrise des accès complexes à Paris et sa région." },
                    { t: "Organisation 360°", d: "De l'emballage au remontage, rien n'est laissé au hasard." },
-                   { t: "Garanties Totales", d: "Protection de vos biens par des assurances premium." },
+                   { t: "Protection des biens", d: "Protections adaptées et assurance selon les conditions contractuelles." },
                    { t: "Ponctualité Rigoureuse", d: "Le respect de vos délais est notre priorité absolue." }
                 ].map((item, i) => (
                   <div key={i} className="space-y-4 group">

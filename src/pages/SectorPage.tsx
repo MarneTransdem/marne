@@ -11,6 +11,7 @@ import { CONTACT } from '../constants';
 import { getFAQSchema, getBreadcrumbSchema } from '../lib/schema';
 import { sectorsData, Sector } from '../constants/sectorsData';
 import NotFound from './NotFound';
+import { ResponsiveImage } from '../components/common/ResponsiveImage';
 
 export const SectorPage: React.FC = () => {
   const { slug, sectorPath } = useParams<{ slug?: string; sectorPath?: string }>();
@@ -49,7 +50,7 @@ export const SectorPage: React.FC = () => {
     : `Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à ${sector.name}, dans les arrondissements voisins et en Île-de-France.`;
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white min-h-screen overflow-x-clip">
       <SEO 
         title={sector.seoTitle || `Déménagement ${sector.name} | Devis gratuit | Marne Transdem`}
         description={sector.seoDescription || `Préparez votre déménagement à ${sector.name} avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées et devis gratuit.`}
@@ -70,11 +71,12 @@ export const SectorPage: React.FC = () => {
       {/* 1. Hero Section */}
       <section className="relative pt-32 pb-24 lg:pt-48 lg:pb-36 bg-brand-900 overflow-hidden text-white">
         <div className="absolute inset-0 z-0">
-          <img 
+          <ResponsiveImage
             src={heroImage} 
             alt={`Déménagement professionnel à ${sector.name}`} 
             className="w-full h-full object-cover opacity-20 grayscale-[10%]"
             loading="eager"
+            sizes="100vw"
             fetchPriority="high"
             decoding="async"
           />
@@ -84,7 +86,7 @@ export const SectorPage: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full mb-8 border border-white/10"
             >
@@ -149,7 +151,7 @@ export const SectorPage: React.FC = () => {
             </div>
             <div className="relative group">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
-                <img 
+                <ResponsiveImage
                   src={introImage} 
                   alt={`Déménagement haut de gamme à ${sector.name}`} 
                   className="w-full h-full object-cover"
@@ -179,13 +181,13 @@ export const SectorPage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             <div className="space-y-8">
               <h3 className="text-2xl font-bold text-brand-900 uppercase italic">
-                {sector.type === 'longue-distance' ? 'Protection renforcée sur la distance' : 'Maîtrise absolue des accès urbains'}
+                {sector.type === 'longue-distance' ? 'Protection renforcée sur la distance' : 'Préparation des accès et du stationnement'}
               </h3>
               <p className="text-slate-600 font-light leading-relaxed text-justify">
-                Chaque transition représente une étape de vie importante. Marne Transdem gère l'intégralité des contraintes techniques : sélection minutieuse de la taille du fourgon capitonné, mise en place réglementaire d'arrêtés municipaux de stationnement, et utilisation d'équipements de manutention de dernière génération.
+                Chaque transition représente une étape de vie importante. Marne Transdem gère l'intégralité des contraintes techniques : sélection minutieuse de la taille du fourgon capitonné, préparation des demandes de stationnement nécessaires, et utilisation d'équipements de manutention de dernière génération.
               </p>
               <p className="text-slate-600 font-light leading-relaxed text-justify">
-                Nos équipes de compagnons possèdent une connaissance innée de la configuration locale. De l'emballage minutieux de votre vaisselle fine à la protection sous housses de vos meubles laqués, rien n'est laissé au hasard.
+                Avant l’intervention, nous vérifions avec vous les accès, les possibilités de stationnement et les meubles qui demandent une manutention particulière. De l'emballage minutieux de votre vaisselle fine à la protection sous housses de vos meubles laqués, rien n'est laissé au hasard.
               </p>
 
               <div className="space-y-4">
@@ -204,7 +206,7 @@ export const SectorPage: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="font-bold text-brand-900 uppercase text-xs tracking-wider">Autorisations de stationnement</h4>
-                    <p className="text-sm text-slate-500 font-light mt-1">Gestion complète des arrêtés d'occupation temporaire (AOT) de voirie auprès des autorités de la commune.</p>
+                    <p className="text-sm text-slate-500 font-light mt-1">Les démarches et les frais de stationnement sont précisés lors de l’étude du projet, selon les exigences de la commune.</p>
                   </div>
                 </div>
               </div>
@@ -269,7 +271,7 @@ export const SectorPage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="order-2 lg:order-1 relative">
               <div className="rounded-[3rem] overflow-hidden shadow-2xl relative z-10">
-                <img 
+                <ResponsiveImage
                   src={secondBlockImage} 
                   alt="Déménagement résidentiel de particulier" 
                   className="w-full h-full object-cover" 
@@ -307,10 +309,10 @@ export const SectorPage: React.FC = () => {
               <h2 className="text-3xl md:text-5xl font-black text-brand-900 tracking-tight">Transfert d'entreprises et bureaux à {sector.name}</h2>
               <div className="space-y-6 text-slate-500 text-lg font-light leading-relaxed">
                 <p>
-                  Les exigences logistiques d'un transfert professionnel à {sector.name} nécessitent une coordination infaillible. Marne Transdem minimise l'impact opérationnel sur vos équipes pour garantir la continuité de votre activité.
+                  Les exigences logistiques d'un transfert professionnel à {sector.name} nécessitent un planning convenu avec votre entreprise. Marne Transdem minimise l'impact opérationnel sur vos équipes en tenant compte des horaires et des étapes de reprise définis avec vous.
                 </p>
                 <p>
-                  Nous prenons en charge le démontage des espaces de travail collectifs, le transfert sécurisé de vos serveurs informatiques sous emballages antistatiques, et l'archivage méthodique de vos dossiers professionnels. Nos équipes peuvent également intervenir de nuit ou pendant le week-end.
+                  Nous prenons en charge le démontage des espaces de travail collectifs, le transfert sécurisé de vos serveurs informatiques sous emballages antistatiques, et l'archivage méthodique de vos dossiers professionnels. Les horaires particuliers sont à convenir lors de la préparation du devis.
                 </p>
               </div>
               <Link 
@@ -323,7 +325,7 @@ export const SectorPage: React.FC = () => {
             </div>
             <div className="relative">
               <div className="rounded-[3rem] overflow-hidden shadow-2xl relative z-10">
-                <img 
+                <ResponsiveImage
                   src="/images/transfert-bureaux-entreprise-paris.jpg" 
                   alt="Transfert d'entreprise et bureaux à Paris" 
                   className="w-full h-full object-cover" 

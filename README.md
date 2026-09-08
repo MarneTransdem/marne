@@ -53,6 +53,12 @@ $env:PORT='3100'; npm run dev
 
 ## Qualité
 
+Le build génère désormais le HTML complet des 153 pages publiques, puis vérifie
+les canonical, titres, H1, liens internes, JSON-LD et pages orphelines. Les pages
+publiques sont hydratées par React ; les routes privées utilisent une coquille
+séparée. Voir `docs/seo-implementation-2026-09-08.md` pour les contrôles et les
+points de configuration de domaine à vérifier avant la mise en ligne.
+
 ```bash
 npm run audit:site
 npm run lint

@@ -20,7 +20,7 @@ export const ServicesSection: React.FC = () => {
           {SERVICES.map((service, index) => (
             <motion.div
               key={service.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
@@ -42,7 +42,7 @@ export const ServicesSection: React.FC = () => {
                   to={service.path}
                   className="inline-flex items-center gap-2 text-[12px] uppercase tracking-widest font-black text-brand-900 dark:text-white group-hover:text-accent transition-colors group/btn border-b border-transparent group-hover:border-accent/20 pb-1"
                 >
-                  Découvrir le service
+                  Découvrir : {service.title}
                   <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
                 </Link>
               </div>
@@ -51,7 +51,7 @@ export const ServicesSection: React.FC = () => {
           
           {/* Custom Card for Call to Action */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.5 }}

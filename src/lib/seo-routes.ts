@@ -1,4 +1,5 @@
-export const SITE_URL = 'https://devisdemenagement-paris.com';
+import sectorsData from '../constants/sectorMetadata.json' with { type: 'json' };
+export const SITE_URL = 'https://www.devisdemenagement-paris.com';
 export const SITE_NAME = 'Marne Transdem';
 export const DEFAULT_OG_IMAGE = '/images/demenagement-paris-9.webp';
 export const DEFAULT_OG_IMAGE_WIDTH = 1600;
@@ -31,6 +32,10 @@ export type SeoRoute = {
 };
 
 export const CANONICAL_ALIASES: Record<string, string> = {
+  '/demenagement-92-hauts-de-seine': '/demenagement-hauts-de-seine',
+  '/demenagement-mais-laffitte': '/demenagement-maisons-laffitte',
+  '/demenagement-saint-maur': '/demenagement-saint-maur-des-fosses',
+  '/demenagement-bureaux-paris': '/transfert-bureaux-paris',
   '/devis': '/demande-de-devis',
   '/particuliers': '/demenagement-particuliers-paris',
   '/entreprises': '/demenagement-entreprises-paris',
@@ -401,7 +406,7 @@ function defaultSeoForPath(pathname: string): Omit<SeoRoute, 'path' | 'canonical
     return {
       title: SERVICE_TITLES[pathname],
       h1,
-      description: `${SITE_NAME} accompagne votre projet : ${h1.toLowerCase()} à Paris et en Île-de-France. Demandez une estimation personnalisée et gratuite.`,
+      description: `${h1} : préparez votre inventaire, vos accès et votre calendrier avec ${SITE_NAME}. Demandez une étude personnalisée de votre projet.`,
       priority: '0.8',
       changefreq: 'monthly',
     };
@@ -475,7 +480,7 @@ export function getSeoRoute(pathname: string): SeoRoute {
   const blogPost = BLOG_POST_ROUTES.find((post) => post.path === canonicalPath);
   const isKnown = getPublicCanonicalRoutes().includes(canonicalPath);
 
-  if (normalized === '/admin' || normalized === '/login' || normalized.startsWith('/admin/')) {
+  if (normalized === '/admin' || normalized === '/login' || normalized.startsWith('/admin/') || normalized.startsWith('/suivi/') || normalized.startsWith('/signature-devis/')) {
     return {
       path: normalized,
       canonicalPath: normalized,
@@ -503,7 +508,11 @@ export function getSeoRoute(pathname: string): SeoRoute {
     };
   }
 
-  const route = blogPost || EXPLICIT_ROUTES[canonicalPath] || defaultSeoForPath(canonicalPath);
+  const sector = sectorsData.find(item => '/demenagement-' + item.slug === canonicalPath);
+  const sectorSeo: Omit<SeoRoute, 'path' | 'canonicalPath'> | undefined = sector ? { title: sector.seoTitle, description: sector.seoDescription,
+    h1: sector.type === 'longue-distance' ? 'Déménagement Paris – ' + sector.name : 'Déménagement à ' + sector.name,
+    image: sector.seoImage || undefined, priority: '0.7' } : undefined;
+  const route = blogPost || sectorSeo || EXPLICIT_ROUTES[canonicalPath] || defaultSeoForPath(canonicalPath);
   return {
     ...route,
     path: normalized,
@@ -519,7 +528,7 @@ export function absoluteUrl(pathname: string): string {
   return pathname === '/' ? SITE_URL : `${SITE_URL}${pathname}`;
 }
 
-export function getSitemapXml(date = new Date().toISOString().slice(0, 10)): string {
+export function getSitemapXml(date?: string): string {
   const urls = getPublicCanonicalRoutes()
     .map((path) => getSeoRoute(path))
     .filter((route) => route.robots !== 'noindex, nofollow');
@@ -532,7 +541,7 @@ export function getSitemapXml(date = new Date().toISOString().slice(0, 10)): str
       return [
         '  <url>',
         `    <loc>${loc}</loc>`,
-        `    <lastmod>${date}</lastmod>`,
+        ...(date ? [`    <lastmod>${date}</lastmod>`] : []),
         `    <changefreq>${route.changefreq || 'monthly'}</changefreq>`,
         `    <priority>${route.priority || '0.6'}</priority>`,
         '  </url>',

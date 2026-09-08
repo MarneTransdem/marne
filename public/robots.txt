@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin/
 Disallow: /login
 
-Sitemap: https://devisdemenagement-paris.com/sitemap.xml
+Sitemap: https://www.devisdemenagement-paris.com/sitemap.xml

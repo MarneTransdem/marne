@@ -4,9 +4,9 @@
  */
 
 import { Suspense, lazy, useEffect } from 'react';
-import { BrowserRouter, Routes, Route,  useLocation, Navigate } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
+import { BrowserRouter, MemoryRouter, Routes, Route,  useLocation, Navigate } from 'react-router-dom';
 import { PageTransition } from './components/layout/PageTransition';
+import { RelatedResources } from './components/common/RelatedResources';
 import ScrollToTop from './components/layout/ScrollToTop';
 import { PageSkeleton } from './components/common/PageSkeleton';
 import { initPublicAnalytics, trackPageView } from './lib/public-analytics';
@@ -179,6 +179,7 @@ function AppContent() {
           </Suspense>
         </PageTransition>
       </main>
+      {!isMinimalPage && <RelatedResources />}
       {!isMinimalPage && (
         <Suspense fallback={null}>
           <Footer />
@@ -198,15 +199,13 @@ function AppContent() {
   );
 }
 
-export default function App() {
-  const HelmetProviderCast = HelmetProvider as any;
+export default function App({ initialUrl }: { initialUrl?: string } = {}) {
+  const Router = initialUrl ? MemoryRouter : BrowserRouter;
   return (
     <ThemeProvider>
-      <HelmetProviderCast>
-        <BrowserRouter>
+      <Router {...(initialUrl ? { initialEntries: [initialUrl] } : {})}>
           <AppContent />
-        </BrowserRouter>
-      </HelmetProviderCast>
+      </Router>
     </ThemeProvider>
   );
 }

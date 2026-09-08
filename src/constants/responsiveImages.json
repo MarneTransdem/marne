@@ -1,0 +1,50 @@
+{
+  "/images/demenagement-paris.webp": {
+    "width": 500,
+    "height": 500,
+    "avif": "/images/demenagement-paris-480.avif 480w, /images/demenagement-paris-500.avif 500w",
+    "webp": "/images/demenagement-paris-480.webp 480w, /images/demenagement-paris-500.webp 500w"
+  },
+  "/images/demenagement-charenton-le-pont.webp": {
+    "width": 765,
+    "height": 1020,
+    "avif": "/images/demenagement-charenton-le-pont-480.avif 480w, /images/demenagement-charenton-le-pont-765.avif 765w",
+    "webp": "/images/demenagement-charenton-le-pont-480.webp 480w, /images/demenagement-charenton-le-pont-765.webp 765w"
+  },
+  "/images/demenagement-longue-distance-camion.jpg": {
+    "width": 1536,
+    "height": 2048,
+    "avif": "/images/demenagement-longue-distance-camion-480.avif 480w, /images/demenagement-longue-distance-camion-800.avif 800w, /images/demenagement-longue-distance-camion-1200.avif 1200w, /images/demenagement-longue-distance-camion-1536.avif 1536w",
+    "webp": "/images/demenagement-longue-distance-camion-480.webp 480w, /images/demenagement-longue-distance-camion-800.webp 800w, /images/demenagement-longue-distance-camion-1200.webp 1200w, /images/demenagement-longue-distance-camion-1536.webp 1536w"
+  },
+  "/images/demenagement-longue-distance.webp": {
+    "width": 568,
+    "height": 500,
+    "avif": "/images/demenagement-longue-distance-480.avif 480w, /images/demenagement-longue-distance-568.avif 568w",
+    "webp": "/images/demenagement-longue-distance-480.webp 480w, /images/demenagement-longue-distance-568.webp 568w"
+  },
+  "/images/demenagement-appartement-93.jpg": {
+    "width": 1897,
+    "height": 1423,
+    "avif": "/images/demenagement-appartement-93-480.avif 480w, /images/demenagement-appartement-93-800.avif 800w, /images/demenagement-appartement-93-1200.avif 1200w, /images/demenagement-appartement-93-1600.avif 1600w",
+    "webp": "/images/demenagement-appartement-93-480.webp 480w, /images/demenagement-appartement-93-800.webp 800w, /images/demenagement-appartement-93-1200.webp 1200w, /images/demenagement-appartement-93-1600.webp 1600w"
+  },
+  "/images/equipe-demenageur-longue-distance.jpg": {
+    "width": 1897,
+    "height": 2529,
+    "avif": "/images/equipe-demenageur-longue-distance-480.avif 480w, /images/equipe-demenageur-longue-distance-800.avif 800w, /images/equipe-demenageur-longue-distance-1200.avif 1200w, /images/equipe-demenageur-longue-distance-1600.avif 1600w",
+    "webp": "/images/equipe-demenageur-longue-distance-480.webp 480w, /images/equipe-demenageur-longue-distance-800.webp 800w, /images/equipe-demenageur-longue-distance-1200.webp 1200w, /images/equipe-demenageur-longue-distance-1600.webp 1600w"
+  },
+  "/images/equipe-demenagement-93.jpg": {
+    "width": 1897,
+    "height": 2529,
+    "avif": "/images/equipe-demenagement-93-480.avif 480w, /images/equipe-demenagement-93-800.avif 800w, /images/equipe-demenagement-93-1200.avif 1200w, /images/equipe-demenagement-93-1600.avif 1600w",
+    "webp": "/images/equipe-demenagement-93-480.webp 480w, /images/equipe-demenagement-93-800.webp 800w, /images/equipe-demenagement-93-1200.webp 1200w, /images/equipe-demenagement-93-1600.webp 1600w"
+  },
+  "/images/transfert-bureaux-entreprise-paris.jpg": {
+    "width": 1513,
+    "height": 2017,
+    "avif": "/images/transfert-bureaux-entreprise-paris-480.avif 480w, /images/transfert-bureaux-entreprise-paris-800.avif 800w, /images/transfert-bureaux-entreprise-paris-1200.avif 1200w, /images/transfert-bureaux-entreprise-paris-1513.avif 1513w",
+    "webp": "/images/transfert-bureaux-entreprise-paris-480.webp 480w, /images/transfert-bureaux-entreprise-paris-800.webp 800w, /images/transfert-bureaux-entreprise-paris-1200.webp 1200w, /images/transfert-bureaux-entreprise-paris-1513.webp 1513w"
+  }
+}

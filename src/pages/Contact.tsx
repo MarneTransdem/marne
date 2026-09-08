@@ -103,7 +103,7 @@ const Contact: React.FC = () => {
           </nav>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm mb-6 border border-white/20"
           >
@@ -167,7 +167,7 @@ const Contact: React.FC = () => {
             ].map((card, idx) => (
               <motion.div 
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
@@ -200,7 +200,7 @@ const Contact: React.FC = () => {
 
               {formState === 'success' ? (
                 <motion.div 
-                  initial={{ opacity: 0, scale: 0.95 }}
+                  initial={false}
                   animate={{ opacity: 1, scale: 1 }}
                   className="bg-green-50 dark:bg-green-900/10 border border-green-100 dark:border-green-800 p-12 rounded-[3rem] text-center"
                 >
@@ -414,13 +414,13 @@ const Contact: React.FC = () => {
               { 
                 icon: Home, 
                 title: "Déménagement particulier", 
-                path: "/demenagement-particulier-paris",
+                path: "/demenagement-particuliers-paris",
                 desc: "Préparer votre changement de résidence." 
               },
               { 
                 icon: Building2, 
                 title: "Déménagement entreprise", 
-                path: "/transfert-bureau-paris",
+                path: "/transfert-bureaux-paris",
                 desc: "Organiser un transfert de bureaux." 
               },
               { 

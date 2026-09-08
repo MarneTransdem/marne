@@ -1,3 +1,4 @@
+import { ServiceDecisionGuide } from '../components/common/ServiceDecisionGuide';
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Phone, CheckCircle2, Building2, Briefcase, Zap, ShieldCheck, Clock, MapPin, Search, ClipboardCheck, Truck, Settings, Info, Star } from 'lucide-react';
@@ -54,7 +55,7 @@ const DemenagementEntreprises: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center lg:text-left lg:mx-0">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full mb-6 border border-white/10"
             >
@@ -81,6 +82,7 @@ const DemenagementEntreprises: React.FC = () => {
           </div>
         </div>
       </section>
+      <ServiceDecisionGuide />
 
       {/* 2. Bloc de réassurance */}
       <section className="py-12 bg-white border-b border-slate-100">

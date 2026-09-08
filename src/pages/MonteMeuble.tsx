@@ -1,3 +1,4 @@
+import { ServiceDecisionGuide } from '../components/common/ServiceDecisionGuide';
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Phone, CheckCircle2, MoveUp, Shield, Info, Zap, Building2, User, ClipboardCheck, LayoutGrid, Package, Calculator, Truck, Box } from 'lucide-react';
@@ -53,7 +54,7 @@ const MonteMeuble: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 relative z-10 text-white">
           <div className="max-w-3xl">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm mb-6 border border-white/20"
             >
@@ -80,6 +81,7 @@ const MonteMeuble: React.FC = () => {
           </div>
         </div>
       </section>
+      <ServiceDecisionGuide />
 
       {/* 2. Bloc de réassurance */}
       <section className="bg-slate-50 py-12 border-b border-slate-100">

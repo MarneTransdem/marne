@@ -1,0 +1,224 @@
+[
+  {
+    "target": "/demenagement-paris",
+    "status": 301,
+    "location": "/secteurs-desservis",
+    "sources": [
+      "/demenagement-alfortville",
+      "/demenagement-champigny-sur-marne",
+      "/demenagement-conflans-sainte-honorine",
+      "/demenagement-essonne",
+      "/demenagement-fontenay-sous-bois",
+      "/demenagement-guyancourt",
+      "/demenagement-ivry-sur-seine",
+      "/demenagement-joinville-le-pont",
+      "/demenagement-le-kremlin-bicetre",
+      "/demenagement-le-perreux-sur-marne",
+      "/demenagement-maisons-alfort",
+      "/demenagement-mantes-la-jolie",
+      "/demenagement-montreuil",
+      "/demenagement-nogent-sur-marne",
+      "/demenagement-pantin",
+      "/demenagement-plaisir",
+      "/demenagement-rambouillet",
+      "/demenagement-saint-maurice",
+      "/demenagement-seine-et-marne",
+      "/demenagement-val-de-marne",
+      "/demenagement-val-d-oise",
+      "/demenagement-villejuif",
+      "/demenagement-vitry-sur-seine",
+      "/demenagement-yvelines"
+    ]
+  },
+  {
+    "target": "/demenagement-92-hauts-de-seine",
+    "status": 404,
+    "location": null,
+    "sources": [
+      "/demenagement-antony",
+      "/demenagement-bagneux",
+      "/demenagement-bourg-la-reine",
+      "/demenagement-chatillon",
+      "/demenagement-clamart",
+      "/demenagement-fontenay-aux-roses",
+      "/demenagement-malakoff",
+      "/demenagement-montrouge",
+      "/demenagement-sceaux",
+      "/demenagement-sevres",
+      "/demenagement-vanves"
+    ]
+  },
+  {
+    "target": "/demenagement-bezons",
+    "status": 404,
+    "location": null,
+    "sources": [
+      "/demenagement-argenteuil"
+    ]
+  },
+  {
+    "target": "/demenagement-sevran",
+    "status": 404,
+    "location": null,
+    "sources": [
+      "/demenagement-aulnay-sous-bois"
+    ]
+  },
+  {
+    "target": "/demenagement-saint-maur",
+    "status": 404,
+    "location": null,
+    "sources": [
+      "/demenagement-nogent-sur-marne"
+    ]
+  },
+  {
+    "target": "/demenagement-mais-laffitte",
+    "status": 404,
+    "location": null,
+    "sources": [
+      "/demenagement-conflans-sainte-honorine"
+    ]
+  },
+  {
+    "target": "/demenagement-le-blanc-mesnil",
+    "status": 404,
+    "location": null,
+    "sources": [
+      "/demenagement-aulnay-sous-bois",
+      "/demenagement-drancy"
+    ]
+  },
+  {
+    "target": "/demenagement-ermont",
+    "status": 404,
+    "location": null,
+    "sources": [
+      "/demenagement-enghien-les-bains",
+      "/demenagement-montmorency",
+      "/demenagement-saint-gratien"
+    ]
+  },
+  {
+    "target": "/demenagement-maurepas",
+    "status": 404,
+    "location": null,
+    "sources": [
+      "/demenagement-rambouillet"
+    ]
+  },
+  {
+    "target": "/demenagement-coignières",
+    "status": 404,
+    "location": null,
+    "sources": [
+      "/demenagement-rambouillet"
+    ]
+  },
+  {
+    "target": "/demenagement-saint-arnoult-en-yvelines",
+    "status": 404,
+    "location": null,
+    "sources": [
+      "/demenagement-rambouillet"
+    ]
+  },
+  {
+    "target": "/demenagement-paris-8",
+    "status": 301,
+    "location": "/secteurs-desservis",
+    "sources": [
+      "/demenagement-paris-16",
+      "/demenagement-paris-17",
+      "/demenagement-paris-9"
+    ]
+  },
+  {
+    "target": "/blog/demenagement-bureaux-paris",
+    "status": 404,
+    "location": null,
+    "sources": [
+      "BlogPost.tsx"
+    ]
+  },
+  {
+    "target": "/demenagement-la-courneuve",
+    "status": 404,
+    "location": null,
+    "sources": [
+      "/demenagement-saint-denis"
+    ]
+  },
+  {
+    "target": "/demenagement-aubervilliers",
+    "status": 404,
+    "location": null,
+    "sources": [
+      "/demenagement-saint-denis"
+    ]
+  },
+  {
+    "target": "/blog/demenagement-entreprise-paris",
+    "status": 301,
+    "location": "/blog/demenagement-entreprise-paris-checklist",
+    "sources": [
+      "BlogPost.tsx"
+    ]
+  },
+  {
+    "target": "/blog/demenagement-paris",
+    "status": 404,
+    "location": null,
+    "sources": [
+      "BlogPost.tsx"
+    ]
+  },
+  {
+    "target": "/monte-meuble",
+    "status": 301,
+    "location": "/location-monte-meuble-paris",
+    "sources": [
+      "BlogPost.tsx"
+    ]
+  },
+  {
+    "target": "/demenagement-bureaux-paris",
+    "status": 404,
+    "location": null,
+    "sources": [
+      "BlogPost.tsx"
+    ]
+  },
+  {
+    "target": "/blog/demenagement-ile-de-france",
+    "status": 404,
+    "location": null,
+    "sources": [
+      "BlogPost.tsx"
+    ]
+  },
+  {
+    "target": "/formules",
+    "status": 301,
+    "location": "/formules-demenagement",
+    "sources": [
+      "BlogPost.tsx"
+    ]
+  },
+  {
+    "target": "/devis",
+    "status": 301,
+    "location": "/demande-de-devis",
+    "sources": [
+      "ServicePage.tsx"
+    ]
+  },
+  {
+    "target": "/demenagement-residence-senior",
+    "status": 404,
+    "location": null,
+    "sources": [
+      "DemenagementSenior.tsx"
+    ]
+  }
+]

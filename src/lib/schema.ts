@@ -24,7 +24,7 @@ export const getLocalBusinessSchema = () => ({
   "@type": "MovingCompany",
   "name": "Marne Transdem",
   "image": `${SITE_URL}${DEFAULT_OG_IMAGE}`,
-  "@id": SITE_URL,
+  "@id": `${SITE_URL}/#organization`,
   "url": SITE_URL,
   "telephone": CONTACT.phone.replace(/\s/g, ''),
   "address": {
@@ -77,6 +77,7 @@ export const getServiceSchema = (name: string, description: string) => ({
   "@type": "Service",
   "serviceType": "Moving Service",
   "provider": {
+    "@id": `${SITE_URL}/#organization`,
     "@type": "MovingCompany",
     "name": "Marne Transdem"
   },
