@@ -957,7 +957,7 @@ export function ClientDossierDrawer({
                 {notes.map((note) => (
                   <div key={note.id} className="p-3.5 bg-slate-50 dark:bg-slate-900 border border-slate-150/50 dark:border-slate-850 rounded-xl">
                     <div className="flex justify-between items-center mb-1.5 text-[9px] font-bold text-slate-400">
-                      <span>{note.actor || note.author}</span>
+                      <span>{note.author}</span>
                       <span>{note.createdAt}</span>
                     </div>
                     <p className="text-xs font-semibold text-slate-700 dark:text-slate-350 leading-relaxed whitespace-pre-wrap">{note.content}</p>

@@ -40,6 +40,7 @@ interface Item {
   name: string;
   volume: number; // in m3
   category: string;
+  emoji?: string;
 }
 
 interface RoomItem {
