@@ -3738,41 +3738,41 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "maisons-alfort",
-    "name": "Maisons Alfort",
+    "name": "Maisons-Alfort",
     "type": "local",
     "seoTitle": "Déménagement Maisons-Alfort | Résidences & Bureaux | Marne Transdem",
-    "seoDescription": "Besoin d'un déménagement à Maisons-Alfort ? Expert du Val-de-Marne 94, Marne Transdem assure le transfert de résidences et de bureaux. Spécialiste des accès complexes et des étages élevés.",
+    "seoDescription": "Préparez votre déménagement à Maisons-Alfort (94700) : accès, stationnement, volume et prestations pour votre logement ou vos bureaux. Demandez un devis personnalisé.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Maisons-Alfort. Nous apportons une attention méticuleuse et une expertise logistique éprouvée pour surmonter les défis des accès difficiles, des étages supérieurs sans ascenseur, et des configurations complexes de copropriétés.",
+    "heroSubtitle": "Organisez votre déménagement à Maisons-Alfort (94700) en précisant les accès, le mobilier à transporter et les prestations souhaitées aux deux adresses.",
     "introParagraphs": [
-      "Bordée par les eaux de la Marne, la charmante commune de <strong>Maisons-Alfort</strong> (94700) incarne un cadre de vie de premier plan au sein de la banlieue immobilière de l'Est parisien. Idéalement limitrophe du bois de Vincennes et particulièrement proche de Paris, elle séduit par son urbanisme équilibré, son dynamisme économique, et l'excellence de ses liaisons de transports. De sa célèbre <em>École nationale vétérinaire d'Alfort (ENVA)</em> au mythique Musée Fragonard, la ville se distingue par son riche patrimoine historique.",
-      "Mais déménager au sein d'une telle cité requiert une connaissance pointue de sa configuration. Des zones hautement résidentielles de <strong>Charentonneau</strong> aux quartiers d'habitat dense du <strong>Vert-de-Maisons</strong>, d'Alfort, du Centre-ville, ou des Planètes, chaque secteur offre des typologies de bâtis uniques. Que vous résidiez dans une majestueuse maison bourgeoise sur les bords de Marne ou dans une copropriété moderne d'immeubles collectifs, les exigences de manutention et de transport exigent un savoir-faire rigoureux et certifié.",
-      "C'est ici qu'interviennent les équipes de <strong>Marne Transdem</strong>, votre partenaire déménageur de référence dans tout le <a href=\"/demenagement-val-de-marne\" class=\"font-bold text-brand-900 hover:text-accent underline transition-colors\">Val-de-Marne</a>. Notre mission consiste à lever toutes les incertitudes liées à votre changement d'adresse pour assurer un déroulement fluide, serein, rigoureusement planifié et sécurisé de vos biens personnels."
+      "Pour préparer votre <strong>déménagement à Maisons-Alfort</strong>, relevez les dimensions de l’ascenseur, la largeur des escaliers et les passages entre la rue et votre logement. Mesurez les meubles qui ne se démontent pas et photographiez les accès difficiles. En copropriété, demandez les conditions d’utilisation des parties communes et les horaires possibles pour la manutention, au départ comme à l’arrivée.",
+      "Si l’installation du camion ou d’un monte-meuble nécessite une occupation du trottoir ou de la chaussée, contactez les services techniques avant de fixer l’organisation. La <a href=\"https://maisons-alfort.fr/votre-cadre-de-vie/voirie/\" class=\"text-accent hover:underline\">page voirie de Maisons-Alfort</a> présente les autorisations d’occupation du domaine public et indique le 01 43 96 77 25 pour les autres demandes. Décrivez votre adresse, la date, le véhicule et l’emprise envisagée afin de faire confirmer la procédure de déménagement, son délai et les frais éventuels. Convenez avec le déménageur de la personne chargée du dossier et de la signalisation.",
+      "Préparez ensuite un inventaire complet : mobilier, cartons, cave et objets fragiles. Le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume</a> permet une première estimation à confirmer avec le déménageur. Consultez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">formules de déménagement</a> pour choisir les tâches à confier à l’équipe. Pour un trajet entre communes, retrouvez les pages locales dans notre guide du <a href=\"/demenagement-val-de-marne\" class=\"text-accent hover:underline\">déménagement dans le Val-de-Marne</a>."
     ],
     "faqs": [
       {
-        "q": "Comment préparer un déménagement à Maisons-Alfort avec de fortes contraintes d'étages ?",
-        "a": "Pour les appartements situés dans des immeubles sans ascenseur ou dotés de cages d'escalier étroites à Maisons-Alfort (comme dans le quartier historique d'Alfort ou de Charentonneau), l'organisation nécessite une étude technique préalable. Marne Transdem évalue la largeur des passages, le poids des meubles et la possibilité d'installer un monte-meuble extérieur. Nous planifions l'emballage renforcé, le démontage stratégique du mobilier encombrant et mobilisons une équipe de déménageurs professionnels expérimentés pour le portage de charges lourdes en toute sécurité."
+        "q": "Comment préparer un déménagement sans ascenseur à Maisons-Alfort ?",
+        "a": "Indiquez l’étage, la largeur des escaliers, les paliers et la distance entre l’entrée et le camion. Signalez les meubles lourds ou non démontables et fournissez des photos. Ces informations permettent d’étudier le portage, les démontages et, si nécessaire, la faisabilité d’un moyen de levage."
       },
       {
-        "q": "Quelles sont les formalités de stationnement pour déménager à Maisons-Alfort ?",
-        "a": "Déménager à Maisons-Alfort impose d'obtenir une autorisation de stationnement temporaire auprès des services municipaux de la mairie de Maisons-Alfort. Cette démarche doit être effectuée au moins 15 jours avant la date du déménagement. Elle permet de réserver l'emplacement nécessaire pour le camion de déménagement et l'éventuel monte-meuble, évitant ainsi les obstructions de circulation sur les avenues fréquentées comme l'avenue du Général de Gaulle ou l'avenue Gambetta. Notre société de déménagement peut prendre en charge cette démarche administrative pour votre confort."
+        "q": "Comment organiser le stationnement du camion à Maisons-Alfort ?",
+        "a": "Contactez la voirie municipale pour faire confirmer la procédure adaptée à l’adresse et à l’emprise du véhicule ou du monte-meuble. Précisez la date et la durée souhaitées. Faites valider le délai de dépôt, les frais éventuels et la signalisation, puis indiquez dans le devis qui réalise les démarches."
       },
       {
-        "q": "Comment s'organise le transfert de bureaux ou de locaux professionnels à Maisons-Alfort ?",
-        "a": "Le transfert d'entreprise ou de bureaux à Maisons-Alfort exige une planification stricte pour minimiser l'impact sur votre activité. Nous réalisons un inventaire complet du parc informatique, des archives, du mobilier ergonomique et des documents sensibles. Nos équipes interviennent souvent en horaires décalés ou le week-end. Grâce à notre proximité avec les grands axes routiers comme l'autoroute A4 et le Val-de-Marne, nous assurons un transport ultra-sécurisé et un remontage rapide de vos espaces de travail."
+        "q": "Que prévoir pour un transfert de bureaux à Maisons-Alfort ?",
+        "a": "Listez le mobilier, les archives et les équipements, puis définissez un ordre de transfert avec les responsables des locaux. Vérifiez les accès, les créneaux autorisés et les tâches de démontage ou de remontage. Pour le matériel informatique, coordonnez les sauvegardes, la déconnexion et la remise en service avec votre prestataire compétent. Les horaires d’intervention doivent être convenus dans le devis."
       },
       {
-        "q": "Quel est le tarif moyen d'un déménagement résidentiel à Maisons-Alfort ?",
-        "a": "Le coût d'un déménagement dépend de plusieurs critères précis : le volume total en mètres cubes (m³), la distance entre l'adresse de départ et d'arrivée, les conditions d'accès (nombre d'étages, présence ou non d'un ascenseur, distance de portage) et la formule d'accompagnement choisie (Économique, Standard ou Luxe). Marne Transdem propose des visites techniques gratuites, sur place ou à distance par visioconférence, pour vous délivrer un devis personnalisé, transparent et sans surcoût caché."
+        "q": "Quels éléments déterminent le prix d’un déménagement à Maisons-Alfort ?",
+        "a": "Le volume, le trajet, les étages, la distance de portage et les prestations d’emballage ou de démontage influencent le devis. Transmettez les mêmes informations aux entreprises consultées pour comparer des prestations équivalentes. Demandez de préciser les frais de stationnement, les moyens de levage et les conditions liées à une modification de date ou d’inventaire."
       },
       {
-        "q": "Est-il nécessaire d'utiliser un monte-meuble pour un déménagement en résidence ?",
-        "a": "L'usage d'un monte-meuble est fortement recommandé lorsque les meubles volumineux ne passent pas par l'escalier ou l'ascenseur, ou si le règlement de copropriété de votre résidence à Maisons-Alfort interdit le portage de charges lourdes dans les parties communes. L'installation d'une échelle ou d'un monte-meuble dépend également de la configuration de la rue, de l'absence de câbles électriques aériens ou de arbres, et de l'autorisation de stationnement obtenue."
+        "q": "Peut-on utiliser un monte-meuble en résidence ?",
+        "a": "Son installation dépend des accès à la façade, de l’espace disponible au sol et du passage des meubles par une ouverture adaptée. Une étude de faisabilité et la vérification des autorisations éventuelles sont nécessaires. Consultez aussi les règles de la copropriété ; le choix du matériel et son coût sont à confirmer avant l’intervention."
       },
       {
-        "q": "Proposez-vous une formule d'emballage complet pour les objets fragiles ?",
-        "a": "Oui, notre formule Luxe prend en charge l'emballage intégral de vos biens, y compris la vaisselle fine, les verres en cristal, les objets d'art, les miroirs et les tableaux. Pour les formules intermédiaires comme la Standard, nos déménageurs professionnels se chargent uniquement de la mise en caisse et de la protection du mobilier fragile, tandis que vous préparez les cartons d'effets non fragiles (livres, vêtements, linge de maison)."
+        "q": "Comment choisir les prestations d’emballage pour les objets fragiles ?",
+        "a": "Identifiez la vaisselle, les miroirs, les tableaux et les objets nécessitant une protection particulière. Comparez les tâches prévues par chaque formule et faites préciser ce que l’équipe emballe, les fournitures incluses et ce qui reste à votre charge. Signalez séparément les objets de valeur ou de dimensions inhabituelles pour préparer leur manutention."
       }
     ],
     "nearbySectors": [
