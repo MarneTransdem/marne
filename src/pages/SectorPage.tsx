@@ -16,6 +16,7 @@ import { RegionalMovingGuide } from '../components/common/RegionalMovingGuide';
 import { ValDeMarneGuide } from '../components/common/ValDeMarneGuide';
 import { getSectorLabel } from '../lib/sector-label';
 import { valDOiseCities } from '../constants/valDOiseCities';
+import { yvelinesCities } from '../constants/yvelinesCities';
 
 const departmentLocations: Record<string, string> = {
   'essonne': 'dans l’Essonne',
@@ -49,10 +50,14 @@ export const SectorPage: React.FC = () => {
   const isDepartment = Object.hasOwn(departmentLocations, resolvedSlug);
   const sectorLocation = resolvedSlug === 'ile-de-france' ? 'en Île-de-France'
     : departmentLocations[resolvedSlug] || `à ${sector.name}`;
+  const departmentCities = resolvedSlug === 'val-d-oise' ? valDOiseCities
+    : resolvedSlug === 'yvelines' ? yvelinesCities : [];
   const breadcrumbParent = isDepartment
     ? { name: 'Île-de-France', item: '/demenagement-ile-de-france' }
     : valDOiseCities.some(city => city.slug === resolvedSlug)
       ? { name: 'Val-d’Oise', item: '/demenagement-val-d-oise' }
+    : yvelinesCities.some(city => city.slug === resolvedSlug)
+      ? { name: 'Yvelines', item: '/demenagement-yvelines' }
     : sector.type === 'longue-distance' && resolvedSlug !== 'longue-distance'
       ? { name: 'Longue distance', item: '/demenagement-longue-distance' }
       : { name: 'Secteurs desservis', item: '/secteurs-desservis' };
@@ -201,13 +206,13 @@ export const SectorPage: React.FC = () => {
 
       {resolvedSlug === 'ile-de-france' && <RegionalMovingGuide />}
       {resolvedSlug === 'val-de-marne' && <ValDeMarneGuide />}
-      {resolvedSlug === 'val-d-oise' && <section aria-labelledby="communes-val-d-oise" className="py-12 bg-white">
+      {departmentCities.length > 0 && <section aria-labelledby={`communes-${resolvedSlug}`} className="py-12 bg-white">
         <div className="container mx-auto px-4 md:px-6 max-w-5xl">
-          <h2 id="communes-val-d-oise" className="text-2xl md:text-3xl font-bold text-brand-900 mb-5">Préparer votre déménagement dans une commune du Val-d’Oise</h2>
+          <h2 id={`communes-${resolvedSlug}`} className="text-2xl md:text-3xl font-bold text-brand-900 mb-5">Préparer votre déménagement {resolvedSlug === 'yvelines' ? 'dans une commune des Yvelines' : 'dans une commune du Val-d’Oise'}</h2>
           <p className="text-slate-600 leading-relaxed mb-6">Retrouvez les informations de votre commune de départ ou d’arrivée parmi les pages ci-dessous. Pour un trajet entre deux villes, relevez les accès aux deux adresses et les besoins de manutention propres à chaque logement avant de demander votre devis.</p>
           <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {valDOiseCities.map(city => <li key={city.slug}>
-              <Link to={`/demenagement-${city.slug}`} className="block rounded-xl border border-slate-200 p-4 text-brand-900 underline underline-offset-4 hover:text-amber-700">Déménagement à {city.name}</Link>
+            {departmentCities.map(city => <li key={city.slug}>
+              <Link to={`/demenagement-${city.slug}`} className="block rounded-xl border border-slate-200 p-4 text-brand-900 underline underline-offset-4 hover:text-amber-700">Déménagement : {city.name}</Link>
             </li>)}
           </ul>
         </div>
