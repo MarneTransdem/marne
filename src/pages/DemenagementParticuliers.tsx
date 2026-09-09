@@ -12,8 +12,8 @@ const DemenagementParticuliers: React.FC = () => {
   const faqs = [
     { q: "Comment préparer un déménagement particulier à Paris ?", a: "La clé réside dans l'anticipation. Commencez par trier vos affaires au moins 2 mois avant, anticipez les démarches liées au stationnement lorsque la situation l’exige et choisissez une formule adaptée à votre volume et votre temps disponible." },
     { q: "Quelle formule choisir pour un déménagement d'appartement ?", a: "Tout dépend de votre budget et de votre implication. La formule Économique est idéale si vous avez un budget serré et du temps pour les cartons. La formule Standard est le meilleur compromis, tandis que la Luxe est parfaite pour une tranquillité totale." },
-    { q: "Peut-on demander un monte-meuble ?", a: "Absolument. Si votre immeuble parisien a des escaliers étroits ou un ascenseur trop petit, nous déployons un monte-meuble pour sécuriser le passage de vos pièces volumineuses et gagner en efficacité." },
-    { q: "Proposez-vous l'emballage des objets fragiles ?", a: "Oui, c'est le cœur de nos formules Standard et Luxe. Nous utilisons des protections spécifiques (bulles, housses, valises à vaisselle) pour garantir l'intégrité de vos biens les plus précieux durant le transport." },
+    { q: "Peut-on demander un monte-meuble ?", a: "Oui. Signalez les meubles qui ne passent pas dans l’escalier ou l’ascenseur. L’utilisation d’un monte-meuble dépend de l’accès à la façade, de l’espace au sol et des autorisations nécessaires ; sa faisabilité et sa prise en charge sont à confirmer dans le devis." },
+    { q: "Proposez-vous l'emballage des objets fragiles ?", a: "Oui, selon la formule et les prestations retenues. Signalez la vaisselle, les miroirs et les objets nécessitant une protection particulière. Le devis précise les biens emballés par l’équipe, les fournitures prévues et les tâches restant à votre charge." },
     { q: "Comment obtenir un devis de déménagement particulier ?", a: "Vous pouvez remplir notre formulaire en ligne ou nous appeler directement. Une visite technique peut être proposée selon la nature du projet pour évaluer précisément le volume et les accès afin de vous fournir un devis détaillé après analyse de votre projet." }
   ];
 
@@ -90,12 +90,15 @@ const DemenagementParticuliers: React.FC = () => {
       <section className="py-24">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-brand-900 mb-8">Votre projet, notre priorité</h2>
+            <h2 className="text-3xl font-bold text-brand-900 mb-8">Préparer le déménagement de votre appartement ou maison</h2>
             <p className="text-slate-600 leading-relaxed text-lg font-light mb-6">
               Déménager à Paris est un défi de taille. Entre les rues étroites de la capitale, les immeubles anciens sans ascenseur et les difficultés de stationnement, organiser son changement d'adresse demande une logistique sans faille. Que vous viviez dans un studio, un appartement familial ou une maison en Île-de-France, Marne Transdem met son savoir-faire à votre service.
             </p>
             <p className="text-slate-600 leading-relaxed font-light">
-              Notre équipe prend en charge toutes les étapes : de la protection des biens les plus fragiles à la manutention dans les étages les plus élevés. Nous nous adaptons aux accès complexes et assurons une organisation rigoureuse pour que votre transition vers votre futur foyer se déroule sans stress.
+              Commencez par lister le mobilier et les cartons, sans oublier la cave, le balcon ou le garage. Le <Link to="/calculateur-volume" className="underline font-medium text-brand-900">calculateur de volume</Link> vous aide à préparer une première estimation. Précisez ensuite les accès au départ et à l’arrivée : étages, ascenseur, escaliers, cour intérieure et distance entre le camion et l’entrée.
+            </p>
+            <p className="text-slate-600 leading-relaxed font-light mt-6">
+              Le budget dépend aussi du trajet et des tâches confiées à l’équipe. Notre <Link to="/blog/combien-coute-demenagement-paris" className="underline font-medium text-brand-900">guide du prix d’un déménagement à Paris</Link> explique ces critères et les points à comparer entre deux devis. L’inventaire et les contraintes de votre logement permettent de préciser la prestation adaptée.
             </p>
           </div>
         </div>
@@ -167,7 +170,7 @@ const DemenagementParticuliers: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">Nos formules pour votre déménagement</h2>
-            <p className="text-slate-400">Des solutions flexibles adaptées à chaque budget.</p>
+            <p className="text-slate-300 max-w-3xl mx-auto">Choisissez les tâches que vous souhaitez conserver et celles à confier à l’équipe. Faites préciser dans le devis qui emballe le fragile, fournit les cartons et démonte puis remonte les meubles concernés.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {FORMULAS.map((formula, i) => (
@@ -200,6 +203,33 @@ const DemenagementParticuliers: React.FC = () => {
       </section>
 
       {/* 7. Section “Notre méthode en 4 étapes” */}
+      <section className="py-16 bg-slate-50" aria-labelledby="preparer-logement">
+        <div className="container mx-auto px-4 md:px-6 max-w-5xl">
+          <h2 id="preparer-logement" className="text-3xl font-bold text-brand-900 mb-8">Avant le jour du déménagement : qui prépare quoi ?</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="rounded-2xl border border-slate-200 bg-white p-6">
+              <h3 className="text-xl font-bold text-brand-900 mb-4">Ce que vous pouvez préparer</h3>
+              <ul className="list-disc pl-5 space-y-3 text-slate-600">
+                <li>Trier les affaires et distinguer les objets à transporter de ceux qui restent sur place.</li>
+                <li>Étiqueter les cartons que vous emballez avec leur pièce de destination.</li>
+                <li>Garder avec vous les clés, documents et affaires nécessaires à la première nuit.</li>
+                <li>Vérifier auprès de la copropriété les horaires et conditions d’utilisation de l’ascenseur.</li>
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-slate-200 bg-white p-6">
+              <h3 className="text-xl font-bold text-brand-900 mb-4">Ce qu’il faut convenir avec l’équipe</h3>
+              <ul className="list-disc pl-5 space-y-3 text-slate-600">
+                <li>La liste des biens fragiles à emballer et des meubles à démonter et remonter.</li>
+                <li>Les fournitures prévues et leur éventuelle remise avant l’intervention.</li>
+                <li>Les moyens de manutention nécessaires et l’organisation du stationnement aux deux adresses.</li>
+                <li>Les dates de départ et d’arrivée, notamment si un stockage intermédiaire est nécessaire.</li>
+              </ul>
+            </div>
+          </div>
+          <p className="mt-8 text-slate-600">Pour les démarches personnelles, consultez notre <Link to="/blog/formalites-administratives-demenagement" className="underline font-medium text-brand-900">guide des formalités et changements d’adresse</Link>. Vous pouvez ensuite <Link to="/demande-de-devis" className="underline font-medium text-brand-900">transmettre votre projet pour une étude personnalisée</Link>.</p>
+        </div>
+      </section>
+
       <section className="py-24">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-3xl font-bold text-center text-brand-900 mb-16">Notre méthode en 4 étapes</h2>
@@ -232,7 +262,10 @@ const DemenagementParticuliers: React.FC = () => {
                 La vie parisienne impose ses propres règles. Entre les immeubles haussmanniens aux escaliers de service étroits et les quartiers modernes aux accès réglementés, rien n'est laissé au hasard.
               </p>
               <p className="text-slate-600 leading-relaxed font-light">
-                Nos équipes sont habituées à gérer l'absence d'ascenseur ou les modèles trop petits. C'est pourquoi nous recommandons souvent l'utilisation d'un monte-meuble pour les étages élevés. Concernant le stationnement, nous anticipons les réservations de voirie nécessaires pour garantir un emplacement sécurisé au pied de votre immeuble le jour J.
+                Un ascenseur trop petit ou un escalier étroit peut nécessiter un démontage ou un <Link to="/location-monte-meuble-paris" className="underline font-medium text-brand-900">monte-meuble</Link>, après étude de faisabilité. Pour le camion, indiquez les possibilités de stationnement aux deux adresses et faites préciser qui effectue les démarches nécessaires.
+              </p>
+              <p className="text-slate-600 leading-relaxed font-light">
+                La <a href="https://www.paris.fr/pages/faq-demenagements-4404" className="underline font-medium text-brand-900">Ville de Paris demande d’anticiper une demande d’AOT d’au moins 15 jours</a>. Cette autorisation ne constitue pas une réservation de place : une solution de stationnement à proximité doit être envisagée si l’emplacement souhaité est occupé.
               </p>
               <div className="bg-white p-6 rounded-2xl border border-slate-200">
                  <div className="flex items-center gap-3 text-accent font-bold mb-2">
