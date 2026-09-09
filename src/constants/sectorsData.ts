@@ -19,28 +19,32 @@ export const sectorsData: Sector[] = [
     "seoTitle": "Déménageur Charenton-le-Pont (94220) | Devis gratuit | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Charenton-le-Pont avec Marne Transdem : particuliers, entreprises, garde-meuble, monte-meuble et devis gratuit pour le 94220.",
     "seoImage": "/images/demenagement-charenton-le-pont.webp",
-    "heroSubtitle": "",
+    "heroSubtitle": "Préparez votre déménagement à Charenton-le-Pont (94220) : inventaire, accès aux deux adresses et organisation du stationnement pour établir un devis adapté.",
     "introParagraphs": [
-      "Charenton-le-Pont est une ville exigeante. Entre ses rues commerçantes animées, ses immeubles bourgeois et sa proximité immédiate avec Paris, chaque déménagement nécessite une logistique précise.",
-      "Chez <strong>Marne Transdem</strong>, nous connaissons chaque quartier (Val de Seine, Bercy, Plateau). Nous maîtrisons les contraintes de stationnement de la rue de Paris et les accès parfois complexes des résidences bordant le Bois.",
-      "Notre équipe de déménageurs professionnels ne se contente pas de porter des cartons ; elle organise votre transition de vie avec la rigueur d'un expert et la courtoisie d'un partenaire de proximité."
+      "Pour organiser votre <strong>déménagement à Charenton-le-Pont</strong>, commencez par relever les étages, les dimensions de l’ascenseur, la largeur des passages et la distance entre le camion et l’entrée. Faites ce relevé au départ comme à l’arrivée : un meuble qui sort facilement de votre logement peut nécessiter un démontage à destination. Des photos des accès permettent de préciser les contraintes lors de la préparation du devis.",
+      "La Ville propose une <strong>réservation de stationnement facultative et payante</strong> pour les déménagements. Sa page indique un délai de 15 jours francs avant la date prévue. Dans la partie semi-piétonne de la rue de Paris, elle prévoit une fermeture de voie et une intervention uniquement le matin. Consultez les <a href=\"https://www.charenton.fr/environnement/stationnement_demenagement/\" class=\"text-accent hover:underline\">modalités de stationnement publiées par la mairie de Charenton-le-Pont</a> et faites confirmer les conditions et tarifs applicables à votre adresse par la cellule réglementaire. Vérifiez avec le déménageur qui effectue la démarche et si les frais sont compris dans le devis.",
+      "Pour comparer les prestations, indiquez les objets fragiles, les meubles à démonter et ce que vous souhaitez emballer vous-même. Le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume</a> aide à préparer un premier inventaire ; les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">formules de déménagement</a> permettent de préciser la répartition des tâches. Si votre trajet concerne une autre commune, consultez aussi notre page sur le <a href=\"/demenagement-val-de-marne\" class=\"text-accent hover:underline\">déménagement dans le Val-de-Marne</a> pour préparer les deux adresses."
     ],
     "faqs": [
       {
-        "q": "Quelles sont les formalités de stationnement à Charenton-le-Pont ?",
-        "a": "La ville de Charenton requiert une autorisation de stationnement temporaire (AST). Marne Transdem prend en charge cette demande auprès des services municipaux pour vous libérer des contraintes administratives."
+        "q": "Faut-il réserver une place pour déménager à Charenton-le-Pont ?",
+        "a": "La mairie présente la réservation d’un emplacement pour déménagement comme un service facultatif et payant, avec un délai annoncé de 15 jours francs avant la date prévue. Cette réservation ne dispense pas de vérifier les règles applicables à l’occupation de la voie. Pour la partie semi-piétonne de la rue de Paris, la Ville indique une fermeture de voie et une intervention uniquement le matin. Contactez la cellule réglementaire pour confirmer les modalités de votre adresse."
       },
       {
-        "q": "Proposez-vous la location de monte-meuble à Charenton ?",
-        "a": "Oui. Pour les accès difficiles ou les meubles volumineux, nous déployons un technicien et un monte-meuble capable d'atteindre les étages élevés des résidences charentonnaises."
+        "q": "Qui s’occupe des démarches de stationnement ?",
+        "a": "Définissez ce point avec le déménageur avant de valider le devis : personne chargée de la demande, frais municipaux éventuels et conditions d’intervention. Ne présumez pas que la réservation est incluse dans la prestation. Conservez la confirmation de la mairie et transmettez les conditions d’accès à l’équipe qui réalise le déménagement."
       },
       {
-        "q": "Quel est le prix d'un déménagement à Charenton-le-Pont ?",
-        "a": "Le tarif dépend du volume, de la distance et de la formule choisie. Nous réalisons une visite technique gratuite à domicile ou en visio pour vous fournir un devis précis et transparent."
+        "q": "Un monte-meuble est-il nécessaire à Charenton-le-Pont ?",
+        "a": "Il dépend du gabarit des meubles et des accès. Relevez les dimensions de l’escalier et de l’ascenseur, puis signalez les objets qui ne peuvent pas être démontés. Un passage par une fenêtre ou un balcon nécessite une étude de faisabilité : espace au sol, accès à la façade et autorisations éventuelles. Sa disponibilité et son coût doivent être confirmés dans le devis."
       },
       {
-        "q": "Peut-on déménager le dimanche à Charenton ?",
-        "a": "Le déménagement est soumis à la réglementation sonore locale. Nous privilégions les interventions du lundi au samedi pour respecter le voisinage, mais des exceptions sont possibles en fonction de la situation."
+        "q": "Comment obtenir un devis adapté à mon déménagement à Charenton-le-Pont ?",
+        "a": "Transmettez les deux adresses, la date ou la période souhaitée, l’inventaire, les étages et les conditions d’accès. Précisez les tâches confiées à l’équipe : emballage, démontage et remontage, manutention ou stockage éventuel. Le volume, le trajet et ces prestations permettent de préparer une estimation ; faites préciser les frais de stationnement et les éventuels moyens de levage."
+      },
+      {
+        "q": "Que vérifier auprès de la copropriété avant le déménagement ?",
+        "a": "Demandez les conditions d’utilisation de l’ascenseur, les horaires d’accès et les protections attendues dans les parties communes. Prévenez le gardien ou le syndic si nécessaire, et organisez la remise des clés. Ces informations doivent être vérifiées pour le logement de départ et celui d’arrivée, puis communiquées au déménageur."
       }
     ],
     "nearbySectors": [
