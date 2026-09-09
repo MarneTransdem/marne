@@ -12,6 +12,7 @@ import { getFAQSchema, getBreadcrumbSchema } from '../lib/schema';
 import { sectorsData, Sector } from '../constants/sectorsData';
 import NotFound from './NotFound';
 import { ResponsiveImage } from '../components/common/ResponsiveImage';
+import { RegionalMovingGuide } from '../components/common/RegionalMovingGuide';
 import { getSectorLabel } from '../lib/sector-label';
 
 export const SectorPage: React.FC = () => {
@@ -33,6 +34,7 @@ export const SectorPage: React.FC = () => {
 
   const path = `/demenagement-${resolvedSlug}`;
   const sectorLabel = getSectorLabel(sector);
+  const sectorLocation = resolvedSlug === 'ile-de-france' ? 'en Île-de-France' : `à ${sector.name}`;
 
   // Default fallback images
   const heroImage = sector.seoImage || (sector.type === 'longue-distance' 
@@ -49,13 +51,13 @@ export const SectorPage: React.FC = () => {
 
   const defaultHeroSubtitle = sector.type === 'longue-distance'
     ? `Marne Transdem accompagne les particuliers et les entreprises dans leur déménagement ${sectorLabel}, avec une organisation adaptée à la distance.`
-    : `Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à ${sector.name}, dans les arrondissements voisins et en Île-de-France.`;
+    : `Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement ${sectorLocation}, dans les arrondissements voisins et en Île-de-France.`;
 
   return (
     <div className="bg-white min-h-screen overflow-x-clip">
       <SEO 
         title={sector.seoTitle || `Déménagement ${sector.name} | Devis gratuit | Marne Transdem`}
-        description={sector.seoDescription || `Préparez votre déménagement à ${sector.name} avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées et devis gratuit.`}
+        description={sector.seoDescription || `Préparez votre déménagement ${sectorLocation} avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées et devis gratuit.`}
         canonical={path}
         schema={[
           getFAQSchema(sector.faqs),
@@ -75,7 +77,7 @@ export const SectorPage: React.FC = () => {
         <div className="absolute inset-0 z-0">
           <ResponsiveImage
             src={heroImage} 
-            alt={sector.type === 'longue-distance' ? `Déménagement ${sectorLabel}` : `Déménagement professionnel à ${sector.name}`}
+            alt={sector.type === 'longue-distance' ? `Déménagement ${sectorLabel}` : `Déménagement professionnel ${sectorLocation}`}
             className="w-full h-full object-cover opacity-20 grayscale-[10%]"
             loading="eager"
             sizes="100vw"
@@ -132,7 +134,7 @@ export const SectorPage: React.FC = () => {
             <div className="space-y-8">
               <span className="text-xs font-black uppercase tracking-widest text-accent">L'exigence Marne Transdem</span>
               <h2 className="text-3xl md:text-5xl font-black text-brand-900 leading-tight tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">
-                {sector.type === 'longue-distance' ? `Votre projet de déménagement ${sectorLabel}` : `Votre déménagement à ${sector.name}`}
+                {sector.type === 'longue-distance' ? `Votre projet de déménagement ${sectorLabel}` : `Votre déménagement ${sectorLocation}`}
               </h2>
               <div className="space-y-6 text-slate-600 text-[16px] font-light leading-relaxed text-left">
                 {sector.introParagraphs && sector.introParagraphs.length > 0 ? (
@@ -155,7 +157,7 @@ export const SectorPage: React.FC = () => {
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <ResponsiveImage
                   src={introImage} 
-                  alt={`Déménagement haut de gamme à ${sector.name}`} 
+                  alt={`Déménagement haut de gamme ${sectorLocation}`}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -165,13 +167,15 @@ export const SectorPage: React.FC = () => {
         </div>
       </section>
 
+      {resolvedSlug === 'ile-de-france' && <RegionalMovingGuide />}
+
       {/* 3. Logistics & Challenges Section */}
       <section className="py-24 bg-slate-50 border-y border-slate-100 font-sans">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto text-center mb-20">
             <span className="text-xs font-black uppercase tracking-widest text-accent">L'Excellence Opérationnelle</span>
             <h2 className="text-3xl md:text-5xl font-black text-brand-900 mt-2 mb-6 uppercase tracking-tight">
-              {sector.type === 'longue-distance' ? 'Logistique Grand Axe' : `Les défis logistiques à ${sector.name}`}
+              {sector.type === 'longue-distance' ? 'Logistique Grand Axe' : `Les défis logistiques ${sectorLocation}`}
             </h2>
             <p className="text-slate-500 text-lg font-light leading-relaxed">
               {sector.type === 'longue-distance' 
@@ -236,7 +240,7 @@ export const SectorPage: React.FC = () => {
       <section className="py-24">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-6">Nos services de déménagement à {sector.name}</h2>
+            <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-6">Nos services de déménagement {sectorLocation}</h2>
             <p className="text-slate-500 font-light text-lg">Une gamme complète de solutions sur-mesure pour chaque besoin.</p>
           </div>
 
@@ -282,10 +286,10 @@ export const SectorPage: React.FC = () => {
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-accent/5 rounded-full blur-3xl -z-0"></div>
             </div>
             <div className="order-1 lg:order-2 space-y-8">
-              <h2 className="text-3xl md:text-5xl font-black text-brand-900 tracking-tight">Déménagement particuliers à {sector.name}</h2>
+              <h2 className="text-3xl md:text-5xl font-black text-brand-900 tracking-tight">Déménagement particuliers {sectorLocation}</h2>
               <div className="space-y-6 text-slate-500 text-lg font-light leading-relaxed">
                 <p>
-                  Marne Transdem accompagne les particuliers pour les déménagements de villas, d'appartements, de studios ou de résidences secondaires à {sector.name} ou vers une autre destination nationale.
+                  Marne Transdem accompagne les particuliers pour les déménagements de villas, d'appartements, de studios ou de résidences secondaires {sectorLocation} ou vers une autre destination nationale.
                 </p>
                 <p>
                   Nous prenons en charge la manutention sécurisée, la mise en cartons de vos affaires et la fourniture de penderies rigides debout pour vos vêtements précieux. Nous vous orientons vers la formule d'accompagnement idéale pour simplifier votre changement de vie.
@@ -308,10 +312,10 @@ export const SectorPage: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-8">
-              <h2 className="text-3xl md:text-5xl font-black text-brand-900 tracking-tight">Transfert d'entreprises et bureaux à {sector.name}</h2>
+              <h2 className="text-3xl md:text-5xl font-black text-brand-900 tracking-tight">Transfert d'entreprises et bureaux {sectorLocation}</h2>
               <div className="space-y-6 text-slate-500 text-lg font-light leading-relaxed">
                 <p>
-                  Les exigences logistiques d'un transfert professionnel à {sector.name} nécessitent un planning convenu avec votre entreprise. Marne Transdem minimise l'impact opérationnel sur vos équipes en tenant compte des horaires et des étapes de reprise définis avec vous.
+                  Les exigences logistiques d'un transfert professionnel {sectorLocation} nécessitent un planning convenu avec votre entreprise. Marne Transdem minimise l'impact opérationnel sur vos équipes en tenant compte des horaires et des étapes de reprise définis avec vous.
                 </p>
                 <p>
                   Nous prenons en charge le démontage des espaces de travail collectifs, le transfert sécurisé de vos serveurs informatiques sous emballages antistatiques, et l'archivage méthodique de vos dossiers professionnels. Les horaires particuliers sont à convenir lors de la préparation du devis.
@@ -428,7 +432,7 @@ export const SectorPage: React.FC = () => {
       <section className="py-24 bg-accent relative overflow-hidden text-center">
         <div className="absolute top-0 left-0 w-full h-full bg-black/5 pointer-events-none"></div>
         <div className="container mx-auto px-4 md:px-6 text-center relative z-10">
-          <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-6 tracking-tight">Vous préparez un déménagement à {sector.name} ?</h2>
+          <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-6 tracking-tight">Vous préparez un déménagement {sectorLocation} ?</h2>
           <p className="text-brand-900/70 text-xl font-light mb-12 max-w-2xl mx-auto italic leading-relaxed">
             Obtenez rapidement une offre tarifaire chiffrée adaptée à vos besoins et contraintes d'accès.
           </p>

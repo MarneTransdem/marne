@@ -2400,15 +2400,17 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "ile-de-france",
-    "name": "I D F",
+    "name": "Île-de-France",
     "type": "local",
     "seoTitle": "Déménagement Île-de-France | Marne Transdem",
     "seoDescription": "Préparez votre déménagement en Île-de-France avec Marne Transdem. Services pour particuliers et entreprises, Paris, petite couronne, grande couronne, formules adaptées et devis personnalisé.",
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris, en petite couronne, en grande couronne et vers d'autres destinations selon les besoins du projet.",
     "introParagraphs": [
-      "Qu'il s'agisse d'<span className=\"font-bold text-slate-700\">appartements</span>, de <span className=\"font-bold text-slate-700\">maisons</span>, de <span className=\"font-bold text-slate-700\">logements familiaux</span> ou de transferts de <span className=\"font-bold text-slate-700 font-bold\">bureaux</span>, <span className=\"font-bold text-slate-700\">commerces</span> et <span className=\"font-bold text-slate-700\">locaux professionnels</span>, nous maîtrisons les contraintes de la région capitale. De l'estimation du <span className=\"font-bold text-slate-700\">volume</span> à la gestion des <span className=\"font-bold text-slate-700 text-slate-700\">accès</span> (étages, ascenseurs, stationnement), nous vous proposons une <span className=\"font-bold text-slate-700\">demande de devis</span> sur mesure pour votre projet."
-    ],
+      "Marne Transdem accompagne les déménagements de particuliers et les transferts professionnels en Île-de-France. Un départ de Paris vers la banlieue, un retour dans la capitale ou un trajet entre deux communes franciliennes demandent de préciser les contraintes aux deux adresses.",
+      "Pour un logement, préparez l’inventaire des meubles, cartons et annexes. Pour des bureaux, ajoutez les équipements, les archives et les étapes de reprise. Les prestations sont étudiées en fonction du volume, des accès et des tâches à déléguer.",
+      "Cette page vous oriente vers les secteurs de la région et les guides utiles pour préparer votre déménagement. Les pages départementales permettent ensuite de poursuivre vers les communes concernées."
+],
     "faqs": [
       {
         "q": "Marne Transdem intervient-elle dans toute l’Île-de-France ?",
