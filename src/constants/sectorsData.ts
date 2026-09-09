@@ -1660,33 +1660,35 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "enghien-les-bains",
-    "name": "Enghien Les Bains",
+    "name": "Enghien-les-Bains",
     "type": "local",
     "seoTitle": "Déménagement Enghien-les-Bains | Particuliers & Pros | Marne Transdem",
-    "seoDescription": "Besoin d'un déménageur à Enghien-les-Bains (95880) ? Marne Transdem réalise vos projets de déménagement de maisons, d'appartements et de bureaux avec rigueur.",
+    "seoDescription": "Déménagement à Enghien-les-Bains (95880) : préparez votre volume, les accès et le stationnement. Formules pour particuliers et bureaux, devis personnalisé.",
     "seoImage": null,
-    "heroSubtitle": "Déménagements résidentiels et professionnels soignés avec attention portée aux accès complexes et à la haute protection de vos biens.",
+    "heroSubtitle": "Appartement, maison ou bureaux à Enghien-les-Bains : préparez l’inventaire, les accès et le stationnement pour un devis adapté à votre projet.",
     "introParagraphs": [
-      "Réputée pour son lac, son casino emblématique, son centre thermal et ses magnifiques villas de standing, la commune d'<strong>Enghien-les-Bains</strong> impose des standards de service de premier ordre. Un déménagement dans ce secteur si particulier demande des qualifications spécifiques et une préparation méticuleuse.",
-      "Chez <strong>Marne Transdem</strong>, nous nous engageons à offrir une prestation d'exception s'inscrivant parfaitement dans vos exigences. Nous déployons des techniciens expérimentés formés à l'emballage et la protection minutieuse d'œuvres d'art, de miroirs et de meubles anciens de grande valeur.",
-      "Pour surmonter les obstacles typiques d'Enghien (immeubles anciens sans ascenseur ou escaliers étroits), nous disposons d'une flotte de monte-meubles performants, garantissant un transfert rapide et sans le moindre risque pour vos affaires ni pour les parties communes."
+      "Pour votre <strong>déménagement à Enghien-les-Bains (95880)</strong>, l’adresse exacte compte autant que le volume : emplacement du camion, distance jusqu’à l’entrée, étage et dimensions de l’ascenseur influencent l’organisation. Marne Transdem prépare les projets de particuliers et de bureaux à partir de ces informations, au départ comme à l’arrivée.",
+      "<strong>Anticiper le stationnement :</strong> le <a href=\"https://www.enghienlesbains.fr/sites/default/files/media/downloads/Formulaire%20emme%CC%81nagement%20-%20de%CC%81me%CC%81nagement%202025%20-%20Enghien-les-Bains.pdf\">formulaire municipal de déménagement (PDF, version 2025)</a> indique un dépôt auprès des services techniques au moins <strong>10 jours ouvrés</strong> avant le stationnement. Il précise que l’affichage de l’arrêté ne garantit pas la réservation des places et que le barriérage revient au demandeur. Convenez avec votre déménageur de la personne qui effectue ces démarches et confirmez les modalités en vigueur auprès de la mairie avant l’intervention.",
+      "<strong>Vérifier les contraintes de votre rue :</strong> ce formulaire prévoit notamment un accès limité à 2,90 m de hauteur pour les rues Robert-Schuman et Jean-Monnet, depuis la rue de Malleville. Il indique aussi des restrictions liées au marché pour les rues du Marché, de Puisaye et des Écoles. Transmettez le numéro de rue et les horaires envisagés pour vérifier les conditions applicables à votre adresse ; ces indications ne remplacent pas l’autorisation délivrée pour votre déménagement.",
+      "<strong>Préparer le mobilier et les accès :</strong> listez les meubles, les cartons et les affaires stockées dans les annexes avec notre <a href=\"/calculateur-volume\">calculateur de volume en m³</a>. Signalez les escaliers étroits, les meubles à démonter et les objets lourds. Un <a href=\"/location-monte-meuble-paris\">monte-meuble</a> peut être étudié selon la façade et l’espace disponible ; le formulaire municipal prévoit un rendez-vous avec un technicien lorsque ce matériel est demandé.",
+      "<strong>Comparer les prestations :</strong> choisissez les tâches que vous gardez et celles à confier à l’équipe avec nos <a href=\"/formules-demenagement\">formules de déménagement</a>. Le <a href=\"/blog/combien-coute-demenagement-paris\">guide des critères de prix</a> aide à comparer les devis sur un inventaire et des services équivalents. Pour une <a href=\"/demande-de-devis\">étude de votre déménagement à Enghien-les-Bains</a>, indiquez les deux adresses, la date, les accès et les prestations souhaitées."
     ],
     "faqs": [
       {
         "q": "Quelles sont les spécificités d'un déménagement à Enghien-les-Bains ?",
-        "a": "Unique station thermale d'Île-de-France, Enghien-les-Bains se caractérise par des villas d'architectures remarquables, des résidences de standing autour du lac et un centre-ville d'un fort dynamisme commercial. Ce cadre d'exception requiert des précautions renforcées lors des manutentions, des véhicules de tailles adaptées pour préserver les voiries, et un soin extrême apporté au mobilier d'art et aux objets délicats."
+        "a": "Vérifiez les possibilités de stationnement à votre numéro de rue, les dimensions du véhicule autorisé, la distance de portage et les accès au logement. Le formulaire municipal comporte des prescriptions particulières selon les rues ; elles doivent être vérifiées pour la date et l’adresse de votre intervention."
       },
       {
         "q": "Comment s'organise l'autorisation de stationnement à Enghien-les-Bains (95880) ?",
-        "a": "Nous réalisons en direct l'ensemble des formalités d'AOT (Autorisation d'Occupation Temporaire) auprès de la police municipale et des services techniques de la Mairie de Enghien-les-Bains. Les panneaux officiels d'interdiction et de réservation de stationnement sont positionnés en amont (48h minimum) afin de sécuriser le travail de nos techniciens et l'emplacement de nos camions capitonnés."
+        "a": "Le formulaire municipal 2025 prévoit de déposer la demande aux services techniques au moins 10 jours ouvrés avant le stationnement. L’affichage de l’arrêté ne garantit pas une place réservée ; le demandeur doit organiser le barriérage. Vérifiez auprès de la mairie les modalités actuelles et précisez avec votre déménageur qui prend en charge les démarches."
       },
       {
         "q": "Proposez-vous du transfert de bureaux ou d'activités à Enghien-les-Bains ?",
-        "a": "Tout à fait. Marne Transdem bénéficie d'une solide expertise dans le transfert d'entreprises, hôtels, spas, commerces et professions libérales à Enghien-les-Bains et les communes environnantes. Nous définissons un calendrier strict et une organisation chirurgicale pour perturber le moins possible vos équipes ou vos clients."
+        "a": "Nous étudions les projets de transfert de bureaux selon le mobilier, le matériel, les accès et le calendrier souhaité. Précisez les contraintes de votre activité et les tâches à confier à l’équipe afin de définir les prestations et l’organisation dans le devis."
       },
       {
         "q": "Comment obtenir un devis gratuit pour mon déménagement à Enghien-les-Bains ?",
-        "a": "Pour obtenir une estimation détaillée, contactez-nous par téléphone ou via notre formulaire en ligne. Nous réalisons une visite technique gratuite (sur place ou par liaison vidéo) afin d'évaluer fidèlement le volume de mobilier, d'étudier les accès immobiliers et de vous proposer la formule idéale sous 24h."
+        "a": "Remplissez le formulaire de demande de devis avec vos adresses, la date souhaitée, le volume approximatif, les étages et les accès. Signalez les objets particuliers et les prestations d’emballage ou de démontage souhaitées. Ces informations permettent d’étudier votre projet et de préciser si une évaluation complémentaire est nécessaire."
       }
     ],
     "nearbySectors": [

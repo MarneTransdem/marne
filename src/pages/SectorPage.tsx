@@ -385,7 +385,7 @@ export const SectorPage: React.FC = () => {
             {[
               { title: "Analyse & Devis", icon: ClipboardCheck, desc: "Échange sur vos besoins, dates clés et calcul précis du volume." },
               { title: "Visite technique", icon: Ruler, desc: "Validation sur site ou en visioconférence des contraintes routières et d'accès." },
-              { title: "Formalités administratives", icon: Calendar, desc: "Réservation de votre stationnement de voirie par nos soins." },
+              { title: "Formalités administratives", icon: Calendar, desc: "Démarches de stationnement et responsabilités précisées lors de la préparation du devis." },
               { title: "Exécution le Jour J", icon: Truck, desc: "Chargement, transport et installation par nos compagnons déménageurs." }
             ].map((step, i) => (
               <div key={i} className="relative group text-center">
