@@ -153,8 +153,11 @@ export const QuoteForm: React.FC = () => {
     const toCity = searchParams.get('toCity');
     const toZip = searchParams.get('toZip');
     const volume = searchParams.get('volume');
+    const requestedFormula = searchParams.get('formula');
+    const formula = requestedFormula && ['economique', 'standard', 'luxe'].includes(requestedFormula)
+      ? requestedFormula : '';
 
-    if (from || to || volume) {
+    if (from || to || volume || formula) {
       setFormData(prev => ({
         ...prev,
         fromAddress: from || prev.fromAddress,
@@ -164,6 +167,7 @@ export const QuoteForm: React.FC = () => {
         toCity: toCity || prev.toCity,
         toZip: toZip || prev.toZip,
         volume: volume ? `${volume} m³` : prev.volume,
+        formula: formula || prev.formula,
       }));
     }
   }, [searchParams]);
@@ -515,14 +519,15 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
                 <input name="volume" value={formData.volume} onChange={handleChange} className="form-input-premium w-full" placeholder="Ex: 25 m³" />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Formule souhaitée</label>
-                <select name="formula" value={formData.formula} onChange={handleChange} className={`form-input-premium w-full ${errors.formula ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`}>
+                <label htmlFor="quote-formula" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Formule souhaitée</label>
+                <select id="quote-formula" aria-describedby="quote-formula-help" name="formula" value={formData.formula} onChange={handleChange} className={`form-input-premium w-full ${errors.formula ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`}>
                   <option value="">Choisir ma formule</option>
                   <option value="economique">Économique</option>
                   <option value="standard">Standard</option>
                   <option value="luxe">Luxe</option>
                   <option value="je ne sais pas">Je ne sais pas</option>
                 </select>
+                <p id="quote-formula-help" className="text-sm text-slate-600 dark:text-slate-400">Vous pouvez modifier ce choix ou sélectionner « Je ne sais pas ». Les prestations seront précisées dans votre devis.</p>
                 {errors.formula && <p className="text-red-500 text-xs ml-1 font-medium">{errors.formula}</p>}
               </div>
               <div className="space-y-2">

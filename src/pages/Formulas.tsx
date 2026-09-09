@@ -185,7 +185,7 @@ const FormulasPage: React.FC = () => {
                   </li>
                 ))}
               </ul>
-              <Link to="/demande-de-devis" className="w-full py-4 bg-slate-100 text-brand-900 stay-dark rounded-2xl font-bold text-center hover:bg-slate-200 transition-colors">
+              <Link to="/demande-de-devis?formula=economique" className="w-full py-4 bg-slate-100 text-brand-900 stay-dark rounded-2xl font-bold text-center hover:bg-slate-200 transition-colors">
                 Choisir la formule économique
               </Link>
             </motion.div>
@@ -222,7 +222,7 @@ const FormulasPage: React.FC = () => {
                   </li>
                 ))}
               </ul>
-              <Link to="/demande-de-devis" className="w-full py-4 bg-accent text-brand-900 stay-dark rounded-2xl font-bold text-center hover:bg-accent/90 transition-colors shadow-lg shadow-accent/20">
+              <Link to="/demande-de-devis?formula=standard" className="w-full py-4 bg-accent text-brand-900 stay-dark rounded-2xl font-bold text-center hover:bg-accent/90 transition-colors shadow-lg shadow-accent/20">
                 Choisir la formule standard
               </Link>
             </motion.div>
@@ -255,7 +255,7 @@ const FormulasPage: React.FC = () => {
                   </li>
                 ))}
               </ul>
-              <Link to="/demande-de-devis" className="w-full py-4 bg-slate-100 text-brand-900 stay-dark rounded-2xl font-bold text-center hover:bg-slate-200 transition-colors">
+              <Link to="/demande-de-devis?formula=luxe" className="w-full py-4 bg-slate-100 text-brand-900 stay-dark rounded-2xl font-bold text-center hover:bg-slate-200 transition-colors">
                 Choisir la formule luxe
               </Link>
             </motion.div>
@@ -264,6 +264,19 @@ const FormulasPage: React.FC = () => {
       </section>
 
       {/* 4. Tableau comparatif */}
+      <section aria-labelledby="preparer-choix-formule" className="py-16 bg-slate-50 dark:bg-slate-900">
+        <div className="container mx-auto px-4 md:px-6 max-w-5xl">
+          <h2 id="preparer-choix-formule" className="text-3xl font-bold text-brand-900 dark:text-white mb-6">Avant de choisir : quelles tâches souhaitez-vous déléguer ?</h2>
+          <p className="text-slate-600 dark:text-slate-300 mb-6">Une formule décrit un niveau de prise en charge. Le chiffrage dépend aussi de votre inventaire, du trajet et des accès : comparez les prestations sur la même base.</p>
+          <ol className="space-y-4 text-slate-700 dark:text-slate-200 list-decimal pl-6">
+            <li><strong>Évaluez la préparation que vous pouvez réaliser.</strong> Distinguez la mise en cartons des affaires courantes, l’emballage du fragile et le démontage des meubles. Consultez nos conseils sur l’<Link to="/emballage-protection-demenagement" className="underline underline-offset-4">emballage et la protection</Link>.</li>
+            <li><strong>Précisez les biens concernés.</strong> Listez les meubles à démonter, les objets fragiles et les équipements particuliers. Le <Link to="/calculateur-volume" className="underline underline-offset-4">calculateur de volume</Link> vous aide à préparer l’inventaire.</li>
+            <li><strong>Décrivez les accès aux deux adresses.</strong> Étages, ascenseurs, escaliers et distance entre le camion et l’entrée permettent d’étudier les moyens nécessaires.</li>
+            <li><strong>Relisez le périmètre du devis.</strong> Vérifiez qui emballe, démonte, remonte et déballe, ainsi que les fournitures et interventions prévues. Le <Link to="/blog/combien-coute-demenagement-paris" className="underline underline-offset-4">guide pour comparer les devis</Link> détaille ces critères.</li>
+          </ol>
+          <p className="mt-6 text-slate-600 dark:text-slate-300">Les boutons de choix ci-dessus préremplissent la formule dans votre demande. Vous pouvez la modifier ou choisir « Je ne sais pas » : l’envoi sert à faire étudier votre projet.</p>
+        </div>
+      </section>
       <section className="py-24 bg-white dark:bg-slate-950">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">

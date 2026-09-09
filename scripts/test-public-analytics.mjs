@@ -78,3 +78,36 @@ async function checkForm({failSave=false,failEmail=false}={}) {
 }
 await checkForm(); await checkForm({failEmail:true}); await checkForm({failSave:true});
 console.log('Quote handler: confirmed save, failed save, notification failure and concurrent submit passed.');
+
+// Exercise URL prefill through the actual component effects without submitting a lead.
+for (const requested of ['economique', 'standard', 'luxe', 'unexpected', '']) {
+  let data;
+  const effects = [];
+  const react = {
+    useState(initial) {
+      if (initial?.consent === false) {
+        data = { ...initial, email: 'existing@example.test', formula: 'je ne sais pas' };
+        return [data, update => { data = typeof update === 'function' ? update(data) : update; }];
+      }
+      return [initial, () => {}];
+    },
+    useEffect(effect) { effects.push(effect); }, useRef: value => ({ current: value }),
+    createElement: (type, props, ...children) => ({ type, props, children }),
+  };
+  const mocks = {
+    react, 'motion/react': { motion: { div: 'div' }, AnimatePresence: 'div' }, 'lucide-react': {},
+    'react-router-dom': { Link: 'a', useSearchParams: () => [new URLSearchParams({ formula: requested })] },
+    '../../lib/firebase': { db: {} }, 'firebase/firestore': {}, '../../lib/firestore-errors': {},
+    '@vis.gl/react-google-maps': { useMapsLibrary: () => null }, '../../lib/public-analytics': {},
+    'react/jsx-runtime': { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }) },
+  };
+  const context = { module: { exports: {} }, exports: {}, require: name => {
+    if (!(name in mocks)) throw Error(name); return mocks[name];
+  }, localStorage: { getItem: () => null }, URLSearchParams };
+  vm.runInNewContext(formBuild.outputFiles[0].text, context);
+  context.module.exports.QuoteForm();
+  effects.forEach(effect => effect());
+  assert.equal(data.formula, ['economique', 'standard', 'luxe'].includes(requested) ? requested : 'je ne sais pas');
+  assert.equal(data.email, 'existing@example.test', 'prefill must preserve existing form fields');
+}
+console.log('Formula handoff: three valid selections applied, invalid values ignored, existing fields preserved.');
