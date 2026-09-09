@@ -215,10 +215,10 @@ export const SectorPage: React.FC = () => {
                 {sector.type === 'longue-distance' ? 'Protection renforcée sur la distance' : 'Préparation des accès et du stationnement'}
               </h3>
               <p className="text-slate-600 font-light leading-relaxed text-justify">
-                Chaque transition représente une étape de vie importante. Marne Transdem gère l'intégralité des contraintes techniques : sélection minutieuse de la taille du fourgon capitonné, préparation des demandes de stationnement nécessaires, et utilisation d'équipements de manutention de dernière génération.
+                Pour préparer le chargement et la livraison, indiquez le volume estimé, les dimensions des passages et la distance entre le véhicule et chaque entrée. Ces informations permettent d’étudier le véhicule et les moyens de manutention adaptés à votre projet.
               </p>
               <p className="text-slate-600 font-light leading-relaxed text-justify">
-                Avant l’intervention, nous vérifions avec vous les accès, les possibilités de stationnement et les meubles qui demandent une manutention particulière. De l'emballage minutieux de votre vaisselle fine à la protection sous housses de vos meubles laqués, rien n'est laissé au hasard.
+                Signalez les meubles difficiles à déplacer et les objets fragiles avant le chiffrage. Faites préciser dans le devis les protections prévues, la répartition des tâches d’emballage et la personne chargée des éventuelles démarches de stationnement.
               </p>
 
               <div className="space-y-4">
@@ -227,8 +227,8 @@ export const SectorPage: React.FC = () => {
                     <CheckCircle2 className="text-accent" size={20} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-brand-900 uppercase text-xs tracking-wider">Flotte moderne de véhicules</h4>
-                    <p className="text-sm text-slate-500 font-light mt-1">Utilisation de fourgons capitonnés agiles ou de grands porteurs routiers adaptés aux restrictions de tonnage locales.</p>
+                    <h4 className="font-bold text-brand-900 uppercase text-xs tracking-wider">Accès du véhicule</h4>
+                    <p className="text-sm text-slate-500 font-light mt-1">Précisez les restrictions de hauteur ou de tonnage connues, la largeur des accès et les horaires autorisés à chaque adresse.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -246,10 +246,10 @@ export const SectorPage: React.FC = () => {
             <div className="bg-white p-12 rounded-[2.5rem] shadow-sm border border-slate-100 space-y-8">
               <h3 className="text-2xl font-bold text-brand-900 uppercase italic">Élévation extérieure par Monte-meubles</h3>
               <p className="text-slate-600 font-light leading-relaxed text-justify">
-                Lorsque des canapés d'angle, des pianos ou des armoires massives ne passent pas par les ascenseurs ou les escaliers étroits, nous mettons en place un monte-meubles d'extérieur performant.
+                Si un meuble ne passe pas par l’ascenseur ou l’escalier, un monte-meuble peut être étudié. Transmettez les dimensions du meuble et des ouvertures, l’étage et les informations sur l’emplacement envisagé pour l’appareil.
               </p>
               <p className="text-slate-600 font-light leading-relaxed text-justify">
-                Cette solution technique protège l'intégrité de vos biens et évite la dégradation des parties communes de votre copropriété. Nous analysons préalablement la faisabilité technique liée aux arbres et lignes électriques de la rue.
+                Son utilisation dépend de la faisabilité technique et des autorisations applicables. Les obstacles, les conditions d’installation et les biens à déplacer doivent être examinés avant de retenir cette solution et de préciser son coût dans le devis.
               </p>
               <div className="pt-4">
                 <Link to="/location-monte-meuble-paris" className="inline-flex items-center gap-2 text-accent font-black uppercase text-xs tracking-widest hover:text-brand-900 transition-colors">
@@ -274,9 +274,9 @@ export const SectorPage: React.FC = () => {
               { title: "Particuliers", path: "/demenagement-particuliers-paris", desc: "Logement complet, studio ou grand appartement familial." },
               { title: "Entreprises", path: "/demenagement-entreprises-paris", desc: "Bureaux, commerces, agences et transferts professionnels." },
               { title: "Garde-meuble", path: "/garde-meuble-paris", desc: "Stockage sécurisé temporaire ou longue durée." },
-              { title: "Monte-meuble", path: "/location-monte-meuble-paris", desc: "Location de monte-meubles télescopiques avec technicien." },
-              { title: "Emballage", path: "/emballage-protection-demenagement", desc: "Matériel et protections premium pour vos objets fragiles." },
-              { title: "Matériel", path: "/cartons-demenagement-paris", desc: "Livraison de cartons solides et fournitures professionnelles." },
+              { title: "Monte-meuble", path: "/location-monte-meuble-paris", desc: "Étude des accès et des possibilités d’intervention." },
+              { title: "Emballage", path: "/emballage-protection-demenagement", desc: "Préparation et protection des meubles et objets fragiles." },
+              { title: "Matériel", path: "/cartons-demenagement-paris", desc: "Cartons et fournitures à prévoir selon votre inventaire." },
               { title: "Formules", path: "/formules-demenagement", desc: "3 offres adaptées à votre budget et à vos besoins." },
               { title: "Sur mesure", path: "/contact", desc: "Une configuration personnalisée pour les projets atypiques." }
             ].map((service, i) => (
@@ -317,7 +317,7 @@ export const SectorPage: React.FC = () => {
                   Marne Transdem accompagne les particuliers pour les déménagements de villas, d'appartements, de studios ou de résidences secondaires {sectorLocation} ou vers une autre destination nationale.
                 </p>
                 <p>
-                  Nous prenons en charge la manutention sécurisée, la mise en cartons de vos affaires et la fourniture de penderies rigides debout pour vos vêtements précieux. Nous vous orientons vers la formule d'accompagnement idéale pour simplifier votre changement de vie.
+                  La préparation des cartons, l’emballage des objets fragiles et le démontage du mobilier dépendent des prestations retenues. Consultez le <Link to="/formules-demenagement" className="underline">comparatif des formules</Link>, puis faites préciser les tâches et les fournitures incluses dans votre devis.
                 </p>
               </div>
               <Link 
@@ -343,7 +343,7 @@ export const SectorPage: React.FC = () => {
                   Les exigences logistiques d'un transfert professionnel {sectorLocation} nécessitent un planning convenu avec votre entreprise. Marne Transdem minimise l'impact opérationnel sur vos équipes en tenant compte des horaires et des étapes de reprise définis avec vous.
                 </p>
                 <p>
-                  Nous prenons en charge le démontage des espaces de travail collectifs, le transfert sécurisé de vos serveurs informatiques sous emballages antistatiques, et l'archivage méthodique de vos dossiers professionnels. Les horaires particuliers sont à convenir lors de la préparation du devis.
+                  Dressez l’inventaire des postes, du mobilier et des archives à déplacer. Pour les équipements informatiques ou les documents sensibles, précisez les contraintes de transport et les responsabilités de chaque intervenant. Le démontage, la remise en place et les horaires particuliers sont à convenir dans le devis. Notre <Link to="/blog/demenagement-entreprise-paris-checklist" className="underline">liste de préparation d’un transfert de bureaux</Link> vous aide à organiser ces informations.
                 </p>
               </div>
               <Link 
@@ -378,9 +378,9 @@ export const SectorPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {[
-              { name: "Économique", desc: "La formule essentielle : vous préparez vos cartons, nos compagnons effectuent la manutention sécurisée et le transport routier." },
-              { name: "Standard", desc: "Le meilleur compromis : nos équipes emballent et déballent toute votre vaisselle, verres et objets fragiles." },
-              { name: "Luxe", desc: "Tranquillité absolue : nous gérons la mise en cartons intégrale de l'ensemble de vos effets et la réinstallation de vos biens." }
+              { name: "Économique", desc: "Vous préparez vos cartons. Consultez le comparatif pour vérifier la manutention, le transport et les autres tâches prévues." },
+              { name: "Standard", desc: "Un accompagnement pour les objets fragiles. Vérifiez la répartition de l’emballage et du déballage dans le comparatif et votre devis." },
+              { name: "Luxe", desc: "Une prise en charge plus étendue de la préparation. Faites préciser les tâches d’emballage, de déballage et de remise en place retenues." }
             ].map((f, i) => (
               <div key={i} className="bg-white p-12 rounded-[2.5rem] border border-slate-200 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between">
                 <div>
@@ -412,8 +412,8 @@ export const SectorPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
-              { title: "Analyse & Devis", icon: ClipboardCheck, desc: "Échange sur vos besoins, dates clés et calcul précis du volume." },
-              { title: "Visite technique", icon: Ruler, desc: "Validation sur site ou en visioconférence des contraintes routières et d'accès." },
+              { title: "Analyse & Devis", icon: ClipboardCheck, desc: "Échange sur votre inventaire, les dates envisagées et les prestations souhaitées." },
+              { title: "Étude des accès", icon: Ruler, desc: "Informations sur les passages et le stationnement ; modalités de visite à convenir selon le projet." },
               { title: "Formalités administratives", icon: Calendar, desc: "Démarches de stationnement et responsabilités précisées lors de la préparation du devis." },
               { title: "Exécution le Jour J", icon: Truck, desc: "Chargement, transport et installation par nos compagnons déménageurs." }
             ].map((step, i) => (
@@ -437,9 +437,9 @@ export const SectorPage: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="bg-slate-100 rounded-[3rem] p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12">
             <div className="max-w-xl">
-              <h2 className="text-2xl md:text-4xl font-black text-brand-900 mb-6 font-display leading-tight">Estimez précisément votre volume en m³</h2>
+              <h2 className="text-2xl md:text-4xl font-black text-brand-900 mb-6 font-display leading-tight">Obtenez une première estimation du volume en m³</h2>
               <p className="text-slate-500 font-light leading-relaxed italic">
-                Utilisez notre simulateur de cubage interactif en ligne pour évaluer la capacité nécessaire au transport de vos biens.
+                Faites l’inventaire de vos meubles et cartons dans le calculateur. Le résultat constitue une estimation à compléter avec les dimensions des biens atypiques et les informations sur vos accès.
               </p>
             </div>
             <Link 
