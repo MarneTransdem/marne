@@ -182,24 +182,24 @@ export const sectorsData: Sector[] = [
     ],
     "faqs": [
       {
-        "q": "How to organize a move to Antony?",
-        "a": "A move to Antony requires anticipating volume, access, floors, possible elevators, parking, and box preparation. In a residential city with both apartments and houses, it's important to evaluate cellars, garages, parking, bulky furniture, and fragile objects. Marne Transdem helps you define an organization adapted to your housing, your belongings, and the desired level of support."
+        "q": "Comment préparer un déménagement à Antony ?",
+        "a": "Préparez l’inventaire de vos meubles et cartons, puis relevez les accès, les étages, les dimensions de l’ascenseur et les possibilités de stationnement aux deux adresses. Pensez aux biens placés dans la cave ou le garage, aux meubles encombrants et aux objets fragiles. Ces informations permettent d’étudier une organisation adaptée à votre logement et aux prestations souhaitées."
       },
       {
-        "q": "Does Marne Transdem intervene in Antony and nearby cities?",
-        "a": "Yes, Marne Transdem supports moving projects in Antony and nearby sectors such as Sceaux, Bourg-la-Reine, Châtenay-Malabry, Massy, Fresnes, Verrières-le-Buisson, Wissous, Rungis, L’Haÿ-les-Roses, and more broadly in Hauts-de-Seine according to project needs."
+        "q": "Marne Transdem intervient-elle à Antony et dans les communes voisines ?",
+        "a": "Marne Transdem accompagne les projets à Antony et dans les secteurs voisins, notamment Sceaux, Bourg-la-Reine et Châtenay-Malabry, ainsi que plus largement en Île-de-France selon les besoins du projet. Indiquez les communes de départ et d’arrivée dans votre demande pour permettre l’étude de votre trajet."
       },
       {
-        "q": "Can we request a furniture lift in Antony?",
-        "a": "Yes, a furniture lift can be considered when bulky furniture doesn't easily pass through the stairs or elevator. Its setup depends on the street configuration, the facade, access, and technical feasibility."
+        "q": "Peut-on prévoir un monte-meuble à Antony ?",
+        "a": "Un monte-meuble peut être envisagé lorsque le passage d’un meuble par l’escalier ou l’ascenseur pose difficulté. Son utilisation dépend de la configuration de la rue, de la façade, des ouvertures et de la faisabilité technique. Les conditions d’installation et les autorisations applicables doivent être vérifiées avant de retenir cette solution."
       },
       {
-        "q": "Which formula to choose for a move to Antony?",
-        "a": "The formula depends on your budget, available time to prepare your boxes, and the desired level of support. The Economic formula is suitable if you prepare a large part of your belongings, the Standard formula offers a balance between autonomy and support, and the Luxury formula allows delegating more depending on the chosen service."
+        "q": "Quelle formule choisir pour un déménagement à Antony ?",
+        "a": "Le choix dépend du temps disponible pour préparer vos affaires, de votre budget et des tâches que vous souhaitez confier aux déménageurs. Comparez les formules Économique, Standard et Luxe, puis faites préciser dans le devis qui réalise les cartons, l’emballage des objets fragiles, le démontage et la remise en place du mobilier."
       },
       {
-        "q": "How to get a quote for a move to Antony?",
-        "a": "You can fill out the quote request form or contact Marne Transdem by phone. The estimate takes into account the volume, addresses, access, floors, desired formula, and specific needs such as packing, storage, or furniture lift."
+        "q": "Comment obtenir un devis de déménagement à Antony ?",
+        "a": "Remplissez le formulaire de demande de devis ou contactez Marne Transdem par téléphone. Indiquez les adresses, la période envisagée, le volume estimé, les étages et les accès. Précisez aussi la formule souhaitée et les besoins éventuels d’emballage, de stockage ou de monte-meuble pour permettre un chiffrage adapté."
       }
     ],
     "nearbySectors": [
