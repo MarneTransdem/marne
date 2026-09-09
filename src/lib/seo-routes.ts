@@ -1,5 +1,5 @@
 import sectorsData from '../constants/sectorMetadata.json' with { type: 'json' };
-import { getSectorLabel } from './sector-label';
+import { getSectorLabel } from './sector-label.ts';
 export const SITE_URL = 'https://www.devisdemenagement-paris.com';
 export const SITE_NAME = 'Marne Transdem';
 export const DEFAULT_OG_IMAGE = '/images/demenagement-paris-9.webp';
