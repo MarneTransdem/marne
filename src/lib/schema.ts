@@ -4,9 +4,11 @@ import { DEFAULT_OG_IMAGE, SITE_URL } from './seo-routes';
 export const getOrganizationSchema = () => ({
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "Marne Transdem",
+  "@id": `${SITE_URL}/#organization`,
+  "name": CONTACT.name,
   "url": SITE_URL,
   "logo": `${SITE_URL}/logo.png`,
+  "email": CONTACT.email,
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": CONTACT.phone.replace(/\s/g, ''),
@@ -22,7 +24,9 @@ export const getOrganizationSchema = () => ({
 export const getLocalBusinessSchema = () => ({
   "@context": "https://schema.org",
   "@type": "MovingCompany",
-  "name": "Marne Transdem",
+  "name": CONTACT.name,
+  "logo": `${SITE_URL}/logo.png`,
+  "email": CONTACT.email,
   "image": `${SITE_URL}${DEFAULT_OG_IMAGE}`,
   "@id": `${SITE_URL}/#organization`,
   "url": SITE_URL,
@@ -30,27 +34,9 @@ export const getLocalBusinessSchema = () => ({
   "address": {
     "@type": "PostalAddress",
     "streetAddress": CONTACT.address,
-    "addressLocality": "Paris",
-    "postalCode": "75020",
+    "addressLocality": CONTACT.city,
+    "postalCode": CONTACT.zipCode,
     "addressCountry": "FR"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 48.8631,
-    "longitude": 2.4001
-  },
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday"
-    ],
-    "opens": "08:00",
-    "closes": "19:00"
   },
   "areaServed": {
     "@type": "State",
@@ -79,7 +65,7 @@ export const getServiceSchema = (name: string, description: string) => ({
   "provider": {
     "@id": `${SITE_URL}/#organization`,
     "@type": "MovingCompany",
-    "name": "Marne Transdem"
+    "name": CONTACT.name
   },
   "name": name,
   "description": description,
