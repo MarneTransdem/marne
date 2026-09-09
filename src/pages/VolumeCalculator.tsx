@@ -158,6 +158,21 @@ const ITEM_CATALOG: Item[] = [
 
 const LOCAL_STORAGE_KEY = 'marne_transdem_volume_estimate';
 
+const VOLUME_FAQS = [
+  { q: 'Comment calculer le volume d’un déménagement ?', a: 'Ajoutez les meubles et les cartons pièce par pièce. Le calculateur additionne le volume indicatif de chaque objet multiplié par sa quantité. Pour un objet personnalisé, renseignez votre estimation en m³.' },
+  { q: 'Comment convertir des dimensions en mètres cubes ?', a: 'Multipliez la longueur, la largeur et la hauteur exprimées en mètres. Un carton de 50 × 40 × 30 cm représente ainsi 0,50 × 0,40 × 0,30 = 0,06 m³. Les valeurs du catalogue restent des repères : vos objets peuvent avoir des dimensions différentes.' },
+  { q: 'À quoi sert la marge de 10 % ?', a: 'Cette option augmente de 10 % le total calculé pour prévoir une réserve de volume. Elle ne remplace pas un inventaire complet. Le volume conseillé est ensuite arrondi au mètre cube supérieur ; ce n’est pas une capacité de camion garantie.' },
+  { q: 'Le volume estimé est-il définitif ?', a: 'Non. Les dimensions réelles, les protections, le démontage et le rangement dans le camion peuvent modifier le volume occupé. L’équipe pourra affiner votre estimation avant de confirmer la prestation.' },
+  { q: 'Puis-je transmettre mon estimation dans le devis ?', a: 'Oui. Après avoir renseigné votre inventaire, utilisez « Continuer vers le devis ». Le volume et le récapitulatif sont repris dans le formulaire sur ce navigateur. Vous pouvez les vérifier avant d’envoyer votre demande.' },
+];
+
+const EXAMPLE_ITEMS = ['sofa2', 'coffee-table', 'box-std'].map((id) => {
+  const item = ITEM_CATALOG.find((entry) => entry.id === id)!;
+  return { ...item, quantity: id === 'box-std' ? 10 : 1 };
+});
+const EXAMPLE_VOLUME = EXAMPLE_ITEMS.reduce((total, item) => total + item.volume * item.quantity, 0);
+const formatVolume = (volume: number) => volume.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
 // --- Components ---
 
 const VolumeCalculator: React.FC = () => {
@@ -526,6 +541,7 @@ const VolumeCalculator: React.FC = () => {
   };
 
   const handleFinish = () => {
+    if (totalVolume <= 0) return;
     const estimate = {
       estimatedVolume: Number(totalVolume.toFixed(2)),
       recommendedVolume: Math.ceil(totalVolume),
@@ -559,12 +575,7 @@ const VolumeCalculator: React.FC = () => {
             { name: "Accueil", item: "/" },
             { name: "Calculateur de volume", item: "/calculateur-volume" }
           ]),
-          getFAQSchema([
-            { q: "Comment calculer le volume d’un déménagement ?", a: "Notre calculateur vous permet d’ajouter vos meubles et cartons pièce par pièce pour obtenir une estimation indicative en mètres cubes." },
-            { q: "Le volume estimé est-il définitif ?", a: "L’équipe Marne Transdem peut affiner cette estimation selon votre inventaire, vos accès et les caractéristiques de votre projet." },
-            { q: "Pourquoi le volume peut-il varier ?", a: "Le volume dépend de l’agencement dans le camion, du démontage des meubles et du type de cartons utilisés." },
-            { q: "Puis-je transmettre l’estimation à Marne Transdem ?", a: "Oui, en cliquant sur 'Continuer vers le devis', vos données seront automatiquement intégrées à votre demande." }
-          ])
+          getFAQSchema(VOLUME_FAQS)
         ]}
       />
 
@@ -587,7 +598,7 @@ const VolumeCalculator: React.FC = () => {
           </h1>
           
           <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
-            Estimez le volume approximatif de vos meubles, cartons et objets afin de préparer votre demande de devis plus facilement.
+            Calculez un volume indicatif en m³ en ajoutant vos meubles et cartons pièce par pièce. Vérifiez les quantités, puis transmettez votre inventaire dans la demande de devis.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -1024,6 +1035,7 @@ const VolumeCalculator: React.FC = () => {
                           <div className="flex items-center gap-2 mt-1">
                             <button
                               onClick={() => removeLastRoomOfType(type.id)}
+                              aria-label={`Retirer une pièce ${type.name}`}
                               disabled={count === 0}
                               className={`w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold border ${
                                 count > 0 
@@ -1038,6 +1050,7 @@ const VolumeCalculator: React.FC = () => {
                             </span>
                             <button
                               onClick={() => addRoom(type.id)}
+                              aria-label={`Ajouter une pièce ${type.name}`}
                               className="w-6 h-6 rounded-lg bg-accent text-brand-900 flex items-center justify-center hover:bg-accent/90 shadow-sm text-xs font-bold cursor-pointer"
                             >
                               <Plus size={10} />
@@ -1142,6 +1155,7 @@ const VolumeCalculator: React.FC = () => {
                                 <div className="flex items-center gap-1 bg-slate-50 p-1 rounded-lg border border-slate-100">
                                   <button 
                                     onClick={() => updateQuantity(activeRoom.id, roomItem!.id, -1)}
+                                    aria-label={`Retirer ${item.name}`}
                                     disabled={quantity === 0}
                                     className={`w-6 h-6 rounded bg-white shadow-sm flex items-center justify-center transition-all ${quantity > 0 ? 'hover:bg-slate-100' : 'opacity-20 cursor-default'}`}
                                   >
@@ -1150,6 +1164,7 @@ const VolumeCalculator: React.FC = () => {
                                   <span className={`font-black text-[10px] w-6 text-center ${quantity > 0 ? 'text-brand-900' : 'text-slate-350'}`}>{quantity}</span>
                                   <button 
                                     onClick={() => addItemToRoom(activeRoom.id, item)}
+                                    aria-label={`Ajouter ${item.name}`}
                                     className="w-6 h-6 rounded bg-accent text-brand-900 flex items-center justify-center hover:bg-accent/90 shadow-sm"
                                   >
                                     <Plus size={10} />
@@ -1378,7 +1393,7 @@ const VolumeCalculator: React.FC = () => {
                       disabled={totalVolume === 0}
                       className="w-full bg-accent text-brand-900 py-5 rounded-2xl font-black text-center shadow-lg hover:bg-accent/90 transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group cursor-pointer"
                     >
-                      Valider l'estimation
+                      Continuer vers le devis
                       <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                     </button>
                   )}
@@ -1408,12 +1423,7 @@ const VolumeCalculator: React.FC = () => {
                     <h4 className="font-bold text-brand-900">Suggestion indicative</h4>
                   </div>
                   <p className="text-xs text-slate-500 leading-relaxed mb-6 font-light">
-                    {totalItems > 40 
-                      ? "Votre volume semble important, nous suggérons la formule Luxe pour un accompagnement complet." 
-                      : totalItems > 20 
-                      ? "La formule Standard est souvent la plus équilibrée pour ce type de volume." 
-                      : "Pour ce volume, la formule Économique peut être une option intéressante."
-                    }
+                    Le volume seul ne détermine pas la formule. Choisissez selon le temps dont vous disposez et les tâches à confier à l’équipe : emballage, protection, démontage et remontage selon le devis.
                   </p>
                   <Link to="/formules-demenagement" className="text-accent font-black text-[10px] uppercase tracking-widest hover:underline flex items-center gap-2">
                     Comparer les formules
@@ -1427,16 +1437,34 @@ const VolumeCalculator: React.FC = () => {
       </section>
 
       {/* FAQ Section */}
+      <section className="py-16 bg-slate-50" aria-labelledby="comprendre-volume">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 id="comprendre-volume" className="text-3xl font-black text-brand-900 mb-6">Comprendre votre estimation en m³</h2>
+          <p className="text-slate-600 leading-relaxed mb-6">L’outil utilise un volume indicatif pour chaque référence du catalogue. Il multiplie ce volume par la quantité sélectionnée, puis additionne toutes les pièces. Pour un meuble atypique, utilisez l’ajout d’un objet personnalisé avec votre propre estimation.</p>
+          <div className="bg-white border border-slate-200 rounded-2xl p-6 mb-8">
+            <h3 className="text-xl font-bold text-brand-900 mb-4">Exemple : un canapé, une table basse et dix cartons</h3>
+            <ul className="space-y-3 text-slate-600">
+              {EXAMPLE_ITEMS.map(item => <li key={item.id}>{item.name} : {item.quantity} × {formatVolume(item.volume)} = <strong>{formatVolume(item.quantity * item.volume)} m³</strong>.</li>)}
+            </ul>
+            <p className="mt-5 text-slate-600">Total de cet inventaire : <strong>{formatVolume(EXAMPLE_VOLUME)} m³</strong>. Avec la marge de 10 % : <strong>{formatVolume(EXAMPLE_VOLUME * 1.1)} m³</strong>, puis <strong>{Math.ceil(EXAMPLE_VOLUME * 1.1)} m³</strong> après arrondi supérieur. Vous pouvez reproduire cet exemple dans une pièce « Salon » ; il ne représente pas le contenu complet d’un logement.</p>
+          </div>
+          <h3 className="text-xl font-bold text-brand-900 mb-4">Avant de transmettre votre inventaire</h3>
+          <ul className="list-disc pl-5 space-y-3 text-slate-600">
+            <li>Ajoutez les affaires de la cave, du garage, du balcon et des placards.</li>
+            <li>Comptez les cartons contenant les affaires rangées dans les meubles ; évitez de compter deux fois le même objet.</li>
+            <li>Vérifiez les dimensions des meubles atypiques et signalez les objets lourds ou fragiles dans votre demande.</li>
+            <li>Si vous utilisez l’analyse de photos, contrôlez les objets détectés et ajoutez ceux qui ne sont pas visibles.</li>
+          </ul>
+          <p className="mt-6 text-slate-600 leading-relaxed">La surface en m² ne suffit pas à déterminer le volume à transporter. Notre <Link to="/blog/comment-estimer-volume-demenagement" className="underline font-medium text-brand-900">guide pour estimer le volume d’un déménagement</Link> explique les limites des approximations et la préparation de l’inventaire.</p>
+          <p className="mt-4 text-slate-600 leading-relaxed">Un résultat en m³ n’est pas un prix. La distance, les accès et les <Link to="/formules-demenagement" className="underline font-medium text-brand-900">prestations choisies</Link> interviennent aussi. Consultez le <Link to="/blog/combien-coute-demenagement-paris" className="underline font-medium text-brand-900">guide des critères de prix</Link> avant de comparer les devis.</p>
+        </div>
+      </section>
+
       <section className="py-24 bg-white stay-white-bg">
         <div className="container mx-auto px-4 max-w-4xl">
           <h2 className="text-3xl font-black text-brand-900 stay-dark mb-12 text-center">Questions fréquentes sur le volume</h2>
           <div className="space-y-6">
-            {[
-              { q: "Comment calculer le volume d’un déménagement ?", a: "Le volume se calcule en multipliant la longueur par la largeur par la hauteur de chaque meuble et carton. Notre outil automatise ce calcul pour vous." },
-              { q: "Le volume estimé est-il définitif ?", a: "L’équipe Marne Transdem peut affiner cette estimation selon votre inventaire, vos accès et les caractéristiques de votre projet." },
-              { q: "Pourquoi le volume peut-il varier ?", a: "Le 'vide' entre les meubles dans le camion, le type de cartons et le démontage ou non du mobilier influencent le volume total occupé." },
-              { q: "Puis-je modifier mon estimation après avoir commencé ?", a: "Oui, vous pouvez ajouter ou retirer des objets et des pièces à tout moment avant de soumettre vos données." }
-            ].map((faq, i) => (
+            {VOLUME_FAQS.map((faq, i) => (
               <div key={i} className="p-8 bg-slate-50 stay-light-section rounded-[2.5rem] border border-slate-100">
                 <h4 className="font-black text-brand-900 stay-dark text-lg mb-4">{faq.q}</h4>
                 <p className="text-slate-500 stay-dark font-light leading-relaxed opacity-80">{faq.a}</p>
@@ -1454,7 +1482,7 @@ const VolumeCalculator: React.FC = () => {
             Obtenez une estimation personnalisée en transmettant votre volume indicatif à notre équipe.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button onClick={handleFinish} className="bg-accent text-white px-12 py-5 rounded-full font-bold text-lg hover:bg-accent/90 transition-all shadow-xl shadow-accent/20">
+            <button onClick={handleFinish} disabled={totalVolume <= 0} className="bg-accent text-brand-900 px-12 py-5 rounded-full font-bold text-lg hover:bg-accent/90 transition-all shadow-xl shadow-accent/20 disabled:opacity-50 disabled:cursor-not-allowed">
               Demander mon devis personnalisé
             </button>
             <Link to="/contact" className="bg-white text-brand-900 border border-slate-200 px-10 py-5 rounded-full font-bold text-lg hover:bg-slate-50 transition-all">
