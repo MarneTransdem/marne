@@ -14,6 +14,7 @@ for (const url of urls) {
   if (canonicals.length !== 1 || new URL(canonicals[0]).href !== url.href) errors.push(`${url.pathname}: canonical ${canonicals.join(', ')}`);
   if (titles.length !== 1 || h1 !== 1) errors.push(`${url.pathname}: ${titles.length} titles, ${h1} h1`);
   if (/name="robots" content="noindex/.test(html)) errors.push(`${url.pathname}: noindex`);
+  if (/<link\b[^>]*\bto\s*=/i.test(html)) errors.push(`${url.pathname}: React Link markup rendered as HTML instead of a crawlable anchor`);
   const links = [...html.matchAll(/<a\b[^>]*href="([^"]*)"/g)].map(x => x[1].replaceAll('&amp;', '&'));
   const internal = [...new Set(links.filter(x => x.startsWith('/') && !x.startsWith('//')).map(x => new URL(x, url).pathname))];
   for (const target of internal) if (!paths.has(target)) errors.push(`${url.pathname} -> ${target}`);
