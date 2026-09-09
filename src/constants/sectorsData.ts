@@ -6745,12 +6745,12 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "saint-ouen",
-    "name": "Saint Ouen",
+    "name": "Saint-Ouen-sur-Seine",
     "type": "local",
-    "seoTitle": "Déménagement Saint-Ouen | Particuliers & Entreprises | Marne Transdem",
-    "seoDescription": "Besoin d'un déménageur à Saint-Ouen (93400) ? Marne Transdem accompagne les particuliers et entreprises dans leur projet de déménagement à Saint-Ouen. Devis Gratuit.",
+    "seoTitle": "Déménagement Saint-Ouen-sur-Seine (93400) | Marne Transdem",
+    "seoDescription": "Préparez votre déménagement à Saint-Ouen-sur-Seine (93400) : volume, accès, prestations pour particuliers et entreprises, et demande de devis personnalisé.",
     "seoImage": null,
-    "heroSubtitle": "Un accompagnement complet pour votre projet de déménagement à Saint-Ouen. Expertise locale pour une transition sereine et maîtrisée.",
+    "heroSubtitle": "Vous préparez un déménagement à Saint-Ouen-sur-Seine (93400) ? Indiquez votre inventaire, les accès aux deux adresses et les prestations souhaitées pour étudier votre projet avec Marne Transdem.",
     "introParagraphs": [
       "Saint-Ouen est une ville en pleine mutation, offrant un cadre de vie dynamique au portes de Paris. Qu'il s'agisse de quartiers historiques, de nouveaux éco-quartiers ou de zones d'activités, votre déménagement dans cette ville exige une préparation rigoureuse.",
       "Chez <strong>Marne Transdem</strong>, nous connaissons Saint-Ouen sur le bout des doigts. Nous anticipons les contraintes d'accès propres à chaque adresse pour vous proposer des solutions de déménagement personnalisées : véhicules adaptés aux rues étroites, usage de monte-meubles, gestion administrative du stationnement.",

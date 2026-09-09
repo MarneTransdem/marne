@@ -223,6 +223,11 @@ export const departmentCityGroups: Record<string, { name: string; cities: { slug
         "slug": "saint-denis",
         "name": "Saint-Denis",
         "inseeCode": "93066"
+      },
+      {
+        "slug": "saint-ouen",
+        "name": "Saint-Ouen-sur-Seine",
+        "inseeCode": "93070"
       }
     ]
   },
