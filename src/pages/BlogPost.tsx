@@ -440,13 +440,13 @@ const posts: Record<string, BlogPostData> = {
   },
   'combien-coute-demenagement-paris': {
     slug: 'combien-coute-demenagement-paris',
-    updated: '8 septembre 2026',
-    title: 'Combien coûte un déménagement à Paris ? Prix, critères et exemples de devis',
+    updated: '9 septembre 2026',
+    title: 'Combien coûte un déménagement à Paris ? Budget et comparaison des devis',
     excerpt:
-      'Le prix d’un déménagement à Paris dépend du volume, de l’étage, de l’ascenseur et des contraintes d’accès. Découvrez nos exemples de devis et conseils pour bien comparer.',
+      'Volume, accès, trajet et prestations : comprenez les critères du prix et utilisez notre grille pour comparer les devis de déménagement à Paris.',
     metaTitle: 'Combien coûte un déménagement à Paris ? Prix, critères et devis | Marne Transdem',
     metaDesc:
-      'Découvrez le prix d’un déménagement à Paris selon le volume, l’étage, l’ascenseur, le monte-meuble, la distance, la formule choisie et les contraintes d’accès. Exemples de devis et conseils pour bien comparer.',
+      'Prix d’un déménagement à Paris : repères de budget, volume, accès et prestations. Découvrez les points à vérifier pour comparer vos devis à service égal.',
     keywords:
       'prix déménagement Paris, tarif déménagement Paris, devis déménagement Paris, combien coûte un déménagement à Paris, prix déménageur Paris, coût déménagement appartement Paris, déménagement Paris pas cher, devis déménagement appartement Paris, prix déménagement m3',
     date: '18 mai 2026',
@@ -507,6 +507,17 @@ const posts: Record<string, BlogPostData> = {
 
       <p>Voici les critères à connaître pour comprendre le prix d’un déménagement à Paris et éviter les mauvaises surprises.</p>
 
+      <nav aria-label="Sommaire du guide des prix" class="not-prose my-8 rounded-2xl bg-slate-50 p-6 border border-slate-200">
+        <p class="font-bold text-brand-900 mb-3">Dans ce guide</p>
+        <ul class="grid gap-3 text-sm sm:grid-cols-2">
+          <li><a href="#budget-volume" class="underline">Budget et volume</a></li>
+          <li><a href="#situations" class="underline">Situations à faire chiffrer</a></li>
+          <li><a href="#comparer-devis" class="underline">Grille de comparaison des devis</a></li>
+          <li><a href="#preparer-devis" class="underline">Préparer votre demande</a></li>
+        </ul>
+        <p class="mt-5 text-sm">Vous connaissez déjà votre projet ? <a href="/demande-de-devis" class="font-bold underline">Demandez votre devis personnalisé</a>.</p>
+      </nav>
+
       <h2>Pourquoi le prix d’un déménagement à Paris varie autant ?</h2>
       <p>Le déménagement est une prestation sur mesure. Le prix ne se calcule pas uniquement au kilomètre ou au mètre cube. Il dépend de l’ensemble des conditions d’intervention.</p>
       <p>À Paris, plusieurs facteurs peuvent compliquer l’organisation : rues étroites, stationnement difficile, immeubles anciens, escaliers exigus, ascenseurs trop petits, étages élevés, cours intérieures, caves encombrées, accès réglementés, horaires imposés par la copropriété, besoin d’un monte-meuble et distance importante entre le camion et l’entrée.</p>
@@ -514,7 +525,7 @@ const posts: Record<string, BlogPostData> = {
       <p>Un bon devis doit répondre à plusieurs questions : Quel volume faut-il transporter ? Quelle est la distance entre les deux adresses ? Le camion peut-il stationner devant l’immeuble ? Y a-t-il un ascenseur ? Les meubles passent-ils par l’escalier ? Faut-il démonter certains meubles ? Faut-il prévoir un monte-meuble ? Quelle formule le client souhaite-t-il ? Y a-t-il des objets fragiles, lourds ou spécifiques ? Le déménagement se fait-il en semaine, le week-end, en fin de mois ou en période chargée ?</p>
       <p>Plus ces informations sont précises, plus le prix est fiable.</p>
 
-      <h2>Budget indicatif selon le volume</h2>
+      <h2 id="budget-volume" class="scroll-mt-32">Budget indicatif selon le volume</h2>
       <p>Les montants ci-dessous sont des repères indicatifs, pas une grille tarifaire Marne Transdem. Pour les comparer à votre projet, faites préciser la distance, les accès, la formule et le montant TTC dans un devis personnalisé.</p>
       <div class="overflow-x-auto my-8">
         <table class="w-full text-sm text-left border-collapse">
@@ -536,7 +547,7 @@ const posts: Record<string, BlogPostData> = {
           </tbody>
         </table>
       </div>
-      <p>Ces fourchettes peuvent augmenter en cas d’étage élevé sans ascenseur, d’accès difficile, de longue distance, de monte-meuble, d’objets lourds ou d’une formule complète avec emballage par les déménageurs. Les guides de prix spécialisés montrent d’ailleurs que les écarts peuvent être importants selon le volume, la distance et le niveau de service retenu.</p>
+      <p>Ces fourchettes ne constituent ni un prix minimum garanti ni un plafond. Le budget dépend notamment des accès, de la distance, des objets lourds et des prestations d’emballage. Pour obtenir un montant applicable à votre projet, transmettez votre inventaire et les contraintes des deux adresses.</p>
 
       <h2>Le volume : le premier critère du prix</h2>
       <p>Le volume est la base du calcul. Il correspond à l’espace occupé par vos meubles, cartons, appareils électroménagers et objets divers dans le camion. Plus le volume est élevé, plus il faut un camion adapté, davantage de cartons, plus de temps de chargement, plus de manutention, parfois plus de déménageurs et une organisation plus précise.</p>
@@ -580,33 +591,54 @@ const posts: Record<string, BlogPostData> = {
       <p>Au-delà du volume et de la distance, plusieurs éléments techniques peuvent faire varier le prix.</p>
 
       <h3>1. L'accessibilité et le portage</h3>
-      <p>Le "portage" est la distance que les déménageurs doivent parcourir à pied entre le camion et votre porte. À Paris, si le camion ne peut pas accéder à une cour intérieure ou doit rester à l'entrée d'une rue piétonne, ce temps supplémentaire est facturé.</p>
+      <p>Le "portage" est la distance que les déménageurs doivent parcourir à pied entre le camion et votre porte. Signalez les cours intérieures et les rues piétonnes dès la demande pour que ce temps de manutention soit pris en compte dans le devis.</p>
 
       <h3>2. Le démontage et remontage de meubles</h3>
-      <p>Certains meubles (armoires à portes coulissantes, lits ponts, bureaux complexes) demandent un temps important de montage/démontage. Cette prestation est incluse dans les formules standard et haut de gamme.</p>
+      <p>Certains meubles (armoires à portes coulissantes, lits ponts, bureaux complexes) demandent un temps important de montage/démontage. Faites inscrire les meubles concernés et les interventions prévues dans le devis : le nom de la formule ne suffit pas à définir cette prise en charge.</p>
 
       <h3>3. La protection spécifique des objets fragiles</h3>
       <p>L'emballage de la vaisselle, des miroirs, des tableaux ou du matériel informatique nécessite des fournitures (bulles, housses, cartons barrel) et un savoir-faire qui impactent le coût de la main-d'œuvre.</p>
 
-      <h2>Exemples détaillés de devis à Paris</h2>
+      <h2 id="situations" class="scroll-mt-32">Situations à faire chiffrer à Paris</h2>
+      <p>Les situations suivantes sont des illustrations, pas des devis clients ni des prestations réalisées documentées. Les budgets sont indicatifs ; les accès à l’arrivée et le contenu exact de la prestation restent à préciser avant tout chiffrage.</p>
+      <h3>Un studio avec cartons préparés par le client</h3>
       <p><strong>Situation :</strong> Volume 10-12 m³, Paris vers Paris, 2e étage avec petit ascenseur, stationnement à proximité, formule économique (cartons par le client).<br/>
       <strong>Prix indicatif :</strong> Budget aux alentours de 500 à 900 €, selon les accès et la date.</p>
 
-      <h2>Exemple de devis 2 : déménagement d’un 2 pièces à Paris</h2>
+      <h3>Un deux-pièces avec une cave</h3>
       <p><strong>Situation :</strong> Volume 18-25 m³, Paris vers IDF, 3e étage avec ascenseur, présence d’une cave, formule standard (fragile protégé par les pros, quelques meubles démontés).<br/>
       <strong>Prix indicatif :</strong> Budget généralement entre 800 et 1 500 €.</p>
 
-      <h2>Exemple de devis 3 : déménagement d’un appartement familial à Paris</h2>
+      <h3>Un appartement familial avec des accès difficiles</h3>
       <p><strong>Situation :</strong> Volume 35-50 m³, Paris vers IDF, 5e étage, ascenseur inutilisable pour certains meubles, formule standard ou clé en main, monte-meuble nécessaire.<br/>
       <strong>Prix indicatif :</strong> Budget aux alentours de 1 500 à 3 000 €, voire davantage selon les spécificités.</p>
 
-      <h2>Exemple de devis 4 : déménagement de Paris vers la province</h2>
+      <h3>Un déménagement de Paris vers une autre région</h3>
       <p><strong>Situation :</strong> Volume 30-40 m³, Paris vers autre région (300-500 km), formule standard, 3e étage au départ.<br/>
       <strong>Prix indicatif :</strong> Budget pouvant dépasser 2 000 à 4 000 €, selon la distance exacte et l’organisation du transport.</p>
 
       <h2>Pourquoi le devis le moins cher n’est pas toujours le meilleur</h2>
       <p>Lorsqu’on prépare un déménagement, il est normal de comparer les prix. Mais le devis le moins cher n’est pas toujours le plus fiable. Un devis très bas peut parfois cacher un volume sous-estimé, une équipe insuffisante, des frais ajoutés ensuite, une absence de prise en compte des étages ou une protection insuffisante des meubles.</p>
       <p>Le bon devis doit être clair sur le volume, les adresses, les étages, les ascenseurs, la distance de portage, la formule, les prestations incluses, les suppléments éventuels, l’assurance et les horaires.</p>
+
+      <h2 id="comparer-devis" class="scroll-mt-32">Comparer deux devis à service égal</h2>
+      <p>Envoyez le même inventaire et les mêmes informations d’accès à chaque entreprise. Puis vérifiez les points ci-dessous : un écart de montant peut venir d’une différence de prestations.</p>
+      <div class="overflow-x-auto my-8" role="region" aria-label="Grille de comparaison des devis" tabindex="0">
+        <table class="w-full text-sm text-left border-collapse">
+          <caption class="text-left font-bold mb-3">Les points à vérifier sur chaque proposition</caption>
+          <thead class="bg-slate-50"><tr><th scope="col" class="p-4">Point de comparaison</th><th scope="col" class="p-4">Vérification concrète</th></tr></thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr><th scope="row" class="p-4">Inventaire et volume</th><td class="p-4">Même liste de meubles et cartons, cave et annexes comprises ; objets lourds signalés.</td></tr>
+            <tr><th scope="row" class="p-4">Accès aux deux adresses</th><td class="p-4">Étages, dimensions de l’ascenseur, distance camion–entrée et contraintes horaires décrits.</td></tr>
+            <tr><th scope="row" class="p-4">Emballage et mobilier</th><td class="p-4">Qui fournit les cartons, emballe le fragile et démonte puis remonte les meubles identifiés ?</td></tr>
+            <tr><th scope="row" class="p-4">Moyens particuliers</th><td class="p-4">Monte-meuble, stationnement et éventuel stockage : besoin confirmé, organisation et coût précisés.</td></tr>
+            <tr><th scope="row" class="p-4">Prix et calendrier</th><td class="p-4">Montant TTC, dates ou période d’intervention, validité de l’offre et modalités de paiement.</td></tr>
+            <tr><th scope="row" class="p-4">Conditions et garanties</th><td class="p-4">Conditions générales jointes ; responsabilité, limites d’indemnisation et éventuelles garanties complémentaires expliquées.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F33997">Service Public détaille les mentions du devis de déménagement</a>, notamment la prestation choisie, les montants HT et TTC et le caractère définitif du prix. Faites clarifier les points manquants avant d’accepter l’offre.</p>
+      <p>Pour définir le service souhaité, consultez nos <a href="/formules-demenagement">formules de déménagement</a>. Si un meuble ne passe pas par l’escalier, indiquez ses dimensions afin d’étudier les moyens de manutention nécessaires.</p>
 
       <h2>Comment réduire le prix de son déménagement à Paris ?</h2>
       <p>Il existe plusieurs moyens de maîtriser son budget sans sacrifier la qualité :</p>
@@ -618,8 +650,13 @@ const posts: Record<string, BlogPostData> = {
         <li><strong>Clarifier les accès :</strong> Évitez les ajustements imprévus en étant précis sur les étages et ascenseurs.</li>
       </ul>
 
-      <h2>Comment obtenir un devis fiable avec Marne Transdem ?</h2>
+      <h2 id="preparer-devis" class="scroll-mt-32">Comment obtenir un devis fiable avec Marne Transdem ?</h2>
       <p>Pour obtenir un devis précis, préparez les informations suivantes : adresses de départ et d’arrivée, date souhaitée, surface du logement, volume approximatif, nombre de pièces, étage, ascenseur, présence d’une cave/box, meubles volumineux, objets fragiles, besoin de monte-meuble et formule souhaitée.</p>
+      <ol>
+        <li><strong>Faites l’inventaire :</strong> utilisez le <a href="/calculateur-volume">calculateur de volume</a> comme première estimation, puis ajoutez les éléments oubliés dans les annexes.</li>
+        <li><strong>Décrivez les accès :</strong> précisez les contraintes au départ et à l’arrivée, même pour un trajet dans le même quartier.</li>
+        <li><strong>Transmettez votre projet :</strong> remplissez la <a href="/demande-de-devis">demande de devis de déménagement</a> en indiquant la date et ce que vous souhaitez confier à l’équipe.</li>
+      </ol>
 
       <div class="not-prose my-12 rounded-[2rem] bg-brand-900 p-8 md:p-10 text-white italic">
         <p class="mb-3 text-xs font-black uppercase tracking-[0.25em] text-accent">L’avis de notre expert</p>
