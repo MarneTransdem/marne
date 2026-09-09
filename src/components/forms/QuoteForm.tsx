@@ -6,7 +6,7 @@ import { db } from '../../lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { handleFirestoreError, OperationType } from '../../lib/firestore-errors';
 import { useMapsLibrary } from '@vis.gl/react-google-maps';
-import { trackConversion } from '../../lib/public-analytics';
+import { getVisitAttribution, trackConversion } from '../../lib/public-analytics';
 
 interface FormData {
   // Section A: Coordonnées
@@ -87,6 +87,7 @@ export const QuoteForm: React.FC = () => {
   
   const [formData, setFormData] = useState<FormData>(INITIAL_DATA);
   const [searchParams] = useSearchParams();
+  const submissionPending = useRef(false);
   
   const mapsLib = useMapsLibrary('places');
   const fromAutocompleteRef = useRef<HTMLInputElement>(null);
@@ -232,6 +233,7 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submissionPending.current) return;
     if (!validateForm()) {
       // Scroll to the first error
       const firstError = document.querySelector('.text-red-500');
@@ -241,6 +243,7 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
       return;
     }
 
+    submissionPending.current = true;
     setIsSubmitting(true);
     
     // Honeypot spam prevention
@@ -250,6 +253,7 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
       setTimeout(() => {
         setIsSubmitting(false);
         setIsSuccess(true);
+        submissionPending.current = false;
       }, 1000);
       return;
     }
@@ -257,44 +261,40 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
     try {
       const path = 'quotes';
       const { website, ...cleanData } = formData;
-      await addDoc(collection(db, path), {
+      const attribution = getVisitAttribution();
+      const savedQuote = await addDoc(collection(db, path), {
         ...cleanData,
         volumeEstimate: estimate || null,
+        ...(attribution ? { acquisition: attribution } : {}),
         createdAt: serverTimestamp()
       });
 
-      // Send Email Notification
-      const emailResponse = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'quote', data: cleanData, website })
-      });
-
-      if (!emailResponse.ok) {
-        const errData = await emailResponse.json();
-        console.error("Email API Error:", errData);
-        // We still show success for the form submit to Firestore, 
-        // but maybe warn about the notification failure if it's critical.
-        // For now, let's just log it or set a silent error.
-      }
-      
-      setIsSubmitting(false);
+      // Firestore acknowledged the record: notification delivery is a separate concern.
       setIsSuccess(true);
       trackConversion('quote_form_submit', {
-        formula: cleanData.formula || 'unknown',
-        visit_preference: cleanData.visitPreference || 'unknown',
-        needs_lift: cleanData.needsLift || 'unknown',
-        needs_storage: cleanData.needsStorage || 'unknown',
         has_volume: Boolean(cleanData.volume),
         has_pre_estimate: Boolean(estimate),
-        from_city: cleanData.fromCity || 'unknown',
-        to_city: cleanData.toCity || 'unknown',
-      });
+      }, savedQuote.id);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      localStorage.removeItem(LOCAL_STORAGE_KEY);
+      try { localStorage.removeItem(LOCAL_STORAGE_KEY); } catch { /* Optional local draft. */ }
+
+      // Send Email Notification
+      try {
+        const emailResponse = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: 'quote', data: cleanData, website })
+        });
+        if (!emailResponse.ok) console.warn('Quote saved; notification was not delivered.');
+      } catch {
+        console.warn('Quote saved; notification request failed.');
+      }
+
     } catch (error) {
-      setIsSubmitting(false);
       handleFirestoreError(error, OperationType.CREATE, 'quotes');
+    } finally {
+      submissionPending.current = false;
+      setIsSubmitting(false);
     }
   };
 
