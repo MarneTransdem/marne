@@ -679,12 +679,13 @@ const posts: Record<string, BlogPostData> = {
   },
   'comment-estimer-volume-demenagement': {
     slug: 'comment-estimer-volume-demenagement',
+    updated: '9 septembre 2026',
     title: 'Comment estimer le volume de son déménagement ?',
     excerpt:
-      'Estimer le volume de son déménagement est l’une des étapes les plus importantes pour obtenir un devis fiable. Découvrez nos méthodes pour calculer précisément votre cubage.',
+      'Estimer le volume de son déménagement est l’une des étapes les plus importantes pour obtenir un devis fiable. Préparez votre inventaire pièce par pièce et calculez un volume indicatif en m³ avant votre demande de devis.',
     metaTitle: 'Comment estimer le volume de son déménagement ? | Guide Marne Transdem',
     metaDesc:
-      'Découvrez comment calculer le volume de votre déménagement en m³ : méthode pièce par pièce, estimation selon la surface, erreurs à éviter, meubles volumineux, cartons, cave et conseils de déménageur professionnel.',
+      'Découvrez comment calculer le volume de votre déménagement en m³ : inventaire pièce par pièce, exemple de calcul, cartons et limites de l’estimation. Passez du calculateur à votre demande de devis.',
     keywords:
       'estimer volume déménagement, calcul volume déménagement, volume déménagement m3, estimer m3 déménagement, cubage déménagement, devis déménagement, calculateur volume déménagement, volume cartons déménagement, prix déménagement volume',
     date: '22 mai 2026',
@@ -706,17 +707,17 @@ const posts: Record<string, BlogPostData> = {
       {
         question: 'Comment calculer le volume de son déménagement ?',
         answer:
-          'La méthode la plus fiable consiste à faire un inventaire pièce par pièce : meubles, cartons, électroménager, objets fragiles, cave, garage, balcon et éléments volumineux. On peut aussi utiliser une estimation rapide en divisant la surface du logement par deux, mais cette méthode reste approximative.',
+          'Faites un inventaire pièce par pièce, avec les quantités de meubles, cartons et équipements à transporter. Pour un objet rectangulaire, multipliez ses dimensions extérieures en mètres : longueur × largeur × hauteur. Le calculateur utilise des volumes indicatifs par objet ; les biens atypiques et les accès doivent être précisés au déménageur.',
       },
       {
         question: 'Quel volume prévoir pour un appartement de 50 m² ?',
         answer:
-          'Pour un appartement de 50 m², on estime souvent le volume autour de 25 m³. Toutefois, ce chiffre peut varier selon le nombre de meubles, la quantité de cartons, la présence d’une cave, le niveau d’équipement et la composition du foyer.',
+          'La surface de 50 m² ne suffit pas à déterminer un volume à transporter. Inventoriez les meubles et le contenu des rangements, puis ajoutez la cave et les autres annexes. Deux logements de même surface peuvent nécessiter des volumes différents.',
       },
       {
         question: 'Combien de cartons prévoir pour un déménagement ?',
         answer:
-          'Pour un studio, il faut souvent prévoir 10 à 20 cartons. Pour un 2 pièces, 20 à 40 cartons. Pour un 3 pièces, 40 à 60 cartons. Pour un logement familial, le nombre peut dépasser 80 ou 100 cartons.',
+          'Estimez les cartons d’après le contenu réel de chaque rangement et leurs dimensions, puis corrigez les quantités au fil de l’emballage. Séparez les formats et comptez chaque carton une seule fois. Le nombre de pièces ne permet pas, à lui seul, de fixer une quantité fiable.',
       },
       {
         question: 'Le volume influence-t-il le prix du déménagement ?',
@@ -743,7 +744,18 @@ const posts: Record<string, BlogPostData> = {
 
       <p>Chez <strong>Marne Transdem</strong>, nous accompagnons les particuliers et les professionnels dans leurs déménagements à Paris, en <a href="/demenagement-ile-de-france">Île-de-France</a> et vers toute la France. Notre expérience terrain nous montre une chose simple : un volume bien estimé permet d’éviter les mauvaises surprises.</p>
 
-      <p>Voici une méthode claire pour calculer le volume de votre déménagement avec plus de précision.</p>
+      <p>Commencez par compter ce qui part réellement, puis utilisez le <a href="/calculateur-volume">calculateur de volume de déménagement</a> pour établir votre inventaire. Le résultat reste une estimation à vérifier selon vos biens et les conditions de transport.</p>
+      <nav aria-label="Sommaire du guide volume" class="my-8 rounded-2xl border border-slate-200 p-6">
+        <p><strong>Dans ce guide</strong></p>
+        <ul>
+          <li><a href="#calcul-m3">Comprendre le calcul en mètres cubes</a></li>
+          <li><a href="#surface-volume">Pourquoi la surface ne suffit pas</a></li>
+          <li><a href="#inventaire-volume">Construire un inventaire pièce par pièce</a></li>
+          <li><a href="#exemple-volume">Reproduire un exemple chiffré</a></li>
+          <li><a href="#cartons-volume">Compter les cartons sans doublon</a></li>
+          <li><a href="#volume-devis">Passer de l’estimation au devis</a></li>
+        </ul>
+      </nav>
 
       <h2>Pourquoi faut-il estimer le volume de son déménagement ?</h2>
       <p>Le volume, exprimé en mètres cubes, correspond à l’espace occupé par l’ensemble de vos meubles, cartons, objets et équipements dans le camion de déménagement.</p>
@@ -769,103 +781,60 @@ const posts: Record<string, BlogPostData> = {
 
       <p>Estimer son volume n’est donc pas un simple détail. C’est la base d’un déménagement bien organisé.</p>
 
-      <h2>Qu’est-ce qu’un mètre cube dans un déménagement ?</h2>
+      <h2 id="calcul-m3">Qu’est-ce qu’un mètre cube dans un déménagement ?</h2>
       <p>Un mètre cube correspond à un volume de 1 mètre de long, 1 mètre de large et 1 mètre de haut.</p>
 
       <p>Dans le cadre d’un déménagement, on parle souvent de “cubage”. Il s’agit d’évaluer l’espace total que prendront vos affaires une fois chargées dans le camion.</p>
 
-      <p>Pour vous donner une idée simple :</p>
-      <ul>
-        <li>un petit carton standard représente environ 0,03 à 0,05 m³ ;</li>
-        <li>un grand carton peut représenter environ 0,08 à 0,10 m³ ;</li>
-        <li>une chaise représente environ 0,15 à 0,25 m³ ;</li>
-        <li>une machine à laver représente environ 0,4 à 0,6 m³ ;</li>
-        <li>un canapé 3 places peut représenter 1,5 à 2,5 m³ ;</li>
-        <li>une armoire peut représenter 1 à 3 m³ selon sa taille ;</li>
-        <li>un lit double avec matelas, sommier et tête de lit peut représenter 2 à 4 m³.</li>
-      </ul>
+      <p>Pour un objet de forme rectangulaire, mesurez les dimensions extérieures dans la configuration prévue pour le transport : <strong>longueur × largeur × hauteur, en mètres</strong>. Si vous mesurez en centimètres, divisez chaque dimension par 100 avant de les multiplier.</p>
+      <p>Ce calcul donne le volume géométrique de l’objet. L’espace nécessaire au chargement dépend aussi des protections, des formes irrégulières, de l’empilage possible et des contraintes de manutention. Un meuble fragile ne peut pas forcément supporter d’autres objets, même s’il reste de l’espace au-dessus.</p>
+      <h2 id="surface-volume">Pourquoi les m² du logement ne suffisent pas à calculer les m³</h2>
+      <p>Les mètres carrés décrivent la surface du logement ; les mètres cubes décrivent un volume. Il n’existe pas de conversion directe entre les deux pour vos affaires. Diviser systématiquement la surface par deux ne remplace donc pas un inventaire.</p>
+      <p>Pour un appartement de 50 m², relevez le mobilier et le contenu des placards plutôt que d’annoncer automatiquement 25 m³. Ajoutez les annexes et retirez les biens vendus, donnés ou laissés sur place. Cette méthode distingue deux logements de même surface mais de niveaux d’équipement très différents.</p>
 
-      <p>Ces chiffres sont indicatifs, car le volume réel dépend de la forme des meubles, de leur démontage éventuel et de la manière dont ils sont chargés.</p>
-
-      <h2>Méthode simple : estimer le volume selon la surface du logement</h2>
-      <p>La méthode la plus rapide consiste à partir de la surface du logement. On utilise souvent une règle approximative : <strong>volume à déménager ≈ surface du logement divisée par deux</strong>.</p>
-
-      <p>Par exemple :</p>
-      <ul>
-        <li>appartement de 30 m² : environ 15 m³ ;</li>
-        <li>appartement de 50 m² : environ 25 m³ ;</li>
-        <li>appartement de 70 m² : environ 35 m³ ;</li>
-        <li>maison de 100 m² : environ 50 m³.</li>
-      </ul>
-
-      <p>Cette méthode donne une première idée, mais elle reste approximative. Deux logements de même surface peuvent avoir des volumes très différents selon le niveau d’équipement.</p>
-
-      <p>Un studio très meublé peut contenir plus d’affaires qu’un deux-pièces minimaliste. Une famille avec enfants aura souvent davantage de cartons qu’une personne seule. Un logement avec cave, balcon, dressing ou garage peut aussi augmenter fortement le volume réel.</p>
-
-      <h3>Tableau indicatif du volume selon le type de logement</h3>
-      <div class="overflow-x-auto my-8">
-        <table class="min-w-full text-sm">
-          <thead class="bg-slate-100 font-black uppercase text-[10px] tracking-widest text-slate-500">
-            <tr>
-              <th class="px-6 py-4 text-left">Type de logement</th>
-              <th class="px-6 py-4 text-left">Volume moyen estimé</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-100 font-bold text-brand-900 italic">
-            <tr><td class="px-6 py-4">Chambre ou petit studio</td><td class="px-6 py-4">8 à 12 m³</td></tr>
-            <tr><td class="px-6 py-4">Studio équipé</td><td class="px-6 py-4">10 à 15 m³</td></tr>
-            <tr><td class="px-6 py-4">Appartement 2 pièces</td><td class="px-6 py-4">15 à 25 m³</td></tr>
-            <tr><td class="px-6 py-4">Appartement 3 pièces</td><td class="px-6 py-4">25 à 35 m³</td></tr>
-            <tr><td class="px-6 py-4">Appartement 4 pièces</td><td class="px-6 py-4">35 à 45 m³</td></tr>
-            <tr><td class="px-6 py-4">Appartement familial 5 pièces</td><td class="px-6 py-4">45 à 60 m³</td></tr>
-            <tr><td class="px-6 py-4">Maison moyenne</td><td class="px-6 py-4">50 à 80 m³</td></tr>
-            <tr><td class="px-6 py-4">Grande maison avec garage/cave</td><td class="px-6 py-4">80 m³ et plus</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p>Ce tableau donne une base, mais il ne remplace pas une estimation détaillée. Pour obtenir un devis fiable, il est préférable de faire un inventaire pièce par pièce.</p>
-
-      <h2>La méthode la plus fiable : calculer pièce par pièce</h2>
+      <h2 id="inventaire-volume">Construire un inventaire pièce par pièce</h2>
       <p>La meilleure méthode consiste à faire le tour de votre logement et à noter tous les éléments à déménager.</p>
 
       <p>Procédez pièce par pièce : salon, salle à manger, cuisine, chambre parentale, chambres enfants, bureau, salle de bain, entrée, cave, grenier, garage, balcon, box de stockage.</p>
 
       <p>Cette méthode demande un peu plus de temps, mais elle permet d’obtenir une estimation beaucoup plus fiable. Elle aide aussi le déménageur à comprendre la complexité réelle du projet.</p>
 
-      <p>Plus votre inventaire est précis, plus le devis sera adapté.</p>
+      <p>Plus votre inventaire est précis, plus le devis sera adapté. Pour chaque pièce, notez la quantité, les dimensions des objets atypiques et l’état prévu au transport : monté, démonté ou emballé.</p>
+      <ol>
+        <li><strong>Définissez ce qui part :</strong> séparez les biens à transporter de ceux qui restent sur place.</li>
+        <li><strong>Comptez les meubles et équipements :</strong> relevez séparément les éléments qui ne ressemblent pas aux objets du catalogue.</li>
+        <li><strong>Estimez le contenu des rangements en cartons :</strong> comptez le meuble et ses cartons, sans ajouter une deuxième fois son contenu.</li>
+        <li><strong>Ajoutez les annexes :</strong> cave, garage, balcon, grenier ou box de stockage.</li>
+        <li><strong>Mettez à jour les quantités après emballage :</strong> signalez toute modification avant l’intervention.</li>
+      </ol>
+      <h2 id="exemple-volume">Exemple de calcul : cinq cartons et un petit meuble</h2>
+      <p>Cet exemple pédagogique utilise des dimensions choisies pour montrer le calcul. Il ne représente ni un logement complet, ni un tarif, ni les dimensions des cartons commercialisés par Marne Transdem.</p>
+      <div class="overflow-x-auto my-8" role="region" aria-label="Exemple de calcul de volume" tabindex="0">
+        <table class="min-w-full text-sm">
+          <caption class="text-left pb-3">Dimensions extérieures en mètres, avant ajout de protections.</caption>
+          <thead><tr><th scope="col" class="p-3 text-left">Élément</th><th scope="col" class="p-3 text-left">Calcul</th><th scope="col" class="p-3 text-left">Volume total</th></tr></thead>
+          <tbody>
+            <tr><th scope="row" class="p-3 text-left">5 cartons de 0,50 × 0,40 × 0,30 m</th><td class="p-3">5 × 0,50 × 0,40 × 0,30</td><td class="p-3">0,30 m³</td></tr>
+            <tr><th scope="row" class="p-3 text-left">1 meuble de 0,80 × 0,40 × 0,75 m</th><td class="p-3">0,80 × 0,40 × 0,75</td><td class="p-3">0,24 m³</td></tr>
+            <tr><th scope="row" class="p-3 text-left">Total géométrique</th><td class="p-3">0,30 + 0,24</td><td class="p-3"><strong>0,54 m³</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Le <a href="/calculateur-volume">calculateur pièce par pièce</a> utilise, lui, un catalogue de volumes indicatifs. Son option de marge ajoute 10 % au total calculé ; le volume conseillé est ensuite arrondi au m³ supérieur. Cette réserve ne corrige pas les objets oubliés et ne garantit pas une capacité de chargement.</p>
 
       <h2>Les éléments souvent oubliés dans le calcul du volume</h2>
       <p>Lorsqu’on estime son déménagement, on pense d’abord aux meubles principaux. Pourtant, ce sont souvent les éléments oubliés qui créent les écarts de volume.</p>
 
       <p>Il faut notamment penser à la cave, au grenier, au garage, au balcon, aux placards, au dressing, aux bibliothèques, aux outils, aux vélos, aux poussettes, aux cartons d’archives, aux valises, aux plantes, aux luminaires, aux objets de décoration, au matériel informatique, aux jouets, aux cartons déjà stockés, au mobilier de jardin, aux petits électroménagers et aux affaires saisonnières.</p>
 
-      <p>Une cave peut parfois représenter 3, 5, 8 ou même 10 m³ supplémentaires. C’est énorme dans un devis.</p>
+      <p>Inventoriez la cave comme une pièce à part entière : comptez les cartons déjà stockés, les étagères si elles partent, les vélos et les autres équipements.</p>
 
       <p>À Paris et en Île-de-France, beaucoup de logements possèdent des caves remplies au fil des années. Si elles ne sont pas prises en compte dès le départ, le volume annoncé peut être très éloigné de la réalité.</p>
 
-      <h2>Combien de cartons prévoir pour son déménagement ?</h2>
-      <p>Le nombre de cartons dépend du nombre de personnes, de la taille du logement et du niveau d’équipement.</p>
-
-      <div class="overflow-x-auto my-8">
-        <table class="min-w-full text-sm">
-          <thead class="bg-slate-100 font-black uppercase text-[10px] tracking-widest text-slate-500">
-            <tr>
-              <th class="px-6 py-4 text-left">Logement</th>
-              <th class="px-6 py-4 text-left">Nombre moyen de cartons</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-100 font-bold text-brand-900 italic">
-            <tr><td class="px-6 py-4">Studio</td><td class="px-6 py-4">10 à 20 cartons</td></tr>
-            <tr><td class="px-6 py-4">2 pièces</td><td class="px-6 py-4">20 à 40 cartons</td></tr>
-            <tr><td class="px-6 py-4">3 pièces</td><td class="px-6 py-4">40 à 60 cartons</td></tr>
-            <tr><td class="px-6 py-4">4 pièces</td><td class="px-6 py-4">60 à 90 cartons</td></tr>
-            <tr><td class="px-6 py-4">Maison familial</td><td class="px-6 py-4">90 cartons et plus</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p>Il est préférable de prévoir un peu plus de cartons que pas assez. Le manque de cartons entraîne souvent une mauvaise préparation : sacs trop lourds, objets mal protégés, affaires mélangées, emballage improvisé le jour J.</p>
+      <h2 id="cartons-volume">Combien de cartons prévoir et comment les compter ?</h2>
+      <p>Partez du contenu des rangements, puis ajustez votre estimation au fur et à mesure de l’emballage. Séparez les formats : dix petits cartons n’occupent pas le même volume que dix grands cartons. Relevez les dimensions extérieures des cartons déjà préparés.</p>
+      <p>Si les vêtements, livres ou la vaisselle sont comptés en cartons, ne les ajoutez pas une seconde fois comme objets isolés. Pour un meuble transporté vide, comptez son encombrement ainsi que les cartons de son contenu. Pour un meuble démonté, précisez les panneaux et éléments à transporter sans compter aussi le meuble monté.</p>
+      <p>Consultez les conseils pour <a href="/cartons-demenagement-paris">choisir vos cartons de déménagement</a> et <a href="/emballage-protection-demenagement">protéger les objets fragiles</a>. Les protections peuvent modifier l’encombrement final.</p>
 
       <p>Pour bien préparer vos cartons : utilisez des cartons solides, placez les objets lourds dans de petits contenants, protégez la vaisselle, indiquez la pièce de destination, notez “fragile” lorsque c’est nécessaire, gardez les documents importants avec vous et préparez un carton essentiel pour les premières 24 heures.</p>
 
@@ -877,7 +846,7 @@ const posts: Record<string, BlogPostData> = {
       <p>Ces éléments doivent être signalés dès la demande de devis. Ils peuvent nécessiter une manutention spécifique, un démontage, une protection renforcée ou un monte-meuble.</p>
 
       <h2>Faut-il démonter les meubles pour réduire le volume ?</h2>
-      <p>Le démontage peut faciliter le transport, but il ne réduit pas toujours fortement le volume. Une armoire démontée reste composée de panneaux, portes, étagères et accessoires. Elle sera plus facile à manipuler, mais elle occupera encore de l'espace dans le camion.</p>
+      <p>Le démontage peut faciliter le transport, mais il ne réduit pas toujours fortement le volume. Une armoire démontée reste composée de panneaux, portes, étagères et accessoires. Elle sera plus facile à manipuler, mais elle occupera encore de l'espace dans le camion.</p>
 
       <p>Le démontage est surtout utile pour : faciliter le passage dans les escaliers, protéger les meubles, éviter les chocs, optimiser le chargement, passer les portes étroites et limiter les risques dans les parties communes.</p>
 
@@ -888,7 +857,11 @@ const posts: Record<string, BlogPostData> = {
 
       <p>C’est pourquoi un devis sérieux ne doit pas se limiter au volume. Il doit prendre en compte l’ensemble des contraintes.</p>
 
-      <h2>Comment Marne Transdem vous aide à estimer votre volume ?</h2>
+      <h2 id="volume-devis">Comment passer de votre estimation à une demande de devis ?</h2>
+      <p>Dans le calculateur, complétez votre inventaire puis utilisez « Continuer vers le devis ». Sur le même navigateur, le formulaire reprend l’inventaire enregistré localement. Vérifiez le volume et les quantités avant l’envoi ; si le stockage local est indisponible ou a été effacé, renseignez-les à nouveau.</p>
+      <p>Ajoutez la date souhaitée, les adresses, les étages, les ascenseurs, les distances de portage et les objets qui exigent une manutention particulière. Précisez les tâches à déléguer en consultant les <a href="/formules-demenagement">formules de déménagement</a>.</p>
+      <p>Le volume n’est pas un prix : le <a href="/blog/combien-coute-demenagement-paris">guide des critères de prix</a> explique les autres éléments du chiffrage. Vous pouvez aussi <a href="/demande-de-devis">demander une étude de votre déménagement</a> en indiquant que le volume reste à confirmer.</p>
+      <h3>Faire vérifier l’estimation et les contraintes</h3>
       <p>Chez Marne Transdem, nous analysons votre déménagement dans son ensemble. L’objectif n’est pas seulement de donner un chiffre en mètres cubes, mais de comprendre les conditions réelles de l’intervention.</p>
 
       <p>Nous pouvons vous aider à évaluer : le volume approximatif, le nombre de cartons nécessaires, les meubles à démonter, les objets fragiles, les accès difficiles, le besoin éventuel d’un monte-meuble, le type de camion adapté et la formule la plus pertinente.</p>

@@ -231,7 +231,7 @@ export const BLOG_POST_ROUTES: Array<Omit<SeoRoute, 'canonicalPath' | 'status'>>
     title: 'Comment estimer le volume de son déménagement ? | Guide Marne Transdem',
     h1: 'Comment estimer le volume de son déménagement ?',
     description:
-      'Découvrez comment calculer le volume de votre déménagement en m³ : méthode pièce par pièce, estimation selon la surface, meubles volumineux, cartons et conseils de déménageur professionnel.',
+      'Calculez le volume de votre déménagement en m³ : inventaire pièce par pièce, exemple chiffré, cartons et limites de l’estimation avant votre demande de devis.',
   },
   {
     path: '/blog/formalites-administratives-demenagement',
