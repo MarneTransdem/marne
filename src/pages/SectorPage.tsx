@@ -15,6 +15,16 @@ import { ResponsiveImage } from '../components/common/ResponsiveImage';
 import { RegionalMovingGuide } from '../components/common/RegionalMovingGuide';
 import { getSectorLabel } from '../lib/sector-label';
 
+const departmentLocations: Record<string, string> = {
+  'essonne': 'dans l’Essonne',
+  'hauts-de-seine': 'dans les Hauts-de-Seine',
+  'seine-et-marne': 'en Seine-et-Marne',
+  'seine-saint-denis': 'en Seine-Saint-Denis',
+  'val-de-marne': 'dans le Val-de-Marne',
+  'val-d-oise': 'dans le Val-d’Oise',
+  'yvelines': 'dans les Yvelines',
+};
+
 export const SectorPage: React.FC = () => {
   const { slug, sectorPath } = useParams<{ slug?: string; sectorPath?: string }>();
   const resolvedSlug = slug || (sectorPath?.startsWith('demenagement-') ? sectorPath.slice('demenagement-'.length) : undefined);
@@ -34,7 +44,9 @@ export const SectorPage: React.FC = () => {
 
   const path = `/demenagement-${resolvedSlug}`;
   const sectorLabel = getSectorLabel(sector);
-  const sectorLocation = resolvedSlug === 'ile-de-france' ? 'en Île-de-France' : `à ${sector.name}`;
+  const isDepartment = Object.hasOwn(departmentLocations, resolvedSlug);
+  const sectorLocation = resolvedSlug === 'ile-de-france' ? 'en Île-de-France'
+    : departmentLocations[resolvedSlug] || `à ${sector.name}`;
 
   // Default fallback images
   const heroImage = sector.seoImage || (sector.type === 'longue-distance' 
@@ -64,13 +76,15 @@ export const SectorPage: React.FC = () => {
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },
             { 
-              name: sector.type === 'longue-distance' ? "Longue distance" : "Secteurs", 
-              item: sector.type === 'longue-distance' ? "/demenagement-longue-distance" : "/secteurs-desservis" 
+              name: isDepartment ? "Île-de-France" : sector.type === 'longue-distance' ? "Longue distance" : "Secteurs",
+              item: isDepartment ? "/demenagement-ile-de-france" : sector.type === 'longue-distance' ? "/demenagement-longue-distance" : "/secteurs-desservis"
             },
             { name: sector.name, item: path }
           ])
         ]}
       />
+
+
 
       {/* 1. Hero Section */}
       <section className="relative pt-32 pb-24 lg:pt-48 lg:pb-36 bg-brand-900 overflow-hidden text-white">
@@ -89,6 +103,15 @@ export const SectorPage: React.FC = () => {
         
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl">
+      {isDepartment && <nav aria-label="Fil d’Ariane" className="text-white mb-8">
+        <ol className="container mx-auto flex flex-wrap items-center gap-2 text-sm">
+          <li><Link to="/" className="underline underline-offset-4">Accueil</Link></li>
+          <li aria-hidden="true">/</li>
+          <li><Link to="/demenagement-ile-de-france" className="underline underline-offset-4">Déménagement en Île-de-France</Link></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page">{sector.name}</li>
+        </ol>
+      </nav>}
             <motion.div
               initial={false}
               animate={{ opacity: 1, y: 0 }}

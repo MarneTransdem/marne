@@ -2147,7 +2147,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "hauts-de-seine",
-    "name": "Hauts De Seine",
+    "name": "Hauts-de-Seine",
     "type": "local",
     "seoTitle": "Déménagement Hauts-de-Seine | Marne Transdem",
     "seoDescription": "Préparez votre déménagement dans les Hauts-de-Seine avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -6913,7 +6913,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "seine-et-marne",
-    "name": "Seine Et Marne",
+    "name": "Seine-et-Marne",
     "type": "local",
     "seoTitle": "Déménagement Seine-et-Marne | Marne Transdem",
     "seoDescription": "Préparez votre déménagement en Seine-et-Marne avec Marne Transdem. Services pour particuliers et entreprises, maisons, appartements, formules adaptées et devis personnalisé.",
@@ -6981,7 +6981,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "seine-saint-denis",
-    "name": "Seine Saint Denis",
+    "name": "Seine-Saint-Denis",
     "type": "local",
     "seoTitle": "Déménagement Seine-Saint-Denis | Marne Transdem",
     "seoDescription": "Préparez votre déménagement en Seine-Saint-Denis avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -7268,7 +7268,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "val-de-marne",
-    "name": "Val De Marne",
+    "name": "Val-de-Marne",
     "type": "local",
     "seoTitle": "Déménagement Val-de-Marne | Marne Transdem",
     "seoDescription": "Préparez votre déménagement dans le Val-de-Marne avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -7404,7 +7404,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "val-d-oise",
-    "name": "Val D Oise",
+    "name": "Val-d’Oise",
     "type": "local",
     "seoTitle": "Déménagement Val-d’Oise | Marne Transdem",
     "seoDescription": "Préparez votre déménagement dans le Val-d’Oise avec Marne Transdem. Services pour particuliers et entreprises, maisons, appartements, formules adaptées et devis personnalisé.",
