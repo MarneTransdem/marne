@@ -13,6 +13,7 @@ import { sectorsData, Sector } from '../constants/sectorsData';
 import NotFound from './NotFound';
 import { ResponsiveImage } from '../components/common/ResponsiveImage';
 import { RegionalMovingGuide } from '../components/common/RegionalMovingGuide';
+import { ValDeMarneGuide } from '../components/common/ValDeMarneGuide';
 import { getSectorLabel } from '../lib/sector-label';
 
 const departmentLocations: Record<string, string> = {
@@ -191,6 +192,7 @@ export const SectorPage: React.FC = () => {
       </section>
 
       {resolvedSlug === 'ile-de-france' && <RegionalMovingGuide />}
+      {resolvedSlug === 'val-de-marne' && <ValDeMarneGuide />}
 
       {/* 3. Logistics & Challenges Section */}
       <section className="py-24 bg-slate-50 border-y border-slate-100 font-sans">

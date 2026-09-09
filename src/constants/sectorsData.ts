@@ -7270,12 +7270,14 @@ export const sectorsData: Sector[] = [
     "slug": "val-de-marne",
     "name": "Val-de-Marne",
     "type": "local",
-    "seoTitle": "Déménagement Val-de-Marne | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement dans le Val-de-Marne avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Val-de-Marne (94) | Marne Transdem",
+    "seoDescription": "Déménagement dans le Val-de-Marne (94) : préparez vos accès, le stationnement et votre inventaire. Communes desservies, formules et devis personnalisé.",
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement dans le Val-de-Marne, avec une organisation adaptée aux appartements, maisons, bureaux et commerces du 94.",
     "introParagraphs": [
-      "Que vous emménagiez dans un <span className=\"font-bold text-slate-700 tracking-tight italic\">appartement</span>, une <span className=\"font-bold text-slate-700 tracking-tight\">maison</span>, un <span className=\"font-bold text-slate-700 tracking-tight\">logement familial</span> ou que vous transfériez des <span className=\"font-bold text-slate-700 tracking-tight text-slate-700\">bureaux</span>, <span className=\"font-bold text-slate-700 tracking-tight tracking-tight\">commerces</span> ou <span className=\"font-bold text-slate-700 tracking-tight\">cabinets professionnels</span>, nous maîtrisons les accès urbains. De l'estimation du <span className=\"font-bold text-slate-700 tracking-tight\">volume</span> à la gestion des <span className=\"font-bold text-slate-700 tracking-tight font-bold\">étages</span>, <span className=\"font-bold text-slate-700 tracking-tight\">ascenseurs</span> et <span className=\"font-bold text-slate-700 tracking-tight\">parkings</span>, notre <span className=\"font-bold text-slate-700 tracking-tight\">demande de devis</span> est personnalisée pour chaque projet du 94."
+      "Vous préparez un déménagement dans le Val-de-Marne, depuis Paris ou vers une autre commune d’Île-de-France ? Marne Transdem étudie les projets des particuliers et des entreprises selon les adresses, le volume, la date et les prestations souhaitées.",
+      "Pour un appartement, une maison ou des bureaux, décrivez les accès au départ et à l’arrivée : étages, ascenseurs, escaliers, cour, portail et distance de portage. Un trajet court ne dispense pas de vérifier ces contraintes.",
+      "Retrouvez ci-dessous les informations à préparer pour votre déménagement dans le 94, un exemple de démarche municipale à Vincennes et les liens vers les communes concernées."
     ],
     "faqs": [
       {
@@ -7301,6 +7303,10 @@ export const sectorsData: Sector[] = [
       {
         "q": "Comment obtenir un devis pour un déménagement dans le Val-de-Marne ?",
         "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L’estimation prend en compte le volume, les adresses, les accès, les étages, la distance, la formule souhaitée et les besoins spécifiques comme l’emballage, le garde-meuble ou le monte-meuble."
+      },
+      {
+        "q": "Quel est le prix d’un déménagement dans le Val-de-Marne ?",
+        "a": "Le prix dépend du volume, du trajet, des accès et des prestations retenues. Pour comparer deux devis, utilisez le même inventaire et vérifiez l’emballage, le démontage, le portage et les moyens de manutention prévus. Le seul nom du département ne permet pas de fixer un montant."
       }
     ],
     "nearbySectors": [
@@ -7402,6 +7408,7 @@ export const sectorsData: Sector[] = [
       }
     ]
   },
+
   {
     "slug": "val-d-oise",
     "name": "Val-d’Oise",
