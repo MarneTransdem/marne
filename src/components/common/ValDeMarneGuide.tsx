@@ -1,8 +1,15 @@
 import { Link } from 'react-router-dom';
+import { CONTACT } from '../../constants';
 
 export function ValDeMarneGuide() {
   return <section aria-labelledby="preparer-demenagement-94" className="py-16 bg-white">
     <div className="container mx-auto px-4 md:px-6 max-w-5xl space-y-8">
+      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 md:p-8">
+        <h2 className="text-2xl md:text-3xl font-bold text-brand-900 mb-5">Votre interlocuteur pour un déménagement dans le Val-de-Marne</h2>
+        <p className="text-slate-600 leading-relaxed mb-4">Marne Transdem est basée au {CONTACT.fullAddress} et intervient en Île-de-France. Pour un projet dans le 94, vous pouvez consulter la <Link to="/a-propos" className="underline">présentation de notre entreprise</Link> et les <Link to="/mentions-legales" className="underline">informations légales de Marne Transdem</Link> avant de nous contacter.</p>
+        <p className="text-slate-600 leading-relaxed mb-4">Vous changez de logement ? Retrouvez les prestations de <Link to="/demenagement-particuliers-paris" className="underline">déménagement pour les particuliers</Link>. Pour des locaux professionnels, consultez notre page consacrée au <Link to="/demenagement-entreprises-paris" className="underline">déménagement d’entreprise</Link> afin de préparer les informations propres à votre activité.</p>
+        <p className="text-slate-600 leading-relaxed">Pour échanger sur votre trajet, appelez le <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="underline">{CONTACT.phone}</a> ou utilisez notre <Link to="/contact" className="underline">page de contact</Link>. Précisez la commune de départ, la commune d’arrivée et la période envisagée pour situer votre demande.</p>
+      </div>
       <div>
         <h2 id="preparer-demenagement-94" className="text-3xl md:text-4xl font-bold text-brand-900 mb-5">Préparer un déménagement dans le Val-de-Marne (94)</h2>
         <p className="text-slate-600 leading-relaxed">Pour un trajet entre Paris et le 94 ou entre deux communes du département, décrivez les deux adresses séparément. Les accès au logement, les biens à transporter et les possibilités de stationnement déterminent la préparation, même lorsque la distance routière est courte.</p>

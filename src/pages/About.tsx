@@ -555,6 +555,15 @@ const About: React.FC = () => {
                 Paris, en Île-de-France et accompagne également des projets
                 longue distance selon les besoins.
               </p>
+              <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-lg mb-8">
+                Pour un départ ou une arrivée dans le 94, notre guide du{' '}
+                <Link to="/demenagement-val-de-marne" className="underline underline-offset-4 hover:text-accent">
+                  déménagement dans le Val-de-Marne
+                </Link>{' '}
+                détaille les accès à relever, les démarches de stationnement à vérifier
+                et les informations à réunir pour comparer les devis. Vous y trouverez
+                également les liens vers les communes desservies.
+              </p>
             </div>
 
             <div className="bg-white dark:bg-slate-900 p-10 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm">
