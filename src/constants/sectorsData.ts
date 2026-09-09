@@ -2810,41 +2810,41 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "ivry-sur-seine",
-    "name": "Ivry Sur Seine",
+    "name": "Ivry-sur-Seine",
     "type": "local",
-    "seoTitle": "Déménagement Ivry-sur-Seine | Résidences & Transerts | Marne Transdem",
-    "seoDescription": "Besoin d'un déménageur professionnel à Ivry-sur-Seine ? Spécialiste du Val-de-Marne (94), Marne Transdem gère le déménagement de particuliers et de bureaux. Devis gratuit & sans engagement.",
+    "seoTitle": "Déménagement Ivry-sur-Seine (94200) | Marne Transdem",
+    "seoDescription": "Préparez votre déménagement à Ivry-sur-Seine : accès, démarches de stationnement selon la voie, volume et prestations pour particuliers et entreprises.",
     "seoImage": null,
-    "heroSubtitle": "Particuliers et professionnels, déléguez l’intégralité de vos projets de transfert et déménagement à Ivry-sur-Seine. Marne Transdem conjugue force humaine, rigueur organisationnelle et outils de levage de dernière génération pour vous offrir un déménagement d'exception, d’un bord de Seine à l’autre.",
+    "heroSubtitle": "Vous préparez un départ ou une arrivée à Ivry-sur-Seine ? Précisez votre volume, les accès aux deux adresses et les tâches à confier à Marne Transdem pour étudier votre projet.",
     "introParagraphs": [
-      "Aux portes immédiates de la capitale, la ville d'<strong>Ivry-sur-Seine</strong> (94200) présente une physionomie urbaine unique résultant d'un passé industriel florissant et d'une modernisation ambitieuse. Ceinturée par le périphérique parisien, la Seine d'un côté et les collines du Val-de-Marne de l'autre, elle offre un contraste captivant entre des faubourgs résidentiels calmes, des quartiers historiques pleins de charme et des zones d'affaires avant-gardistes. De la place Gambetta aux rives réaménagées d'<strong>Ivry-Port</strong>, la commune vit à un rythme dynamique inédit.",
-      "Pourtant, cette double identité complexe (architecture ouvrière traditionnelle, usines reconverties en magnifiques ateliers d'artistes d'une part, et grands programmes immobiliers verticaux d'autre part) complique considérablement les opérations logistiques. Déménager d'une ancienne imprimerie transformée en loft sur le quartier du <strong>Petit-Ivry</strong> ou s'installer dans une résidence contemporaine le long des berges exige une fine maîtrise des réalités géographiques, des réglementations locales d'urbanisme de voirie et des techniques de manutention modernes.",
-      "Les experts de <strong>Marne Transdem</strong>, forts de plusieurs décennies de présence et de chantiers réussis dans tout le <a href=\"/demenagement-val-de-marne\" class=\"font-bold text-brand-900 hover:text-accent underline transition-all\">Val-de-Marne (94)</a>, développent des plans de déménagement sur-mesure pour s'ajuster à chaque typologie immobilière. Nous croyons qu'un déménagement réussi à Ivry-sur-Seine repose sur l'alliance rigoureuse d’une planification minutieuse en amont, d'équipes formées aux charges lourdes, et de matériels adaptés."
+      "Pour votre déménagement à <strong>Ivry-sur-Seine (94200)</strong>, commencez par relever les conditions de chargement et de livraison : étage, dimensions de l’ascenseur, largeur des passages et distance entre le véhicule et l’entrée. Signalez les caves, les annexes et les meubles dont le passage nécessite une vérification.",
+      "Le stationnement dépend de la voie et de l’emplacement envisagé. La mairie distingue les routes à grande circulation des autres voies. Sur les premières, elle propose deux démarches selon que le véhicule occupe des places existantes ou une voie de circulation. Sur les autres voies, elle ne réserve généralement pas de stationnement, sauf configuration particulière ; dans ce cas, elle demande de contacter son service Déplacements-stationnement au moins 15 jours ouvrés à l’avance. Consultez la <a href=\"https://www.ivry94.fr/1179/demenagement-emmenagement.htm\" class=\"underline\">démarche officielle de déménagement à Ivry-sur-Seine</a> pour identifier votre cas et les coordonnées du service.",
+      "Pour préparer un trajet dans le <a href=\"/demenagement-val-de-marne\" class=\"font-bold underline\">Val-de-Marne (94)</a>, réunissez le même inventaire et les mêmes contraintes pour chaque devis. Le <a href=\"/calculateur-volume\" class=\"underline\">calculateur de volume</a> fournit une première estimation ; le <a href=\"/formules-demenagement\" class=\"underline\">comparatif des formules</a> aide à préciser qui prépare les cartons, protège les objets fragiles et démonte les meubles."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Ivry-sur-Seine avec des accès piétonniers complexes ?",
-        "a": "À Ivry-sur-Seine, de nombreuses résidences modernes et d'anciens ensembles industriels réhabilités (comme la Manufacture des Oeillets ou les lofts d'Ivry-Port) disposent de cours intérieures pavées, de zones piétonnières ou de halls d'entrée en retrait de la rue principale. Marne Transdem prévoit dans ces situations un équipement de roulage adapté (plateaux à roulettes, chariots, diables pneumatiques) et un renfort de personnel professionnel pour supporter les distances de portage importantes. Nous déterminons également si l'installation d'un monte-meuble extérieur est requise pour assurer la fluidité de la manutention."
+        "q": "Comment préparer un déménagement à Ivry-sur-Seine avec un accès en retrait de la rue ?",
+        "a": "Indiquez la distance entre le point de chargement envisagé et l’entrée, les marches, les pentes, les portes et les éventuelles restrictions d’accès à la résidence. Ces éléments permettent d’étudier le portage et les moyens de manutention adaptés. La possibilité d’utiliser un monte-meuble doit être vérifiée pour votre adresse."
       },
       {
-        "q": "Quelles sont les obligations de stationnement pour déménager à Ivry-sur-Seine ?",
-        "a": "Pour réserver une place de stationnement pour un camion de déménagement à Ivry-sur-Seine (94200), il convient d'effectuer une demande d'arrêté temporaire d'occupation du domaine public auprès de la mairie d'Ivry-sur-Seine. Cette demande officielle doit être déposée et enregistrée au minimum 15 jours francs avant la date prévue pour votre déménagement. Elle permet de s'assurer que notre équipe logistique dispose de l'emplacement le plus proche possible du hall d'accès pour optimiser le temps et la sécurité."
+        "q": "Peut-on réserver du stationnement pour déménager à Ivry-sur-Seine ?",
+        "a": "La mairie distingue les routes à grande circulation des autres voies. Pour les premières, sa page Déménagement - emménagement oriente vers deux démarches selon l’occupation de places existantes ou d’une voie de circulation. Sur les autres voies, la ville ne prévoit pas de réservation, sauf configuration particulière. Pour ce cas, elle demande de contacter le service Déplacements-stationnement au moins 15 jours ouvrés à l’avance. Vérifiez la démarche applicable à votre adresse sur le site municipal."
       },
       {
-        "q": "Comment se déroule un transfert de bureaux ou de locaux professionnels à Ivry-sur-Seine ?",
-        "a": "Devenu un pôle tertiaire et de recherche majeur à la lisière du 13ème arrondissement de Paris, Ivry-sur-Seine héberge de nombreuses startups, PME et grandes institutions. Nos transferts d'entreprises comprennent un audit d'agencement préalable, un inventaire chiffré des postes informatiques complexes, le transfert sécurisé des archives physiques avec boîtiérs numérotés, et le démontage/remontage du mobilier ergonomique. Nous intervenons en horaires spéciaux pour garantir une reprise d'activité immédiate à vos collaborateurs."
+        "q": "Quelles informations transmettre pour un déménagement de bureaux à Ivry-sur-Seine ?",
+        "a": "Préparez l’inventaire du mobilier, des postes informatiques et des archives, puis indiquez les accès, les horaires autorisés et les contraintes de continuité d’activité. Précisez les tâches attendues et le calendrier souhaité pour que l’organisation et les prestations puissent être définies dans le devis."
       },
       {
-        "q": "Quel est le prix moyen d'une prestation de déménagement à Ivry-sur-Seine ?",
-        "a": "Le tarif d'une prestation de déménagement sur-mesure dépend de plusieurs variables factuelles : le volume des biens calculé précisément en mètres cubes (m³), l'accessibilité physique des adresses de départ et de destination (étages à franchir, cages d'escalier étroites, présence d'un ascenseur ou nécessité d'un monte-meuble), et la formule choisie (formules Économique, Standard ou Luxe). Marne Transdem propose des devis transparents et détaillés sans engagement, calculés au prix le plus juste."
+        "q": "Comment est calculé le prix d’un déménagement à Ivry-sur-Seine ?",
+        "a": "Le chiffrage dépend notamment du volume, du trajet, des accès aux deux adresses et des tâches confiées aux déménageurs. Comparez les devis à inventaire et prestations équivalents, en faisant préciser les frais éventuels de stationnement, de portage ou de matériel spécifique."
       },
       {
-        "q": "Quelles options de garde-meubles proposez-vous pour les résidents d'Ivry-sur-Seine ?",
-        "a": "Si vous faites face à un décalage de dates entre la sortie d'un logement et l'entrée dans le nouveau, ou si vous manquez d'espace, nous mettons à votre disposition notre service de garde-meubles hautement sécurisé à proximité. Vos biens et votre mobilier sont stockés dans des conteneurs individuels scellés en bois de haute qualité, entreposés dans un hangar ventilé, sous surveillance électronique permanente (caméras 24/7, alarmes)."
+        "q": "Comment prévoir un stockage entre deux logements ?",
+        "a": "Indiquez les biens concernés, le volume estimé, la durée envisagée et les dates de transport et de restitution. Faites préciser la solution de stockage proposée, les conditions d’accès, la protection des biens et les frais associés dans l’offre qui vous est remise."
       },
       {
-        "q": "Comment sécurisez-vous les objets d'art et la vaisselle fragile le jour J ?",
-        "a": "Pour toute notre verrerie et objets d'art, nous employons du matériel d'emballage professionnel ultra-performant. Nos déménageurs disposent de coffres capitonnés spécifiques pour la vaisselle, de cartons alvéolés pour les verres délicats, de housses de protection multicouches pour le mobilier d'époque et de papier bulle haute résistance. De plus, notre assurance incluse garantit une protection financière de la valeur de chacun de vos objets précieux."
+        "q": "Comment préparer les objets fragiles ou de valeur ?",
+        "a": "Signalez ces objets avant le chiffrage et précisez leur nature, leurs dimensions et les précautions nécessaires. Définissez qui réalise l’emballage. Consultez les conditions de responsabilité et d’assurance de votre devis, notamment les valeurs déclarées, les plafonds et les exclusions applicables, plutôt que de supposer une couverture intégrale."
       }
     ],
     "nearbySectors": [
