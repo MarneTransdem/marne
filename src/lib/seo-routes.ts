@@ -254,7 +254,7 @@ const EXPLICIT_ROUTES: Record<string, Omit<SeoRoute, 'path' | 'canonicalPath'>> 
     title: 'Déménageur Paris | Île-de-France | Devis Gratuit | Marne Transdem',
     h1: 'Entreprise de déménagement à Paris',
     description:
-      'Marne Transdem : expert du déménagement à Paris 20e et en Île-de-France. Particuliers & Entreprises. Devis gratuit sous 24h.',
+      'Déménagement à Paris et en Île-de-France pour particuliers et entreprises. Comparez les formules et préparez votre devis personnalisé avec Marne Transdem.',
     priority: '1.0',
     changefreq: 'weekly',
   },
@@ -266,10 +266,10 @@ const EXPLICIT_ROUTES: Record<string, Omit<SeoRoute, 'path' | 'canonicalPath'>> 
     priority: '0.8',
   },
   '/demande-de-devis': {
-    title: 'Demande de Devis Déménagement Paris | Estimation gratuite | Marne Transdem',
+    title: 'Devis déménagement Paris et Île-de-France | Marne Transdem',
     h1: 'Demande de devis déménagement à Paris',
     description:
-      'Obtenez votre devis de déménagement gratuit à Paris et en Île-de-France. Formulaire rapide, réponse sous 24h et étude personnalisée de votre projet.',
+      'Préparez votre devis de déménagement à Paris et en Île-de-France : trajet, volume, accès et prestations. Décrivez votre projet à Marne Transdem.',
     priority: '0.9',
     changefreq: 'weekly',
   },

@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Hero } from '../components/home/Hero';
 import { ReassuranceBar } from '../components/home/ReassuranceBar';
 import { ServicesSection } from '../components/home/ServicesSection';
+import { QuotePreparation } from '../components/home/QuotePreparation';
 import { Link } from 'react-router-dom';
 
 const GoogleReviewsSection = React.lazy(() => import('../components/home/GoogleReviews').then(m => ({ default: m.GoogleReviewsSection })));
@@ -55,7 +56,7 @@ const Home: React.FC = () => {
     <>
       <SEO 
         title="Déménageur Paris | Île-de-France | Devis Gratuit | Marne Transdem" 
-        description="Marne Transdem : expert du déménagement à Paris 20e et en Île-de-France. Particuliers & Entreprises. Devis gratuit sous 24h."
+        description="Déménagement à Paris et en Île-de-France pour particuliers et entreprises. Comparez les formules et préparez votre devis personnalisé avec Marne Transdem."
         canonical="/"
         schema={[
           getOrganizationSchema(), 
@@ -67,6 +68,7 @@ const Home: React.FC = () => {
       <Hero />
       <ReassuranceBar />
       <ServicesSection />
+      <QuotePreparation />
 
       {/* Formulas Section */}
       <section className="py-24 stay-light-section transition-colors duration-300">

@@ -90,7 +90,7 @@ export const Hero: React.FC = () => {
               </div>
               
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-brand-900 dark:text-white leading-[1.1] mb-6 tracking-tight italic uppercase">
-                Entreprise de<br/>
+                Entreprise de{' '}<br/>
                 <span className="text-accent underline decoration-brand-900/10 dark:decoration-white/10 underline-offset-8">déménagement à Paris</span>
               </h1>
               

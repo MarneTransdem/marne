@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { QuoteGuide } from '../components/common/QuoteGuide';
 import { QuoteForm } from '../components/forms/QuoteForm';
 import { MapProvider } from '../components/common/MapProvider';
 import { SEO } from '../components/SEO';
@@ -13,8 +15,8 @@ const QuoteRequest: React.FC = () => {
   return (
     <div className="bg-slate-50 dark:bg-slate-950 min-h-screen py-12 md:py-20 transition-colors duration-300">
       <SEO 
-        title="Demande de Devis Déménagement Paris | Estimation gratuite | Marne Transdem" 
-        description="Obtenez votre devis de déménagement gratuit à Paris and en Île-de-France. Formulaire rapide, réponse sous 24h. Étude personnalisée de votre projet." 
+        title="Devis déménagement Paris et Île-de-France | Marne Transdem"
+        description="Préparez votre devis de déménagement à Paris et en Île-de-France : trajet, volume, accès et prestations. Décrivez votre projet à Marne Transdem."
         canonical={path}
         schema={getBreadcrumbSchema([
           { name: "Accueil", item: "/" },
@@ -31,9 +33,10 @@ const QuoteRequest: React.FC = () => {
               Demande de devis <span className="text-accent italic font-serif">déménagement</span> à Paris
             </h1>
             <p className="text-slate-500 dark:text-slate-400 text-lg md:text-xl max-w-3xl mx-auto mb-10 font-light leading-relaxed">
-              Décrivez votre projet en quelques minutes. L’équipe Marne Transdem vous recontacte pour établir une estimation adaptée à votre situation.
+              Vous déménagez à Paris ou en Île-de-France ? Indiquez votre trajet, votre date et les biens à transporter. L’équipe Marne Transdem vous recontacte pour préciser les accès et les prestations nécessaires à votre devis personnalisé.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+              <a href="#formulaire-devis" className="bg-brand-900 dark:bg-accent text-white dark:text-brand-900 px-8 py-4 rounded-full font-bold">Remplir ma demande de devis</a>
               <a 
                 href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} 
                 onClick={() => trackConversion('phone_click', { placement: 'quote_hero' })}
@@ -66,11 +69,12 @@ const QuoteRequest: React.FC = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* 3. Formulaire principal */}
-            <div className="lg:col-span-2">
+            <div id="formulaire-devis" className="lg:col-span-2 scroll-mt-32 min-w-0">
               <h2 className="text-2xl font-bold text-brand-900 dark:text-white mb-8 flex items-center gap-3">
                 <div className="w-1.5 h-8 bg-accent rounded-full"></div>
                 Votre formulaire de projet
               </h2>
+              <p className="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">Préparez les adresses, les étages et votre date envisagée. Pour le volume, vous pouvez vous aider du <Link to="/calculateur-volume" className="underline underline-offset-4 font-semibold">calculateur en m³</Link>. Signalez les informations à confirmer dans votre message.</p>
               <MapProvider>
                 <QuoteForm />
               </MapProvider>
@@ -113,7 +117,7 @@ const QuoteRequest: React.FC = () => {
                     </div>
                     <div>
                       <p className="text-xs text-white/50 uppercase tracking-widest font-bold mb-0.5">Email</p>
-                      <p className="text-lg font-bold">contact@marnetransdem.com</p>
+                      <p className="text-lg font-bold break-all">contact@marnetransdem.com</p>
                     </div>
                   </a>
 
@@ -130,6 +134,7 @@ const QuoteRequest: React.FC = () => {
               </div>
             </div>
           </div>
+          <QuoteGuide />
         </div>
       </div>
     </div>
