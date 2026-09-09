@@ -48,6 +48,16 @@ export const SectorPage: React.FC = () => {
   const isDepartment = Object.hasOwn(departmentLocations, resolvedSlug);
   const sectorLocation = resolvedSlug === 'ile-de-france' ? 'en Île-de-France'
     : departmentLocations[resolvedSlug] || `à ${sector.name}`;
+  const breadcrumbParent = isDepartment
+    ? { name: 'Île-de-France', item: '/demenagement-ile-de-france' }
+    : sector.type === 'longue-distance' && resolvedSlug !== 'longue-distance'
+      ? { name: 'Longue distance', item: '/demenagement-longue-distance' }
+      : { name: 'Secteurs desservis', item: '/secteurs-desservis' };
+  const breadcrumbs = [
+    { name: 'Accueil', item: '/' },
+    breadcrumbParent,
+    { name: sectorLabel, item: path },
+  ];
 
   // Default fallback images
   const heroImage = sector.seoImage || (sector.type === 'longue-distance' 
@@ -74,14 +84,7 @@ export const SectorPage: React.FC = () => {
         canonical={path}
         schema={[
           getFAQSchema(sector.faqs),
-          getBreadcrumbSchema([
-            { name: "Accueil", item: "/" },
-            { 
-              name: isDepartment ? "Île-de-France" : sector.type === 'longue-distance' ? "Longue distance" : "Secteurs",
-              item: isDepartment ? "/demenagement-ile-de-france" : sector.type === 'longue-distance' ? "/demenagement-longue-distance" : "/secteurs-desservis"
-            },
-            { name: sector.name, item: path }
-          ])
+          getBreadcrumbSchema(breadcrumbs)
         ]}
       />
 
@@ -104,15 +107,17 @@ export const SectorPage: React.FC = () => {
         
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl">
-      {isDepartment && <nav aria-label="Fil d’Ariane" className="text-white mb-8">
+      <nav aria-label="Fil d’Ariane" className="text-white mb-8">
         <ol className="container mx-auto flex flex-wrap items-center gap-2 text-sm">
-          <li><Link to="/" className="underline underline-offset-4">Accueil</Link></li>
-          <li aria-hidden="true">/</li>
-          <li><Link to="/demenagement-ile-de-france" className="underline underline-offset-4">Déménagement en Île-de-France</Link></li>
-          <li aria-hidden="true">/</li>
-          <li aria-current="page">{sector.name}</li>
+          {breadcrumbs.map((crumb, index) => <React.Fragment key={crumb.item}>
+            {index > 0 && <li aria-hidden="true">/</li>}
+            <li>{index === breadcrumbs.length - 1
+              ? <span aria-current="page">{crumb.name}</span>
+              : <Link to={crumb.item} className="underline underline-offset-4">{crumb.name}</Link>}
+            </li>
+          </React.Fragment>)}
         </ol>
-      </nav>}
+      </nav>
             <motion.div
               initial={false}
               animate={{ opacity: 1, y: 0 }}
