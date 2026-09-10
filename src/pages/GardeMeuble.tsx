@@ -27,6 +27,18 @@ const faqs = [
   { 
     q: "Comment obtenir un devis pour une solution de stockage ?", 
     a: "Il vous suffit de nous contacter ou de remplir notre formulaire en ligne. Nous vous fournirons une estimation personnalisée incluant, selon votre projet, le transport et le stockage de vos biens." 
+  },
+  {
+    q: "Que faut-il inclure dans le budget de stockage ?",
+    a: "Faites préciser le volume retenu, la durée et la périodicité de facturation, ainsi que le transport à l'entrée et à la sortie. Demandez aussi quelles fournitures, manutentions et garanties sont incluses ou facturées séparément. Comparez le coût de l'ensemble du projet plutôt que le seul prix du stockage."
+  },
+  {
+    q: "Puis-je accéder à mes affaires pendant le stockage ?",
+    a: "Les modalités dépendent de la solution proposée. Avant de signer, faites confirmer l'accès sur rendez-vous ou selon des horaires définis, la possibilité de retirer une partie des biens, les délais et les frais éventuels. Signalez dès le devis si vous devez récupérer régulièrement des affaires."
+  },
+  {
+    q: "Comment préparer la restitution ou prolonger le stockage ?",
+    a: "Communiquez la date souhaitée et les accès de l'adresse de livraison. Vérifiez le préavis, les disponibilités de transport et les conditions de prolongation au contrat. Une date de fin estimée doit être confirmée avec votre interlocuteur avant d'organiser la remise des clés."
   }
 ];
 
@@ -69,7 +81,7 @@ const GardeMeuble: React.FC = () => {
     <div className="bg-white">
       <SEO 
         title="Garde-meuble Paris | Marne Transdem"
-        description="Besoin d’une solution de garde-meuble ou de stockage à Paris ? Marne Transdem vous accompagne pour stocker vos biens selon votre projet."
+        description="Garde-meuble à Paris : préparez le volume, la durée, l'accès aux biens et leur restitution. Demandez un devis détaillant stockage et transports selon votre projet."
         canonical={path}
         schema={[
           getServiceSchema("Garde-meuble et stockage", "Marne Transdem accompagne les particuliers et les entreprises qui ont besoin d’une solution de stockage temporaire ou plus longue durée à Paris et en Île-de-France."),
@@ -275,6 +287,19 @@ const GardeMeuble: React.FC = () => {
       </section>
 
       {/* 9. CTA Intermédiaire */}
+      <section className="py-16 bg-slate-50">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
+          <h2 className="text-3xl font-bold text-brand-900">Les points à préciser avant de stocker vos meubles</h2>
+          <p className="text-slate-600 leading-relaxed">Préparez un inventaire avec le <Link to="/calculateur-volume" className="underline text-brand-900">calculateur de volume</Link>, puis indiquez la durée envisagée et les affaires dont vous aurez besoin pendant le stockage. Faites confirmer l'adresse du lieu de stockage, les conditions d'accès et les biens acceptés avant de choisir la solution.</p>
+          <ul className="list-disc pl-6 space-y-3 text-slate-600 leading-relaxed">
+            <li><strong>Budget complet :</strong> stockage, transport aller et retour, manutention, fournitures et éventuels frais annexes doivent être identifiables dans le devis.</li>
+            <li><strong>Accès aux biens :</strong> précisez si vous souhaitez récupérer des cartons en cours de contrat et demandez les modalités, les délais et le coût éventuel.</li>
+            <li><strong>Protection et garanties :</strong> vérifiez les exigences d'emballage, les objets exclus et les garanties contractuelles. Signalez les objets fragiles ou de valeur.</li>
+            <li><strong>Fin ou prolongation :</strong> faites préciser le préavis et les conditions de restitution, puis confirmez les accès du logement où les biens seront livrés.</li>
+          </ul>
+          <p className="text-slate-600 leading-relaxed">Pour préparer les biens, consultez notre page <Link to="/emballage-protection-demenagement" className="underline text-brand-900">emballage et protection</Link>. Si vous ne conservez que quelques meubles, indiquez-le dans votre demande et consultez les conseils pour un <Link to="/demenagement-petit-volume" className="underline text-brand-900">transport de petit volume</Link>.</p>
+        </div>
+      </section>
       <section className="py-20 bg-brand-900 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-accent/10 skew-x-12 translate-x-1/2"></div>
         <div className="container mx-auto px-4 md:px-6 text-center relative z-10">
@@ -314,7 +339,7 @@ const GardeMeuble: React.FC = () => {
                   <CheckCircle2 size={24} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-900 mb-1">{reason.t}</h4>
+                  <h3 className="font-bold text-brand-900 mb-1">{reason.t}</h3>
                   <p className="text-sm text-slate-500 font-light leading-relaxed">{reason.d}</p>
                 </div>
               </div>
@@ -331,10 +356,10 @@ const GardeMeuble: React.FC = () => {
             <div className="space-y-6">
               {faqs.map((faq, i) => (
                 <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 transition-all">
-                  <h4 className="font-bold text-brand-900 mb-4 flex items-center gap-3">
+                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-3">
                     <Zap size={18} className="text-accent" />
                     {faq.q}
-                  </h4>
+                  </h3>
                   <p className="text-slate-500 leading-relaxed font-light">{faq.a}</p>
                 </div>
               ))}
@@ -346,25 +371,26 @@ const GardeMeuble: React.FC = () => {
       {/* 12. Maillage interne */}
       <section className="py-24 border-t border-slate-100">
         <div className="container mx-auto px-4 md:px-6">
+           <h2 className="text-3xl font-bold text-brand-900 mb-10">Préparer le transport et les prestations associés</h2>
            <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
               <Link to="/demande-de-devis" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Devis</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Devis</h3>
                 <p className="text-xs text-slate-500 font-light">Demande de devis personnalisée.</p>
               </Link>
               <Link to="/demenagement-particuliers-paris" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Particuliers</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Particuliers</h3>
                 <p className="text-xs text-slate-500 font-light">Accompagnement foyer.</p>
               </Link>
               <Link to="/demenagement-entreprises-paris" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Entreprises</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Entreprises</h3>
                 <p className="text-xs text-slate-500 font-light">Transfert professionnel.</p>
               </Link>
               <Link to="/formules-demenagement" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Formules</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Formules</h3>
                 <p className="text-xs text-slate-500 font-light">Toutes nos prestations.</p>
               </Link>
               <Link to="/contact" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Contact</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Contact</h3>
                 <p className="text-xs text-slate-500 font-light">Parlons de votre projet.</p>
               </Link>
            </div>
