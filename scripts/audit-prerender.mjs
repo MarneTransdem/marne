@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { auditBreadcrumbNames } from './breadcrumb-audit.mjs';
 
 const sitemap = await fs.readFile('dist/sitemap.xml', 'utf8');
 const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(x => new URL(x[1]));
@@ -19,7 +20,10 @@ for (const url of urls) {
   const internal = [...new Set(links.filter(x => x.startsWith('/') && !x.startsWith('//')).map(x => new URL(x, url).pathname))];
   for (const target of internal) if (!paths.has(target)) errors.push(`${url.pathname} -> ${target}`);
   for (const script of html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)) {
-    try { JSON.parse(script[1]); } catch { errors.push(`${url.pathname}: invalid JSON-LD`); }
+    try {
+      const data = JSON.parse(script[1]);
+      errors.push(...auditBreadcrumbNames(data).map(error => `${url.pathname}: ${error}`));
+    } catch { errors.push(`${url.pathname}: invalid JSON-LD`); }
   }
   if (links.length <= 4) errors.push(`${url.pathname}: incomplete HTML`);
   pages.push({ path: url.pathname, links: internal, bytes: Buffer.byteLength(html) });
