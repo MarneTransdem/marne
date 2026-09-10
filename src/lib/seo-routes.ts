@@ -43,6 +43,8 @@ export const CANONICAL_ALIASES: Record<string, string> = {
   '/calculateur-de-volume': '/calculateur-volume',
   '/location-garde-meubles': '/garde-meuble-paris',
   '/service-emballage-et-protection': '/emballage-protection-demenagement',
+  '/demenagement/entreprise': '/demenagement-entreprises-paris',
+  '/demenagement-residence-senior': '/demenagement-senior',
   '/particuliers': '/demenagement-particuliers-paris',
   '/entreprises': '/demenagement-entreprises-paris',
   '/garde-meuble': '/garde-meuble-paris',

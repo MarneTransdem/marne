@@ -23,6 +23,8 @@
       }
     ],
     "redirects": [
+      { "source": "/demenagement/entreprise", "destination": "/demenagement-entreprises-paris", "type": 301 },
+      { "source": "/demenagement-residence-senior", "destination": "/demenagement-senior", "type": 301 },
       { "source": "/devis-demenagement", "destination": "/demande-de-devis", "type": 301 },
       { "source": "/calculateur-de-volume", "destination": "/calculateur-volume", "type": 301 },
       { "source": "/location-garde-meubles", "destination": "/garde-meuble-paris", "type": 301 },
