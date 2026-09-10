@@ -308,7 +308,7 @@ export const SectorPage: React.FC = () => {
                 to={service.path}
                 className="group p-8 bg-slate-50 border border-slate-100 rounded-[2.5rem] hover:bg-white hover:shadow-2xl hover:border-accent/10 transition-all duration-500"
               >
-                <h4 className="text-xl font-bold text-brand-900 mb-4 group-hover:text-accent transition-colors">{service.title}</h4>
+                <h3 className="text-xl font-bold text-brand-900 mb-4 group-hover:text-accent transition-colors">{service.title}</h3>
                 <p className="text-slate-500 text-sm font-light leading-relaxed mb-6 italic">{service.desc}</p>
                 <div className="flex items-center gap-2 text-brand-900 font-black text-[10px] uppercase tracking-widest">
                   Découvrir <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -447,7 +447,7 @@ export const SectorPage: React.FC = () => {
                     {i + 1}
                   </div>
                 </div>
-                <h4 className="text-xl font-bold text-brand-900 mb-4">{step.title}</h4>
+                <h3 className="text-xl font-bold text-brand-900 mb-4">{step.title}</h3>
                 <p className="text-slate-500 text-sm font-light leading-relaxed px-4">{step.desc}</p>
               </div>
             ))}
@@ -509,10 +509,10 @@ export const SectorPage: React.FC = () => {
             <div className="space-y-6">
               {sector.faqs.map((faq, i) => (
                 <div key={i} className="bg-slate-50 p-10 rounded-[2rem] border border-slate-200 shadow-sm">
-                  <h4 className="text-lg font-bold text-brand-900 mb-6 flex items-start gap-4">
+                  <h3 className="text-lg font-bold text-brand-900 mb-6 flex items-start gap-4">
                     <HelpCircle className="text-accent shrink-0 mt-1" size={22} />
                     {faq.q}
-                  </h4>
+                  </h3>
                   <p className="text-slate-500 font-light leading-relaxed pl-10 border-l-2 border-accent/20 opacity-80 text-justify">
                     {faq.a}
                   </p>
@@ -528,7 +528,7 @@ export const SectorPage: React.FC = () => {
         <section className="py-12 bg-slate-50 border-t border-slate-100">
           <div className="container mx-auto px-4 md:px-6">
             <div className="text-center mb-8">
-              <h3 className="text-sm font-black uppercase tracking-widest text-brand-900/30">Autres secteurs à proximité</h3>
+              <h2 className="text-sm font-black uppercase tracking-widest text-brand-900/30">Autres secteurs à proximité</h2>
             </div>
             <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-center">
               {sector.nearbySectors.map((ns, idx) => (
