@@ -12,19 +12,19 @@ const DemenagementSenior: React.FC = () => {
   const faqs = [
     { 
       q: "Quelles aides financières existent pour le déménagement des seniors ?", 
-      a: "Plusieurs aides peuvent être sollicitées selon la situation : les caisses de retraite parentales (CNAV, CNRACL, etc.), l'APA (Allocation Personnalisée d'Autonomie) via le Conseil Départemental, ou encore certaines mutuelles." 
+      a: "Certaines caisses de retraite peuvent aider à financer un déménagement ou accompagner les démarches. Contactez votre caisse pour connaître les conditions, les justificatifs et le calendrier de demande avant de vous engager. Le financement dépend de votre situation et de la décision de l'organisme ; il n'est pas automatique."
     },
     { 
       q: "Proposez-vous un service d'emballage complet (vaisselle, rideaux, bibelots) ?", 
-      a: "Oui, notre formule 'Luxe' est particulièrement recommandée pour les seniors. Nous prenons en charge l'intégralité de l'emballage des objets fragiles, bibelots, vaisselle, ainsi que le décrochage et le raccrochage des luminaires." 
+      a: "Précisez les objets à emballer et les meubles à démonter lors de la demande de devis. Le devis doit identifier les prestations retenues et celles que vous conservez à votre charge. Signalez séparément les rideaux et luminaires pour faire confirmer les interventions possibles."
     },
     { 
       q: "Déménagez-vous vers des résidences seniors ou EHPAD ?", 
-      a: "Absolument. Nous connaissons les contraintes logistiques de ces établissements (horaires, accès restreints, coordination avec le personnel de santé). Nous assurons un transfert respectueux et discret." 
+      a: "Vous pouvez demander un devis pour une installation en résidence senior ou en EHPAD. Avant de fixer le déménagement, confirmez avec l'établissement les créneaux d'arrivée, les accès, les dimensions de l'ascenseur et les meubles autorisés. Transmettez ces informations pour préparer le transport."
     },
     { 
       q: "Pouvez-vous nous aider à trier ou à débarrasser certains meubles ?", 
-      a: "Nous pouvons organiser le retrait d'encombrants ou le transfert vers un garde-meuble si le nouveau logement est plus petit que l'ancien, afin de faciliter la transition." 
+      a: "Commencez par distinguer les meubles à emporter, à conserver et à donner, avec l'accord de la personne concernée. Si un stockage est nécessaire, demandez un devis précisant le volume, la durée et les conditions d'accès. Toute prestation de débarras doit être confirmée séparément."
     }
   ];
 
@@ -35,7 +35,7 @@ const DemenagementSenior: React.FC = () => {
         description="Un accompagnement bienveillant pour le déménagement des seniors à Paris. Aide à l'emballage, manutention douce, installation en résidence senior ou EHPAD."
         canonical={path}
         schema={[
-          getServiceSchema("Déménagement Senior", "Service de déménagement avec accompagnement renforcé pour les personnes âgées, incluant emballage complet et installation."),
+          getServiceSchema("Déménagement Senior", "Déménagement des seniors à Paris et en Île-de-France, vers un logement ou une résidence, avec prestations d'emballage et d'installation à définir au devis."),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },
@@ -94,7 +94,7 @@ const DemenagementSenior: React.FC = () => {
                   Changer de logement après de nombreuses années dans un même foyer est une étape chargée d'émotion. Marne Transdem l'a compris et propose un service de <span className="font-bold text-brand-900">déménagement senior</span> basé sur l'écoute, la patience et une attention méticuleuse portée aux objets qui vous sont chers.
                 </p>
                 <p>
-                  Qu'il s'agisse de se rapprocher de votre famille, de s'installer dans un appartement plus adapté ou d'intégrer une <Link to="/contact" className="text-brand-900 font-bold hover:text-accent italic decoration-accent/30 underline underline-offset-4">résidence service</Link> ou un EHPAD, nos équipes sont formées pour agir avec discrétion et prévenance.
+                  Pour rejoindre votre famille, un logement plus adapté, une résidence senior ou un EHPAD, préparez la liste des meubles à emporter et les accès au nouveau logement. Comparez les <Link to="/formules-demenagement" className="text-brand-900 font-bold hover:text-accent underline underline-offset-4">formules de déménagement</Link> pour déterminer l'aide souhaitée et les prestations à inscrire au devis.
                 </p>
               </div>
             </div>
@@ -120,10 +120,10 @@ const DemenagementSenior: React.FC = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 italic transition-all italic underline-none italic">
             {[
-              { icon: <Package size={32} />, t: "Emballage Expert", d: "Protection intégrale de votre vaisselle, bibelots, effets personnels et souvenirs précieux." },
-              { icon: <Sofa size={32} />, t: "Manutention Douce", d: "Démontage et remontage de vos meubles avec un soin extrême." },
-              { icon: <Sparkles size={32} />, t: "Service d'installation", d: "Mise en place de vos meubles selon vos souhaits pour vous sentir immédiatement chez vous." },
-              { icon: <ShieldCheck size={32} />, t: "Assurance Renforcée", d: "Protection ad valorem pour couvrir sereinement vos objets de valeur." }
+              { icon: <Package size={32} />, t: "Emballage", d: "Identifiez les objets fragiles et le périmètre d'emballage à prévoir au devis." },
+              { icon: <Sofa size={32} />, t: "Mobilier", d: "Signalez les meubles à démonter et vérifiez leur passage dans les accès du nouveau logement." },
+              { icon: <Sparkles size={32} />, t: "Installation", d: "Préparez un plan de placement et faites préciser les opérations de remontage retenues." },
+              { icon: <ShieldCheck size={32} />, t: "Objets de valeur", d: "Déclarez les objets concernés et vérifiez les garanties, plafonds et exclusions proposés au contrat." }
             ].map((service, i) => (
               <div key={i} className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-slate-100 h-full hover:border-accent transition-all group italic">
                 <div className="text-accent mb-6 group-hover:scale-110 transition-all italic">{service.icon}</div>
@@ -158,11 +158,11 @@ const DemenagementSenior: React.FC = () => {
                 <div className="bg-brand-900 p-10 rounded-[3rem] text-white flex flex-col justify-center italic">
                    <div className="space-y-6 italic">
                       {[
-                        "Décrochage des rideaux et luminaires",
-                        "Emballage des objets d'art et fragiles",
-                        "Tri pré-déménagement (Option)",
-                        "Remontage complet du mobilier",
-                        "Mise en place des vêtements sur cintres"
+                        "Inventaire des meubles conservés",
+                        "Dimensions du logement et des accès",
+                        "Créneau de livraison validé avec la résidence",
+                        "Emballage et remontage précisés au devis",
+                        "Effets personnels à garder avec vous"
                       ].map((item, i) => (
                         <div key={i} className="flex items-center gap-4 italic">
                            <CheckCircle2 size={24} className="text-accent shrink-0 italic" />
@@ -177,6 +177,14 @@ const DemenagementSenior: React.FC = () => {
       </section>
 
       {/* FAQ Senior */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
+          <h2 className="text-3xl font-bold text-brand-900">Préparer le budget et les démarches</h2>
+          <p className="text-slate-600 leading-relaxed">Certaines caisses de retraite proposent une aide au déménagement ou un accompagnement administratif. Consultez les <a href="https://www.pour-les-personnes-agees.gouv.fr/beneficier-daides/les-aides-des-caisses-de-retraite" className="underline text-brand-900">informations officielles sur les aides des caisses de retraite</a>, puis vérifiez votre éligibilité directement auprès de votre caisse avant de compter sur un financement.</p>
+          <p className="text-slate-600 leading-relaxed">Pour préparer un devis comparable, indiquez les deux adresses, les étages, les accès, la date souhaitée et le mobilier conservé. Le <Link to="/calculateur-volume" className="underline text-brand-900">calculateur de volume</Link> aide à préparer cette estimation. Si vous conservez des meubles hors du nouveau logement, examinez les <Link to="/garde-meuble-paris" className="underline text-brand-900">conditions de garde-meuble</Link> et demandez un chiffrage séparé.</p>
+          <p className="text-slate-600 leading-relaxed">Pensez également à <a href="https://www.lassuranceretraite.fr/portail-info/sites/pub/home/retraite/paiements-retraite/changement-situation.html" className="underline text-brand-900">signaler votre changement d'adresse à l'Assurance retraite</a> si vous en dépendez. Préparez avec votre proche les démarches et les documents à conserver à portée de main.</p>
+        </div>
+      </section>
       <section className="py-24 bg-slate-50 font-sans italic transition-all italic underline-none italic shadow-none italic">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl italic font-sans italic transition-all italic underline decoration-accent/10 underline-offset-8 italic">
            <div className="text-center mb-16 italic font-sans italic transition-all italic underline-none italic shadow-none italic grayscale-0 italic">
@@ -185,10 +193,10 @@ const DemenagementSenior: React.FC = () => {
            <div className="grid grid-cols-1 gap-8 italic font-sans italic transition-all italic grayscale-0 italic shadow-none italic">
              {faqs.map((faq, i) => (
                <div key={i} className="bg-white p-10 rounded-[2.5rem] border border-slate-100 group hover:border-accent transition-all shadow-sm italic font-sans italic transition-all italic grayscale-0 italic shadow-none italic">
-                 <h4 className="font-bold text-brand-900 mb-4 flex items-center gap-4 uppercase italic tracking-tight italic font-sans italic transition-all italic">
+                 <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-4 uppercase italic tracking-tight italic font-sans italic transition-all italic">
                    <HelpCircle className="text-accent shrink-0 italic" size={20} />
                    {faq.q}
-                 </h4>
+                 </h3>
                  <p className="text-slate-500 font-light leading-relaxed pl-9 border-l-4 border-accent/20 italic font-sans italic transition-all italic underline-none italic">
                    {faq.a}
                  </p>
