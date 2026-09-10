@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import NotFound from './NotFound';
 import { SEO } from '../components/SEO';
+import { BlogServiceLinks } from '../components/common/BlogServiceLinks';
 import { CONTACT } from '../constants';
 import { SITE_URL } from '../lib/seo-routes';
 
@@ -1542,23 +1543,7 @@ const BlogPost: React.FC = () => {
                   </section>
                 )}
 
-                <div className="mt-16 flex flex-wrap gap-4 border-t border-slate-100 pt-8 text-[10px] font-bold uppercase tracking-widest text-slate-300">
-                  <Link to="/demenagement-particuliers-paris" className="hover:text-accent">
-                    Déménagement Paris
-                  </Link>
-                  <Link to="/transfert-bureaux-paris" className="hover:text-accent">
-                    Déménagement entreprise Paris
-                  </Link>
-                  <Link to="/location-monte-meuble-paris" className="hover:text-accent">
-                    Monte-meuble Paris
-                  </Link>
-                  <Link to="/formules-demenagement" className="hover:text-accent">
-                    Formules
-                  </Link>
-                  <Link to="/demande-de-devis" className="hover:text-accent">
-                    Devis déménagement
-                  </Link>
-                </div>
+                <BlogServiceLinks slug={post.slug} />
               </div>
             </div>
 
