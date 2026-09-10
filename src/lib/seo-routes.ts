@@ -1,4 +1,5 @@
 import sectorsData from '../constants/sectorMetadata.json' with { type: 'json' };
+import contentUpdatedAt from '../constants/contentUpdatedAt.json' with { type: 'json' };
 import { getSectorLabel } from './sector-label.ts';
 export const SITE_URL = 'https://www.devisdemenagement-paris.com';
 export const SITE_NAME = 'Marne Transdem';
@@ -529,7 +530,7 @@ export function absoluteUrl(pathname: string): string {
   return pathname === '/' ? SITE_URL : `${SITE_URL}${pathname}`;
 }
 
-export function getSitemapXml(date?: string): string {
+export function getSitemapXml(): string {
   const urls = getPublicCanonicalRoutes()
     .map((path) => getSeoRoute(path))
     .filter((route) => route.robots !== 'noindex, nofollow');
@@ -539,6 +540,7 @@ export function getSitemapXml(date?: string): string {
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ...urls.map((route) => {
       const loc = route.canonicalPath === '/' ? SITE_URL : `${SITE_URL}${route.canonicalPath}`;
+      const date = (contentUpdatedAt as Record<string, string>)[route.canonicalPath];
       return [
         '  <url>',
         `    <loc>${loc}</loc>`,
