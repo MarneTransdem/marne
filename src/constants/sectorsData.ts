@@ -127,11 +127,11 @@ export const sectorsData: Sector[] = [
         "l": "/secteurs-desservis"
       },
       {
-        "n": "Paris 12",
+        "n": "Paris 12e",
         "l": "/demenagement-paris-12"
       },
       {
-        "n": "Paris 13",
+        "n": "Paris 13e",
         "l": "/demenagement-paris-13"
       },
       {
@@ -876,7 +876,7 @@ export const sectorsData: Sector[] = [
         "l": "/secteurs-desservis"
       },
       {
-        "n": "Paris 12",
+        "n": "Paris 12e",
         "l": "/demenagement-paris-12"
       },
       {
@@ -1213,7 +1213,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-issy-les-moulineaux"
       },
       {
-        "n": "À Paris 15e (proche)",
+        "n": "Paris 15e",
         "l": "/demenagement-paris-15"
       },
       {
@@ -2192,15 +2192,15 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-ile-de-france"
       },
       {
-        "n": "Paris 16",
+        "n": "Paris 16e",
         "l": "/demenagement-paris-16"
       },
       {
-        "n": "Paris 17",
+        "n": "Paris 17e",
         "l": "/demenagement-paris-17"
       },
       {
-        "n": "Paris 15",
+        "n": "Paris 15e",
         "l": "/demenagement-paris-15"
       },
       {
@@ -2865,7 +2865,7 @@ export const sectorsData: Sector[] = [
         "l": "/secteurs-desservis"
       },
       {
-        "n": "Paris 13",
+        "n": "Paris 13e",
         "l": "/demenagement-paris-13"
       },
       {
@@ -2959,11 +2959,11 @@ export const sectorsData: Sector[] = [
         "l": "/secteurs-desservis"
       },
       {
-        "n": "Paris 12",
+        "n": "Paris 12e",
         "l": "/demenagement-paris-12"
       },
       {
-        "n": "Paris 13",
+        "n": "Paris 13e",
         "l": "/demenagement-paris-13"
       },
       {
@@ -3069,11 +3069,11 @@ export const sectorsData: Sector[] = [
         "l": "/secteurs-desservis"
       },
       {
-        "n": "Paris 13",
+        "n": "Paris 13e",
         "l": "/demenagement-paris-13"
       },
       {
-        "n": "Paris 14",
+        "n": "Paris 14e",
         "l": "/demenagement-paris-14"
       },
       {
@@ -3358,7 +3358,7 @@ export const sectorsData: Sector[] = [
         "l": "/secteurs-desservis"
       },
       {
-        "n": "Paris 12",
+        "n": "Paris 12e",
         "l": "/demenagement-paris-12"
       },
       {
@@ -3789,11 +3789,11 @@ export const sectorsData: Sector[] = [
         "l": "/secteurs-desservis"
       },
       {
-        "n": "Paris 12",
+        "n": "Paris 12e",
         "l": "/demenagement-paris-12"
       },
       {
-        "n": "Paris 13",
+        "n": "Paris 13e",
         "l": "/demenagement-paris-13"
       },
       {
@@ -3943,7 +3943,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-hauts-de-seine"
       },
       {
-        "n": "Paris 14e (proche)",
+        "n": "Paris 14e",
         "l": "/demenagement-paris-14"
       },
       {
@@ -4363,7 +4363,7 @@ export const sectorsData: Sector[] = [
         "l": "/secteurs-desservis"
       },
       {
-        "n": "Paris 20",
+        "n": "Paris 20e",
         "l": "/demenagement-paris-20"
       },
       {
@@ -4452,7 +4452,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-hauts-de-seine"
       },
       {
-        "n": "Paris 14e (proche)",
+        "n": "Paris 14e",
         "l": "/demenagement-paris-14"
       },
       {
@@ -4694,11 +4694,11 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-val-de-marne"
       },
       {
-        "n": "Paris 12",
+        "n": "Paris 12e",
         "l": "/demenagement-paris-12"
       },
       {
-        "n": "Paris 20",
+        "n": "Paris 20e",
         "l": "/demenagement-paris-20"
       },
       {
@@ -4842,11 +4842,11 @@ export const sectorsData: Sector[] = [
         "l": "/secteurs-desservis"
       },
       {
-        "n": "Paris 19",
+        "n": "Paris 19e",
         "l": "/demenagement-paris-19"
       },
       {
-        "n": "Paris 20",
+        "n": "Paris 20e",
         "l": "/demenagement-paris-20"
       },
       {
@@ -4893,7 +4893,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "paris-10",
-    "name": "Paris 1 0",
+    "name": "Paris 10e",
     "type": "local",
     "seoTitle": "Déménagement Paris 10e | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Paris 10e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble et devis personnalisé.",
@@ -4953,7 +4953,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "paris-11",
-    "name": "Paris 1 1",
+    "name": "Paris 11e",
     "type": "local",
     "seoTitle": "Déménagement Paris 11e | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Paris 11e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble et devis personnalisé.",
@@ -5010,7 +5010,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "paris-12",
-    "name": "Paris 1 2",
+    "name": "Paris 12e",
     "type": "local",
     "seoTitle": "Déménagement Paris 12e | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Paris 12e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées et demande de devis.",
@@ -5083,7 +5083,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "paris-13",
-    "name": "Paris 1 3",
+    "name": "Paris 13e",
     "type": "local",
     "seoTitle": "Déménagement Paris 13e | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Paris 13e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble et devis personnalisé.",
@@ -5148,7 +5148,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "paris-14",
-    "name": "Paris 1 4",
+    "name": "Paris 14e",
     "type": "local",
     "seoTitle": "Déménagement Paris 14e | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Paris 14e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble et devis personnalisé.",
@@ -5204,7 +5204,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "paris-15",
-    "name": "Paris 1 5",
+    "name": "Paris 15e",
     "type": "local",
     "seoTitle": "Déménagement Paris 15e | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Paris 15e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble et devis personnalisé.",
@@ -5276,7 +5276,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "paris-16",
-    "name": "Paris 1 6",
+    "name": "Paris 16e",
     "type": "local",
     "seoTitle": "Déménagement Paris 16e | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Paris 16e avec Marne Transdem. Services pour particuliers et entreprises, protection des biens, formules adaptées et devis personnalisé.",
@@ -5373,7 +5373,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "paris-17",
-    "name": "Paris 1 7",
+    "name": "Paris 17e",
     "type": "local",
     "seoTitle": "Déménagement Paris 17e | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Paris 17e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble et devis personnalisé.",
@@ -5457,7 +5457,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "paris-18",
-    "name": "Paris 1 8",
+    "name": "Paris 18e",
     "type": "local",
     "seoTitle": "Déménagement Paris 18e | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Paris 18e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble et devis personnalisé.",
@@ -5526,7 +5526,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "paris-19",
-    "name": "Paris 1 9",
+    "name": "Paris 19e",
     "type": "local",
     "seoTitle": "Déménagement Paris 19e | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Paris 19e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble et devis personnalisé.",
@@ -5599,7 +5599,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "paris-20",
-    "name": "Paris 2 0",
+    "name": "Paris 20e",
     "type": "local",
     "seoTitle": "Déménagement Paris 20e | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Paris 20e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées et demande de devis.",
@@ -5684,7 +5684,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "paris-9",
-    "name": "Paris 9",
+    "name": "Paris 9e",
     "type": "local",
     "seoTitle": "Déménagement Paris 9e | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Paris 9e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble et devis personnalisé.",
@@ -6702,7 +6702,7 @@ export const sectorsData: Sector[] = [
         "l": "/secteurs-desservis"
       },
       {
-        "n": "Paris 12",
+        "n": "Paris 12e",
         "l": "/demenagement-paris-12"
       },
       {
@@ -7026,19 +7026,19 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-ile-de-france"
       },
       {
-        "n": "Paris 20",
+        "n": "Paris 20e",
         "l": "/demenagement-paris-20"
       },
       {
-        "n": "Paris 19",
+        "n": "Paris 19e",
         "l": "/demenagement-paris-19"
       },
       {
-        "n": "Paris 18",
+        "n": "Paris 18e",
         "l": "/demenagement-paris-18"
       },
       {
-        "n": "Paris 11",
+        "n": "Paris 11e",
         "l": "/demenagement-paris-11"
       },
       {
@@ -7538,7 +7538,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-hauts-de-seine"
       },
       {
-        "n": "Paris 15e (proche)",
+        "n": "Paris 15e",
         "l": "/demenagement-paris-15"
       },
       {
