@@ -8283,7 +8283,9 @@ export const sectorsData: Sector[] = [
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement longue distance depuis Paris ou l'Île-de-France vers une autre destination en France.",
     "introParagraphs": [
-      "Du <span className=\"font-bold text-slate-700\">transport des meubles</span> à la gestion des <span className=\"font-bold text-slate-700 text-slate-700\">cartons</span> et <span className=\"font-bold text-slate-700\">objets fragiles</span>, notre équipe organise chaque étape. Nous prenons en compte le <span className=\"font-bold text-slate-700\">volume</span>, les <span className=\"font-bold text-slate-700 text-slate-700 font-bold\">accès au départ</span> comme les <span className=\"font-bold text-slate-700\">accès à l'arrivée</span>, ainsi que la <span className=\"font-bold text-slate-700\">distance</span> pour vous fournir une <span className=\"font-bold text-slate-700\">demande de devis</span> personnalisée et transparente."
+      "Un <strong>déménagement longue distance depuis Paris ou l’Île-de-France</strong> se prépare avec les deux adresses complètes, un inventaire et les dates souhaitées de chargement et de livraison. Distinguez les dates impératives des périodes flexibles, notamment pour la remise des clés et l’état des lieux. Faites confirmer le calendrier avant de réserver votre propre trajet : le temps de route du camion ne correspond pas à lui seul à la durée du déménagement.",
+      "Pour établir le devis, précisez le volume des meubles et cartons, les objets fragiles, les étages, les dimensions utiles de l’ascenseur et la distance entre le camion et l’entrée aux deux adresses. Préparez votre inventaire avec le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume</a>, puis choisissez les tâches à déléguer à l’aide du <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">comparatif des formules de déménagement</a>. Signalez les meubles à démonter et les besoins d’<a href=\"/emballage-protection-demenagement\" class=\"text-accent hover:underline\">emballage et de protection</a> pour comparer des prestations équivalentes.",
+      "À destination, prévoyez une personne pour accueillir l’équipe et confirmez les conditions de stationnement et d’accès. Si le logement n’est pas disponible à la date de départ, étudiez une solution de <a href=\"/garde-meuble-paris\" class=\"text-accent hover:underline\">garde-meuble entre les deux logements</a> : durée prévue, entrée en stockage, sortie et transport final doivent être précisés dans le devis. Transmettez ces informations dans votre <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">demande de devis longue distance</a> pour préparer une organisation adaptée au trajet."
     ],
     "faqs": [
       {
@@ -8304,11 +8306,19 @@ export const sectorsData: Sector[] = [
       },
       {
         "q": "Peut-on prévoir un garde-meuble lors d’un déménagement longue distance ?",
-        "a": "Oui, une solution de stockage peut être utile si les dates de départ et d'arrivée ne coïncident pas, si vous réalisez des travaux ou si vous avez besoin d'une transition avant l'installation définitive."
+        "a": "Un garde-meuble peut être étudié lorsque les dates des deux logements ne coïncident pas. Faites confirmer la disponibilité, la durée prévue, les modalités d’accès aux biens et le coût des transports vers le stockage puis vers le logement final. Précisez aussi comment sera organisée une prolongation si la remise des clés est décalée."
       },
       {
         "q": "Comment obtenir un devis pour un déménagement longue distance ?",
         "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L’estimation prend en compte le volume, les adresses, les accès, les étages, la distance, la formule souhaitée et les besoins spécifiques comme l’emballage, le garde-meuble ou le monte-meuble."
+      },
+      {
+        "q": "Le chargement et la livraison ont-ils lieu le même jour ?",
+        "a": "Cela dépend du trajet, du volume, du temps de manutention et de l’organisation retenue. Ne déduisez pas la date de livraison du seul temps de route. Communiquez les horaires d’accès aux deux logements et faites confirmer les dates ou créneaux de chargement et de livraison avant de vous organiser."
+      },
+      {
+        "q": "Comment comparer deux devis de déménagement longue distance ?",
+        "a": "Comparez le même inventaire, les mêmes adresses et la même période. Vérifiez la répartition de l’emballage, du démontage et du remontage, ainsi que les frais liés aux accès, au stationnement, au levage ou au stockage éventuel. Demandez quelles dates sont prévues et quelles modifications du projet nécessiteraient une nouvelle estimation."
       }
     ],
     "nearbySectors": [
