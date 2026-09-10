@@ -34,6 +34,13 @@ export type SeoRoute = {
 };
 
 export const CANONICAL_ALIASES: Record<string, string> = {
+  '/societe-demenagement-paris': '/',
+  '/demenagement-particuliers': '/demenagement-particuliers-paris',
+  '/services-demenagement': '/services',
+  '/location-de-monte-meuble-ou-de-monte-charge-a-paris-et-en-ile-de-france': '/location-monte-meuble-paris',
+  '/demenagement-dentreprises-a-paris-et-en-ile-de-france': '/demenagement-entreprises-paris',
+  '/devisdemenagement': '/demande-de-devis',
+  '/emballage-demenagement': '/cartons-demenagement-paris',
   '/demenagement-92-hauts-de-seine': '/demenagement-hauts-de-seine',
   '/demenagement-mais-laffitte': '/demenagement-maisons-laffitte',
   '/demenagement-saint-maur': '/demenagement-saint-maur-des-fosses',

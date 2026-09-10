@@ -1780,22 +1780,6 @@ Retournez les résultats strictement au format JSON selon le schéma demandé.`
     res.send(getRobotsTxt());
   });
 
-  [
-    ["/societe-demenagement-paris/", "/"],
-    ["/demenagement-particuliers/", "/demenagement-particuliers-paris"],
-    ["/services-demenagement/", "/services"],
-    ["/location-de-monte-meuble-ou-de-monte-charge-a-paris-et-en-ile-de-france/", "/location-monte-meuble-paris"],
-    ["/demenagement-dentreprises-a-paris-et-en-ile-de-france/", "/demenagement-entreprises-paris"],
-    ["/devisdemenagement/", "/demande-de-devis"],
-    ["/emballage-demenagement/", "/cartons-demenagement-paris"],
-  ].forEach(([from, to]) => {
-    app.get(from, (req, res) => {
-      const query = req.originalUrl.includes("?")
-        ? req.originalUrl.slice(req.originalUrl.indexOf("?"))
-        : "";
-      res.redirect(301, `${to}${query}`);
-    });
-  });
 
   const imagesRoot = path.resolve(
     process.cwd(),

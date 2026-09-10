@@ -23,6 +23,13 @@
       }
     ],
     "redirects": [
+      {"source":"/societe-demenagement-paris","destination":"/","type":301},
+      {"source":"/demenagement-particuliers","destination":"/demenagement-particuliers-paris","type":301},
+      {"source":"/services-demenagement","destination":"/services","type":301},
+      {"source":"/location-de-monte-meuble-ou-de-monte-charge-a-paris-et-en-ile-de-france","destination":"/location-monte-meuble-paris","type":301},
+      {"source":"/demenagement-dentreprises-a-paris-et-en-ile-de-france","destination":"/demenagement-entreprises-paris","type":301},
+      {"source":"/devisdemenagement","destination":"/demande-de-devis","type":301},
+      {"source":"/emballage-demenagement","destination":"/cartons-demenagement-paris","type":301},
       { "source": "/demenagement/entreprise", "destination": "/demenagement-entreprises-paris", "type": 301 },
       { "source": "/demenagement-residence-senior", "destination": "/demenagement-senior", "type": 301 },
       { "source": "/devis-demenagement", "destination": "/demande-de-devis", "type": 301 },
