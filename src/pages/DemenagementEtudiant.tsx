@@ -12,19 +12,19 @@ const DemenagementEtudiant: React.FC = () => {
   const faqs = [
     { 
       q: "Proposez-vous des tarifs spécifiques pour les étudiants ?", 
-      a: "Nous proposons une formule 'Économique' particulièrement adaptée aux budgets étudiants. En optimisant le volume (souvent limité à un studio ou une chambre de bonne) et en vous laissant la charge de l'emballage, nous parvenons à proposer des tarifs très compétitifs." 
+      a: "Demandez un devis précisant le mobilier, les accès et les prestations souhaitées. Pour comparer les options, indiquez si vous préparez vous-même les cartons et si certains meubles doivent être démontés. Le tarif dépend du projet ; une remise liée au statut étudiant doit être confirmée au devis."
     },
     { 
       q: "Peut-on déménager un petit volume (quelques cartons et un lit) ?", 
-      a: "Absolument. Marne Transdem intervient pour tous types de volumes, même les plus réduits. C'est l'essence même de notre service petit volume dédié aux étudiants et jeunes actifs." 
+      a: "Vous pouvez demander un devis pour quelques meubles et cartons. Listez les objets, leurs dimensions et les étages aux deux adresses. Un petit volume peut nécessiter une manutention particulière si un escalier est étroit ou si le lit doit être démonté."
     },
     { 
       q: "Intervenez-vous dans les résidences universitaires (CROUS, etc.) ?", 
-      a: "Oui, nous avons l'habitude d'intervenir dans les résidences étudiantes à Paris et en Île-de-France, en respectant les contraintes d'accès et les horaires spécifiques de ces établissements." 
+      a: "Pour préparer une livraison en résidence universitaire, demandez au gestionnaire les horaires d'accès, les modalités de remise des clés et les possibilités de stationnement. Vérifiez aussi l'ascenseur et le mobilier déjà fourni, puis transmettez ces informations avec votre demande de devis."
     },
     { 
       q: "Faut-il réserver longtemps à l'avance pour la rentrée de septembre ?", 
-      a: "La période de fin août et début septembre est très demandée. Nous vous conseillons de réserver votre déménagement étudiant au moins 3 à 4 semaines à l'avance pour garantir la disponibilité de nos équipes." 
+      a: "Contactez-nous dès que vos adresses et votre créneau d'entrée sont connus. Indiquez plusieurs dates possibles si vous disposez de souplesse. La disponibilité doit être confirmée lors de la réservation ; une demande anticipée ne réserve pas automatiquement une équipe."
     }
   ];
 
@@ -32,10 +32,10 @@ const DemenagementEtudiant: React.FC = () => {
     <div className="bg-white">
       <SEO 
         title="Déménagement Étudiant Paris & IDF | Marne Transdem"
-        description="Besoin d'un déménagement étudiant à petit prix ? Marne Transdem propose des solutions adaptées aux studios, chambres de bonne et petits budgets à Paris et IDF."
+        description="Préparez votre déménagement étudiant à Paris et en Île-de-France : inventaire, accès en résidence, cartons, petit volume et devis adapté aux prestations choisies."
         canonical={path}
         schema={[
-          getServiceSchema("Déménagement Étudiant", "Service de déménagement économique pour étudiants et jeunes actifs à Paris et en Île-de-France."),
+          getServiceSchema("Déménagement Étudiant", "Déménagement étudiant à Paris et en Île-de-France pour studios, chambres et petits volumes, avec prestations et disponibilités à confirmer au devis."),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },
@@ -64,7 +64,7 @@ const DemenagementEtudiant: React.FC = () => {
             </h1>
 
             <p className="text-xl md:text-2xl text-slate-300 mb-12 leading-relaxed font-light max-w-3xl italic">
-              Marne Transdem simplifie votre installation à Paris et en Île-de-France avec des solutions flexibles, rapides et adaptées aux petits budgets. Idéal pour studios et chambres de bonne.
+              Vous rejoignez un studio, une colocation ou une résidence universitaire à Paris ou en Île-de-France ? Préparez l'inventaire de vos meubles et cartons, les accès et la date d'entrée pour demander un devis adapté à votre installation.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-5">
@@ -94,7 +94,7 @@ const DemenagementEtudiant: React.FC = () => {
                   Changer de logement pour ses études est une étape cruciale qui ne doit pas devenir un gouffre financier. Marne Transdem a conçu un service de <span className="font-bold text-brand-900 underline decoration-accent/30 decoration-2">déménagement étudiant</span> spécifiquement pensé pour répondre aux contraintes des jeunes actifs et des universitaires à Paris et en région parisienne.
                 </p>
                 <p>
-                  Que vous quittiez le cocon familial, que vous changiez de résidence universitaire ou que vous vous installiez en colocation, nous mobilisons des moyens adaptés à votre volume (souvent entre 5 et 15 m³). Notre objectif : vous offrir le professionnalisme d'un déménageur de métier au prix le plus juste.
+                  Le volume dépend des biens que vous emportez, pas seulement de la surface du logement. Commencez par le <Link to="/calculateur-volume" className="underline text-brand-900">calculateur de volume</Link> et vérifiez les meubles déjà présents à destination. Pour quelques meubles et cartons, consultez notre service de <Link to="/demenagement-petit-volume" className="underline text-brand-900">déménagement petit volume</Link>.
                 </p>
               </div>
             </div>
@@ -102,10 +102,10 @@ const DemenagementEtudiant: React.FC = () => {
                <h3 className="text-2xl font-bold text-brand-900 uppercase italic border-b border-accent pb-4">Pourquoi nous choisir ?</h3>
                <div className="space-y-6">
                   {[
-                    { icon: <Wallet size={20} />, t: "Tarifs ultra-compétitifs", d: "Une formule économique pensée pour les petits budgets." },
+                    { icon: <Wallet size={20} />, t: "Budget à préparer", d: "Comparez des devis portant sur le même volume et les mêmes prestations." },
                     { icon: <Clock size={20} />, t: "Grande réactivité", d: "Possibilité d'intervention rapide selon nos disponibilités." },
                     { icon: <Zap size={20} />, t: "Logistique simplifiée", d: "Matériel adapté aux accès difficiles (chambres de bonne, escaliers)." },
-                    { icon: <ShieldCheck size={20} />, t: "Sérénité totale", d: "Vos biens sont assurés et manipulés par des pros." }
+                    { icon: <ShieldCheck size={20} />, t: "Garanties à vérifier", d: "Consultez les garanties, plafonds et exclusions indiqués au contrat." }
                   ].map((item, i) => (
                     <div key={i} className="flex gap-4 items-start italic">
                       <div className="text-accent mt-1">{item.icon}</div>
@@ -128,9 +128,9 @@ const DemenagementEtudiant: React.FC = () => {
         </div>
         <div className="container mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-3 gap-8 italic">
           {[
-            { icon: <Home size={32} />, t: "Studio & Chambre", d: "Parfait pour les logements de 9m² à 25m². Manutention et transport rapide." },
-            { icon: <Truck size={32} />, t: "Petit Volume", d: "Formule groupage ou dédiée pour quelques meubles et cartons seulement." },
-            { icon: <Package size={32} />, t: "Matériel fourni", d: "Possibilité de commander des cartons et protections à prix préférentiel." }
+            { icon: <Home size={32} />, t: "Studio & Chambre", d: "Précisez les étages, l'ascenseur et les dimensions des meubles à transporter." },
+            { icon: <Truck size={32} />, t: "Petit Volume", d: "Listez les meubles et cartons pour faire chiffrer le transport et la manutention." },
+            { icon: <Package size={32} />, t: "Cartons & Protection", d: "Faites préciser les fournitures incluses au devis et celles à acheter séparément." }
           ].map((card, i) => (
             <div key={i} className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-slate-100 hover:border-accent hover:shadow-xl transition-all group italic">
               <div className="text-accent mb-6 group-hover:scale-110 transition-transform">{card.icon}</div>
@@ -142,12 +142,20 @@ const DemenagementEtudiant: React.FC = () => {
       </section>
 
       {/* CTA Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
+          <h2 className="text-3xl font-bold text-brand-900">Préparer son installation en résidence ou en colocation</h2>
+          <p className="text-slate-600 leading-relaxed">Confirmez la remise des clés avant de fixer la livraison. Demandez au gestionnaire ou aux colocataires où le véhicule peut s'arrêter, quels accès utiliser et à quels horaires les meubles peuvent être livrés. Signalez les escaliers étroits et mesurez les meubles encombrants.</p>
+          <p className="text-slate-600 leading-relaxed">Pour définir votre budget, comparez les <Link to="/formules-demenagement" className="underline text-brand-900">prestations des formules de déménagement</Link>. Si vous emballez vos affaires, préparez les <Link to="/cartons-demenagement-paris" className="underline text-brand-900">cartons et protections nécessaires</Link>, identifiez leur destination et gardez vos clés, documents et affaires du premier soir avec vous.</p>
+          <p className="text-slate-600 leading-relaxed">Si vous devez quitter votre logement avant de recevoir les nouvelles clés, demandez un chiffrage séparé pour un <Link to="/garde-meuble-paris" className="underline text-brand-900">stockage temporaire en garde-meuble</Link> : volume, durée, accès et second transport doivent être précisés.</p>
+        </div>
+      </section>
       <section className="py-24 bg-brand-900 text-white font-sans italic relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(242,125,38,0.05),transparent_50%)] pointer-events-none"></div>
         <div className="container mx-auto px-4 md:px-6 relative z-10 text-center italic">
           <h2 className="text-3xl lg:text-6xl font-black mb-10 uppercase italic tracking-tight">Prêt à emménager ?</h2>
           <p className="text-xl text-slate-300 mb-14 max-w-2xl mx-auto font-light italic">
-            Obtenez une estimation gratuite en quelques minutes pour votre déménagement étudiant.
+            Transmettez vos deux adresses, votre inventaire et les dates souhaitées pour préparer votre devis étudiant.
           </p>
           <div className="flex flex-wrap justify-center gap-6 italic">
             <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-12 py-5 rounded-full font-bold text-lg hover:shadow-2xl transition-all italic underline-none">
@@ -170,10 +178,10 @@ const DemenagementEtudiant: React.FC = () => {
            <div className="space-y-6 italic">
              {faqs.map((faq, i) => (
                <div key={i} className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 group hover:border-accent transition-all shadow-sm italic">
-                 <h4 className="font-bold text-brand-900 mb-4 flex items-center gap-4 uppercase italic tracking-tight">
+                 <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-4 uppercase italic tracking-tight">
                    <HelpCircle className="text-accent shrink-0" size={20} />
                    {faq.q}
-                 </h4>
+                 </h3>
                  <p className="text-slate-500 font-light leading-relaxed pl-9 border-l-4 border-accent/20 italic">
                    {faq.a}
                  </p>
