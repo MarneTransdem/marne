@@ -16,11 +16,11 @@ const FormulasPage: React.FC = () => {
     },
     { 
       q: "Quelle est la différence entre la formule Économique et la formule Standard ?", 
-      a: "La principale différence réside dans l'emballage du fragile (vaisselle, verrerie, bibelots). Dans la formule Économique, vous emballez tout vous-même. Dans la formule Standard, nos équipes prennent en charge la protection et l'emballage de vos objets délicats." 
+      a: "En Économique, vous préparez l’emballage de vos affaires et le démontage du mobilier. En Standard, l’équipe prend en charge l’emballage et le déballage du fragile ainsi que le démontage et le remontage du mobilier prévus au devis. L’emballage et le déballage du non fragile restent à votre charge. Faites préciser les meubles et objets concernés lors de l’étude du projet."
     },
     { 
       q: "La formule Luxe comprend-elle l'emballage ?", 
-      a: "Oui, la formule Luxe (clé en main) inclut un accompagnement renforcé pour l'emballage de vos biens (fragiles et non fragiles) selon la prestation choisie et les besoins définis lors de l'étude de votre projet." 
+      a: "Oui, la formule Luxe prévoit l’emballage du fragile et du non fragile selon le périmètre défini au devis. Le déballage du non fragile se prévoit à la demande : indiquez ce que vous souhaitez faire déposer, déballer ou remettre en place à l’arrivée. Le nom « clé en main » ne remplace pas cette liste de tâches."
     },
     { 
       q: "Peut-on personnaliser une formule de déménagement ?", 
@@ -29,6 +29,14 @@ const FormulasPage: React.FC = () => {
     { 
       q: "Comment obtenir un devis selon la formule choisie ?", 
       a: "Il vous suffit de nous contacter ou de remplir notre formulaire en ligne. Nous évaluerons votre volume et les accès pour vous proposer une estimation adaptée à la formule qui vous intéresse." 
+    },
+    {
+      q: "Comment comparer le prix de deux formules ?",
+      a: "Demandez un chiffrage avec le même inventaire, les mêmes adresses, la même date et les mêmes contraintes d’accès. Comparez ensuite les tâches d’emballage, de démontage et de déballage. Une différence de prix peut correspondre à davantage de travail confié à l’équipe : vérifiez aussi les fournitures, les moyens de manutention et les éventuelles options dans chaque proposition."
+    },
+    {
+      q: "Que préparer même avec une formule Luxe ?",
+      a: "Identifiez les biens à transporter et ceux à laisser sur place, signalez les objets fragiles et précisez les accès aux deux adresses. Gardez à portée de main vos documents, clés et affaires nécessaires pendant le trajet. Convenez également des pièces de destination et des tâches de déballage attendues : ces indications restent nécessaires même si vous déléguez l’emballage."
     }
   ];
 
@@ -288,11 +296,12 @@ const FormulasPage: React.FC = () => {
           <div className="hidden lg:block relative">
             <div className="overflow-hidden rounded-[3rem] border border-slate-200 dark:border-slate-800 shadow-premium bg-white dark:bg-slate-900">
               <table className="w-full text-left border-collapse table-fixed">
+                <caption className="sr-only">Répartition des prestations entre vous et Marne Transdem pour les formules Économique, Standard et Luxe</caption>
                 <thead>
                   <tr className="bg-brand-900 dark:bg-slate-950">
-                    <th className="p-10 text-xs font-black uppercase tracking-[0.2em] text-white/40 border-b border-white/5 w-[35%]">Prestations</th>
-                    <th className="p-10 text-sm font-black uppercase tracking-widest text-white border-b border-white/5 text-center">Économique</th>
-                    <th className="p-10 text-sm font-black uppercase tracking-widest text-white border-b border-accent/20 text-center bg-white/5 dark:bg-slate-900/50 relative border-x border-white/5">
+                    <th scope="col" className="p-10 text-xs font-black uppercase tracking-[0.2em] text-white/40 border-b border-white/5 w-[35%]">Prestations</th>
+                    <th scope="col" className="p-10 text-sm font-black uppercase tracking-widest text-white border-b border-white/5 text-center">Économique</th>
+                    <th scope="col" className="p-10 text-sm font-black uppercase tracking-widest text-white border-b border-accent/20 text-center bg-white/5 dark:bg-slate-900/50 relative border-x border-white/5">
                       <div className="flex flex-col items-center gap-3">
                         <span className="bg-accent text-brand-900 px-4 py-1 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg shadow-accent/20">
                           Recommandée
@@ -300,13 +309,13 @@ const FormulasPage: React.FC = () => {
                         <span>Standard</span>
                       </div>
                     </th>
-                    <th className="p-10 text-sm font-black uppercase tracking-widest text-white border-b border-white/5 text-center">Luxe</th>
+                    <th scope="col" className="p-10 text-sm font-black uppercase tracking-widest text-white border-b border-white/5 text-center">Luxe</th>
                   </tr>
                 </thead>
                 <tbody className="text-sm">
                   {comparisonData.map((row, i) => (
                     <tr key={i} className="group hover:bg-slate-50/30 dark:hover:bg-white/5 transition-colors">
-                      <td className="p-6 font-bold text-black border-b border-slate-50 leading-tight text-sm">{row.label}</td>
+                      <th scope="row" className="p-6 font-bold text-black border-b border-slate-50 leading-tight text-sm">{row.label}</th>
                       <td className="p-6 text-center border-b border-slate-50 bg-white">
                         <StatusBadge status={row.eco} />
                       </td>
@@ -388,7 +397,7 @@ const FormulasPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white/5 dark:bg-slate-900 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/10 dark:border-slate-800 hover:bg-white/10 dark:hover:bg-slate-800/80 transition-colors">
-              <h4 className="text-xl font-bold mb-6 text-white border-b border-white/10 dark:border-slate-800 pb-4">Choisissez l'Économique si :</h4>
+              <h3 className="text-xl font-bold mb-6 text-white border-b border-white/10 dark:border-slate-800 pb-4">Choisissez l'Économique si :</h3>
               <ul className="space-y-4 text-slate-300 dark:text-slate-400 font-light">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 size={18} className="text-accent shrink-0 mt-0.5" />
@@ -406,7 +415,7 @@ const FormulasPage: React.FC = () => {
             </div>
 
             <div className="bg-white/5 dark:bg-slate-900 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/10 dark:border-slate-800 hover:bg-white/10 dark:hover:bg-slate-800/80 transition-colors">
-              <h4 className="text-xl font-bold mb-6 text-white border-b border-white/10 dark:border-slate-800 pb-4">Choisissez la Standard si :</h4>
+              <h3 className="text-xl font-bold mb-6 text-white border-b border-white/10 dark:border-slate-800 pb-4">Choisissez la Standard si :</h3>
               <ul className="space-y-4 text-slate-300 dark:text-slate-400 font-light">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 size={18} className="text-accent shrink-0 mt-0.5" />
@@ -424,7 +433,7 @@ const FormulasPage: React.FC = () => {
             </div>
 
             <div className="bg-white/5 dark:bg-slate-900 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/10 dark:border-slate-800 hover:bg-white/10 dark:hover:bg-slate-800/80 transition-colors">
-              <h4 className="text-xl font-bold mb-6 text-white border-b border-white/10 dark:border-slate-800 pb-4">Choisissez la Luxe si :</h4>
+              <h3 className="text-xl font-bold mb-6 text-white border-b border-white/10 dark:border-slate-800 pb-4">Choisissez la Luxe si :</h3>
               <ul className="space-y-4 text-slate-300 dark:text-slate-400 font-light">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 size={18} className="text-accent shrink-0 mt-0.5" />
@@ -499,7 +508,7 @@ const FormulasPage: React.FC = () => {
                   <Info size={18} />
                 </div>
                 <div>
-                  <h4 className="font-bold !text-black text-lg mb-3">{faq.q}</h4>
+                  <h3 className="font-bold !text-black text-lg mb-3">{faq.q}</h3>
                   <p className="text-slate-500 dark:text-slate-400 font-light leading-relaxed">{faq.a}</p>
                 </div>
               </div>
