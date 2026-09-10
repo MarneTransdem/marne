@@ -61,7 +61,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-saint-mande"
       },
       {
-        "n": "Saint-Maur",
+        "n": "Saint-Maur-des-Fossés",
         "l": "/demenagement-saint-maur-des-fosses"
       },
       {
@@ -135,7 +135,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-paris-13"
       },
       {
-        "n": "Charenton",
+        "n": "Charenton-le-Pont",
         "l": "/demenagement-charenton-le-pont"
       },
       {
@@ -760,15 +760,15 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-hauts-de-seine"
       },
       {
-        "n": "Sceaux (proche)",
+        "n": "Sceaux",
         "l": "/demenagement-sceaux"
       },
       {
-        "n": "Bagneux (proche)",
+        "n": "Bagneux",
         "l": "/demenagement-bagneux"
       },
       {
-        "n": "Fontenay (proche)",
+        "n": "Fontenay-aux-Roses",
         "l": "/demenagement-fontenay-aux-roses"
       },
       {
@@ -880,7 +880,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-paris-12"
       },
       {
-        "n": "Charenton",
+        "n": "Charenton-le-Pont",
         "l": "/demenagement-charenton-le-pont"
       },
       {
@@ -1034,15 +1034,15 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-hauts-de-seine"
       },
       {
-        "n": "Clamart (proche)",
+        "n": "Clamart",
         "l": "/demenagement-clamart"
       },
       {
-        "n": "Vanves (proche)",
+        "n": "Vanves",
         "l": "/demenagement-vanves"
       },
       {
-        "n": "Issy (proche)",
+        "n": "Issy-les-Moulineaux",
         "l": "/demenagement-issy-les-moulineaux"
       },
       {
@@ -1205,11 +1205,11 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-hauts-de-seine"
       },
       {
-        "n": "À Meudon (proche)",
+        "n": "Meudon",
         "l": "/demenagement-meudon"
       },
       {
-        "n": "À Issy (proche)",
+        "n": "Issy-les-Moulineaux",
         "l": "/demenagement-issy-les-moulineaux"
       },
       {
@@ -1217,7 +1217,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-paris-15"
       },
       {
-        "n": "À Nogent-sur-Marne (proche)",
+        "n": "Nogent-sur-Marne",
         "l": "/demenagement-nogent-sur-marne"
       }
     ]
@@ -1509,7 +1509,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-vincennes"
       },
       {
-        "n": "Saint-Maur",
+        "n": "Saint-Maur-des-Fossés",
         "l": "/demenagement-saint-maur-des-fosses"
       },
       {
@@ -1517,7 +1517,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-saint-mande"
       },
       {
-        "n": "Charenton",
+        "n": "Charenton-le-Pont",
         "l": "/demenagement-charenton-le-pont"
       },
       {
@@ -1533,7 +1533,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-maisons-alfort"
       },
       {
-        "n": "Ivry",
+        "n": "Ivry-sur-Seine",
         "l": "/demenagement-ivry-sur-seine"
       },
       {
@@ -1603,7 +1603,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-nogent-sur-marne"
       },
       {
-        "n": "La Celle-St-Cloud",
+        "n": "La Celle-Saint-Cloud",
         "l": "/demenagement-la-celle-saint-cloud"
       }
     ]
@@ -1818,19 +1818,19 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-hauts-de-seine"
       },
       {
-        "n": "Bagneux (proche)",
+        "n": "Bagneux",
         "l": "/demenagement-bagneux"
       },
       {
-        "n": "Châtillon (proche)",
+        "n": "Châtillon",
         "l": "/demenagement-chatillon"
       },
       {
-        "n": "Clamart (proche)",
+        "n": "Clamart",
         "l": "/demenagement-clamart"
       },
       {
-        "n": "Nogent-sur-Marne (proche)",
+        "n": "Nogent-sur-Marne",
         "l": "/demenagement-nogent-sur-marne"
       }
     ]
@@ -1904,7 +1904,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-saint-maurice"
       },
       {
-        "n": "Charenton",
+        "n": "Charenton-le-Pont",
         "l": "/demenagement-charenton-le-pont"
       },
       {
@@ -2043,7 +2043,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-marnes-la-coquette"
       },
       {
-        "n": "Ville-d’Avray",
+        "n": "Ville-d'Avray",
         "l": "/demenagement-ville-d-avray"
       },
       {
@@ -2055,7 +2055,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-suresnes"
       },
       {
-        "n": "Boulogne",
+        "n": "Boulogne-Billancourt",
         "l": "/demenagement-boulogne-billancourt"
       },
       {
@@ -2063,7 +2063,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-ile-de-france"
       },
       {
-        "n": "Nogent-sur-Marne (proche)",
+        "n": "Nogent-sur-Marne",
         "l": "/demenagement-nogent-sur-marne"
       }
     ]
@@ -2124,7 +2124,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-versailles"
       },
       {
-        "n": "Saint-Germain",
+        "n": "Saint-Germain-en-Laye",
         "l": "/demenagement-saint-germain-en-laye"
       },
       {
@@ -2132,7 +2132,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-plaisir"
       },
       {
-        "n": "Conflans",
+        "n": "Conflans-Sainte-Honorine",
         "l": "/demenagement-conflans-sainte-honorine"
       },
       {
@@ -2204,15 +2204,15 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-paris-15"
       },
       {
-        "n": "Boulogne",
+        "n": "Boulogne-Billancourt",
         "l": "/demenagement-boulogne-billancourt"
       },
       {
-        "n": "Neuilly",
+        "n": "Neuilly-sur-Seine",
         "l": "/demenagement-neuilly-sur-seine"
       },
       {
-        "n": "Levallois",
+        "n": "Levallois-Perret",
         "l": "/demenagement-levallois-perret"
       },
       {
@@ -2220,7 +2220,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-clichy"
       },
       {
-        "n": "Charenton",
+        "n": "Charenton-le-Pont",
         "l": "/demenagement-charenton-le-pont"
       },
       {
@@ -2232,7 +2232,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-saint-mande"
       },
       {
-        "n": "Saint-Maur",
+        "n": "Saint-Maur-des-Fossés",
         "l": "/demenagement-saint-maur-des-fosses"
       },
       {
@@ -2252,7 +2252,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-suresnes"
       },
       {
-        "n": "Rueil",
+        "n": "Rueil-Malmaison",
         "l": "/demenagement-rueil-malmaison"
       },
       {
@@ -2288,7 +2288,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-marnes-la-coquette"
       },
       {
-        "n": "Ville-d’Avray",
+        "n": "Ville-d'Avray",
         "l": "/demenagement-ville-d-avray"
       },
       {
@@ -2312,7 +2312,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-bagneux"
       },
       {
-        "n": "Fontenay",
+        "n": "Fontenay-aux-Roses",
         "l": "/demenagement-fontenay-aux-roses"
       },
       {
@@ -2336,7 +2336,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-le-plessis-robinson"
       },
       {
-        "n": "Issy",
+        "n": "Issy-les-Moulineaux",
         "l": "/demenagement-issy-les-moulineaux"
       }
     ]
@@ -2479,7 +2479,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-bobigny"
       },
       {
-        "n": "Saint-Ouen",
+        "n": "Saint-Ouen-sur-Seine",
         "l": "/demenagement-saint-ouen"
       },
       {
@@ -2563,7 +2563,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-bagneux"
       },
       {
-        "n": "Fontenay",
+        "n": "Fontenay-aux-Roses",
         "l": "/demenagement-fontenay-aux-roses"
       },
       {
@@ -2579,15 +2579,15 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-antony"
       },
       {
-        "n": "Châtenay",
+        "n": "Châtenay-Malabry",
         "l": "/demenagement-chatenay-malabry"
       },
       {
-        "n": "Le Plessis",
+        "n": "Le Plessis-Robinson",
         "l": "/demenagement-le-plessis-robinson"
       },
       {
-        "n": "Vélizy",
+        "n": "Vélizy-Villacoublay",
         "l": "/demenagement-velizy-villacoublay"
       },
       {
@@ -2603,7 +2603,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-vaucresson"
       },
       {
-        "n": "Le Chesnay",
+        "n": "Le Chesnay-Rocquencourt",
         "l": "/demenagement-le-chesnay-rocquencourt"
       },
       {
@@ -2635,7 +2635,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-le-pecq"
       },
       {
-        "n": "Saint-Germain",
+        "n": "Saint-Germain-en-Laye",
         "l": "/demenagement-saint-germain-en-laye"
       },
       {
@@ -2679,7 +2679,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-louveciennes"
       },
       {
-        "n": "Ville-d’Avray",
+        "n": "Ville-d'Avray",
         "l": "/demenagement-ville-d-avray"
       },
       {
@@ -2687,7 +2687,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-versailles"
       },
       {
-        "n": "Issy",
+        "n": "Issy-les-Moulineaux",
         "l": "/demenagement-issy-les-moulineaux"
       },
       {
@@ -2869,7 +2869,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-paris-13"
       },
       {
-        "n": "Charenton",
+        "n": "Charenton-le-Pont",
         "l": "/demenagement-charenton-le-pont"
       },
       {
@@ -2967,7 +2967,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-paris-13"
       },
       {
-        "n": "Charenton",
+        "n": "Charenton-le-Pont",
         "l": "/demenagement-charenton-le-pont"
       },
       {
@@ -3174,7 +3174,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-vaucresson"
       },
       {
-        "n": "Nogent-sur-Marne (proche)",
+        "n": "Nogent-sur-Marne",
         "l": "/demenagement-nogent-sur-marne"
       }
     ]
@@ -3239,7 +3239,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-garches"
       },
       {
-        "n": "Nogent-sur-Marne (proche)",
+        "n": "Nogent-sur-Marne",
         "l": "/demenagement-nogent-sur-marne"
       }
     ]
@@ -3284,7 +3284,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-yvelines"
       },
       {
-        "n": "Saint-Germain",
+        "n": "Saint-Germain-en-Laye",
         "l": "/demenagement-saint-germain-en-laye"
       },
       {
@@ -3292,7 +3292,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-le-vesinet"
       },
       {
-        "n": "Croissy/Seine",
+        "n": "Croissy-sur-Seine",
         "l": "/demenagement-croissy-sur-seine"
       },
       {
@@ -3304,7 +3304,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-versailles"
       },
       {
-        "n": "Nogent-sur-Marne (proche)",
+        "n": "Nogent-sur-Marne",
         "l": "/demenagement-nogent-sur-marne"
       }
     ]
@@ -3362,7 +3362,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-paris-12"
       },
       {
-        "n": "Charenton",
+        "n": "Charenton-le-Pont",
         "l": "/demenagement-charenton-le-pont"
       },
       {
@@ -3467,7 +3467,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-sceaux"
       },
       {
-        "n": "Nogent-sur-Marne (proche)",
+        "n": "Nogent-sur-Marne",
         "l": "/demenagement-nogent-sur-marne"
       }
     ]
@@ -3662,7 +3662,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-chatou"
       },
       {
-        "n": "Croissy/Seine",
+        "n": "Croissy-sur-Seine",
         "l": "/demenagement-croissy-sur-seine"
       },
       {
@@ -3727,7 +3727,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-bougival"
       },
       {
-        "n": "La Celle-St-Cloud",
+        "n": "La Celle-Saint-Cloud",
         "l": "/demenagement-la-celle-saint-cloud"
       },
       {
@@ -3797,7 +3797,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-paris-13"
       },
       {
-        "n": "Charenton",
+        "n": "Charenton-le-Pont",
         "l": "/demenagement-charenton-le-pont"
       },
       {
@@ -3886,7 +3886,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-sartrouville"
       },
       {
-        "n": "St-Germain-en-Laye",
+        "n": "Saint-Germain-en-Laye",
         "l": "/demenagement-saint-germain-en-laye"
       },
       {
@@ -3947,11 +3947,11 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-paris-14"
       },
       {
-        "n": "Vanves (proche)",
+        "n": "Vanves",
         "l": "/demenagement-vanves"
       },
       {
-        "n": "Châtillon (proche)",
+        "n": "Châtillon",
         "l": "/demenagement-chatillon"
       }
     ]
@@ -4024,7 +4024,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-rambouillet"
       },
       {
-        "n": "St-Germain",
+        "n": "Saint-Germain-en-Laye",
         "l": "/demenagement-saint-germain-en-laye"
       }
     ]
@@ -4085,7 +4085,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-le-pecq"
       },
       {
-        "n": "La Celle-St-Cloud",
+        "n": "La Celle-Saint-Cloud",
         "l": "/demenagement-la-celle-saint-cloud"
       }
     ]
@@ -4138,11 +4138,11 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-vaucresson"
       },
       {
-        "n": "Ville-d’Avray",
+        "n": "Ville-d'Avray",
         "l": "/demenagement-ville-d-avray"
       },
       {
-        "n": "Le Chesnay",
+        "n": "Le Chesnay-Rocquencourt",
         "l": "/demenagement-le-chesnay-rocquencourt"
       },
       {
@@ -4154,7 +4154,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-versailles"
       },
       {
-        "n": "Rueil",
+        "n": "Rueil-Malmaison",
         "l": "/demenagement-rueil-malmaison"
       },
       {
@@ -4263,7 +4263,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-vaucresson"
       },
       {
-        "n": "Ville-d’Avray",
+        "n": "Ville-d'Avray",
         "l": "/demenagement-ville-d-avray"
       }
     ]
@@ -4371,7 +4371,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-vincennes"
       },
       {
-        "n": "Charenton",
+        "n": "Charenton-le-Pont",
         "l": "/demenagement-charenton-le-pont"
       },
       {
@@ -4456,11 +4456,11 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-paris-14"
       },
       {
-        "n": "Malakoff (proche)",
+        "n": "Malakoff",
         "l": "/demenagement-malakoff"
       },
       {
-        "n": "Châtillon (proche)",
+        "n": "Châtillon",
         "l": "/demenagement-chatillon"
       }
     ]
@@ -4710,7 +4710,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-saint-mande"
       },
       {
-        "n": "Saint-Maur",
+        "n": "Saint-Maur-des-Fossés",
         "l": "/demenagement-saint-maur-des-fosses"
       },
       {
@@ -4722,7 +4722,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-montreuil"
       },
       {
-        "n": "St-Maur des Fossés",
+        "n": "Saint-Maur-des-Fossés",
         "l": "/demenagement-saint-maur-des-fosses"
       },
       {
@@ -4854,7 +4854,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-vincennes"
       },
       {
-        "n": "Charenton",
+        "n": "Charenton-le-Pont",
         "l": "/demenagement-charenton-le-pont"
       },
       {
@@ -5811,7 +5811,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-versailles"
       },
       {
-        "n": "Saint-Germain",
+        "n": "Saint-Germain-en-Laye",
         "l": "/demenagement-saint-germain-en-laye"
       },
       {
@@ -5864,7 +5864,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-ile-de-france"
       },
       {
-        "n": "Saint-Germain",
+        "n": "Saint-Germain-en-Laye",
         "l": "/demenagement-saint-germain-en-laye"
       },
       {
@@ -5872,7 +5872,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-versailles"
       },
       {
-        "n": "Conflans",
+        "n": "Conflans-Sainte-Honorine",
         "l": "/demenagement-conflans-sainte-honorine"
       },
       {
@@ -6315,7 +6315,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-chaville"
       },
       {
-        "n": "Ville-d’Avray",
+        "n": "Ville-d'Avray",
         "l": "/demenagement-ville-d-avray"
       },
       {
@@ -6385,7 +6385,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-paris-18"
       },
       {
-        "n": "St-Ouen",
+        "n": "Saint-Ouen-sur-Seine",
         "l": "/demenagement-saint-ouen"
       },
       {
@@ -6565,7 +6565,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-montreuil"
       },
       {
-        "n": "Saint-Maur",
+        "n": "Saint-Maur-des-Fossés",
         "l": "/demenagement-saint-maur-des-fosses"
       },
       {
@@ -6624,7 +6624,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-saint-mande"
       },
       {
-        "n": "Charenton",
+        "n": "Charenton-le-Pont",
         "l": "/demenagement-charenton-le-pont"
       },
       {
@@ -6706,7 +6706,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-paris-12"
       },
       {
-        "n": "Charenton",
+        "n": "Charenton-le-Pont",
         "l": "/demenagement-charenton-le-pont"
       },
       {
@@ -6845,7 +6845,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-poissy"
       },
       {
-        "n": "St-Germain-en-Laye",
+        "n": "Saint-Germain-en-Laye",
         "l": "/demenagement-saint-germain-en-laye"
       },
       {
@@ -6902,15 +6902,15 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-hauts-de-seine"
       },
       {
-        "n": "Fontenay (proche)",
+        "n": "Fontenay-aux-Roses",
         "l": "/demenagement-fontenay-aux-roses"
       },
       {
-        "n": "Bagneux (proche)",
+        "n": "Bagneux",
         "l": "/demenagement-bagneux"
       },
       {
-        "n": "Clamart (proche)",
+        "n": "Clamart",
         "l": "/demenagement-clamart"
       }
     ]
@@ -7062,7 +7062,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-saint-mande"
       },
       {
-        "n": "Charenton",
+        "n": "Charenton-le-Pont",
         "l": "/demenagement-charenton-le-pont"
       },
       {
@@ -7098,7 +7098,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-bobigny"
       },
       {
-        "n": "Saint-Ouen",
+        "n": "Saint-Ouen-sur-Seine",
         "l": "/demenagement-saint-ouen"
       },
       {
@@ -7160,23 +7160,23 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-hauts-de-seine"
       },
       {
-        "n": "À Saint-Cloud (proche)",
+        "n": "Saint-Cloud",
         "l": "/demenagement-saint-cloud"
       },
       {
-        "n": "À Meudon (proche)",
+        "n": "Meudon",
         "l": "/demenagement-meudon"
       },
       {
-        "n": "À Boulogne (proche)",
+        "n": "Boulogne-Billancourt",
         "l": "/demenagement-boulogne-billancourt"
       },
       {
-        "n": "À Louveciennes (proche)",
+        "n": "Louveciennes",
         "l": "/demenagement-louveciennes"
       },
       {
-        "n": "À Le Chesnay-Rocquencourt (proche)",
+        "n": "Le Chesnay-Rocquencourt",
         "l": "/demenagement-le-chesnay-rocquencourt"
       }
     ]
@@ -7351,7 +7351,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-saint-mande"
       },
       {
-        "n": "Charenton",
+        "n": "Charenton-le-Pont",
         "l": "/demenagement-charenton-le-pont"
       },
       {
@@ -7359,7 +7359,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-saint-maur-des-fosses"
       },
       {
-        "n": "Nogent",
+        "n": "Nogent-sur-Marne",
         "l": "/demenagement-nogent-sur-marne"
       },
       {
@@ -7542,11 +7542,11 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-paris-15"
       },
       {
-        "n": "Issy (proche)",
+        "n": "Issy-les-Moulineaux",
         "l": "/demenagement-issy-les-moulineaux"
       },
       {
-        "n": "Clamart (proche)",
+        "n": "Clamart",
         "l": "/demenagement-clamart"
       }
     ]
@@ -7587,7 +7587,7 @@ export const sectorsData: Sector[] = [
     ],
     "nearbySectors": [
       {
-        "n": "Ville-d’Avray",
+        "n": "Ville-d'Avray",
         "l": "/demenagement-ville-d-avray"
       },
       {
@@ -7753,7 +7753,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-meudon"
       },
       {
-        "n": "Boulogne",
+        "n": "Boulogne-Billancourt",
         "l": "/demenagement-boulogne-billancourt"
       },
       {
@@ -7900,7 +7900,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-fontenay-sous-bois"
       },
       {
-        "n": "Charenton",
+        "n": "Charenton-le-Pont",
         "l": "/demenagement-charenton-le-pont"
       },
       {
@@ -7989,11 +7989,11 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-montreuil"
       },
       {
-        "n": "Charenton",
+        "n": "Charenton-le-Pont",
         "l": "/demenagement-charenton-le-pont"
       },
       {
-        "n": "Saint-Maur",
+        "n": "Saint-Maur-des-Fossés",
         "l": "/demenagement-saint-maur-des-fosses"
       },
       {
@@ -8062,7 +8062,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-louveciennes"
       },
       {
-        "n": "Vélizy",
+        "n": "Vélizy-Villacoublay",
         "l": "/demenagement-velizy-villacoublay"
       },
       {
@@ -8144,7 +8144,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-fontenay-sous-bois"
       },
       {
-        "n": "Charenton",
+        "n": "Charenton-le-Pont",
         "l": "/demenagement-charenton-le-pont"
       },
       {
@@ -8245,7 +8245,7 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-versailles"
       },
       {
-        "n": "Saint-Germain",
+        "n": "Saint-Germain-en-Laye",
         "l": "/demenagement-saint-germain-en-laye"
       },
       {
