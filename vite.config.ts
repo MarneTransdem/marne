@@ -87,6 +87,7 @@ export default defineConfig(({mode}) => {
       minifyWhitespace: true,
     },
     build: {
+      manifest: true,
       target: 'es2022',
       sourcemap: 'hidden',
       cssCodeSplit: true,

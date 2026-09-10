@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { 
@@ -9,7 +9,7 @@ import {
 import { SEO } from '../components/SEO';
 import { CONTACT } from '../constants';
 import { getFAQSchema, getBreadcrumbSchema } from '../lib/schema';
-import { sectorsData, Sector } from '../constants/sectorsData';
+import type { Sector } from '../constants/sectorsData';
 import NotFound from './NotFound';
 import { ResponsiveImage } from '../components/common/ResponsiveImage';
 import { RegionalMovingGuide } from '../components/common/RegionalMovingGuide';
@@ -27,6 +27,17 @@ const departmentLocations: Record<string, string> = {
   'yvelines': 'dans les Yvelines',
 };
 
+// Stable lazy components retain the existing Suspense/SSR behavior on navigation.
+const sectorPages = Object.fromEntries(
+  Object.entries(import.meta.glob<{ default: Sector }>('../generated/sectors/*.json')).map(([file, load]) => [
+    file.slice(file.lastIndexOf('/') + 1, -'.json'.length),
+    lazy(async () => {
+      const { default: sector } = await load();
+      return { default: () => <SectorContent sector={sector} /> };
+    }),
+  ]),
+);
+
 export const SectorPage: React.FC = () => {
   const { slug, sectorPath } = useParams<{ slug?: string; sectorPath?: string }>();
   const resolvedSlug = slug || (sectorPath?.startsWith('demenagement-') ? sectorPath.slice('demenagement-'.length) : undefined);
@@ -39,10 +50,12 @@ export const SectorPage: React.FC = () => {
     return <Navigate to="/secteurs-desservis" replace />;
   }
 
-  const sector = sectorsData.find(s => s.slug === resolvedSlug);
-  if (!sector) {
-    return <NotFound />;
-  }
+  const Page = Object.hasOwn(sectorPages, resolvedSlug) ? sectorPages[resolvedSlug] : undefined;
+  return Page ? <Page /> : <NotFound />;
+};
+
+const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
+  const resolvedSlug = sector.slug;
 
   const path = `/demenagement-${resolvedSlug}`;
   const sectorLabel = getSectorLabel(sector);

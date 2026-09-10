@@ -1,6 +1,7 @@
 node_modules/
 build/
 dist/
+src/generated/sectors/
 coverage/
 .DS_Store
 .firebase/
