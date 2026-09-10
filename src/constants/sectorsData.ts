@@ -8674,7 +8674,9 @@ export const sectorsData: Sector[] = [
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement depuis Paris ou l’Île-de-France vers Lyon, avec une organisation adaptée à la distance.",
     "introParagraphs": [
-      "Qu'il s'agisse de transporter votre mobilier, vos <span className=\"font-bold text-slate-700 tracking-tight italic\">cartons</span> ou vos objets fragiles, notre logistique s'adapte à la <span className=\"font-bold text-slate-700 tracking-tight italic\">distance</span>. Nous étudions avec soin les accès au départ en région parisienne et à l'arrivée en terre lyonnaise pour garantir une prestation sans faille quelle que soit la formule choisie."
+      "Pour votre <strong>déménagement de Paris vers Lyon</strong>, préparez deux relevés d’accès distincts : celui du logement francilien et celui du logement lyonnais. Indiquez l’arrondissement et l’adresse exacte à destination, les étages, les dimensions de l’ascenseur et la distance entre le camion et l’entrée. Si votre arrivée se situe dans une autre commune de la métropole, précisez laquelle : les démarches de stationnement doivent être vérifiées auprès de la collectivité concernée.",
+      "À Lyon, la Ville propose une <strong>réservation d’emplacement pour le chargement ou le déménagement</strong>. Elle indique une demande en ligne au moins une semaine avant la date souhaitée, ou par courrier au moins deux semaines avant. Vérifiez les modalités et tarifs actualisés sur la <a href=\"https://www.lyon.fr/demarche/stationnement/reserver-un-emplacement-pour-le-stationnement-temporaire-de-vehicules\" class=\"text-accent hover:underline\">démarche officielle de stationnement temporaire à Lyon</a>. Convenez avec le déménageur de la personne chargée de la réservation et des frais prévus au devis ; la démarche à Lyon ne remplace pas celle éventuellement nécessaire à l’adresse de départ.",
+      "Pour chiffrer le transport, réunissez le mobilier, les cartons et les dépendances dans un inventaire à préparer avec le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume</a>. Les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">formules de déménagement</a> permettent ensuite de préciser l’emballage et le démontage confiés à l’équipe. Faites confirmer les dates de chargement et de livraison avant d’organiser votre déplacement personnel ; consultez les points à prévoir pour un <a href=\"/demenagement-longue-distance\" class=\"text-accent hover:underline\">déménagement longue distance</a>. Si les clés ne sont pas disponibles à l’arrivée, demandez une étude du <a href=\"/garde-meuble-paris\" class=\"text-accent hover:underline\">stockage intermédiaire</a> et des transports associés dans votre <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">devis Paris–Lyon</a>."
     ],
     "faqs": [
       {
@@ -8687,7 +8689,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "q": "Comment estimer le volume pour un déménagement Paris Lyon ?",
-        "a": "Vous pouvez utiliser le calculateur de volume pour obtenir une première estimation indicative. Le volume réel peut ensuite être affinée selon votre inventaire, les dimensions des meubles, les cartons et les conditions d’accès."
+        "a": "Vous pouvez utiliser le calculateur de volume pour obtenir une première estimation indicative. Le volume réel peut ensuite être affiné selon votre inventaire, les dimensions des meubles, les cartons et les conditions d’accès."
       },
       {
         "q": "Quelle formule choisir pour un déménagement de Paris vers Lyon ?",
@@ -8700,6 +8702,14 @@ export const sectorsData: Sector[] = [
       {
         "q": "Comment obtenir un devis pour un déménagement Paris Lyon ?",
         "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L’estimation prend en compte le volume, les adresses, les accès, les étages, la distance, la formule souhaitée et les besoins spécifiques comme l’emballage, le garde-meuble ou le monte-meuble."
+      },
+      {
+        "q": "Comment préparer le stationnement du camion à Lyon ?",
+        "a": "Vérifiez la possibilité de stationner à proximité du lieu de déchargement et les dimensions nécessaires au véhicule. Pour sa réservation d’emplacement, la Ville de Lyon indique une demande en ligne au moins une semaine avant, ou par courrier au moins deux semaines avant. Consultez la démarche municipale pour les conditions et tarifs actualisés, puis confirmez qui effectue la demande et prend en charge les frais."
+      },
+      {
+        "q": "Quelles informations transmettre pour la livraison dans mon logement lyonnais ?",
+        "a": "Transmettez l’adresse exacte, l’étage, les dimensions utiles de l’ascenseur, les passages étroits et la distance de portage. Signalez les restrictions horaires de l’immeuble et prévoyez une personne pour accueillir l’équipe. Faites confirmer la date de livraison et la disponibilité des clés ; si le logement est dans une commune voisine de Lyon, vérifiez ses propres démarches locales."
       }
     ],
     "nearbySectors": [
