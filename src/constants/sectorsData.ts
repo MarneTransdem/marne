@@ -9067,8 +9067,9 @@ export const sectorsData: Sector[] = [
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement depuis Paris ou l’Île-de-France vers Nantes, avec une organisation adaptée au volume, aux accès et à la distance.",
     "introParagraphs": [
-      "Un déménagement entre Paris et Nantes demande une préparation sérieuse, car il s’agit d’un trajet longue distance vers l’ouest de la France. Entre la capitale et la cité des Ducs, près de 400 km séparent vos adresses, nécessitant une logistique éprouvée.",
-      "Qu'il s'agisse de transporter votre mobilier, vos <span className=\"font-bold text-slate-700 tracking-tight\">cartons</span> ou vos objets fragiles, Marne Transdem gère votre <span className=\"font-bold text-brand-900\">départ depuis Paris</span> ou l’Île-de-France pour une arrivée structurée à <span className=\"font-bold text-brand-900\">Nantes</span>. Notre équipe étudie les accès, le volume à transporter et les contraintes de stationnement pour vous proposer un devis ajusté."
+      "Pour préparer votre <strong>déménagement de Paris vers Nantes</strong>, transmettez les adresses complètes et les conditions de manutention aux deux logements. À Nantes, indiquez notamment si l’entrée se situe dans une aire piétonne, si le véhicule peut approcher de l’immeuble et si les meubles passent dans l’escalier ou l’ascenseur. Pour une maison, ajoutez la largeur du portail et la distance de portage depuis la rue. Le trajet et l’organisation sont étudiés à partir de ces informations, sans se limiter à une distance moyenne entre les deux villes.",
+      "Nantes Métropole annonce un délai minimal de <strong>14 jours pour demander un emplacement de stationnement</strong> lors d’un déménagement à Nantes. Consultez la <a href=\"https://metropole.nantes.fr/mes-services-mon-quotidien/reserver-un-stationnement-pour-travaux-ou-demenagement-a-nantes\" class=\"text-accent hover:underline\">démarche officielle de réservation à Nantes</a> et confirmez qui s’occupe de l’autorisation, de la signalisation et des frais. En aire piétonne, la page précise des modalités particulières d’accès par les bornes et de stationnement : transmettez l’autorisation à l’équipe avant son arrivée. Si vous emménagez à Rezé, Saint-Herblain ou dans une autre commune voisine, vérifiez les démarches de cette commune.",
+      "Établissez ensuite un inventaire avec le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume</a>, en incluant les cartons, les meubles démontés et les affaires conservées dans les annexes. Comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">prestations d’emballage et de démontage des formules</a> pour préciser le périmètre du devis. Faites confirmer les dates de chargement et de livraison ainsi que la personne présente pour la remise des clés à Nantes. Si les deux logements ne sont pas disponibles aux mêmes dates, demandez une étude du <a href=\"/garde-meuble-paris\" class=\"text-accent hover:underline\">stockage intermédiaire</a> et des transports associés. Notre page <a href=\"/demenagement-longue-distance\" class=\"text-accent hover:underline\">déménagement longue distance</a> aide à préparer ces points avant votre <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">demande de devis Paris–Nantes</a>."
     ],
     "faqs": [
       {
@@ -9094,6 +9095,14 @@ export const sectorsData: Sector[] = [
       {
         "q": "Comment obtenir un devis pour un déménagement Paris Nantes ?",
         "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L’estimation prend en compte le volume, les adresses, les accès, les étages, la distance, la formule souhaitée et les besoins spécifiques comme l’emballage, le garde-meuble ou le monte-meuble."
+      },
+      {
+        "q": "Quand réserver le stationnement pour mon arrivée à Nantes ?",
+        "a": "Nantes Métropole demande une anticipation minimale de 14 jours pour réserver un emplacement. Préparez la date, l’adresse et les caractéristiques du véhicule avec le déménageur. Faites préciser qui effectue la demande et organise la signalisation, puis vérifiez les conditions et tarifs applicables dans la démarche officielle. La réservation à Nantes ne remplace pas celle éventuellement nécessaire au départ en région parisienne."
+      },
+      {
+        "q": "Comment organiser la livraison dans une aire piétonne de Nantes ?",
+        "a": "Signalez cette configuration dès la demande de devis et de réservation. La démarche officielle prévoit un accès par la borne avec le numéro de l’autorisation communiqué à l’opérateur. L’emplacement retenu doit laisser libres les circulations et les accès. Transmettez les modalités validées au déménageur et indiquez la distance restante entre le véhicule et le logement."
       }
     ],
     "nearbySectors": [
