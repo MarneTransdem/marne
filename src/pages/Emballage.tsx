@@ -12,23 +12,31 @@ const Emballage: React.FC = () => {
   const faqs = [
     { 
       q: "Pourquoi protéger ses meubles avant un déménagement ?", 
-      a: "La protection des meubles permet de limiter les risques de rayures, de chocs et de poussière lors des manipulations dans les escaliers, le chargement et le transport en camion. C'est une étape essentielle pour préserver l'état de votre mobilier." 
+      a: "La protection des meubles permet de limiter les risques de rayures, de chocs et de poussière lors des manipulations dans les escaliers, le chargement et le transport en camion. C'est une étape essentielle pour préserver l'état de votre mobilier."
     },
     { 
       q: "Proposez-vous l’emballage des objets fragiles ?", 
-      a: "Oui, selon la formule choisie (notamment nos formules Standard et Luxe), nos déménageurs s'occupent de l'emballage de votre vaisselle, verrerie et autres objets délicats avec du matériel professionnel adapté." 
+      a: "L'emballage des objets fragiles peut être prévu selon les prestations retenues. Indiquez la vaisselle, les écrans, les cadres et les objets particuliers lors du devis. Faites préciser qui fournit les protections, qui emballe et si le déballage est compris."
     },
     { 
       q: "Quels objets doivent être emballés avec attention ?", 
-      a: "Tous les objets fragiles (verres, assiettes, cadres), l'électroménager, les écrans, ainsi que les meubles aux surfaces fragiles ou laqués nécessitent une attention particulière et une protection spécifique lors d'un déménagement." 
+      a: "Tous les objets fragiles (verres, assiettes, cadres), l'électroménager, les écrans, ainsi que les meubles aux surfaces fragiles ou laqués nécessitent une attention particulière et une protection spécifique lors d'un déménagement."
     },
     { 
       q: "Puis-je choisir une formule avec emballage inclus ?", 
-      a: "Oui, selon la formule choisie, vous pouvez déléguer tout ou partie de l’emballage." 
+      a: "Oui, selon la formule choisie, vous pouvez déléguer tout ou partie de l’emballage."
     },
     { 
       q: "Comment obtenir un devis pour l’emballage et la protection ?", 
-      a: "La prestation d'emballage est généralement intégrée à votre devis global de déménagement. Lors de notre évaluation, nous prenons en compte le volume et la nature des biens pour vous proposer la solution de protection la plus cohérente." 
+      a: "La prestation d'emballage est généralement intégrée à votre devis global de déménagement. Lors de notre évaluation, nous prenons en compte le volume et la nature des biens pour vous proposer la solution de protection la plus cohérente."
+    },
+    {
+      q: "Les cartons et protections sont-ils fournis ?",
+      a: "Faites préciser au devis les fournitures incluses, leur quantité et leurs modalités de remise. Si vous préparez vous-même vos cartons, vérifiez le matériel à acheter séparément et les consignes pour les objets fragiles ou encombrants."
+    },
+    {
+      q: "Que préparer si je réalise une partie de l'emballage ?",
+      a: "Séparez les affaires que vous emballez de celles confiées aux déménageurs. Fermez et identifiez les cartons par pièce, signalez les fragiles et évitez les charges difficiles à manipuler. Gardez vos documents, clés et affaires indispensables avec vous, puis confirmez les tâches restantes avant le jour du déménagement."
     }
   ];
 
@@ -125,7 +133,7 @@ const Emballage: React.FC = () => {
               { t: "Limiter les risques de casse", d: "Une protection adaptée aide à limiter les risques de chocs pendant la manutention et le transport." },
               { t: "Faciliter la manutention", d: "Des cartons bien préparés et dimensionnés permettent une manipulation plus sûre et rapide." },
               { t: "Organiser les cartons", d: "Un étiquetage clair et un emballage structuré simplifient le déballage dans votre nouveau lieu." },
-              { t: "Protéger les meubles", d: "L'utilisation de couvertures et de protections spécifiques évite les rayures sur votre mobilier." }
+              { t: "Protéger les meubles", d: "Des couvertures et protections adaptées aident à limiter les rayures sur le mobilier." }
             ].map((item, i) => (
               <div key={i} className="p-8 bg-white border border-slate-100 rounded-3xl shadow-sm hover:shadow-xl transition-all h-full">
                 <div className="w-12 h-12 bg-slate-50 text-accent rounded-xl flex items-center justify-center mb-6">
@@ -254,6 +262,20 @@ const Emballage: React.FC = () => {
         </div>
       </section>
 
+      <section className="py-16 bg-slate-50">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
+          <h2 className="text-3xl font-bold text-brand-900">Qui prépare quoi avant le déménagement ?</h2>
+          <p className="text-slate-600 leading-relaxed">Comparez les <Link to="/formules-demenagement" className="underline text-brand-900">formules de déménagement</Link> et faites préciser l'emballage, les fournitures, le démontage et le déballage au devis. Une formule ne dispense pas de signaler les objets qui nécessitent une préparation particulière.</p>
+          <ul className="list-disc pl-6 space-y-3 text-slate-600 leading-relaxed">
+            <li><strong>Vaisselle et objets fragiles :</strong> séparez les pièces, protégez-les individuellement et calez les espaces pour limiter les mouvements. Signalez les objets dont vous souhaitez confier l'emballage.</li>
+            <li><strong>Livres et objets denses :</strong> répartissez-les dans des cartons faciles à porter et vérifiez la fermeture du fond.</li>
+            <li><strong>Écrans et appareils :</strong> gardez les accessoires identifiés et suivez les consignes de préparation du fabricant ; indiquez les appareils dont l'emballage d'origine manque.</li>
+            <li><strong>Mobilier :</strong> précisez les meubles à démonter, les surfaces délicates et les passages étroits aux deux adresses.</li>
+          </ul>
+          <p className="text-slate-600 leading-relaxed">Consultez les <Link to="/cartons-demenagement-paris" className="underline text-brand-900">cartons et protections</Link> pour préparer vos fournitures. En cas de <Link to="/garde-meuble-paris" className="underline text-brand-900">stockage temporaire</Link>, confirmez aussi les consignes d'emballage du lieu de stockage et identifiez les affaires à retrouver à la restitution.</p>
+        </div>
+      </section>
+
       {/* 9. CTA Intermédiaire */}
       <section className="py-20 bg-brand-900 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-accent/10 skew-x-12 translate-x-1/2"></div>
@@ -294,7 +316,7 @@ const Emballage: React.FC = () => {
                   <CheckCircle2 size={24} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-900 mb-1">{reason.t}</h4>
+                  <h3 className="font-bold text-brand-900 mb-1">{reason.t}</h3>
                   <p className="text-sm text-slate-500 font-light leading-relaxed">{reason.d}</p>
                 </div>
               </div>
@@ -311,10 +333,10 @@ const Emballage: React.FC = () => {
             <div className="space-y-6">
               {faqs.map((faq, i) => (
                 <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 transition-all">
-                  <h4 className="font-bold text-brand-900 mb-4 flex items-center gap-3">
+                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-3">
                     <Zap size={18} className="text-accent" />
                     {faq.q}
-                  </h4>
+                  </h3>
                   <p className="text-slate-500 leading-relaxed font-light">{faq.a}</p>
                 </div>
               ))}
@@ -326,29 +348,30 @@ const Emballage: React.FC = () => {
       {/* 12. Maillage interne */}
       <section className="py-24 border-t border-slate-100">
         <div className="container mx-auto px-4 md:px-6">
+           <h2 className="text-3xl font-bold text-brand-900 mb-10">Préparer les prestations et les fournitures</h2>
            <div className="grid grid-cols-1 md:grid-cols-6 gap-8 text-center md:text-left">
               <Link to="/demande-de-devis" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Devis</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Devis</h3>
                 <p className="text-xs text-slate-500 font-light">Estimation personnalisée.</p>
               </Link>
               <Link to="/formules-demenagement" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Formules</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Formules</h3>
                 <p className="text-xs text-slate-500 font-light">Toutes nos prestations.</p>
               </Link>
               <Link to="/demenagement-particuliers-paris" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Particuliers</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Particuliers</h3>
                 <p className="text-xs text-slate-500 font-light">Accompagnement foyer.</p>
               </Link>
               <Link to="/demenagement-entreprises-paris" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Entreprises</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Entreprises</h3>
                 <p className="text-xs text-slate-500 font-light">Transfert professionnel.</p>
               </Link>
               <Link to="/cartons-demenagement-paris" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Cartons</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Cartons</h3>
                 <p className="text-xs text-slate-500 font-light">Matériel adapté.</p>
               </Link>
               <Link to="/contact" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Contact</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Contact</h3>
                 <p className="text-xs text-slate-500 font-light">Parlons de votre projet.</p>
               </Link>
            </div>
