@@ -11,10 +11,12 @@ const DemenagementParticuliers: React.FC = () => {
 
   const faqs = [
     { q: "Comment préparer un déménagement particulier à Paris ?", a: "La clé réside dans l'anticipation. Commencez par trier vos affaires au moins 2 mois avant, anticipez les démarches liées au stationnement lorsque la situation l’exige et choisissez une formule adaptée à votre volume et votre temps disponible." },
-    { q: "Quelle formule choisir pour un déménagement d'appartement ?", a: "Tout dépend de votre budget et de votre implication. La formule Économique est idéale si vous avez un budget serré et du temps pour les cartons. La formule Standard est le meilleur compromis, tandis que la Luxe est parfaite pour une tranquillité totale." },
+    { q: "Quelle formule choisir pour un déménagement d'appartement ?", a: "Comparez les tâches que vous gardez à votre charge : cartons, protection du fragile, démontage et remontage. Les formules Économique, Standard et Luxe correspondent à différents niveaux d’accompagnement. Faites préciser les fournitures et les opérations retenues dans le devis." },
     { q: "Peut-on demander un monte-meuble ?", a: "Oui. Signalez les meubles qui ne passent pas dans l’escalier ou l’ascenseur. L’utilisation d’un monte-meuble dépend de l’accès à la façade, de l’espace au sol et des autorisations nécessaires ; sa faisabilité et sa prise en charge sont à confirmer dans le devis." },
     { q: "Proposez-vous l'emballage des objets fragiles ?", a: "Oui, selon la formule et les prestations retenues. Signalez la vaisselle, les miroirs et les objets nécessitant une protection particulière. Le devis précise les biens emballés par l’équipe, les fournitures prévues et les tâches restant à votre charge." },
-    { q: "Comment obtenir un devis de déménagement particulier ?", a: "Vous pouvez remplir notre formulaire en ligne ou nous appeler directement. Une visite technique peut être proposée selon la nature du projet pour évaluer précisément le volume et les accès afin de vous fournir un devis détaillé après analyse de votre projet." }
+    { q: "Comment obtenir un devis de déménagement particulier ?", a: "Vous pouvez remplir notre formulaire en ligne ou nous appeler directement. Une visite technique peut être proposée selon la nature du projet pour évaluer précisément le volume et les accès afin de vous fournir un devis détaillé après analyse de votre projet." },
+    { q: "Comment organiser le déménagement si mon nouveau logement n’est pas disponible ?", a: "Indiquez les dates de sortie et d’entrée envisagées. Un garde-meuble peut être étudié selon les disponibilités. Le devis doit distinguer le transport vers le stockage, la durée prévue, les conditions d’accès et la livraison finale." },
+    { q: "Quelles informations transmettre pour un devis adapté à mon logement ?", a: "Préparez les adresses, la date souhaitée, un inventaire du mobilier et des cartons, les étages et les dimensions utiles des passages. Mentionnez aussi les dépendances, les objets lourds ou fragiles et les tâches à déléguer. Signalez toute modification avant l’intervention pour faire réévaluer le projet si nécessaire." }
   ];
 
   return (
@@ -104,6 +106,31 @@ const DemenagementParticuliers: React.FC = () => {
         </div>
       </section>
 
+      <section className="py-16 bg-brand-900 text-white" aria-labelledby="particuliers-logement">
+        <div className="container mx-auto px-4 md:px-6">
+          <h2 id="particuliers-logement" className="text-3xl md:text-4xl font-bold mb-5">Votre logement détermine la préparation.</h2>
+          <p className="text-slate-300 max-w-3xl leading-relaxed mb-10">Les mètres carrés ne suffisent pas à décrire un déménagement. Les passages, les dépendances et les dates de remise des clés comptent aussi.</p>
+          <div className="grid lg:grid-cols-3 gap-6">
+            <div className="rounded-2xl border border-white/20 p-6">
+              <h3 className="text-xl font-bold mb-4">Un appartement avec des accès contraints</h3>
+              <p className="text-slate-300 leading-relaxed mb-5">Relevez l’étage, les dimensions de l’ascenseur et les passages étroits. Signalez les meubles qui nécessitent un démontage ainsi que les règles de la copropriété.</p>
+              <Link to="/location-monte-meuble-paris" className="text-accent font-semibold underline underline-offset-4">Étudier la possibilité d’un monte-meuble</Link>
+            </div>
+            <div className="rounded-2xl border border-white/20 p-6">
+              <h3 className="text-xl font-bold mb-4">Une maison et ses dépendances</h3>
+              <p className="text-slate-300 leading-relaxed mb-5">Ajoutez le garage, la cave, le grenier et le mobilier extérieur à l’inventaire. Mesurez la distance entre le stationnement du camion et l’entrée du logement.</p>
+              <Link to="/calculateur-volume" className="text-accent font-semibold underline underline-offset-4">Estimer le volume pièce par pièce</Link>
+            </div>
+            <div className="rounded-2xl border border-white/20 p-6">
+              <h3 className="text-xl font-bold mb-4">Un départ et une arrivée à des dates différentes</h3>
+              <p className="text-slate-300 leading-relaxed mb-5">Prévoyez les biens à garder avec vous et ceux à stocker. Faites chiffrer les deux transports et préciser la durée de stockage ainsi que les conditions de restitution.</p>
+              <Link to="/garde-meuble-paris" className="text-accent font-semibold underline underline-offset-4">Préparer un stockage entre deux logements</Link>
+            </div>
+          </div>
+          <p className="mt-8 text-slate-300 leading-relaxed">Pour la vaisselle et les meubles, consultez les <Link to="/emballage-protection-demenagement" className="text-accent underline underline-offset-4">prestations d’emballage et de protection</Link>. Vous pouvez ensuite <Link to="/demande-de-devis" className="text-accent font-semibold underline underline-offset-4">décrire votre logement et demander un devis</Link>.</p>
+        </div>
+      </section>
+
       {/* 4. Section “Un déménagement particulier bien préparé” */}
       <section className="py-24 bg-slate-50">
         <div className="container mx-auto px-4 md:px-6">
@@ -112,18 +139,18 @@ const DemenagementParticuliers: React.FC = () => {
               <h2 className="text-3xl lg:text-4xl font-bold text-brand-900 leading-tight">Un déménagement particulier bien préparé</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 {[
-                  { t: "Préparation des cartons", d: "Livraison anticipée du matériel pour emballer à votre rythme." },
+                  { t: "Préparation des cartons", d: "Fournitures et date de remise à préciser selon votre prestation." },
                   { t: "Protection des meubles", d: "Utilisation de housses et couvertures professionnelles." },
                   { t: "Accès complexes à Paris", d: "Gestion des étages, escaliers étroits et accès difficiles." },
                   { t: "Organisation du transport", d: "Logistique maîtrisée pour un acheminement sécurisé." },
                   { t: "Choix de la formule", d: "Trois niveaux de service selon votre besoin et budget." },
-                  { t: "Anticipation du volume", d: "Estimation précise pour une organisation optimale." }
+                  { t: "Anticipation du volume", d: "Inventaire du mobilier et des cartons, dépendances comprises." }
                 ].map((item, i) => (
                   <div key={i} className="space-y-3">
                     <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent">
                       <CheckCircle2 size={20} />
                     </div>
-                    <h4 className="font-bold text-brand-900">{item.t}</h4>
+                    <h3 className="font-bold text-brand-900">{item.t}</h3>
                     <p className="text-sm text-slate-500 font-light">{item.d}</p>
                   </div>
                 ))}
@@ -131,7 +158,7 @@ const DemenagementParticuliers: React.FC = () => {
             </div>
             <div className="relative">
               <div className="aspect-[4/5] rounded-[3rem] bg-slate-200 overflow-hidden shadow-2xl">
-                <img src="/images/demenagement-appartement-92.jpg" alt="Déménageur Marne Transdem pour particuliers" className="w-full h-full object-cover" />
+                <img src="/images/demenagement-appartement-92.webp" width="1200" height="1600" loading="lazy" decoding="async" alt="Déménageur Marne Transdem pour particuliers" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
@@ -186,7 +213,7 @@ const DemenagementParticuliers: React.FC = () => {
                   ))}
                 </ul>
                 <div className="space-y-4">
-                   <Link to="/demande-de-devis" className="block text-center bg-accent text-brand-900 stay-dark py-4 rounded-full font-bold hover:bg-accent-hover transition-all">
+                   <Link to={`/demande-de-devis?formula=${['economique', 'standard', 'luxe'][i]}`} className="block text-center bg-accent text-brand-900 stay-dark py-4 rounded-full font-bold hover:bg-accent-hover transition-all">
                      Choisir {formula.name}
                    </Link>
                 </div>
@@ -237,14 +264,14 @@ const DemenagementParticuliers: React.FC = () => {
             {[
               { t: "Analyse du projet", d: "Étude de vos besoins et prise de contact initiale." },
               { t: "Estimation du volume et des accès", d: "Calcul précis du volume et étude des accès locaux." },
-              { t: "Préparation", d: "Accompagnement et livraison du matériel d'emballage." },
+              { t: "Préparation", d: "Confirmation des tâches et des fournitures prévues au devis." },
               { t: "Transport et installation", d: "Mise en œuvre soignée et installation à destination." }
             ].map((step, i) => (
               <div key={i} className="text-center group">
                 <div className="w-16 h-16 bg-brand-900 text-accent rounded-2xl flex items-center justify-center text-2xl font-black mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
                   0{i + 1}
                 </div>
-                <h4 className="font-bold text-brand-900 mb-2">{step.t}</h4>
+                <h3 className="font-bold text-brand-900 mb-2">{step.t}</h3>
                 <p className="text-xs text-slate-500 font-light leading-relaxed px-4">{step.d}</p>
               </div>
             ))}
@@ -276,7 +303,7 @@ const DemenagementParticuliers: React.FC = () => {
               </div>
             </div>
             <div className="aspect-video bg-slate-200 rounded-[2.5rem] overflow-hidden shadow-xl">
-               <img src="/images/demenagement-paris-intra-muros.jpg" alt="Paris Streets Moving" className="w-full h-full object-cover" />
+               <img src="/images/demenagement-paris-intra-muros.webp" width="1200" height="1600" loading="lazy" decoding="async" alt="Déménagement en milieu urbain à Paris" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
@@ -311,11 +338,11 @@ const DemenagementParticuliers: React.FC = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { t: "Entreprise à Paris 20e", d: "Une connaissance approfondie de chaque rue de l'Est Parisien." },
+              { t: "Entreprise à Paris 20e", d: "Une équipe basée au 43 rue des Maraîchers, dans le 20e arrondissement." },
               { t: "Protection Soignée", d: "Matériel professionnel pour mettre vos biens à l'abri des chocs." },
-              { t: "Organisation Claire", d: "Pas de mauvaise surprise le jour J avec une planification rigoureuse." },
+              { t: "Organisation Claire", d: "Un inventaire, des accès et des prestations définis avant l’intervention." },
               { t: "Formules Flexibles", d: "Nous nous adaptons à votre budget sans compromis sur la qualité." },
-              { t: "Service Client Direct", d: "Un interlocuteur unique pour répondre à toutes vos questions." },
+              { t: "Service Client Direct", d: "Contactez notre équipe pour préciser votre projet et ses contraintes." },
               { t: "Rayonnement IDF", d: "Intervention à Paris, en Île-de-France et longue distance selon votre projet." }
             ].map((reason, i) => (
               <div key={i} className="flex gap-4 items-start">
@@ -323,7 +350,7 @@ const DemenagementParticuliers: React.FC = () => {
                   <CheckCircle2 size={24} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-900 mb-2">{reason.t}</h4>
+                  <h3 className="font-bold text-brand-900 mb-2">{reason.t}</h3>
                   <p className="text-sm text-slate-500 font-light leading-relaxed">{reason.d}</p>
                 </div>
               </div>
@@ -338,12 +365,12 @@ const DemenagementParticuliers: React.FC = () => {
           <h2 className="text-3xl font-bold text-brand-900 mb-12 text-center">Questions fréquentes particuliers</h2>
           <div className="space-y-6">
             {faqs.map((faq, i) => (
-              <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex gap-6 items-start group hover:border-accent transition-all">
+              <div key={i} className="bg-white p-5 sm:p-8 rounded-2xl shadow-sm border border-slate-100 flex gap-3 sm:gap-6 items-start group hover:border-accent transition-all">
                 <div className="bg-slate-50 w-12 h-12 rounded-xl flex items-center justify-center text-accent shrink-0 group-hover:bg-accent group-hover:text-white transition-colors">
                    <Zap size={20} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-900 text-lg mb-2">{faq.q}</h4>
+                  <h3 className="font-bold text-brand-900 text-lg mb-2">{faq.q}</h3>
                   <p className="text-slate-500 font-light leading-relaxed text-sm md:text-base">{faq.a}</p>
                 </div>
               </div>
@@ -355,22 +382,22 @@ const DemenagementParticuliers: React.FC = () => {
       {/* 12. Maillage interne */}
       <section className="py-24">
         <div className="container mx-auto px-4 md:px-6">
-           <h3 className="text-xs font-black text-brand-900 uppercase tracking-[0.4em] mb-12 text-center opacity-40">Explorer nos services complémentaires</h3>
+           <h2 className="text-2xl font-bold text-brand-900 mb-12 text-center">Explorer nos services complémentaires</h2>
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <Link to="/formules-demenagement" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Formules</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Formules</h3>
                 <p className="text-xs text-slate-500 font-light">Trouvez le service adapté.</p>
               </Link>
               <Link to="/location-monte-meuble-paris" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Monte-meuble</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Monte-meuble</h3>
                 <p className="text-xs text-slate-500 font-light">Levage grandes hauteurs.</p>
               </Link>
               <Link to="/emballage-protection-demenagement" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Protection</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Protection</h3>
                 <p className="text-xs text-slate-500 font-light">Soin maximal des biens.</p>
               </Link>
               <Link to="/garde-meuble-paris" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Garde-meuble</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Garde-meuble</h3>
                 <p className="text-xs text-slate-500 font-light">Stockage sécurisé.</p>
               </Link>
            </div>
