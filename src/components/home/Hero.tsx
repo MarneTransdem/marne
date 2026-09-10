@@ -95,7 +95,7 @@ export const Hero: React.FC = () => {
               </h1>
               
               <p className="text-lg md:text-xl text-slate-500 dark:text-slate-400 mb-10 md:mb-12 max-w-xl leading-relaxed font-light italic">
-                Marne Transdem accompagne les particuliers et les entreprises pour leurs déménagements à Paris, en Île-de-France et partout en France.
+                Un appartement à Paris, une maison en Île-de-France ou des bureaux à transférer : Marne Transdem prépare votre déménagement selon vos accès, votre volume et les prestations que vous souhaitez déléguer.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
@@ -127,24 +127,24 @@ export const Hero: React.FC = () => {
             >
               <div className="relative z-10 p-1 bg-gradient-to-br from-slate-200 to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-[2.5rem] md:rounded-[3rem] shadow-premium max-w-lg mx-auto lg:max-w-none">
                  <div className="bg-white rounded-[2.4rem] md:rounded-[2.9rem] p-8 md:p-10 py-10 md:py-12">
-                    <h2 className="text-2xl font-bold text-brand-900 stay-dark mb-2 tracking-tight italic uppercase">Estimation rapide</h2>
-                    <p className="text-sm text-slate-500 stay-dark mb-8 font-light italic opacity-70">Recevez une première étude personnalisée.</p>
+                    <h2 className="text-2xl font-bold text-brand-900 stay-dark mb-2 tracking-tight italic uppercase">Préparons votre devis</h2>
+                    <p className="text-sm text-slate-500 stay-dark mb-8 font-light italic opacity-70">Indiquez votre trajet, puis complétez votre demande.</p>
                     
                     <form onSubmit={handleQuickSubmit} className="space-y-5">
                       <div className="space-y-1.5 font-sans italic">
-                        <label className="text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest ml-1">Départ</label>
+                        <label className="text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest ml-1" htmlFor="home-from">Départ</label>
                         <input 
                           className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm outline-none placeholder:text-slate-300 focus:border-accent transition-colors text-brand-900 stay-dark" 
-                          placeholder="Adresse de départ" 
+                          id="home-from" autoComplete="off" placeholder="Adresse de départ"
                           value={quickForm.fromAddress}
                           onChange={(e) => setQuickForm(prev => ({ ...prev, fromAddress: e.target.value }))}
                         />
                       </div>
                       <div className="space-y-1.5 font-sans italic">
-                        <label className="text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest ml-1">Arrivée</label>
+                        <label className="text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest ml-1" htmlFor="home-to">Arrivée</label>
                         <input 
                           className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm outline-none placeholder:text-slate-300 focus:border-accent transition-colors text-brand-900 stay-dark" 
-                          placeholder="Adresse d'arrivée" 
+                          id="home-to" autoComplete="off" placeholder="Adresse d'arrivée"
                           value={quickForm.toAddress}
                           onChange={(e) => setQuickForm(prev => ({ ...prev, toAddress: e.target.value }))}
                         />
@@ -156,6 +156,8 @@ export const Hero: React.FC = () => {
                             <button 
                               key={v}
                               type="button"
+                              aria-pressed={quickForm.volume === (v === '+' ? '60' : v)}
+                              aria-label={v === '+' ? '60 mètres cubes ou plus' : `${v} mètres cubes`}
                               onClick={() => setQuickForm(prev => ({ ...prev, volume: v === '+' ? '60' : v }))}
                               className={`rounded-xl py-2 flex items-center justify-center text-xs font-bold transition-all ${
                                 (quickForm.volume === v || (v === '+' && quickForm.volume === '60'))
@@ -177,7 +179,7 @@ export const Hero: React.FC = () => {
   
                     <div className="mt-8 pt-8 border-t border-slate-100 flex items-center justify-center gap-3">
                       <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                      <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest italic">Réponse rapide</span>
+                      <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest italic">Devis selon votre projet</span>
                     </div>
                  </div>
               </div>

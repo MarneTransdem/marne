@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Hero } from '../components/home/Hero';
 import { ReassuranceBar } from '../components/home/ReassuranceBar';
 import { ServicesSection } from '../components/home/ServicesSection';
+import { ProjectGateway } from '../components/home/ProjectGateway';
 import { QuotePreparation } from '../components/home/QuotePreparation';
 import { Link } from 'react-router-dom';
 
@@ -67,6 +68,7 @@ const Home: React.FC = () => {
       
       <Hero />
       <ReassuranceBar />
+      <ProjectGateway />
       <ServicesSection />
       <QuotePreparation />
 
@@ -107,12 +109,12 @@ const Home: React.FC = () => {
                   ))}
                 </div>
                 <Link 
-                  to="/demande-de-devis"
+                  to={`/demande-de-devis?formula=${['economique', 'standard', 'luxe'][idx]}`}
                   className={`w-full py-4 rounded-xl flex items-center justify-center font-bold transition-all ${
                     formula.popular ? 'bg-accent text-brand-900 stay-dark hover:bg-accent-hover shadow-lg' : 'bg-slate-100 text-brand-900 stay-dark hover:bg-slate-200'
                   }`}
                 >
-                  Demander un devis
+                  Choisir la formule {formula.name}
                 </Link>
               </motion.div>
             ))}
@@ -126,17 +128,17 @@ const Home: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="space-y-12">
                <div className="space-y-4">
-                  <h2 className="text-accent font-black uppercase text-xs tracking-[0.3em] mb-4">L'exigence Marne Transdem</h2>
-                  <p className="text-5xl md:text-7xl font-black mb-8 leading-[1.1] tracking-tighter uppercase italic">
+                  <p className="text-accent font-black uppercase text-xs tracking-[0.3em] mb-4">L'exigence Marne Transdem</p>
+                  <h2 className="text-5xl md:text-7xl font-black mb-8 leading-[1.1] tracking-tighter uppercase italic">
                     Pourquoi nous <br/>
                     <span className="text-accent underline decoration-white/10 underline-offset-8 italic">faire confiance ?</span>
-                  </p>
+                  </h2>
                </div>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-16">
                 {[
                    { t: "Expertise Urbaine", d: "Maîtrise des accès complexes à Paris et sa région." },
-                   { t: "Organisation 360°", d: "De l'emballage au remontage, rien n'est laissé au hasard." },
+                   { t: "Prestations définies ensemble", d: "Emballage, démontage et remontage précisés dans votre devis." },
                    { t: "Protection des biens", d: "Protections adaptées et assurance selon les conditions contractuelles." },
                    { t: "Ponctualité Rigoureuse", d: "Le respect de vos délais est notre priorité absolue." }
                 ].map((item, i) => (
@@ -179,7 +181,7 @@ const Home: React.FC = () => {
       {/* Areas Section - Refactored */}
       <section className="py-24 bg-white font-sans italic transition-colors duration-300">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="stay-light-section rounded-[4rem] p-12 md:p-24 border border-slate-100 flex flex-col lg:flex-row gap-20 items-center overflow-hidden relative">
+          <div className="stay-light-section rounded-3xl md:rounded-[4rem] p-6 md:p-12 xl:p-20 border border-slate-100 flex flex-col lg:flex-row gap-20 items-center overflow-hidden relative">
             <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 -skew-x-12 translate-x-1/4 pointer-events-none"></div>
             
             <div className="lg:w-7/12 relative z-10">
@@ -190,33 +192,19 @@ const Home: React.FC = () => {
               
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 {[
-                  { name: 'Paris 20e', path: '/demenagement-paris-20', m: false },
-                  { name: 'Paris 16e', path: '/demenagement-paris-16', m: false },
-                  { name: 'Montreuil', path: '/demenagement-montreuil', m: false },
-                  { name: 'Pantin', path: '/demenagement-pantin', m: false },
-                  { name: 'Les Lilas', path: '/demenagement-les-lilas', m: false },
-                  { name: 'Saint-Denis', path: '/demenagement-saint-denis', m: false },
-                  { name: 'Bondy', path: '/demenagement-bondy', m: false },
-                  { name: 'Romainville', path: '/demenagement-romainville', m: false },
-                  { name: 'Noisy-le-Sec', path: '/demenagement-noisy-le-sec', m: false },
-                  { name: 'Aulnay-sous-Bois', path: '/demenagement-aulnay-sous-bois', m: false },
-                  { name: 'Drancy', path: '/demenagement-drancy', m: false },
-                  { name: 'Bobigny', path: '/demenagement-bobigny', m: false },
-                  { name: 'Saint-Ouen', path: '/demenagement-saint-ouen', m: false },
-                  { name: 'Argenteuil', path: '/demenagement-argenteuil', m: false },
-                  { name: 'Cergy', path: '/demenagement-cergy', m: false },
-                  { name: 'Pontoise', path: '/demenagement-pontoise', m: false },
-                  { name: 'Saint-Gratien', path: '/demenagement-saint-gratien', m: false },
-                  { name: 'Enghien-les-Bains', path: '/demenagement-enghien-les-bains', m: false },
-                  { name: 'Montmorency', path: '/demenagement-montmorency', m: false },
-                  { name: 'Franconville', path: '/demenagement-franconville', m: false },
-                  { name: 'Boulogne', path: '/demenagement-boulogne-billancourt', m: false },
-                  { name: 'Neuilly', path: '/demenagement-neuilly-sur-seine', m: false },
-                  { name: 'Vincennes', path: '/demenagement-vincennes', m: false }
+                  { name: 'Paris : tous les arrondissements', path: '/secteurs-desservis', m: true },
+                  { name: 'Paris 20e', path: '/demenagement-paris-20', m: true },
+                  { name: 'Val-de-Marne', path: '/demenagement-val-de-marne', m: true },
+                  { name: 'Seine-Saint-Denis', path: '/demenagement-seine-saint-denis', m: true },
+                  { name: 'Hauts-de-Seine', path: '/demenagement-hauts-de-seine', m: true },
+                  { name: 'Seine-et-Marne', path: '/demenagement-seine-et-marne', m: true },
+                  { name: 'Yvelines', path: '/demenagement-yvelines', m: true },
+                  { name: 'Essonne', path: '/demenagement-essonne', m: true },
+                  { name: 'Val-d’Oise', path: '/demenagement-val-d-oise', m: true }
                 ].map((zone) => (
-                  <Link key={zone.name} to={zone.path} className="flex flex-col items-center justify-center p-6 stay-white-bg rounded-3xl border border-slate-100 shadow-sm transition-all hover:border-accent hover:shadow-xl group h-full">
+                  <Link key={zone.name} to={zone.path} className="flex flex-col items-center justify-center p-4 stay-white-bg rounded-3xl border border-slate-100 shadow-sm transition-all hover:border-accent hover:shadow-xl group h-full">
                     <MapPin size={18} className={`${zone.m ? 'text-accent' : 'text-slate-200'} group-hover:text-accent transition-colors mb-3`} />
-                    <span className="text-[10px] font-black text-brand-900 stay-dark uppercase tracking-widest text-center">{zone.name}</span>
+                    <span className="text-sm font-semibold text-brand-900 stay-dark text-center">{zone.name}</span>
                   </Link>
                 ))}
               </div>
@@ -276,19 +264,19 @@ const Home: React.FC = () => {
                </div>
                
                <p className="text-slate-500 dark:text-slate-400 text-lg font-light leading-relaxed">
-                  Découvrez notre centre de ressources dédié : checklist interactive, guides d'emballage et toutes les formalités administratives pour ne rien oublier.
+                  Préparez les étapes de votre projet : budget, volume à transporter, protection des objets et démarches avant le départ.
                </p>
 
                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {[
-                    "Checklist interactive par étapes",
-                    "Guide d'emballage fragile",
-                    "Aide aux formalités administratives",
-                    "Astuces d'organisation Jour J"
+                    { label: 'Estimer le prix du déménagement', path: '/blog/combien-coute-demenagement-paris' },
+                    { label: 'Préparer les objets fragiles', path: '/emballage-protection-demenagement' },
+                    { label: 'Organiser les formalités', path: '/blog/formalites-administratives-demenagement' },
+                    { label: 'Planifier les étapes du départ', path: '/blog/10-conseils-demenagement-sans-stress-paris' }
                   ].map((tip, i) => (
                     <div key={i} className="flex items-center gap-3">
                        <CheckCircle size={18} className="text-accent shrink-0" />
-                       <span className="text-brand-900 dark:text-slate-200 font-bold text-sm tracking-tight">{tip}</span>
+                       <Link to={tip.path} className="text-brand-900 dark:text-slate-200 font-bold text-sm underline underline-offset-4 hover:text-amber-800">{tip.label}</Link>
                     </div>
                   ))}
                </div>

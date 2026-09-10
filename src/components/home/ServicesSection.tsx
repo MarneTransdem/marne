@@ -6,18 +6,18 @@ import { motion } from 'motion/react';
 
 export const ServicesSection: React.FC = () => {
   return (
-    <section className="py-24 bg-white dark:bg-slate-950 relative transition-colors duration-300">
+    <section id="services-accueil" className="py-24 bg-white dark:bg-slate-950 relative transition-colors duration-300">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-amber-800 dark:text-accent text-sm font-bold uppercase tracking-widest mb-4">Nos Solutions</h2>
-          <p className="text-3xl md:text-4xl lg:text-5xl font-bold text-brand-900 dark:text-white mb-6">
-            Des services de déménagement complets et sur mesure
-          </p>
+          <p className="text-amber-800 dark:text-accent text-sm font-bold uppercase tracking-widest mb-4">Nos services complémentaires</p>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-brand-900 dark:text-white mb-6">
+            Les solutions pour préparer votre déménagement
+          </h2>
           <div className="h-1.5 w-20 bg-accent mx-auto rounded-full"></div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {SERVICES.map((service, index) => (
+          {SERVICES.filter(service => ['garde-meuble', 'monte-meuble', 'emballage', 'cartons', 'petit-volume', 'piano'].includes(service.id)).map((service, index) => (
             <motion.div
               key={service.id}
               initial={false}
@@ -55,17 +55,17 @@ export const ServicesSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.5 }}
-            className="md:col-span-2 lg:col-span-1 bg-brand-900 dark:bg-slate-900 rounded-2xl p-8 text-white flex flex-col justify-center items-center text-center shadow-xl border border-transparent dark:border-slate-800"
+            className="md:col-span-2 lg:col-span-3 bg-brand-900 dark:bg-slate-900 rounded-2xl p-8 text-white flex flex-col justify-center items-center text-center shadow-xl border border-transparent dark:border-slate-800"
           >
-            <h3 className="text-2xl font-bold mb-4">Besoin d'un conseil personnalisé ?</h3>
+            <h3 className="text-2xl font-bold mb-4">Un projet qui demande une organisation particulière ?</h3>
             <p className="text-slate-300 mb-8">
-              Notre équipe est à votre disposition pour évaluer vos besoins spécifiques gratuitement.
+              Déménagement étudiant, accompagnement senior, œuvres d’art ou transfert professionnel : retrouvez les prestations adaptées à votre situation.
             </p>
             <Link 
-              to="/contact"
+              to="/services"
               className="bg-accent text-brand-900 stay-dark px-8 py-4 rounded-full font-bold hover:bg-accent-hover shadow-lg transition-all"
             >
-              Contactez-nous
+              Voir tous les services
             </Link>
           </motion.div>
         </div>

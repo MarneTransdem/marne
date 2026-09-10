@@ -13,7 +13,7 @@ for (const [path, date] of Object.entries(contentUpdatedAt)) {
   assert.ok(publicRoutes.has(path), `Unknown content update route: ${path}`);
   assert.match(date, /^\d{4}-\d{2}-\d{2}$/);
   assert.equal(new Date(date).toISOString().slice(0, 10), date);
-  const entry = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].find(m => m[1].includes(`<loc>https://www.devisdemenagement-paris.com${path}</loc>`));
+  const entry = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].find(m => m[1].includes(`<loc>https://www.devisdemenagement-paris.com${path === '/' ? '' : path}</loc>`));
   assert.ok(entry?.[1].includes(`<lastmod>${date}</lastmod>`));
 }
 assert.equal([...sitemap.matchAll(/<lastmod>/g)].length, Object.keys(contentUpdatedAt).length);
