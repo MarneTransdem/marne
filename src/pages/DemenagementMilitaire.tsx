@@ -11,20 +11,20 @@ const DemenagementMilitaire: React.FC = () => {
 
   const faqs = [
     { 
-      q: "Fournissez-vous les deux devis obligatoires pour le dossier de mutation ?", 
-      a: "Oui, nous comprenons parfaitement les exigences administratives militaires (dossier de mutation). Nous vous fournissons rapidement les deux devis comparatifs nécessaires à votre administration pour l'obtention de votre prise en charge (PFMD)." 
+      q: "Quel devis demander pour un déménagement militaire ?",
+      a: "Marne Transdem peut établir son devis à partir de votre inventaire, des accès et des prestations souhaitées. Vérifiez d'abord auprès de votre service gestionnaire la procédure applicable et le nombre de devis requis. Si des offres concurrentes sont demandées, sollicitez des entreprises distinctes."
     },
     { 
-      q: "Respectez-vous les plafonds de cubage par grade ?", 
-      a: "Absolument. Nos conseillers sont formés aux barèmes de cubage réglementaires en vigueur selon votre grade et votre situation familiale. Nous établissons nos devis en stricte conformité avec ces plafonds pour éviter tout reste à charge imprévu." 
+      q: "Le volume transporté correspond-il à mes droits à déménagement ?",
+      a: "Le volume à transporter est estimé à partir de vos meubles et cartons. Vos droits et le plafond de prise en charge sont à faire confirmer par votre service gestionnaire selon votre situation. Comparez ensuite le devis avec cette validation pour identifier les éventuels frais à votre charge."
     },
     { 
       q: "Quels documents dois-je fournir pour mon dossier de remboursement ?", 
-      a: "Nous vous remettons tous les documents nécessaires : devis détaillés, contrat de déménagement, déclaration de valeur, lettre de voiture et facture acquittée après l'intervention." 
+      a: "Demandez à votre service gestionnaire la liste des justificatifs correspondant à votre dossier, puis transmettez les exigences concernant le devis et la facturation avant de réserver. Conservez les documents contractuels et la facture ; la recevabilité du dossier dépend de la procédure administrative applicable."
     },
     { 
-      q: "Proposez-vous une assurance ad valorem ?", 
-      a: "Oui, nous incluons systématiquement une assurance responsabilité contractuelle, et nous proposons des options d'assurance ad valorem pour couvrir vos biens à hauteur de leur valeur réelle déclarée." 
+      q: "Comment vérifier les garanties pour mes biens ?",
+      a: "Signalez les objets de valeur et faites préciser les garanties, plafonds, franchises et exclusions du contrat. Si une couverture complémentaire est nécessaire, demandez confirmation de sa disponibilité et de son coût avant de signer."
     }
   ];
 
@@ -32,10 +32,10 @@ const DemenagementMilitaire: React.FC = () => {
     <div className="bg-white">
       <SEO 
         title="Déménagement Militaire & Gendarmerie | Marne Transdem"
-        description="Expert du déménagement militaire et gendarmerie à Paris. Devis conformes PFMD, respect des plafonds de cubage et accompagnement administratif mutation."
+        description="Préparez votre déménagement militaire à Paris : inventaire, accès, calendrier et devis. Faites confirmer vos droits et la procédure par votre service gestionnaire."
         canonical={path}
         schema={[
-          getServiceSchema("Déménagement Militaire", "Service spécialisé pour les mutations des militaires, gendarmes et policiers, avec gestion complète du dossier administratif."),
+          getServiceSchema("Déménagement Militaire", "Déménagement pour mutation militaire à Paris ou longue distance, avec volume et prestations à préciser au devis et procédure à confirmer auprès du service gestionnaire."),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },
@@ -64,12 +64,12 @@ const DemenagementMilitaire: React.FC = () => {
             </h1>
 
             <p className="text-xl md:text-2xl text-slate-300 mb-12 leading-relaxed font-light max-w-3xl italic">
-              Marne Transdem accompagne les militaires, gendarmes et policiers dans leurs mutations avec des solutions conformes aux exigences administratives (PFMD) et un respect strict des barèmes.
+              Préparez votre changement de domicile avec un inventaire, les accès aux deux logements et les dates souhaitées. Avant de réserver, faites confirmer par votre service gestionnaire vos droits et le circuit à suivre pour votre mutation.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-5">
               <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover shadow-xl flex items-center justify-center gap-3 group transition-all italic underline-none">
-                Obtenir mes deux devis mutation
+                Demander un devis déménagement
                 <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
               </Link>
               <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white/10 text-white border border-white/20 px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-brand-900 transition-all flex items-center justify-center gap-3 shadow-sm backdrop-blur-sm italic">
@@ -91,20 +91,20 @@ const DemenagementMilitaire: React.FC = () => {
               </h2>
               <div className="space-y-6 text-slate-500 text-lg font-light leading-relaxed italic text-justify grayscale-[20%]">
                 <p>
-                  Parce qu'un <span className="font-bold text-brand-900 underline decoration-accent/10 underline-offset-4">déménagement militaire</span> n'est pas un projet comme les autres, il nécessite une connaissance parfaite des procédures administratives de défense. Marne Transdem est le partenaire privilégié des forces de l'ordre et des armées pour organiser vos transferts en toute sérénité.
+                  Pour un <span className="font-bold text-brand-900">déménagement militaire</span>, préparez séparément le transport de vos biens et les démarches de prise en charge. Le devis décrit les prestations commerciales ; votre service gestionnaire confirme la procédure et les droits applicables à votre situation.
                 </p>
                 <p>
-                  Nous maîtrisons l'ensemble de la chaîne logistique : du respect des droits à cubage selon votre grade à l'établissement des devis comparatifs requis pour votre dossier. Notre équipe vous assure une transition fluide vers votre nouvelle affectation, que ce soit à Paris, en Île-de-France ou via un <Link to="/demenagement-longue-distance" className="text-slate-900 font-bold hover:text-accent italic">déménagement longue distance</Link>.
+                  Indiquez les meubles à emporter, les étages, les ascenseurs et les contraintes de livraison. Le <Link to="/calculateur-volume" className="underline text-brand-900">calculateur de volume</Link> aide à préparer l'inventaire ; il ne calcule pas vos droits administratifs. Pour un trajet entre régions, consultez les informations sur le <Link to="/demenagement-longue-distance" className="underline text-brand-900">déménagement longue distance</Link>.
                 </p>
               </div>
               <div className="flex flex-wrap gap-4 pt-4 italic">
                 <div className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-full border border-slate-100 italic">
                   <CheckCircle2 size={16} className="text-accent italic" />
-                  <span className="text-[10px] font-black uppercase text-brand-900 tracking-widest italic">Barèmes respectés</span>
+                  <span className="text-[10px] font-black uppercase text-brand-900 tracking-widest italic">Droits à confirmer</span>
                 </div>
                 <div className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-full border border-slate-100 italic">
                   <CheckCircle2 size={16} className="text-accent italic" />
-                  <span className="text-[10px] font-black uppercase text-brand-900 tracking-widest italic">Accompagnement PFMD</span>
+                  <span className="text-[10px] font-black uppercase text-brand-900 tracking-widest italic">Prestations à préciser</span>
                 </div>
               </div>
             </div>
@@ -129,10 +129,10 @@ const DemenagementMilitaire: React.FC = () => {
         </div>
         <div className="container mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-4 gap-8 italic">
           {[
-            { icon: <UserCheck size={32} />, t: "1. Audit cubage", d: "Évaluation sur place ou à distance de votre volume selon vos droits réglementaires." },
-            { icon: <FileText size={32} />, t: "2. Devis comparatifs", d: "Remise immédiate de vos deux devis pour votre dossier administratif." },
-            { icon: <ClipboardCheck size={32} />, t: "3. Validation dossier", d: "Fourniture de toutes les pièces justificatives (K-Bis, Assurances)." },
-            { icon: <Truck size={32} />, t: "4. Mise en oeuvre", d: "Déménagement sécurisé respectant vos dates de mutation." }
+            { icon: <UserCheck size={32} />, t: "1. Procédure", d: "Vérifiez vos droits et le circuit à suivre auprès de votre service gestionnaire." },
+            { icon: <FileText size={32} />, t: "2. Inventaire", d: "Précisez le volume réel, les accès et les prestations souhaitées." },
+            { icon: <ClipboardCheck size={32} />, t: "3. Devis", d: "Faites établir le devis et suivez les consignes de validation reçues." },
+            { icon: <Truck size={32} />, t: "4. Réservation", d: "Confirmez les dates et les conditions de réalisation avec le déménageur." }
           ].map((step, i) => (
             <div key={i} className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-slate-100 hover:border-accent transition-all h-full italic">
               <div className="text-accent mb-6 italic">{step.icon}</div>
@@ -148,13 +148,13 @@ const DemenagementMilitaire: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 italic">
           <div className="bg-brand-900 p-12 lg:p-20 rounded-[4rem] text-white flex flex-col lg:flex-row items-center gap-16 relative overflow-hidden italic shadow-2xl italic">
             <div className="lg:w-2/3 space-y-8 relative z-10 italic">
-              <h2 className="text-3xl md:text-5xl font-black uppercase italic tracking-tight underline decoration-accent/20 italic">Zéro reste à charge <br/><span className="text-accent italic">Gestion rigoureuse</span></h2>
+              <h2 className="text-3xl md:text-5xl font-black uppercase italic tracking-tight underline decoration-accent/20 italic">Valider votre budget <br/><span className="text-accent italic">avant de réserver</span></h2>
               <p className="text-slate-300 text-lg font-light leading-relaxed italic text-justify italic">
-                Nous nous adaptons aux changements de dates fréquents des mutations militaires. Notre flexibilité et notre réactivité permettent d'ajuster le planning jusqu'au dernier moment pour correspondre à vos ordres de marche. Marne Transdem vous garantit une transparence totale sur les coûts pour une prise en charge optimale par votre centre d'administration.
+                Le montant du devis et celui pris en charge ne sont pas nécessairement identiques. Faites confirmer votre financement et les prestations concernées avant de vous engager. Si votre date change, contactez le déménageur pour vérifier les disponibilités et les conditions de modification.
               </p>
               <div className="pt-4 italic">
                 <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all inline-flex items-center gap-3 italic">
-                  Demander mes devis comparatifs
+                  Préparer mon devis mutation
                   <ArrowRight size={20} />
                 </Link>
               </div>
@@ -162,10 +162,10 @@ const DemenagementMilitaire: React.FC = () => {
             <div className="lg:w-1/3 relative z-10 italic">
                <div className="grid grid-cols-2 gap-4 italic font-sans italic underline-none italic transition-all italic">
                   {[
-                    { l: "PFMD", t: "Conforme" },
-                    { l: "Défense", t: "Expert" },
-                    { l: "Mutation", t: "Rapide" },
-                    { l: "Barème", t: "Garanti" }
+                    { l: "Volume", t: "À estimer" },
+                    { l: "Devis", t: "À détailler" },
+                    { l: "Dates", t: "À confirmer" },
+                    { l: "Droits", t: "À vérifier" }
                   ].map((badge, i) => (
                     <div key={i} className="bg-white/5 border border-white/10 p-6 rounded-3xl text-center italic">
                        <div className="text-accent font-black text-xl mb-1 italic">{badge.l}</div>
@@ -179,6 +179,13 @@ const DemenagementMilitaire: React.FC = () => {
       </section>
 
       {/* FAQ Militaire */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
+          <h2 className="text-3xl font-bold text-brand-900">Où vérifier la procédure de changement de résidence ?</h2>
+          <p className="text-slate-600 leading-relaxed">Consultez les <a href="https://www.defense.gouv.fr/commissariat/actualites/vous-etes-mutes-demenagez-serenite-grace-pfmd" className="underline text-brand-900">informations du ministère des Armées sur la PFMD</a> et demandez à votre service gestionnaire quel dispositif s'applique à votre mutation. Une demande commerciale sur ce site ne vaut pas validation administrative ni réservation via une plateforme ministérielle.</p>
+          <p className="text-slate-600 leading-relaxed">Pour préparer le transport, comparez les <Link to="/formules-demenagement" className="underline text-brand-900">prestations des formules de déménagement</Link>. Si les dates des logements ne coïncident pas, faites chiffrer séparément le <Link to="/garde-meuble-paris" className="underline text-brand-900">garde-meuble temporaire</Link> et vérifiez sa prise en charge éventuelle avec votre gestionnaire.</p>
+        </div>
+      </section>
       <section className="py-24 bg-slate-50 font-sans italic transition-all italic underline-none italic">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl italic">
            <div className="text-center mb-16 italic font-sans italic transition-all italic underline decoration-accent/10 italic underline-offset-8">
@@ -187,10 +194,10 @@ const DemenagementMilitaire: React.FC = () => {
            <div className="space-y-6 italic font-sans italic transition-all italic underline-none italic">
              {faqs.map((faq, i) => (
                <div key={i} className="bg-white p-10 rounded-[2.5rem] border border-slate-100 group hover:border-accent transition-all shadow-sm italic font-sans italic transition-all italic grayscale-0 italic">
-                 <h4 className="font-bold text-brand-900 mb-4 flex items-center gap-4 uppercase italic tracking-tight italic font-sans italic transition-all italic">
+                 <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-4 uppercase italic tracking-tight italic font-sans italic transition-all italic">
                    <HelpCircle className="text-accent shrink-0 italic" size={20} />
                    {faq.q}
-                 </h4>
+                 </h3>
                  <p className="text-slate-500 font-light leading-relaxed pl-9 border-l-4 border-accent/20 italic font-sans italic transition-all italic underline-none italic">
                    {faq.a}
                  </p>
@@ -205,9 +212,9 @@ const DemenagementMilitaire: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 italic">
           <div className="flex flex-wrap justify-center gap-6 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 italic font-sans italic transition-all italic">
             <Link to="/demande-de-devis" className="hover:text-accent transition-colors italic">Dossier Mutation</Link>
-            <Link to="/calculateur-volume" className="hover:text-accent transition-colors italic">Cube & Grade</Link>
+            <Link to="/calculateur-volume" className="hover:text-accent transition-colors italic">Estimer le volume à transporter</Link>
             <Link to="/demenagement-longue-distance" className="hover:text-accent transition-colors italic">Déménagement National</Link>
-            <Link to="/garde-meuble-paris" className="hover:text-accent transition-colors italic">Stockage de Campagne</Link>
+            <Link to="/garde-meuble-paris" className="hover:text-accent transition-colors italic">Garde-meuble temporaire</Link>
           </div>
         </div>
       </section>
