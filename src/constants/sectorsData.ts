@@ -281,7 +281,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "aulnay-sous-bois",
-    "name": "Aulnay Sous Bois",
+    "name": "Aulnay-sous-Bois",
     "type": "local",
     "seoTitle": "Déménagement Aulnay-sous-Bois | Logements & Locaux Industriels | Marne Transdem",
     "seoDescription": "Besoin d'un déménageur à Aulnay-sous-Bois (93600) ? Marne Transdem accompagne vos logements familiaux et locaux industriels. Devis Gratuit.",
@@ -634,7 +634,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "boulogne-billancourt",
-    "name": "Boulogne Billancourt",
+    "name": "Boulogne-Billancourt",
     "type": "local",
     "seoTitle": "Déménagement Boulogne-Billancourt | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Boulogne-Billancourt avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -718,7 +718,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "bourg-la-reine",
-    "name": "Bourg La Reine",
+    "name": "Bourg-la-Reine",
     "type": "local",
     "seoTitle": "Déménagement Bourg-la-Reine | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Bourg-la-Reine avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -829,7 +829,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "champigny-sur-marne",
-    "name": "Champigny Sur Marne",
+    "name": "Champigny-sur-Marne",
     "type": "local",
     "seoTitle": "Déménagement Champigny-sur-Marne | Maisons & Appartements (94) | Marne Transdem",
     "seoDescription": "Besoin d'un déménageur de confiance à Champigny-sur-Marne (94500) ? Marne Transdem organise votre déménagement résidentiel (maisons, appartements) ou transfert de bureaux. Devis Gratuit.",
@@ -931,7 +931,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "chatenay-malabry",
-    "name": "Chatenay Malabry",
+    "name": "Châtenay-Malabry",
     "type": "local",
     "seoTitle": "Déménagement Châtenay-Malabry | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Châtenay-Malabry avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -992,7 +992,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "chatillon",
-    "name": "Chatillon",
+    "name": "Châtillon",
     "type": "local",
     "seoTitle": "Déménagement Châtillon | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Châtillon avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -1308,7 +1308,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "conflans-sainte-honorine",
-    "name": "Conflans Sainte Honorine",
+    "name": "Conflans-Sainte-Honorine",
     "type": "local",
     "seoTitle": "Déménagement Conflans-Sainte-Honorine | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Conflans-Sainte-Honorine avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -1469,7 +1469,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "creteil",
-    "name": "Creteil",
+    "name": "Créteil",
     "type": "local",
     "seoTitle": "Déménagement Créteil (94000) | Marne Transdem : Expert Déménageur",
     "seoDescription": "Besoin d'un déménageur à Créteil ? Marne Transdem offre des solutions sur-mesure pour particuliers et entreprises. Devis gratuit, visite technique et sérénité.",
@@ -1544,7 +1544,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "croissy-sur-seine",
-    "name": "Croissy Sur Seine",
+    "name": "Croissy-sur-Seine",
     "type": "local",
     "seoTitle": "Déménagement Croissy-sur-Seine | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Croissy-sur-Seine avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -1776,7 +1776,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "fontenay-aux-roses",
-    "name": "Fontenay Aux Roses",
+    "name": "Fontenay-aux-Roses",
     "type": "local",
     "seoTitle": "Déménagement Fontenay-aux-Roses | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Fontenay-aux-Roses avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -1837,7 +1837,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "fontenay-sous-bois",
-    "name": "Fontenay Sous Bois",
+    "name": "Fontenay-sous-Bois",
     "type": "local",
     "seoTitle": "Déménagement Fontenay-sous-Bois | Résidentiel & Val de Fontenay | Marne Transdem",
     "seoDescription": "Besoin d'un déménageur de prestige à Fontenay-sous-Bois (94) ? Marne Transdem orchestre le déménagement soigné de résidences et de bureaux. Devis gratuit & sur-mesure.",
@@ -2726,7 +2726,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "issy-les-moulineaux",
-    "name": "Issy Les Moulineaux",
+    "name": "Issy-les-Moulineaux",
     "type": "local",
     "seoTitle": "Déménagement Issy-les-Moulineaux | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Issy-les-Moulineaux avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -2912,7 +2912,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "joinville-le-pont",
-    "name": "Joinville Le Pont",
+    "name": "Joinville-le-Pont",
     "type": "local",
     "seoTitle": "Déménagement Joinville-le-Pont | Entre Ville et Nature (94) | Marne Transdem",
     "seoDescription": "Besoin d'un déménageur de confiance à Joinville-le-Pont (94340) ? Marne Transdem réalise vos déménagements résidentiels et professionnels en bords de Marne. Devis Gratuit.",
@@ -3022,7 +3022,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "le-kremlin-bicetre",
-    "name": "Kremlin Bicetre",
+    "name": "Le Kremlin-Bicêtre",
     "type": "local",
     "seoTitle": "Déménagement Le Kremlin-Bicêtre | Logistique Proche Paris 13e et Hôpital | Marne Transdem",
     "seoDescription": "Besoin d'un déménageur de confiance au Kremlin-Bicêtre (94270) ? Marne Transdem organise votre déménagement résidentiel ou de bureaux proche de l'hôpital et Paris 13e. Devis Gratuit.",
@@ -3116,7 +3116,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "la-celle-saint-cloud",
-    "name": "La Celle Saint Cloud",
+    "name": "La Celle-Saint-Cloud",
     "type": "local",
     "seoTitle": "Déménagement La Celle-Saint-Cloud | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à La Celle-Saint-Cloud avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -3181,7 +3181,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "le-chesnay-rocquencourt",
-    "name": "Le Chesnay Rocquencourt",
+    "name": "Le Chesnay-Rocquencourt",
     "type": "local",
     "seoTitle": "Déménagement Le Chesnay-Rocquencourt | Marne Transdem",
     "seoDescription": "Préparez votre déménagement au Chesnay-Rocquencourt avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -3311,7 +3311,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "le-perreux-sur-marne",
-    "name": "Le Perreux Sur Marne",
+    "name": "Le Perreux-sur-Marne",
     "type": "local",
     "seoTitle": "Déménagement Le Perreux-sur-Marne | Logements Familiaux & Villas | Marne Transdem",
     "seoDescription": "Besoin d'un déménageur de confiance au Perreux-sur-Marne (94170) ? Marne Transdem réalise vos déménagements premium de villas, pavillons et appartements familiaux. Devis Gratuit.",
@@ -3413,7 +3413,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "le-plessis-robinson",
-    "name": "Le Plessis Robinson",
+    "name": "Le Plessis-Robinson",
     "type": "local",
     "seoTitle": "Déménagement Le Plessis-Robinson | Marne Transdem",
     "seoDescription": "Préparez votre déménagement au Plessis-Robinson avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -3536,7 +3536,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "levallois-perret",
-    "name": "Levallois Perret",
+    "name": "Levallois-Perret",
     "type": "local",
     "seoTitle": "Déménagement Levallois-Perret | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Levallois-Perret avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -3620,7 +3620,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "le-vesinet",
-    "name": "Le Vesinet",
+    "name": "Le Vésinet",
     "type": "local",
     "seoTitle": "Déménagement Le Vésinet | Marne Transdem",
     "seoDescription": "Préparez votre déménagement au Vésinet avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -3840,7 +3840,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "maisons-laffitte",
-    "name": "Maisons Laffitte",
+    "name": "Maisons-Laffitte",
     "type": "local",
     "seoTitle": "Déménagement Maisons-Laffitte | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Maisons-Laffitte avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -3958,7 +3958,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "mantes-la-jolie",
-    "name": "Mantes La Jolie",
+    "name": "Mantes-la-Jolie",
     "type": "local",
     "seoTitle": "Déménagement Mantes-la-Jolie | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Mantes-la-Jolie avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -4031,7 +4031,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "marly-le-roi",
-    "name": "Marly Le Roi",
+    "name": "Marly-le-Roi",
     "type": "local",
     "seoTitle": "Déménagement Marly-le-Roi | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Marly-le-Roi avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -4092,7 +4092,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "marnes-la-coquette",
-    "name": "Marnes La Coquette",
+    "name": "Marnes-la-Coquette",
     "type": "local",
     "seoTitle": "Déménagement Marnes-la-Coquette | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Marnes-la-Coquette avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -4548,7 +4548,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "neuilly-sur-seine",
-    "name": "Neuilly Sur Seine",
+    "name": "Neuilly-sur-Seine",
     "type": "local",
     "seoTitle": "Déménagement Neuilly-sur-Seine | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Neuilly-sur-Seine avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -4640,7 +4640,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "nogent-sur-marne",
-    "name": "Nogent Sur Marne",
+    "name": "Nogent-sur-Marne",
     "type": "local",
     "seoTitle": "Déménagement Nogent-sur-Marne | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Nogent-sur-Marne avec Marne Transdem. Logements familiaux, maisons, appartements, locaux professionnels, formules adaptées, monte-meuble et devis personnalisé.",
@@ -4737,7 +4737,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "noisy-le-sec",
-    "name": "Noisy Le Sec",
+    "name": "Noisy-le-Sec",
     "type": "local",
     "seoTitle": "Déménagement Noisy-le-Sec | Bureaux & Appartements | Marne Transdem",
     "seoDescription": "Besoin d'un déménageur à Noisy-le-Sec (93130) ? Marne Transdem gère vos transferts de bureaux et déménagements d'appartements en zone urbaine. Devis Gratuit.",
@@ -6132,7 +6132,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "rueil-malmaison",
-    "name": "Rueil Malmaison",
+    "name": "Rueil-Malmaison",
     "type": "local",
     "seoTitle": "Déménagement Rueil-Malmaison | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Rueil-Malmaison avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -6245,7 +6245,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "saint-cloud",
-    "name": "Saint Cloud",
+    "name": "Saint-Cloud",
     "type": "local",
     "seoTitle": "Déménagement Saint-Cloud | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Saint-Cloud avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -6350,7 +6350,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "saint-denis",
-    "name": "Saint Denis",
+    "name": "Saint-Denis",
     "type": "local",
     "seoTitle": "Déménagement Saint-Denis | Bureaux & Locaux Pros | Marne Transdem",
     "seoDescription": "Besoin d'un déménageur à Saint-Denis (93200) ? Marne Transdem gère vos déménagements de bureaux et locaux professionnels avec expertise. Devis Gratuit.",
@@ -6400,7 +6400,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "saint-germain-en-laye",
-    "name": "Saint Germain En Laye",
+    "name": "Saint-Germain-en-Laye",
     "type": "local",
     "seoTitle": "Déménagement Saint-Germain-en-Laye | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Saint-Germain-en-Laye avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -6461,7 +6461,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "saint-gratien",
-    "name": "Saint Gratien",
+    "name": "Saint-Gratien",
     "type": "local",
     "seoTitle": "Déménagement Saint-Gratien | Particuliers & Entreprises | Marne Transdem",
     "seoDescription": "Besoin d'un déménageur professionnel à Saint-Gratien (95210) ? Marne Transdem propose des solutions d'emballage, transport et monte-meuble pro proches du pôle Enghien-Soisy.",
@@ -6507,7 +6507,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "saint-mande",
-    "name": "Saint Mande",
+    "name": "Saint-Mandé",
     "type": "local",
     "seoTitle": "Déménagement Saint-Mandé | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Saint-Mandé avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -6580,7 +6580,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "saint-maur-des-fosses",
-    "name": "Saint Maur",
+    "name": "Saint-Maur-des-Fossés",
     "type": "local",
     "seoTitle": "Déménagement Saint-Maur-des-Fossés | Marne Transdem : Expert Local",
     "seoDescription": "Société de déménagement à Saint-Maur-des-Fossés (94100). Expertise pour particuliers et entreprises. Devis gratuit, visite technique et accompagnement premium.",
@@ -6651,7 +6651,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "saint-maurice",
-    "name": "Saint Maurice",
+    "name": "Saint-Maurice",
     "type": "local",
     "seoTitle": "Déménagement Saint-Maurice (94) | Résidentiel & Professionnel",
     "seoDescription": "Besoin d'un déménageur de confiance à Saint-Maurice ? Marne Transdem vous propose des prestations soignées et sur-mesure pour appartements, maisons et bureaux.",
@@ -7117,7 +7117,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "sevres",
-    "name": "Sevres",
+    "name": "Sèvres",
     "type": "local",
     "seoTitle": "Déménagement Sèvres | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Sèvres avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -7626,7 +7626,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "velizy-villacoublay",
-    "name": "Velizy Villacoublay",
+    "name": "Vélizy-Villacoublay",
     "type": "local",
     "seoTitle": "Déménagement Vélizy-Villacoublay | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Vélizy-Villacoublay avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -7764,7 +7764,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "ville-d-avray",
-    "name": "Ville D Avray",
+    "name": "Ville-d'Avray",
     "type": "local",
     "seoTitle": "Déménagement Ville-d’Avray | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Ville-d’Avray avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
@@ -8073,7 +8073,7 @@ export const sectorsData: Sector[] = [
   },
   {
     "slug": "vitry-sur-seine",
-    "name": "Vitry Sur Seine",
+    "name": "Vitry-sur-Seine",
     "type": "local",
     "seoTitle": "Déménagement Vitry-sur-Seine | Particuliers & Entreprises | Marne Transdem",
     "seoDescription": "Besoin d'un déménageur de confiance à Vitry-sur-Seine (94) ? Marne Transdem réalise le transfert d'appartements, maisons et bureaux en plein développement.",
