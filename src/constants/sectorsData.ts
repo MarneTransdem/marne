@@ -8425,7 +8425,9 @@ export const sectorsData: Sector[] = [
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement depuis Paris ou l’Île-de-France vers Bordeaux, avec une organisation adaptée à la distance.",
     "introParagraphs": [
-      "Qu'il s'agisse de transporter votre mobilier, vos <span className=\"font-bold text-slate-700 tracking-tight italic\">cartons</span> ou vos objets fragiles, notre logistique s'adapte à la <span className=\"font-bold text-slate-700 tracking-tight italic\">distance</span>. Nous étudions avec soin les accès au départ en région parisienne et à l'arrivée en Gironde pour garantir une prestation sans faille quelle que soit la formule choisie."
+      "Votre <strong>déménagement de Paris vers Bordeaux</strong> doit tenir compte du lieu précis de déchargement. Transmettez l’adresse bordelaise, les étages, les dimensions de l’ascenseur et des passages, ainsi que la distance entre le camion et l’entrée. Signalez une rue piétonne, des bornes d’accès ou la présence d’une ligne de tramway. Si votre nouveau logement se trouve à Mérignac, Pessac ou dans une autre commune voisine, vérifiez ses démarches propres : celles de Bordeaux ne s’appliquent pas automatiquement à toute la métropole.",
+      "La Ville de Bordeaux demande de déposer la <strong>demande de stationnement pour déménagement au moins 11 jours avant</strong>. La demande d’occupation est gratuite, mais le stationnement reste à régler si la rue est payante. Consultez la <a href=\"https://www.bordeaux.fr/comment-stationner-pendant-un-demenagement-a-bordeaux\" class=\"text-accent hover:underline\">démarche officielle de stationnement pour un déménagement à Bordeaux</a> pour les modalités actualisées. Le secteur piéton, l’utilisation d’un monte-meuble ou le besoin de bloquer la circulation doivent être signalés dans la demande. Définissez avec le déménageur qui réalise cette démarche et quels frais figurent au devis.",
+      "Pour préparer votre budget Paris–Bordeaux, partez d’un inventaire incluant cave, garage et mobilier extérieur avec le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume</a>. Comparez ensuite les tâches d’emballage et de démontage dans les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">formules de déménagement</a>. Si un meuble ne passe pas par les accès, faites étudier la faisabilité du <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> aux adresses concernées. Précisez vos dates impératives et la remise des clés dans votre <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">demande de devis Paris–Bordeaux</a> ; le guide du <a href=\"/demenagement-longue-distance\" class=\"text-accent hover:underline\">déménagement longue distance</a> présente les points à confirmer pour coordonner chargement et livraison."
     ],
     "faqs": [
       {
@@ -8438,7 +8440,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "q": "Comment estimer le volume pour un déménagement Paris Bordeaux ?",
-        "a": "Vous pouvez utiliser le calculateur de volume pour obtenir une première estimation indicative. Le volume réel peut ensuite être affinée selon votre inventaire, les dimensions des meubles, les cartons et les conditions d’accès."
+        "a": "Vous pouvez utiliser le calculateur de volume pour obtenir une première estimation indicative. Le volume réel peut ensuite être affiné selon votre inventaire, les dimensions des meubles, les cartons et les conditions d’accès."
       },
       {
         "q": "Quelle formule choisir pour un déménagement de Paris vers Bordeaux ?",
@@ -8451,6 +8453,14 @@ export const sectorsData: Sector[] = [
       {
         "q": "Comment obtenir un devis pour un déménagement Paris Bordeaux ?",
         "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L’estimation prend en compte le volume, les adresses, les accès, les étages, la distance, la formule souhaitée et les besoins spécifiques comme l’emballage, le garde-meuble ou le monte-meuble."
+      },
+      {
+        "q": "La réservation de stationnement pour déménager à Bordeaux est-elle gratuite ?",
+        "a": "La Ville indique que la demande d’occupation exceptionnelle de l’espace public est gratuite. Le stationnement doit toutefois être payé pour la durée de l’opération si l’adresse se trouve dans une rue payante. La demande doit être déposée au moins 11 jours avant le déménagement. Consultez les conditions municipales actualisées et précisez au devis la personne chargée des démarches et des frais."
+      },
+      {
+        "q": "Que prévoir si mon logement bordelais est en secteur piéton ?",
+        "a": "Signalez le secteur piéton dans la demande municipale. La Ville prévoit, après validation, une carte d’accès à retirer selon les modalités indiquées sur sa page dédiée au déménagement. Organisez cette récupération avant l’arrivée du camion. Transmettez aussi au déménageur les contraintes de la rue et les conditions d’accès au logement pour préparer le déchargement."
       }
     ],
     "nearbySectors": [
