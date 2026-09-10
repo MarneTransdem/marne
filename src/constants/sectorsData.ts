@@ -3319,7 +3319,7 @@ export const sectorsData: Sector[] = [
     "heroSubtitle": "Marne Transdem orchestre vos projets de déménagement premium d'appartements familiaux et belles villas au Perreux-sur-Marne. Bénéficiez d'un savoir-faire artisanal de haute technicité, adapté au charme singulier et aux contraintes géographiques des « Perles de la Marne ».",
     "introParagraphs": [
       "Surnommée avec élégance la « Perle de la Marne », la charmante commune d'art du <strong>Perreux-sur-Marne</strong> (94170) captive par la douceur paisible de ses avenues verdoyantes et sa majestueuse façade fluviale. Bordée par Nogent-sur-Marne et Bry-sur-Marne, cette ville d’Île-de-France abrite un patrimoine architectural d’exception constitué d'élégantes villas en briques meulières datant du début du XXe siècle, de remarquables maisons bourgeoises, ainsi que de copropriétés résidentielles modernes et arborées.",
-      "Conduire un déménagement dans ces décors raffinés exige un professionnalisme chirurgical. L’organisation logistique au sein de ces propriétés de prestige réclame non seulement des précautions physiques de pointe pour les sols précieux (parquets anciens, pierres naturelles) et d’élégants halls d'immeubles, mais également une maîtrise délicate des problématiques d'orientation routière : avenues fleuries parfois exiguës, limitation de tonnage le long des berges, et zones de stationnement denses proches des commerces de l'avenue Ledru-Rollin.",
+      "Pour organiser le stationnement au <strong>Perreux-sur-Marne</strong>, utilisez la <a href=\"https://www.espace-citoyens.net/leperreux94/espace-citoyens/Demande/NouvelleDemande/PERM_VOIRI/RESA_PLACE\" class=\"text-accent hover:underline\">demande municipale de réservation pour un déménagement</a>. Préparez la date, l’adresse concernée, la longueur du camion et l’indication d’un monte-meuble éventuel. Le formulaire prévoit aussi le cas d’un déménagement à l’intérieur de la commune. Faites confirmer les délais, les frais éventuels et les conditions de signalisation avant de finaliser l’organisation avec le déménageur.",
       "Pour préparer votre déménagement avec <strong>Marne Transdem</strong>, signalez les meubles de grandes dimensions, les objets fragiles et les revêtements nécessitant une protection particulière. Des photos des accès et un inventaire détaillé permettent de préciser la manutention et les fournitures à prévoir. Consultez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">formules de déménagement</a> pour définir les tâches d’emballage à confier à l’équipe, puis faites confirmer ces prestations dans le devis."
     ],
     "faqs": [
@@ -3329,18 +3329,18 @@ export const sectorsData: Sector[] = [
       },
       {
         "q": "Quelle est la procédure administrative de stationnement à la Mairie du Perreux-sur-Marne (94170) ?",
-        "a": "Pour réserver l'espace de stationnement nécessaire au camion de déménagement et éventuellement au monte-meubles, il est obligatoire d'obtenir un arrêté municipal d'occupation temporaire du domaine public (AOT). La demande doit être déposée auprès de la Mairie du Perreux au minimum 15 jours francs avant la date de l'opération. Pour vous garantir un confort absolu, nos équipes gèrent la totalité de cette démarche administrative publique et installent les panneaux d'interdiction de stationnement réglementaires 48h à l'avance."
+        "a": "La Ville propose une demande de réservation sur son espace citoyen, accessible depuis le lien municipal ci-dessus. Renseignez la date, l’adresse, la longueur du camion et le besoin éventuel d’un monte-meuble. Vérifiez auprès de la mairie les délais et les conditions applicables à votre projet. Convenez dans le devis de la personne chargée de la demande, de la signalisation et des frais éventuels."
       },
       {
-        "q": "Proposez-vous une formule clé en main d'emballage et déballage intégral pour les familles ?",
-        "a": "Tout à fait. Notre formule Prestige (Luxe) est particulièrement plébiscitée par les familles habitant Le Perreux-sur-Marne. Dans ce cadre, vous n'avez absolument rien à préparer : nos déménageurs professionnels s'occupent d'emballer l'intégralité de vos objets (vêtements sur cintres en penderies verticales, livres, jouets, vaisselle fine mise sous valises de protection) et effectuent à destination le déballage complet ainsi que la mise en place méticuleuse de vos affaires dans vos nouveaux rangements."
+        "q": "Que faut-il préparer lorsque l’emballage est confié aux déménageurs ?",
+        "a": "Faites préciser dans le devis les biens à emballer, les fournitures, le démontage et les tâches prévues à l’arrivée. Identifiez les objets fragiles ou de valeur et les affaires que vous transporterez vous-même. Préparez les accès, les clés et les consignes de copropriété. Le déballage et le rangement doivent être convenus explicitement dans les prestations retenues."
       },
       {
-        "q": "Quel est le matériel utilisé pour manutentionner des meubles volumineux ou lourds ?",
-        "a": "Nous disposons d'équipements logistiques de pointe : chariots élévateurs de forte capacité, monte-meubles d'extérieur à nacelle télescopique (idéals pour passer canapés, tables massives ou pianos par fenêtres ou balcons), et l'indispensable outillage de démontage et remontage de mobilier. Vos pièces fragiles et oeuvres d'art sont emballées sous bull-pack kraft multicouche haut de gamme."
+        "q": "Comment prévoir la manutention des meubles lourds ou volumineux ?",
+        "a": "Transmettez les dimensions, le poids connu et des photos des meubles ainsi que des accès. Précisez ce qui peut être démonté. L’équipe pourra étudier le portage et les moyens de levage adaptés ; un monte-meuble nécessite de vérifier l’espace au sol, l’accès à la façade et les autorisations éventuelles. Faites confirmer le matériel et son coût avant l’intervention."
       },
       {
-        "q": "Comment planifier une visite technique d'estimation gratuite de mes volumes mobiliers ?",
+        "q": "Comment organiser une estimation pour mon déménagement au Perreux-sur-Marne ?",
         "a": "Contactez Marne Transdem par téléphone ou via le formulaire de demande de devis pour votre projet au Perreux-sur-Marne. Indiquez les adresses de départ et d’arrivée, la période envisagée, le volume estimé, les accès et les prestations souhaitées. Si une visite est nécessaire, ses modalités sont à convenir avec l’équipe. Demandez également le délai de remise du devis selon les informations restant à préciser."
       }
     ],
