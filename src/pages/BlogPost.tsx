@@ -16,6 +16,7 @@ import { SEO } from '../components/SEO';
 import { BlogServiceLinks } from '../components/common/BlogServiceLinks';
 import { CONTACT } from '../constants';
 import { SITE_URL } from '../lib/seo-routes';
+import contentUpdatedAt from '../constants/contentUpdatedAt.json';
 
 type FAQItem = {
   question: string;
@@ -30,7 +31,6 @@ type BlogPostData = {
   metaDesc: string;
   keywords: string;
   date: string;
-  updated?: string;
   readTime: string;
   category: string;
   image: string;
@@ -243,7 +243,6 @@ const posts: Record<string, BlogPostData> = {
   },
   'formalites-administratives-demenagement': {
     slug: 'formalites-administratives-demenagement',
-    updated: '8 septembre 2026',
     title: 'Les formalités administratives indispensables avant un déménagement',
     excerpt:
       'Un déménagement ne se limite pas aux cartons. Électricité, gaz, internet, impôts, CAF : découvrez toutes les formalités administratives à faire avant et après votre départ.',
@@ -441,7 +440,6 @@ const posts: Record<string, BlogPostData> = {
   },
   'combien-coute-demenagement-paris': {
     slug: 'combien-coute-demenagement-paris',
-    updated: '9 septembre 2026',
     title: 'Combien coûte un déménagement à Paris ? Budget et comparaison des devis',
     excerpt:
       'Volume, accès, trajet et prestations : comprenez les critères du prix et utilisez notre grille pour comparer les devis de déménagement à Paris.',
@@ -680,7 +678,6 @@ const posts: Record<string, BlogPostData> = {
   },
   'comment-estimer-volume-demenagement': {
     slug: 'comment-estimer-volume-demenagement',
-    updated: '9 septembre 2026',
     title: 'Comment estimer le volume de son déménagement ?',
     excerpt:
       'Estimer le volume de son déménagement est l’une des étapes les plus importantes pour obtenir un devis fiable. Préparez votre inventaire pièce par pièce et calculez un volume indicatif en m³ avant votre demande de devis.',
@@ -1081,7 +1078,6 @@ const posts: Record<string, BlogPostData> = {
 
   'demenagement-entreprise-paris-checklist': {
     slug: 'demenagement-entreprise-paris-checklist',
-    updated: '8 septembre 2026',
     title: 'Déménagement d’entreprise à Paris : checklist pour transférer vos bureaux sans interrompre votre activité',
     excerpt:
       'Planification, mobilier, informatique, archives, accès et stationnement : découvrez la checklist complète pour réussir votre déménagement d’entreprise à Paris sans interruption d’activité.',
@@ -1331,7 +1327,7 @@ function buildJsonLd(post: BlogPostData) {
         description: post.metaDesc,
         image: new URL(post.image, siteUrl).href,
         datePublished: getArticleDate(post.date),
-        dateModified: getArticleDate(post.updated || post.date),
+        dateModified: (contentUpdatedAt as Record<string, string>)[`/blog/${post.slug}`] || getArticleDate(post.date),
         author: {
           '@type': 'Organization',
           name: 'Marne Transdem',
@@ -1404,6 +1400,8 @@ const BlogPost: React.FC = () => {
 
   const schema = useMemo(() => post ? buildJsonLd(post) : null, [post]);
   if (!post) return <NotFound />;
+  const updatedDate = (contentUpdatedAt as Record<string, string>)[`/blog/${post.slug}`];
+  const updatedLabel = updatedDate ? new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${updatedDate}T00:00:00Z`)) : undefined;
   const relatedPosts = post.related?.filter((relatedPost) => relatedPost.slug !== post.slug) || [];
   const postImageDimensions = getImageDimensions(post.image);
   const handleContentClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -1459,7 +1457,7 @@ const BlogPost: React.FC = () => {
                 className="mb-8 flex flex-wrap items-center gap-3 text-xs font-bold uppercase tracking-widest text-slate-400 md:gap-6"
               >
                 <span className="inline-flex items-center gap-2 rounded-full border border-slate-100 bg-slate-50 px-4 py-2">
-                  <Calendar size={14} className="text-accent" /> {post.date}
+                  <Calendar size={14} className="text-accent" /> Publié le <time dateTime={getArticleDate(post.date)}>{post.date}</time>
                 </span>
                 <span className="inline-flex items-center gap-2 rounded-full border border-slate-100 bg-slate-50 px-4 py-2">
                   <Clock size={14} className="text-accent" /> {post.readTime} de lecture
@@ -1476,7 +1474,7 @@ const BlogPost: React.FC = () => {
               <p className="max-w-3xl text-lg font-light leading-relaxed text-slate-500 md:text-xl">
                 {post.excerpt}
               </p>
-              {post.updated && <p className="mt-4 text-sm text-slate-600">Mis à jour le <time dateTime={getArticleDate(post.updated)}>{post.updated}</time>.</p>}
+              {updatedDate && <p className="mt-4 text-sm text-slate-600">Mis à jour le <time dateTime={updatedDate}>{updatedLabel}</time>.</p>}
               {post.slug === 'formalites-administratives-demenagement' && <p className="mt-5 text-slate-600">Le <a className="underline" href="https://www.service-public.gouv.fr/particuliers/vosdroits/R11193">téléservice officiel de changement d’adresse</a> permet de prévenir plusieurs organismes. Vérifiez ceux couverts par votre déclaration et contactez séparément les autres interlocuteurs. Ce service est gratuit.</p>}
             </header>
 
