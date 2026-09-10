@@ -23,6 +23,10 @@
       }
     ],
     "redirects": [
+      { "source": "/devis-demenagement", "destination": "/demande-de-devis", "type": 301 },
+      { "source": "/calculateur-de-volume", "destination": "/calculateur-volume", "type": 301 },
+      { "source": "/location-garde-meubles", "destination": "/garde-meuble-paris", "type": 301 },
+      { "source": "/service-emballage-et-protection", "destination": "/emballage-protection-demenagement", "type": 301 },
       {
         "source": "/demenagement-92-hauts-de-seine",
         "destination": "/demenagement-hauts-de-seine",
