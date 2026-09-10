@@ -25,12 +25,14 @@ const DemenagementEntreprises: React.FC = () => {
     },
     { 
       q: "Prenez-vous en charge le matériel informatique ?", 
-      a: "Oui, selon les besoins du projet. Le transfert informatique est une composante critique de nos prestations. Nous utilisons des protections spécifiques pour les écrans, unités centrales et périphériques, assurant un transport sécurisé de vos outils de travail numériques." 
+      a: "Le transport et la protection des écrans, unités centrales et périphériques peuvent être prévus au devis. Désignez avec votre responsable informatique qui réalise les sauvegardes, la déconnexion, le rebranchement et les tests de fonctionnement. Ces opérations ne doivent pas être supposées incluses dans le transport."
     },
     { 
       q: "Comment obtenir un devis pour un déménagement d’entreprise ?", 
       a: "Vous pouvez effectuer une demande en ligne via notre formulaire ou nous contacter par téléphone. Une visite technique (physique ou à distance) peut être proposée pour évaluer précisément le volume, les accès et les contraintes techniques afin de vous remettre un devis détaillé." 
-    }
+    },
+    { q: "Quelles informations préparer pour chiffrer un transfert d’entreprise ?", a: "Indiquez les deux adresses, les dates envisagées, les postes de travail et le mobilier à déplacer, les équipements particuliers et les archives. Ajoutez les contraintes d’accès, les horaires autorisés, le plan d’implantation et les tâches à confier au prestataire. Le nombre de salariés seul ne suffit pas à établir le devis." },
+    { q: "Un transfert en plusieurs phases est-il possible ?", a: "Présentez les équipes ou équipements prioritaires et les périodes d’indisponibilité acceptables. Un transfert par phases peut être étudié selon les accès, les disponibilités et les moyens nécessaires. Faites préciser les dates, les prestations de chaque phase et les éventuels besoins de stockage dans le devis." }
   ];
 
   return (
@@ -82,7 +84,6 @@ const DemenagementEntreprises: React.FC = () => {
           </div>
         </div>
       </section>
-      <ServiceDecisionGuide />
 
       {/* 2. Bloc de réassurance */}
       <section className="py-12 bg-white border-b border-slate-100">
@@ -118,6 +119,32 @@ const DemenagementEntreprises: React.FC = () => {
         </div>
       </section>
 
+      <section className="py-16 bg-brand-900 text-white" aria-labelledby="entreprise-cadrage">
+        <div className="container mx-auto px-4 md:px-6">
+          <h2 id="entreprise-cadrage" className="text-3xl md:text-4xl font-bold mb-5">Un devis professionnel commence par un périmètre clair.</h2>
+          <p className="text-slate-300 leading-relaxed max-w-3xl mb-10">Les postes de travail, les équipements, les accès et les étapes du transfert déterminent les moyens à prévoir. Réunissez ces informations avec les personnes concernées avant l’étude du projet.</p>
+          <div className="grid lg:grid-cols-3 gap-6">
+            <div className="border border-white/20 rounded-2xl p-6">
+              <h3 className="text-xl font-bold mb-4">Définir ce qui déménage</h3>
+              <p className="text-slate-300 leading-relaxed">Inventoriez le mobilier, les écrans et les équipements partagés. Séparez les biens à transférer, ceux à stocker et ceux qui restent sur place. Pour les archives, précisez les quantités et les règles d’identification convenues en interne.</p>
+              <Link to="/gestion-archives-paris" className="inline-block mt-5 text-accent underline underline-offset-4 font-semibold">Organiser le transfert des archives</Link>
+            </div>
+            <div className="border border-white/20 rounded-2xl p-6">
+              <h3 className="text-xl font-bold mb-4">Préparer les deux sites</h3>
+              <p className="text-slate-300 leading-relaxed">Confirmez les créneaux avec les gestionnaires des immeubles, les ascenseurs utilisables et les zones de livraison. Fournissez un plan d’implantation pour repérer les bureaux et les pièces de destination.</p>
+              <Link to="/transfert-bureaux-paris" className="inline-block mt-5 text-accent underline underline-offset-4 font-semibold">Préparer le transfert des bureaux</Link>
+            </div>
+            <div className="border border-white/20 rounded-2xl p-6">
+              <h3 className="text-xl font-bold mb-4">Coordonner la reprise</h3>
+              <p className="text-slate-300 leading-relaxed">Définissez les priorités de réinstallation et le rôle de chaque référent. Planifiez avec votre responsable informatique les sauvegardes, les connexions et les vérifications nécessaires avant la reprise des équipes. Prévoyez aussi le contrôle des biens livrés, des emplacements et des réserves éventuelles.</p>
+              <Link to="/transfert-informatique-paris" className="inline-block mt-5 text-accent underline underline-offset-4 font-semibold">Préciser le périmètre informatique</Link>
+            </div>
+          </div>
+          <p className="mt-8 text-slate-300 leading-relaxed">Si les locaux ne sont pas disponibles au même moment, étudiez les <Link to="/garde-meuble-paris" className="text-accent underline underline-offset-4">conditions de stockage intermédiaire</Link>. Notre <Link to="/blog/demenagement-entreprise-paris-checklist" className="text-accent underline underline-offset-4">checklist de déménagement d’entreprise</Link> aide à préparer les étapes et les informations à transmettre.</p>
+          <Link to="/demande-de-devis" className="inline-flex mt-7 bg-accent text-brand-900 px-6 py-4 rounded-xl font-bold hover:bg-accent-hover">Demander une étude de mon transfert</Link>
+        </div>
+      </section>
+
       {/* 4. Section “Un transfert d’entreprise bien organisé” */}
       <section className="py-24 bg-slate-50">
         <div className="container mx-auto px-4 md:px-6">
@@ -129,13 +156,13 @@ const DemenagementEntreprises: React.FC = () => {
                   { t: "Continuité d’activité", d: "Limiter l’interruption pour maintenir votre productivité." },
                   { t: "Mobilier et équipements", d: "Protection adaptée des postes de travail et équipements informatiques." },
                   { t: "Archives et documents", d: "Organisation et conditionnement des fonds documentaires." },
-                  { t: "Coordination du transfert", d: "Interlocuteur unique pour piloter vos équipes le jour J." }
+                  { t: "Coordination du transfert", d: "Référents et responsabilités à définir avec vos équipes avant le transfert." }
                 ].map((item, i) => (
                   <div key={i} className="space-y-3">
                     <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent">
                       <CheckCircle2 size={20} />
                     </div>
-                    <h4 className="font-bold text-brand-900">{item.t}</h4>
+                    <h3 className="font-bold text-brand-900">{item.t}</h3>
                     <p className="text-sm text-slate-500 font-light">{item.d}</p>
                   </div>
                 ))}
@@ -143,7 +170,7 @@ const DemenagementEntreprises: React.FC = () => {
             </div>
             <div className="relative">
               <div className="aspect-video rounded-[3rem] bg-slate-200 overflow-hidden shadow-2xl">
-                <img src="/images/transfert-bureau-hauts-de-seine.jpg" alt="Bureaux professionnels" className="w-full h-full object-cover" />
+                <img src="/images/transfert-bureau-hauts-de-seine.webp" width="1200" height="1600" loading="lazy" decoding="async" alt="Bureaux professionnels" className="w-full h-full object-cover" />
               </div>
               <div className="absolute -bottom-6 -left-6 bg-brand-900 text-white p-8 rounded-2xl shadow-xl max-w-xs hidden md:block border border-white/10">
                 <p className="text-lg font-bold italic mb-2">"Maîtrise & Sérénité"</p>
@@ -163,21 +190,22 @@ const DemenagementEntreprises: React.FC = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: <Building2 />, title: "Déménagement de bureaux", desc: "Transfert complet de vos espaces de travail." },
-              { icon: <Truck />, title: "Mobilier professionnel", desc: "Transport de mobilier lourd et encombrant." },
-              { icon: <Settings />, title: "Matériel informatique", desc: "Protection adaptée du matériel informatique" },
-              { icon: <ClipboardCheck />, title: "Archives & Documents", desc: "Gestion rigoureuse de vos archives papier." },
-              { icon: <ArrowRight />, title: "Démontage/Remontage", desc: "Installation de votre mobilier complexe." },
-              { icon: <MapPin />, title: "Accès & Manutention", desc: "Gestion logistique des accès parisiens." },
-              { icon: <Zap />, title: "Monte-meuble", desc: "Solution pour les accès difficiles par fenêtre." },
-              { icon: <Clock />, title: "Stockage & Garde-meuble", desc: "Solutions de stockage modulables." }
+              { icon: <Building2 />, title: "Déménagement de bureaux", desc: "Transfert complet de vos espaces de travail.", path: '/transfert-bureaux-paris' },
+              { icon: <Truck />, title: "Mobilier professionnel", desc: "Transport de mobilier lourd et encombrant.", path: '/transfert-bureaux-paris' },
+              { icon: <Settings />, title: "Matériel informatique", desc: "Protection adaptée du matériel informatique", path: '/transfert-informatique-paris' },
+              { icon: <ClipboardCheck />, title: "Archives & Documents", desc: "Gestion rigoureuse de vos archives papier.", path: '/gestion-archives-paris' },
+              { icon: <ArrowRight />, title: "Démontage/Remontage", desc: "Installation de votre mobilier complexe.", path: '/transfert-bureaux-paris' },
+              { icon: <MapPin />, title: "Accès & Manutention", desc: "Gestion logistique des accès parisiens.", path: '/location-monte-meuble-paris' },
+              { icon: <Zap />, title: "Monte-meuble", desc: "Solution pour les accès difficiles par fenêtre.", path: '/location-monte-meuble-paris' },
+              { icon: <Clock />, title: "Stockage & Garde-meuble", desc: "Solutions de stockage modulables.", path: '/garde-meuble-paris' }
             ].map((p, i) => (
               <div key={i} className="p-8 bg-white border border-slate-100 rounded-[2rem] hover:shadow-xl transition-all group">
                 <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-accent mb-6 group-hover:bg-accent group-hover:text-white transition-colors">
                   {p.icon}
                 </div>
                 <h3 className="text-lg font-bold text-brand-900 mb-3">{p.title}</h3>
-                <p className="text-slate-500 font-light leading-relaxed text-xs">{p.desc}</p>
+                <p className="text-slate-500 font-light leading-relaxed text-sm mb-5">{p.desc}</p>
+                <Link to={p.path} className="text-brand-900 font-semibold text-sm underline underline-offset-4 hover:text-amber-800">Découvrir : {p.title}</Link>
               </div>
             ))}
           </div>
@@ -227,7 +255,7 @@ const DemenagementEntreprises: React.FC = () => {
                 <div className="w-16 h-16 bg-brand-900 text-accent rounded-2xl flex items-center justify-center text-2xl font-black mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
                   0{i + 1}
                 </div>
-                <h4 className="font-bold text-brand-900 mb-2">{step.t}</h4>
+                <h3 className="font-bold text-brand-900 mb-2">{step.t}</h3>
                 <p className="text-xs text-slate-500 font-light leading-relaxed px-4">{step.d}</p>
               </div>
             ))}
@@ -245,7 +273,7 @@ const DemenagementEntreprises: React.FC = () => {
                 Le transfert de bureaux en milieu urbain dense comme Paris ne laisse aucune place à l'improvisation. Nous gérons pour vous les contraintes d'accès propres aux immeubles parisiens : ascenseurs parfois limités, escaliers étroits et stationnement restreint.
               </p>
               <p className="text-slate-600 leading-relaxed font-light">
-                Un planning rigoureux est établi en amont pour assurer la coordination parfaite du déménagement. Que ce soit pour les étages élevés ou les accès en rez-de-chaussée, nous adaptons les horaires d'intervention et les moyens techniques pour faciliter une transition dans les meilleures conditions.
+                Un planning rigoureux est établi en amont pour coordonner les étapes du déménagement. Que ce soit pour les étages élevés ou les accès en rez-de-chaussée, nous adaptons les horaires d'intervention et les moyens techniques pour faciliter une transition dans les meilleures conditions.
               </p>
               <div className="bg-white p-6 rounded-2xl border border-slate-200">
                  <div className="flex items-center gap-3 text-accent font-bold mb-2">
@@ -256,7 +284,7 @@ const DemenagementEntreprises: React.FC = () => {
               </div>
             </div>
             <div className="aspect-video bg-slate-200 rounded-[2.5rem] overflow-hidden shadow-xl">
-               <img src="/images/transfert-bureau-hauts-de-seine.jpg" alt="Bureau Parisien" className="w-full h-full object-cover" />
+               <img src="/images/transfert-bureau-hauts-de-seine.webp" width="1200" height="1600" loading="lazy" decoding="async" alt="Bureau Parisien" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
@@ -293,7 +321,7 @@ const DemenagementEntreprises: React.FC = () => {
             {[
               { t: "Entreprise basée à Paris 20e", d: "Une bonne connaissance des contraintes logistiques à Paris et en Île-de-France." },
               { t: "Accompagnement professionnel", d: "Un suivi de proximité et une expertise dédiée à votre projet." },
-              { t: "Organisation claire", d: "Une planification étape par étape sans mauvaise surprise." },
+              { t: "Organisation claire", d: "Un périmètre, des accès et un calendrier définis avant l’intervention." },
               { t: "Protection soignée du mobilier et du matériel", d: "Protection soignée de vos outils de travail et de votre mobilier." },
               { t: "Adaptation aux contraintes des entreprises", d: "Des solutions pensées pour maintenir votre productivité." },
               { t: "Intervention IDF & Longue Distance", d: "Équipes disponibles à Paris, en Île-de-France et longue distance selon votre projet." }
@@ -303,7 +331,7 @@ const DemenagementEntreprises: React.FC = () => {
                   <CheckCircle2 size={24} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-900 mb-2">{reason.t}</h4>
+                  <h3 className="font-bold text-brand-900 mb-2">{reason.t}</h3>
                   <p className="text-sm text-slate-500 font-light leading-relaxed">{reason.d}</p>
                 </div>
               </div>
@@ -318,12 +346,12 @@ const DemenagementEntreprises: React.FC = () => {
           <h2 className="text-3xl font-bold text-brand-900 mb-12 text-center">Questions fréquentes entreprises</h2>
           <div className="space-y-6">
             {faqs.map((faq, i) => (
-              <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex gap-6 items-start group hover:border-accent transition-all">
+              <div key={i} className="bg-white p-5 sm:p-8 rounded-2xl shadow-sm border border-slate-100 flex gap-3 sm:gap-6 items-start group hover:border-accent transition-all">
                 <div className="bg-slate-50 w-12 h-12 rounded-xl flex items-center justify-center text-accent shrink-0 group-hover:bg-accent group-hover:text-white transition-colors">
                    <Search size={20} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-900 text-lg mb-2">{faq.q}</h4>
+                  <h3 className="font-bold text-brand-900 text-lg mb-2">{faq.q}</h3>
                   <p className="text-slate-500 font-light leading-relaxed text-sm md:text-base">{faq.a}</p>
                 </div>
               </div>
@@ -335,22 +363,22 @@ const DemenagementEntreprises: React.FC = () => {
       {/* 12. Maillage interne */}
       <section className="py-24">
         <div className="container mx-auto px-4 md:px-6">
-           <h3 className="text-xs font-black text-brand-900 uppercase tracking-[0.4em] mb-12 text-center opacity-40">Explorer nos solutions professionnelles</h3>
+           <h2 className="text-2xl font-bold text-brand-900 mb-12 text-center">Explorer nos solutions professionnelles</h2>
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <Link to="/formules-demenagement" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Formules</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Formules</h3>
                 <p className="text-xs text-slate-500 font-light">Options de service modulables.</p>
               </Link>
               <Link to="/location-monte-meuble-paris" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Monte-meuble</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Monte-meuble</h3>
                 <p className="text-xs text-slate-500 font-light">Levage grandes hauteurs.</p>
               </Link>
               <Link to="/emballage-protection-demenagement" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Emballage & Protection</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Emballage & Protection</h3>
                 <p className="text-xs text-slate-500 font-light">Protection du matériel et du mobilier</p>
               </Link>
               <Link to="/garde-meuble-paris" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Garde-meuble</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Garde-meuble</h3>
                 <p className="text-xs text-slate-500 font-light">Stockage & Archives.</p>
               </Link>
            </div>
