@@ -160,7 +160,6 @@ function AppContent() {
 
   return (
     <>
-      <ScrollToTop />
       {!isMinimalPage && (
         <Suspense fallback={<div className="h-20 bg-transparent" />}>
           <Header />
@@ -176,6 +175,7 @@ function AppContent() {
             ) : (
               <AppRoutes />
             )}
+            <ScrollToTop />
           </Suspense>
         </PageTransition>
       </main>
