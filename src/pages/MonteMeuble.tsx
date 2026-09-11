@@ -11,33 +11,41 @@ const MonteMeuble: React.FC = () => {
   const path = "/location-monte-meuble-paris";
 
   const faqs = [
-    { 
-      q: "Quand faut-il utiliser un monte-meuble ?", 
-      a: "L'utilisation d'un monte-meuble est recommandée lorsque vos meubles ne passent pas dans l'ascenseur ou la cage d'escalier, pour les objets lourds ou meubles volumineux, ou pour gagner du temps sur les étages élevés en passant directement par une fenêtre ou un balcon." 
+    {
+      q: "Quand faut-il utiliser un monte-meuble ?",
+      a: "L'utilisation d'un monte-meuble est recommandée lorsque vos meubles ne passent pas dans l'ascenseur ou la cage d'escalier, pour les objets lourds ou meubles volumineux, ou pour gagner du temps sur les étages élevés en passant directement par une fenêtre ou un balcon."
     },
-    { 
-      q: "Un monte-meuble est-il utile en appartement ?", 
-      a: "Oui, il peut être utile dans de nombreux immeubles parisiens lorsque les accès sont étroits ou les ascenseurs trop petits. Cela permet de préserver l'état de vos biens et des parties communes de la copropriété." 
+    {
+      q: "Un monte-meuble est-il utile en appartement ?",
+      a: "Oui, il peut être utile dans de nombreux immeubles parisiens lorsque les accès sont étroits ou les ascenseurs trop petits. Cela permet de préserver l'état de vos biens et des parties communes de la copropriété."
     },
-    { 
-      q: "Peut-on utiliser un monte-meuble à Paris ?", 
-      a: "Oui, l’utilisation d’un monte-meuble peut être envisagée à Paris selon la configuration de la rue, de la façade et des accès. L'installation dépend de la configuration de la rue et de l'accessibilité de votre façade (fenêtre ou balcon)." 
+    {
+      q: "Peut-on utiliser un monte-meuble à Paris ?",
+      a: "Oui, sous réserve de faisabilité technique et des autorisations nécessaires. L’emplacement de l’appareil, la façade, les ouvertures et les obstacles doivent être étudiés. À Paris, l’utilisation d’un monte-meuble sur l’espace public nécessite une autorisation d’occupation temporaire de déménagement."
     },
-    { 
-      q: "Comment savoir si un monte-meuble est nécessaire ?", 
-      a: "L'analyse des accès est la première étape. Si vous avez un doute sur le passage d'un canapé, d'une armoire ou de l'électroménager, nous évaluons la situation pour vous confirmer si le recours à un monte-meuble est la solution la plus adaptée." 
+    {
+      q: "Comment savoir si un monte-meuble est nécessaire ?",
+      a: "L'analyse des accès est la première étape. Si vous avez un doute sur le passage d'un canapé, d'une armoire ou de l'électroménager, nous évaluons la situation pour vous confirmer si le recours à un monte-meuble est la solution la plus adaptée."
     },
-    { 
-      q: "Comment obtenir un devis pour un monte-meuble ?", 
-      a: "Il suffit de nous contacter en précisant l'étage, le type de biens à manutentionner et la configuration de l'accès. Nous vous fournirons une estimation personnalisée incluant la présence de notre technicien pour l'intervention." 
+    {
+      q: "Comment obtenir un devis pour un monte-meuble ?",
+      a: "Indiquez l’adresse, l’étage, la date souhaitée, les biens à déplacer et leurs dimensions. Décrivez la fenêtre ou le balcon et l’emplacement possible de l’appareil. Le devis doit préciser l’intervention du technicien, la manutention, les protections et les démarches retenues pour votre projet."
+    },
+    {
+      q: "Quels éléments déterminent le prix d’un monte-meuble ?",
+      a: "Le devis dépend notamment de la configuration des accès, de l’appareil nécessaire, des biens à déplacer, de la durée prévue et des prestations de manutention. Faites préciser les frais de déplacement, les autorisations et les conditions applicables si l’intervention doit être prolongée ou reportée."
+    },
+    {
+      q: "Un étage ou un poids maximum peut-il être confirmé à distance ?",
+      a: "L’étage seul ne suffit pas : la hauteur, le recul disponible, les obstacles, les dimensions et le poids des biens influencent la faisabilité. Communiquez ces informations à notre équipe ; les capacités de l’appareil et les conditions réelles d’installation doivent être vérifiées avant de confirmer l’intervention."
     }
   ];
 
   return (
     <div className="bg-white">
-      <SEO 
+      <SEO
         title="Location monte-meuble Paris | Marne Transdem"
-        description="Facilitez votre déménagement à Paris avec une solution de monte-meuble adaptée aux accès difficiles, étages élevés et meubles volumineux."
+        description="Monte-meuble à Paris : préparez les accès, les dimensions des meubles et les autorisations. Demandez un devis selon la faisabilité et les prestations nécessaires."
         canonical={path}
         schema={[
           getServiceSchema("Location de monte-meuble", "Marne Transdem accompagne les particuliers et les entreprises lorsque l’utilisation d’un monte-meuble facilite le passage de meubles volumineux, d’objets lourds ou d’accès difficiles."),
@@ -114,9 +122,9 @@ const MonteMeuble: React.FC = () => {
 
           <div className="max-w-4xl mx-auto mb-20">
             <div className="aspect-[16/9] rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100">
-              <img 
-                src="/images/monte-meuble-demenagement.webp" 
-                alt="Location Monte-meuble Marne Transdem Paris" 
+              <img
+                src="/images/monte-meuble-demenagement.webp"
+                alt="Location Monte-meuble Marne Transdem Paris"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -124,7 +132,7 @@ const MonteMeuble: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { t: "Ascenseur absent ou petit", d: "Indispensable quand l'ascenseur ne permet pas le transport des meubles." },
+              { t: "Ascenseur absent ou petit", d: "Une option à étudier lorsque les meubles ne passent pas par les accès intérieurs." },
               { t: "Meuble trop volumineux", d: "Solution pour le mobilier qui ne peut pas emprunter la cage d'escalier." },
               { t: "Étage élevé", d: "Peut faciliter la manutention sur plusieurs étages." },
               { t: "Accès d'immeuble complexe", d: "Lorsque la configuration des lieux rend le portage manuel difficile." }
@@ -178,7 +186,7 @@ const MonteMeuble: React.FC = () => {
                 </div>
                 <h3 className="text-3xl font-bold mb-6">Particuliers</h3>
                 <p className="text-slate-300 leading-relaxed font-light mb-6 text-lg">
-                  Simplifiez le déménagement de votre appartement. Notre monte-meuble gère vos canapés, électroménager et meubles massifs.
+                  Faites étudier le passage de vos canapés, de votre électroménager et de vos meubles volumineux selon leurs dimensions, leur poids et les ouvertures disponibles.
                 </p>
                 <ul className="space-y-4 text-slate-300 mb-10">
                    <li className="flex items-center gap-3"><CheckCircle2 size={18} className="text-accent" /> Canapés et buffets</li>
@@ -192,7 +200,7 @@ const MonteMeuble: React.FC = () => {
                 </div>
                 <h3 className="text-3xl font-bold text-brand-900 mb-6">Entreprises</h3>
                 <p className="text-slate-500 leading-relaxed font-light mb-6 text-lg">
-                  Optimisez vos transferts professionnels. Levage de mobilier de bureau, équipements informatiques et archives en toute sécurité.
+                  Préparez le passage de votre mobilier de bureau, de vos équipements et de vos archives. Les biens concernés et leur protection sont à préciser lors de l’étude des accès.
                 </p>
                 <ul className="space-y-4 text-slate-500 mb-10">
                    <li className="flex items-center gap-3"><CheckCircle2 size={18} className="text-accent" /> Mobilier de bureau</li>
@@ -237,7 +245,7 @@ const MonteMeuble: React.FC = () => {
                 Vivre à Paris présente souvent le défi d'immeubles anciens avec des escaliers étroits et des ascenseurs de petites dimensions. Dans ces conditions, l'anticipation de votre déménagement est primordiale.
               </p>
               <p className="text-slate-600 leading-relaxed font-light">
-                Le recours à un monte-meuble permet de contourner les contraintes de stationnement et d'accès par les parties communes. En passant directement par la façade, sous réserve de faisabilité technique, nous facilitons le transfert de votre mobilier tout en préservant l'intégrité des lieux. Une organisation claire en amont assure la fluidité de votre intervention.
+                Le passage par la façade peut éviter un escalier trop étroit, mais exige un emplacement adapté pour installer l’appareil. Les contraintes de stationnement, les obstacles et la circulation autour de la zone d’intervention doivent être étudiés avant de confirmer la prestation.
               </p>
             </div>
             <div className="bg-slate-50 border border-slate-200 rounded-[3rem] p-12 flex flex-col justify-center gap-8 shadow-sm">
@@ -270,6 +278,19 @@ const MonteMeuble: React.FC = () => {
       </section>
 
       {/* 9. CTA Intermédiaire */}
+      <section className="py-16 bg-slate-50">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
+          <h2 className="text-3xl font-bold text-brand-900">Préparer votre devis de monte-meuble à Paris</h2>
+          <ul className="list-disc pl-6 space-y-3 text-slate-600 leading-relaxed">
+            <li><strong>Les biens :</strong> listez les meubles, leurs dimensions et leur poids lorsqu’il est connu. Signalez les objets fragiles et les éléments démontables.</li>
+            <li><strong>Les accès :</strong> indiquez l’adresse, l’étage, les dimensions de l’ouverture et les obstacles visibles devant la façade. Des photos prises depuis un endroit accessible peuvent aider à préparer l’étude ; elles ne remplacent pas la vérification technique.</li>
+            <li><strong>L’organisation :</strong> précisez la date souhaitée, l’enlèvement ou la livraison concernés et les prestations attendues : manutention, emballage ou transport.</li>
+          </ul>
+          <h3 className="text-2xl font-bold text-brand-900">Anticiper l’autorisation et l’emplacement de l’appareil</h3>
+          <p className="text-slate-600 leading-relaxed">À Paris, une autorisation d’occupation temporaire de déménagement est nécessaire pour utiliser un monte-meuble sur l’espace public. Consultez les <a href="https://www.paris.fr/pages/faq-demenagements-4404" className="underline text-brand-900">modalités officielles de la Ville de Paris</a> et précisez avec notre équipe qui effectue la démarche. L’autorisation ne remplace pas l’étude de faisabilité technique.</p>
+          <p className="text-slate-600 leading-relaxed">Pour préparer les objets, consultez nos conseils d’<Link to="/emballage-protection-demenagement" className="underline text-brand-900">emballage et protection</Link>. Notre <Link to="/blog/demenagement-monte-meuble-paris" className="underline text-brand-900">guide du déménagement avec monte-meuble</Link> complète cette préparation. Transmettez ensuite les informations dans votre <Link to="/demande-de-devis" className="underline text-brand-900">demande de devis de monte-meuble</Link>.</p>
+        </div>
+      </section>
       <section className="py-20 bg-brand-900 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-accent/10 skew-x-12 translate-x-1/2"></div>
         <div className="container mx-auto px-4 md:px-6 text-center relative z-10">
@@ -301,7 +322,7 @@ const MonteMeuble: React.FC = () => {
               { t: "Accompagnement professionnel", d: "Un suivi de proximité et une expertise dédiée à votre projet." },
               { t: "Analyse des accès", d: "Analyse des accès pour évaluer la faisabilité du passage." },
               { t: "Protection soignée des biens", d: "Protection soignée de votre mobilier et de vos effets personnels." },
-              { t: "Organisation claire", d: "Une planification étape par étape sans mauvaise surprise." },
+              { t: "Organisation claire", d: "Les accès, les démarches et les prestations sont précisés avant l’intervention." },
               { t: "Intervention IDF", d: "Intervention à Paris et en Île-de-France selon votre projet." }
             ].map((reason, i) => (
               <div key={i} className="flex gap-4 items-start p-6 rounded-2xl hover:bg-slate-50 transition-colors">
@@ -309,7 +330,7 @@ const MonteMeuble: React.FC = () => {
                   <CheckCircle2 size={24} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-900 mb-1">{reason.t}</h4>
+                  <h3 className="font-bold text-brand-900 mb-1">{reason.t}</h3>
                   <p className="text-sm text-slate-500 font-light leading-relaxed">{reason.d}</p>
                 </div>
               </div>
@@ -326,10 +347,10 @@ const MonteMeuble: React.FC = () => {
             <div className="space-y-6">
               {faqs.map((faq, i) => (
                 <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 transition-all">
-                  <h4 className="font-bold text-brand-900 mb-4 flex items-center gap-3">
+                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-3">
                     <Zap size={18} className="text-accent" />
                     {faq.q}
-                  </h4>
+                  </h3>
                   <p className="text-slate-500 leading-relaxed font-light">{faq.a}</p>
                 </div>
               ))}
@@ -341,29 +362,30 @@ const MonteMeuble: React.FC = () => {
       {/* 12. Maillage interne */}
       <section className="py-24 border-t border-slate-100">
         <div className="container mx-auto px-4 md:px-6">
+           <h2 className="text-3xl font-bold text-brand-900 mb-10">Organiser les prestations de votre déménagement</h2>
            <div className="grid grid-cols-1 md:grid-cols-6 gap-8">
               <Link to="/demande-de-devis" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Devis</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Devis</h3>
                 <p className="text-xs text-slate-500 font-light">Estimation personnalisée.</p>
               </Link>
               <Link to="/demenagement-particuliers-paris" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Particuliers</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Particuliers</h3>
                 <p className="text-xs text-slate-500 font-light">Accompagnement foyer.</p>
               </Link>
               <Link to="/demenagement-entreprises-paris" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Entreprises</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Entreprises</h3>
                 <p className="text-xs text-slate-500 font-light">Transfert professionnel.</p>
               </Link>
               <Link to="/garde-meuble-paris" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Garde-meuble</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Garde-meuble</h3>
                 <p className="text-xs text-slate-500 font-light">Solution de stockage.</p>
               </Link>
               <Link to="/formules-demenagement" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Formules</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Formules</h3>
                 <p className="text-xs text-slate-500 font-light">Toutes nos prestations.</p>
               </Link>
               <Link to="/contact" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2">Contact</h4>
+                <h3 className="font-bold text-brand-900 mb-2">Contact</h3>
                 <p className="text-xs text-slate-500 font-light">Parlons de votre projet.</p>
               </Link>
            </div>
