@@ -104,8 +104,8 @@ export const Hero: React.FC = () => {
                   onClick={() => trackConversion('quote_cta_click', { placement: 'hero_primary' })}
                   className="btn-premium bg-brand-900 text-white px-8 py-5 rounded-full font-bold text-lg hover:bg-brand-800 shadow-xl flex items-center justify-center gap-3 group"
                 >
-                  Demander un devis
-                  <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
+                  <span className="text-center">Demander mon devis gratuit</span>
+                  <ArrowRight size={22} className="shrink-0 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <a 
                   href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}
@@ -127,7 +127,7 @@ export const Hero: React.FC = () => {
             >
               <div className="relative z-10 p-1 bg-gradient-to-br from-slate-200 to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-[2.5rem] md:rounded-[3rem] shadow-premium max-w-lg mx-auto lg:max-w-none">
                  <div className="bg-white rounded-[2.4rem] md:rounded-[2.9rem] p-8 md:p-10 py-10 md:py-12">
-                    <h2 className="text-2xl font-bold text-brand-900 stay-dark mb-2 tracking-tight italic uppercase">Préparons votre devis</h2>
+                    <h2 className="text-2xl font-bold text-brand-900 stay-dark mb-2 tracking-tight italic uppercase">Préparons votre devis gratuit</h2>
                     <p className="text-sm text-slate-500 stay-dark mb-8 font-light italic opacity-70">Indiquez votre trajet, puis complétez votre demande.</p>
                     
                     <form onSubmit={handleQuickSubmit} className="space-y-5">
@@ -172,15 +172,14 @@ export const Hero: React.FC = () => {
                       </div>
   
                       <button type="submit" className="w-full mt-10 bg-accent text-brand-900 stay-dark py-5 rounded-full font-bold flex items-center justify-center gap-3 hover:bg-accent-hover transition-colors shadow-lg shadow-accent/20 active:scale-[0.98] uppercase italic text-sm tracking-widest">
-                        Demander mon devis gratuit
-                        <ArrowRight size={20} />
+                        Continuer ma demande
+                        <ArrowRight size={20} className="shrink-0" />
                       </button>
                     </form>
   
-                    <div className="mt-8 pt-8 border-t border-slate-100 flex items-center justify-center gap-3">
-                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                      <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest italic">Devis selon votre projet</span>
-                    </div>
+                    <p className="mt-8 pt-8 border-t border-slate-100 text-sm text-slate-600 stay-dark leading-relaxed">
+                      Une fois le formulaire complet envoyé, Marne Transdem reçoit votre demande pour préparer un devis adapté à votre projet.
+                    </p>
                  </div>
               </div>
             </motion.div>
