@@ -700,6 +700,13 @@ const posts: Record<string, BlogPostData> = {
         imageAlt: 'Déménagement appartement Paris conseil stress',
         label: 'Organiser son départ',
       },
+      {
+        slug: 'combien-coute-demenagement-paris',
+        title: 'Combien coûte un déménagement à Paris ?',
+        image: '/images/camion-demenagement-stationnement-paris.jpg',
+        imageAlt: 'Camion de déménagement stationné à Paris',
+        label: 'Du volume au budget',
+      },
     ],
     faqs: [
       {
@@ -1093,11 +1100,11 @@ const posts: Record<string, BlogPostData> = {
     imageAlt: 'Déménagement d’entreprise à Paris : transfert de bureaux professionnels',
     related: [
       {
-        slug: 'demenagement-entreprise-paris-checklist',
-        title: 'Réussir son déménagement pro',
-        image: '/images/transfert-bureaux-entreprise-paris.jpg',
-        imageAlt: 'Bureaux professionnels',
-        label: 'Déménagement Pro',
+        slug: 'demenagement-monte-meuble-paris',
+        title: 'Quand prévoir un monte-meuble à Paris ?',
+        image: '/images/monte-meuble-demenagement.webp',
+        imageAlt: 'Monte-meuble utilisé lors d’un déménagement',
+        label: 'Préparer les accès',
       },
       {
         slug: 'formalites-administratives-demenagement',
