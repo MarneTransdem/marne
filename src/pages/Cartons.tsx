@@ -33,7 +33,7 @@ const Cartons: React.FC = () => {
     },
     { 
       q: "Combien de cartons prévoir pour déménager ?", 
-      a: "Le nombre de cartons est une estimation générale qui dépend du volume de vos biens et de votre mode de vie. En moyenne, on compte environ 10 à 15 cartons par pièce, mais cela reste une indication. Lors de notre évaluation, nous pouvons vous fournir une estimation plus adaptée à votre projet." 
+      a: "Le nombre dépend des affaires à emballer et des formats retenus, pas seulement du nombre de pièces. Listez séparément les livres, la vaisselle, le linge et les objets fragiles, puis indiquez les cartons utilisables que vous possédez déjà. Notre équipe pourra vous aider à préciser les quantités selon cet inventaire."
     },
     { 
       q: "Proposez-vous des cartons pour objets fragiles ?", 
@@ -45,7 +45,15 @@ const Cartons: React.FC = () => {
     },
     { 
       q: "Comment obtenir un devis avec cartons et matériel inclus ?", 
-      a: "La fourniture de matériel peut être intégrée selon la formule de déménagement choisie. Contactez-nous pour obtenir une estimation adaptée à votre projet." 
+      a: "Précisez les fournitures souhaitées, les quantités estimées et la date à laquelle vous en avez besoin. Selon la formule choisie, certaines fournitures peuvent être incluses. Faites détailler les formats, les quantités, les prix et les modalités de remise dans votre devis."
+    },
+    {
+      q: "Peut-on venir récupérer des cartons au bureau ?",
+      a: "Contactez notre équipe avant de vous déplacer pour confirmer les disponibilités, le lieu et le créneau de remise du matériel. Les horaires d’accueil du bureau ne garantissent pas la présence des formats ou des quantités souhaités."
+    },
+    {
+      q: "La fourniture de cartons comprend-elle l’emballage de mes affaires ?",
+      a: "La fourniture du matériel et l’emballage par notre équipe sont deux prestations à distinguer. Le devis doit préciser qui prépare les cartons, quels objets sont pris en charge et quelles protections sont prévues. Consultez les formules pour définir le niveau d’accompagnement adapté à votre projet."
     }
   ];
 
@@ -53,7 +61,7 @@ const Cartons: React.FC = () => {
     <div className="bg-white">
       <SEO 
         title="Cartons déménagement Paris | Marne Transdem"
-        description="Cartons, protections, adhésifs et matériel d’emballage pour préparer votre déménagement à Paris avec Marne Transdem."
+        description="Cartons de déménagement à Paris : précisez formats, quantités et protections avec Marne Transdem. Disponibilités, prix et remise du matériel à confirmer au devis."
         canonical={path}
         schema={[
           getServiceSchema("Cartons et matériel de déménagement", "Marne Transdem accompagne les particuliers et les entreprises dans la préparation de leur déménagement avec des cartons, protections et matériels adaptés."),
@@ -184,7 +192,7 @@ const Cartons: React.FC = () => {
                 </div>
                 <h3 className="text-3xl font-bold text-brand-900 mb-6">Particuliers</h3>
                 <p className="text-slate-600 leading-relaxed font-light mb-6">
-                  Une gamme complète de cartons pour vos effets personnels, de la vaisselle fragile à votre garde-robe.
+                  Précisez les affaires à emballer, de la vaisselle fragile aux vêtements, pour définir les formats et les protections nécessaires selon les disponibilités.
                 </p>
                 <ul className="grid grid-cols-2 gap-4">
                    {[
@@ -234,14 +242,14 @@ const Cartons: React.FC = () => {
       <section className="py-24 bg-slate-50 text-center">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-brand-900">Notre méthode en 4 étapes</h2>
+            <h2 className="text-3xl font-bold text-brand-900">Préparer votre demande de fournitures en quatre étapes</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
               { t: "Analyse des besoins", d: "Évaluation du volume et de la nature des biens à emballer." },
               { t: "Choix du matériel", d: "Sélection des cartons et protections les plus adaptés." },
-              { t: "Préparation", d: "Organisation méthodique des cartons et protection du mobilier." },
-              { t: "Transport", d: "Acheminement de vos biens dans le cadre du déménagement." }
+              { t: "Quantités et prix", d: "Confirmation des formats, des disponibilités et des fournitures incluses ou à chiffrer." },
+              { t: "Remise du matériel", d: "Lieu, date et modalités à convenir avec notre équipe avant votre déplacement." }
             ].map((step, i) => (
               <div key={i} className="relative p-8 bg-white rounded-3xl border border-slate-100 group hover:bg-brand-900 transition-colors duration-500">
                 <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-accent font-black text-xl mb-6 group-hover:bg-accent group-hover:text-white transition-colors mx-auto">
@@ -280,6 +288,19 @@ const Cartons: React.FC = () => {
       </section>
 
       {/* 9. CTA Intermédiaire */}
+      <section className="py-16 bg-slate-50">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
+          <h2 className="text-3xl font-bold text-brand-900">Cartons et emballage : précisez ce dont vous avez besoin</h2>
+          <p className="text-slate-600 leading-relaxed">Si vous préparez vos cartons vous-même, indiquez les fournitures nécessaires et celles que vous possédez déjà. Si vous souhaitez confier l’emballage à notre équipe, précisez les biens concernés pour faire chiffrer cette prestation. Retrouvez les niveaux d’accompagnement dans nos <Link to="/formules-demenagement" className="underline text-brand-900">formules de déménagement</Link> et le détail du service d’<Link to="/emballage-protection-demenagement" className="underline text-brand-900">emballage et protection des biens</Link>.</p>
+          <h3 className="text-2xl font-bold text-brand-900">Les informations à transmettre pour les fournitures</h3>
+          <ul className="list-disc pl-6 space-y-3 text-slate-600 leading-relaxed">
+            <li><strong>Le contenu à emballer :</strong> livres, vaisselle, linge, vêtements sur cintres ou objets fragiles. Signalez les dimensions particulières pour éviter de choisir un format inadapté.</li>
+            <li><strong>Le matériel disponible :</strong> cartons en bon état, protections et adhésifs que vous comptez réutiliser. Faites préciser ce qui reste à fournir.</li>
+            <li><strong>La date souhaitée :</strong> prévoyez le temps de préparation avant le déménagement et confirmez avec l’équipe les disponibilités ainsi que les modalités de remise.</li>
+          </ul>
+          <p className="text-slate-600 leading-relaxed">Ajoutez ces éléments à votre <Link to="/demande-de-devis" className="underline text-brand-900">demande de devis pour cartons et fournitures</Link>. Avant tout déplacement, <Link to="/contact" className="underline text-brand-900">contactez notre équipe</Link> pour confirmer les quantités et le lieu de remise.</p>
+        </div>
+      </section>
       <section className="py-20 bg-brand-900 text-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-1/3 h-full bg-accent/10 blur-[100px]"></div>
         <div className="container mx-auto px-4 md:px-6 text-center relative z-10">
@@ -319,7 +340,7 @@ const Cartons: React.FC = () => {
                   <CheckCircle2 size={24} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-900 mb-1">{reason.t}</h4>
+                  <h3 className="font-bold text-brand-900 mb-1">{reason.t}</h3>
                   <p className="text-sm text-slate-500 font-light leading-relaxed">{reason.d}</p>
                 </div>
               </div>
@@ -336,10 +357,10 @@ const Cartons: React.FC = () => {
             <div className="space-y-6">
               {faqs.map((faq, i) => (
                 <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
-                  <h4 className="font-bold text-brand-900 mb-4 flex items-center gap-3">
+                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-3">
                     <Zap size={18} className="text-accent" />
                     {faq.q}
-                  </h4>
+                  </h3>
                   <p className="text-slate-500 leading-relaxed font-light">{faq.a}</p>
                 </div>
               ))}
@@ -351,29 +372,30 @@ const Cartons: React.FC = () => {
       {/* 12. Maillage interne */}
       <section className="py-24 border-t border-slate-100">
         <div className="container mx-auto px-4 md:px-6">
+           <h2 className="text-3xl font-bold text-brand-900 mb-10">Préparer les autres étapes de votre déménagement</h2>
            <div className="grid grid-cols-1 md:grid-cols-6 gap-6 text-center md:text-left">
               <Link to="/demande-de-devis" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2 text-sm">Devis</h4>
+                <h3 className="font-bold text-brand-900 mb-2 text-sm">Devis</h3>
                 <p className="text-xs text-slate-500 font-light text-balance text-center md:text-left">Estimation personnalisée.</p>
               </Link>
               <Link to="/formules-demenagement" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2 text-sm">Formules</h4>
+                <h3 className="font-bold text-brand-900 mb-2 text-sm">Formules</h3>
                 <p className="text-xs text-slate-500 font-light text-balance text-center md:text-left">Toutes nos prestations.</p>
               </Link>
               <Link to="/demenagement-particuliers-paris" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2 text-sm">Particuliers</h4>
+                <h3 className="font-bold text-brand-900 mb-2 text-sm">Particuliers</h3>
                 <p className="text-xs text-slate-500 font-light text-balance text-center md:text-left">Accompagnement foyer.</p>
               </Link>
               <Link to="/demenagement-entreprises-paris" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2 text-sm">Entreprises</h4>
+                <h3 className="font-bold text-brand-900 mb-2 text-sm">Entreprises</h3>
                 <p className="text-xs text-slate-500 font-light text-balance text-center md:text-left">Transfert professionnel.</p>
               </Link>
               <Link to="/emballage-protection-demenagement" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2 text-sm text-balance">Emballage et protection</h4>
+                <h3 className="font-bold text-brand-900 mb-2 text-sm text-balance">Emballage et protection</h3>
                 <p className="text-xs text-slate-500 font-light text-balance text-center md:text-left">Soin et préservation.</p>
               </Link>
               <Link to="/contact" className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-slate-100">
-                <h4 className="font-bold text-brand-900 mb-2 text-sm">Contact</h4>
+                <h3 className="font-bold text-brand-900 mb-2 text-sm">Contact</h3>
                 <p className="text-xs text-slate-500 font-light text-balance text-center md:text-left">Parlons de votre projet.</p>
               </Link>
            </div>
