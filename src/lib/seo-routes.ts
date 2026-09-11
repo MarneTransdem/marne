@@ -231,7 +231,7 @@ export const BLOG_POST_ROUTES: Array<Omit<SeoRoute, 'canonicalPath' | 'status'>>
     title: 'Déménagement d’entreprise à Paris : checklist bureaux & transfert | Marne Transdem',
     h1: 'Déménagement d’entreprise à Paris : checklist pour transférer vos bureaux',
     description:
-      'Préparez votre déménagement d’entreprise à Paris sans interruption d’activité : planning, mobilier, informatique, archives, accès, stationnement, équipes et devis professionnel.',
+      'Checklist de déménagement d’entreprise à Paris : planning, mobilier, informatique, archives et accès. Coordonnez le transfert pour limiter l’interruption d’activité.',
   },
   {
     path: '/blog/combien-coute-demenagement-paris',
