@@ -37,6 +37,10 @@ const faqs = [
     a: "Les modalités dépendent de la solution proposée. Avant de signer, faites confirmer l'accès sur rendez-vous ou selon des horaires définis, la possibilité de retirer une partie des biens, les délais et les frais éventuels. Signalez dès le devis si vous devez récupérer régulièrement des affaires."
   },
   {
+    q: "Les horaires du bureau s’appliquent-ils à l’accès au garde-meuble ?",
+    a: "Les horaires d’accueil au bureau et au téléphone ne définissent pas les horaires d’accès aux biens stockés. Avant tout déplacement, contactez-nous pour confirmer le lieu de stockage, le rendez-vous éventuel et les modalités de retrait prévus pour votre projet."
+  },
+  {
     q: "Comment préparer la restitution ou prolonger le stockage ?",
     a: "Communiquez la date souhaitée et les accès de l'adresse de livraison. Vérifiez le préavis, les disponibilités de transport et les conditions de prolongation au contrat. Une date de fin estimée doit être confirmée avec votre interlocuteur avant d'organiser la remise des clés."
   }
@@ -180,16 +184,16 @@ const GardeMeuble: React.FC = () => {
       <section className="py-24 bg-slate-50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-brand-900">Ce que comprend notre accompagnement</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold text-brand-900">Un accompagnement à définir dans votre devis</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { icon: <ClipboardCheck size={32} />, title: "Évaluation du volume", desc: "Étude précise du volume à stocker pour optimiser l'espace." },
-              { icon: <Info size={32} />, title: "Conseil personnalisé", desc: "Orientation vers la solution adaptée à votre projet." },
-              { icon: <Truck size={32} />, title: "Transport des biens", desc: "Acheminement professionnel vers l'espace de stockage." },
-              { icon: <Package size={32} />, title: "Protection soignée", desc: "Protection des meubles et cartons durant le stockage." },
-              { icon: <Clock size={32} />, title: "Stockage temporaire", desc: "Solution flexible selon la durée de votre projet." },
-              { icon: <ArrowUpDown size={32} />, title: "Restitution des biens", desc: "Livraison de vos affaires selon votre planning." }
+              { icon: <ClipboardCheck size={32} />, title: "Évaluation du volume", desc: "Inventaire des meubles et cartons, dimensions et démontage éventuel pour estimer le volume à réserver." },
+              { icon: <Info size={32} />, title: "Conseil personnalisé", desc: "Durée envisagée, affaires à récupérer et contraintes particulières à préciser dès la demande." },
+              { icon: <Truck size={32} />, title: "Transport des biens", desc: "Enlèvement à organiser selon les accès, les étages et le stationnement à l’adresse de départ." },
+              { icon: <Package size={32} />, title: "Protection des biens", desc: "Emballage, protections et fournitures à détailler dans le devis selon les biens confiés." },
+              { icon: <Clock size={32} />, title: "Durée de stockage", desc: "Dates prévisionnelles, facturation et conditions de prolongation à préciser avant l’entrée en stockage." },
+              { icon: <ArrowUpDown size={32} />, title: "Restitution des biens", desc: "Date et adresse de livraison à confirmer avec les disponibilités de transport et les accès du nouveau logement." }
             ].map((item, i) => (
               <div key={i} className="bg-white p-8 rounded-3xl border border-slate-100 flex gap-6 items-start hover:shadow-lg transition-all">
                 <div className="text-accent shrink-0">{item.icon}</div>
@@ -298,6 +302,13 @@ const GardeMeuble: React.FC = () => {
             <li><strong>Fin ou prolongation :</strong> faites préciser le préavis et les conditions de restitution, puis confirmez les accès du logement où les biens seront livrés.</li>
           </ul>
           <p className="text-slate-600 leading-relaxed">Pour préparer les biens, consultez notre page <Link to="/emballage-protection-demenagement" className="underline text-brand-900">emballage et protection</Link>. Si vous ne conservez que quelques meubles, indiquez-le dans votre demande et consultez les conseils pour un <Link to="/demenagement-petit-volume" className="underline text-brand-900">transport de petit volume</Link>.</p>
+          <h3 className="text-2xl font-bold text-brand-900">Préparer les informations pour votre devis de garde-meuble</h3>
+          <ul className="list-disc pl-6 space-y-3 text-slate-600 leading-relaxed">
+            <li><strong>Inventaire :</strong> listez les meubles pièce par pièce, le nombre estimé de cartons et les dimensions des éléments volumineux. Précisez ce qui peut être démonté et les objets nécessitant une protection particulière.</li>
+            <li><strong>Adresses et accès :</strong> indiquez les communes de départ et de retour, les étages, les ascenseurs et les possibilités de stationnement. Si l’adresse de retour est inconnue, signalez-le pour que cette partie du transport reste à préciser.</li>
+            <li><strong>Calendrier et retraits :</strong> donnez la date d’enlèvement, la durée estimée et les affaires que vous pourriez devoir récupérer. Gardez cette liste séparée de l’inventaire des biens qui resteront stockés jusqu’à la livraison finale.</li>
+          </ul>
+          <p className="text-slate-600 leading-relaxed">Reportez ces éléments dans votre <Link to="/demande-de-devis" className="underline text-brand-900">demande de devis de garde-meuble</Link> pour préparer l’échange avec notre équipe.</p>
         </div>
       </section>
       <section className="py-20 bg-brand-900 text-white relative overflow-hidden">
@@ -329,7 +340,7 @@ const GardeMeuble: React.FC = () => {
             {[
               { t: "Entreprise basée à Paris 20e", d: "Une connaissance logistique du terrain à Paris et en Île-de-France." },
               { t: "Accompagnement professionnel", d: "Un suivi de proximité et une expertise dédiée à votre projet." },
-              { t: "Organisation claire", d: "Une planification étape par étape sans mauvaise surprise." },
+              { t: "Organisation claire", d: "Les étapes, les prestations retenues et les dates à confirmer sont précisées avec vous." },
               { t: "Protection soignée des biens", d: "Protection soignée de votre mobilier et de vos effets personnels." },
               { t: "Solution adaptée selon le projet", d: "Des solutions pensées pour répondre à vos besoins réels." },
               { t: "Intervention IDF", d: "Intervention à Paris et en Île-de-France selon votre projet." }

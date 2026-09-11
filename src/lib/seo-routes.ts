@@ -341,7 +341,7 @@ const EXPLICIT_ROUTES: Record<string, Omit<SeoRoute, 'path' | 'canonicalPath'>> 
 const SERVICE_TITLES: Record<string, string> = {
   '/demenagement-particuliers-paris': 'Déménagement particuliers Paris | Marne Transdem',
   '/demenagement-entreprises-paris': 'Déménagement entreprises Paris | Marne Transdem',
-  '/garde-meuble-paris': 'Garde-meuble Paris | Stockage sécurisé | Marne Transdem',
+  '/garde-meuble-paris': 'Garde-meuble Paris | Marne Transdem',
   '/location-monte-meuble-paris': 'Location monte-meuble Paris | Marne Transdem',
   '/emballage-protection-demenagement': 'Emballage et protection déménagement | Marne Transdem',
   '/cartons-demenagement-paris': 'Cartons déménagement Paris | Marne Transdem',
