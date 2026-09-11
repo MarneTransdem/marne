@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Mail, Phone, MapPin, ArrowRight, Send, CheckCircle2, Info, Building2, Home, Box, Zap, Truck, Loader2 } from 'lucide-react';
 import { CONTACT, SERVICES, NAVIGATION } from '../constants';
+import { BusinessHours } from '../components/common/BusinessHours';
 import { SEO } from '../components/SEO';
 import { Link } from 'react-router-dom';
 import { db } from '../lib/firebase';
@@ -186,6 +187,12 @@ const Contact: React.FC = () => {
       </section>
 
       {/* 3. Section principale (Formulaire + Aide) */}
+      <section aria-labelledby="horaires-contact" className="container mx-auto px-4 md:px-6 pb-12">
+        <div className="max-w-2xl mx-auto rounded-2xl border border-slate-200 dark:border-slate-700 p-6 text-brand-900 dark:text-white">
+          <h2 id="horaires-contact" className="text-2xl font-bold mb-5">Nos horaires de contact</h2>
+          <BusinessHours />
+        </div>
+      </section>
       <section className="py-24 dark:bg-slate-950">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">

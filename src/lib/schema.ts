@@ -1,6 +1,10 @@
 import { CONTACT } from '../constants';
 import { DEFAULT_OG_IMAGE, SITE_URL } from './seo-routes';
 
+const getOpeningHours = () => CONTACT.openingHours.map(({ days, opens, closes }) => ({
+  '@type': 'OpeningHoursSpecification', dayOfWeek: days, opens, closes,
+}));
+
 export const getOrganizationSchema = () => ({
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -13,6 +17,7 @@ export const getOrganizationSchema = () => ({
     "@type": "ContactPoint",
     "telephone": CONTACT.phone.replace(/\s/g, ''),
     "contactType": "customer service",
+    "hoursAvailable": getOpeningHours(),
     "areaServed": "FR",
     "availableLanguage": "French"
   },
@@ -24,6 +29,7 @@ export const getOrganizationSchema = () => ({
 export const getLocalBusinessSchema = () => ({
   "@context": "https://schema.org",
   "@type": "MovingCompany",
+  "openingHoursSpecification": getOpeningHours(),
   "name": CONTACT.name,
   "logo": `${SITE_URL}/logo.png`,
   "email": CONTACT.email,

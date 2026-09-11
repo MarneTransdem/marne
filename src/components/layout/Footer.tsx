@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, ArrowRight, Instagram, Facebook, Linkedin } from 'lucide-react';
 import { Logo } from '../ui/Logo';
 import { CONTACT, NAVIGATION, SERVICES } from '../../constants';
+import { BusinessHours } from '../common/BusinessHours';
 
 export const Footer: React.FC = () => {
   return (
@@ -39,6 +40,7 @@ export const Footer: React.FC = () => {
                     <a href={`mailto:${CONTACT.email}`} className="text-slate-200 dark:text-slate-400 text-xs font-medium hover:text-white transition-colors truncate max-w-[200px]">{CONTACT.email}</a>
                   </li>
                 </ul>
+                <div className="text-slate-200 max-w-xs"><BusinessHours /></div>
               </div>
             </div>
             <div className="flex gap-4 justify-center sm:justify-start">

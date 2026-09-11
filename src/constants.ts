@@ -37,6 +37,11 @@ export const CONTACT = {
   city: "Paris",
   domain: "devisdemenagement-paris.com",
   fullAddress: "43 rue des Maraîchers, 75020 Paris",
+  openingHours: [
+    { label: 'Lundi à vendredi', days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '09:00', closes: '19:00', closed: false },
+    { label: 'Samedi', days: ['Saturday'], opens: '10:00', closes: '16:00', closed: false },
+    { label: 'Dimanche', days: ['Sunday'], opens: '00:00', closes: '00:00', closed: true },
+  ],
 };
 
 export const NAVIGATION = [
