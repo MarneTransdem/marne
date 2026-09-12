@@ -178,6 +178,37 @@ const DemenagementPetitVolume: React.FC = () => {
         </div>
       </section>
 
+      <section aria-labelledby="small-move-example" className="py-16 bg-slate-50">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl">
+          <p className="text-sm font-semibold text-brand-900 mb-3">Projet prévu en septembre 2026</p>
+          <h2 id="small-move-example" className="text-3xl font-bold text-brand-900 mb-6">Un déménagement de 20 m³ de Paris 12e à Paris 4e</h2>
+          <p className="text-slate-600 leading-relaxed mb-6">Ce projet confié à Marne Transdem prévoit le transport d’un volume estimé à 20 m³. Au départ, les biens se trouvent au premier étage et dans un garage, avec un ascenseur disponible. À l’arrivée, le logement se situe au cinquième étage, avec ascenseur et monte-meubles prévu. L’organisation reste soumise à un portage inférieur à 20 mètres.</p>
+          <div className="grid md:grid-cols-2 gap-8 mb-6">
+            <div>
+              <h3 className="text-xl font-bold text-brand-900 mb-3">Ce que notre équipe prépare</h3>
+              <ul className="list-disc pl-5 space-y-2 text-slate-600 leading-relaxed">
+                <li>Livraison préalable de cartons et d’adhésifs.</li>
+                <li>Mise en penderie des vêtements sur cintres.</li>
+                <li>Protection du mobilier et mise sous housse de la literie.</li>
+                <li>Dépose des éléments fixés aux murs et plafonds, sans repose.</li>
+                <li>Demandes administratives de stationnement au chargement et à la livraison.</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-brand-900 mb-3">Ce que le client prend en charge</h3>
+              <ul className="list-disc pl-5 space-y-2 text-slate-600 leading-relaxed">
+                <li>Emballage et déballage des cartons, y compris les objets fragiles.</li>
+                <li>Démontage et remontage du mobilier.</li>
+                <li>Déconnexion et reconnexion des appareils électriques et des équipements raccordés aux fluides.</li>
+                <li>Éventuels frais de stationnement selon les lieux de résidence.</li>
+              </ul>
+            </div>
+          </div>
+          <p className="text-slate-600 leading-relaxed mb-6">Cet exemple présente la préparation d’une intervention à venir. Le volume seul ne définit pas la prestation : les accès et la répartition des tâches sont également précisés au devis. Consultez nos <Link to="/formules-demenagement" className="underline underline-offset-4 font-semibold text-brand-900">formules de déménagement</Link> pour préparer votre propre demande.</p>
+          <Link to="/demande-de-devis" className="inline-flex items-center gap-3 rounded-xl bg-brand-900 px-6 py-4 font-bold text-white">Demander un devis pour mon petit déménagement <ArrowRight size={20} aria-hidden="true" className="shrink-0" /></Link>
+        </div>
+      </section>
+
       {/* FAQ Petit Volume */}
       <section className="py-24 font-sans italic underline-none italic shadow-none italic translate-y-0 italic transition-opacity italic grayscale-0 italic shadow-none italic transition-all">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl italic font-sans italic transition-all italic underline decoration-accent/10 underline-offset-8 italic transition-all grayscale-0 italic shadow-none italic">
