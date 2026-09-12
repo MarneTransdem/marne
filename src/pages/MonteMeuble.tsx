@@ -12,6 +12,10 @@ const MonteMeuble: React.FC = () => {
 
   const faqs = [
     {
+      q: "De quels monte-meubles dispose Marne Transdem ?",
+      a: "Notre parc comprend trois monte-meubles : un autoporté de 30 m et 300 kg de charge maximale, et deux tractés de 24 m et 18 m, chacun de 250 kg de charge maximale. Les repères sont respectivement le 10e, le 7e et le 5e étage. L’étage accessible et la charge admissible dans la configuration prévue doivent être confirmés après étude des accès ; les capacités maximales ne garantissent pas chaque intervention."
+    },
+    {
       q: "Quand faut-il utiliser un monte-meuble ?",
       a: "L'utilisation d'un monte-meuble est recommandée lorsque vos meubles ne passent pas dans l'ascenseur ou la cage d'escalier, pour les objets lourds ou meubles volumineux, ou pour gagner du temps sur les étages élevés en passant directement par une fenêtre ou un balcon."
     },
@@ -45,7 +49,7 @@ const MonteMeuble: React.FC = () => {
     <div className="bg-white">
       <SEO
         title="Location monte-meuble Paris | Marne Transdem"
-        description="Monte-meuble à Paris : préparez les accès, les dimensions des meubles et les autorisations. Demandez un devis selon la faisabilité et les prestations nécessaires."
+        description="Trois monte-meubles à Paris : un autoporté de 30 m et deux tractés de 24 m et 18 m. Préparez vos accès et demandez un devis selon la faisabilité."
         canonical={path}
         schema={[
           getServiceSchema("Location de monte-meuble", "Marne Transdem accompagne les particuliers et les entreprises lorsque l’utilisation d’un monte-meuble facilite le passage de meubles volumineux, d’objets lourds ou d’accès difficiles."),
@@ -90,6 +94,31 @@ const MonteMeuble: React.FC = () => {
         </div>
       </section>
       <ServiceDecisionGuide />
+
+      <section className="py-16 bg-white" aria-labelledby="parc-monte-meubles">
+        <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+          <h2 id="parc-monte-meubles" className="scroll-mt-40 text-3xl md:text-4xl font-bold text-brand-900 mb-6">Notre parc de trois monte-meubles</h2>
+          <p className="text-slate-600 leading-relaxed mb-8">Marne Transdem dispose d’un monte-meuble autoporté et de deux monte-meubles tractés. Le choix de l’appareil dépend de la hauteur à atteindre, de l’emplacement disponible et des biens à déplacer.</p>
+          <div className="grid gap-6 md:grid-cols-3">
+            {[
+              { type: 'Autoporté', height: '30 m', floor: '10e étage', capacity: '300 kg' },
+              { type: 'Tracté 24 m', height: '24 m', floor: '7e étage', capacity: '250 kg' },
+              { type: 'Tracté 18 m', height: '18 m', floor: '5e étage', capacity: '250 kg' },
+            ].map(machine => (
+              <div key={machine.type} className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+                <h3 className="text-xl font-bold text-brand-900 mb-5">{machine.type}</h3>
+                <dl className="space-y-4 text-slate-600">
+                  <div><dt>Hauteur maximale</dt><dd className="text-2xl font-bold text-brand-900">{machine.height}</dd></div>
+                  <div><dt>Repère indicatif</dt><dd className="font-semibold text-brand-900">{machine.floor}</dd></div>
+                  <div><dt>Charge maximale</dt><dd className="text-xl font-bold text-brand-900">{machine.capacity}</dd></div>
+                </dl>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 text-slate-600 leading-relaxed">Les étages sont des repères : leur hauteur varie d’un bâtiment à l’autre. Le recul, les ouvertures et les obstacles influencent l’installation. La hauteur accessible et la charge admissible dans la configuration prévue sont à confirmer avant l’intervention ; les maxima indiqués ne constituent pas une garantie de faisabilité.</p>
+          <p className="mt-5"><Link to="/demande-de-devis" className="font-semibold text-brand-900 underline underline-offset-4">Décrire mes accès pour choisir un monte-meuble adapté</Link></p>
+        </div>
+      </section>
 
       {/* 2. Bloc de réassurance */}
       <section className="bg-slate-50 py-12 border-b border-slate-100">
