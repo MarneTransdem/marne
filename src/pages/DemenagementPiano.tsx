@@ -11,20 +11,20 @@ const DemenagementPiano: React.FC = () => {
 
   const faqs = [
     { 
-      q: "Déménagez-vous tous les types de pianos ?", 
-      a: "Oui, nos équipes sont formées pour le transport de pianos droits et de pianos à queue (quart-de-queue, demi-queue). Chaque type nécessite des techniques de protection et de levage spécifiques que nous maîtrisons parfaitement." 
+      q: "Déménagez-vous tous les types de pianos ?",
+      a: "Indiquez si votre piano est droit ou à queue, sa marque, son modèle et ses dimensions. Ajoutez son poids si vous disposez de la fiche du fabricant. La prise en charge et les moyens nécessaires sont à confirmer après étude de l’instrument et des accès aux deux adresses."
     },
     { 
-      q: "Quelles précautions prenez-vous pour un transport de piano ?", 
-      a: "Nous utilisons des housses de protection capitonnées, des luges à piano pour la manutention, et nous sanglons l'instrument avec soin. Si le passage par l'escalier est impossible, nous utilisons un monte-meuble professionnel." 
+      q: "Quelles précautions prenez-vous pour un transport de piano ?",
+      a: "Les protections et la manutention sont à définir selon le piano et les passages disponibles. Un escalier impraticable ne rend pas automatiquement le monte-meuble possible : il faut vérifier le poids, les dimensions de l’ouverture et les conditions d’installation avant de retenir cette solution."
     },
     { 
-      q: "Assurez-vous d'autres objets lourds (coffres-forts, billards) ?", 
-      a: "Absolument. Notre expertise s'étend à tous les objets encombrants ou lourds : coffres-forts, tables de billard, marbres, statues ou machines-outils légères." 
+      q: "Comment préparer une demande pour un coffre-fort ou un billard ?",
+      a: "Transmettez les dimensions, le poids connu, des photos et les contraintes d’accès. Signalez les éléments fixés au sol ou au mur et tout démontage envisagé. Ces informations permettent d’étudier la faisabilité ; la prise en charge de chaque objet reste à confirmer au devis."
     },
     { 
-      q: "Faut-il prévoir un accordage après le déménagement ?", 
-      a: "Un piano est sensible aux variations d'hygrométrie et de température. Bien que nous le transportions avec le plus grand soin, il est conseillé de prévoir un accordage environ 2 à 3 semaines après son installation dans son nouveau domicile." 
+      q: "Faut-il prévoir un accordage après le déménagement ?",
+      a: "Demandez conseil à votre accordeur pour déterminer le moment adapté après l’installation. Le transport et l’accordage sont des interventions distinctes : précisez vos besoins avant de valider le devis."
     }
   ];
 
@@ -32,7 +32,7 @@ const DemenagementPiano: React.FC = () => {
     <div className="bg-white">
       <SEO 
         title="Déménagement Piano & Objets Lourds Paris | Marne Transdem"
-        description="Transport professionnel de pianos, coffres-forts et objets lourds à Paris. Expertise technique, matériel de levage et monte-meuble pour vos biens précieux."
+        description="Déménagement de piano à Paris et en Île-de-France : précisez modèle, dimensions, poids et accès pour étudier le transport et obtenir un devis personnalisé."
         canonical={path}
         schema={[
           getServiceSchema("Déménagement Piano & Objets Lourds", "Service spécialisé de transport d'instruments de musique, coffres-forts et mobiliers lourds ou encombrants à Paris et IDF."),
@@ -64,7 +64,7 @@ const DemenagementPiano: React.FC = () => {
             </h1>
 
             <p className="text-xl md:text-2xl text-slate-300 mb-12 leading-relaxed font-light max-w-3xl italic">
-              Marne Transdem maîtrise le transport de vos biens les plus précieux et encombrants. Pianos droits, pianos à queue, coffres-forts ou marbres : nous garantissons une sécurité absolue.
+              Vous préparez le déménagement d’un piano à Paris ou en Île-de-France ? Marne Transdem étudie votre demande à partir de l’instrument, de son poids et des accès. Pour un piano droit, à queue ou un autre objet lourd, les moyens de manutention sont à définir avant le transport.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-5 italic font-sans transition-all italic underline-none">
@@ -91,10 +91,10 @@ const DemenagementPiano: React.FC = () => {
               </h2>
               <div className="space-y-6 text-slate-500 text-lg font-light leading-relaxed italic text-justify grayscale-0 italic transition-opacity italic">
                 <p>
-                  Transporter un instrument de musique ou un meuble de plusieurs centaines de kilos ne s'improvise pas. Marne Transdem mobilise des équipes expertes en <span className="font-bold text-brand-900 underline decoration-accent/10 underline-offset-4 italic">manutention lourde</span> pour assurer l'intégrité de vos biens et de votre domicile lors du passage.
+                  Pour préparer le transport, relevez les dimensions du piano et recherchez son poids dans la documentation du fabricant. Transmettez des photos de l’instrument et des passages : portes, couloirs, paliers et escalier. Précisez aussi les étages, les dimensions et la charge admissible de l’ascenseur, ainsi que la distance entre le véhicule et l’entrée.
                 </p>
                 <p>
-                  Qu'il s'agisse d'un accès par escalier avec une luge à piano ou d'une extraction par façade via un <Link to="/location-monte-meuble-paris" className="text-brand-900 font-bold hover:text-accent italic transition-colors underline decoration-accent/10 italic">monte-meuble spécialisé</Link>, nous adaptons nos moyens à chaque contrainte technique. Votre piano droit ou à queue sera protégé par des housses spécifiques et sanglé avec la plus grande rigueur.
+                  Ces informations sont nécessaires au départ comme à l’arrivée. Un passage par façade avec un <Link to="/location-monte-meuble-paris#parc-monte-meubles" className="text-brand-900 font-bold hover:text-accent italic transition-colors underline decoration-accent/10 italic">monte-meuble adapté</Link> dépend notamment du poids de l’objet, de l’ouverture, du recul et des obstacles. Les capacités maximales de notre parc ne garantissent pas la faisabilité pour chaque piano. Faites préciser au devis les protections, les éventuels démontages et la manutention retenue.
                 </p>
               </div>
             </div>
@@ -113,10 +113,10 @@ const DemenagementPiano: React.FC = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 italic font-sans italic transition-all italic underline-none italic grayscale-0 italic shadow-none italic">
             {[
-              { icon: <Music size={32} />, t: "Pianos droits & à queue", d: "Protection intégrale, transport sur luge et sanglage professionnel." },
-              { icon: <ShieldCheck size={32} />, t: "Coffres-forts", d: "Manutention de charges lourdes avec matériel de portage adapté." },
+              { icon: <Music size={32} />, t: "Pianos droits & à queue", d: "Modèle, dimensions, poids connu et passages à communiquer avant le devis." },
+              { icon: <ShieldCheck size={32} />, t: "Coffres-forts", d: "Poids, dimensions et éventuelles fixations à signaler pour étudier la prise en charge." },
               { icon: <Ruler size={32} />, t: "Mobiliers de valeur", d: "Table en marbre, billard, sculptures et pièces de créateur." },
-              { icon: <Zap size={32} />, t: "Monte-meuble dédié", d: "Extraction sécurisée par les fenêtres jusqu'au 8ème étage." }
+              { icon: <Zap size={32} />, t: "Monte-meuble dédié", d: "Passage par façade à étudier selon la charge, l’ouverture et les accès." }
             ].map((card, i) => (
               <div key={i} className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-slate-100 h-full hover:border-accent transition-all group italic font-sans transition-all italic grayscale-0 italic shadow-none italic">
                 <div className="text-accent mb-6 group-hover:scale-110 transition-transform italic font-sans italic grayscale-0 italic opacity-100 italic transition-opacity italic">{card.icon}</div>
@@ -137,14 +137,14 @@ const DemenagementPiano: React.FC = () => {
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center italic">
                     <div className="space-y-6 italic">
                        <p className="text-slate-300 text-lg font-light leading-relaxed italic text-justify italic">
-                         Pour vos objets de grande valeur, Marne Transdem propose des extensions d'assurance ad valorem. Chaque piano ou objet lourd fait l'objet d'un état des lieux rigoureux avant et après le transport.
+                         Signalez la valeur de votre piano ou de votre objet et les fragilités connues lors de la demande. Faites préciser les protections prévues et les conditions d’assurance applicables à votre transport avant de valider le devis. Conservez des photos de son état et convenez des vérifications à effectuer au départ et à l’arrivée.
                        </p>
                        <ul className="space-y-4 italic">
                           {[
-                            "Housses de protection capitonnées",
-                            "Sangles de levage professionnelles",
-                            "Expertise pianos droits & queue",
-                            "Manutention d'objets d'art délicats"
+                            "Modèle et dimensions de l’objet",
+                            "Poids documenté si disponible",
+                            "Photos des accès aux deux adresses",
+                            "Valeur et fragilités à signaler"
                           ].map((item, i) => (
                             <li key={i} className="flex items-center gap-3 italic">
                                <CheckCircle2 size={20} className="text-accent italic" />
@@ -155,7 +155,7 @@ const DemenagementPiano: React.FC = () => {
                     </div>
                     <div className="bg-white/5 border border-white/10 p-10 rounded-[3rem] text-center italic">
                        <ShieldCheck size={64} className="text-accent mx-auto mb-6 italic" />
-                       <div className="text-2xl font-black uppercase italic tracking-tight italic">Protection <br/>Garantie</div>
+                       <div className="text-2xl font-black uppercase italic tracking-tight italic">Préparation <br/>du transport</div>
                        <div className="text-[10px] text-slate-500 mt-4 uppercase tracking-[0.2em] italic">Valeurs déclarées</div>
                     </div>
                  </div>
@@ -173,10 +173,10 @@ const DemenagementPiano: React.FC = () => {
            <div className="grid grid-cols-1 gap-8 italic font-sans italic transition-all italic grayscale-0 italic shadow-none italic translate-y-0 italic opacity-100 italic transition-opacity italic grayscale-0 italic">
              {faqs.map((faq, i) => (
                <div key={i} className="bg-white p-10 rounded-[2.5rem] border border-slate-100 group hover:border-accent transition-all shadow-sm italic font-sans italic transition-all italic grayscale-0 italic shadow-none italic translate-y-0 italic opacity-100 italic transition-opacity italic grayscale-0 italic">
-                 <h4 className="font-bold text-brand-900 mb-4 flex items-center gap-4 uppercase italic tracking-tight italic font-sans italic transition-all italic grayscale-0 italic shadow-none italic translate-y-0 italic opacity-100 italic transition-opacity italic grayscale-0 italic">
+                 <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-4 uppercase italic tracking-tight italic font-sans italic transition-all italic grayscale-0 italic shadow-none italic translate-y-0 italic opacity-100 italic transition-opacity italic grayscale-0 italic">
                    <HelpCircle className="text-accent shrink-0 italic transition-all italic grayscale-0 italic shadow-none italic translate-y-0 italic opacity-100 italic transition-opacity italic grayscale-0 italic" size={20} />
                    {faq.q}
-                 </h4>
+                 </h3>
                  <p className="text-slate-500 font-light leading-relaxed pl-9 border-l-4 border-accent/20 italic font-sans italic transition-all italic underline-none italic grayscale-0 italic shadow-none italic translate-y-0 italic opacity-100 italic transition-opacity italic grayscale-0 italic">
                    {faq.a}
                  </p>
