@@ -5602,21 +5602,23 @@ export const sectorsData: Sector[] = [
     "name": "Paris 20e",
     "type": "local",
     "seoTitle": "Déménagement Paris 20e | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Paris 20e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées et demande de devis.",
+    "seoDescription": "Déménagement Paris 20e : retrouvez Marne Transdem au 43 rue des Maraîchers. Préparez vos accès, choisissez vos prestations et demandez un devis gratuit.",
     "seoImage": null,
     "heroSubtitle": "Basée rue des Maraîchers, Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 20e, dans les arrondissements voisins et en Île-de-France.",
     "introParagraphs": [
-      "Implantée au 43 <span className=\"font-bold text-slate-700\">rue des Maraîchers</span>, notre équipe Marne Transdem est l'expert de proximité pour tous vos projets de mobilité au cœur du 20ème arrondissement. Nous connaissons parfaitement les spécificités de notre quartier, des immeubles anciens de Ménilmontant aux résidences plus modernes de la Porte de Bagnolet.",
-      "Que vous habitiez un studio ou un grand <span className=\"font-bold text-slate-700\">appartement</span> familial, nous évaluons avec précision les contraintes liées aux <span className=\"font-bold text-slate-700\">étages</span>, à l'absence d'<span className=\"font-bold text-slate-700\">ascenseur</span> ou à l'exiguïté des <span className=\"font-bold text-slate-700\">accès</span>. Nous gérons pour vous les problématiques de <span className=\"font-bold text-slate-700\">stationnement</span> et la manipulation sécurisée de vos <span className=\"font-bold text-slate-700\">meubles volumineux</span>."
+      "Notre équipe vous accueille au <strong>43 rue des Maraîchers, 75020 Paris</strong> pour préparer votre déménagement. L’accueil au bureau et par téléphone est ouvert du lundi au vendredi de 9 h à 19 h et le samedi de 10 h à 16 h. Consultez nos <a href=\"/contact\" class=\"text-accent hover:underline\">coordonnées et horaires</a> pour échanger sur votre projet au départ ou à destination du 20e.",
+      "À Belleville, Ménilmontant, Charonne ou Saint-Fargeau, préparez le relevé des deux adresses : étage, dimensions de l’ascenseur, largeur des portes et des paliers, présence d’une cour et distance entre le camion et l’entrée. Ajoutez la cave ou le garage à l’inventaire. Le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume</a> aide à décrire vos biens ; les photos des passages permettent de préciser les difficultés d’accès.",
+      "Avant de fixer l’organisation du chargement, consultez les <a href=\"https://mairie20.paris.fr/pages/mes-demarches-en-ligne-13755\" class=\"text-accent hover:underline\">démarches de déménagement indiquées par la mairie du 20e</a> et les <a href=\"https://mairie20.paris.fr/pages/les-chantiers-dans-le-20e-17374\" class=\"text-accent hover:underline\">travaux signalés dans l’arrondissement</a>. Faites préciser dans le devis qui effectue les demandes de stationnement et à qui reviennent les éventuels frais. Une démarche administrative ne garantit pas que le camion pourra se placer au pied de l’immeuble.",
+      "Si un meuble ne passe pas par l’escalier ou l’ascenseur, un passage en façade doit être étudié : recul disponible, obstacles, hauteur et poids des objets. Consultez notre <a href=\"/location-monte-meuble-paris#parc-monte-meubles\" class=\"text-accent hover:underline\">parc de trois monte-meubles</a> ; les capacités maximales ne garantissent pas la faisabilité à votre adresse. Pour l’emballage et le démontage, comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">prestations de nos formules</a> et indiquez ce que vous souhaitez garder à votre charge."
     ],
     "faqs": [
       {
         "q": "Comment organiser un déménagement à Paris 20e ?",
-        "a": "Organiser un déménagement dans le 20e demande d'anticiper les accès (rues étroites, étages sans ascenseur) et le stationnement. Marne Transdem, basée rue des Maraîchers, vous accompagne de l'évaluation du volume à la réalisation finale pour une transition sereine."
+        "a": "Préparez un inventaire avec les annexes, les deux adresses et la période souhaitée. Relevez les étages, les dimensions des passages et la distance de portage. Vérifiez les conditions d’accès de la copropriété et les démarches de stationnement avant de valider l’organisation avec l’équipe."
       },
       {
         "q": "Marne Transdem intervient-elle dans tout le 20e arrondissement ?",
-        "a": "Oui, nous intervenons dans tous les quartiers du 20e : Gambetta, Ménilmontant, Belleville, Saint-Fargeau, Père Lachaise, Charonne et Porte de Bagnolet. Notre connaissance locale nous permet de gérer efficacement les contraintes spécifiques à chaque zone."
+        "a": "Oui, nous accompagnons les projets dans le 20e arrondissement, notamment à Belleville, Ménilmontant, Charonne, Saint-Fargeau et autour du Père-Lachaise. Les moyens et les conditions d’intervention sont étudiés pour les adresses de départ et d’arrivée."
       },
       {
         "q": "Peut-on demander un monte-meuble à Paris 20e ?",
@@ -5628,7 +5630,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "q": "Comment obtenir un devis pour un déménagement à Paris 20e ?",
-        "a": "Il suffit de remplir notre formulaire de devis en ligne ou de nous contacter par téléphone. En tant qu'expert local du 20e, nous pouvons réaliser une estimation précise basée sur votre volume, vos accès et vos besoins spécifiques."
+        "a": "Contactez-nous au 01 44 93 54 86 ou remplissez la demande de devis en ligne avec votre inventaire, votre période, les deux adresses et les accès. Vous pouvez aussi nous rencontrer au 43 rue des Maraîchers, 75020 Paris : accueil au bureau et téléphone du lundi au vendredi de 9 h à 19 h et le samedi de 10 h à 16 h."
       }
     ],
     "nearbySectors": [
