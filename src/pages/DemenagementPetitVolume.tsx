@@ -205,6 +205,7 @@ const DemenagementPetitVolume: React.FC = () => {
             </div>
           </div>
           <p className="text-slate-600 leading-relaxed mb-6">Cet exemple présente la préparation d’une intervention à venir. Le volume seul ne définit pas la prestation : les accès et la répartition des tâches sont également précisés au devis. Consultez nos <Link to="/formules-demenagement" className="underline underline-offset-4 font-semibold text-brand-900">formules de déménagement</Link> pour préparer votre propre demande.</p>
+          <p className="text-slate-600 leading-relaxed mb-6">Vous préparez vous aussi un départ depuis ce secteur ? Consultez les informations sur le <Link to="/demenagement-paris-12" className="underline underline-offset-4 font-semibold text-brand-900">déménagement dans le 12e arrondissement</Link> pour compléter votre préparation.</p>
           <Link to="/demande-de-devis" className="inline-flex items-center gap-3 rounded-xl bg-brand-900 px-6 py-4 font-bold text-white">Demander un devis pour mon petit déménagement <ArrowRight size={20} aria-hidden="true" className="shrink-0" /></Link>
         </div>
       </section>

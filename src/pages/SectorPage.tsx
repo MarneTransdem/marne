@@ -218,6 +218,15 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
 
       {resolvedSlug === 'ile-de-france' && <RegionalMovingGuide />}
       {resolvedSlug === 'val-de-marne' && <ValDeMarneGuide />}
+      {resolvedSlug === 'paris-12' && (
+        <aside aria-labelledby="local-small-move" className="py-10 bg-slate-50">
+          <div className="container mx-auto px-4 md:px-6 max-w-4xl">
+            <h2 id="local-small-move" className="text-2xl font-bold text-brand-900 mb-4">Préparer un petit déménagement entre Paris 12e et Paris 4e</h2>
+            <p className="text-slate-600 leading-relaxed">Un projet de 20 m³ prévu entre ces deux arrondissements illustre les points à préciser : étages, ascenseurs, monte-meubles et répartition des tâches. Retrouvez les <Link to="/demenagement-petit-volume#small-move-example" className="font-semibold text-brand-900 underline underline-offset-4">prestations prévues pour ce petit déménagement</Link> pour préparer votre demande.</p>
+          </div>
+        </aside>
+      )}
+
       {departmentCities.length > 0 && <section aria-labelledby={`communes-${resolvedSlug}`} className="py-12 bg-white">
         <div className="container mx-auto px-4 md:px-6 max-w-5xl">
           <h2 id={`communes-${resolvedSlug}`} className="text-2xl md:text-3xl font-bold text-brand-900 mb-5">Les pages de communes pour votre déménagement : {departmentCityGroups[resolvedSlug].name}</h2>
