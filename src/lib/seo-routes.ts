@@ -422,7 +422,9 @@ function defaultSeoForPath(pathname: string): Omit<SeoRoute, 'path' | 'canonical
     return {
       title: SERVICE_TITLES[pathname],
       h1,
-      description: `${h1} : préparez votre inventaire, vos accès et votre calendrier avec ${SITE_NAME}. Demandez une étude personnalisée de votre projet.`,
+      description: pathname === '/demenagement-oeuvres-art'
+        ? 'Déménagement de tableaux et d’œuvres d’art à Paris : préparez les dimensions, les accès et les besoins de protection pour un devis personnalisé avec Marne Transdem.'
+        : `${h1} : préparez votre inventaire, vos accès et votre calendrier avec ${SITE_NAME}. Demandez une étude personnalisée de votre projet.`,
       priority: '0.8',
       changefreq: 'monthly',
     };
