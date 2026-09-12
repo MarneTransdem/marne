@@ -20,7 +20,7 @@ const DemenagementOeuvresArt: React.FC = () => {
     },
     { 
       q: "Proposez-vous une assurance spécifique pour les objets de valeur ?", 
-      a: "Absolument. Pour les œuvres d'art, nous proposons des extensions d'assurance ad valorem basées sur la valeur déclarée de vos biens, vous offrant une protection optimale contre tout risque éventuel." 
+      a: "Avant de confirmer le transport, demandez les conditions de couverture proposées pour vos œuvres et faites préciser la prise en compte de leur valeur déclarée. Les garanties applicables doivent être confirmées pour votre projet."
     },
     { 
       q: "Intervenez-vous pour des galeries ou des musées ?", 
@@ -36,10 +36,10 @@ const DemenagementOeuvresArt: React.FC = () => {
     <div className="bg-white">
       <SEO 
         title="Déménagement Œuvres d'Art Paris | Marne Transdem"
-        description="Transport spécialisé d'œuvres d'art, tableaux et sculptures à Paris. Protection experte, caissage sur-mesure et manutention délicate pour vos objets précieux."
+        description="Déménagement de tableaux et d’œuvres d’art à Paris : préparez les dimensions, les accès et les besoins de protection pour un devis personnalisé avec Marne Transdem."
         canonical={path}
         schema={[
-          getServiceSchema("Déménagement d'œuvres d'art", "Marne Transdem propose un service de transport d'art haut de gamme pour les collectionneurs et professionnels, garantissant protection et sécurité."),
+          getServiceSchema("Déménagement d'œuvres d'art", "Préparation du transport de tableaux et d’œuvres d’art à Paris : dimensions, accès et besoins de protection à préciser pour un devis personnalisé."),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },
@@ -110,7 +110,7 @@ const DemenagementOeuvresArt: React.FC = () => {
           <div className="max-w-4xl mx-auto text-center mb-20 space-y-8 italic">
             <h2 className="text-3xl md:text-5xl font-black text-brand-900 uppercase italic tracking-tight italic underline decoration-accent/20 underline-offset-8">Le Transport d'art : <span className="text-accent italic tracking-tight">une affaire de spécialistes</span></h2>
             <p className="text-slate-500 leading-relaxed text-lg font-light italic">
-              Vos collections ne sont pas de simples meubles. Tableaux, sculptures, antiquités ou mobilier de designer requièrent une manipulation experte et des matériaux de protection spécifiques. Marne Transdem met à votre service une équipe formée aux techniques du "Fine Art" pour garantir une intégrité parfaite de vos œuvres lors de leur transport à Paris et partout en France.
+              Tableaux, sculptures, antiquités ou mobilier de designer demandent une préparation adaptée à leurs caractéristiques. Pour étudier votre transport à Paris ou en Île-de-France, décrivez les pièces, leurs fragilités et les contraintes des deux adresses. Les protections, les moyens de manutention et les opérations retenues doivent être définis avant l’intervention.
             </p>
           </div>
 
@@ -126,8 +126,8 @@ const DemenagementOeuvresArt: React.FC = () => {
               {[
                 { t: "Emballage haute protection", d: "Utilisation de matériaux neutres (papier de soie sans acide) pour préserver les surfaces délicates." },
                 { t: "Caissage sur-mesure", d: "Fabrication de caisses en bois spécifiques pour les œuvres les plus fragiles ou précieuses." },
-                { t: "Manutention délicate", d: "Une gestuelle précise acquise par l'expérience pour éviter tout risque lors du portage." },
-                { t: "Transport sécurisé", d: "Arrimage spécifique dans nos camions pour éliminer toute vibration ou mouvement." }
+                { t: "Manutention délicate", d: "Les prises, les passages et les contraintes de portage sont à étudier selon les dimensions et le poids des pièces." },
+                { t: "Préparation du transport", d: "Les protections et les conditions d’arrimage sont à définir selon les caractéristiques des biens et les consignes transmises." }
               ].map((item, i) => (
                 <div key={i} className="p-8 bg-white border border-slate-100 rounded-3xl shadow-sm hover:shadow-xl transition-all h-full italic">
                   <div className="w-12 h-12 bg-slate-50 text-accent rounded-xl flex items-center justify-center mb-6 italic">
@@ -166,6 +166,21 @@ const DemenagementOeuvresArt: React.FC = () => {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="py-16 bg-white border-y border-slate-100">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
+          <h2 className="text-3xl font-bold text-brand-900">Préparer le transport de vos tableaux et objets de valeur</h2>
+          <p className="text-slate-600 leading-relaxed">
+            Préparez une liste des pièces à déplacer avec leurs dimensions, leur poids lorsqu’il est connu et la présence d’un cadre ou d’une vitre. Signalez les fragilités déjà identifiées, les emballages disponibles et les consignes particulières associées aux œuvres. Des photos permettent de préciser votre demande.
+          </p>
+          <p className="text-slate-600 leading-relaxed">
+            Décrivez les accès au départ et à l’arrivée : portes, escaliers, ascenseur, cour et distance jusqu’au véhicule. Indiquez si vous demandez le décrochage, le démontage d’un support ou l’installation à destination. Ces opérations doivent être étudiées et précisées dans les prestations convenues.
+          </p>
+          <p className="text-slate-600 leading-relaxed">
+            Consultez les points à définir pour l’<Link to="/emballage-protection-demenagement" className="text-brand-900 underline underline-offset-4">emballage et la protection de vos biens</Link>, puis détaillez les pièces et les accès dans votre <Link to="/demande-de-devis" className="text-brand-900 underline underline-offset-4">demande de devis pour le transport d’œuvres d’art</Link>. Communiquez toute exigence particulière de conservation avant de confirmer le transport.
+          </p>
         </div>
       </section>
 
@@ -220,10 +235,10 @@ const DemenagementOeuvresArt: React.FC = () => {
             <div className="space-y-6 italic">
               {faqs.map((faq, i) => (
                 <div key={i} className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-slate-100 italic transition-all italic">
-                  <h4 className="font-bold text-brand-900 mb-4 flex items-center gap-4 uppercase italic tracking-tight italic">
+                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-4 uppercase italic tracking-tight italic">
                     <Zap size={20} className="text-accent italic" />
                     {faq.q}
-                  </h4>
+                  </h3>
                   <p className="text-slate-500 leading-relaxed font-light italic pl-9 border-l-4 border-accent/20 italic">{faq.a}</p>
                 </div>
               ))}
@@ -245,7 +260,7 @@ const DemenagementOeuvresArt: React.FC = () => {
                 { n: "Contact", l: "/contact" }
               ].map((link, i) => (
                 <Link key={i} to={link.l} className="p-6 bg-slate-50 rounded-2xl hover:bg-white hover:border-accent hover:shadow-xl transition-all border border-transparent italic">
-                   <h4 className="text-[10px] font-black text-brand-900 uppercase tracking-widest italic">{link.n}</h4>
+                   <span className="text-[10px] font-black text-brand-900 uppercase tracking-widest italic">{link.n}</span>
                 </Link>
               ))}
            </div>
