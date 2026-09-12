@@ -1528,7 +1528,7 @@ const BlogPost: React.FC = () => {
 
               <div className="lg:col-span-11">
                 <div className="prose prose-lg max-w-none font-light leading-relaxed prose-slate prose-headings:font-black prose-headings:italic prose-headings:text-brand-900 prose-a:text-accent prose-h2:mt-16 prose-h2:mb-8 prose-h2:text-3xl md:prose-xl md:prose-h2:text-4xl prose-p:leading-relaxed prose-li:marker:text-accent">
-                  <div dangerouslySetInnerHTML={{ __html: post.content }} onClick={handleContentClick} />
+                  <div className="[&_h2[id]]:scroll-mt-40" dangerouslySetInnerHTML={{ __html: post.content }} onClick={handleContentClick} />
                 </div>
 
                 {!!post.faqs?.length && (
