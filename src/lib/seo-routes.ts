@@ -418,6 +418,7 @@ function labelFromDemenagementPath(pathname: string): string {
 
 // Reviewed descriptions shared by SSR metadata and client navigation.
 const SERVICE_DESCRIPTIONS: Record<string, string> = {
+  "/demenagement-senior": "Déménagement senior à Paris et en Île-de-France : préparez le mobilier conservé, les accès en résidence et les prestations d’emballage ou de remontage à préciser au devis.",
   "/cartons-demenagement-paris": "Cartons de déménagement à Paris : précisez formats, quantités et protections avec Marne Transdem. Disponibilités, prix et remise du matériel à confirmer au devis.",
   "/demenagement-entreprises-paris": "Organisez le déménagement de vos bureaux ou locaux professionnels à Paris avec Marne Transdem. Accompagnement, organisation et devis personnalisé.",
   "/demenagement-etudiant": "Préparez votre déménagement étudiant à Paris et en Île-de-France : inventaire, accès en résidence, cartons, petit volume et devis adapté aux prestations choisies.",

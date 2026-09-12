@@ -32,7 +32,7 @@ const DemenagementSenior: React.FC = () => {
     <div className="bg-white">
       <SEO 
         title="Déménagement Senior Paris & Île-de-France | Marne Transdem"
-        description="Un accompagnement bienveillant pour le déménagement des seniors à Paris. Aide à l'emballage, manutention douce, installation en résidence senior ou EHPAD."
+        description="Déménagement senior à Paris et en Île-de-France : préparez le mobilier conservé, les accès en résidence et les prestations d’emballage ou de remontage à préciser au devis."
         canonical={path}
         schema={[
           getServiceSchema("Déménagement Senior", "Déménagement des seniors à Paris et en Île-de-France, vers un logement ou une résidence, avec prestations d'emballage et d'installation à définir au devis."),
@@ -116,7 +116,7 @@ const DemenagementSenior: React.FC = () => {
       <section className="py-24 bg-slate-50 border-y border-slate-100 font-sans italic underline-none italic">
         <div className="container mx-auto px-4 md:px-6 italic">
           <div className="text-center mb-16 italic">
-            <h2 className="text-3xl md:text-5xl font-black text-brand-900 uppercase italic tracking-tight underline decoration-accent/20 underline-offset-8">Un service <span className="text-accent italic underline-none">clé en main</span></h2>
+            <h2 className="text-3xl md:text-5xl font-black text-brand-900 uppercase italic tracking-tight underline decoration-accent/20 underline-offset-8">Choisir l’accompagnement <span className="text-accent italic underline-none">adapté à votre déménagement</span></h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 italic transition-all italic underline-none italic">
             {[
@@ -146,7 +146,7 @@ const DemenagementSenior: React.FC = () => {
                      Nous ne nous contentons pas de transporter vos cartons. Pour un <span className="font-bold text-brand-900">déménagement senior réussi</span>, nous accordons une importance capitale au remontage et à la mise en place de vos meubles dans le nouveau logement.
                    </p>
                    <p className="text-slate-500 text-lg font-light leading-relaxed italic text-justify italic">
-                     Que ce soit pour une installation en maison de retraite (EHPAD) ou en résidence autonomie, nous coordonnons l'arrivée avec l'établissement pour éviter tout désagrément.
+                     Pour une arrivée en résidence ou en EHPAD, identifiez avec votre proche la personne à contacter sur place. Confirmez le créneau, les accès et le mobilier accepté, puis transmettez ces informations pour convenir de l’organisation du transport.
                    </p>
                    <div className="pt-4 italic">
                       <Link to="/demande-de-devis" className="bg-brand-900 text-white px-10 py-5 rounded-full font-bold text-lg hover:shadow-2xl transition-all inline-flex items-center gap-3 italic underline-none italic grayscale-0 italic opacity-100">
