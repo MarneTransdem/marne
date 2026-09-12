@@ -141,16 +141,21 @@ const TransfertBureaux: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 italic">
             {[
               { icon: <Settings size={32} />, t: "Mobilier de bureau", d: "Identifiez les meubles à démonter et à remonter. Les opérations retenues et leur faisabilité sont à préciser au devis." },
-              { icon: <Zap size={32} />, t: "Matériel informatique", d: "Préparez le transport des écrans et unités centrales avec votre référent informatique, qui organise les sauvegardes et les tests de reprise." },
+              { icon: <Zap size={32} />, t: "Matériel informatique", d: "Préparez le transport des écrans et unités centrales avec votre référent informatique, qui organise les sauvegardes et les tests de reprise.", link: "/transfert-informatique-paris", linkLabel: "Préparer le transfert informatique" },
               { icon: <ClipboardCheck size={32} />, t: "Inventaire et repérage", d: "Listez le mobilier et les cartons, puis associez chaque lot à une pièce ou un poste dans les nouveaux locaux." },
               { icon: <LayoutGrid size={32} />, t: "Plan d’implantation", d: "Transmettez le plan des bureaux et indiquez les emplacements souhaités pour organiser la mise en place du mobilier." },
-              { icon: <ShieldCheck size={32} />, t: "Documents et archives", d: "Séparez les dossiers sensibles et convenez des contenants, des personnes responsables et des modalités de réception." },
+              { icon: <ShieldCheck size={32} />, t: "Documents et archives", d: "Séparez les dossiers sensibles et convenez des contenants, des personnes responsables et des modalités de réception.", link: "/gestion-archives-paris", linkLabel: "Organiser le transfert des archives" },
               { icon: <Truck size={32} />, t: "Accès et transport", d: "Décrivez les accès aux deux immeubles, les créneaux de livraison et les contraintes de stationnement pour préparer les moyens nécessaires." }
             ].map((service, i) => (
               <div key={i} className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-slate-100 hover:border-accent transition-all group italic">
                 <div className="text-accent mb-6 group-hover:scale-110 transition-all">{service.icon}</div>
                 <h3 className="text-lg font-bold text-brand-900 mb-4 uppercase italic tracking-tight">{service.t}</h3>
                 <p className="text-xs text-slate-500 font-light leading-relaxed">{service.d}</p>
+                {service.link && (
+                  <Link to={service.link} className="inline-block mt-5 text-sm font-semibold text-brand-900 underline underline-offset-4 hover:text-accent">
+                    {service.linkLabel}
+                  </Link>
+                )}
               </div>
             ))}
           </div>
