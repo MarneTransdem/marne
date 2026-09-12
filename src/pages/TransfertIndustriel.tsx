@@ -12,19 +12,19 @@ const TransfertIndustriel: React.FC = () => {
   const faqs = [
     { 
       q: "Gérez-vous le levage de machines de plusieurs tonnes ?", 
-      a: "Oui, nous disposons du matériel de levage adapté (bras de levage, chariots gros tonnages, grues si nécessaire) et de l'expertise en manutention lourde pour déplacer vos équipements industriels les plus massifs." 
+      a: "Transmettez les dimensions, le poids documenté de chaque machine et les contraintes des deux sites. La faisabilité, les moyens de levage et les intervenants nécessaires doivent être confirmés avant engagement. La demande de devis ne vaut pas validation d’une capacité de levage." 
     },
     { 
       q: "Assurez-vous le transfert complet d'un atelier ou d'une usine ?", 
-      a: "Marne Transdem accompagne les industriels dans le transfert complet de leurs sites : machines, stocks, outillages, mobilier technique et bureaux. Nous gérons la logistique de A à Z." 
+      a: "Décrivez séparément les machines, les stocks, les outillages, le mobilier et les bureaux concernés. Le périmètre retenu, le calendrier et les responsabilités de chaque intervenant sont à préciser dans le devis, notamment pour les opérations techniques sur les équipements." 
     },
     { 
       q: "Intervenez-vous pour le démontage et remontage mécanique ?", 
-      a: "Nous assurons la manutention et le transport. Pour le démontage/remontage complexe nécessitant un étalonnage, nous travaillons en coordination avec vos équipes de maintenance ou des prestataires techniques spécialisés." 
+      a: "Le démontage mécanique, les déconnexions, les réglages et la remise en service doivent faire l’objet d’un périmètre explicite. Indiquez les opérations prévues par vos équipes de maintenance ou vos prestataires spécialisés afin de les distinguer de la manutention et du transport convenus." 
     },
     { 
       q: "Quelles sont vos garanties d'assurance pour le matériel industriel ?", 
-      a: "Nous proposons des couvertures d'assurance spécifiques pour les équipements industriels de haute valeur, avec des polices ad valorem adaptées aux enjeux de votre secteur." 
+      a: "Communiquez l’inventaire et la valeur des biens, puis demandez les conditions de couverture applicables au projet. Faites préciser les plafonds, les exclusions et les éventuelles garanties complémentaires avant de confirmer l’intervention." 
     }
   ];
 
@@ -32,10 +32,10 @@ const TransfertIndustriel: React.FC = () => {
     <div className="bg-white">
       <SEO 
         title="Transfert Industriel & Manutention Lourde Paris | Marne Transdem"
-        description="Expertise en transfert industriel à Paris. Déménagement de machines, ateliers, lignes de production et stocks. Manutention lourde et logistique usine."
+        description="Transfert industriel à Paris : préparez l’inventaire de votre atelier, les accès et le calendrier. Définissez les prestations nécessaires avec un devis adapté."
         canonical={path}
         schema={[
-          getServiceSchema("Transfert Industriel", "Marne Transdem réalise vos transferts industriels avec une rigueur technique absolue : manutention de machines, logistique d'atelier et transport lourd."),
+          getServiceSchema("Transfert Industriel", "Préparez votre projet de transfert d’atelier ou de site industriel : inventaire, accès, calendrier et prestations à confirmer dans un devis adapté."),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },
@@ -64,12 +64,12 @@ const TransfertIndustriel: React.FC = () => {
             </h1>
 
             <p className="text-xl md:text-2xl text-slate-300 mb-12 leading-relaxed font-light max-w-3xl italic">
-              Puissance et précision pour votre outil de production. Marne Transdem orchestre le transfert de vos sites industriels, machines et stocks avec une expertise technique sans faille.
+              Préparez votre transfert d’atelier ou de site industriel à Paris et en Île-de-France. Décrivez les équipements, les accès et le calendrier pour définir les prestations et les moyens nécessaires à votre projet.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-5">
               <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover shadow-xl flex items-center justify-center gap-3 group transition-all italic underline-none">
-                Étude technique gratuite
+                Décrire mon projet
                 <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
               </Link>
               <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white/10 text-white border border-white/20 px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-brand-900 transition-all flex items-center justify-center gap-3 shadow-sm backdrop-blur-sm italic">
@@ -87,14 +87,17 @@ const TransfertIndustriel: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center italic">
             <div className="space-y-8 italic">
               <h2 className="text-3xl md:text-5xl font-black text-brand-900 leading-tight tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">
-                Maîtriser la <span className="text-accent italic">force & la technique</span>
+                Préparer le <span className="text-accent italic">périmètre du transfert</span>
               </h2>
               <div className="space-y-6 text-slate-500 text-lg font-light leading-relaxed italic text-justify italic">
                 <p>
-                  Le <span className="font-bold text-brand-900 underline decoration-accent/10 italic">transfert industriel</span> ne pardonne aucune improvisation. Qu'il s'agisse de déplacer une presse monumentale, une ligne de conditionnement complexe ou un stock stratégique, Marne Transdem mobilise les moyens de levage et de transport les plus performants.
+                  Un <span className="font-bold text-brand-900 underline decoration-accent/10 italic">transfert industriel</span> se prépare équipement par équipement. Constituez un inventaire avec les dimensions, les poids documentés, les photos et les contraintes communiquées par les fabricants. Distinguez les machines du mobilier, des outillages et des stocks.
                 </p>
                 <p>
-                  Nous intervenons sur l'ensemble de la chaîne : audit des sols et des accès, calage et saisissage spécifique pour le transport, manutention lourde in situ et coordination logistique multi-sites. Notre expérience nous permet de minimiser les temps d'arrêt de production pour vos usines et ateliers.
+                  Pour les deux sites, indiquez les accès, les quais, les passages et les créneaux disponibles. Transmettez les informations techniques sur les sols et les contraintes du bâtiment dont vous disposez. Les moyens de manutention et la faisabilité du transfert doivent être confirmés avant de fixer l’intervention.
+                </p>
+                <p>
+                  Si le projet comprend aussi des postes de travail, consultez notre page <Link to="/transfert-bureaux-paris" className="underline font-medium text-brand-900">transfert de bureaux</Link>. La <Link to="/blog/demenagement-entreprise-paris-checklist" className="underline font-medium text-brand-900">checklist du déménagement d’entreprise</Link> vous aide à organiser les interlocuteurs et les étapes du projet.
                 </p>
               </div>
             </div>
@@ -116,10 +119,10 @@ const TransfertIndustriel: React.FC = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 italic font-sans transition-all italic underline-none">
             {[
-              { icon: <Weight size={32} />, t: "Manutention Lourde", d: "Déplacement de machines hors gabarit et équipements de production massifs." },
-              { icon: <Warehouse size={32} />, t: "Transfert Stocks", d: "Logistique complète de vos matières premières et produits finis." },
-              { icon: <Settings size={32} />, t: "Mobilier Technique", d: "Déménagement d'établis, racks de stockage et zones de conditionnement." },
-              { icon: <Truck size={32} />, t: "Transport Convoi", d: "Organisation de transports spécifiques pour les pièces volumineuses." }
+              { icon: <Weight size={32} />, t: "Équipements", d: "Dimensions, poids documentés et contraintes à transmettre pour examiner la faisabilité." },
+              { icon: <Warehouse size={32} />, t: "Stocks", d: "Nature des biens, conditionnement, quantités et ordre de livraison à préciser." },
+              { icon: <Settings size={32} />, t: "Mobilier technique", d: "Inventaire des établis, rangements et opérations de démontage à répartir entre intervenants." },
+              { icon: <Truck size={32} />, t: "Transport", d: "Trajet, accès aux deux sites et contraintes de gabarit à étudier avant confirmation." }
             ].map((card, i) => (
               <div key={i} className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-slate-100 h-full hover:border-accent transition-all group italic font-sans transition-all">
                 <div className="text-accent mb-6 group-hover:scale-110 transition-transform italic grayscale-0">{card.icon}</div>
@@ -138,11 +141,11 @@ const TransfertIndustriel: React.FC = () => {
               <div className="lg:w-2/3 space-y-8 relative z-10 italic">
                  <h2 className="text-3xl md:text-5xl font-black uppercase italic tracking-tight underline decoration-accent/20 italic">Sécurité & <br/><span className="text-accent italic">Rigueur Opérationnelle</span></h2>
                  <p className="text-slate-300 text-lg font-light leading-relaxed italic text-justify italic">
-                   Chaque opération fait l'objet d'un Plan de Prévention rigoureux. Nos chefs de chantier supervisent chaque phase critique pour garantir une sécurité totale des hommes et du matériel. Nous nous adaptons à vos flux logistiques pour assurer une transition sans heurt.
+                   Désignez les interlocuteurs des deux sites et communiquez les consignes d’accès et de sécurité. Faites préciser les opérations confiées à chaque intervenant, les documents nécessaires et les créneaux de transfert. Les déconnexions, les contrôles techniques et la remise en service doivent être organisés avec les responsables concernés ; le calendrier de reprise dépend de ces étapes.
                  </p>
                  <div className="pt-4 italic">
                     <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all inline-flex items-center gap-3 italic">
-                      Demander un audit technique
+                      Préparer ma demande de devis
                       <ArrowRight size={20} />
                     </Link>
                  </div>
@@ -150,10 +153,10 @@ const TransfertIndustriel: React.FC = () => {
               <div className="lg:w-1/3 relative z-10 italic font-sans transition-all grayscale-0 italic">
                  <div className="grid grid-cols-2 gap-4">
                     {[
-                      { l: "Levage", t: "Expert" },
-                      { l: "Sécurité", t: "Normée" },
-                      { l: "Rigueur", t: "Totale" },
-                      { l: "Délais", t: "Respectés" }
+                      { l: "Inventaire", t: "À transmettre" },
+                      { l: "Accès", t: "À vérifier" },
+                      { l: "Périmètre", t: "À définir" },
+                      { l: "Calendrier", t: "À convenir" }
                     ].map((badge, i) => (
                       <div key={i} className="bg-white/5 border border-white/10 p-6 rounded-3xl text-center italic transition-all grayscale-0 italic">
                          <div className="text-accent font-black text-xl mb-1 italic transition-all grayscale-0 italic">{badge.l}</div>
@@ -175,10 +178,10 @@ const TransfertIndustriel: React.FC = () => {
            <div className="grid grid-cols-1 gap-8 italic font-sans italic transition-all italic grayscale-0 shadow-none">
              {faqs.map((faq, i) => (
                <div key={i} className="bg-white p-10 rounded-[2.5rem] border border-slate-100 group hover:border-accent transition-all shadow-sm italic font-sans italic transition-all italic grayscale-0">
-                 <h4 className="font-bold text-brand-900 mb-4 flex items-center gap-4 uppercase italic tracking-tight italic font-sans italic transition-all italic">
+                 <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-4 uppercase italic tracking-tight italic font-sans italic transition-all italic">
                    <HelpCircle className="text-accent shrink-0 italic" size={20} />
                    {faq.q}
-                 </h4>
+                 </h3>
                  <p className="text-slate-500 font-light leading-relaxed pl-9 border-l-4 border-accent/20 italic font-sans italic transition-all italic underline-none italic grayscale-0">
                    {faq.a}
                  </p>
@@ -195,7 +198,7 @@ const TransfertIndustriel: React.FC = () => {
             <Link to="/transfert-bureaux-paris" className="hover:text-accent transition-all italic">Secteur Tertiaire</Link>
             <Link to="/demenagement-entreprises-paris" className="hover:text-accent transition-all italic underline decoration-accent/30 decoration-2 italic font-sans italic">Solutions Professionnelles</Link>
             <Link to="/transfert-laboratoire-paris" className="hover:text-accent transition-all italic">Milieux Sensibles</Link>
-            <Link to="/gestion-archives-paris" className="hover:text-accent transition-all italic">Externalisation Archives</Link>
+            <Link to="/gestion-archives-paris" className="hover:text-accent transition-all italic">Transfert d’archives</Link>
             <Link to="/contact" className="hover:text-accent transition-all italic">Expert Logistique</Link>
           </div>
         </div>
