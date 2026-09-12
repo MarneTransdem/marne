@@ -181,7 +181,7 @@ const DemenagementPetitVolume: React.FC = () => {
       <section aria-labelledby="small-move-example" className="py-16 bg-slate-50">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl">
           <p className="text-sm font-semibold text-brand-900 mb-3">Projet prévu en septembre 2026</p>
-          <h2 id="small-move-example" className="text-3xl font-bold text-brand-900 mb-6">Un déménagement de 20 m³ de Paris 12e à Paris 4e</h2>
+          <h2 id="small-move-example" className="scroll-mt-40 text-3xl font-bold text-brand-900 mb-6">Un déménagement de 20 m³ de Paris 12e à Paris 4e</h2>
           <p className="text-slate-600 leading-relaxed mb-6">Ce projet confié à Marne Transdem prévoit le transport d’un volume estimé à 20 m³. Au départ, les biens se trouvent au premier étage et dans un garage, avec un ascenseur disponible. À l’arrivée, le logement se situe au cinquième étage, avec ascenseur et monte-meubles prévu. L’organisation reste soumise à un portage inférieur à 20 mètres.</p>
           <div className="grid md:grid-cols-2 gap-8 mb-6">
             <div>
