@@ -502,7 +502,7 @@ const posts: Record<string, BlogPostData> = {
 
       <p>Pour comparer deux devis, partez du même inventaire, des mêmes accès et du même niveau de service. Demandez que le montant TTC, les options et les éventuels frais de stationnement soient explicités. Une estimation générale ne remplace pas l’étude de votre projet.</p>
 
-      <p>Chez Marne Transdem, nous accompagnons les particuliers et les professionnels dans leurs déménagements à Paris, en Île-de-France et vers toute la France. Notre objectif est simple : vous proposer un devis clair, réaliste et adapté à votre situation réelle.</p>
+      <p>Chez Marne Transdem, nous accompagnons les <a href="/demenagement-particuliers-paris">particuliers pour leur changement de logement</a> et les <a href="/demenagement-entreprises-paris">entreprises pour leur déménagement professionnel</a> à Paris, en Île-de-France et vers toute la France. Notre objectif est simple : vous proposer un devis clair, réaliste et adapté à votre situation réelle.</p>
 
       <p>Voici les critères à connaître pour comprendre le prix d’un déménagement à Paris et éviter les mauvaises surprises.</p>
 
