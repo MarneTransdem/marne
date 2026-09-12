@@ -416,15 +416,33 @@ function labelFromDemenagementPath(pathname: string): string {
     .replace(/\bLa\b/g, 'La');
 }
 
+// Reviewed descriptions shared by SSR metadata and client navigation.
+const SERVICE_DESCRIPTIONS: Record<string, string> = {
+  "/cartons-demenagement-paris": "Cartons de déménagement à Paris : précisez formats, quantités et protections avec Marne Transdem. Disponibilités, prix et remise du matériel à confirmer au devis.",
+  "/demenagement-entreprises-paris": "Organisez le déménagement de vos bureaux ou locaux professionnels à Paris avec Marne Transdem. Accompagnement, organisation et devis personnalisé.",
+  "/demenagement-etudiant": "Préparez votre déménagement étudiant à Paris et en Île-de-France : inventaire, accès en résidence, cartons, petit volume et devis adapté aux prestations choisies.",
+  "/demenagement-militaire": "Préparez votre déménagement militaire à Paris : inventaire, accès, calendrier et devis. Faites confirmer vos droits et la procédure par votre service gestionnaire.",
+  "/demenagement-mutation-professionnelle": "Préparez votre déménagement pour mutation professionnelle à Paris : volume, accès, calendrier, devis à transmettre à votre employeur et prestations à choisir.",
+  "/demenagement-particuliers-paris": "Préparez votre déménagement particulier à Paris avec Marne Transdem. Formules adaptées, protection des biens et devis personnalisé. Expert local 75020.",
+  "/demenagement-petit-volume": "Déménagement petit volume à Paris : préparez l'inventaire, les accès et le transport de quelques meubles ou d'un studio. Demandez un devis selon vos prestations.",
+  "/emballage-protection-demenagement": "Protégez vos meubles, objets fragiles et cartons avec les solutions d’emballage et de protection proposées par Marne Transdem.",
+  "/formules-demenagement": "Découvrez les formules Économique, Standard et Luxe de Marne Transdem pour organiser votre déménagement à Paris selon votre budget et vos besoins.",
+  "/garde-meuble-paris": "Garde-meuble à Paris : préparez le volume, la durée, l'accès aux biens et leur restitution. Demandez un devis détaillant stockage et transports selon votre projet.",
+  "/gestion-archives-paris": "Transfert d’archives à Paris : préparez le volume, le repérage des boîtes, les accès et la réception. Stockage éventuel et prestations à préciser dans votre devis.",
+  "/location-monte-meuble-paris": "Trois monte-meubles à Paris : un autoporté de 30 m et deux tractés de 24 m et 18 m. Préparez vos accès et demandez un devis selon la faisabilité.",
+  "/transfert-bureaux-paris": "Transfert de bureaux à Paris et en Île-de-France : inventaire, accès, mobilier et planning. Préparez votre déménagement avec un devis personnalisé.",
+  "/transfert-industriel-paris": "Transfert industriel à Paris : préparez l’inventaire de votre atelier, les accès et le calendrier. Définissez les prestations nécessaires avec un devis adapté.",
+  "/transfert-informatique-paris": "Transfert informatique à Paris : inventaire des équipements, accès, protections et coordination avec votre prestataire informatique. Préparez un devis personnalisé.",
+  "/demenagement-oeuvres-art": "Déménagement de tableaux et d’œuvres d’art à Paris : préparez les dimensions, les accès et les besoins de protection pour un devis personnalisé avec Marne Transdem."
+};
+
 function defaultSeoForPath(pathname: string): Omit<SeoRoute, 'path' | 'canonicalPath'> {
   if (SERVICE_TITLES[pathname]) {
     const h1 = SERVICE_TITLES[pathname].replace(' | Marne Transdem', '');
     return {
       title: SERVICE_TITLES[pathname],
       h1,
-      description: pathname === '/demenagement-oeuvres-art'
-        ? 'Déménagement de tableaux et d’œuvres d’art à Paris : préparez les dimensions, les accès et les besoins de protection pour un devis personnalisé avec Marne Transdem.'
-        : `${h1} : préparez votre inventaire, vos accès et votre calendrier avec ${SITE_NAME}. Demandez une étude personnalisée de votre projet.`,
+      description: SERVICE_DESCRIPTIONS[pathname] ?? `${h1} : préparez votre inventaire, vos accès et votre calendrier avec ${SITE_NAME}. Demandez une étude personnalisée de votre projet.`,
       priority: '0.8',
       changefreq: 'monthly',
     };
