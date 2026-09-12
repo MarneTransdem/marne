@@ -92,6 +92,11 @@
         "type": 301
       },
       {
+        "source": "/demenagement-luxe",
+        "destination": "/formules-demenagement",
+        "type": 301
+      },
+      {
         "source": "/blog/2",
         "destination": "/blog/comment-estimer-volume-demenagement",
         "type": 301

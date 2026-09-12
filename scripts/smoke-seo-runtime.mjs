@@ -1,12 +1,16 @@
 // Use native Node resolution, as `node server.ts` does in App Hosting.
 // Vite/tsx can resolve extensionless imports that fail in production.
 import assert from 'node:assert/strict';
-import { getSeoRoute, getSitemapXml, getPublicCanonicalRoutes } from '../src/lib/seo-routes.ts';
+import { getSeoRoute, getSitemapXml, getPublicCanonicalRoutes, getCanonicalPath } from '../src/lib/seo-routes.ts';
 import contentUpdatedAt from '../src/constants/contentUpdatedAt.json' with { type: 'json' };
 
 const route = getSeoRoute('/demenagement-paris-montpellier');
 assert.equal(route.status, 200);
 assert.equal(route.h1, 'Déménagement Paris–Montpellier');
+for (const legacyPath of ['/demenagement-luxe', '/demenagement-luxe/']) {
+  assert.equal(getCanonicalPath(legacyPath), '/formules-demenagement');
+  assert.equal(getSeoRoute(legacyPath).status, 200);
+}
 const sitemap = getSitemapXml();
 const publicRoutes = new Set(getPublicCanonicalRoutes());
 for (const [path, date] of Object.entries(contentUpdatedAt)) {
