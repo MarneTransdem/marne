@@ -456,15 +456,15 @@ const posts: Record<string, BlogPostData> = {
     faqs: [
       {
         question: 'Quel est le prix moyen d’un déménagement à Paris ?',
-        answer: 'Le prix moyen dépend du volume, de la distance, de l’étage, de l’ascenseur, du stationnement, de la formule choisie et des contraintes d’accès. Pour un petit volume, le prix peut commencer autour de quelques centaines d’euros. Pour un appartement familial ou un déménagement longue distance, le budget peut atteindre plusieurs milliers d’euros.'
+        answer: 'Ce guide ne fournit pas de moyenne statistique des prix pratiqués à Paris. Ses repères de budget sont indicatifs et ne constituent pas une grille tarifaire Marne Transdem. Pour chiffrer votre projet, il faut examiner le volume, le trajet, les accès, la date et les prestations retenues dans un devis personnalisé.'
       },
       {
         question: 'Combien coûte un déménagement de studio à Paris ?',
-        answer: 'Pour un studio représentant environ 10 à 15 m³, le prix peut généralement se situer entre 500 et 900 € pour une courte distance, selon les accès, l’étage, l’ascenseur, le stationnement et la formule choisie.'
+        answer: 'Le prix dépend du mobilier et des cartons réellement transportés, des accès aux deux adresses, du trajet et des tâches confiées à l’équipe. La surface du studio ne suffit pas à déterminer son volume. Les fourchettes du guide sont indicatives : transmettez un inventaire pour obtenir un montant adapté à votre déménagement.'
       },
       {
         question: 'Combien coûte un déménagement de 30 m³ à Paris ?',
-        answer: 'Pour un volume d’environ 30 m³, le prix peut souvent se situer autour de 900 à 1 800 € pour une courte distance, avec des variations selon les étages, l’ascenseur, le besoin de monte-meuble, la période et les prestations incluses.'
+        answer: 'Un volume de 30 m³ ne suffit pas à fixer un prix. Précisez la distance, les étages, les ascenseurs, le portage, la date et les prestations d’emballage ou de démontage souhaitées. Faites confirmer le volume et le montant TTC dans le devis ; les repères du guide ne sont ni un minimum garanti ni un plafond.'
       },
       {
         question: 'Le monte-meuble augmente-t-il le prix du déménagement ?',
