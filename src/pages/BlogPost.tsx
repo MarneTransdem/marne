@@ -616,6 +616,10 @@ const posts: Record<string, BlogPostData> = {
       <p><strong>Situation :</strong> Volume 30-40 m³, Paris vers autre région (300-500 km), formule standard, 3e étage au départ.<br/>
       <strong>Prix indicatif :</strong> Budget pouvant dépasser 2 000 à 4 000 €, selon la distance exacte et l’organisation du transport.</p>
 
+      <h2>Un projet de 20 m³ : les paramètres à examiner</h2>
+      <p>Pour un projet prévu en septembre 2026 entre Paris 12e et Paris 4e, le volume annoncé est de 20 m³. La préparation tient aussi compte du garage au départ, de l’arrivée au 5e étage avec ascenseur, du monte-meuble prévu et de la répartition des tâches entre le client et l’équipe.</p>
+      <p>Consultez le <a href="/demenagement-petit-volume#small-move-example">détail du projet de 20 m³ et des prestations prévues</a> pour voir les informations à réunir avant le chiffrage. Aucun montant n’est associé à cet exemple : le devis dépend des accès, de la date et des prestations convenues.</p>
+
       <h2>Pourquoi le devis le moins cher n’est pas toujours le meilleur</h2>
       <p>Lorsqu’on prépare un déménagement, il est normal de comparer les prix. Mais le devis le moins cher n’est pas toujours le plus fiable. Un devis très bas peut parfois cacher un volume sous-estimé, une équipe insuffisante, des frais ajoutés ensuite, une absence de prise en compte des étages ou une protection insuffisante des meubles.</p>
       <p>Le bon devis doit être clair sur le volume, les adresses, les étages, les ascenseurs, la distance de portage, la formule, les prestations incluses, les suppléments éventuels, l’assurance et les horaires.</p>
