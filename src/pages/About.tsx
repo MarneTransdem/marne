@@ -333,28 +333,28 @@ const About: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12 max-w-7xl mx-auto">
             {[
               {
-                src: '/images/gerant-marne-transdem.webp',
+                src: '/images/gerant-marne-transdem.webp', width: 1360, height: 1020,
                 alt: 'M. H.Yassa - Gérant',
                 name: 'M. H.Yassa',
                 role: 'Gérant',
                 offset: false,
               },
               {
-                src: '/images/secretaire-marne-transdem.webp',
+                src: '/images/secretaire-marne-transdem.webp', width: 1360, height: 1020,
                 alt: 'Mme J.Gabay - Secrétariat',
                 name: 'Mme J.Gabay',
                 role: 'Secrétariat',
                 offset: true,
               },
               {
-                src: '/images/bureau-marne-transdem.webp',
+                src: '/images/bureau-marne-transdem.webp', width: 1360, height: 1020,
                 alt: 'Mr. E.Perrin - Commercial',
                 name: 'Mr. E.Perrin',
                 role: 'Commercial',
                 offset: false,
               },
               {
-                src: '/images/lamine.webp',
+                src: '/images/lamine.webp', width: 1513, height: 2017,
                 alt: "Lamine - Chef d'équipe",
                 name: 'Lamine',
                 role: "Chef d'équipe",
@@ -368,6 +368,10 @@ const About: React.FC = () => {
                 <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 dark:border-slate-800">
                   <img
                     src={member.src}
+                    width={member.width}
+                    height={member.height}
+                    loading="lazy"
+                    decoding="async"
                     alt={member.alt}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />

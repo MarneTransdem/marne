@@ -151,7 +151,7 @@ const MonteMeuble: React.FC = () => {
 
           <div className="max-w-4xl mx-auto mb-20">
             <div className="aspect-[16/9] rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100">
-              <img
+              <img width={765} height={1020} loading="lazy" decoding="async"
                 src="/images/monte-meuble-demenagement.webp"
                 alt="Location Monte-meuble Marne Transdem Paris"
                 className="w-full h-full object-cover"

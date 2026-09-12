@@ -100,7 +100,7 @@ const DemenagementSenior: React.FC = () => {
             </div>
             <div className="relative group italic">
               <div className="rounded-[4rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-105 grayscale-[10%]">
-                <img 
+                <img width={1513} height={2017} loading="lazy" decoding="async" 
                   src="/images/demenagement-maison-appartement-particulier.jpg" 
                   alt="Déménagement personne âgée Marne Transdem" 
                   className="w-full h-full object-cover"
