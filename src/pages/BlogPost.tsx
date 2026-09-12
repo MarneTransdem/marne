@@ -945,7 +945,7 @@ const posts: Record<string, BlogPostData> = {
       {
         question: 'Faut-il une autorisation pour utiliser un monte-meuble à Paris ?',
         answer:
-          'Oui, si le monte-meuble est utilisé sur l’espace public parisien, une autorisation d’occupation temporaire ou de stationnement doit être anticipée avant le jour du déménagement.',
+          'Oui. L’utilisation d’un monte-meuble sur l’espace public parisien nécessite une autorisation d’occupation temporaire (AOT) de déménagement. La demande doit être anticipée et les modalités autorisées vérifiées avant l’intervention.',
       },
       {
         question: 'Un monte-meuble permet-il de réduire le prix du déménagement ?',
@@ -968,13 +968,13 @@ const posts: Record<string, BlogPostData> = {
 
       <p>Un monte-meuble permet de faire passer les meubles, cartons et objets volumineux par la fenêtre, le balcon ou une ouverture adaptée, sans emprunter l’escalier ou l’ascenseur. C'est une solution particulièrement courante dans les communes denses de la petite couronne comme à <a href="/demenagement-boulogne-billancourt">Boulogne-Billancourt</a>, <a href="/demenagement-nogent-sur-marne">Nogent-sur-Marne</a> ou encore <a href="/demenagement-saint-mande">Saint-Mandé</a>, où de nombreuses résidences anciennes ne disposent pas de monte-charge. Il peut faire gagner du temps, réduire les risques de casse, protéger les parties communes et rendre possible un déménagement qui serait autrement très difficile.</p>
 
-      <p>À Paris, son utilisation doit toutefois être anticipée. L’installation d’un monte-meuble sur l’espace public suppose une organisation précise : emplacement, durée d’occupation, accès au pied de l’immeuble, sécurité des piétons, contraintes de circulation et éventuelle autorisation de stationnement.</p>
+      <p>À Paris, son utilisation doit toutefois être anticipée. L’installation d’un monte-meuble sur l’espace public suppose une organisation précise : emplacement, durée d’occupation, accès au pied de l’immeuble, sécurité des piétons, contraintes de circulation et autorisation d’occupation temporaire de déménagement.</p>
 
       <p>Chez <strong>Marne Transdem</strong>, nous accompagnons les particuliers et les professionnels dans leurs déménagements à Paris, en Île-de-France et vers toute la France. Notre rôle est de vous aider à choisir la bonne solution selon votre étage, vos accès, votre mobilier, votre volume et les contraintes de votre adresse.</p>
 
       <div class="not-prose my-12 rounded-[2rem] border border-accent/20 bg-accent/5 p-6 md:p-8">
         <p class="mb-4 text-xs font-black uppercase tracking-[0.25em] text-accent">En bref</p>
-        <p class="text-brand-900 font-light leading-relaxed">Le monte-meuble devient indispensable lorsque les meubles ne passent pas par les accès classiques, lorsque l’immeuble est en étage élevé, lorsque l’ascenseur est trop petit ou lorsque la protection des parties communes est prioritaire. À Paris, il doit être prévu avant le jour J pour sécuriser l’emplacement et l’organisation.</p>
+        <p class="text-brand-900 font-light leading-relaxed">Un monte-meuble peut être utile lorsque les meubles ne passent pas par les accès classiques ou lorsque la manutention par l’escalier pose difficulté. Un étage élevé ne suffit pas à confirmer ce choix : la hauteur, les ouvertures, l’emplacement et le poids des biens doivent être étudiés. À Paris, les autorisations et l’organisation sont à prévoir avant le jour J.</p>
       </div>
 
       <nav class="not-prose my-12 rounded-[2rem] bg-slate-50 p-6 md:p-8 border border-slate-100">
@@ -1031,7 +1031,7 @@ const posts: Record<string, BlogPostData> = {
       <p>Le monte-meuble ajoute un coût au devis, mais il peut aussi réduire le temps d’intervention, éviter des difficultés et limiter les risques. Dans certains cas, il est plus rationnel de prévoir un monte-meuble que de mobiliser davantage de temps dans une cage d’escalier difficile.</p>
 
       <h2 id="autorisations">Quelles autorisations prévoir pour utiliser un monte-meuble à Paris ?</h2>
-      <p>À Paris, l’utilisation d’un monte-meuble sur l’espace public doit être anticipée. Selon la configuration, il peut être nécessaire d’obtenir une autorisation de stationnement ou d’occupation temporaire pour le camion, l’équipement de levage et la zone de sécurité.</p>
+      <p>À Paris, l’utilisation d’un monte-meuble sur l’espace public nécessite une autorisation d’occupation temporaire (AOT) de déménagement. Consultez les <a href="https://mairie19.paris.fr/pages/comment-stationner-pendant-un-demenagement-dans-le-19e-25711">conditions publiées par la Ville de Paris pour le stationnement et les monte-meubles</a>. Faites préciser qui effectue la demande et vérifiez les modalités accordées avant l’intervention.</p>
       <p>Cette organisation concerne notamment le stationnement du camion, l’emplacement du monte-meuble, la durée d’occupation, la sécurité des piétons, les contraintes de circulation, les zones de livraison, les places payantes, les rues étroites ou les jours de marché.</p>
       <p>Certains emplacements sont généralement incompatibles avec ce type d’installation : arrêts de bus, pistes cyclables, passages piétons, emplacements réservés ou zones présentant un risque pour la circulation. C’est pourquoi il faut analyser la situation avant de confirmer le déménagement.</p>
 
@@ -1042,8 +1042,11 @@ const posts: Record<string, BlogPostData> = {
         <li><strong>La rue permet-elle l’installation ?</strong> Certaines rues parisiennes sont trop étroites ou trop fréquentées.</li>
         <li><strong>L’étage est-il compatible ?</strong> Le type de monte-meuble dépend de la hauteur à atteindre.</li>
         <li><strong>Les meubles passent-ils par l’ouverture ?</strong> Une fenêtre ou un balcon doit être suffisamment large.</li>
+        <li><strong>Quel est le poids des biens ?</strong> Transmettez le poids connu et les dimensions des objets lourds ; la charge admissible de l’appareil dans la configuration prévue doit être confirmée.</li>
         <li><strong>L’espace au sol est-il suffisant ?</strong> La zone d’installation doit être stable et sécurisée.</li>
       </ul>
+
+      <p>Marne Transdem dispose d’un monte-meuble autoporté et de deux tractés. Consultez les <a href="/location-monte-meuble-paris#parc-monte-meubles">hauteurs et charges maximales de nos trois monte-meubles</a> pour préparer votre demande. Les repères d’étages ne garantissent pas l’accès à une fenêtre donnée : le choix de l’appareil reste soumis à l’étude de l’installation.</p>
 
       <h2 id="prix">Combien coûte un déménagement avec monte-meuble à Paris ?</h2>
       <p>Le prix dépend de plusieurs critères : durée d’utilisation du monte-meuble, type d’équipement nécessaire, étage du logement, accessibilité de la façade, contraintes de stationnement, volume à descendre ou monter, présence d’objets lourds, nécessité d’une autorisation, complexité de l’adresse et durée globale du déménagement.</p>
