@@ -11,20 +11,20 @@ const TransfertLaboratoire: React.FC = () => {
 
   const faqs = [
     { 
-      q: "Assurez-vous le transport de matériel médical de haute précision ?", 
-      a: "Oui, nous sommes formés à la manipulation d'équipements médicaux et scientifiques très sensibles (microscopes, centrifugeuses, équipements d'analyse). Nous utilisons des emballages sur-mesure et des moyens de transport suspendus pour éliminer toute vibration." 
+      q: "Quelles informations transmettre pour déplacer un appareil de laboratoire ?",
+      a: "Indiquez la marque, le modèle, les dimensions et le poids documenté de chaque appareil. Joignez des photos et les consignes de transport du fabricant. Précisez les préparations ou interventions techniques nécessaires afin de faire confirmer la prise en charge et les moyens adaptés avant le devis."
     },
     { 
-      q: "Prenez-vous en charge le transport de produits sous température contrôlée ?", 
-      a: "Nous assurons la logistique et la manutention de ces produits. Pour les transferts nécessitant un maintien strict de la chaîne du froid, nous travaillons avec des caisses isothermes spécifiques ou des partenaires spécialisés en transport frigorifique." 
+      q: "Comment signaler des produits ou des contraintes de température ?",
+      a: "Identifiez séparément les produits biologiques, chimiques et les éléments soumis à une température particulière dans votre demande. Transmettez les contraintes à votre responsable de laboratoire et à l’interlocuteur chargé du devis pour examiner les besoins. Leur présence dans l’inventaire ne vaut pas acceptation de leur transport : les prestations et les intervenants restent à confirmer."
     },
     { 
-      q: "Gérez-vous le transfert complet de laboratoires de recherche ?", 
-      a: "Absolument. Marne Transdem gère le transfert complet : mobiliers de laboratoire, verrerie, équipements informatiques dédiés, consommables et machines de précision, dans le respect de vos protocoles de sécurité." 
+      q: "Comment organiser le transfert du mobilier et des équipements ?",
+      a: "Préparez un inventaire par salle et indiquez l’emplacement prévu à l’arrivée. Distinguez mobilier, verrerie, appareils et matériel informatique. Précisez les accès, les créneaux disponibles et les personnes présentes pour la réception. Le devis doit définir les éléments retenus et les étapes convenues."
     },
     { 
-      q: "Quelles certifications possédez-vous pour ce type de transfert ?", 
-      a: "Nos équipes sont formées aux bonnes pratiques de manutention en milieu sensible et nous appliquons des processus rigoureux de traçabilité et de sécurité conformes aux exigences du secteur médical et scientifique." 
+      q: "La remise en service des appareils fait-elle partie du déménagement ?",
+      a: "Identifiez avec votre responsable technique les interventions nécessaires avant et après le transport : arrêt, déconnexion, préparation, installation ou vérifications des appareils. Faites préciser qui réalise chaque étape. Une demande de transport ne signifie pas que ces opérations techniques sont incluses."
     }
   ];
 
@@ -32,10 +32,10 @@ const TransfertLaboratoire: React.FC = () => {
     <div className="bg-white">
       <SEO 
         title="Transfert de Laboratoires & Médical Paris | Marne Transdem"
-        description="Expert du transfert de laboratoires et matériel médical à Paris. Manutention d'équipements de précision, sécurité renforcée et logistique pour milieux sensibles."
+        description="Transfert de laboratoire à Paris : préparez l’inventaire du mobilier et des appareils, les accès et le calendrier pour faire étudier votre demande de devis."
         canonical={path}
         schema={[
-          getServiceSchema("Transfert de Laboratoire", "Marne Transdem offre un service de transfert spécialisé pour les laboratoires, pharmaciens et centres médicaux, garantissant intégrité et sécurité du matériel."),
+          getServiceSchema("Transfert de Laboratoire", "Préparation d’une demande de transfert de laboratoire à Paris et en Île-de-France : inventaire du mobilier et des appareils, accès, calendrier et prestations à confirmer au devis."),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },
@@ -55,7 +55,7 @@ const TransfertLaboratoire: React.FC = () => {
               className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full mb-8 border border-white/10"
             >
               <Microscope size={16} className="text-accent" />
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">Logistique Milieux Sensibles & Médical</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">Préparer votre transfert à Paris</span>
             </motion.div>
 
             <h1 className="text-5xl md:text-8xl font-black mb-8 leading-[1.1] tracking-tight italic">
@@ -64,7 +64,7 @@ const TransfertLaboratoire: React.FC = () => {
             </h1>
 
             <p className="text-xl md:text-2xl text-slate-300 mb-12 leading-relaxed font-light max-w-3xl italic">
-              Rigueur absolue pour vos équipements de précision. Marne Transdem accompagne les centres de recherche, laboratoires et établissements de santé à Paris et en Île-de-France.
+              Vous préparez un transfert de laboratoire à Paris ou en Île-de-France ? Présentez à Marne Transdem votre inventaire, les contraintes des locaux et le calendrier envisagé pour étudier les prestations de déménagement adaptées à votre projet.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-5">
@@ -87,22 +87,22 @@ const TransfertLaboratoire: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center italic">
             <div className="space-y-8 italic">
               <h2 className="text-3xl md:text-5xl font-black text-brand-900 leading-tight tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">
-                Précision <span className="text-accent italic">& Intégrité</span>
+                Inventaire <span className="text-accent italic">& préparation des accès</span>
               </h2>
               <div className="space-y-6 text-slate-500 text-lg font-light leading-relaxed italic text-justify italic">
                 <p>
-                  Le <span className="font-bold text-brand-900 underline decoration-accent/10 italic">transfert de laboratoire</span> exige une méthodologie radicalement différente du déménagement classique. Entre fragilité extrême des composants optiques et contraintes de décontamination, Marne Transdem déploie des moyens de protection sur-mesure.
+                  Pour votre <span className="font-bold text-brand-900 underline decoration-accent/10 italic">transfert de laboratoire</span>, listez le mobilier et les appareils salle par salle. Indiquez leurs dimensions, leur poids connu, les fragilités et les consignes du fabricant. Joignez des photos des équipements, des portes, des couloirs et des zones de chargement aux deux adresses.
                 </p>
                 <p>
-                  Nous utilisons des emballages techniques, des systèmes d'amortissement de vibrations et des bacs de transport stérilisables pour garantir une sécurité parfaite. Nos équipes connaissent la valeur stratégique et financière de vos équipements et interviennent avec la plus grande précaution pour une remise en exploitation immédiate.
+                  Précisez les étages, les caractéristiques des ascenseurs ou monte-charges, la distance de portage et les créneaux autorisés. Avec votre responsable de laboratoire, identifiez les appareils à préparer avant enlèvement et les intervenants chargés de leur remise en service. Faites définir au devis les protections, la manutention et les étapes retenues.
                 </p>
               </div>
             </div>
             <div className="grid grid-cols-1 gap-6 italic transition-all grayscale-0">
                {[
-                 { icon: <FlaskConical size={24} />, t: "Verrerie & Consommables", d: "Conditionnement spécifique pour les élements fragiles et sensibles." },
-                 { icon: <Microscope size={24} />, t: "Appareillage de Précision", d: "Manutention experte pour instruments de mesure et optiques." },
-                 { icon: <ShieldCheck size={24} />, t: "Sécurité & Traçabilité", d: "Protocoles de transfert rigoureux avec suivi permanent." }
+                 { icon: <FlaskConical size={24} />, t: "Verrerie & Consommables", d: "Inventaire et fragilités à préciser, avec les besoins de conditionnement." },
+                 { icon: <Microscope size={24} />, t: "Appareillage de Précision", d: "Modèle, poids et consignes du fabricant à transmettre pour étude." },
+                 { icon: <ShieldCheck size={24} />, t: "Repérage & Réception", d: "Salles de départ et d’arrivée, repères des équipements et contacts à indiquer." }
                ].map((item, i) => (
                  <div key={i} className="bg-slate-50 p-8 rounded-3xl border border-slate-100 flex gap-6 items-start italic transition-all hover:border-accent">
                     <div className="text-accent italic">{item.icon}</div>
@@ -121,13 +121,13 @@ const TransfertLaboratoire: React.FC = () => {
       <section className="py-24 bg-brand-900 text-white font-sans italic relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-accent/5 -skew-x-12 translate-x-1/2 italic transition-all"></div>
         <div className="container mx-auto px-4 md:px-6 text-center relative z-10 italic transition-all grayscale-0">
-          <h2 className="text-3xl lg:text-6xl font-black mb-10 leading-tight italic uppercase tracking-tight">Confiez votre recherche <br/><span className="text-accent italic">à des mains expertes</span></h2>
+          <h2 className="text-3xl lg:text-6xl font-black mb-10 leading-tight italic uppercase tracking-tight">Préparez votre inventaire <br/><span className="text-accent italic">pour un devis adapté</span></h2>
           <p className="text-xl text-slate-300 mb-14 max-w-2xl mx-auto font-light leading-relaxed italic">
-            Audit de site gratuit et planification logistique dédiée pour votre transfert de laboratoire.
+            Transmettez la liste des éléments à déplacer, vos contraintes d’accès et vos dates pour faire préciser le périmètre du transfert.
           </p>
           <div className="flex flex-wrap justify-center gap-6 italic">
             <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-12 py-5 rounded-full font-bold text-lg hover:bg-accent-hover transition-all shadow-xl shadow-accent/20 italic underline-none">
-              Demander mon étude gratuite
+              Demander mon devis
             </Link>
             <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white/10 text-white border border-white/20 px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-brand-900 transition-all flex items-center justify-center gap-3 backdrop-blur-sm italic">
               <Phone size={22} className="text-accent italic" />
@@ -146,10 +146,10 @@ const TransfertLaboratoire: React.FC = () => {
            <div className="grid grid-cols-1 gap-8 italic font-sans italic transition-all italic grayscale-0 shadow-none">
              {faqs.map((faq, i) => (
                <div key={i} className="bg-white p-10 rounded-[2.5rem] border border-slate-100 group hover:border-accent transition-all shadow-sm italic font-sans italic transition-all">
-                 <h4 className="font-bold text-brand-900 mb-4 flex items-center gap-4 uppercase italic tracking-tight italic font-sans italic transition-all">
+                 <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-4 uppercase italic tracking-tight italic font-sans italic transition-all">
                    <HelpCircle className="text-accent shrink-0 italic" size={20} />
                    {faq.q}
-                 </h4>
+                 </h3>
                  <p className="text-slate-500 font-light leading-relaxed pl-9 border-l-4 border-accent/20 italic font-sans italic transition-all italic underline-none">
                    {faq.a}
                  </p>
@@ -166,8 +166,8 @@ const TransfertLaboratoire: React.FC = () => {
             <Link to="/transfert-industriel-paris" className="hover:text-accent transition-all italic">Logistique Industrielle</Link>
             <Link to="/demenagement-entreprises-paris" className="hover:text-accent transition-all italic underline decoration-accent/30 decoration-2 italic font-sans italic transition-all italic grayscale-0">Transfert Pro Paris</Link>
             <Link to="/transfert-informatique-paris" className="hover:text-accent transition-all italic">Transfert IT & Serveurs</Link>
-            <Link to="/gestion-archives-paris" className="hover:text-accent transition-all italic">Conservation Archives</Link>
-            <Link to="/contact" className="hover:text-accent transition-all italic font-sans italic transition-all italic">Expert Milieux Critiques</Link>
+            <Link to="/gestion-archives-paris" className="hover:text-accent transition-all italic">Transfert d’archives</Link>
+            <Link to="/contact" className="hover:text-accent transition-all italic font-sans italic transition-all italic">Contacter Marne Transdem</Link>
           </div>
         </div>
       </section>

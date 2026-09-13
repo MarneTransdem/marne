@@ -418,6 +418,7 @@ function labelFromDemenagementPath(pathname: string): string {
 
 // Reviewed descriptions shared by SSR metadata and client navigation.
 const SERVICE_DESCRIPTIONS: Record<string, string> = {
+  "/transfert-laboratoire-paris": "Transfert de laboratoire à Paris : préparez l’inventaire du mobilier et des appareils, les accès et le calendrier pour faire étudier votre demande de devis.",
   "/demenagement-piano-objets-lourds": "Déménagement de piano à Paris et en Île-de-France : précisez modèle, dimensions, poids et accès pour étudier le transport et obtenir un devis personnalisé.",
   "/demenagement-senior": "Déménagement senior à Paris et en Île-de-France : préparez le mobilier conservé, les accès en résidence et les prestations d’emballage ou de remontage à préciser au devis.",
   "/cartons-demenagement-paris": "Cartons de déménagement à Paris : précisez formats, quantités et protections avec Marne Transdem. Disponibilités, prix et remise du matériel à confirmer au devis.",
