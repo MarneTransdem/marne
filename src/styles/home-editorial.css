@@ -285,3 +285,43 @@
  .home-premium.home-refined .home-faq h2,.home-premium.home-refined .home-advice h2,.home-premium.home-refined #google-reviews h2 { font-size:10px; }
  .home-refined .home-review-invitation>div:nth-child(2) { display:none; }
 }
+
+/* Immersive hero with a solid reading surface and an uninterrupted photograph. */
+.home-refined .home-hero-impact { position:relative; isolation:isolate; min-height:610px; grid-template-columns:1.12fr .88fr; gap:0; padding:58px 48px; background:#10283c; color:#f7f6f1; overflow:hidden; border-radius:4px; }
+.home-refined .home-hero-impact .home-hero-copy { position:relative; z-index:2; max-width:570px; }
+.home-refined .home-hero-impact .home-eyebrow { color:#c0cec4; }
+.home-premium.home-refined .home-hero-impact .home-signature { font-size:clamp(44px,5.1vw,70px); line-height:1.04; letter-spacing:-.055em; margin:28px 0; }
+.home-refined .home-hero-impact .home-signature em { color:#c7d4c5; }
+.home-premium.home-refined .home-hero-impact h1,.home-premium.home-refined .home-hero-impact h1 span { color:#f7f6f1; font-size:18px; }
+.home-refined .home-hero-impact .home-hero-description { color:#d2dbe1; max-width:420px; font-size:14px; line-height:1.8; }
+.home-premium.home-refined .home-hero-impact .home-hero-photo { position:absolute; inset:0 0 0 auto; width:52%; height:100%; border-radius:0; z-index:0; }
+.home-refined .home-hero-impact .home-hero-photo img { object-position:64% center; }
+.home-refined .home-hero-impact .home-hero-photo:after { display:block; inset:0; background:linear-gradient(90deg,#10283c 0%,#10283c66 25%,transparent 58%),linear-gradient(0deg,#10283c70,transparent 45%); }
+.home-premium.home-refined .home-hero-impact .home-hero-photo figcaption { inset:auto 24px 20px auto; background:transparent; padding:0; color:#fff; }
+.home-refined .home-hero-impact .home-button-primary { background:#f7f6f1; border-color:#f7f6f1; color:#10283c; }
+.home-refined .home-hero-impact .home-button-primary:hover { background:#dce5db; border-color:#dce5db; }
+.home-refined .home-hero-impact .home-button-secondary { color:#f7f6f1; }
+.home-refined .home-hero-impact .home-button-secondary:hover { background:#ffffff0d; }
+.home-refined .home-hero-impact .home-hero-review>span { color:#c6d2da; border-color:#ffffff33; }
+.home-refined .home-hero-impact .home-hero-review .stay-dark { color:#f7f6f1!important; }
+.home-refined .home-hero-impact .home-hero-review>a { border:0; }
+@media (min-width:640px) and (max-width:1023px) {
+ .home-refined .home-hero-impact { padding:36px 28px; grid-template-columns:1.15fr .85fr; min-height:600px; }
+ .home-premium.home-refined .home-hero-impact .home-signature { font-size:45px; }
+ .home-refined .home-hero-impact .home-hero-description { max-width:330px; }
+ .home-refined .home-hero-impact .home-hero-photo:after { background:linear-gradient(90deg,#10283c 0%,#10283c88 40%,#10283c11); }
+ .home-refined .home-hero-impact .home-hero-review>span { display:none; }
+}
+@media (max-width:639px) {
+ .home-refined .home-hero { padding-top:98px; }
+ .home-refined .home-hero-impact { display:flex; flex-direction:column; align-items:stretch; min-height:0; padding:30px 22px 0; margin-inline:-8px; }
+ .home-premium.home-refined .home-hero-impact .home-signature { font-size:clamp(36px,10.4vw,48px); margin:22px 0; }
+ .home-premium.home-refined .home-hero-impact h1,.home-premium.home-refined .home-hero-impact h1 span { font-size:16px; }
+ .home-refined .home-hero-impact .home-hero-actions { margin-top:24px; }
+ .home-refined .home-hero-impact .home-hero-review { margin-top:18px; gap:12px; }
+ .home-refined .home-hero-impact .home-hero-review>span { display:none; }
+ .home-premium.home-refined .home-hero-impact .home-hero-photo { position:relative; inset:auto; width:calc(100% + 44px); margin:24px -22px 0; height:230px; }
+ .home-refined .home-hero-impact .home-hero-photo img { object-position:50% 60%; }
+ .home-refined .home-hero-impact .home-hero-photo:after { background:linear-gradient(180deg,#10283c 0%,transparent 35%,#10283c50 100%); }
+ .home-premium.home-refined .home-hero-impact .home-hero-photo figcaption { inset:auto 20px 16px; }
+}

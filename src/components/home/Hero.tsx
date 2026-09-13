@@ -85,7 +85,7 @@ export const Hero: React.FC = () => {
   return (
     <section className="home-hero" aria-labelledby="home-hero-heading">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="home-hero-grid">
+        <div className="home-hero-grid home-hero-impact">
           <div className="home-hero-copy">
             <p className="home-eyebrow"><span aria-hidden="true" /> Paris & Île-de-France</p>
             <p className="home-signature">Un nouveau départ,<br /><em>bien accompagné.</em></p>
