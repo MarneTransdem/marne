@@ -58,10 +58,10 @@ const Services: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
           {/* General Services Section */}
           <div className="mb-24">
-            <div className="flex items-center gap-4 mb-12">
-              <div className="h-px bg-slate-200 dark:bg-slate-800 flex-grow"></div>
-              <h2 className="text-3xl font-black text-brand-900 dark:text-white uppercase tracking-tight italic whitespace-nowrap">Prestations <span className="text-accent underline decoration-accent/10 underline-offset-4">techniques</span></h2>
-              <div className="h-px bg-slate-200 dark:bg-slate-800 flex-grow"></div>
+            <div className="flex items-center justify-center gap-4 mb-12">
+              <div className="hidden sm:block h-px min-w-0 bg-slate-200 dark:bg-slate-800 flex-1"></div>
+              <h2 className="min-w-0 text-center text-2xl sm:text-3xl font-black text-brand-900 dark:text-white uppercase tracking-tight italic">Prestations <span className="text-accent underline decoration-accent/10 underline-offset-4">techniques</span></h2>
+              <div className="hidden sm:block h-px min-w-0 bg-slate-200 dark:bg-slate-800 flex-1"></div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {SERVICES.filter(s => ['garde-meuble', 'monte-meuble', 'emballage', 'cartons', 'longue-distance', 'oeuvres-art', 'piano'].includes(s.id)).map((service, idx) => (
@@ -92,10 +92,10 @@ const Services: React.FC = () => {
 
           {/* Enterprise Services Section */}
           <div className="mb-24">
-            <div className="flex items-center gap-4 mb-12">
-              <div className="h-px bg-slate-200 dark:bg-slate-800 flex-grow"></div>
-              <h2 className="text-3xl font-black text-brand-900 dark:text-white uppercase tracking-tight italic whitespace-nowrap">Transferts <span className="text-accent underline decoration-accent/10 underline-offset-4">professionnels</span></h2>
-              <div className="h-px bg-slate-200 dark:bg-slate-800 flex-grow"></div>
+            <div className="flex items-center justify-center gap-4 mb-12">
+              <div className="hidden sm:block h-px min-w-0 bg-slate-200 dark:bg-slate-800 flex-1"></div>
+              <h2 className="min-w-0 text-center text-2xl sm:text-3xl font-black text-brand-900 dark:text-white uppercase tracking-tight italic">Transferts <span className="text-accent underline decoration-accent/10 underline-offset-4">professionnels</span></h2>
+              <div className="hidden sm:block h-px min-w-0 bg-slate-200 dark:bg-slate-800 flex-1"></div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {SERVICES.filter(s => ['transfert-bureaux', 'transfert-informatique', 'transfert-industriel', 'transfert-laboratoire', 'gestion-archives'].includes(s.id)).map((service, idx) => (
@@ -136,10 +136,10 @@ const Services: React.FC = () => {
 
           {/* Specialized Services Section (Individuals) */}
           <div>
-            <div className="flex items-center gap-4 mb-12">
-              <div className="h-px bg-slate-200 dark:bg-slate-800 flex-grow"></div>
-              <h2 className="text-3xl font-black text-brand-900 dark:text-white uppercase tracking-tight italic whitespace-nowrap">Cas <span className="text-accent underline decoration-accent/10 underline-offset-4">particuliers</span></h2>
-              <div className="h-px bg-slate-200 dark:bg-slate-800 flex-grow"></div>
+            <div className="flex items-center justify-center gap-4 mb-12">
+              <div className="hidden sm:block h-px min-w-0 bg-slate-200 dark:bg-slate-800 flex-1"></div>
+              <h2 className="min-w-0 text-center text-2xl sm:text-3xl font-black text-brand-900 dark:text-white uppercase tracking-tight italic">Cas <span className="text-accent underline decoration-accent/10 underline-offset-4">particuliers</span></h2>
+              <div className="hidden sm:block h-px min-w-0 bg-slate-200 dark:bg-slate-800 flex-1"></div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {SERVICES.filter(s => ['etudiant', 'senior', 'militaire', 'mutation', 'petit-volume'].includes(s.id)).map((service, idx) => (
