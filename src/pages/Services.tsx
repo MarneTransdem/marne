@@ -128,7 +128,7 @@ const Services: React.FC = () => {
                 className="bg-brand-900 dark:bg-slate-900 p-10 rounded-[2.5rem] text-white flex flex-col justify-center text-center italic"
               >
                 <h3 className="text-xl font-bold mb-4 uppercase tracking-tight italic">Accompagnement Collaborateurs</h3>
-                <p className="text-slate-400 dark:text-slate-500 text-sm font-light mb-8 italic">Nous gérons également la mutation de vos salariés avec des forfaits dédiés.</p>
+                <p className="text-slate-400 dark:text-slate-500 text-sm font-light mb-8 italic">Préparez la mobilité de vos salariés avec un inventaire, un calendrier et un devis à transmettre à votre entreprise.</p>
                 <Link to="/demenagement-mutation-professionnelle" className="text-accent font-bold uppercase tracking-[0.2em] text-[10px] hover:text-white transition-colors italic">Découvrir l'offre collaborateurs</Link>
               </motion.div>
             </div>

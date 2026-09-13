@@ -94,7 +94,7 @@ export const SERVICES = [
   {
     id: 'oeuvres-art',
     title: "Déménagement d'œuvres d'art",
-    description: "Protection et transport de vos objets précieux, tableaux et sculptures avec un soin extrême.",
+    description: "Dimensions, fragilités et accès à préciser pour préparer le transport de vos tableaux et objets de valeur.",
     icon: Palette,
     path: '/demenagement-oeuvres-art'
   },
@@ -108,35 +108,35 @@ export const SERVICES = [
   {
     id: 'mutation',
     title: "Mutation Professionnelle",
-    description: "Accompagnement réactif et dossier conforme pour votre mobilité.",
+    description: "Inventaire, calendrier et devis à transmettre à votre employeur pour préparer votre mobilité.",
     icon: Briefcase,
     path: '/demenagement-mutation-professionnelle'
   },
   {
     id: 'senior',
     title: "Déménagement Senior",
-    description: "Une transition en douceur avec aide à l'emballage et installation.",
+    description: "Organisation du déménagement avec votre proche, selon le mobilier conservé et les prestations choisies.",
     icon: Heart,
     path: '/demenagement-senior'
   },
   {
     id: 'militaire',
     title: "Militaire & Gendarmerie",
-    description: "Forfaits conformes PFMD et respect des barèmes de cubage.",
+    description: "Préparation du volume, des accès et du devis selon les démarches confirmées par votre service gestionnaire.",
     icon: Shield,
     path: '/demenagement-militaire'
   },
   {
     id: 'petit-volume',
     title: "Petit Volume",
-    description: "Transport de quelques meubles ou cartons à prix réduit.",
+    description: "Transport de quelques meubles ou cartons, avec un devis adapté au volume, aux accès et à la distance.",
     icon: Box,
     path: '/demenagement-petit-volume'
   },
   {
     id: 'piano',
     title: "Piano & Objets Lourds",
-    description: "Manutention technique pour pianos, coffres-forts et marbres.",
+    description: "Étude du transport selon le modèle, les dimensions, le poids et les accès aux deux adresses.",
     icon: Music,
     path: '/demenagement-piano-objets-lourds'
   },
@@ -150,28 +150,28 @@ export const SERVICES = [
   {
     id: 'transfert-informatique',
     title: 'Transfert Informatique',
-    description: 'Déménagement sécurisé de serveurs, data centers et parcs informatiques par des experts IT.',
+    description: 'Préparation du transport de vos équipements en coordination avec votre prestataire informatique.',
     icon: Monitor,
     path: '/transfert-informatique-paris'
   },
   {
     id: 'transfert-industriel',
     title: 'Transfert Industriel',
-    description: 'Manutention lourde et transfert technique de machines, usines et lignes de production.',
+    description: 'Inventaire de votre atelier, poids des équipements et contraintes d’accès pour étudier le transfert.',
     icon: Factory,
     path: '/transfert-industriel-paris'
   },
   {
     id: 'transfert-laboratoire',
     title: 'Transfert de Laboratoire',
-    description: 'Logistique spécialisée pour équipements médicaux et scientifiques en milieux critiques.',
+    description: 'Inventaire du mobilier et des appareils, accès et calendrier pour faire préciser les prestations au devis.',
     icon: Microscope,
     path: '/transfert-laboratoire-paris'
   },
   {
     id: 'gestion-archives',
     title: "Gestion d'Archives",
-    description: "Externalisation, transfert sécurisé et destruction certifiée de vos documents confidentiels.",
+    description: "Préparation du transfert de vos archives : volume, repérage des boîtes, accès et réception.",
     icon: Files,
     path: '/gestion-archives-paris'
   }
