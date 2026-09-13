@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/home-premium.css';
 import '../styles/home-editorial.css';
-import { motion } from 'motion/react';
+import { HomeFormulas } from '../components/home/HomeFormulas';
 import { Hero } from '../components/home/Hero';
 import { ReassuranceBar } from '../components/home/ReassuranceBar';
 import { ServicesSection } from '../components/home/ServicesSection';
@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 const GoogleReviewsSection = React.lazy(() => import('../components/home/GoogleReviews').then(m => ({ default: m.GoogleReviewsSection })));
 const FAQ = React.lazy(() => import('../components/home/FAQ').then(m => ({ default: m.FAQ })));
 import { ArrowRight, CheckCircle, Quote, Phone, ShieldCheck, MapPin, Check } from 'lucide-react';
-import { FORMULAS, FAQ_ITEMS, CONTACT } from '../constants';
+import { FAQ_ITEMS, CONTACT } from '../constants';
 import { SEO } from '../components/SEO';
 import { getOrganizationSchema, getLocalBusinessSchema, getFAQSchema } from '../lib/schema';
 
@@ -74,54 +74,7 @@ const Home: React.FC = () => {
       <ServicesSection />
       <QuotePreparation />
 
-      {/* Formulas Section */}
-      <section id="nos-formules" className="home-formulas py-24 stay-light-section transition-colors duration-300">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-brand-900 mb-4 stay-dark">Nos Formules de Déménagement</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto stay-dark font-light">Choisissez le niveau d'accompagnement adapté à vos besoins.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {FORMULAS.map((formula, idx) => (
-              <motion.div 
-                key={formula.name}
-                initial={false}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className={`stay-white-bg rounded-2xl p-8 border ${formula.popular ? 'border-accent ring-4 ring-accent/5 ' : 'border-slate-100'} relative shadow-premium flex flex-col ${formula.popular ? 'z-10 bg-slate-50/20' : ''}`}
-              >
-                {formula.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-brand-900 px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest whitespace-nowrap">
-                    Formule Équilibrée
-                  </div>
-                )}
-                <p className="home-formula-number" aria-hidden="true">0{idx + 1}</p><h3 className="text-2xl font-bold text-brand-900 mb-2 tracking-tight stay-dark">{formula.name}</h3>
-                <p className="text-sm text-slate-500 mb-6 min-h-[40px] italic stay-dark opacity-70">{formula.description}</p>
-                <div className="space-y-4 mb-10 flex-grow">
-                  {formula.features.map(feature => (
-                    <div key={feature} className="flex items-start gap-4">
-                      <div className="shrink-0 w-6 h-6 rounded-full border-2 border-accent bg-accent/10 flex items-center justify-center mt-0.5 shadow-sm">
-                        <div className="w-2.5 h-2.5 rounded-full bg-accent" />
-                      </div>
-                      <span className="text-sm text-brand-900 font-medium stay-dark leading-relaxed">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-                <Link 
-                  to={`/demande-de-devis?formula=${['economique', 'standard', 'luxe'][idx]}`}
-                  className={`w-full py-4 rounded-xl flex items-center justify-center font-bold transition-all ${
-                    formula.popular ? 'bg-accent text-brand-900 stay-dark hover:bg-accent-hover shadow-lg' : 'bg-slate-100 text-brand-900 stay-dark hover:bg-slate-200'
-                  }`}
-                >
-                  Choisir la formule {formula.name}
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HomeFormulas />
 
       {/* Why Choose Us */}
       <section className="home-trust py-24 bg-brand-900 text-white overflow-hidden relative font-sans italic">
