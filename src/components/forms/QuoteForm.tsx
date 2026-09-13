@@ -367,18 +367,18 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="md:col-span-2 space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Nom et prénom <span className="text-accent">*</span></label>
-                <input name="fullName" value={formData.fullName} onChange={handleChange} className={`form-input-premium w-full ${errors.fullName ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="Ex: Jean Dupont" required />
+                <label htmlFor="quote-fullName" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Nom et prénom <span className="text-accent">*</span></label>
+                <input id="quote-fullName" name="fullName" autoComplete="name" value={formData.fullName} onChange={handleChange} className={`form-input-premium w-full ${errors.fullName ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="Ex: Jean Dupont" required />
                 {errors.fullName && <p className="text-red-500 text-xs ml-1 font-medium">{errors.fullName}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Téléphone <span className="text-accent">*</span></label>
-                <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className={`form-input-premium w-full ${errors.phone ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="06 12 34 56 78" required />
+                <label htmlFor="quote-phone" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Téléphone <span className="text-accent">*</span></label>
+                <input id="quote-phone" type="tel" name="phone" autoComplete="tel" value={formData.phone} onChange={handleChange} className={`form-input-premium w-full ${errors.phone ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="06 12 34 56 78" required />
                 {errors.phone && <p className="text-red-500 text-xs ml-1 font-medium">{errors.phone}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Email <span className="text-accent">*</span></label>
-                <input type="email" name="email" value={formData.email} onChange={handleChange} className={`form-input-premium w-full ${errors.email ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="jean.dupont@email.com" required />
+                <label htmlFor="quote-email" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Email <span className="text-accent">*</span></label>
+                <input id="quote-email" type="email" name="email" autoComplete="email" value={formData.email} onChange={handleChange} className={`form-input-premium w-full ${errors.email ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="jean.dupont@email.com" required />
                 {errors.email && <p className="text-red-500 text-xs ml-1 font-medium">{errors.email}</p>}
               </div>
             </div>
@@ -395,8 +395,8 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="md:col-span-2 space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Adresse exacte</label>
-                <input 
+                <label htmlFor="quote-fromAddress" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Adresse exacte</label>
+                <input id="quote-fromAddress"
                   ref={fromAutocompleteRef}
                   name="fromAddress" 
                   value={formData.fromAddress} 
@@ -407,29 +407,29 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
                 {errors.fromAddress && <p className="text-red-500 text-xs ml-1 font-medium">{errors.fromAddress}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Ville</label>
-                <input name="fromCity" value={formData.fromCity} onChange={handleChange} className={`form-input-premium w-full ${errors.fromCity ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="Paris" />
+                <label htmlFor="quote-fromCity" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Ville</label>
+                <input id="quote-fromCity" name="fromCity" value={formData.fromCity} onChange={handleChange} className={`form-input-premium w-full ${errors.fromCity ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="Paris" />
                 {errors.fromCity && <p className="text-red-500 text-xs ml-1 font-medium">{errors.fromCity}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Code postal</label>
-                <input name="fromZip" value={formData.fromZip} onChange={handleChange} className={`form-input-premium w-full ${errors.fromZip ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="75004" />
+                <label htmlFor="quote-fromZip" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Code postal</label>
+                <input id="quote-fromZip" name="fromZip" value={formData.fromZip} onChange={handleChange} className={`form-input-premium w-full ${errors.fromZip ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="75004" />
                 {errors.fromZip && <p className="text-red-500 text-xs ml-1 font-medium">{errors.fromZip}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Étage</label>
-                <input name="fromFloor" value={formData.fromFloor} onChange={handleChange} className="form-input-premium w-full" placeholder="Ex: 3" />
+                <label htmlFor="quote-fromFloor" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Étage</label>
+                <input id="quote-fromFloor" name="fromFloor" value={formData.fromFloor} onChange={handleChange} className="form-input-premium w-full" placeholder="Ex: 3" />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Ascenseur</label>
-                <select name="fromElevator" value={formData.fromElevator} onChange={handleChange} className="form-input-premium w-full">
+                <label htmlFor="quote-fromElevator" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Ascenseur</label>
+                <select id="quote-fromElevator" name="fromElevator" value={formData.fromElevator} onChange={handleChange} className="form-input-premium w-full">
                   <option value="oui">Oui</option>
                   <option value="non">Non</option>
                 </select>
               </div>
               <div className="md:col-span-2 space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Difficultés d’accès éventuelles</label>
-                <textarea name="fromDifficulties" value={formData.fromDifficulties} onChange={handleChange} rows={2} className="form-input-premium w-full resize-none py-3" placeholder="Porte cochère étroite, cour intérieure, rue piétonne..."></textarea>
+                <label htmlFor="quote-fromDifficulties" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Difficultés d’accès éventuelles</label>
+                <textarea id="quote-fromDifficulties" name="fromDifficulties" value={formData.fromDifficulties} onChange={handleChange} rows={2} className="form-input-premium w-full resize-none py-3" placeholder="Porte cochère étroite, cour intérieure, rue piétonne..."></textarea>
               </div>
             </div>
           </section>
@@ -445,8 +445,8 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="md:col-span-2 space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Adresse exacte</label>
-                <input 
+                <label htmlFor="quote-toAddress" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Adresse exacte</label>
+                <input id="quote-toAddress"
                   ref={toAutocompleteRef}
                   name="toAddress" 
                   value={formData.toAddress} 
@@ -457,29 +457,29 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
                 {errors.toAddress && <p className="text-red-500 text-xs ml-1 font-medium">{errors.toAddress}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Ville</label>
-                <input name="toCity" value={formData.toCity} onChange={handleChange} className={`form-input-premium w-full ${errors.toCity ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="Paris" />
+                <label htmlFor="quote-toCity" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Ville</label>
+                <input id="quote-toCity" name="toCity" value={formData.toCity} onChange={handleChange} className={`form-input-premium w-full ${errors.toCity ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="Paris" />
                 {errors.toCity && <p className="text-red-500 text-xs ml-1 font-medium">{errors.toCity}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Code postal</label>
-                <input name="toZip" value={formData.toZip} onChange={handleChange} className={`form-input-premium w-full ${errors.toZip ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="75008" />
+                <label htmlFor="quote-toZip" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Code postal</label>
+                <input id="quote-toZip" name="toZip" value={formData.toZip} onChange={handleChange} className={`form-input-premium w-full ${errors.toZip ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="75008" />
                 {errors.toZip && <p className="text-red-500 text-xs ml-1 font-medium">{errors.toZip}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Étage</label>
-                <input name="toFloor" value={formData.toFloor} onChange={handleChange} className="form-input-premium w-full" placeholder="Ex: RDC" />
+                <label htmlFor="quote-toFloor" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Étage</label>
+                <input id="quote-toFloor" name="toFloor" value={formData.toFloor} onChange={handleChange} className="form-input-premium w-full" placeholder="Ex: RDC" />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Ascenseur</label>
-                <select name="toElevator" value={formData.toElevator} onChange={handleChange} className="form-input-premium w-full">
+                <label htmlFor="quote-toElevator" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Ascenseur</label>
+                <select id="quote-toElevator" name="toElevator" value={formData.toElevator} onChange={handleChange} className="form-input-premium w-full">
                   <option value="oui">Oui</option>
                   <option value="non">Non</option>
                 </select>
               </div>
               <div className="md:col-span-2 space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Difficultés d’accès éventuelles</label>
-                <textarea name="toDifficulties" value={formData.toDifficulties} onChange={handleChange} rows={2} className="form-input-premium w-full resize-none py-3" placeholder="Code d'accès, sens interdit, accès poids lourd..."></textarea>
+                <label htmlFor="quote-toDifficulties" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Difficultés d’accès éventuelles</label>
+                <textarea id="quote-toDifficulties" name="toDifficulties" value={formData.toDifficulties} onChange={handleChange} rows={2} className="form-input-premium w-full resize-none py-3" placeholder="Code d'accès, sens interdit, accès poids lourd..."></textarea>
               </div>
             </div>
           </section>
@@ -495,13 +495,13 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Date souhaitée</label>
-                <input type="date" name="date" value={formData.date} onChange={handleChange} className={`form-input-premium w-full ${errors.date ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} />
+                <label htmlFor="quote-date" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Date souhaitée</label>
+                <input id="quote-date" type="date" name="date" value={formData.date} onChange={handleChange} className={`form-input-premium w-full ${errors.date ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} />
                 {errors.date && <p className="text-red-500 text-xs ml-1 font-medium">{errors.date}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Type de logement</label>
-                <select name="housingType" value={formData.housingType} onChange={handleChange} className={`form-input-premium w-full ${errors.housingType ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`}>
+                <label htmlFor="quote-housingType" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Type de logement</label>
+                <select id="quote-housingType" name="housingType" value={formData.housingType} onChange={handleChange} className={`form-input-premium w-full ${errors.housingType ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`}>
                   <option value="">Sélectionner</option>
                   <option value="appartement">Appartement</option>
                   <option value="maison">Maison</option>
@@ -510,13 +510,13 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
                 {errors.housingType && <p className="text-red-500 text-xs ml-1 font-medium">{errors.housingType}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Surface en m²</label>
-                <input type="number" name="surface" value={formData.surface} onChange={handleChange} className={`form-input-premium w-full ${errors.surface ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="Ex: 45" />
+                <label htmlFor="quote-surface" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Surface en m²</label>
+                <input id="quote-surface" type="number" name="surface" value={formData.surface} onChange={handleChange} className={`form-input-premium w-full ${errors.surface ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="Ex: 45" />
                 {errors.surface && <p className="text-red-500 text-xs ml-1 font-medium">{errors.surface}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Volume estimé en m³, si connu</label>
-                <input name="volume" value={formData.volume} onChange={handleChange} className="form-input-premium w-full" placeholder="Ex: 25 m³" />
+                <label htmlFor="quote-volume" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Volume estimé en m³, si connu</label>
+                <input id="quote-volume" name="volume" value={formData.volume} onChange={handleChange} className="form-input-premium w-full" placeholder="Ex: 25 m³" />
               </div>
               <div className="space-y-2">
                 <label htmlFor="quote-formula" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Formule souhaitée</label>
@@ -531,38 +531,38 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
                 {errors.formula && <p className="text-red-500 text-xs ml-1 font-medium">{errors.formula}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Visite commerciale souhaitée</label>
-                <select name="visitPreference" value={formData.visitPreference} onChange={handleChange} className="form-input-premium w-full">
+                <label htmlFor="quote-visitPreference" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Visite commerciale souhaitée</label>
+                <select id="quote-visitPreference" name="visitPreference" value={formData.visitPreference} onChange={handleChange} className="form-input-premium w-full">
                   <option value="a_definir">À définir avec un conseiller</option>
                   <option value="domicile">À domicile</option>
                   <option value="visio">En visio</option>
                 </select>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Besoin de monte-meuble</label>
-                <select name="needsLift" value={formData.needsLift} onChange={handleChange} className="form-input-premium w-full">
+                <label htmlFor="quote-needsLift" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Besoin de monte-meuble</label>
+                <select id="quote-needsLift" name="needsLift" value={formData.needsLift} onChange={handleChange} className="form-input-premium w-full">
                   <option value="oui">Oui</option>
                   <option value="non">Non</option>
                   <option value="je ne sais pas">Je ne sais pas</option>
                 </select>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Besoin d’emballage</label>
-                <select name="needsPacking" value={formData.needsPacking} onChange={handleChange} className="form-input-premium w-full">
+                <label htmlFor="quote-needsPacking" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Besoin d’emballage</label>
+                <select id="quote-needsPacking" name="needsPacking" value={formData.needsPacking} onChange={handleChange} className="form-input-premium w-full">
                   <option value="oui">Oui</option>
                   <option value="non">Non</option>
                 </select>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Besoin de garde-meuble</label>
-                <select name="needsStorage" value={formData.needsStorage} onChange={handleChange} className="form-input-premium w-full">
+                <label htmlFor="quote-needsStorage" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Besoin de garde-meuble</label>
+                <select id="quote-needsStorage" name="needsStorage" value={formData.needsStorage} onChange={handleChange} className="form-input-premium w-full">
                   <option value="oui">Oui</option>
                   <option value="non">Non</option>
                 </select>
               </div>
               <div className="md:col-span-2 space-y-2">
-                <label className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Message complémentaire</label>
-                <textarea name="message" value={formData.message} onChange={handleChange} rows={4} className="form-input-premium w-full resize-none py-3" placeholder="Informations utiles : objets fragiles, piano, coffre-fort, etc."></textarea>
+                <label htmlFor="quote-message" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Message complémentaire</label>
+                <textarea id="quote-message" name="message" value={formData.message} onChange={handleChange} rows={4} className="form-input-premium w-full resize-none py-3" placeholder="Informations utiles : objets fragiles, piano, coffre-fort, etc."></textarea>
               </div>
             </div>
           </section>
