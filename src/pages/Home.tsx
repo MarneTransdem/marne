@@ -56,7 +56,7 @@ const DeferredGoogleReviews: React.FC = () => {
 
 const Home: React.FC = () => {
   return (
-    <div className="home-premium">
+    <div className="home-premium home-refined">
       <SEO 
         title="Déménagement Paris et Île-de-France | Marne Transdem"
         description="Appartement, maison ou bureaux : déménagez à Paris et en Île-de-France avec Marne Transdem. Comparez nos formules et demandez votre devis gratuit et personnalisé."

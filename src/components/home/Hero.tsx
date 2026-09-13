@@ -99,12 +99,12 @@ export const Hero: React.FC = () => {
           </div>
           <figure className="home-hero-photo">
             <picture><source srcSet="/images/camion-demenageur-marne-transdem.avif" type="image/avif" /><img src="/images/camion-demenageur-marne-transdem.webp" width="1513" height="1135" alt="Camion de déménagement Marne Transdem" fetchPriority="high" decoding="async" /></picture>
-            <figcaption><span>MARNE TRANSDEM</span><strong>Votre projet.<br />Notre engagement.</strong><span>Paris · Île-de-France</span></figcaption>
+            <figcaption>Marne Transdem · Paris</figcaption>
           </figure>
         </div>
         <nav className="home-chapters" aria-label="Explorer la page d’accueil"><a href="#votre-projet"><span>01</span> Votre projet <ArrowRight size={16} aria-hidden="true" /></a><a href="#nos-formules"><span>02</span> Nos formules <ArrowRight size={16} aria-hidden="true" /></a><a href="#vos-questions"><span>03</span> Vos questions <ArrowRight size={16} aria-hidden="true" /></a></nav>
         <div className="home-quick-quote" id="home-quick-quote">
-          <div className="home-quick-intro"><span className="home-eyebrow">Votre prochain départ</span><h2>Préparons votre devis gratuit</h2><p>Indiquez votre trajet, puis complétez votre demande.</p></div>
+          <div className="home-quick-intro"><h2>Préparons votre devis gratuit</h2><p>Indiquez votre trajet, puis complétez votre demande.</p></div>
           <form onSubmit={handleQuickSubmit} className="home-quick-fields">
             <div><label htmlFor="home-from">Départ</label><input ref={fromRef} id="home-from" autoComplete="off" placeholder="Adresse de départ" onFocus={() => setAddressAssistance(true)} onKeyDownCapture={e => { if (e.key === 'Enter') e.preventDefault(); }} value={quickForm.fromAddress} onChange={(e) => setQuickForm(prev => ({ ...prev, fromAddress: e.target.value, fromCity: '', fromZip: '' }))} /></div>
             <div><label htmlFor="home-to">Arrivée</label><input ref={toRef} id="home-to" autoComplete="off" placeholder="Adresse d’arrivée" onFocus={() => setAddressAssistance(true)} onKeyDownCapture={e => { if (e.key === 'Enter') e.preventDefault(); }} value={quickForm.toAddress} onChange={(e) => setQuickForm(prev => ({ ...prev, toAddress: e.target.value, toCity: '', toZip: '' }))} /></div>
