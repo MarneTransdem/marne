@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/home-premium.css';
+import '../styles/home-editorial.css';
 import { motion } from 'motion/react';
 import { Hero } from '../components/home/Hero';
 import { ReassuranceBar } from '../components/home/ReassuranceBar';
@@ -74,7 +75,7 @@ const Home: React.FC = () => {
       <QuotePreparation />
 
       {/* Formulas Section */}
-      <section className="home-formulas py-24 stay-light-section transition-colors duration-300">
+      <section id="nos-formules" className="home-formulas py-24 stay-light-section transition-colors duration-300">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-brand-900 mb-4 stay-dark">Nos Formules de Déménagement</h2>
@@ -96,7 +97,7 @@ const Home: React.FC = () => {
                     Formule Équilibrée
                   </div>
                 )}
-                <h3 className="text-2xl font-bold text-brand-900 mb-2 tracking-tight stay-dark">{formula.name}</h3>
+                <p className="home-formula-number" aria-hidden="true">0{idx + 1}</p><h3 className="text-2xl font-bold text-brand-900 mb-2 tracking-tight stay-dark">{formula.name}</h3>
                 <p className="text-sm text-slate-500 mb-6 min-h-[40px] italic stay-dark opacity-70">{formula.description}</p>
                 <div className="space-y-4 mb-10 flex-grow">
                   {formula.features.map(feature => (
@@ -294,13 +295,15 @@ const Home: React.FC = () => {
       {/* CTA Final */}
       <section className="home-final py-24 bg-white dark:bg-slate-950 relative overflow-hidden font-sans italic transition-colors duration-300">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="bg-slate-50 stay-light-section rounded-[3rem] md:rounded-[4rem] p-12 md:p-20 border border-slate-100 dark:border-slate-800 text-center relative overflow-hidden">
+          <div className="home-contact-panel bg-slate-50 stay-light-section rounded-[3rem] md:rounded-[4rem] p-12 md:p-20 border border-slate-100 dark:border-slate-800 text-center relative overflow-hidden">
+<figure className="home-office-photo"><picture><source srcSet="/images/bureau-marne-transdem.avif" type="image/avif" /><img src="/images/bureau-marne-transdem.webp" width="1360" height="1020" loading="lazy" decoding="async" alt="La façade de l’agence Marne Transdem, rue des Maraîchers à Paris" /></picture><figcaption>Rencontrons-nous à Paris 20e.</figcaption></figure>
             {/* Background decoration */}
             <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 -skew-x-12 translate-x-1/4 pointer-events-none z-0"></div>
             
-            <div className="relative z-10">
+            <div className="home-contact-copy relative z-10">
+              <p className="home-eyebrow">Parlons de votre prochain départ</p>
               <h2 className="text-3xl md:text-5xl font-black text-brand-900 stay-dark mb-6 tracking-tighter uppercase italic">Un projet de déménagement <br/> à Paris ou en Île-de-France ?</h2>
-              <p className="text-slate-500 stay-dark mb-12 max-w-2xl mx-auto font-light italic text-lg opacity-80">Demandez une estimation personnalisée ou contactez directement notre équipe.</p>
+              <p className="text-slate-500 stay-dark mb-12 max-w-2xl mx-auto font-light italic text-lg opacity-80">Demandez une estimation personnalisée ou contactez directement notre équipe.</p><address className="home-office-address">43 rue des Maraîchers, 75020 Paris<br /><span>Accueil au bureau et téléphone : lun.–ven. 9 h–19 h · sam. 10 h–16 h</span></address>
               
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
                 <Link to="/demande-de-devis" className="bg-brand-900 text-white px-10 py-5 rounded-full font-bold text-xl hover:bg-brand-800 transition-all flex items-center gap-3 shadow-xl group">

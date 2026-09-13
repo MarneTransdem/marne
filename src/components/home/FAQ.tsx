@@ -2,16 +2,15 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FAQ_ITEMS, CONTACT } from '../../constants';
 import { ChevronDown, Phone } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
 
 export const FAQ: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-24 bg-white dark:bg-slate-950 transition-colors duration-300">
+    <section id="vos-questions" className="home-faq py-24 bg-white dark:bg-slate-950 transition-colors duration-300">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
+        <div className="home-faq-layout">
+          <div className="home-faq-intro">
             <h2 className="text-amber-800 dark:text-accent text-sm font-bold uppercase tracking-widest mb-4">FAQ déménagement</h2>
             <p className="text-3xl md:text-5xl font-bold text-brand-900 stay-dark mb-6 tracking-tight">
               Questions fréquentes
@@ -21,7 +20,7 @@ export const FAQ: React.FC = () => {
             </p>
           </div>
           
-          <div className="space-y-4">
+          <div className="home-faq-items">
             {FAQ_ITEMS.map((item, index) => (
               <div 
                 key={index}
@@ -30,6 +29,9 @@ export const FAQ: React.FC = () => {
                 }`}
               >
                 <button
+                  id={`home-faq-question-${index}`}
+                  aria-expanded={openIndex === index}
+                  aria-controls={`home-faq-answer-${index}`}
                   onClick={() => setOpenIndex(openIndex === index ? null : index)}
                   className="w-full px-5 md:px-8 py-5 md:py-6 flex items-center justify-between text-left focus:outline-none"
                 >
@@ -41,6 +43,10 @@ export const FAQ: React.FC = () => {
                   </div>
                 </button>
                 <div 
+                  id={`home-faq-answer-${index}`}
+                  role="region"
+                  aria-labelledby={`home-faq-question-${index}`}
+                  aria-hidden={openIndex !== index}
                   className={`grid transition-all duration-300 ease-in-out ${
                     openIndex === index ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
                   }`}
@@ -55,7 +61,7 @@ export const FAQ: React.FC = () => {
             ))}
           </div>
 
-          <div className="mt-16 text-center">
+          <div className="home-faq-contact">
             <p className="text-slate-600 dark:text-slate-400 mb-6">Vous avez une question spécifique ?</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="flex items-center gap-3 text-brand-900 dark:text-white font-bold hover:text-accent transition-colors">

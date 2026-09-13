@@ -51,7 +51,7 @@ export const Header: React.FC = () => {
   return (
     <>
       <header 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`${location.pathname === '/' ? 'home-site-header ' : ''}fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled ? 'glass py-3' : `bg-transparent pt-5 ${location.pathname === '/' ? 'pb-5 md:py-8' : 'pb-8 md:pt-8 md:pb-12'}`
         }`}
       >

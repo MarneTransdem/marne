@@ -78,6 +78,7 @@ export const Hero: React.FC = () => {
         <div className="home-hero-grid">
           <div className="home-hero-copy">
             <p className="home-eyebrow"><span aria-hidden="true" /> Paris & Île-de-France</p>
+            <p className="home-signature">Un nouveau départ,<br /><em>bien accompagné.</em></p>
             <h1 id="home-hero-heading">Entreprise de <span>déménagement à Paris</span></h1>
             <p className="home-hero-description">Un appartement à Paris, une maison en Île-de-France ou des bureaux à transférer : Marne Transdem prépare votre déménagement selon vos accès, votre volume et les prestations que vous souhaitez déléguer.</p>
             <div className="home-hero-actions">
@@ -91,6 +92,7 @@ export const Hero: React.FC = () => {
             <figcaption><span>MARNE TRANSDEM</span><strong>Votre projet.<br />Notre engagement.</strong><span>Paris · Île-de-France</span></figcaption>
           </figure>
         </div>
+        <nav className="home-chapters" aria-label="Explorer la page d’accueil"><a href="#votre-projet"><span>01</span> Votre projet <ArrowRight size={16} aria-hidden="true" /></a><a href="#nos-formules"><span>02</span> Nos formules <ArrowRight size={16} aria-hidden="true" /></a><a href="#vos-questions"><span>03</span> Vos questions <ArrowRight size={16} aria-hidden="true" /></a></nav>
         <div className="home-quick-quote" id="home-quick-quote">
           <div className="home-quick-intro"><span className="home-eyebrow">Votre prochain départ</span><h2>Préparons votre devis gratuit</h2><p>Indiquez votre trajet, puis complétez votre demande.</p></div>
           <form onSubmit={handleQuickSubmit} className="home-quick-fields">
