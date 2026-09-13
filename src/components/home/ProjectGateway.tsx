@@ -9,7 +9,7 @@ const projects = [
 
 export function ProjectGateway() {
   return (
-    <section aria-labelledby="home-projects-heading" className="bg-brand-900 py-16 md:py-20 text-white">
+    <section aria-labelledby="home-projects-heading" className="home-projects bg-brand-900 py-16 md:py-20 text-white">
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mb-10">
           <p className="text-accent text-xs font-bold tracking-widest uppercase mb-3">Votre projet, votre accompagnement</p>

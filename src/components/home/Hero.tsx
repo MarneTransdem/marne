@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowRight, Phone, ClipboardCheck, ShieldCheck, Star } from 'lucide-react';
-import { motion } from 'motion/react';
+import { ArrowRight, Phone } from 'lucide-react';
 import { CONTACT } from '../../constants';
 import { trackConversion } from '../../lib/public-analytics';
 
@@ -74,117 +73,35 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center bg-slate-50 dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800 pt-40 md:pt-48 pb-20 md:pb-24 overflow-hidden transition-colors duration-300">
-      {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 -skew-x-12 translate-x-1/4 pointer-events-none z-0"></div>
-      
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div className="space-y-8">
-              <div className="flex flex-wrap items-center gap-4 mb-8">
-                <div className="inline-flex items-center gap-3 bg-accent/10 border border-accent/20 text-brand-900 dark:text-accent px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-[0.2em]">
-                  <span className="flex h-2 w-2 rounded-full bg-accent animate-pulse"></span>
-                  Paris & Île-de-France
-                </div>
-                <GoogleBadge />
-              </div>
-              
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-brand-900 dark:text-white leading-[1.1] mb-6 tracking-tight italic uppercase">
-                Entreprise de{' '}<br/>
-                <span className="text-accent underline decoration-brand-900/10 dark:decoration-white/10 underline-offset-8">déménagement à Paris</span>
-              </h1>
-              
-              <p className="text-lg md:text-xl text-slate-500 dark:text-slate-400 mb-10 md:mb-12 max-w-xl leading-relaxed font-light italic">
-                Un appartement à Paris, une maison en Île-de-France ou des bureaux à transférer : Marne Transdem prépare votre déménagement selon vos accès, votre volume et les prestations que vous souhaitez déléguer.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
-                <Link 
-                  to="/demande-de-devis" 
-                  onClick={() => trackConversion('quote_cta_click', { placement: 'hero_primary' })}
-                  className="btn-premium bg-brand-900 text-white px-8 py-5 rounded-full font-bold text-lg hover:bg-brand-800 shadow-xl flex items-center justify-center gap-3 group"
-                >
-                  <span className="text-center">Demander mon devis gratuit</span>
-                  <ArrowRight size={22} className="shrink-0 group-hover:translate-x-1 transition-transform" />
-                </Link>
-                <a 
-                  href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}
-                  onClick={() => trackConversion('phone_click', { placement: 'hero_primary' })}
-                  className="btn-premium bg-white text-brand-900 stay-dark border border-slate-200 px-8 py-5 rounded-full font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-3"
-                >
-                  <Phone size={20} className="text-accent" />
-                  Appeler
-                </a>
-              </div>
+    <section className="home-hero" aria-labelledby="home-hero-heading">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="home-hero-grid">
+          <div className="home-hero-copy">
+            <p className="home-eyebrow"><span aria-hidden="true" /> Paris & Île-de-France</p>
+            <h1 id="home-hero-heading">Entreprise de <span>déménagement à Paris</span></h1>
+            <p className="home-hero-description">Un appartement à Paris, une maison en Île-de-France ou des bureaux à transférer : Marne Transdem prépare votre déménagement selon vos accès, votre volume et les prestations que vous souhaitez déléguer.</p>
+            <div className="home-hero-actions">
+              <Link to="/demande-de-devis" onClick={() => trackConversion('quote_cta_click', { placement: 'hero_primary' })} className="home-button home-button-primary">Demander mon devis gratuit <ArrowRight size={20} aria-hidden="true" /></Link>
+              <a href={'tel:' + CONTACT.phone.split(' ').join('')} onClick={() => trackConversion('phone_click', { placement: 'hero_primary' })} className="home-button home-button-secondary"><Phone size={18} aria-hidden="true" /> Appeler</a>
             </div>
-            
-            <motion.div 
-              initial={false}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.2 }}
-              className="relative lg:block"
-            >
-              <div className="relative z-10 p-1 bg-gradient-to-br from-slate-200 to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-[2.5rem] md:rounded-[3rem] shadow-premium max-w-lg mx-auto lg:max-w-none">
-                 <div className="bg-white rounded-[2.4rem] md:rounded-[2.9rem] p-8 md:p-10 py-10 md:py-12">
-                    <h2 className="text-2xl font-bold text-brand-900 stay-dark mb-2 tracking-tight italic uppercase">Préparons votre devis gratuit</h2>
-                    <p className="text-sm text-slate-500 stay-dark mb-8 font-light italic opacity-70">Indiquez votre trajet, puis complétez votre demande.</p>
-                    
-                    <form onSubmit={handleQuickSubmit} className="space-y-5">
-                      <div className="space-y-1.5 font-sans italic">
-                        <label className="text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest ml-1" htmlFor="home-from">Départ</label>
-                        <input 
-                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm outline-none placeholder:text-slate-300 focus:border-accent transition-colors text-brand-900 stay-dark" 
-                          id="home-from" autoComplete="off" placeholder="Adresse de départ"
-                          value={quickForm.fromAddress}
-                          onChange={(e) => setQuickForm(prev => ({ ...prev, fromAddress: e.target.value }))}
-                        />
-                      </div>
-                      <div className="space-y-1.5 font-sans italic">
-                        <label className="text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest ml-1" htmlFor="home-to">Arrivée</label>
-                        <input 
-                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm outline-none placeholder:text-slate-300 focus:border-accent transition-colors text-brand-900 stay-dark" 
-                          id="home-to" autoComplete="off" placeholder="Adresse d'arrivée"
-                          value={quickForm.toAddress}
-                          onChange={(e) => setQuickForm(prev => ({ ...prev, toAddress: e.target.value }))}
-                        />
-                      </div>
-                      <div className="space-y-1.5 font-sans italic">
-                        <label className="text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest ml-1">Volume (m³)</label>
-                        <div className="grid grid-cols-4 gap-3">
-                          {['15', '30', '50', '+'].map(v => (
-                            <button 
-                              key={v}
-                              type="button"
-                              aria-pressed={quickForm.volume === (v === '+' ? '60' : v)}
-                              aria-label={v === '+' ? '60 mètres cubes ou plus' : `${v} mètres cubes`}
-                              onClick={() => setQuickForm(prev => ({ ...prev, volume: v === '+' ? '60' : v }))}
-                              className={`rounded-xl py-2 flex items-center justify-center text-xs font-bold transition-all ${
-                                (quickForm.volume === v || (v === '+' && quickForm.volume === '60'))
-                                  ? 'bg-accent text-brand-900 stay-dark border-accent' 
-                                  : 'bg-slate-100 border border-slate-200 text-slate-600 hover:border-slate-300 dark:bg-slate-900 dark:border-slate-800 dark:text-slate-300 dark:hover:border-slate-700'
-                              }`}
-                            >
-                              {v === '+' ? '60+' : v}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-  
-                      <button type="submit" className="w-full mt-10 bg-accent text-brand-900 stay-dark py-5 rounded-full font-bold flex items-center justify-center gap-3 hover:bg-accent-hover transition-colors shadow-lg shadow-accent/20 active:scale-[0.98] uppercase italic text-sm tracking-widest">
-                        Continuer ma demande
-                        <ArrowRight size={20} className="shrink-0" />
-                      </button>
-                    </form>
-  
-                    <p className="mt-8 pt-8 border-t border-slate-100 text-sm text-slate-600 stay-dark leading-relaxed">
-                      Une fois le formulaire complet envoyé, Marne Transdem reçoit votre demande pour préparer un devis adapté à votre projet.
-                    </p>
-                 </div>
-              </div>
-            </motion.div>
+            <div className="home-hero-review"><GoogleBadge /><span>Une équipe à votre écoute,<br />au cœur de Paris 20e.</span></div>
           </div>
+          <figure className="home-hero-photo">
+            <picture><source srcSet="/images/camion-demenageur-marne-transdem.avif" type="image/avif" /><img src="/images/camion-demenageur-marne-transdem.webp" width="1513" height="1135" alt="Camion de déménagement Marne Transdem" fetchPriority="high" decoding="async" /></picture>
+            <figcaption><span>MARNE TRANSDEM</span><strong>Votre projet.<br />Notre engagement.</strong><span>Paris · Île-de-France</span></figcaption>
+          </figure>
         </div>
-      </section>
-    );
-  };
+        <div className="home-quick-quote" id="home-quick-quote">
+          <div className="home-quick-intro"><span className="home-eyebrow">Votre prochain départ</span><h2>Préparons votre devis gratuit</h2><p>Indiquez votre trajet, puis complétez votre demande.</p></div>
+          <form onSubmit={handleQuickSubmit} className="home-quick-fields">
+            <div><label htmlFor="home-from">Départ</label><input id="home-from" autoComplete="off" placeholder="Adresse de départ" value={quickForm.fromAddress} onChange={(e) => setQuickForm(prev => ({ ...prev, fromAddress: e.target.value }))} /></div>
+            <div><label htmlFor="home-to">Arrivée</label><input id="home-to" autoComplete="off" placeholder="Adresse d’arrivée" value={quickForm.toAddress} onChange={(e) => setQuickForm(prev => ({ ...prev, toAddress: e.target.value }))} /></div>
+            <fieldset><legend>Volume (m³)</legend><div className="home-volume-options">{['15', '30', '50', '+'].map(v => (<button key={v} type="button" aria-pressed={quickForm.volume === (v === '+' ? '60' : v)} aria-label={v === '+' ? '60 mètres cubes ou plus' : v + ' mètres cubes'} onClick={() => setQuickForm(prev => ({ ...prev, volume: v === '+' ? '60' : v }))}>{v === '+' ? '60+' : v}</button>))}</div></fieldset>
+            <button type="submit" className="home-button home-button-primary">Continuer ma demande <ArrowRight size={18} aria-hidden="true" /></button>
+          </form>
+          <p className="home-quick-note">Une fois le formulaire complet envoyé, Marne Transdem reçoit votre demande pour préparer un devis adapté à votre projet.</p>
+        </div>
+      </div>
+    </section>
+  );
+};

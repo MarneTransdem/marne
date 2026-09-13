@@ -4,7 +4,7 @@ import { trackConversion } from '../../lib/public-analytics';
 
 export function QuotePreparation() {
   return (
-    <section aria-labelledby="home-quote-heading" className="py-16 md:py-24 bg-white dark:bg-slate-900">
+    <section aria-labelledby="home-quote-heading" className="home-preparation py-16 md:py-24 bg-white dark:bg-slate-900">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           <div>

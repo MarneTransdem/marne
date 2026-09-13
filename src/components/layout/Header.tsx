@@ -195,8 +195,8 @@ export const Header: React.FC = () => {
           <div className="lg:hidden flex items-center gap-2">
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-full transition-all duration-300 ${
-                isScrolled 
+              className={`md:hidden min-h-11 min-w-11 p-2 rounded-full transition-all duration-300 ${
+                isScrolled || theme === 'light'
                   ? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300' 
                   : 'bg-white/10 text-white'
               }`}

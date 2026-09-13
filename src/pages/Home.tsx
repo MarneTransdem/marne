@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/home-premium.css';
 import { motion } from 'motion/react';
 import { Hero } from '../components/home/Hero';
 import { ReassuranceBar } from '../components/home/ReassuranceBar';
@@ -54,7 +55,7 @@ const DeferredGoogleReviews: React.FC = () => {
 
 const Home: React.FC = () => {
   return (
-    <>
+    <div className="home-premium">
       <SEO 
         title="Déménagement Paris et Île-de-France | Marne Transdem"
         description="Appartement, maison ou bureaux : déménagez à Paris et en Île-de-France avec Marne Transdem. Comparez nos formules et demandez votre devis gratuit et personnalisé."
@@ -73,7 +74,7 @@ const Home: React.FC = () => {
       <QuotePreparation />
 
       {/* Formulas Section */}
-      <section className="py-24 stay-light-section transition-colors duration-300">
+      <section className="home-formulas py-24 stay-light-section transition-colors duration-300">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-brand-900 mb-4 stay-dark">Nos Formules de Déménagement</h2>
@@ -88,11 +89,10 @@ const Home: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                whileHover={{ y: -8, scale: formula.popular ? 1.07 : 1.02, transition: { duration: 0.3 } }}
-                className={`stay-white-bg rounded-2xl p-8 border ${formula.popular ? 'border-accent ring-4 ring-accent/5 lg:scale-105' : 'border-slate-100'} relative shadow-premium flex flex-col ${formula.popular ? 'z-10 bg-slate-50/20' : ''}`}
+                className={`stay-white-bg rounded-2xl p-8 border ${formula.popular ? 'border-accent ring-4 ring-accent/5 ' : 'border-slate-100'} relative shadow-premium flex flex-col ${formula.popular ? 'z-10 bg-slate-50/20' : ''}`}
               >
                 {formula.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest whitespace-nowrap">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-brand-900 px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest whitespace-nowrap">
                     Formule Équilibrée
                   </div>
                 )}
@@ -123,7 +123,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-24 bg-brand-900 text-white overflow-hidden relative font-sans italic">
+      <section className="home-trust py-24 bg-brand-900 text-white overflow-hidden relative font-sans italic">
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="space-y-12">
@@ -179,7 +179,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Areas Section - Refactored */}
-      <section className="py-24 bg-white font-sans italic transition-colors duration-300">
+      <section className="home-areas py-24 bg-white font-sans italic transition-colors duration-300">
         <div className="container mx-auto px-4 md:px-6">
           <div className="stay-light-section rounded-3xl md:rounded-[4rem] p-6 md:p-12 xl:p-20 border border-slate-100 flex flex-col lg:flex-row gap-20 items-center overflow-hidden relative">
             <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 -skew-x-12 translate-x-1/4 pointer-events-none"></div>
@@ -233,7 +233,7 @@ const Home: React.FC = () => {
       </React.Suspense>
 
       {/* Advice Teaser Section */}
-      <section className="py-24 bg-white dark:bg-slate-950 overflow-hidden relative font-sans italic transition-colors duration-300">
+      <section className="home-advice py-24 bg-white dark:bg-slate-950 overflow-hidden relative font-sans italic transition-colors duration-300">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <div className="lg:w-1/2 relative">
@@ -292,7 +292,7 @@ const Home: React.FC = () => {
       <DeferredGoogleReviews />
 
       {/* CTA Final */}
-      <section className="py-24 bg-white dark:bg-slate-950 relative overflow-hidden font-sans italic transition-colors duration-300">
+      <section className="home-final py-24 bg-white dark:bg-slate-950 relative overflow-hidden font-sans italic transition-colors duration-300">
         <div className="container mx-auto px-4 md:px-6">
           <div className="bg-slate-50 stay-light-section rounded-[3rem] md:rounded-[4rem] p-12 md:p-20 border border-slate-100 dark:border-slate-800 text-center relative overflow-hidden">
             {/* Background decoration */}
@@ -316,7 +316,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 
