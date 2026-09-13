@@ -16,13 +16,15 @@ const API_KEY = process.env.GOOGLE_MAPS_PLATFORM_KEY || '';
 const hasValidKey = Boolean(API_KEY) && API_KEY !== 'YOUR_API_KEY';
 
 const ReviewCard: React.FC<{ review: any; index: number }> = ({ review, index }) => {
+  const [expanded, setExpanded] = useState(false);
+  const reviewTextId = React.useId();
   return (
     <motion.div
       initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
-      className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-premium flex flex-col h-full group hover:border-accent transition-all duration-500"
+      className="home-review-card bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-premium flex flex-col h-full group hover:border-accent transition-all duration-500"
     >
       <div className="flex items-center gap-4 mb-6">
         {review.authorPhotoUrl ? (
@@ -44,11 +46,12 @@ const ReviewCard: React.FC<{ review: any; index: number }> = ({ review, index })
         </div>
       </div>
       
-      <div className="flex gap-1 mb-6">
+      <div className="flex gap-1 mb-6" role="img" aria-label={`Note : ${review.rating} sur 5`}>
         {[...Array(5)].map((_, i) => (
           <Star 
             key={i} 
             size={14} 
+            aria-hidden="true"
             className={`${i < review.rating ? 'text-accent fill-accent' : 'text-slate-200'}`} 
           />
         ))}
@@ -56,16 +59,14 @@ const ReviewCard: React.FC<{ review: any; index: number }> = ({ review, index })
 
       <div className="relative mb-8 flex-grow">
         <Quote className="absolute -top-2 -left-2 text-accent/10 w-8 h-8 -z-10" />
-        <p className="text-slate-600 dark:text-slate-400 italic font-light leading-relaxed text-sm line-clamp-4 group-hover:line-clamp-none transition-all duration-500">
+        <p id={reviewTextId} className={`home-review-text text-slate-600 dark:text-slate-400 font-light leading-relaxed text-sm ${expanded ? '' : 'line-clamp-4'}`}>
           "{review.text}"
         </p>
+        <button type="button" className="home-review-toggle" aria-expanded={expanded} aria-controls={reviewTextId} onClick={() => setExpanded(value => !value)}>{expanded ? 'Réduire l’avis' : 'Lire l’avis complet'}<span className="sr-only"> de {review.authorName}</span></button>
       </div>
 
       <div className="pt-6 border-t border-slate-50 dark:border-slate-800 flex items-center justify-between">
         <span className="text-[10px] font-black text-brand-900 dark:text-white uppercase tracking-widest opacity-30 italic">Avis Google</span>
-        <div className="w-6 h-6 rounded-full bg-accent text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-           <ArrowRight size={12} />
-        </div>
       </div>
     </motion.div>
   );
@@ -106,7 +107,7 @@ export const GoogleReviews: React.FC = () => {
               initial={false}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="bg-brand-900 rounded-[2rem] p-10 text-white flex flex-col justify-center items-center text-center italic relative overflow-hidden group min-h-[400px]"
+              className="home-review-invitation bg-brand-900 rounded-[2rem] p-10 text-white flex flex-col justify-center items-center text-center italic relative overflow-hidden group min-h-[400px]"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl group-hover:bg-accent/40 transition-all duration-500"></div>
               
