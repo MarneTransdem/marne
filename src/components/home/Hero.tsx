@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, Phone } from 'lucide-react';
 import { CONTACT } from '../../constants';
 import { trackConversion } from '../../lib/public-analytics';
+import type { SelectedHomeAddress } from './HomeAddressAutocomplete';
+
+const HomeAddressAutocomplete = React.lazy(() => import('./HomeAddressAutocomplete'));
 
 const GoogleBadge = () => (
     <a 
@@ -42,6 +45,9 @@ const GoogleBadge = () => (
 
 export const Hero: React.FC = () => {
   const navigate = useNavigate();
+  const fromRef = useRef<HTMLInputElement>(null);
+  const toRef = useRef<HTMLInputElement>(null);
+  const [addressAssistance, setAddressAssistance] = useState(false);
   const [quickForm, setQuickForm] = useState({
     fromAddress: '',
     fromCity: '',
@@ -51,6 +57,10 @@ export const Hero: React.FC = () => {
     toZip: '',
     volume: ''
   });
+
+  const selectAddress = useCallback((side: 'from' | 'to', address: SelectedHomeAddress) => {
+    setQuickForm(prev => ({ ...prev, [side + 'Address']: address.address, [side + 'City']: address.city, [side + 'Zip']: address.zip }));
+  }, []);
 
   const handleQuickSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,11 +106,12 @@ export const Hero: React.FC = () => {
         <div className="home-quick-quote" id="home-quick-quote">
           <div className="home-quick-intro"><span className="home-eyebrow">Votre prochain départ</span><h2>Préparons votre devis gratuit</h2><p>Indiquez votre trajet, puis complétez votre demande.</p></div>
           <form onSubmit={handleQuickSubmit} className="home-quick-fields">
-            <div><label htmlFor="home-from">Départ</label><input id="home-from" autoComplete="off" placeholder="Adresse de départ" value={quickForm.fromAddress} onChange={(e) => setQuickForm(prev => ({ ...prev, fromAddress: e.target.value }))} /></div>
-            <div><label htmlFor="home-to">Arrivée</label><input id="home-to" autoComplete="off" placeholder="Adresse d’arrivée" value={quickForm.toAddress} onChange={(e) => setQuickForm(prev => ({ ...prev, toAddress: e.target.value }))} /></div>
+            <div><label htmlFor="home-from">Départ</label><input ref={fromRef} id="home-from" autoComplete="off" placeholder="Adresse de départ" onFocus={() => setAddressAssistance(true)} onKeyDownCapture={e => { if (e.key === 'Enter') e.preventDefault(); }} value={quickForm.fromAddress} onChange={(e) => setQuickForm(prev => ({ ...prev, fromAddress: e.target.value, fromCity: '', fromZip: '' }))} /></div>
+            <div><label htmlFor="home-to">Arrivée</label><input ref={toRef} id="home-to" autoComplete="off" placeholder="Adresse d’arrivée" onFocus={() => setAddressAssistance(true)} onKeyDownCapture={e => { if (e.key === 'Enter') e.preventDefault(); }} value={quickForm.toAddress} onChange={(e) => setQuickForm(prev => ({ ...prev, toAddress: e.target.value, toCity: '', toZip: '' }))} /></div>
             <fieldset><legend>Volume (m³)</legend><div className="home-volume-options">{['15', '30', '50', '+'].map(v => (<button key={v} type="button" aria-pressed={quickForm.volume === (v === '+' ? '60' : v)} aria-label={v === '+' ? '60 mètres cubes ou plus' : v + ' mètres cubes'} onClick={() => setQuickForm(prev => ({ ...prev, volume: v === '+' ? '60' : v }))}>{v === '+' ? '60+' : v}</button>))}</div></fieldset>
             <button type="submit" className="home-button home-button-primary">Continuer ma demande <ArrowRight size={18} aria-hidden="true" /></button>
           </form>
+          {addressAssistance && <React.Suspense fallback={null}><HomeAddressAutocomplete fromRef={fromRef} toRef={toRef} onSelect={selectAddress} /></React.Suspense>}
           <p className="home-quick-note">Une fois le formulaire complet envoyé, Marne Transdem reçoit votre demande pour préparer un devis adapté à votre projet.</p>
         </div>
       </div>
