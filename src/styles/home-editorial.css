@@ -313,7 +313,6 @@
  .home-refined .home-hero-impact .home-hero-review>span { display:none; }
 }
 @media (max-width:639px) {
- .home-refined .home-hero { padding-top:98px; }
  .home-refined .home-hero-impact { display:flex; flex-direction:column; align-items:stretch; min-height:0; padding:30px 22px 0; margin-inline:0; }
  .home-premium.home-refined .home-hero-impact .home-signature { font-size:clamp(36px,10.4vw,48px); margin:22px 0; }
  .home-premium.home-refined .home-hero-impact h1,.home-premium.home-refined .home-hero-impact h1 span { font-size:16px; }
