@@ -9,7 +9,7 @@ export function HomeFormulas() {
     <section id="nos-formules" className="home-formulas home-formula-comparison stay-light-section" aria-labelledby="home-formulas-heading">
       <div className="container mx-auto px-4 md:px-6">
         <div className="home-formula-intro">
-          <div><p className="home-eyebrow">À chacun son accompagnement</p><h2 id="home-formulas-heading" className="stay-dark">Nos Formules de Déménagement</h2></div>
+          <div><p className="home-eyebrow">À chacun son accompagnement</p><h2 id="home-formulas-heading" className="stay-dark">Nos Formules <span>de Déménagement</span></h2></div>
           <p>Choisissez le niveau d'accompagnement adapté à vos besoins.</p>
         </div>
         <div className="home-formula-options">

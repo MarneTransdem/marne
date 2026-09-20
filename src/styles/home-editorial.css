@@ -428,3 +428,57 @@
  .home-refined .home-service-row h3 { font-size:17px; }
  .home-refined .home-special-project { grid-template-columns:1fr; gap:12px; padding:24px; }
 }
+
+/* Quote preparation: a distinct, calm panel with a numbered reading path. */
+.home-premium.home-refined .home-preparation { background:#10283c; color:#f6f7f2; }
+.home-refined .home-preparation-layout { gap:64px; align-items:center; }
+.home-refined .home-preparation-copy .home-preparation-eyebrow { color:#c4d1bd; font-size:10px; text-transform:uppercase; letter-spacing:.15em; margin-bottom:20px; }
+.home-refined .home-preparation h2 { color:#fff; font-size:clamp(32px,3.3vw,45px); line-height:1.14; letter-spacing:-.035em; }
+.home-refined .home-preparation h2 span { display:block; color:#c4d1bd; font-style:italic; }
+.home-refined .home-preparation p { color:#ccd6dd; font-size:14px; line-height:1.85; }
+.home-refined .home-preparation p a { color:#f3f6ee; text-decoration-color:#99ad96; }
+.home-refined .home-preparation-copy>a { background:#f1f5ed; color:#10283c; border-radius:8px; font-size:13px; min-height:54px; line-height:1.5; }
+.home-refined .home-preparation-copy>a:hover { background:#d9e4d3; }
+.home-refined .home-preparation-steps { list-style:none; border:1px solid #ffffff24; border-radius:16px; padding:12px 28px; margin:0; background:#ffffff05; }
+.home-refined .home-preparation-steps li { padding:24px 0; border:0; margin:0; }
+.home-refined .home-preparation-steps li+li { border-top:1px solid #ffffff20; }
+.home-refined .home-preparation-steps h3 { display:flex; align-items:center; gap:14px; color:#fff; font-family:inherit; font-size:18px; font-weight:550; line-height:1.4; margin-bottom:12px; }
+.home-refined .home-preparation-number { display:grid; place-items:center; width:34px; height:34px; flex-shrink:0; border:1px solid #b6c7ac66; color:#c4d1bd; border-radius:50%; font-size:13px; }
+.home-refined .home-preparation-steps p { padding-left:48px; font-size:13px; }
+/* Three comparable levels, with a restrained emphasis on Standard. */
+.home-refined .home-formula-intro { gap:32px 64px; margin-bottom:40px; }
+.home-refined .home-formula-intro .home-eyebrow { color:#607162; font-size:10px; letter-spacing:.14em; }
+.home-refined .home-formula-intro h2 { font-size:clamp(32px,3.4vw,46px); line-height:1.14; letter-spacing:-.035em; }
+.home-refined .home-formula-intro h2 span { display:block; color:#607162; font-style:italic; }
+.home-refined .home-formula-option { border-radius:14px; padding:30px; border-color:#dce3d8; box-shadow:0 8px 24px #10283c03; }
+.home-refined .home-formula-option.home-formula-balanced { background:#eef3eb; border-color:#8a9f83; box-shadow:inset 0 4px #607957; }
+.home-refined .home-formula-top { min-height:32px; margin-bottom:18px; }
+.home-refined .home-formula-top>span:first-child { font-family:inherit; font-size:11px; letter-spacing:.08em; }
+.home-refined .home-formula-badge { background:#dfe8d9; color:#354d32; border-radius:20px; font-size:10px; padding:6px 12px; }
+.home-premium.home-refined .home-formula-option h3 { font-size:34px; margin-bottom:16px; }
+.home-refined .home-formula-description { min-height:100px; margin-bottom:0; font-size:13px; }
+.home-refined .home-formula-option ul { border-bottom:0; border-color:#dce3d8; margin:18px 0 24px; padding:22px 0 0; }
+.home-refined .home-formula-option li { font-size:13px; line-height:1.7; gap:10px; }
+.home-refined .home-formula-option li svg { color:#607957; }
+.home-refined .home-formula-select { border-radius:8px; min-height:56px; background:#f8faf6; }
+.home-refined .home-formula-balanced .home-formula-select { background:#10283c; }
+.home-refined .home-formula-select:hover { background:#e2eade; }
+.home-refined .home-formula-balanced .home-formula-select:hover { background:#284736; }
+.home-refined .home-formula-bottom { padding-top:22px; border-top:1px solid #dce3d8; }
+@media (max-width:1023px) {
+ .home-refined .home-preparation-layout { gap:32px; }
+ .home-refined .home-formula-option { padding:24px 18px; }
+ .home-refined .home-formula-description { min-height:140px; }
+}
+@media (max-width:767px) {
+ .home-refined .home-formula-description { min-height:0; }
+ .home-refined .home-formula-option { padding:26px; }
+ .home-refined .home-formula-intro { gap:18px; margin-bottom:28px; }
+ .home-refined .home-formula-bottom { align-items:flex-start; }
+}
+@media (max-width:639px) {
+ .home-refined .home-preparation-steps { padding:4px 20px; }
+ .home-refined .home-preparation-steps h3 { font-size:17px; gap:12px; }
+ .home-refined .home-preparation-steps p { padding-left:0; }
+ .home-refined .home-preparation-copy>a { width:100%; justify-content:space-between; }
+}
