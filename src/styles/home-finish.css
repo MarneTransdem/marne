@@ -118,3 +118,16 @@
 .dark .home-related-resources p { color:#c5d0da; }
 .dark .home-related-resources .grid a { background:#132638; border-color:#344b5b; }
 .dark .home-refined .home-areas h2 span { color:#c4d0c2; }
+
+/* Verified Google Maps attribution and aggregate score, distinct from testimonials. */
+.home-premium.home-refined .home-hero-impact .home-google-rating { display:flex; flex-direction:column; align-items:flex-start; gap:6px; flex-shrink:0; background:#fff; color:#1f1f1f; border:1px solid #e4e7e0; border-radius:10px; padding:14px 18px; text-decoration:none; }
+.home-google-logo { height:18px; width:auto; max-width:none; margin:0 0 5px; }
+.home-google-score { display:flex; align-items:center; gap:7px; font-size:12px; }
+.home-google-score strong { font-size:23px; line-height:1.1; font-weight:650; }
+.home-google-stars { position:relative; display:inline-block; font-size:19px; line-height:1; letter-spacing:1px; white-space:nowrap; }
+.home-google-stars>span:first-child { color:#dce0e3; }
+.home-google-stars>span:last-child { position:absolute; inset:0 auto 0 0; overflow:hidden; color:#b66c00; }
+.home-google-count { display:flex; align-items:center; gap:7px; font-size:11px; }
+.home-google-date { font-size:10px; color:#5e5e5e; }
+.home-google-rating:hover .home-google-count { text-decoration:underline; text-underline-offset:3px; }
+@media (max-width:639px) { .home-premium.home-refined .home-hero-impact .home-google-rating { padding:14px 18px; } }
