@@ -208,11 +208,11 @@
 .home-refined .home-chapters a+a { border-left:0; padding-left:24px; }
 .home-refined .home-chapters a span { display:none; }
 .home-refined .home-chapters a svg { width:14px; }
-.home-premium.home-refined .home-quick-quote { padding:30px 0 0; background:transparent; border:0; border-top:1px solid #d5dbd5; border-radius:0; box-shadow:none; margin-top:0; }
-.home-premium.home-refined .home-quick-intro h2 { font-family:inherit; font-size:20px; font-weight:500; letter-spacing:-.02em; }
-.home-refined .home-quick-fields input,.home-refined .home-volume-options button { border-radius:4px; background:#fff; }
+.home-premium.home-refined .home-quick-quote { padding:32px; background:#fff; border:1px solid #dfe4de; border-radius:16px; box-shadow:0 14px 40px #10283c06; margin-top:16px; }
+.home-premium.home-refined .home-quick-intro h2 { font-family:inherit; font-size:26px; font-weight:550; letter-spacing:-.035em; }
+.home-refined .home-quick-fields input,.home-refined .home-volume-options button { border-radius:8px; background:#f8f9f6; height:56px; }
 .home-refined .home-volume-options button[aria-pressed=true] { background:#10283c; color:white; }
-.home-refined .home-quick-fields .home-button { border-radius:4px; }
+.home-refined .home-quick-fields .home-button { border-radius:8px; min-height:56px; padding:16px 20px; }
 .home-refined .home-reassurance .grid>div { padding:8px 0; }
 .home-refined .home-reassurance .grid>div>div:first-child { padding:3px 0; background:transparent; border-radius:0; color:#53635c; }
 .home-refined .home-reassurance .grid>div:hover { background:transparent; }
@@ -278,7 +278,7 @@
  .home-refined .home-hero-review>span { padding-left:12px; font-size:11px; }
  .home-refined .home-chapters a { font-size:11px; }
  .home-refined .home-chapters a+a { padding-left:14px; }
- .home-premium.home-refined .home-quick-quote { padding-top:24px; }
+ .home-premium.home-refined .home-quick-quote { padding:24px 20px; }
  .home-premium.home-refined .home-quick-intro h2 { font-size:21px; }
  .home-refined .home-hero-actions { gap:4px; }
  .home-refined .home-project-body h3 { font-size:26px; }
@@ -323,4 +323,28 @@
  .home-refined .home-hero-impact .home-hero-photo img { object-position:50% 60%; }
  .home-refined .home-hero-impact .home-hero-photo:after { background:linear-gradient(180deg,#10283c 0%,transparent 35%,#10283c50 100%); }
  .home-premium.home-refined .home-hero-impact .home-hero-photo figcaption { inset:auto 20px 16px; }
+}
+
+/* A quiet, clearly structured starting point for the quote journey. */
+.home-refined .home-quick-intro { margin-bottom:28px; }
+.home-refined .home-quick-intro .home-quote-kicker { grid-column:1/-1; margin:0 0 6px; color:#607162; font-size:10px; font-weight:650; letter-spacing:.14em; text-transform:uppercase; }
+.home-refined .home-route-field label { display:flex; align-items:center; gap:8px; }
+.home-refined .home-route-field label span { color:#617264; font-size:10px; letter-spacing:.04em; }
+.home-refined .home-volume-unit { color:#61717e; font-size:11px; margin-left:5px; }
+.home-refined .home-quick-fields input { padding-inline:16px; transition:border-color .2s,background-color .2s; }
+.home-refined .home-quick-fields input:hover { border-color:#8b9b8c; }
+.home-refined .home-quick-fields input:focus { background:#fff; border-color:#607162; }
+.home-refined .home-volume-options button { transition:background-color .2s,border-color .2s; font-weight:550; }
+.home-refined .home-volume-options button:hover { border-color:#607162; }
+.home-refined .home-quick-note { margin-top:22px; padding-top:18px; border-top:1px solid #e9ece6; max-width:100%; }
+.dark .home-premium.home-refined .home-quick-quote { background:#102335; border-color:#344b5b; box-shadow:none; }
+.dark .home-refined .home-quick-intro .home-quote-kicker,.dark .home-refined .home-route-field label span,.dark .home-refined .home-volume-unit { color:#bacbbd; }
+.dark .home-refined .home-quick-fields input:focus { background:#162a3f; }
+.dark .home-refined .home-quick-note { border-color:#344b5b; }
+@media (max-width:639px) {
+ .home-refined .home-quick-intro { margin-bottom:24px; }
+ .home-refined .home-quick-intro>p:last-child { line-height:1.65; }
+ .home-refined .home-quick-fields { gap:20px; }
+ .home-refined .home-quick-fields .home-button { margin-top:4px; }
+ .home-refined .home-quick-note { font-size:11px; }
 }
