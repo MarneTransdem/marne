@@ -1,117 +1,56 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, ArrowRight, Instagram, Facebook, Linkedin } from 'lucide-react';
+import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
 import { Logo } from '../ui/Logo';
 import { CONTACT, NAVIGATION, SERVICES } from '../../constants';
 import { BusinessHours } from '../common/BusinessHours';
+import './footer-premium.css';
 
-export const Footer: React.FC = () => {
-  return (
-    <footer className="bg-brand-900 dark:bg-slate-950 text-white pt-20 pb-10 transition-colors duration-300">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
-          {/* Col 1: Brand & Contact */}
-          <div className="space-y-8 flex flex-col items-center sm:items-start text-center sm:text-left">
-            <div className="space-y-6 flex flex-col items-center sm:items-start w-full">
-              <Link to="/">
-                <Logo variant="dark" height="h-12" />
-              </Link>
-              <div className="space-y-6">
-                <p className="text-slate-300 dark:text-slate-400 text-sm leading-relaxed font-light max-w-xs">
-                  Déménagement à Paris. Un accompagnement professionnel pour tous vos projets de mobilité au cœur de l'Île-de-France.
-                </p>
-                <ul className="space-y-4">
-                  <li className="flex items-center gap-3 justify-center sm:justify-start group">
-                    <div className="w-8 h-8 rounded-full bg-white/5 dark:bg-white/10 flex items-center justify-center group-hover:bg-accent/10 transition-colors">
-                      <MapPin size={14} className="text-accent" />
-                    </div>
-                    <span className="text-slate-200 dark:text-slate-400 text-xs font-medium">{CONTACT.fullAddress}</span>
-                  </li>
-                  <li className="flex items-center gap-3 justify-center sm:justify-start group">
-                    <div className="w-8 h-8 rounded-full bg-white/5 dark:bg-white/10 flex items-center justify-center group-hover:bg-accent/10 transition-colors">
-                      <Phone size={14} className="text-accent" />
-                    </div>
-                    <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="text-slate-100 dark:text-white text-sm font-bold hover:text-accent transition-colors">{CONTACT.phone}</a>
-                  </li>
-                  <li className="flex items-center gap-3 justify-center sm:justify-start group">
-                    <div className="w-8 h-8 rounded-full bg-white/5 dark:bg-white/10 flex items-center justify-center group-hover:bg-accent/10 transition-colors">
-                      <Mail size={14} className="text-accent" />
-                    </div>
-                    <a href={`mailto:${CONTACT.email}`} className="text-slate-200 dark:text-slate-400 text-xs font-medium hover:text-white transition-colors truncate max-w-[200px]">{CONTACT.email}</a>
-                  </li>
-                </ul>
-                <div className="text-slate-200 max-w-xs"><BusinessHours /></div>
-              </div>
-            </div>
-            <div className="flex gap-4 justify-center sm:justify-start">
-            </div>
-          </div>
+const areas = [
+  ['Paris 20e', '/demenagement-paris-20'], ['Paris 11e', '/demenagement-paris-11'],
+  ['Paris 12e', '/demenagement-paris-12'], ['Paris 15e', '/demenagement-paris-15'],
+  ['Paris 16e', '/demenagement-paris-16'], ['Montreuil', '/demenagement-montreuil'],
+  ['Vincennes', '/demenagement-vincennes'], ['Saint-Mandé', '/demenagement-saint-mande'],
+  ['Yvelines', '/demenagement-yvelines'], ['Bagnolet', '/demenagement-bagnolet'],
+];
 
-          {/* Col 2: Services */}
-          <div className="flex flex-col items-center sm:items-start">
-            <h2 className="text-sm font-black uppercase tracking-[0.2em] mb-8 text-white/60">Services</h2>
-            <ul className="space-y-4 text-slate-300 font-medium text-sm">
-              {SERVICES.slice(0, 8).map(service => (
-                <li key={service.id}>
-                  <Link to={service.path} className="hover:text-accent transition-colors flex items-center gap-2 group italic">
-                    <span className="w-1 h-1 bg-accent/20 rounded-full group-hover:bg-accent transition-colors"></span>
-                    {service.title}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <Link to="/formules-demenagement" className="text-accent hover:text-white transition-colors underline decoration-accent/30 underline-offset-4 decoration-2">
-                  Nos Formules de Déménagement
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Secondary navigation remains directly accessible in the footer. */}
-          <nav aria-label="Explorer le site" className="flex flex-col items-center sm:items-start text-center sm:text-left">
-            <h2 className="text-sm font-black uppercase tracking-[0.2em] mb-8 text-white/60">Explorer le site</h2>
-            <ul className="space-y-4 text-slate-300 font-medium text-sm">
-              {NAVIGATION.filter(item => !['Particuliers', 'Entreprises', 'Services'].includes(item.name)).map(item => (
-                <li key={item.path}><Link to={item.path} className="hover:text-accent transition-colors block py-1">{item.name}</Link></li>
-              ))}
-              <li><Link to="/calculateur-volume" className="hover:text-accent transition-colors block py-1">Calculateur de volume</Link></li>
-              <li><Link to="/demande-de-devis" className="hover:text-accent transition-colors font-bold text-white block py-1">Demander un devis</Link></li>
-            </ul>
-          </nav>
-
-          {/* Col 4: Secteurs focus */}
-          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-            <h2 className="text-sm font-black uppercase tracking-[0.2em] mb-8 text-white/60">Secteurs Clés</h2>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-3">
-              <Link to="/demenagement-paris-20" className="text-slate-300 hover:text-accent transition-colors text-xs font-light">Paris 20e</Link>
-              <Link to="/demenagement-paris-11" className="text-slate-300 hover:text-accent transition-colors text-xs font-light">Paris 11e</Link>
-              <Link to="/demenagement-paris-12" className="text-slate-300 hover:text-accent transition-colors text-xs font-light">Paris 12e</Link>
-              <Link to="/demenagement-paris-15" className="text-slate-300 hover:text-accent transition-colors text-xs font-light">Paris 15e</Link>
-              <Link to="/demenagement-paris-16" className="text-slate-300 hover:text-accent transition-colors text-xs font-light">Paris 16e</Link>
-              <Link to="/demenagement-montreuil" className="text-slate-300 hover:text-accent transition-colors text-xs font-light">Montreuil</Link>
-              <Link to="/demenagement-vincennes" className="text-slate-300 hover:text-accent transition-colors text-xs font-light">Vincennes</Link>
-              <Link to="/demenagement-saint-mande" className="text-slate-300 hover:text-accent transition-colors text-xs font-light">Saint-Mandé</Link>
-              <Link to="/demenagement-yvelines" className="text-slate-300 hover:text-accent transition-colors text-xs font-light">Yvelines</Link>
-              <Link to="/demenagement-bagnolet" className="text-slate-300 hover:text-accent transition-colors text-xs font-light font-bold">Bagnolet</Link>
-            </div>
-            <Link to="/secteurs-desservis" className="text-accent hover:text-white transition-colors text-[10px] font-black uppercase tracking-widest flex items-center gap-2 mt-8">
-              Toutes les zones <ArrowRight size={10} />
-            </Link>
-          </div>
+export const Footer = () => (
+  <footer className="premium-footer">
+    <div className="premium-footer-inner">
+      <div className="premium-footer-welcome">
+        <div className="premium-footer-brand">
+          <Link to="/" aria-label="Marne Transdem, accueil"><Logo variant="dark" height="h-14" /></Link>
+          <p>Déménagement à Paris. Un accompagnement professionnel pour tous vos projets de mobilité au cœur de l’Île-de-France.</p>
         </div>
-
-        {/* Footer Bottom */}
-        <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-slate-300 text-[10px] font-medium uppercase tracking-wider text-center md:text-left">
-            © {new Date().getFullYear()} {CONTACT.name}. Solutions de mobilité professionnelle.
-          </p>
-          <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 text-slate-300/80 text-[10px] font-black uppercase tracking-widest">
-            <Link to="/mentions-legales" className="hover:text-white transition-colors">Mentions Légales</Link>
-            <Link to="/politique-de-confidentialite" className="hover:text-white transition-colors">Confidentialité</Link>
-            <span className="cursor-pointer hover:text-white transition-colors">Sitemap</span>
-          </div>
-        </div>
+        <address className="premium-footer-contact">
+          <span>Rencontrons-nous à Paris 20e</span>
+          <p><MapPin size={17} aria-hidden="true" />{CONTACT.fullAddress}</p>
+          <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}><Phone size={17} aria-hidden="true" />{CONTACT.phone}</a>
+          <a href={`mailto:${CONTACT.email}`}><Mail size={17} aria-hidden="true" />{CONTACT.email}</a>
+        </address>
+        <div className="premium-footer-hours"><BusinessHours /></div>
       </div>
-    </footer>
-  );
-};
+      <div className="premium-footer-navigation">
+        <nav aria-label="Services en pied de page">
+          <h2>Services</h2>
+          <ul className="premium-footer-services">{SERVICES.slice(0, 8).map(service => <li key={service.id}><Link to={service.path}>{service.title}</Link></li>)}</ul>
+        </nav>
+        <nav aria-label="Explorer le site">
+          <h2>Explorer le site</h2>
+          <ul>{NAVIGATION.filter(item => !['Particuliers', 'Entreprises', 'Services'].includes(item.name)).map(item => <li key={item.path}><Link to={item.path}>{item.name}</Link></li>)}
+            <li><Link to="/calculateur-volume">Calculateur de volume</Link></li>
+            <li><Link to="/demande-de-devis" className="premium-footer-quote">Demander un devis <ArrowRight size={15} aria-hidden="true" /></Link></li>
+          </ul>
+        </nav>
+        <nav aria-label="Secteurs clés">
+          <h2>Secteurs Clés</h2>
+          <ul className="premium-footer-areas">{areas.map(([label, path]) => <li key={path}><Link to={path}>{label}</Link></li>)}</ul>
+          <Link to="/secteurs-desservis" className="premium-footer-all">Toutes les zones <ArrowRight size={15} aria-hidden="true" /></Link>
+        </nav>
+      </div>
+      <div className="premium-footer-bottom">
+        <p>© {new Date().getFullYear()} {CONTACT.name}. Solutions de mobilité professionnelle.</p>
+        <nav aria-label="Informations légales"><Link to="/mentions-legales">Mentions légales</Link><Link to="/politique-de-confidentialite">Confidentialité</Link><a href="/sitemap.xml">Sitemap</a></nav>
+      </div>
+    </div>
+  </footer>
+);

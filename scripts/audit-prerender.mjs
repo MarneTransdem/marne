@@ -18,7 +18,8 @@ for (const url of urls) {
   if (/<link\b[^>]*\bto\s*=/i.test(html)) errors.push(`${url.pathname}: React Link markup rendered as HTML instead of a crawlable anchor`);
   const links = [...html.matchAll(/<a\b[^>]*href="([^"]*)"/g)].map(x => x[1].replaceAll('&amp;', '&'));
   const internal = [...new Set(links.filter(x => x.startsWith('/') && !x.startsWith('//')).map(x => new URL(x, url).pathname))];
-  for (const target of internal) if (!paths.has(target)) errors.push(`${url.pathname} -> ${target}`);
+  // The sitemap is a valid static resource, read and parsed above, not an HTML page.
+  for (const target of internal) if (!paths.has(target) && target !== '/sitemap.xml') errors.push(`${url.pathname} -> ${target}`);
   for (const script of html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)) {
     try {
       const data = JSON.parse(script[1]);
