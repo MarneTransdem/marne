@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/home-premium.css';
 import '../styles/home-editorial.css';
+import '../styles/home-finish.css';
 import { HomeFormulas } from '../components/home/HomeFormulas';
 import { Hero } from '../components/home/Hero';
 import { ReassuranceBar } from '../components/home/ReassuranceBar';
@@ -77,9 +78,9 @@ const Home: React.FC = () => {
       <HomeFormulas />
 
       {/* Why Choose Us */}
-      <section className="home-trust py-24 bg-brand-900 text-white overflow-hidden relative font-sans italic">
+      <section id="notre-engagement" className="home-trust py-24 bg-brand-900 text-white overflow-hidden relative font-sans italic">
         <div className="container mx-auto px-4 md:px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+          <div className="home-trust-layout grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="space-y-12">
                <div className="space-y-4">
                   <p className="text-accent font-black uppercase text-xs tracking-[0.3em] mb-4">L'exigence Marne Transdem</p>
@@ -89,7 +90,7 @@ const Home: React.FC = () => {
                   </h2>
                </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-16">
+              <div className="home-trust-points grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-16">
                 {[
                    { t: "Expertise Urbaine", d: "Maîtrise des accès complexes à Paris et sa région." },
                    { t: "Prestations définies ensemble", d: "Emballage, démontage et remontage précisés dans votre devis." },
@@ -109,7 +110,7 @@ const Home: React.FC = () => {
               </div>
             </div>
             
-            <div className="relative group">
+            <div className="home-trust-visual relative group">
                <div className="absolute -inset-4 bg-accent/20 rounded-[4rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
                <div className="rounded-[4rem] overflow-hidden border border-white/10 shadow-2xl relative">
                   <img 
@@ -133,7 +134,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Areas Section - Refactored */}
-      <section className="home-areas py-24 bg-white font-sans italic transition-colors duration-300">
+      <section id="nos-secteurs" className="home-areas py-24 bg-white font-sans italic transition-colors duration-300">
         <div className="container mx-auto px-4 md:px-6">
           <div className="stay-light-section rounded-3xl md:rounded-[4rem] p-6 md:p-12 xl:p-20 border border-slate-100 flex flex-col lg:flex-row gap-20 items-center overflow-hidden relative">
             <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 -skew-x-12 translate-x-1/4 pointer-events-none"></div>
@@ -169,7 +170,7 @@ const Home: React.FC = () => {
               </div>
             </div>
 
-            <div className="lg:w-5/12 grid grid-cols-2 gap-6 relative order-first lg:order-last">
+            <div className="home-area-gallery lg:w-5/12 grid grid-cols-2 gap-6 relative order-first lg:order-last">
               <div className="space-y-6">
                 <img src="/images/demenagement-paris.webp" width="600" height="800" loading="lazy" decoding="async" alt="Déménagement professionnel Paris et Paris 20e" className="rounded-3xl shadow-xl aspect-[3/4] object-cover grayscale-[30%]" />
                 <img src="/images/demenagement-ile-de-france.webp" width="600" height="600" loading="lazy" decoding="async" alt="Déménagement en Île-de-France et banlieue parisienne" className="rounded-3xl shadow-xl aspect-square object-cover" />
@@ -187,9 +188,9 @@ const Home: React.FC = () => {
       </React.Suspense>
 
       {/* Advice Teaser Section */}
-      <section className="home-advice py-24 bg-white dark:bg-slate-950 overflow-hidden relative font-sans italic transition-colors duration-300">
+      <section id="nos-conseils" className="home-advice py-24 bg-white dark:bg-slate-950 overflow-hidden relative font-sans italic transition-colors duration-300">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="flex flex-col lg:flex-row items-center gap-16">
+          <div className="home-advice-layout flex flex-col lg:flex-row items-center gap-16">
             <div className="lg:w-1/2 relative">
                <div className="absolute -inset-10 bg-accent/10 rounded-full blur-3xl opacity-50"></div>
                <div className="relative bg-brand-900 rounded-[3rem] p-4 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-700">
@@ -246,7 +247,7 @@ const Home: React.FC = () => {
       <DeferredGoogleReviews />
 
       {/* CTA Final */}
-      <section className="home-final py-24 bg-white dark:bg-slate-950 relative overflow-hidden font-sans italic transition-colors duration-300">
+      <section id="parlons-de-votre-projet" className="home-final py-24 bg-white dark:bg-slate-950 relative overflow-hidden font-sans italic transition-colors duration-300">
         <div className="container mx-auto px-4 md:px-6">
           <div className="home-contact-panel bg-slate-50 stay-light-section rounded-[3rem] md:rounded-[4rem] p-12 md:p-20 border border-slate-100 dark:border-slate-800 text-center relative overflow-hidden">
 <figure className="home-office-photo"><picture><source srcSet="/images/bureau-marne-transdem.avif" type="image/avif" /><img src="/images/bureau-marne-transdem.webp" width="1360" height="1020" loading="lazy" decoding="async" alt="La façade de l’agence Marne Transdem, rue des Maraîchers à Paris" /></picture><figcaption>Rencontrons-nous à Paris 20e.</figcaption></figure>

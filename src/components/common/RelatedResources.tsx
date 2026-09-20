@@ -46,7 +46,7 @@ export function RelatedResources() {
   const actions = [guides.calculator, guides.formulas, guides.quote].filter(
     link => link.path !== pathname && !links.some(resource => resource.path === link.path),
   );
-  return <aside aria-label="Ressources pour préparer votre déménagement" className="bg-slate-50 dark:bg-slate-900 py-12">
+  return <aside aria-label="Ressources pour préparer votre déménagement" className={(pathname === "/" ? "home-related-resources " : "") + "bg-slate-50 dark:bg-slate-900 py-12"}>
     <div className="container mx-auto px-4 md:px-6 max-w-5xl">
       <h2 className="text-2xl font-bold mb-4">Pour préparer votre projet</h2>
       <p className="text-slate-600 dark:text-slate-300 mb-6">{resourceGroup.description}</p>

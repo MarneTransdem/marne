@@ -1,0 +1,120 @@
+/* Finishing system for the lower homepage; scoped away from other routes. */
+.home-refined { --home-sage:#607162; --home-line:#dce3d8; }
+.home-refined .home-trust h2,.home-refined .home-areas h2,.home-refined .home-contact-copy h2 { font-size:clamp(32px,3.4vw,46px); line-height:1.14; letter-spacing:-.035em; }
+.home-refined .home-trust h2 span,.home-refined .home-areas h2 span { display:block; font-style:italic; }
+.home-refined .home-trust-layout { gap:56px; }
+.home-refined .home-trust-points { gap:28px; }
+.home-refined .home-trust-points .group { padding-top:18px; }
+.home-refined .home-trust-points h3 { font-size:16px; line-height:1.4; text-transform:none; letter-spacing:0; }
+.home-refined .home-trust-points p { color:#c7d2da; font-size:13px; line-height:1.8; }
+.home-refined .home-trust-visual>div:last-child { border-radius:16px; overflow:hidden; }
+.home-refined .home-trust-visual img { filter:none; aspect-ratio:4/5; }
+.home-refined .home-trust-visual .absolute.bottom-16 { bottom:28px; left:28px; right:28px; }
+.home-refined .home-areas h2 span { color:var(--home-sage); }
+.home-refined .home-areas .stay-light-section { gap:48px; align-items:center; }
+.home-refined .home-areas .grid>a { border:1px solid var(--home-line); border-radius:8px; padding:14px; justify-content:center; min-height:64px; transition:background-color .2s,border-color .2s; }
+.home-refined .home-areas .grid>a:hover { background:#eef3eb!important; border-color:#91a387; box-shadow:none; }
+.home-refined .home-areas .grid>a span { font-size:12px; font-weight:500; line-height:1.5; }
+.home-refined .home-areas p { font-size:15px; line-height:1.8; opacity:1; }
+.home-refined .home-areas a[href="/secteurs-desservis"].tracking-\[0\.3em\] { letter-spacing:0; text-transform:none; font-size:13px; min-height:44px; }
+.home-refined .home-area-gallery { gap:16px; }
+.home-refined .home-area-gallery img { border-radius:12px; filter:none; }
+.home-refined .home-area-gallery>div { gap:16px; }
+.home-refined .home-faq { background:#f6f7f2; }
+.home-refined .home-faq-layout { gap:32px 64px; }
+.home-refined .home-faq-intro>p:first-of-type { font-size:clamp(32px,3.4vw,46px); letter-spacing:-.035em; }
+.home-refined .home-faq-items { display:grid; gap:12px; }
+.home-refined .home-faq-items>div { border:1px solid var(--home-line); border-radius:10px; background:#fff!important; }
+.home-refined .home-faq-items button { padding:20px 22px; gap:16px; }
+.home-refined .home-faq-items button>span { font-size:15px; line-height:1.5; font-weight:550; }
+.home-refined .home-faq-items button[aria-expanded=true] { color:var(--home-sage); }
+.home-refined .home-faq-items button[aria-expanded=true]>div { color:var(--home-sage); }
+.home-refined .home-faq-items [role=region]>div>div { padding:0 22px 22px; line-height:1.8; }
+.home-refined .home-faq-contact { border-top:1px solid var(--home-line); padding-top:24px; }
+.home-refined .home-faq-contact .btn-premium { border-radius:8px; letter-spacing:0; text-transform:none; box-shadow:none; }
+.home-refined .home-advice-layout { gap:56px; align-items:center; }
+.home-refined .home-advice .rotate-2,.home-refined .home-advice img { border-radius:14px; }
+.home-premium.home-refined .home-advice p.text-4xl { font-size:clamp(32px,3.4vw,46px); letter-spacing:-.035em; }
+.home-refined .home-advice p.text-4xl span { color:var(--home-sage); font-style:italic; }
+.home-refined .home-advice .text-lg { font-size:15px; line-height:1.8; }
+.home-refined .home-advice .grid>div { padding:14px 0; border-bottom:1px solid var(--home-line); align-items:flex-start; }
+.home-refined .home-advice .grid>div svg { color:var(--home-sage); margin-top:3px; }
+.home-refined .home-advice .grid a { font-weight:500; font-size:13px; line-height:1.6; }
+.home-refined .home-advice a[href="/blog"] { border-radius:8px; min-height:52px; padding:16px 22px; }
+.home-refined .home-advice a[href="/blog"] svg { color:#dce5d7; }
+.home-premium.home-refined #google-reviews>div>div p.text-4xl { font-family:Georgia,serif; font-size:clamp(32px,3.4vw,46px); font-weight:400; letter-spacing:-.035em; }
+.home-refined #google-reviews p.text-4xl span { color:var(--home-sage); font-style:italic; text-decoration:none; }
+.home-premium.home-refined #google-reviews .home-review-card { border-radius:14px; padding:26px; border-color:var(--home-line); box-shadow:none; }
+.home-refined #google-reviews .home-review-card h3 { text-transform:none; font-weight:600; letter-spacing:0; font-size:14px; }
+.home-refined #google-reviews .home-review-card .home-review-text { line-height:1.85; }
+.home-refined #google-reviews .home-review-card>div:last-child>span { opacity:.7; }
+.home-premium.home-refined #google-reviews .home-review-invitation { border-radius:14px; padding:28px; min-height:300px; background:#10283c; }
+.home-refined .home-review-invitation h3 { font-family:Georgia,serif; text-transform:none; font-size:30px; font-weight:400; }
+.home-refined .home-review-invitation a { background:#e6eddf; border-radius:8px; letter-spacing:0; text-transform:none; }
+.home-premium.home-refined .home-final .home-contact-panel { border-radius:16px; border:1px solid var(--home-line); background:#f3f6ef!important; }
+.home-refined .home-contact-copy { padding:44px; }
+.home-refined .home-contact-copy h2 { font-size:clamp(28px,3vw,40px); }
+.home-refined .home-contact-copy .home-eyebrow { color:var(--home-sage); font-size:10px; letter-spacing:.13em; }
+.home-refined .home-office-address { padding-block:18px; border-block:1px solid #d6dfd2; }
+.home-refined .home-contact-copy a { border-radius:8px; }
+.home-refined .home-contact-copy>div a:first-child { padding:16px 20px; font-size:13px; min-height:54px; }
+.home-refined .home-contact-copy>div a:first-child svg { color:#dce5d7; width:18px; }
+.home-refined .home-contact-copy>div a:last-child { min-height:44px; font-size:18px; }
+.home-refined .home-contact-copy>div a:last-child svg { color:var(--home-sage); width:20px; }
+.dark .home-refined .home-faq-items>div { background:#132638!important; border-color:#344b5b; }
+.dark .home-refined .home-areas .grid>a { border-color:#344b5b; }
+.dark .home-refined .home-areas .grid>a:hover { background:#213a3a!important; }
+.dark .home-refined .home-advice p.text-4xl span,.dark .home-refined #google-reviews p.text-4xl span { color:#c4d0c2; }
+.dark .home-refined #google-reviews .home-review-card .stay-dark { color:#edf1f5!important; }
+@media (max-width:1023px) {
+ .home-refined .home-trust-layout { gap:32px; }
+ .home-refined .home-trust-visual { width:100%; }
+ .home-refined .home-trust-visual img { aspect-ratio:16/9; max-height:480px; }
+ .home-refined .home-area-gallery { width:100%; max-width:660px; }
+ .home-refined .home-advice-layout { gap:32px; }
+ .home-refined .home-advice-layout>div { width:100%; }
+ .home-refined .home-contact-copy { padding:30px; }
+}
+@media (max-width:767px) {
+ .home-refined .home-faq-layout { gap:28px; }
+ .home-refined .home-faq-contact { margin-top:0; }
+ .home-refined #google-reviews>div>div:first-child { align-items:flex-start; margin-bottom:28px; }
+}
+@media (max-width:639px) {
+ .home-refined .home-trust-points { gap:20px; }
+ .home-refined .home-trust .space-y-12 { gap:28px; }
+ .home-refined .home-trust-visual img { aspect-ratio:4/3; }
+ .home-refined .home-trust-visual .absolute.bottom-16 { bottom:20px; left:20px; right:20px; }
+ .home-refined .home-trust-visual .absolute.bottom-16 p:first-child { font-size:24px; }
+ .home-refined .home-areas .stay-light-section { gap:28px; }
+ .home-refined .home-areas .grid>a { padding:12px; }
+ .home-refined .home-faq-items button { padding:18px; }
+ .home-refined .home-faq-items [role=region]>div>div { padding:0 18px 20px; }
+ .home-refined .home-contact-copy { padding:26px 22px; }
+ .home-refined .home-office-photo { min-height:260px; }
+ .home-refined .home-contact-copy>div { width:100%; }
+ .home-refined .home-contact-copy>div a:first-child { width:100%; justify-content:space-between; }
+}
+@media (prefers-reduced-motion:reduce) {
+ .home-refined *, .home-refined *:before, .home-refined *:after { scroll-behavior:auto!important; transition:none!important; animation:none!important; }
+}
+
+.home-refined .home-advice .rotate-2 { rotate:0deg; }
+.home-premium.home-refined .home-faq h2,.home-premium.home-refined .home-advice h2,.home-premium.home-refined #google-reviews h2 { color:var(--home-sage); text-transform:uppercase; }
+.dark .home-premium.home-refined .home-faq h2,.dark .home-premium.home-refined .home-advice h2,.dark .home-premium.home-refined #google-reviews h2 { color:#c4d0c2; }
+
+.dark .home-premium.home-refined #google-reviews .home-review-card { background:#132638!important; border-color:#344b5b; }
+.dark .home-refined #google-reviews .home-review-text,.dark .home-refined #google-reviews .text-slate-500,.dark .home-refined #google-reviews .text-slate-400 { color:#c5d0da; }
+.dark .home-refined #google-reviews .home-review-toggle { color:#d4dfcc; }
+.dark .home-refined .home-contact-panel .stay-dark { color:#10283c!important; }
+
+.home-related-resources { background:#f3f6ef!important; color:#10283c; }
+.home-related-resources>div { max-width:1248px; }
+.home-related-resources h2 { font:400 28px/1.2 Georgia,serif; letter-spacing:-.025em; }
+.home-related-resources p { font-size:14px; line-height:1.8; }
+.home-related-resources li a { font-size:13px; line-height:1.7; text-underline-offset:4px; }
+.home-related-resources .grid a { border-color:#dce3d8; background:#fff; border-radius:8px; height:100%; }
+.dark .home-related-resources { background:#101f30!important; color:#edf1f5; }
+.dark .home-related-resources p { color:#c5d0da; }
+.dark .home-related-resources .grid a { background:#132638; border-color:#344b5b; }
+.dark .home-refined .home-areas h2 span { color:#c4d0c2; }
