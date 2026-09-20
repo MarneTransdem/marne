@@ -67,18 +67,17 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Col 3: Entreprise */}
-          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-            <h2 className="text-sm font-black uppercase tracking-[0.2em] mb-8 text-white/60">Marne Transdem</h2>
+          {/* Secondary navigation remains directly accessible in the footer. */}
+          <nav aria-label="Explorer le site" className="flex flex-col items-center sm:items-start text-center sm:text-left">
+            <h2 className="text-sm font-black uppercase tracking-[0.2em] mb-8 text-white/60">Explorer le site</h2>
             <ul className="space-y-4 text-slate-300 font-medium text-sm">
-              <li><Link to="/a-propos" className="hover:text-accent transition-colors block">Qui sommes-nous</Link></li>
-              <li><Link to="/contact" className="hover:text-accent transition-colors block">Contactez-nous</Link></li>
-              <li><Link to="/blog" className="hover:text-accent transition-colors block">Conseils d'experts</Link></li>
-              <li><Link to="/demande-de-devis" className="hover:text-accent transition-colors font-bold text-white block">Demander un devis</Link></li>
-              <li><Link to="/calculateur-volume" className="hover:text-accent transition-colors block">Calculateur de volume</Link></li>
-              <li><Link to="/secteurs-desservis" className="hover:text-accent transition-colors block">Zones d'intervention</Link></li>
+              {NAVIGATION.filter(item => !['Particuliers', 'Entreprises', 'Services'].includes(item.name)).map(item => (
+                <li key={item.path}><Link to={item.path} className="hover:text-accent transition-colors block py-1">{item.name}</Link></li>
+              ))}
+              <li><Link to="/calculateur-volume" className="hover:text-accent transition-colors block py-1">Calculateur de volume</Link></li>
+              <li><Link to="/demande-de-devis" className="hover:text-accent transition-colors font-bold text-white block py-1">Demander un devis</Link></li>
             </ul>
-          </div>
+          </nav>
 
           {/* Col 4: Secteurs focus */}
           <div className="flex flex-col items-center sm:items-start text-center sm:text-left">

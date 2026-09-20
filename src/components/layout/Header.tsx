@@ -12,6 +12,7 @@ const groups: Record<string, { ids: string[]; intro: string }> = {
   Entreprises: { ids: ['transfert-bureaux', 'transfert-informatique', 'transfert-industriel', 'transfert-laboratoire', 'gestion-archives'], intro: 'Préparez le transfert de vos équipes, de vos locaux et de vos équipements.' },
   Services: { ids: ['garde-meuble', 'monte-meuble', 'emballage', 'cartons', 'longue-distance', 'oeuvres-art', 'piano'], intro: 'Les moyens adaptés pour faciliter votre départ et protéger vos biens.' },
 };
+const mainNavigation = NAVIGATION.filter(item => item.name in groups);
 const menuId = (name: string) => `navigation-${name.toLowerCase()}`;
 
 export const Header: React.FC = () => {
@@ -66,7 +67,7 @@ export const Header: React.FC = () => {
       <div className="premium-header-inner">
         <Link to="/" className="premium-logo" onClick={close}><Logo height="h-12 md:h-14" /></Link>
         <nav className="premium-desktop-nav" aria-label="Navigation principale">
-          {NAVIGATION.map(item => {
+          {mainNavigation.map(item => {
             const group = groups[item.name];
             const services = group ? SERVICES.filter(service => group.ids.includes(service.id)) : [];
             const active = pathname === item.path || services.some(service => service.path === pathname);
@@ -92,7 +93,7 @@ export const Header: React.FC = () => {
     </header>
     {mobileOpen && <div className="premium-mobile-layer"><div className="premium-mobile-backdrop" onClick={close} aria-hidden="true" /><div ref={drawerRef} id="premium-mobile-navigation" className="premium-drawer" role="dialog" aria-modal="true" aria-labelledby="premium-navigation-title">
       <div className="premium-drawer-heading"><div><span>Marne Transdem</span><h2 id="premium-navigation-title">Votre prochain départ</h2></div><button ref={closeRef} type="button" onClick={close} aria-label="Fermer la navigation"><X size={24} /></button></div>
-      <nav aria-label="Navigation mobile">{NAVIGATION.map(item => {
+      <nav aria-label="Navigation mobile">{mainNavigation.map(item => {
         const group = groups[item.name]; const open = expanded === item.name;
         return <div className="premium-mobile-item" key={item.path}>{group ? <><button type="button" aria-expanded={open} aria-controls={`mobile-${menuId(item.name)}`} onClick={() => setExpanded(open ? null : item.name)}>{item.name}<ChevronDown size={18} /></button><div id={`mobile-${menuId(item.name)}`} hidden={!open} className="premium-mobile-submenu">{SERVICES.filter(service => group.ids.includes(service.id)).map(service => <Link key={service.id} to={service.path} onClick={close}><service.icon size={18} aria-hidden="true" />{service.title}</Link>)}<Link to={item.path} onClick={close} className="premium-mobile-all">Tout voir <ArrowRight size={16} /></Link></div></> : <Link to={item.path} onClick={close} aria-current={pathname === item.path ? 'page' : undefined}>{item.name}<ArrowRight size={16} aria-hidden="true" /></Link>}</div>;
       })}</nav>

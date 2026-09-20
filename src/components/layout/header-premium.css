@@ -60,3 +60,8 @@
 @media(max-width:1199px) { .premium-desktop-nav { display:none; } .premium-mobile-toggle { display:grid; } }
 @media(max-width:767px) { .premium-header-inner { padding:12px 20px; gap:12px; } .premium-header-quote { display:none!important; } .premium-header-actions { gap:6px; } }
 .premium-nav-group { padding-block:18px; margin-block:-18px; }
+
+/* Keep the primary navigation deliberately focused and generously spaced. */
+.premium-desktop-nav { gap:36px; }
+.premium-nav-pair>a { font-size:14px; }
+@media (min-width:1200px) and (max-width:1399px) { .premium-desktop-nav { gap:28px; } }
