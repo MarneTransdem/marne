@@ -84,7 +84,6 @@ export const Hero: React.FC = () => {
 
   return (
     <section className="home-hero" aria-labelledby="home-hero-heading">
-      <div className="container mx-auto px-4 md:px-6">
         <div className="home-hero-grid home-hero-impact">
           <div className="home-hero-copy">
             <p className="home-eyebrow"><span aria-hidden="true" /> Paris & Île-de-France</p>
@@ -102,6 +101,7 @@ export const Hero: React.FC = () => {
             <figcaption>Marne Transdem · Paris</figcaption>
           </figure>
         </div>
+      <div className="container mx-auto px-4 md:px-6">
         <nav className="home-chapters" aria-label="Explorer la page d’accueil"><a href="#votre-projet"><span>01</span> Votre projet <ArrowRight size={16} aria-hidden="true" /></a><a href="#nos-formules"><span>02</span> Nos formules <ArrowRight size={16} aria-hidden="true" /></a><a href="#vos-questions"><span>03</span> Vos questions <ArrowRight size={16} aria-hidden="true" /></a></nav>
         <div className="home-quick-quote" id="home-quick-quote">
           <div className="home-quick-intro"><h2>Préparons votre devis gratuit</h2><p>Indiquez votre trajet, puis complétez votre demande.</p></div>
