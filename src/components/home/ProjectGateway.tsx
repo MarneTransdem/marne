@@ -13,7 +13,7 @@ export function ProjectGateway() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="home-section-intro mb-10">
           <p className="text-accent text-xs font-bold tracking-widest uppercase mb-3">Votre projet, votre accompagnement</p>
-          <h2 id="home-projects-heading" className="text-3xl md:text-5xl font-bold tracking-tight mb-5">Chaque déménagement commence par les bonnes questions.</h2>
+          <h2 id="home-projects-heading" className="text-3xl md:text-5xl font-bold tracking-tight mb-5">Chaque déménagement commence par <span>les bonnes questions.</span></h2>
           <p className="text-slate-300 text-lg leading-relaxed">Retrouvez les prestations, les points à anticiper et les informations utiles pour préparer votre demande.</p>
         </div>
         <div className="home-project-grid">
@@ -29,7 +29,7 @@ export function ProjectGateway() {
             </Link>
           ))}
         </div>
-        <div className="flex flex-wrap gap-x-8 gap-y-4 mt-8 text-sm font-semibold">
+        <div className="home-project-links flex flex-wrap gap-x-8 gap-y-4 mt-8 text-sm font-semibold">
           <Link to="/formules-demenagement" className="underline underline-offset-4 hover:text-accent">Comparer les formules</Link>
           <Link to="/a-propos" className="underline underline-offset-4 hover:text-accent">Découvrir Marne Transdem</Link>
           <Link to="/contact" className="underline underline-offset-4 hover:text-accent">Parler de mon projet à l’équipe</Link>
