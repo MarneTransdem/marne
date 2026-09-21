@@ -58,12 +58,12 @@ console.log('Analytics: consent, revocation, single dispatch, deduplication, URL
 
 // Exercise the actual form submit handler with mocked persistence and notification.
 const formBuild=await build({entryPoints:['src/components/forms/QuoteForm.tsx'],bundle:true,write:false,platform:'node',format:'cjs',plugins:[{name:'mock-imports',setup(b){b.onResolve({filter:/.*/},a=>a.kind==='entry-point'?undefined:{path:a.path,external:true});}}]});
-async function checkForm({failSave=false,failEmail=false}={}) {
+async function checkForm({failSave=false,failEmail=false,activeStep=3,invalid=false}={}) {
   let saves=0,emails=0,leads=0,errors=0;
   let resolveSave;
   const waitSave=new Promise(r=>resolveSave=r);
-  const react={useState:initial=>[initial?.consent===false?{...initial,fullName:'Test User',phone:'0100000000',email:'test@example.test',consent:true}:initial,()=>{}],useEffect(){},useRef:v=>({current:v}),createElement:(type,props,...children)=>({type,props,children})};
-  const mocks={react,'motion/react':{motion:{div:'div'},AnimatePresence:'div'},'lucide-react':{},'react-router-dom':{Link:'a',useSearchParams:()=>[new URLSearchParams()]},'../../lib/firebase':{db:{}},'firebase/firestore':{collection:()=>({}),serverTimestamp:()=>0,addDoc:async()=>{saves++;await waitSave;if(failSave)throw Error('save failed');return{id:'saved-id'};}},'../../lib/firestore-errors':{OperationType:{CREATE:'create'},handleFirestoreError:()=>errors++},'@vis.gl/react-google-maps':{useMapsLibrary:()=>null},'../../lib/public-analytics':{getVisitAttribution:()=>null,trackConversion:(action,params,id)=>{assert.equal(id,'saved-id');leads++;}}};
+  const react={useState:initial=>[initial?.consent===false?{...initial,fullName:'Test User',phone:invalid?'':'0100000000',email:'test@example.test',consent:!invalid,date:'2026-10-20'}:initial === 1 ? activeStep : initial,()=>{}],useEffect(){},useRef:v=>({current:v}),createElement:(type,props,...children)=>({type,props,children})};
+  const mocks={react,'motion/react':{motion:{div:'div'},AnimatePresence:'div'},'lucide-react':{},'react-router-dom':{Link:'a',useSearchParams:()=>[new URLSearchParams()]},'../../lib/firebase':{db:{}},'firebase/firestore':{collection:()=>({}),serverTimestamp:()=>0,addDoc:async(collection,data)=>{assert.equal(data.date,'','an unconfirmed date must not reach the CRM');assert.equal(data.fromElevator,'À préciser');assert.equal(data.needsPacking,'À préciser');saves++;await waitSave;if(failSave)throw Error('save failed');return{id:'saved-id'};}},'../../lib/firestore-errors':{OperationType:{CREATE:'create'},handleFirestoreError:()=>errors++},'@vis.gl/react-google-maps':{useMapsLibrary:()=>null},'../../lib/public-analytics':{getVisitAttribution:()=>null,trackConversion:(action,params,id)=>{assert.equal(id,'saved-id');leads++;}}};
   const context={module:{exports:{}},exports:{},require:n=>{if(!(n in mocks))throw Error(n);return mocks[n];},console:{warn(){},error(){}},window:{scrollTo(){}},document:{querySelector:()=>null},localStorage:{removeItem(){}},fetch:async()=>{emails++;if(failEmail)throw Error('notification offline');return{ok:true};},URLSearchParams};
   mocks['react/jsx-runtime']={jsx:(type,props)=>({type,props,children:[props?.children]}),jsxs:(type,props)=>({type,props,children:[props?.children]})};
   vm.runInNewContext(formBuild.outputFiles[0].text,context);
@@ -72,10 +72,12 @@ async function checkForm({failSave=false,failEmail=false}={}) {
   const form=find(tree);assert(form);
   const first=form.props.onSubmit({preventDefault(){}});
   await form.props.onSubmit({preventDefault(){}});
+  if (activeStep < 3 || invalid) { assert.equal(saves,0); assert.equal(emails,0); assert.equal(leads,0); return; }
   assert.equal(saves,1,'concurrent submit must not create a second record');
   resolveSave(); await first;
   assert.equal(leads,failSave?0:1); assert.equal(emails,failSave?0:1); assert.equal(errors,failSave?1:0);
 }
+await checkForm({activeStep:1}); await checkForm({activeStep:2}); await checkForm({invalid:true});
 await checkForm(); await checkForm({failEmail:true}); await checkForm({failSave:true});
 console.log('Quote handler: confirmed save, failed save, notification failure and concurrent submit passed.');
 

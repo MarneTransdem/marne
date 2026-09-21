@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { Check, ArrowRight, Loader2, ChevronLeft, Calculator, RotateCcw } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { db } from '../../lib/firebase';
@@ -55,13 +55,13 @@ const INITIAL_DATA: FormData = {
   fromCity: '',
   fromZip: '',
   fromFloor: '',
-  fromElevator: 'oui',
+  fromElevator: 'À préciser',
   fromDifficulties: '',
   toAddress: '',
   toCity: '',
   toZip: '',
   toFloor: '',
-  toElevator: 'oui',
+  toElevator: 'À préciser',
   toDifficulties: '',
   date: '',
   housingType: '',
@@ -69,9 +69,9 @@ const INITIAL_DATA: FormData = {
   volume: '',
   formula: '',
   visitPreference: 'a_definir',
-  needsLift: 'non',
-  needsPacking: 'non',
-  needsStorage: 'non',
+  needsLift: 'À préciser',
+  needsPacking: 'À préciser',
+  needsStorage: 'À préciser',
   message: '',
   consent: false,
   website: ''
@@ -88,13 +88,29 @@ export const QuoteForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>(INITIAL_DATA);
   const [searchParams] = useSearchParams();
   const submissionPending = useRef(false);
+  const [step, setStep] = useState(1);
+  const [submitError, setSubmitError] = useState('');
+  const [dateMode, setDateMode] = useState('unknown');
+  const [period, setPeriod] = useState('');
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const previousStep = useRef(step);
+  useEffect(() => {
+    if (previousStep.current === step) return;
+    previousStep.current = step;
+    headingRef.current?.focus({ preventScroll: true });
+    formRef.current?.closest('.quote-wizard')?.scrollIntoView({ block: 'start' });
+  }, [step]);
+  useEffect(() => {
+    if (Object.keys(errors).length) formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+  }, [errors]);
   
   const mapsLib = useMapsLibrary('places');
   const fromAutocompleteRef = useRef<HTMLInputElement>(null);
   const toAutocompleteRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (!mapsLib || !fromAutocompleteRef.current || !toAutocompleteRef.current) return;
+    if (!mapsLib || !import.meta.env.VITE_GOOGLE_MAPS_PLATFORM_KEY || !fromAutocompleteRef.current || !toAutocompleteRef.current) return;
 
     const fromAutocomplete = new google.maps.places.Autocomplete(fromAutocompleteRef.current, {
       componentRestrictions: { country: 'fr' },
@@ -108,7 +124,7 @@ export const QuoteForm: React.FC = () => {
       types: ['address']
     });
 
-    fromAutocomplete.addListener('place_changed', () => {
+    const fromListener = fromAutocomplete.addListener('place_changed', () => {
       const place = fromAutocomplete.getPlace();
       if (place.address_components) {
         let city = '';
@@ -126,7 +142,7 @@ export const QuoteForm: React.FC = () => {
       }
     });
 
-    toAutocomplete.addListener('place_changed', () => {
+    const toListener = toAutocomplete.addListener('place_changed', () => {
       const place = toAutocomplete.getPlace();
       if (place.address_components) {
         let city = '';
@@ -143,6 +159,7 @@ export const QuoteForm: React.FC = () => {
         }));
       }
     });
+    return () => { fromListener.remove(); toListener.remove(); };
   }, [mapsLib]);
 
   useEffect(() => {
@@ -173,7 +190,8 @@ export const QuoteForm: React.FC = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+    let saved: string | null = null;
+    try { saved = localStorage.getItem(LOCAL_STORAGE_KEY); } catch { return; }
     if (saved) {
       try {
         const data = JSON.parse(saved);
@@ -196,7 +214,7 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
   }, []);
 
   const clearEstimate = () => {
-    localStorage.removeItem(LOCAL_STORAGE_KEY);
+    try { localStorage.removeItem(LOCAL_STORAGE_KEY); } catch { /* Storage is optional. */ }
     setEstimate(null);
     setFormData(prev => ({
       ...prev,
@@ -209,10 +227,10 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
     const newErrors: Record<string, string> = {};
     
     // Coordonnées (Mandatory)
-    if (!formData.fullName.trim()) newErrors.fullName = "Le nom et prénom sont requis";
-    if (!formData.phone.trim()) newErrors.phone = "Le téléphone est requis";
+    if (formData.fullName.trim().length < 2) newErrors.fullName = "Indiquez votre nom et prénom (au moins 2 caractères).";
+    if (formData.phone.trim().length < 8 || formData.phone.length > 25) newErrors.phone = "Indiquez un numéro de téléphone valide.";
     if (!formData.email.trim()) newErrors.email = "L'email est requis";
-    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Email invalide";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) newErrors.email = "Vérifiez votre adresse email.";
     
     // Consentement (Mandatory for GDPR)
     if (!formData.consent) newErrors.consent = "Veuillez accepter le consentement pour envoyer";
@@ -238,12 +256,9 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (submissionPending.current) return;
+    if (step < 3) { setStep(step + 1); return; }
+    setSubmitError('');
     if (!validateForm()) {
-      // Scroll to the first error
-      const firstError = document.querySelector('.text-red-500');
-      if (firstError) {
-        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
       return;
     }
 
@@ -264,7 +279,13 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
 
     try {
       const path = 'quotes';
-      const { website, ...cleanData } = formData;
+      const { website, ...values } = formData;
+      const cleanData = {
+        ...values,
+        fullName: values.fullName.trim(), phone: values.phone.trim(), email: values.email.trim(),
+        date: dateMode === 'date' ? values.date : '',
+        message: [dateMode === 'flexible' ? `Période flexible : ${period.trim() || 'à préciser'}.` : '', values.message].filter(Boolean).join('\n'),
+      };
       const attribution = getVisitAttribution();
       const savedQuote = await addDoc(collection(db, path), {
         ...cleanData,
@@ -295,7 +316,8 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
       }
 
     } catch (error) {
-      handleFirestoreError(error, OperationType.CREATE, 'quotes');
+      setSubmitError('Votre demande n’a pas pu être envoyée. Vos réponses sont conservées : réessayez ou appelez-nous au 01 44 93 54 86.');
+      try { handleFirestoreError(error, OperationType.CREATE, 'quotes'); } catch { /* Error is displayed in the form. */ }
     } finally {
       submissionPending.current = false;
       setIsSubmitting(false);
@@ -326,292 +348,104 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
     );
   }
 
+  const field = (name: keyof FormData, label: string, options: { type?: string; placeholder?: string; autoComplete?: string; required?: boolean; maxLength?: number } = {}) => (
+    <div className="quote-field" key={name}>
+      <label htmlFor={'quote-' + name}>{label}{options.required && <span> *</span>}</label>
+      <input id={'quote-' + name} name={name} type={options.type || 'text'} value={String(formData[name] ?? '')} onChange={handleChange}
+        autoComplete={options.autoComplete} placeholder={options.placeholder} required={options.required} maxLength={options.maxLength || 200}
+        min={options.type === 'number' ? 0 : undefined} aria-invalid={!!errors[name]} aria-describedby={errors[name] ? 'error-' + name : undefined} />
+      {errors[name] && <p className="quote-error" id={'error-' + name}>{errors[name]}</p>}
+    </div>
+  );
+  const select = (name: keyof FormData, label: string, choices: [string, string][]) => (
+    <div className="quote-field" key={name}><label htmlFor={'quote-' + name}>{label}</label>
+      <select id={'quote-' + name} name={name} value={String(formData[name])} onChange={handleChange}>
+        {choices.map(([value, text]) => <option key={value} value={value}>{text}</option>)}
+      </select>
+    </div>
+  );
+  const uncertain: [string, string][] = [['À préciser', 'À préciser'], ['oui', 'Oui'], ['non', 'Non']];
+  const steps = ['Votre trajet', 'Vos besoins', 'Vos coordonnées'];
+  const routeLabel = (side: 'from' | 'to') => [formData[`${side}Address`], formData[`${side}City`], formData[`${side}Zip`]].filter(Boolean).join(' · ') || 'À préciser ensemble';
+  const formulaLabel = ({economique:'Économique',standard:'Standard',luxe:'Luxe'} as Record<string,string>)[formData.formula] || 'À définir ensemble';
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-premium border border-slate-100 dark:border-slate-800 overflow-hidden transition-colors duration-300">
-      {estimate && (
-        <div className="bg-brand-900 dark:bg-slate-950 text-white p-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center text-accent">
-              <Calculator size={24} />
-            </div>
-            <div>
-              <p className="text-xs font-black uppercase tracking-widest text-slate-400">Volume estimé depuis le calculateur</p>
-              <p className="text-xl font-black text-white">{estimate.estimatedVolume} m³</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-             <Link to="/calculateur-volume" className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg text-sm font-bold transition-all">
-                Modifier mon estimation
-             </Link>
-             <button onClick={clearEstimate} className="p-2 text-slate-500 hover:text-white transition-colors" title="Réinitialiser l'estimation">
-                <RotateCcw size={18} />
-             </button>
-          </div>
-        </div>
-      )}
-      <div className="p-5 md:p-10 lg:p-14">
-        <form onSubmit={handleSubmit} className="space-y-12 md:space-y-20">
-          {/* Honeypot field for spam prevention */}
-          <div className="hidden" aria-hidden="true">
-            <input type="text" name="website" value={formData.website} onChange={handleChange} tabIndex={-1} autoComplete="off" />
-          </div>
-
-          {/* Section A: Vos coordonnées */}
-          <section className="space-y-8 md:space-y-10">
-            <div className="border-l-4 border-accent pl-5 md:pl-6 text-left">
-              <h3 className="text-xl md:text-2xl font-bold text-brand-900 dark:text-white tracking-tight">
-                A. Vos coordonnées
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 mt-1 md:mt-2 font-light text-sm">Informations essentielles pour notre premier échange.</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="md:col-span-2 space-y-2">
-                <label htmlFor="quote-fullName" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Nom et prénom <span className="text-accent">*</span></label>
-                <input id="quote-fullName" name="fullName" autoComplete="name" value={formData.fullName} onChange={handleChange} className={`form-input-premium w-full ${errors.fullName ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="Ex: Jean Dupont" required />
-                {errors.fullName && <p className="text-red-500 text-xs ml-1 font-medium">{errors.fullName}</p>}
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="quote-phone" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Téléphone <span className="text-accent">*</span></label>
-                <input id="quote-phone" type="tel" name="phone" autoComplete="tel" value={formData.phone} onChange={handleChange} className={`form-input-premium w-full ${errors.phone ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="06 12 34 56 78" required />
-                {errors.phone && <p className="text-red-500 text-xs ml-1 font-medium">{errors.phone}</p>}
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="quote-email" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Email <span className="text-accent">*</span></label>
-                <input id="quote-email" type="email" name="email" autoComplete="email" value={formData.email} onChange={handleChange} className={`form-input-premium w-full ${errors.email ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="jean.dupont@email.com" required />
-                {errors.email && <p className="text-red-500 text-xs ml-1 font-medium">{errors.email}</p>}
-              </div>
-            </div>
-          </section>
-
-          {/* Section B: Adresse de départ */}
-          <section className="space-y-8 md:space-y-10">
-            <div className="border-l-4 border-accent pl-5 md:pl-6 text-left">
-              <h3 className="text-xl md:text-2xl font-bold text-brand-900 dark:text-white tracking-tight">
-                B. Adresse de départ
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 mt-1 md:mt-2 font-light text-sm">L'adresse actuelle de votre logement. Saisie assistée.</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="md:col-span-2 space-y-2">
-                <label htmlFor="quote-fromAddress" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Adresse exacte</label>
-                <input id="quote-fromAddress"
-                  ref={fromAutocompleteRef}
-                  name="fromAddress" 
-                  value={formData.fromAddress} 
-                  onChange={handleChange} 
-                  className={`form-input-premium w-full ${errors.fromAddress ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} 
-                  placeholder="Saisissez et sélectionnez votre adresse de départ" 
-                />
-                {errors.fromAddress && <p className="text-red-500 text-xs ml-1 font-medium">{errors.fromAddress}</p>}
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="quote-fromCity" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Ville</label>
-                <input id="quote-fromCity" name="fromCity" value={formData.fromCity} onChange={handleChange} className={`form-input-premium w-full ${errors.fromCity ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="Paris" />
-                {errors.fromCity && <p className="text-red-500 text-xs ml-1 font-medium">{errors.fromCity}</p>}
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="quote-fromZip" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Code postal</label>
-                <input id="quote-fromZip" name="fromZip" value={formData.fromZip} onChange={handleChange} className={`form-input-premium w-full ${errors.fromZip ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="75004" />
-                {errors.fromZip && <p className="text-red-500 text-xs ml-1 font-medium">{errors.fromZip}</p>}
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="quote-fromFloor" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Étage</label>
-                <input id="quote-fromFloor" name="fromFloor" value={formData.fromFloor} onChange={handleChange} className="form-input-premium w-full" placeholder="Ex: 3" />
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="quote-fromElevator" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Ascenseur</label>
-                <select id="quote-fromElevator" name="fromElevator" value={formData.fromElevator} onChange={handleChange} className="form-input-premium w-full">
-                  <option value="oui">Oui</option>
-                  <option value="non">Non</option>
-                </select>
-              </div>
-              <div className="md:col-span-2 space-y-2">
-                <label htmlFor="quote-fromDifficulties" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Difficultés d’accès éventuelles</label>
-                <textarea id="quote-fromDifficulties" name="fromDifficulties" value={formData.fromDifficulties} onChange={handleChange} rows={2} className="form-input-premium w-full resize-none py-3" placeholder="Porte cochère étroite, cour intérieure, rue piétonne..."></textarea>
-              </div>
-            </div>
-          </section>
-
-          {/* Section C: Adresse d'arrivée */}
-          <section className="space-y-8 md:space-y-10">
-            <div className="border-l-4 border-accent pl-5 md:pl-6 text-left">
-              <h3 className="text-xl md:text-2xl font-bold text-brand-900 dark:text-white tracking-tight">
-                C. Adresse d’arrivée
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 mt-1 md:mt-2 font-light text-sm">Où livrons-nous vos biens ? Saisie assistée.</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="md:col-span-2 space-y-2">
-                <label htmlFor="quote-toAddress" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Adresse exacte</label>
-                <input id="quote-toAddress"
-                  ref={toAutocompleteRef}
-                  name="toAddress" 
-                  value={formData.toAddress} 
-                  onChange={handleChange} 
-                  className={`form-input-premium w-full ${errors.toAddress ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} 
-                  placeholder="Saisissez et sélectionnez votre adresse d'arrivée" 
-                />
-                {errors.toAddress && <p className="text-red-500 text-xs ml-1 font-medium">{errors.toAddress}</p>}
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="quote-toCity" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Ville</label>
-                <input id="quote-toCity" name="toCity" value={formData.toCity} onChange={handleChange} className={`form-input-premium w-full ${errors.toCity ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="Paris" />
-                {errors.toCity && <p className="text-red-500 text-xs ml-1 font-medium">{errors.toCity}</p>}
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="quote-toZip" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Code postal</label>
-                <input id="quote-toZip" name="toZip" value={formData.toZip} onChange={handleChange} className={`form-input-premium w-full ${errors.toZip ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="75008" />
-                {errors.toZip && <p className="text-red-500 text-xs ml-1 font-medium">{errors.toZip}</p>}
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="quote-toFloor" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Étage</label>
-                <input id="quote-toFloor" name="toFloor" value={formData.toFloor} onChange={handleChange} className="form-input-premium w-full" placeholder="Ex: RDC" />
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="quote-toElevator" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Ascenseur</label>
-                <select id="quote-toElevator" name="toElevator" value={formData.toElevator} onChange={handleChange} className="form-input-premium w-full">
-                  <option value="oui">Oui</option>
-                  <option value="non">Non</option>
-                </select>
-              </div>
-              <div className="md:col-span-2 space-y-2">
-                <label htmlFor="quote-toDifficulties" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Difficultés d’accès éventuelles</label>
-                <textarea id="quote-toDifficulties" name="toDifficulties" value={formData.toDifficulties} onChange={handleChange} rows={2} className="form-input-premium w-full resize-none py-3" placeholder="Code d'accès, sens interdit, accès poids lourd..."></textarea>
-              </div>
-            </div>
-          </section>
-
-          {/* Section D: Votre déménagement */}
-          <section className="space-y-8 md:space-y-10">
-            <div className="border-l-4 border-accent pl-5 md:pl-6 text-left">
-              <h3 className="text-xl md:text-2xl font-bold text-brand-900 dark:text-white tracking-tight">
-                D. Votre déménagement
-              </h3>
-              <p className="text-slate-400 dark:text-slate-500 mt-1 md:mt-2 font-light text-sm">Précisez les contours logistiques de votre projet.</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-2">
-                <label htmlFor="quote-date" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Date souhaitée</label>
-                <input id="quote-date" type="date" name="date" value={formData.date} onChange={handleChange} className={`form-input-premium w-full ${errors.date ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} />
-                {errors.date && <p className="text-red-500 text-xs ml-1 font-medium">{errors.date}</p>}
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="quote-housingType" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Type de logement</label>
-                <select id="quote-housingType" name="housingType" value={formData.housingType} onChange={handleChange} className={`form-input-premium w-full ${errors.housingType ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`}>
-                  <option value="">Sélectionner</option>
-                  <option value="appartement">Appartement</option>
-                  <option value="maison">Maison</option>
-                  <option value="bureaux">Bureaux / Entreprise</option>
-                </select>
-                {errors.housingType && <p className="text-red-500 text-xs ml-1 font-medium">{errors.housingType}</p>}
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="quote-surface" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Surface en m²</label>
-                <input id="quote-surface" type="number" name="surface" value={formData.surface} onChange={handleChange} className={`form-input-premium w-full ${errors.surface ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`} placeholder="Ex: 45" />
-                {errors.surface && <p className="text-red-500 text-xs ml-1 font-medium">{errors.surface}</p>}
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="quote-volume" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Volume estimé en m³, si connu</label>
-                <input id="quote-volume" name="volume" value={formData.volume} onChange={handleChange} className="form-input-premium w-full" placeholder="Ex: 25 m³" />
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="quote-formula" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Formule souhaitée</label>
-                <select id="quote-formula" aria-describedby="quote-formula-help" name="formula" value={formData.formula} onChange={handleChange} className={`form-input-premium w-full ${errors.formula ? 'border-red-500 bg-red-50 dark:bg-red-900/10' : ''}`}>
-                  <option value="">Choisir ma formule</option>
-                  <option value="economique">Économique</option>
-                  <option value="standard">Standard</option>
-                  <option value="luxe">Luxe</option>
-                  <option value="je ne sais pas">Je ne sais pas</option>
-                </select>
-                <p id="quote-formula-help" className="text-sm text-slate-600 dark:text-slate-400">Vous pouvez modifier ce choix ou sélectionner « Je ne sais pas ». Les prestations seront précisées dans votre devis.</p>
-                {errors.formula && <p className="text-red-500 text-xs ml-1 font-medium">{errors.formula}</p>}
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="quote-visitPreference" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Visite commerciale souhaitée</label>
-                <select id="quote-visitPreference" name="visitPreference" value={formData.visitPreference} onChange={handleChange} className="form-input-premium w-full">
-                  <option value="a_definir">À définir avec un conseiller</option>
-                  <option value="domicile">À domicile</option>
-                  <option value="visio">En visio</option>
-                </select>
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="quote-needsLift" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Besoin de monte-meuble</label>
-                <select id="quote-needsLift" name="needsLift" value={formData.needsLift} onChange={handleChange} className="form-input-premium w-full">
-                  <option value="oui">Oui</option>
-                  <option value="non">Non</option>
-                  <option value="je ne sais pas">Je ne sais pas</option>
-                </select>
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="quote-needsPacking" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Besoin d’emballage</label>
-                <select id="quote-needsPacking" name="needsPacking" value={formData.needsPacking} onChange={handleChange} className="form-input-premium w-full">
-                  <option value="oui">Oui</option>
-                  <option value="non">Non</option>
-                </select>
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="quote-needsStorage" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Besoin de garde-meuble</label>
-                <select id="quote-needsStorage" name="needsStorage" value={formData.needsStorage} onChange={handleChange} className="form-input-premium w-full">
-                  <option value="oui">Oui</option>
-                  <option value="non">Non</option>
-                </select>
-              </div>
-              <div className="md:col-span-2 space-y-2">
-                <label htmlFor="quote-message" className="text-sm font-bold text-brand-900 dark:text-slate-300 ml-1">Message complémentaire</label>
-                <textarea id="quote-message" name="message" value={formData.message} onChange={handleChange} rows={4} className="form-input-premium w-full resize-none py-3" placeholder="Informations utiles : objets fragiles, piano, coffre-fort, etc."></textarea>
-              </div>
-            </div>
-          </section>
-
-          {/* Section E: Consentement et envoi */}
-          <section className="pt-10 border-t border-slate-100 dark:border-slate-800 space-y-12">
-            <div className="border-l-4 border-accent pl-5 md:pl-6 text-left">
-              <h3 className="text-xl md:text-2xl font-bold text-brand-900 dark:text-white tracking-tight">
-                E. Consentement
-              </h3>
-              <p className="text-slate-400 dark:text-slate-500 mt-1 md:mt-2 font-light text-sm">Votre accord pour le traitement de votre demande.</p>
-            </div>
-
-            <div className="bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl space-y-4">
-              <label className="flex items-start gap-4 cursor-pointer group">
-                <div className="mt-1">
-                  <input 
-                    type="checkbox" 
-                    name="consent" 
-                    checked={formData.consent} 
-                    onChange={handleChange}
-                    className="w-6 h-6 rounded border-slate-300 dark:border-slate-700 text-accent focus:ring-accent transition-all cursor-pointer"
-                  />
+    <div className="quote-wizard">
+      <nav aria-label="Étapes de votre demande" className="quote-progress"><ol>{steps.map((label, index) => (
+        <li key={label}><button type="button" aria-current={step === index + 1 ? 'step' : undefined} disabled={index + 1 > step || isSubmitting} onClick={() => setStep(index + 1)}>
+          <span aria-hidden="true">{index + 1 < step ? <Check size={16} /> : index + 1}</span><span>{label}</span>
+        </button></li>
+      ))}</ol></nav>
+      <div className="quote-wizard-body">
+        <p className="quote-step-count" aria-live="polite">Étape {step} sur 3</p>
+        <h3 ref={headingRef} tabIndex={-1} className="quote-step-heading">{['D’où partez-vous, où allez-vous ?', 'Quel accompagnement souhaitez-vous ?', 'À qui envoyer votre devis ?'][step - 1]}</h3>
+        <p className="quote-step-help">{step === 3 ? 'Les champs marqués * sont nécessaires pour vous recontacter.' : 'Renseignez ce que vous connaissez. Nous préciserons le reste ensemble.'}</p>
+        <form ref={formRef} onSubmit={handleSubmit} noValidate aria-busy={isSubmitting}>
+          <div hidden aria-hidden="true"><input name="website" value={formData.website} onChange={handleChange} tabIndex={-1} autoComplete="off" /></div>
+          <fieldset disabled={isSubmitting} className="quote-fields-root">
+          <div hidden={step !== 1}>
+            <div className="quote-route-grid">{(['from', 'to'] as const).map((side, index) => (
+              <div className="quote-route" key={side}>
+                <h4><span>{index + 1}</span>{side === 'from' ? 'Au départ' : 'À l’arrivée'}</h4>
+                <div className="quote-field"><label htmlFor={'quote-' + side + 'Address'}>{side === 'from' ? 'Adresse de départ' : 'Adresse d’arrivée'}</label>
+                  <input id={'quote-' + side + 'Address'} ref={side === 'from' ? fromAutocompleteRef : toAutocompleteRef} name={side + 'Address'} value={formData[`${side}Address`]} maxLength={200} autoComplete="off"
+                    placeholder="Adresse ou ville, si connue" onChange={e => {
+                      const value = e.target.value;
+                      setFormData(prev => ({...prev, [`${side}Address`]:value, [`${side}City`]:'', [`${side}Zip`]:''}));
+                    }} onKeyDown={e => { if (e.key === 'Enter') e.preventDefault(); }} />
                 </div>
-                <span className="text-sm md:text-base text-slate-500 dark:text-slate-400 leading-relaxed font-light">
-                  J’accepte que Marne Transdem me contacte au sujet de ma demande de devis. Vos données sont traitées en toute confidentialité. <span className="text-accent">*</span>
-                </span>
-              </label>
-              {errors.consent && <p className="text-red-500 text-sm ml-10 font-bold">{errors.consent}</p>}
+                <details className="quote-details"><summary>Préciser la ville et le code postal</summary><div className="quote-grid">
+                  {field(`${side}City`, 'Ville', {maxLength:100})}{field(`${side}Zip`, 'Code postal', {maxLength:20})}
+                </div></details>
+                <details className="quote-details"><summary>Étages, ascenseur et accès <span>Facultatif</span></summary><div className="quote-grid">
+                  {field(`${side}Floor`, 'Étage', {placeholder:'RDC, 3e…'})}{select(`${side}Elevator`, 'Ascenseur', uncertain)}
+                  <div className="quote-field quote-span"><label htmlFor={'quote-' + side + 'Difficulties'}>Difficultés d’accès</label><textarea id={'quote-' + side + 'Difficulties'} name={side + 'Difficulties'} value={formData[`${side}Difficulties`]} onChange={handleChange} rows={2} maxLength={2000} placeholder="Escalier étroit, stationnement éloigné…" /></div>
+                </div></details>
+              </div>
+            ))}</div>
+            <fieldset className="quote-date-options"><legend>Quand souhaitez-vous déménager ?</legend><div className="quote-choices">
+              {[['unknown','À préciser'],['date','Une date prévue'],['flexible','Une période flexible']].map(([value,label]) => <label key={value}><input type="radio" name="dateMode" value={value} checked={dateMode === value} onChange={() => setDateMode(value)} /><span>{label}</span></label>)}
+            </div></fieldset>
+            {dateMode === 'date' && field('date','Date souhaitée',{type:'date'})}
+            {dateMode === 'flexible' && <div className="quote-field"><label htmlFor="quote-period">Période envisagée, si connue</label><input id="quote-period" value={period} onChange={e => setPeriod(e.target.value)} maxLength={100} placeholder="Par exemple : fin octobre, dates flexibles" /></div>}
+          </div>
+          <div hidden={step !== 2}>
+            {estimate && <div className="quote-estimate"><Calculator size={22} /><p>Votre estimation : <strong>{estimate.estimatedVolume} m³</strong></p><button type="button" onClick={clearEstimate} aria-label="Retirer l’estimation du calculateur"><RotateCcw size={18} /></button></div>}
+            <div className="quote-grid">
+              {select('housingType','Votre logement ou vos locaux',[['','À préciser'],['appartement','Appartement'],['maison','Maison'],['bureaux','Bureaux / Entreprise']])}
+              {field('volume','Volume estimé, si connu',{placeholder:'Ex. : 20 m³'})}
             </div>
-
-            <div className="flex justify-center md:justify-start">
-              <button 
-                type="submit" 
-                disabled={isSubmitting}
-                className="bg-accent text-brand-900 px-14 py-6 rounded-full font-black shadow-[0_20px_50px_rgba(245,164,0,0.3)] flex items-center justify-center gap-4 hover:bg-accent-hover transition-all active:scale-95 disabled:opacity-50 group min-w-[320px]"
-              >
-                {isSubmitting ? (
-                  <Loader2 className="animate-spin text-brand-900" size={28} />
-                ) : (
-                  <>
-                    <span className="text-xl hidden md:inline uppercase tracking-tight">Envoyer ma demande de devis</span>
-                    <span className="text-xl md:hidden">Demander mon devis</span>
-                    <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
-                  </>
-                )}
-              </button>
+            <p className="quote-hint">Vous ne connaissez pas le volume ? Laissez ce champ vide : notre équipe vous aidera à l’estimer. Vous pouvez aussi utiliser le <Link to="/calculateur-volume" target="_blank" rel="noopener noreferrer">calculateur en m³ (nouvel onglet)</Link>.</p>
+            <div className="quote-grid">
+              {select('formula','Votre formule',[['','Aidez-moi à choisir'],['economique','Économique'],['standard','Standard'],['luxe','Luxe'],['je ne sais pas','Je ne sais pas']])}
+              {select('visitPreference','Pour préciser votre projet',[['a_definir','À définir avec un conseiller'],['domicile','Une visite à domicile'],['visio','Un échange en visio']])}
             </div>
-          </section>
+            <p className="quote-hint">Les prestations retenues seront précisées dans votre devis personnalisé.</p>
+            <details className="quote-details"><summary>Ajouter des besoins particuliers <span>Facultatif</span></summary><div className="quote-grid">
+              {field('surface','Surface en m², si connue',{type:'number',placeholder:'Ex. : 45'})}
+              {select('needsLift','Monte-meuble',uncertain)}{select('needsPacking','Emballage',uncertain)}{select('needsStorage','Garde-meuble',uncertain)}
+            </div></details>
+            <div className="quote-field"><label htmlFor="quote-message">Un détail à nous signaler ? <span>Facultatif</span></label><textarea id="quote-message" name="message" value={formData.message} onChange={handleChange} rows={3} maxLength={5000} placeholder="Un piano, des objets fragiles, une contrainte de calendrier…" /></div>
+          </div>
+          <div hidden={step !== 3}>
+            <div className="quote-recap"><h4>Votre projet en un coup d’œil</h4>
+              <div><p><strong>Départ</strong>{routeLabel('from')}<strong>Arrivée</strong>{routeLabel('to')}<strong>Quand ?</strong>{dateMode === 'flexible' ? period || 'Période flexible à préciser' : dateMode === 'date' && formData.date ? formData.date.split('-').reverse().join('/') : 'À préciser ensemble'}</p><button type="button" onClick={() => setStep(1)}>Modifier le trajet</button></div>
+              <div><p><strong>Accompagnement</strong>{formulaLabel} · {formData.volume || 'Volume à estimer'}</p><button type="button" onClick={() => setStep(2)}>Modifier les besoins</button></div>
+            </div>
+            {field('fullName','Nom et prénom',{autoComplete:'name',required:true,maxLength:100})}
+            <div className="quote-grid">{field('phone','Téléphone',{type:'tel',autoComplete:'tel',required:true,maxLength:25})}{field('email','Email',{type:'email',autoComplete:'email',required:true,maxLength:254})}</div>
+            <p className="quote-hint">Notre équipe vous recontacte pour préciser votre projet et préparer votre devis. L’envoi ne réserve pas de date.</p>
+            <label className="quote-consent"><input id="quote-consent" type="checkbox" name="consent" checked={formData.consent} onChange={handleChange} required aria-invalid={!!errors.consent} aria-describedby={errors.consent ? 'error-consent' : undefined} /><span>J’accepte que Marne Transdem me contacte au sujet de ma demande de devis. *</span></label>
+            <p className="quote-hint">Consultez notre <Link to="/politique-de-confidentialite" target="_blank" rel="noopener noreferrer">politique de confidentialité (nouvel onglet)</Link>.</p>
+            {errors.consent && <p className="quote-error" id="error-consent">{errors.consent}</p>}
+          </div>
+          </fieldset>
+          {submitError && <p className="quote-error quote-send-error" role="alert">{submitError}</p>}
+          <div className="quote-navigation">
+            {step > 1 && <button className="quote-back" type="button" disabled={isSubmitting} onClick={() => setStep(step - 1)}><ChevronLeft size={17} />Retour</button>}
+            {step < 3 ? <button key="continue" className="quote-next" type="button" onClick={e => { e.preventDefault(); setStep(step + 1); }}>Continuer <ArrowRight size={18} /></button> :
+              <button key="send" className="quote-next" type="submit" disabled={isSubmitting}>{isSubmitting ? <><Loader2 size={18} className="animate-spin" />Envoi en cours…</> : <>Envoyer ma demande <ArrowRight size={18} /></>}</button>}
+          </div>
+          <p className="quote-footer-note">{step < 3 ? 'Vos réponses sont conservées lorsque vous changez d’étape.' : 'Votre demande est adressée directement à Marne Transdem.'}</p>
         </form>
       </div>
     </div>

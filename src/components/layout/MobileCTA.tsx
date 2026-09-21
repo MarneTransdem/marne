@@ -8,7 +8,9 @@ import { trackConversion } from '../../lib/public-analytics';
 export const MobileCTA: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [editing, setEditing] = useState(false);
-  const isHome = useLocation().pathname === '/';
+  const { pathname } = useLocation();
+  const isHome = pathname === '/';
+  const isQuote = pathname === '/demande-de-devis' || pathname === '/devis';
 
   useEffect(() => {
     if (!isHome) { setEditing(false); return; }
@@ -32,7 +34,7 @@ export const MobileCTA: React.FC = () => {
 
   return (
     <AnimatePresence>
-      {isVisible && !editing && (
+      {isVisible && !editing && !isQuote && (
         <motion.div 
           initial={{ opacity: 0, y: 30, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
