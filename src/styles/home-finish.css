@@ -131,3 +131,75 @@
 .home-google-date { font-size:10px; color:#5e5e5e; }
 .home-google-rating:hover .home-google-count { text-decoration:underline; text-underline-offset:3px; }
 @media (max-width:639px) { .home-premium.home-refined .home-hero-impact .home-google-rating { padding:14px 18px; } }
+
+/* The logo's orange is a consistent accent, with darker ink on pale surfaces. */
+.home-premium.home-refined {
+ --home-orange:var(--color-accent, #f5a400);
+ --home-orange-ink:#975100;
+ --home-orange-wash:#fff4df;
+}
+.home-premium.home-refined :is(.home-eyebrow,.home-quote-kicker,.home-section-intro>p:first-child,.home-preparation-eyebrow,.home-trust .space-y-4>p:first-child,.home-faq h2,.home-advice h2,#google-reviews h2)::before {
+ content:""; display:inline-block; width:24px; height:3px; margin-right:10px;
+ vertical-align:middle; background:var(--home-orange); border-radius:2px;
+}
+.home-premium.home-refined .home-hero-impact .home-button-primary {
+ background:var(--home-orange); border-color:var(--home-orange); color:#10283c;
+}
+.home-premium.home-refined .home-hero-impact .home-button-primary:hover {
+ background:#ffbc3d; border-color:#ffbc3d;
+}
+.home-premium.home-refined .home-chapters a>svg,
+.home-premium.home-refined .home-quick-fields .home-button>svg {
+ color:var(--home-orange);
+}
+.home-premium.home-refined .home-quick-fields input:focus {
+ border-color:var(--home-orange-ink); outline:2px solid var(--home-orange); outline-offset:2px;
+}
+.home-premium.home-refined .home-volume-options button[aria-pressed=true] {
+ background:var(--home-orange); border-color:var(--home-orange-ink); color:#10283c;
+}
+.home-premium.home-refined .home-reassurance .grid>div>div:first-child,
+.home-premium.home-refined .home-service-icon,
+.home-premium.home-refined .home-areas .grid>a svg,
+.home-premium.home-refined .home-advice .grid>div svg,
+.home-premium.home-refined .home-contact-copy>div a:last-child svg {
+ color:var(--home-orange-ink);
+}
+.home-premium.home-refined .home-service-icon { background:var(--home-orange-wash); }
+.home-premium.home-refined .home-project-image span {
+ background:var(--home-orange); color:#10283c;
+}
+.home-premium.home-refined .home-project-body .text-accent svg,
+.home-premium.home-refined .home-trust .home-trust-points svg,
+.home-premium.home-refined .home-advice a[href="/blog"] svg,
+.home-premium.home-refined .home-contact-copy>div a:first-child svg {
+ color:var(--home-orange);
+}
+.home-premium.home-refined .home-preparation-number {
+ color:var(--home-orange); border-color:#f5a40080; background:#f5a4000d;
+}
+.home-premium.home-refined .home-preparation-copy>a svg { color:var(--home-orange-ink); }
+.home-premium.home-refined .home-formula-option.home-formula-balanced {
+ background:#fffaf0; border-color:#ddb66e; box-shadow:inset 0 4px var(--home-orange);
+}
+.home-premium.home-refined .home-formula-badge {
+ background:#ffebbf; color:#754000;
+}
+.home-premium.home-refined .home-formula-option li svg { color:var(--home-orange-ink); }
+.home-premium.home-refined .home-areas h2::before {
+ content:""; display:block; width:40px; height:3px; margin-bottom:20px; background:var(--home-orange);
+}
+.home-premium.home-refined .home-faq-items button>div { color:var(--home-orange-ink); }
+.home-premium.home-refined .home-faq-items>div:has(button[aria-expanded=true]) { border-color:#ddb66e; }
+.home-premium.home-refined #google-reviews .home-review-card { border-top:3px solid var(--home-orange); }
+.home-premium.home-refined .home-review-invitation a { background:var(--home-orange); color:#10283c; }
+.dark .home-premium.home-refined .home-reassurance .grid>div>div:first-child,
+.dark .home-premium.home-refined .home-service-icon,
+.dark .home-premium.home-refined .home-advice .grid>div svg,
+.dark .home-premium.home-refined .home-faq-items button>div { color:var(--home-orange); }
+.dark .home-premium.home-refined .home-service-icon { background:#f5a40014; }
+.dark .home-premium.home-refined .home-quick-fields .home-button>svg,
+.home-premium.home-refined .home-trust .home-trust-points .group:hover svg { color:#10283c; }
+.home-related-resources h2::before {
+ content:""; display:block; width:32px; height:3px; margin-bottom:16px; background:var(--color-accent, #f5a400);
+}
