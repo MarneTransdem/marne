@@ -188,6 +188,33 @@ const About: React.FC = () => {
         </div>
       </section>
 
+      <section id="partenaire-demenizo" aria-labelledby="partenaire-demenizo-title" className="bg-slate-50 dark:bg-slate-900/50 pb-16 md:pb-20 scroll-mt-28">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="mx-auto max-w-5xl rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 sm:p-8 md:p-10">
+            <div className="flex flex-col sm:flex-row items-start gap-5 sm:gap-7">
+              <div aria-hidden="true" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-amber-800 dark:text-accent">
+                <Handshake size={26} />
+              </div>
+              <div className="min-w-0">
+                <h2 id="partenaire-demenizo-title" className="text-2xl md:text-3xl font-bold tracking-tight text-brand-900 dark:text-white mb-4">
+                  Marne Transdem, partenaire de Déménizo
+                </h2>
+                <p className="max-w-3xl text-base leading-relaxed text-slate-600 dark:text-slate-300">
+                  Marne Transdem participe à Déménizo, une plateforme de mise en relation pour les projets de déménagement. Retrouvez notre présentation, nos prestations et des exemples de projets documentés sur notre fiche partenaire.
+                </p>
+                <a
+                  href="https://demenizo.fr/partenaires/marne-transdem-paris"
+                  className="mt-5 inline-flex min-h-11 max-w-full items-center gap-3 py-2 font-semibold text-brand-900 dark:text-white underline decoration-accent decoration-2 underline-offset-4 hover:decoration-brand-900 dark:hover:decoration-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-700 dark:focus-visible:outline-accent rounded-sm"
+                >
+                  <span>Découvrir Marne Transdem sur Déménizo</span>
+                  <ArrowRight size={18} aria-hidden="true" className="shrink-0 text-amber-800 dark:text-accent" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 3. Notre mission */}
       <section className="py-24 bg-slate-50 dark:bg-slate-900/50">
         <div className="container mx-auto px-4 md:px-6">
