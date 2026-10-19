@@ -4188,93 +4188,61 @@ export const sectorsData: Sector[] = [
     "slug": "montreuil",
     "name": "Montreuil",
     "type": "local",
-    "seoTitle": "Déménagement Montreuil | Logements, Ateliers & lofts | Marne Transdem",
-    "seoDescription": "Besoin d'un déménageur de confiance à Montreuil (93100) ? Marne Transdem réalise vos déménagements de haut niveau pour lofts, appartements familiaux et bureaux. Devis Gratuit.",
+    "seoTitle": "Déménagement Montreuil (93100) : devis | Marne Transdem",
+    "seoDescription": "Préparez votre déménagement à Montreuil : volume, accès, portage et démarches de voirie. Demandez un devis gratuit à Marne Transdem pour votre projet.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem orchestre vos projets de déménagement de haut niveau pour appartements familiaux, lofts contemporains et locaux professionnels à Montreuil. Profitez d'un savoir-faire artisanal de haute technicité, parfaitement adapté au tissu urbain contrasté de la petite couronne.",
+    "heroSubtitle": "Appartement, maison ou atelier à Montreuil : décrivez vos biens, les passages et les deux adresses pour préparer un devis adapté à votre déménagement.",
     "introParagraphs": [
-      "Idéalement connectée aux lisières de <strong>Paris 20e</strong> et de <strong>Vincennes</strong>, la ville de <strong>Montreuil</strong> (93100) séduit par sa fascinante dynamique culturelle, son histoire horticole d'exception (les célèbres Murs à Pêches) et la stupéfiante diversité de son architecture. Du Bas-Montreuil, caractérisé par ses lofts réhabilités et d'anciens ateliers d'artistes denses, aux plateaux verdoyants du parc des Beaumonts abritant de délicats pavillons individuels et des résidences contemporaines, la ville affiche un paysage de contrastes intenses.",
-      "Mener un déménagement dans ces configurations exige une précision logistique chirurgicale. Les ruelles pavées de l'Est parisien, les impasses pittoresques mais resserrées, et l'absence récurrente d'ascenseur en immeubles de faubourgs imposent aux professionnels de configurer judicieusement chaque moyen technique : sélection minutieuse du gabarit des fourgons capitonnés de transit, recours raisonné à nos monte-meubles d'extérieur et dépose de signalisations administratives en temps voulu.",
-      "Pour répondre au plus haut niveau d'exigence des familles, artisans et indépendants montreuillois, <strong>Marne Transdem</strong> étudie des solutions logistiques rigoureuses. En planifiant nos parcours avec soin et en emballant méthodiquement chaque meuble d'art et pièce informatique fragile, nous garantissons l'intégrité absolue de vos transitions géographiques."
+      "Pour votre <strong>déménagement à Montreuil (93100)</strong>, commencez par décrire le parcours entre les biens et le camion. Un logement au-dessus d’un commerce, un atelier en fond de cour ou une maison avec une allée ne demandent pas la même manutention. Relevez les marches, la largeur des portes, les dimensions de l’ascenseur et la distance de portage. Pour les meubles qui semblent difficiles à sortir, transmettez leurs dimensions et des photos des passages : le démontage ou une autre méthode de manutention pourra être étudié avant le jour du départ.",
+      "<strong>À Montreuil, une demande ne garantit pas une place réservée.</strong> La mairie indique ne plus réserver de places pour les déménagements. Sa page <a href=\"https://www.montreuil.fr/urbanisme/urbanisme-et-habitat/permissions-et-droits-de-voirie\" class=\"text-accent hover:underline\">permissions et droits de voirie</a> précise les démarches liées à l’occupation du domaine public. Faites confirmer par le service compétent les conditions applicables à votre adresse, notamment pour un appareil de levage. Avec notre équipe, précisez l’emplacement envisagé, la personne chargée des démarches et les frais à intégrer au devis. Un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> reste soumis à l’étude des ouvertures, des obstacles et de l’espace disponible au sol.",
+      "Pour un atelier ou un logement comportant des biens fragiles, séparez l’inventaire courant des tableaux, instruments ou meubles atypiques. Précisez ce que vous emballez vous-même et ce que vous souhaitez confier à l’équipe : notre page <a href=\"/emballage-protection-demenagement\" class=\"text-accent hover:underline\">emballage et protection</a> aide à préparer cette répartition. Si le trajet rejoint <a href=\"/demenagement-paris-20\" class=\"text-accent hover:underline\">Paris 20e</a> ou <a href=\"/demenagement-vincennes\" class=\"text-accent hover:underline\">Vincennes</a>, relevez aussi les accès à destination. Consultez les autres communes de <a href=\"/demenagement-seine-saint-denis\" class=\"text-accent hover:underline\">Seine-Saint-Denis</a>, puis <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">demandez votre devis pour Montreuil</a> avec vos dates, votre inventaire et les prestations souhaitées."
     ],
     "faqs": [
       {
-        "q": "Comment s'organise un déménagement premium d'appartement, maison de ville ou loft à Montreuil ?",
-        "a": "Les lofts contemporains du Bas-Montreuil, les maisons bourgeoises du quartier des Beaumonts ou les appartements anciens près de Mairie de Montreuil abritent fréquemment des collections d'art, du mobilier précieux ou du matériel de bureaux de start-up d'artistes. Marne Transdem met en œuvre un protocole d'exception : emballage de vos effets précieux sous valises antichocs, protection rigoureuse des surfaces de réception et passages d'immeuble, utilisation de housses capitonnées exclusives pour mobiliers délicats, et transport sécurisé dans des camions capitonnés. Nos compagnons déménageurs agissent avec une minutie artisanale totale."
+        "q": "Peut-on réserver une place de stationnement pour déménager à Montreuil ?",
+        "a": "La mairie indique ne plus réserver de places pour les déménagements. Cela ne dispense pas de vérifier les démarches d’occupation du domaine public. Contactez le service des permissions de voirie pour préciser les conditions applicables à votre adresse et à une éventuelle installation de levage."
       },
       {
-        "q": "Quelle est la procédure administrative de stationnement auprès de la Mairie de Montreuil (93100) ?",
-        "a": "Pour réserver l'emplacement nécessaire au camion de déménagement et au monte-meubles d'extérieur, il est requis d'obtenir une autorisation administrative d'occupation temporaire (AOT). Cette demande doit être transmise aux autorités locales de la Mairie de Montreuil au minimum 15 jours francs avant l'intervention. Marne Transdem prend en charge la gestion complète de ces formalités obligatoires de voirie et installe la signalisation réglementaire d'interdiction de stationnement 48 heures à l'avance pour sécuriser le périmètre."
+        "q": "Quel délai prévoir pour les démarches de voirie à Montreuil ?",
+        "a": "Faites confirmer le délai et les pièces nécessaires par le service municipal en fonction de votre installation et de l’adresse concernée. Ne retenez pas un délai unique sans cette vérification. Précisez avec Marne Transdem qui effectue la demande et comment les éventuels frais figurent dans le devis."
       },
       {
-        "q": "Proposez-vous une formule clés en main avec emballage et déballage intégral ?",
-        "a": "Tout à fait. Notre formule Prestige (Luxe) est le choix d'excellence pour les familles et professionnels exigeants de Montreuil. Vous n'avez aucune préparation physique à effectuer : nos experts se chargent d'emballer l'intégralité de vos biens (vêtements délicats sur cintres dans des penderies verticales rigides, livres, vaisselle fine dans des valises antichocs capitonnées) et d'effectuer le déballage méthodique à votre nouvelle adresse."
+        "q": "Comment préparer un déménagement depuis un atelier en fond de cour ?",
+        "a": "Relevez les dimensions du portail, les marches, la largeur des passages et la distance entre l’atelier et le véhicule. Listez séparément les objets lourds, fragiles ou de grand format, avec leurs dimensions. Indiquez les horaires d’accès et les consignes du propriétaire ou du gestionnaire."
       },
       {
-        "q": "Dans quels cas le recours à un monte-meubles est-il indispensable à Montreuil ?",
-        "a": "Montreuil possède un patrimoine urbain varié incluant de nombreux appartements anciens sans ascenseur ou accessibles par des cages d'escalier étroites (notamment dans le Bas-Montreuil et la Croix de Chavaux). Lorsque des canapés d'angle, des pianos, ou des tables volumineuses ne s'insèrent pas dans les accès intérieurs, nous mettons en place un monte-meubles télescopique d'extérieur, sous réserve de faisabilité technique relative au réseau de lignes aériennes et à la largeur de la voie."
+        "q": "La formule Luxe comprend-elle tous les travaux et tous les débranchements ?",
+        "a": "Les prestations retenues doivent être détaillées dans le devis : emballage, déballage, démontage et remontage notamment. Signalez les appareils à déconnecter, les éléments fixés aux murs et les interventions particulières. Ne considérez pas ces opérations comme incluses sans confirmation écrite dans la proposition."
       },
       {
-        "q": "Comment planifier une visite technique d'estimation gratuite de mes volumes mobiliers ?",
-        "a": "Contactez Marne Transdem par téléphone ou via le formulaire de demande de devis pour votre projet à Montreuil. Indiquez les adresses de départ et d’arrivée, la période envisagée, le volume estimé, les accès et les prestations souhaitées. Si une visite est nécessaire, ses modalités sont à convenir avec l’équipe. Demandez également le délai de remise du devis selon les informations restant à préciser."
+        "q": "Comment faire estimer le volume de mon déménagement à Montreuil ?",
+        "a": "Préparez un inventaire des meubles et cartons, en incluant cave, garage et atelier lorsqu’ils font partie du déménagement. Le calculateur de volume fournit une première estimation. Transmettez aussi les biens atypiques et les informations d’accès ; si une visite est nécessaire, ses modalités sont à convenir avec l’équipe."
       }
     ],
     "nearbySectors": [
       {
-        "n": "Île-de-France",
-        "l": "/demenagement-ile-de-france"
-      },
-      {
-        "n": "Seine-Saint-Denis (93)",
+        "n": "Seine-Saint-Denis",
         "l": "/demenagement-seine-saint-denis"
-      },
-      {
-        "n": "Paris",
-        "l": "/secteurs-desservis"
       },
       {
         "n": "Paris 20e",
         "l": "/demenagement-paris-20"
       },
       {
+        "n": "Bagnolet",
+        "l": "/demenagement-bagnolet"
+      },
+      {
+        "n": "Romainville",
+        "l": "/demenagement-romainville"
+      },
+      {
         "n": "Vincennes",
         "l": "/demenagement-vincennes"
       },
       {
-        "n": "Charenton-le-Pont",
-        "l": "/demenagement-charenton-le-pont"
-      },
-      {
-        "n": "Saint-Maur-des-Fossés",
-        "l": "/demenagement-saint-maur-des-fosses"
-      },
-      {
-        "n": "Créteil",
-        "l": "/demenagement-creteil"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
-      },
-      {
         "n": "Fontenay-sous-Bois",
         "l": "/demenagement-fontenay-sous-bois"
-      },
-      {
-        "n": "Joinville-le-Pont",
-        "l": "/demenagement-joinville-le-pont"
-      },
-      {
-        "n": "Champigny-sur-Marne",
-        "l": "/demenagement-champigny-sur-marne"
-      },
-      {
-        "n": "Le Perreux-sur-Marne",
-        "l": "/demenagement-le-perreux-sur-marne"
-      },
-      {
-        "n": "Pantin",
-        "l": "/demenagement-pantin"
       }
     ]
   },
@@ -4667,97 +4635,61 @@ export const sectorsData: Sector[] = [
     "slug": "pantin",
     "name": "Pantin",
     "type": "local",
-    "seoTitle": "Déménagement Pantin | Logements, Lofts & Bureaux | Marne Transdem",
-    "seoDescription": "Besoin d'un déménageur de confiance à Pantin (93500) ? Marne Transdem réalise vos déménagements de haut niveau pour lofts, pavillons et locaux professionnels. Devis Gratuit.",
+    "seoTitle": "Déménagement Pantin (93500) : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Pantin : préparez les accès, le mobilier et les démarches de stationnement. Demandez votre devis gratuit pour un logement ou des bureaux.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem orchestre vos projets de déménagement de haut niveau pour appartements familiaux, lofts atypiques et locaux professionnels à Pantin. Bénéficiez d’un savoir-faire logistique d'excellence, spécifiquement adapté aux particularités de la petite couronne.",
+    "heroSubtitle": "À Pantin, préparez le trajet des meubles, l’accès du véhicule et les démarches de stationnement pour organiser votre logement ou votre transfert professionnel.",
     "introParagraphs": [
-      "Aux portes immédiates de <strong>Paris 19e</strong>, la ville de <strong>Pantin</strong> (93500) est devenue un pôle incontournable de créativité et de qualité de vie en Île-de-France. Traversée par le pittoresque Canal de l'Ourcq et bordée par les communes d'Aubervilliers, de Bobigny, de Romainville et de Bagnolet, Pantin conjugue à la perfection son dynamisme urbain et son important passé industriel. On y trouve aujourd'hui de magnifiques lofts d’architecte et d’anciens ateliers reconvertis, ainsi que de spacieux appartements familiaux dans des résidences contemporaines de standing ou de jolis pavillons à l'identité préservée.",
-      "Piloter un projet de déménagement dans cette ville en pleine effervescence requiert d'anticiper d'importantes contraintes locales : passages d'immeubles singuliers, ruelles parfois piétonnes ou de gabarit réduit, et une forte densité de circulation aux abords de la Porte de Pantin et de l'avenue Jean Lolive. La préservation de vos structures fragiles d'art et d'ateliers réclame une planification chirurgicale.",
-      "Pour répondre avec justesse et rigueur aux attentes des résidents et professionnels de Pantin, <strong>Marne Transdem</strong> étudie des plans de transport d'une grande fluidité. Grâce à l’utilisation d’équipements sélectifs d’élévation, d'emballages haute technicité et d’une flotte de camions modernes capitonnés, notre entreprise assure la sécurité complète de votre patrimoine."
+      "Pour préparer un <strong>déménagement à Pantin (93500)</strong>, indiquez l’adresse exacte et l’entrée utilisable par l’équipe, même lorsqu’elle se trouve dans une autre rue. Dans un logement avec mezzanine ou un ancien atelier, mesurez les escaliers et les passages avant de prévoir la sortie des meubles. Pour des bureaux, repérez les postes, les archives et leur emplacement à destination. Les conditions d’accès au bâtiment, au quai ou au monte-charge, lorsqu’ils existent, permettent de préparer le <a href=\"/transfert-bureaux-paris\" class=\"text-accent hover:underline\">transfert de bureaux</a> et les créneaux de manutention.",
+      "Le <a href=\"https://mesdemarches.pantin.fr/demarche/98/2\" class=\"text-accent hover:underline\">portail officiel de Pantin pour l’occupation du domaine public</a> prévoit une démarche de permis de stationnement pour un déménagement. Il distingue aussi certaines voies pour lesquelles un autre interlocuteur est indiqué. <strong>Vérifiez la procédure à partir de l’adresse exacte</strong> et faites confirmer les pièces, les délais et les redevances applicables. Précisez dans le devis qui prend en charge les démarches. Si vous envisagez un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a>, signalez-le dès cette préparation : l’installation doit être examinée avec l’emplacement du camion, les ouvertures et les obstacles.",
+      "Un déménagement entre Pantin et <a href=\"/demenagement-paris-19\" class=\"text-accent hover:underline\">Paris 19e</a> peut être court en distance tout en demandant une manutention importante aux deux adresses. Listez les meubles à démonter, les cartons et les biens fragiles ; le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> aide à établir un premier inventaire. Pour une arrivée à <a href=\"/demenagement-bobigny\" class=\"text-accent hover:underline\">Bobigny</a> ou <a href=\"/demenagement-romainville\" class=\"text-accent hover:underline\">Romainville</a>, préparez également les accès du nouveau bâtiment. Retrouvez notre page <a href=\"/demenagement-seine-saint-denis\" class=\"text-accent hover:underline\">déménagement en Seine-Saint-Denis</a> pour organiser le trajet, puis <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">demandez un devis pour votre déménagement à Pantin</a>."
     ],
     "faqs": [
       {
-        "q": "Comment s'organise un déménagement de lofts, ateliers ou anciens entrepôts réhabilités à Pantin ?",
-        "a": "Pantin est célèbre pour ses magnifiques réhabilitations industrielles, notamment le long du Canal de l'Ourcq et dans le quartier des Quatre-Chemins. Ces lofts et ateliers d'artistes présentent souvent de très grandes hauteurs sous plafond, des mezzanines, mais aussi parfois des accès complexes (escaliers industriels, absence d'ascenseur adapté). Marne Transdem est spécialiste de ces configurations atypiques. Nous dépêchons des équipes formées aux passages difficiles, utilisons des chariots d'élévation d'intérieur et, si nécessaire, déployons nos monte-meubles télescopiques d'extérieur pour sécuriser la manutention de vos verrières, tableaux de grand format ou mobiliers design."
+        "q": "Où demander une autorisation de stationnement pour un déménagement à Pantin ?",
+        "a": "Le portail municipal propose une démarche d’occupation du domaine public et cite le déménagement parmi les usages du permis de stationnement. Consultez les instructions pour votre adresse : certaines voies renvoient vers un autre interlocuteur. Faites confirmer le dossier et le délai avant de fixer l’organisation."
       },
       {
-        "q": "Quelles sont les formalités de stationnement auprès de la Mairie de Pantin (93500) ?",
-        "a": "Pour pouvoir stationner légalement un camion de déménagement et installer un monte-meubles sur la voirie publique à Pantin, il est impératif d'obtenir une autorisation d'occupation temporaire (AOT) du domaine public. Cette demande doit être minutieusement déposée auprès des services techniques de la Mairie de Pantin au moins 15 jours francs avant l'opération. Pour vous libérer de ce fardeau logistique, Marne Transdem prend en charge la gestion complète des démarches administratives locales et pose la signalétique réglementaire 48h à l'avance."
+        "q": "Un délai de quinze jours suffit-il pour les démarches à Pantin ?",
+        "a": "Il ne faut pas considérer quinze jours comme un délai garanti. Le portail municipal présente un cadre général d’instruction à partir d’un dossier complet. Demandez au service compétent le délai applicable à votre déménagement, à la voie concernée et au matériel envisagé, puis anticipez la demande en conséquence."
       },
       {
-        "q": "Est-il possible de louer un monte-meuble d'extérieur pour un emménagement le long du Canal de l'Ourcq ?",
-        "a": "Tout à fait. Les résidences modernes et lofts situés sur les quais de l'Ourcq à Pantin bénéficient souvent de balcons ou fenêtres larges propices à l'utilisation d'un monte-meubles. C'est l'option la plus sûre et rapide pour hisser des pièces massives (canapés, pianos, électroménager américain) sans aucun risque de détérioration dans les parties communes d'immeubles. Notre équipe technique évalue la faisabilité (absence de câbles haute tension, largeur de trottoir suffisante) lors de la visite d'estimation gratuite."
+        "q": "Comment préparer la sortie de meubles depuis une mezzanine ou un atelier ?",
+        "a": "Mesurez les meubles, les portes, les virages et la largeur de l’escalier. Signalez les garde-corps, les différences de niveau et les éléments impossibles à démonter. Des photos des passages aident l’équipe à étudier la manutention ; un monte-meuble ne doit être retenu qu’après vérification de sa faisabilité."
       },
       {
-        "q": "Proposez-vous une formule clé en main avec emballage et déballage complet pour les familles ?",
-        "a": "Oui, notre formule Prestige (Luxe) est précisément conçue pour vous décharger de toute contrainte. Nos compagnons déménageurs professionnels s'occupent de tout : emballage individuel sous valises protectrices de votre vaisselle fine, vêtements suspendus sous penderies verticales protégées, mise en cartons de vos livres et objets décoratifs, démontage/remontage minutieux de vos lits et mobiliers complexes. À destination, nous réalisons le déballage total de vos biens et la disposition ordonnée selon vos directives."
+        "q": "Un balcon côté canal permet-il forcément de poser un monte-meuble ?",
+        "a": "Non. Il faut vérifier l’accès à la façade, l’espace disponible pour l’appareil, la hauteur, les obstacles et les dimensions de l’ouverture. Les conditions d’occupation de l’espace public et les éventuels accords du gestionnaire doivent aussi être examinés. La présence d’un balcon ne suffit pas à confirmer l’intervention."
       },
       {
-        "q": "Comment planifier l'estimation gratuite de mon volume à déménager à Pantin ?",
-        "a": "Contactez Marne Transdem par téléphone ou via le formulaire de demande de devis pour votre projet à Pantin. Indiquez les adresses de départ et d’arrivée, la période envisagée, le volume estimé, les accès et les prestations souhaitées. Si une visite est nécessaire, ses modalités sont à convenir avec l’équipe. Demandez également le délai de remise du devis selon les informations restant à préciser."
+        "q": "Que préparer pour transférer des bureaux de Pantin vers une autre commune ?",
+        "a": "Recensez le mobilier, les postes et les archives, avec un repérage de leur destination. Indiquez les créneaux d’accès aux deux bâtiments, les ascenseurs ou monte-charges utilisables et les besoins d’emballage et de démontage. Les opérations informatiques et les prestations particulières doivent être définies séparément dans le devis."
       }
     ],
     "nearbySectors": [
       {
-        "n": "Île-de-France",
-        "l": "/demenagement-ile-de-france"
-      },
-      {
-        "n": "Seine-Saint-Denis (93)",
+        "n": "Seine-Saint-Denis",
         "l": "/demenagement-seine-saint-denis"
-      },
-      {
-        "n": "Paris",
-        "l": "/secteurs-desservis"
       },
       {
         "n": "Paris 19e",
         "l": "/demenagement-paris-19"
       },
       {
-        "n": "Paris 20e",
-        "l": "/demenagement-paris-20"
+        "n": "Bobigny",
+        "l": "/demenagement-bobigny"
       },
       {
-        "n": "Vincennes",
-        "l": "/demenagement-vincennes"
+        "n": "Romainville",
+        "l": "/demenagement-romainville"
       },
       {
-        "n": "Charenton-le-Pont",
-        "l": "/demenagement-charenton-le-pont"
+        "n": "Les Lilas",
+        "l": "/demenagement-les-lilas"
       },
       {
-        "n": "Saint-Maur-des-Fossés",
-        "l": "/demenagement-saint-maur-des-fosses"
-      },
-      {
-        "n": "Créteil",
-        "l": "/demenagement-creteil"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
-      },
-      {
-        "n": "Fontenay-sous-Bois",
-        "l": "/demenagement-fontenay-sous-bois"
-      },
-      {
-        "n": "Joinville-le-Pont",
-        "l": "/demenagement-joinville-le-pont"
-      },
-      {
-        "n": "Champigny-sur-Marne",
-        "l": "/demenagement-champigny-sur-marne"
-      },
-      {
-        "n": "Le Perreux-sur-Marne",
-        "l": "/demenagement-le-perreux-sur-marne"
-      },
-      {
-        "n": "Montreuil",
-        "l": "/demenagement-montreuil"
+        "n": "Noisy-le-Sec",
+        "l": "/demenagement-noisy-le-sec"
       }
     ]
   },
