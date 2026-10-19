@@ -7,6 +7,7 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { handleFirestoreError, OperationType } from '../../lib/firestore-errors';
 import { useMapsLibrary } from '@vis.gl/react-google-maps';
 import { getVisitAttribution, trackConversion } from '../../lib/public-analytics';
+import { isPlausiblePhone } from '../../lib/quote-validation';
 
 interface FormData {
   // Section A: Coordonnées
@@ -228,7 +229,7 @@ Cette estimation est indicative et pourra être affinée selon les accès et les
     
     // Coordonnées (Mandatory)
     if (formData.fullName.trim().length < 2) newErrors.fullName = "Indiquez votre nom et prénom (au moins 2 caractères).";
-    if (formData.phone.trim().length < 8 || formData.phone.length > 25) newErrors.phone = "Indiquez un numéro de téléphone valide.";
+    if (!isPlausiblePhone(formData.phone)) newErrors.phone = "Indiquez un numéro de téléphone valide, par exemple 06 12 34 56 78.";
     if (!formData.email.trim()) newErrors.email = "L'email est requis";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) newErrors.email = "Vérifiez votre adresse email.";
     
