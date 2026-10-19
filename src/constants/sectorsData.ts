@@ -5207,66 +5207,64 @@ export const sectorsData: Sector[] = [
     "name": "Paris 15e",
     "type": "local",
     "seoTitle": "Déménagement Paris 15e : devis gratuit | Marne Transdem",
-    "seoDescription": "Déménagement à Paris 15e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
+    "seoDescription": "Déménagement Paris 15e : volume, ascenseur, accès et stationnement. Préparez votre projet avec Marne Transdem et demandez un devis gratuit adapté.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 15e, avec une organisation adaptée aux appartements, résidences, bureaux et contraintes d'accès du sud-ouest parisien.",
+    "heroSubtitle": "De Grenelle à Javel, de Necker à Saint-Lambert : préparez votre déménagement dans le 15e avec un inventaire, des accès vérifiés et des prestations précisées dans votre devis.",
     "introParagraphs": [
-      "Notre expertise du sud-ouest parisien et notre proximité avec <span className=\"font-bold text-slate-700\">Paris 16e</span>, <span className=\"font-bold text-slate-700\">14e</span>, <span className=\"font-bold text-slate-700\">7e</span>, <span className=\"font-bold text-slate-700\">Issy-les-Moulineaux</span>, <span className=\"font-bold text-slate-700\">Vanves</span> ou <span className=\"font-bold text-slate-700\">Boulogne-Billancourt</span> garantit une réactivité optimale. Chaque projet débute par une <span className=\"font-bold text-slate-700\">estimation du volume</span> et une analyse fine des <span className=\"font-bold text-slate-700\">accès d'immeubles</span> : gestion des <span className=\"font-bold text-slate-700\">ascenseurs</span>, planification du <span className=\"font-bold text-slate-700\">stationnement</span> et étude personnalisée de votre <span className=\"font-bold text-slate-700\">demande de devis</span>."
+      "Pour votre <strong>déménagement à Paris 15e</strong>, décrivez le trajet du meuble jusqu’au camion, pas seulement l’étage du logement. À Grenelle, Javel, Necker ou Saint-Lambert, relevez l’entrée réellement utilisée, les marches du hall, les dimensions de la cabine et de la porte de l’ascenseur. Si votre résidence possède une cour, une dalle ou un accès par parking, précisez le chemin autorisé au déménageur et la distance de portage. Demandez au gardien ou au syndic les conditions d’utilisation des parties communes.",
+      "La <a href=\"https://www.paris.fr/pages/faq-demenagements-4404\" class=\"text-accent hover:underline\">procédure de stationnement pour un déménagement à Paris</a> prévoit une demande d’AOT au moins 15 jours à l’avance. Cette autorisation est nécessaire notamment pour un monte-meuble ou un stationnement de plus de six heures au même emplacement ; elle ne réserve pas une place. Faites préciser qui effectue la démarche et qui règle les frais. Pour deux adresses parisiennes, la Ville demande deux dossiers distincts.",
+      "Ajoutez à l’inventaire les cartons, la cave et les meubles à démonter : le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> aide à préparer cette liste. Comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">prestations d’emballage et de démontage</a> selon ce que vous souhaitez faire vous-même. Pour un départ vers <a href=\"/demenagement-issy-les-moulineaux\" class=\"text-accent hover:underline\">Issy-les-Moulineaux</a> ou <a href=\"/demenagement-vanves\" class=\"text-accent hover:underline\">Vanves</a>, vérifiez séparément les accès à l’arrivée. Transmettez ensuite les deux adresses, la période envisagée et vos besoins dans votre <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">demande de devis pour Paris 15e</a>."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Paris 15e ?",
-        "a": "Organiser un déménagement dans le 15e arrondissement demande d'anticiper la densité résidentielle et la typologie des immeubles. Marne Transdem vous conseille de réaliser une évaluation précise du volume (souvent plus important dans les logements familiaux) et de vérifier l'accessibilité des ascenseurs et des parkings pour optimiser la logistique le jour J."
+        "q": "Quelles informations fournir pour un devis de déménagement à Paris 15e ?",
+        "a": "Indiquez les deux adresses, la date ou la période souhaitée, le volume estimé et les prestations attendues. Ajoutez les étages, les dimensions utiles des ascenseurs et la distance entre le véhicule et chaque entrée. Signalez la cave, le garage et les meubles qui nécessitent un démontage."
       },
       {
-        "q": "Marne Transdem intervient-elle dans tout le 15e arrondissement ?",
-        "a": "Oui, nos équipes interviennent dans tous les quartiers du 15e : Saint-Lambert, Necker, Grenelle, Javel, ainsi que vers la Motte-Picquet, Convention, Vaugirard et Beaugrenelle."
+        "q": "Un ascenseur suffit-il pour transporter tous mes meubles ?",
+        "a": "Pas nécessairement. Mesurez sa porte, sa cabine et les passages jusqu’au logement ; vérifiez aussi sa charge admissible et les consignes de la copropriété. Un canapé peut entrer dans le hall sans pouvoir tourner sur le palier. Transmettez les dimensions des pièces encombrantes avant de retenir un moyen de manutention."
       },
       {
-        "q": "Peut-on demander un monte-meuble à Paris 15e ?",
-        "a": "Absolument. Selon la configuration de votre rue et de votre immeuble (notamment pour les étages élevés avec ascenseurs limités ou parties communes étroites), nous étudions la mise à disposition d'un monte-meuble extérieur. La faisabilité technique est confirmée lors de notre étude préalable."
+        "q": "L’autorisation de stationnement réserve-t-elle une place devant mon immeuble ?",
+        "a": "Non : l’AOT parisienne autorise des modalités de stationnement, sans garantir un emplacement libre devant l’entrée. Consultez la procédure officielle liée plus haut et anticipez la distance de portage si le véhicule doit se placer plus loin."
       },
       {
-        "q": "Quelle formule choisir pour un déménagement à Paris 15e ?",
-        "a": "Nous proposons trois formules : Économique, Standard (équilibre idéal) et Luxe (clé en main). Le choix dépend de votre budget et de votre souhait de nous déléguer l'emballage de vos objets fragiles et la protection de vos meubles de valeur."
+        "q": "Comment choisir entre la formule Économique, Standard et Luxe ?",
+        "a": "Listez les tâches que vous pouvez préparer : cartons, objets fragiles, démontage et remontage. Comparez ensuite le détail des formules et faites reprendre les prestations retenues dans le devis. Le choix ne dépend pas seulement du volume, mais aussi de votre disponibilité et de vos besoins."
       },
       {
-        "q": "Comment obtenir un devis pour un déménagement à Paris 15e ?",
-        "a": "Vous pouvez utiliser notre formulaire de demande en ligne ou nous appeler directement. Nous réalisons une étude gratuite et sans engagement basée sur votre volume réel et les contraintes logistiques spécifiques à vos adresses."
+        "q": "Comment préparer un trajet du 15e vers Issy-les-Moulineaux ou Vanves ?",
+        "a": "Préparez un relevé d’accès pour chaque adresse. Les conditions de stationnement à destination se vérifient auprès de la commune concernée ; une démarche parisienne ne couvre pas automatiquement l’autre ville. Signalez aussi les horaires de remise des clés pour organiser le chargement et la livraison."
       }
     ],
     "nearbySectors": [
       {
+        "n": "Paris 6e",
+        "l": "/demenagement-paris-6"
+      },
+      {
+        "n": "Paris 7e",
+        "l": "/demenagement-paris-7"
+      },
+      {
         "n": "Paris 14e",
         "l": "/demenagement-paris-14"
-      },
-      {
-        "n": "Issy-les-Moulineaux",
-        "l": "/demenagement-issy-les-moulineaux"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
-      },
-      {
-        "n": "Meudon",
-        "l": "/demenagement-meudon"
       },
       {
         "n": "Paris 16e",
         "l": "/demenagement-paris-16"
       },
       {
+        "n": "Issy-les-Moulineaux",
+        "l": "/demenagement-issy-les-moulineaux"
+      },
+      {
+        "n": "Vanves",
+        "l": "/demenagement-vanves"
+      },
+      {
         "n": "Hauts-de-Seine",
         "l": "/demenagement-hauts-de-seine"
-      },
-      {
-        "n": "Yvelines",
-        "l": "/demenagement-yvelines"
-      },
-      {
-        "n": "Essonne",
-        "l": "/demenagement-essonne"
       },
       {
         "n": "Île-de-France",
@@ -5460,40 +5458,37 @@ export const sectorsData: Sector[] = [
     "name": "Paris 18e",
     "type": "local",
     "seoTitle": "Déménagement Paris 18e : devis gratuit | Marne Transdem",
-    "seoDescription": "Déménagement à Paris 18e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
+    "seoDescription": "Déménagement Paris 18e : préparez les accès à Montmartre, le portage et votre inventaire. Demandez un devis gratuit personnalisé avec Marne Transdem.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 18e, avec une organisation adaptée aux appartements, commerces, bureaux et contraintes d'accès du nord parisien.",
+    "heroSubtitle": "Un départ de Montmartre, un appartement vers Jules Joffrin ou une arrivée dans le 18e : préparons le chemin d’accès, le volume et les moyens de manutention avant votre devis.",
     "introParagraphs": [
-      "Quartier dense et vivant, le <span className=\"font-bold text-slate-700\">Paris 18e</span> se caractérise par ses nombreux <span className=\"font-bold text-slate-700\">immeubles anciens</span>, ses rues parfois escarpées et sa forte activité. C’est dans cet environnement authentique que Marne Transdem apporte son expertise pour accompagner les <span className=\"font-bold text-slate-700\">particuliers</span> et les <span className=\"font-bold text-slate-700\">entreprises</span>. Que vous quittiez un <span className=\"font-bold text-slate-700\">studio</span> sur les hauteurs de Montmartre ou un grand <span className=\"font-bold text-slate-700\">appartement</span> familial vers Jules Joffrin, nous maîtrisons les contraintes locales.",
-      "Notre proximité avec les arrondissements limitrophes (<span className=\"font-bold text-slate-700\">Paris 17e</span>, <span className=\"font-bold text-slate-700\">9e</span>, <span className=\"font-bold text-slate-700\">10e</span>, <span className=\"font-bold text-slate-700\">19e</span>) ainsi que des communes comme <span className=\"font-bold text-slate-700\">Saint-Ouen</span> ou <span className=\"font-bold text-slate-700\">Clichy</span> nous permet d'être réactifs pour tout projet dans le nord parisien. Chaque intervention commence par une <span className=\"font-bold text-slate-700\">estimation du volume</span> et une analyse fine des <span className=\"font-bold text-slate-700\">accès d'immeubles</span> : gestion des <span className=\"font-bold text-slate-700\">étages</span>, utilisation raisonnée des <span className=\"font-bold text-slate-700\">ascenseurs</span> ou des <span className=\"font-bold text-slate-700\">escaliers</span>, et anticipation du <span className=\"font-bold text-slate-700\">stationnement</span>."
+      "Un <strong>déménagement à Paris 18e</strong> se prépare à l’adresse exacte. Pour un logement à Montmartre, vers Jules Joffrin ou à la Chapelle, signalez les marches entre la rue et le hall, les paliers étroits, la cour à traverser et les éventuels changements de niveau. Photographiez le trajet de manutention et mesurez les meubles encombrants. Un accès annoncé « au rez-de-chaussée » ne décrit pas forcément tout le chemin entre le camion et le logement.",
+      "Pour la Butte, consultez les <a href=\"https://mairie18.paris.fr/pages/pietonisation-de-la-butte-montmartre-29604\" class=\"text-accent hover:underline\">informations de la mairie du 18e sur la piétonnisation de Montmartre</a>. La mairie distingue l’accès à une destination dans le périmètre et la traversée de transit ; certaines rues peuvent comporter des barrières. Faites confirmer les conditions applicables à votre rue à la date prévue, puis transmettez-les à l’équipe. Vérifiez également la <a href=\"https://www.paris.fr/pages/faq-demenagements-4404\" class=\"text-accent hover:underline\">démarche parisienne de stationnement</a> : une autorisation de stationnement ne remplace pas l’étude de l’accès au bâtiment.",
+      "Lorsque l’escalier ou l’ascenseur ne permet pas le passage, faites étudier la <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">faisabilité d’un monte-meuble</a> : emplacement au sol, accès à la façade, ouvertures et objets à lever. Pour quelques meubles et cartons, notre page <a href=\"/demenagement-petit-volume\" class=\"text-accent hover:underline\">petit volume</a> aide à préparer l’inventaire ; la manutention reste à décrire même sur un trajet court. Précisez le volume, les deux adresses et les tâches à déléguer dans votre <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">demande de devis pour Paris 18e</a>."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Paris 18e ?",
-        "a": "Organiser un déménagement dans le 18e demande d'anticiper la densité du quartier et la typologie des immeubles, souvent anciens avec des escaliers étroits. Marne Transdem vous accompagne dès la visite technique pour évaluer le volume, l'accessibilité des étages et planifier le stationnement indispensable pour le jour J."
+        "q": "Que vérifier avant un déménagement à Montmartre ?",
+        "a": "Relevez l’adresse exacte, le chemin d’approche du véhicule et les passages jusqu’au logement. Consultez les informations municipales liées plus haut sur l’aire piétonne, puis faites confirmer les conditions de votre rue. Signalez les barrières, marches et distances de portage connues avant le chiffrage."
       },
       {
-        "q": "Marne Transdem intervient-elle dans tout le 18e arrondissement ?",
-        "a": "Oui, nous intervenons dans tous les quartiers du 18e : de Montmartre à la Chapelle, en passant par Jules Joffrin, Lamarck-Caulaincourt, Goutte d'Or et le secteur des Abbesses."
+        "q": "Comment préparer un appartement sans ascenseur dans le 18e ?",
+        "a": "Indiquez l’étage et mesurez les passages étroits, les portes et les tournants de l’escalier. Ajoutez les dimensions des meubles non démontables et des photos des paliers. Ces éléments permettent d’étudier le démontage, la manutention dans l’escalier ou une autre solution adaptée aux accès."
       },
       {
-        "q": "Peut-on demander un monte-meuble à Paris 18e ?",
-        "a": "Absolument. Compte tenu de l'étroitesse de certains escaliers dans l'ancien et de l'absence fréquente d'ascenseurs, le recours à un monte-meuble extérieur est souvent étudié. Cela dépend de la faisabilité technique sur la rue et de la configuration de votre façade."
+        "q": "Un monte-meuble peut-il être installé dans une rue en pente ?",
+        "a": "La réponse dépend de la configuration exacte : emplacement, stabilité de l’installation, recul, obstacles et accès à l’ouverture. L’équipe doit examiner ces éléments avant de confirmer un appareil. Les capacités maximales de hauteur et de charge ne suffisent pas à garantir sa faisabilité sur place."
       },
       {
-        "q": "Quelle formule choisir pour un déménagement à Paris 18e ?",
-        "a": "Le choix dépend de votre budget. Nous proposons trois formules : Économique (essentiel), Standard (équilibre avec emballage fragile) et Luxe (clé en main), idéales pour les appartements de toutes surfaces dans le 18e."
+        "q": "Quel délai prévoir pour une autorisation de stationnement à Paris 18e ?",
+        "a": "La Ville de Paris demande de déposer l’AOT au moins 15 jours avant le déménagement. Consultez sa procédure liée plus haut pour les conditions applicables et précisez dans le devis la prise en charge des démarches et des frais."
       },
       {
-        "q": "Comment obtenir un devis pour un déménagement à Paris 18e ?",
-        "a": "Vous pouvez remplir notre formulaire en ligne ou nous appeler directement. Nous réalisons une évaluation gratuite et sans engagement basée sur votre volume réel et les contraintes logistiques de vos adresses."
+        "q": "Un petit déménagement dans le 18e nécessite-t-il un inventaire ?",
+        "a": "Oui. Listez meubles, cartons et objets particuliers, même pour une courte distance ou un studio. Un petit volume peut demander une manutention importante si les étages ou le portage sont contraignants. Indiquez ce que vous emballez vous-même et ce que vous souhaitez confier à l’équipe."
       }
     ],
     "nearbySectors": [
-      {
-        "n": "Paris 17e",
-        "l": "/demenagement-paris-17"
-      },
       {
         "n": "Paris 9e",
         "l": "/demenagement-paris-9"
@@ -5503,20 +5498,24 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-paris-10"
       },
       {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
+        "n": "Paris 17e",
+        "l": "/demenagement-paris-17"
       },
       {
         "n": "Paris 19e",
         "l": "/demenagement-paris-19"
       },
       {
-        "n": "Clichy",
-        "l": "/demenagement-clichy"
+        "n": "Saint-Ouen-sur-Seine",
+        "l": "/demenagement-saint-ouen"
       },
       {
-        "n": "Val-d'Oise",
-        "l": "/demenagement-val-d-oise"
+        "n": "Saint-Denis",
+        "l": "/demenagement-saint-denis"
+      },
+      {
+        "n": "Seine-Saint-Denis",
+        "l": "/demenagement-seine-saint-denis"
       },
       {
         "n": "Île-de-France",
