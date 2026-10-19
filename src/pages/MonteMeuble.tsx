@@ -52,7 +52,7 @@ const MonteMeuble: React.FC = () => {
         description="Trois monte-meubles à Paris : un autoporté de 30 m et deux tractés de 24 m et 18 m. Préparez vos accès et demandez un devis selon la faisabilité."
         canonical={path}
         schema={[
-          getServiceSchema("Location de monte-meuble", "Marne Transdem accompagne les particuliers et les entreprises lorsque l’utilisation d’un monte-meuble facilite le passage de meubles volumineux, d’objets lourds ou d’accès difficiles."),
+          getServiceSchema("Location de monte-meuble", "Marne Transdem accompagne les particuliers et les entreprises lorsque l’utilisation d’un monte-meuble facilite le passage de meubles volumineux, d’objets lourds ou d’accès difficiles.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },

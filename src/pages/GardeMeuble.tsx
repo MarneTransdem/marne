@@ -88,7 +88,7 @@ const GardeMeuble: React.FC = () => {
         description="Garde-meuble à Paris : préparez le volume, la durée, l'accès aux biens et leur restitution. Demandez un devis détaillant stockage et transports selon votre projet."
         canonical={path}
         schema={[
-          getServiceSchema("Garde-meuble et stockage", "Marne Transdem accompagne les particuliers et les entreprises qui ont besoin d’une solution de stockage temporaire ou plus longue durée à Paris et en Île-de-France."),
+          getServiceSchema("Garde-meuble et stockage", "Marne Transdem accompagne les particuliers et les entreprises qui ont besoin d’une solution de stockage temporaire ou plus longue durée à Paris et en Île-de-France.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },

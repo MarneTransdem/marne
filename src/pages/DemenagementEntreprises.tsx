@@ -42,7 +42,7 @@ const DemenagementEntreprises: React.FC = () => {
         description="Organisez le déménagement de vos bureaux ou locaux professionnels à Paris avec Marne Transdem. Accompagnement, organisation et devis personnalisé."
         canonical={path}
         schema={[
-          getServiceSchema("Déménagement entreprises à Paris", "Marne Transdem accompagne les entreprises dans l’organisation de leurs transferts de bureaux, locaux professionnels et espaces de travail à Paris, en Île-de-France ou longue distance."),
+          getServiceSchema("Déménagement entreprises à Paris", "Marne Transdem accompagne les entreprises dans l’organisation de leurs transferts de bureaux, locaux professionnels et espaces de travail à Paris, en Île-de-France ou longue distance.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },

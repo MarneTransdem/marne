@@ -44,7 +44,7 @@ const TransfertBureaux: React.FC = () => {
         description="Transfert de bureaux à Paris et en Île-de-France : inventaire, accès, mobilier et planning. Préparez votre déménagement avec un devis personnalisé."
         canonical={path}
         schema={[
-          getServiceSchema("Transfert de bureaux à Paris", "Préparation du déménagement de bureaux à Paris et en Île-de-France : inventaire, accès, protection du mobilier et planning définis selon le projet."),
+          getServiceSchema("Transfert de bureaux à Paris", "Préparation du déménagement de bureaux à Paris et en Île-de-France : inventaire, accès, protection du mobilier et planning définis selon le projet.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },

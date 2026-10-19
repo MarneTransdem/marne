@@ -9,6 +9,13 @@ const errors = [];
 const pages = [];
 const seenTitles = new Map();
 const seenDescriptions = new Map();
+const commercialServices = new Map([
+  ['/demenagement-particuliers-paris', 'Déménagement particuliers à Paris'],
+  ['/demenagement-entreprises-paris', 'Déménagement entreprises à Paris'],
+  ['/garde-meuble-paris', 'Garde-meuble et stockage'],
+  ['/location-monte-meuble-paris', 'Location de monte-meuble'],
+  ['/transfert-bureaux-paris', 'Transfert de bureaux à Paris'],
+]);
 for (const url of urls) {
   const html = await fs.readFile(path.join('dist', url.pathname === '/' ? 'index.html' : url.pathname.slice(1) + '.html'), 'utf8');
   const canonicals = [...html.matchAll(/<link\b[^>]*rel="canonical"[^>]*href="([^"]+)"[^>]*>/g)].map(x => x[1]);
@@ -28,11 +35,26 @@ for (const url of urls) {
   const internal = [...new Set(links.filter(x => x.startsWith('/') && !x.startsWith('//')).map(x => new URL(x, url).pathname))];
   // The sitemap is a valid static resource, read and parsed above, not an HTML page.
   for (const target of internal) if (!paths.has(target) && target !== '/sitemap.xml') errors.push(`${url.pathname} -> ${target}`);
+  const schemas = [];
   for (const script of html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)) {
     try {
       const data = JSON.parse(script[1]);
+      schemas.push(data);
       errors.push(...auditBreadcrumbNames(data).map(error => `${url.pathname}: ${error}`));
     } catch { errors.push(`${url.pathname}: invalid JSON-LD`); }
+  }
+  if (commercialServices.has(url.pathname)) {
+    const services = schemas.filter(schema => schema['@type'] === 'Service');
+    const service = services[0];
+    if (services.length !== 1 || service.url !== url.href || service['@id'] !== `${url.href}#service`
+      || service.mainEntityOfPage !== url.href || service.serviceType !== commercialServices.get(url.pathname)) {
+      errors.push(`${url.pathname}: inconsistent commercial Service schema`);
+    }
+    const providerId = service?.provider?.['@id'];
+    if (!providerId || !schemas.some(schema => schema['@type'] === 'MovingCompany' && schema['@id'] === providerId)) {
+      errors.push(`${url.pathname}: unresolved Service provider`);
+    }
+    if (!internal.includes('/demande-de-devis')) errors.push(`${url.pathname}: missing crawlable quote link`);
   }
   if (links.length <= 4) errors.push(`${url.pathname}: incomplete HTML`);
   pages.push({ path: url.pathname, links: internal, bytes: Buffer.byteLength(html) });

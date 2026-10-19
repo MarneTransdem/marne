@@ -274,10 +274,10 @@ export const BLOG_POST_ROUTES: Array<Omit<SeoRoute, 'canonicalPath' | 'status'>>
 
 const EXPLICIT_ROUTES: Record<string, Omit<SeoRoute, 'path' | 'canonicalPath'>> = {
   '/': {
-    title: 'Déménagement Paris et Île-de-France | Marne Transdem',
+    title: 'Déménageur à Paris et en Île-de-France | Marne Transdem',
     h1: 'Entreprise de déménagement à Paris',
     description:
-      'Appartement, maison ou bureaux : déménagez à Paris et en Île-de-France avec Marne Transdem. Comparez nos formules et demandez votre devis gratuit et personnalisé.',
+      'Appartement, maison ou locaux professionnels : Marne Transdem organise votre déménagement à Paris et en Île-de-France. Demandez votre devis gratuit.',
     priority: '1.0',
     changefreq: 'weekly',
   },
@@ -292,7 +292,7 @@ const EXPLICIT_ROUTES: Record<string, Omit<SeoRoute, 'path' | 'canonicalPath'>> 
     title: 'Devis déménagement Paris et Île-de-France | Marne Transdem',
     h1: 'Demande de devis déménagement à Paris',
     description:
-      'Préparez votre devis de déménagement à Paris et en Île-de-France : trajet, volume, accès et prestations. Décrivez votre projet à Marne Transdem.',
+      'Demandez votre devis gratuit de déménagement à Paris et en Île-de-France. Indiquez trajet, volume, accès et prestations pour une proposition adaptée.',
     priority: '0.9',
     changefreq: 'weekly',
   },
@@ -348,10 +348,10 @@ const EXPLICIT_ROUTES: Record<string, Omit<SeoRoute, 'path' | 'canonicalPath'>> 
 };
 
 const SERVICE_TITLES: Record<string, string> = {
-  '/demenagement-particuliers-paris': 'Déménagement particuliers Paris | Marne Transdem',
-  '/demenagement-entreprises-paris': 'Déménagement entreprises Paris | Marne Transdem',
-  '/garde-meuble-paris': 'Garde-meuble Paris | Marne Transdem',
-  '/location-monte-meuble-paris': 'Location monte-meuble Paris | Marne Transdem',
+  '/demenagement-particuliers-paris': 'Déménagement de particuliers à Paris | Marne Transdem',
+  '/demenagement-entreprises-paris': 'Déménagement d’entreprises à Paris | Marne Transdem',
+  '/garde-meuble-paris': 'Garde-meuble à Paris : stockage et devis | Marne Transdem',
+  '/location-monte-meuble-paris': 'Monte-meuble à Paris : location sur devis | Marne Transdem',
   '/emballage-protection-demenagement': 'Emballage et protection déménagement | Marne Transdem',
   '/cartons-demenagement-paris': 'Cartons déménagement Paris | Marne Transdem',
   '/calculateur-volume': 'Calculateur de volume déménagement | Marne Transdem',
@@ -364,7 +364,7 @@ const SERVICE_TITLES: Record<string, string> = {
   '/demenagement-mutation-professionnelle': 'Déménagement mutation professionnelle | Marne Transdem',
   '/demenagement-petit-volume': 'Déménagement petit volume Paris | Marne Transdem',
   '/demenagement-piano-objets-lourds': 'Déménagement piano et objets lourds | Marne Transdem',
-  '/transfert-bureaux-paris': 'Transfert de bureaux Paris | Marne Transdem',
+  '/transfert-bureaux-paris': 'Transfert de bureaux à Paris : devis | Marne Transdem',
   '/transfert-informatique-paris': 'Transfert informatique Paris | Marne Transdem',
   '/transfert-industriel-paris': 'Transfert industriel Paris | Marne Transdem',
   '/transfert-laboratoire-paris': 'Transfert de laboratoire Paris | Marne Transdem',
@@ -430,18 +430,18 @@ const SERVICE_DESCRIPTIONS: Record<string, string> = {
   "/demenagement-piano-objets-lourds": "Déménagement de piano à Paris et en Île-de-France : précisez modèle, dimensions, poids et accès pour étudier le transport et obtenir un devis personnalisé.",
   "/demenagement-senior": "Déménagement senior à Paris et en Île-de-France : préparez le mobilier conservé, les accès en résidence et les prestations d’emballage ou de remontage à préciser au devis.",
   "/cartons-demenagement-paris": "Cartons de déménagement à Paris : précisez formats, quantités et protections avec Marne Transdem. Disponibilités, prix et remise du matériel à confirmer au devis.",
-  "/demenagement-entreprises-paris": "Organisez le déménagement de vos bureaux ou locaux professionnels à Paris avec Marne Transdem. Accompagnement, organisation et devis personnalisé.",
+  "/demenagement-entreprises-paris": "Bureaux, ateliers ou locaux professionnels à Paris : préparez votre déménagement avec un inventaire et un planning adaptés. Demandez votre devis.",
   "/demenagement-etudiant": "Préparez votre déménagement étudiant à Paris et en Île-de-France : inventaire, accès en résidence, cartons, petit volume et devis adapté aux prestations choisies.",
   "/demenagement-militaire": "Préparez votre déménagement militaire à Paris : inventaire, accès, calendrier et devis. Faites confirmer vos droits et la procédure par votre service gestionnaire.",
   "/demenagement-mutation-professionnelle": "Préparez votre déménagement pour mutation professionnelle à Paris : volume, accès, calendrier, devis à transmettre à votre employeur et prestations à choisir.",
-  "/demenagement-particuliers-paris": "Préparez votre déménagement particulier à Paris avec Marne Transdem. Formules adaptées, protection des biens et devis personnalisé. Expert local 75020.",
+  "/demenagement-particuliers-paris": "Appartement ou maison à Paris : choisissez votre formule de déménagement selon vos cartons, meubles et accès. Demandez un devis gratuit à Marne Transdem.",
   "/demenagement-petit-volume": "Déménagement petit volume à Paris : préparez l'inventaire, les accès et le transport de quelques meubles ou d'un studio. Demandez un devis selon vos prestations.",
   "/emballage-protection-demenagement": "Protégez vos meubles, objets fragiles et cartons avec les solutions d’emballage et de protection proposées par Marne Transdem.",
   "/formules-demenagement": "Découvrez les formules Économique, Standard et Luxe de Marne Transdem pour organiser votre déménagement à Paris selon votre budget et vos besoins.",
-  "/garde-meuble-paris": "Garde-meuble à Paris : préparez le volume, la durée, l'accès aux biens et leur restitution. Demandez un devis détaillant stockage et transports selon votre projet.",
+  "/garde-meuble-paris": "Besoin de stocker vos meubles entre deux logements à Paris ? Précisez volume, durée et accès pour un devis de garde-meuble adapté à votre projet.",
   "/gestion-archives-paris": "Transfert d’archives à Paris : préparez le volume, le repérage des boîtes, les accès et la réception. Stockage éventuel et prestations à préciser dans votre devis.",
-  "/location-monte-meuble-paris": "Trois monte-meubles à Paris : un autoporté de 30 m et deux tractés de 24 m et 18 m. Préparez vos accès et demandez un devis selon la faisabilité.",
-  "/transfert-bureaux-paris": "Transfert de bureaux à Paris et en Île-de-France : inventaire, accès, mobilier et planning. Préparez votre déménagement avec un devis personnalisé.",
+  "/location-monte-meuble-paris": "Monte-meuble à Paris : trois équipements de 18 à 30 m pour vos meubles et accès difficiles. Demandez un devis après étude des accès et de la faisabilité.",
+  "/transfert-bureaux-paris": "Transfert de bureaux à Paris : préparez mobilier, postes de travail, accès et planning avec Marne Transdem. Demandez un devis adapté à votre activité.",
   "/transfert-industriel-paris": "Transfert industriel à Paris : préparez l’inventaire de votre atelier, les accès et le calendrier. Définissez les prestations nécessaires avec un devis adapté.",
   "/transfert-informatique-paris": "Transfert informatique à Paris : inventaire des équipements, accès, protections et coordination avec votre prestataire informatique. Préparez un devis personnalisé.",
   "/demenagement-oeuvres-art": "Déménagement de tableaux et d’œuvres d’art à Paris : préparez les dimensions, les accès et les besoins de protection pour un devis personnalisé avec Marne Transdem."

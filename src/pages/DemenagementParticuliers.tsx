@@ -26,7 +26,7 @@ const DemenagementParticuliers: React.FC = () => {
         description="Préparez votre déménagement particulier à Paris avec Marne Transdem. Formules adaptées, protection des biens et devis personnalisé. Expert local 75020."
         canonical={path}
         schema={[
-          getServiceSchema("Déménagement particuliers à Paris", "Marne Transdem accompagne les particuliers pour organiser leur déménagement à Paris, en Île-de-France ou longue distance, avec méthode, soin et accompagnement."),
+          getServiceSchema("Déménagement particuliers à Paris", "Marne Transdem accompagne les particuliers pour organiser leur déménagement à Paris, en Île-de-France ou longue distance, avec méthode, soin et accompagnement.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },

@@ -1,5 +1,5 @@
 import { CONTACT } from '../constants';
-import { DEFAULT_OG_IMAGE, SITE_URL } from './seo-routes';
+import { DEFAULT_OG_IMAGE, getCanonicalPath, SITE_URL } from './seo-routes';
 
 const getOpeningHours = () => CONTACT.openingHours.map(({ days, opens, closes }) => ({
   '@type': 'OpeningHoursSpecification', dayOfWeek: days, opens, closes,
@@ -64,10 +64,20 @@ export const getBreadcrumbSchema = (items: { name: string, item: string }[]) => 
   }))
 });
 
-export const getServiceSchema = (name: string, description: string) => ({
+interface ServiceSchemaOptions {
+  path?: `/${string}`;
+  serviceType?: string;
+}
+
+export const getServiceSchema = (name: string, description: string, options: ServiceSchemaOptions = {}) => ({
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "Moving Service",
+  "serviceType": options.serviceType ?? name,
+  ...(options.path ? {
+    '@id': `${SITE_URL}${getCanonicalPath(options.path)}#service`,
+    url: `${SITE_URL}${getCanonicalPath(options.path)}`,
+    mainEntityOfPage: `${SITE_URL}${getCanonicalPath(options.path)}`,
+  } : {}),
   "provider": {
     "@id": `${SITE_URL}/#organization`,
     "@type": "MovingCompany",
