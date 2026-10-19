@@ -28,5 +28,6 @@ La ville d'une page locale n'est pas utilisée pour supposer une adresse de dép
 - Parcours réel dans Chrome : calculateur à 1,2 m³, retour accueil, sélection de 30 m³, formulaire à 30 m³ sans ancien inventaire.
 - Mobile 390 px : modification à 25 m³ et commentaire « Un piano à transporter. », puis retrait du calculateur ; les deux saisies restent présentes et aucun débordement horizontal n'est observé.
 - Aucune demande de devis de test envoyée au CRM.
+- Suite complète `npm run check` réussie. Le banc de test Analytics charge désormais les véritables fonctions de validation du téléphone et de gestion de l'estimation ; leur import manquant provoquait l'échec GitHub avant les tests d'envoi.
 
 Impact attendu : moins de ressaisies et de demandes incohérentes à la suite d'une visite SEO. Aucun effet de classement ni gain de conversion n'est affirmé sans mesure.

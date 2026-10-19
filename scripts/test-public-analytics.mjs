@@ -57,7 +57,8 @@ await h.api.trackEvent('page_view'); assert.equal(h.scripts.length,0);
 console.log('Analytics: consent, revocation, single dispatch, deduplication, URL privacy and attribution passed.');
 
 // Exercise the actual form submit handler with mocked persistence and notification.
-const formBuild=await build({entryPoints:['src/components/forms/QuoteForm.tsx'],bundle:true,write:false,platform:'node',format:'cjs',plugins:[{name:'mock-imports',setup(b){b.onResolve({filter:/.*/},a=>a.kind==='entry-point'?undefined:{path:a.path,external:true});}}]});
+const realFormHelpers = new Set(['../../lib/quote-validation', '../../lib/quote-estimate']);
+const formBuild=await build({entryPoints:['src/components/forms/QuoteForm.tsx'],bundle:true,write:false,platform:'node',format:'cjs',plugins:[{name:'mock-imports',setup(b){b.onResolve({filter:/.*/},a=>a.kind==='entry-point'||realFormHelpers.has(a.path)?undefined:{path:a.path,external:true});}}]});
 async function checkForm({failSave=false,failEmail=false,activeStep=3,invalid=false}={}) {
   let saves=0,emails=0,leads=0,errors=0;
   let resolveSave;
