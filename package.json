@@ -11,6 +11,7 @@
     "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
     "lint": "tsc --noEmit",
     "audit:site": "tsx scripts/audit-site-health.ts",
+    "audit:public-seo": "node scripts/audit-public-seo.mjs",
     "smoke:admin-dossier-engine": "tsx scripts/smoke-admin-dossier-engine.ts",
     "optimize:images": "node scripts/optimize-referenced-images.mjs",
     "optimize:images:recompress": "node scripts/optimize-referenced-images.mjs --recompress-webp",
