@@ -644,55 +644,41 @@ export const sectorsData: Sector[] = [
     "slug": "boulogne-billancourt",
     "name": "Boulogne-Billancourt",
     "type": "local",
-    "seoTitle": "Déménagement Boulogne-Billancourt | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Boulogne-Billancourt avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Boulogne-Billancourt : devis | Marne Transdem",
+    "seoDescription": "Déménagement à Boulogne-Billancourt : préparez volume, accès et stationnement pour votre appartement ou vos bureaux. Demandez votre devis gratuit.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Boulogne-Billancourt, avec une organisation adaptée aux appartements, maisons, résidences, bureaux, commerces et contraintes d’accès de l’ouest parisien.",
+    "heroSubtitle": "Appartement, maison ou bureaux à Boulogne-Billancourt : préparons les accès, le transport et les prestations qui correspondent à votre projet.",
     "introParagraphs": [
-      "Que vous emménagiez dans un <span className=\"font-bold text-slate-700\">appartement</span> familial vers Marcel Sembat, une <span className=\"font-bold text-slate-700\">maison</span> à proximité du Bois de Boulogne ou que vous transfériez vos <span className=\"font-bold text-slate-700\">bureaux</span>, <span className=\"font-bold text-slate-700\">commerces</span> ou <span className=\"font-bold text-slate-700\">cabinets professionnels</span>, nous gérons l'ensemble de la logistique. Nous anticipons les contraintes d'accès propres aux <span className=\"font-bold text-slate-700\">immeubles</span> (ascenseurs, escaliers), les zones de <span className=\"font-bold text-slate-700\">stationnement</span> et l'estimation rigoureuse des <span className=\"font-bold text-slate-700\">volumes</span> pour vous proposer une <span className=\"font-bold text-slate-700\">demande de devis</span> juste et transparente. Notre expertise s'tend également aux villes environnantes comme <span className=\"font-bold text-slate-700\">Saint-Cloud</span>, <span className=\"font-bold text-slate-700\">Sèvres</span> et <span className=\"font-bold text-slate-700\">Meudon</span>."
+      "Votre <strong>déménagement à Boulogne-Billancourt (92100)</strong> se prépare à partir des deux adresses et des biens à transporter. Pour un appartement, relevez les dimensions de la cabine et de la porte de l’ascenseur, les paliers et les meubles qui devront être démontés. Pour une maison, ajoutez les annexes et le passage entre le portail et l’entrée. Le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> aide à dresser un premier inventaire ; les photos et mesures des accès permettent ensuite d’affiner l’organisation.",
+      "Pour le camion, consultez la rubrique Stationnement des <a href=\"https://www.boulognebillancourt.com/mes-demarches\" class=\"text-accent hover:underline\">démarches de Boulogne-Billancourt</a> : la Ville y indique l’adresse électronique à laquelle envoyer une demande d’autorisation pour déménagement. Préparez la date, l’adresse précise, l’espace nécessaire et le matériel envisagé, puis faites confirmer les pièces, délais et conditions applicables. Précisez avec notre équipe qui dépose la demande et organise la signalisation. Un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> se prévoit après étude de la façade, de l’emplacement au sol et des autorisations nécessaires.",
+      "Pour un <a href=\"/demenagement-entreprises-paris\" class=\"text-accent hover:underline\">transfert de bureaux</a>, distinguez les postes de travail, les archives et les équipements qui demandent une préparation spécifique. Communiquez les créneaux d’accès aux locaux et les consignes du gestionnaire de l’immeuble. Pour votre logement, comparez nos <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">formules Économique, Standard et Luxe</a> selon l’emballage et le démontage souhaités. Un trajet vers <a href=\"/demenagement-issy-les-moulineaux\" class=\"text-accent hover:underline\">Issy-les-Moulineaux</a> ou <a href=\"/demenagement-paris-16\" class=\"text-accent hover:underline\">Paris 16e</a> nécessite aussi de renseigner les accès à l’arrivée. Consultez notre couverture des <a href=\"/demenagement-hauts-de-seine\" class=\"text-accent hover:underline\">Hauts-de-Seine</a> et <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">demandez votre devis à Boulogne-Billancourt</a>."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Boulogne-Billancourt ?",
-        "a": "Un déménagement à Boulogne-Billancourt demande d’anticiper le volume, les accès, les étages, les éventuels ascenseurs, le stationnement et la préparation des cartons. Marne Transdem vous accompagne pour définir une organisation adaptée à votre logement, à vos biens et au niveau d’accompagnement souhaité."
+        "q": "Où demander une autorisation de stationnement pour déménager à Boulogne-Billancourt ?",
+        "a": "La rubrique Stationnement de la page municipale Mes démarches indique un contact par courriel pour les déménagements. Consultez cette source pour utiliser les coordonnées à jour et faire confirmer les pièces, délais et conditions applicables à votre emplacement. Convenez avec notre équipe de la personne chargée de la demande."
       },
       {
-        "q": "Marne Transdem intervient-elle à Boulogne-Billancourt et dans les villes proches ?",
-        "a": "Oui, Marne Transdem accompagne les projets de déménagement à Boulogne-Billancourt et dans les secteurs proches comme Paris 16e, Paris 15e, Issy-les-Moulineaux, Saint-Cloud, Sèvres, Meudon et plus largement dans les Hauts-de-Seine selon les besoins du projet."
+        "q": "Quelles mesures prendre dans un appartement à Boulogne-Billancourt ?",
+        "a": "Mesurez les portes, les paliers et la cabine de l’ascenseur, puis les meubles les plus encombrants. Notez l’étage, les marches et la distance entre le camion et l’entrée. Ajoutez les caves et autres annexes à votre inventaire pour préparer une estimation complète."
       },
       {
-        "q": "Peut-on demander un monte-meuble à Boulogne-Billancourt ?",
-        "a": "Oui, un monte-meuble peut être envisagé lorsque les meubles volumineux ne passent pas facilement par l’escalier ou l’ascenseur. Sa mise en place dépend de la configuration de la rue, de la façade, des accès et de la faisabilité technique."
+        "q": "Un monte-meuble est-il possible pour mon logement ?",
+        "a": "L’étude porte sur le passage en façade, la hauteur à atteindre, les obstacles et l’espace disponible au sol. Les accès, les consignes de la copropriété et les autorisations doivent être vérifiés. Envoyez des photos et les dimensions des meubles pour étudier une solution adaptée."
       },
       {
-        "q": "Quelle formule choisir pour un déménagement à Boulogne-Billancourt ?",
-        "a": "La formule dépend de votre budget, du temps disponible pour préparer vos cartons et du niveau d’accompagnement souhaité. La formule Économique convient si vous préparez une grande partie de vos affaires, la formule Standard offre un équilibre entre autonomie et accompagnement, et la formule Luxe permet de déléguer davantage selon la prestation choisie."
+        "q": "Comment préparer un transfert de bureaux à Boulogne-Billancourt ?",
+        "a": "Établissez un inventaire par poste ou par service et identifiez les archives, équipements fragiles et biens lourds. Précisez les horaires d’accès, les ascenseurs utilisables et les opérations de déconnexion à organiser. Le planning et le périmètre des prestations sont ensuite définis dans la proposition."
       },
       {
-        "q": "Comment obtenir un devis pour un déménagement à Boulogne-Billancourt ?",
-        "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L’estimation prend en compte le volume, les adresses, les accès, les étages, la formule souhaitée et les besoins spécifiques comme l’emballage, le garde-meuble ou le monte-meuble."
+        "q": "Quels éléments font varier mon devis à Boulogne-Billancourt ?",
+        "a": "Le volume, le trajet, la période, les accès et le niveau de préparation influencent le chiffrage. Détaillez l’emballage, le démontage, un éventuel stockage et les besoins de levage. Le devis doit indiquer les prestations retenues et la répartition des démarches et frais de stationnement."
       }
     ],
     "nearbySectors": [
       {
-        "n": "Paris 16e",
-        "l": "/demenagement-paris-16"
-      },
-      {
-        "n": "Paris 15e",
-        "l": "/demenagement-paris-15"
-      },
-      {
         "n": "Hauts-de-Seine",
         "l": "/demenagement-hauts-de-seine"
-      },
-      {
-        "n": "Île-de-France",
-        "l": "/demenagement-ile-de-france"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
       },
       {
         "n": "Issy-les-Moulineaux",
@@ -703,24 +689,20 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-saint-cloud"
       },
       {
-        "n": "Louveciennes",
-        "l": "/demenagement-louveciennes"
+        "n": "Sèvres",
+        "l": "/demenagement-sevres"
       },
       {
         "n": "Meudon",
         "l": "/demenagement-meudon"
       },
       {
-        "n": "Vaucresson",
-        "l": "/demenagement-vaucresson"
+        "n": "Paris 16e",
+        "l": "/demenagement-paris-16"
       },
       {
-        "n": "Neuilly-sur-Seine",
-        "l": "/demenagement-neuilly-sur-seine"
-      },
-      {
-        "n": "Levallois-Perret",
-        "l": "/demenagement-levallois-perret"
+        "n": "Paris 15e",
+        "l": "/demenagement-paris-15"
       }
     ]
   },
@@ -2610,87 +2592,61 @@ export const sectorsData: Sector[] = [
     "slug": "issy-les-moulineaux",
     "name": "Issy-les-Moulineaux",
     "type": "local",
-    "seoTitle": "Déménagement Issy-les-Moulineaux | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Issy-les-Moulineaux avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Issy-les-Moulineaux : devis | Marne Transdem",
+    "seoDescription": "Préparez votre déménagement à Issy-les-Moulineaux : accès, stationnement, monte-meuble et choix des prestations. Demandez un devis gratuit personnalisé.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Issy-les-Moulineaux, avec une organisation adaptée aux appartements, résidences, bureaux, commerces et contraintes d’accès du sud-ouest parisien.",
+    "heroSubtitle": "À Issy-les-Moulineaux, anticipez le stationnement et les accès de votre logement ou de vos bureaux pour construire un déménagement adapté.",
     "introParagraphs": [
-      "Qu'il s'agisse d'emménager dans un <span className=\"font-bold text-slate-700\">appartement</span>, un <span className=\"font-bold text-slate-700\">studio</span> ou une <span className=\"font-bold text-slate-700\">résidence</span> familiale, ou de transférer des <span className=\"font-bold text-slate-700\">bureaux</span>, <span className=\"font-bold text-slate-700\">sièges d'entreprises</span>, <span className=\"font-bold text-slate-700\">commerces</span> ou <span className=\"font-bold text-slate-700\">locaux professionnels</span>, nous gérons chaque aspect logistique. Nous intervenons également vers <span className=\"font-bold text-slate-700\">Vanves</span>, <span className=\"font-bold text-slate-700\">Meudon</span>, <span className=\"font-bold text-slate-700\">Clamart</span> et <span className=\"font-bold text-slate-700\">Sèvres</span>. Nous anticipons les <span className=\"font-bold text-slate-700\">accès d'immeubles</span> (ascenseurs, escaliers), les contraintes de <span className=\"font-bold text-slate-700\">stationnement</span> et l'estimation rigoureuse du <span className=\"font-bold text-slate-700\">volume</span> pour une <span className=\"font-bold text-slate-700\">demande de devis</span> précise."
+      "Pour votre <strong>déménagement à Issy-les-Moulineaux (92130)</strong>, commencez par le chemin que suivront vos biens : porte du logement, ascenseur ou escalier, hall, cour et emplacement du camion. Dans une résidence, demandez au gestionnaire les créneaux et protections prévus pour les parties communes. Pour des bureaux, identifiez les accès de livraison et les équipements à préparer avant le transport. Réunissez ces informations avec votre inventaire pour choisir les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">prestations d’emballage et de démontage</a>.",
+      "La <a href=\"https://www.issy.com/demarche-demenagement\" class=\"text-accent hover:underline\">démarche municipale de déménagement à Issy-les-Moulineaux</a> distingue deux situations. Le dispositif gratuit de barrières informatives est limité à deux places pendant deux jours au maximum ; <strong>ces barrières ne constituent pas une interdiction officielle de stationner</strong>. Pour un monte-meuble ou une emprise sur la chaussée, la Ville demande un arrêté municipal, à solliciter au moins 21 jours avant la date prévue. Son formulaire en ligne oriente la demande selon le matériel et l’occupation envisagés. Vérifiez les modalités à jour avant de fixer l’organisation.",
+      "Vous hésitez sur le cubage ou le besoin d’un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> ? Utilisez notre <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">outil d’estimation du volume</a>, puis joignez les dimensions des meubles encombrants et des photos des accès lors des échanges avec l’équipe. Si les dates de départ et d’arrivée diffèrent, indiquez la durée de <a href=\"/garde-meuble-paris\" class=\"text-accent hover:underline\">garde-meuble</a> souhaitée. Pour rejoindre <a href=\"/demenagement-boulogne-billancourt\" class=\"text-accent hover:underline\">Boulogne-Billancourt</a>, <a href=\"/demenagement-vanves\" class=\"text-accent hover:underline\">Vanves</a> ou une autre commune des <a href=\"/demenagement-hauts-de-seine\" class=\"text-accent hover:underline\">Hauts-de-Seine</a>, renseignez également l’adresse d’arrivée. Vous pouvez ensuite <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">préparer votre devis à Issy-les-Moulineaux</a>."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Issy-les-Moulineaux ?",
-        "a": "Un déménagement à Issy-les-Moulineaux demande d’anticiper le volume, les accès, les étages, les éventuels ascenseurs, le stationnement et la préparation des cartons. Marne Transdem vous accompagne pour définir une organisation adaptée à votre logement, à vos biens et au niveau d’accompagnement souhaité."
+        "q": "Les barrières municipales garantissent-elles une place libre à Issy-les-Moulineaux ?",
+        "a": "Non. La Ville précise que ses barrières sont informatives et ne constituent pas une interdiction officielle de stationner. Le dispositif gratuit est limité à deux places et deux jours au maximum. Il faut en tenir compte dans la préparation des accès."
       },
       {
-        "q": "Marne Transdem intervient-elle à Issy-les-Moulineaux et dans les villes proches ?",
-        "a": "Oui, Marne Transdem accompagne les projets de déménagement à Issy-les-Moulineaux et dans les secteurs proches comme Paris 15e, Boulogne-Billancourt, Vanves, Meudon, Clamart, Sèvres et plus largement dans les Hauts-de-Seine selon les besoins du projet."
+        "q": "Quand demander une autorisation pour un monte-meuble à Issy-les-Moulineaux ?",
+        "a": "La page municipale prévoit une demande au moins 21 jours avant l’intervention pour un monte-meuble ou une occupation de la chaussée nécessitant un arrêté. Consultez le formulaire officiel et faites confirmer les conditions de votre installation ; le dépôt ne vaut pas autorisation."
       },
       {
-        "q": "Peut-on demander un monte-meuble à Issy-les-Moulineaux ?",
-        "a": "Oui, un monte-meuble peut être envisagé lorsque les meubles volumineux ne passent pas facilement par l’escalier ou l’ascenseur. Sa mise en place dépend de la configuration de la rue, de la façade, des accès et de la faisabilité technique."
+        "q": "Que préparer pour déménager depuis une résidence à Issy-les-Moulineaux ?",
+        "a": "Notez les étages, les dimensions de l’ascenseur et les passages entre le logement et la rue. Demandez au gestionnaire les règles d’utilisation des parties communes et les créneaux possibles. Signalez une cour intérieure, des marches ou un accès éloigné de l’emplacement du camion."
       },
       {
-        "q": "Quelle formule choisir pour un déménagement à Issy-les-Moulineaux ?",
-        "a": "La formule dépend de votre budget, du temps disponible pour préparer vos cartons et du niveau d’accompagnement souhaité. La formule Économique convient si vous préparez une grande partie de vos affaires, la formule Standard offre un équilibre entre autonomie et accompagnement, et la formule Luxe permet de déléguer davantage selon la prestation choisie."
+        "q": "Comment choisir entre emballer soi-même et déléguer la préparation ?",
+        "a": "Distinguez les cartons courants, les objets fragiles et les meubles à démonter. Comparez les formules selon le temps dont vous disposez et les tâches que vous souhaitez confier à l’équipe. Le devis précise l’emballage, le déballage et le démontage effectivement retenus."
       },
       {
-        "q": "Comment obtenir un devis pour un déménagement à Issy-les-Moulineaux ?",
-        "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L’estimation prend en compte le volume, les adresses, les accès, les étages, la formule souhaitée et les besoins spécifiques comme l’emballage, le garde-meuble ou le monte-meuble."
+        "q": "Peut-on prévoir du stockage entre deux logements ?",
+        "a": "Signalez le décalage entre vos dates et les biens à stocker dès la demande. Précisez la durée envisagée et vos besoins d’accès pendant cette période. Les conditions de garde-meuble et les transports à prévoir sont à étudier avec l’équipe avant confirmation."
       }
     ],
     "nearbySectors": [
       {
-        "n": "Paris 15e",
-        "l": "/demenagement-paris-15"
+        "n": "Hauts-de-Seine",
+        "l": "/demenagement-hauts-de-seine"
       },
       {
         "n": "Boulogne-Billancourt",
         "l": "/demenagement-boulogne-billancourt"
       },
       {
-        "n": "Hauts-de-Seine",
-        "l": "/demenagement-hauts-de-seine"
-      },
-      {
-        "n": "Île-de-France",
-        "l": "/demenagement-ile-de-france"
-      },
-      {
-        "n": "Puteaux",
-        "l": "/demenagement-puteaux"
-      },
-      {
-        "n": "Nanterre",
-        "l": "/demenagement-nanterre"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
-      },
-      {
-        "n": "Suresnes",
-        "l": "/demenagement-suresnes"
-      },
-      {
-        "n": "Rueil-Malmaison",
-        "l": "/demenagement-rueil-malmaison"
-      },
-      {
-        "n": "Vaucresson",
-        "l": "/demenagement-vaucresson"
-      },
-      {
-        "n": "Saint-Cloud",
-        "l": "/demenagement-saint-cloud"
+        "n": "Vanves",
+        "l": "/demenagement-vanves"
       },
       {
         "n": "Meudon",
         "l": "/demenagement-meudon"
       },
       {
-        "n": "Louveciennes",
-        "l": "/demenagement-louveciennes"
+        "n": "Clamart",
+        "l": "/demenagement-clamart"
+      },
+      {
+        "n": "Paris 15e",
+        "l": "/demenagement-paris-15"
       }
     ]
   },
