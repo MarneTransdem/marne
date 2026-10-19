@@ -40,6 +40,15 @@ const SecteursDesservis: React.FC = () => {
   ];
 
   const secteursParis = [
+    { n: "Paris 1er", p: "/demenagement-paris-1", e: true },
+    { n: "Paris 2e", p: "/demenagement-paris-2", e: true },
+    { n: "Paris 3e", p: "/demenagement-paris-3", e: true },
+    { n: "Paris 4e", p: "/demenagement-paris-4", e: true },
+    { n: "Paris 5e", p: "/demenagement-paris-5", e: true },
+    { n: "Paris 6e", p: "/demenagement-paris-6", e: true },
+    { n: "Paris 7e", p: "/demenagement-paris-7", e: true },
+    { n: "Paris 8e", p: "/demenagement-paris-8", e: true },
+
     { n: "Paris 9e", p: "/demenagement-paris-9", e: true },
     { n: "Paris 10e", p: "/demenagement-paris-10", e: true },
     { n: "Paris 11e", p: "/demenagement-paris-11", e: true },

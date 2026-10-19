@@ -115,11 +115,6 @@
         "source": "/demenagement-paris",
         "destination": "/secteurs-desservis",
         "type": 301
-      },
-      {
-        "source": "/demenagement-paris-8",
-        "destination": "/secteurs-desservis",
-        "type": 301
       }
     ]
   },

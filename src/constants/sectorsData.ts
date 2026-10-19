@@ -2414,7 +2414,7 @@ export const sectorsData: Sector[] = [
       "Marne Transdem accompagne les déménagements de particuliers et les transferts professionnels en Île-de-France. Un départ de Paris vers la banlieue, un retour dans la capitale ou un trajet entre deux communes franciliennes demandent de préciser les contraintes aux deux adresses.",
       "Pour un logement, préparez l’inventaire des meubles, cartons et annexes. Pour des bureaux, ajoutez les équipements, les archives et les étapes de reprise. Les prestations sont étudiées en fonction du volume, des accès et des tâches à déléguer.",
       "Cette page vous oriente vers les secteurs de la région et les guides utiles pour préparer votre déménagement. Les pages départementales permettent ensuite de poursuivre vers les communes concernées."
-],
+    ],
     "faqs": [
       {
         "q": "Marne Transdem intervient-elle dans toute l’Île-de-France ?",
@@ -4895,8 +4895,8 @@ export const sectorsData: Sector[] = [
     "slug": "paris-10",
     "name": "Paris 10e",
     "type": "local",
-    "seoTitle": "Déménagement Paris 10e | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Paris 10e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Paris 10e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 10e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 10e, avec une organisation adaptée aux appartements, commerces, bureaux et contraintes d’accès du centre-est parisien.",
     "introParagraphs": [
@@ -4955,8 +4955,8 @@ export const sectorsData: Sector[] = [
     "slug": "paris-11",
     "name": "Paris 11e",
     "type": "local",
-    "seoTitle": "Déménagement Paris 11e | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Paris 11e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Paris 11e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 11e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 11e, avec une organisation adaptée aux appartements, commerces, bureaux et contraintes d'accès de l'est parisien.",
     "introParagraphs": [
@@ -5012,8 +5012,8 @@ export const sectorsData: Sector[] = [
     "slug": "paris-12",
     "name": "Paris 12e",
     "type": "local",
-    "seoTitle": "Déménagement Paris 12e | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Paris 12e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées et demande de devis.",
+    "seoTitle": "Déménagement Paris 12e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 12e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 12e, à proximité de Vincennes, Saint-Mandé et des arrondissements voisins.",
     "introParagraphs": [
@@ -5085,8 +5085,8 @@ export const sectorsData: Sector[] = [
     "slug": "paris-13",
     "name": "Paris 13e",
     "type": "local",
-    "seoTitle": "Déménagement Paris 13e | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Paris 13e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Paris 13e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 13e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 13e, avec une organisation adaptée aux appartements, résidences, bureaux et contraintes d'accès.",
     "introParagraphs": [
@@ -5150,8 +5150,8 @@ export const sectorsData: Sector[] = [
     "slug": "paris-14",
     "name": "Paris 14e",
     "type": "local",
-    "seoTitle": "Déménagement Paris 14e | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Paris 14e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Paris 14e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 14e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 14e, avec une organisation adaptée aux appartements, résidences, bureaux et contraintes d'accès du sud parisien.",
     "introParagraphs": [
@@ -5206,8 +5206,8 @@ export const sectorsData: Sector[] = [
     "slug": "paris-15",
     "name": "Paris 15e",
     "type": "local",
-    "seoTitle": "Déménagement Paris 15e | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Paris 15e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Paris 15e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 15e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 15e, avec une organisation adaptée aux appartements, résidences, bureaux et contraintes d'accès du sud-ouest parisien.",
     "introParagraphs": [
@@ -5278,8 +5278,8 @@ export const sectorsData: Sector[] = [
     "slug": "paris-16",
     "name": "Paris 16e",
     "type": "local",
-    "seoTitle": "Déménagement Paris 16e | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Paris 16e avec Marne Transdem. Services pour particuliers et entreprises, protection des biens, formules adaptées et devis personnalisé.",
+    "seoTitle": "Déménagement Paris 16e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 16e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 16e, avec une organisation adaptée aux appartements familiaux, résidences, bureaux et contraintes d'accès de l'ouest parisien.",
     "introParagraphs": [
@@ -5375,8 +5375,8 @@ export const sectorsData: Sector[] = [
     "slug": "paris-17",
     "name": "Paris 17e",
     "type": "local",
-    "seoTitle": "Déménagement Paris 17e | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Paris 17e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Paris 17e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 17e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 17e, avec une organisation adaptée aux appartements, bureaux, commerces et contraintes d'accès de l'ouest parisien.",
     "introParagraphs": [
@@ -5459,8 +5459,8 @@ export const sectorsData: Sector[] = [
     "slug": "paris-18",
     "name": "Paris 18e",
     "type": "local",
-    "seoTitle": "Déménagement Paris 18e | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Paris 18e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Paris 18e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 18e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 18e, avec une organisation adaptée aux appartements, commerces, bureaux et contraintes d'accès du nord parisien.",
     "introParagraphs": [
@@ -5528,8 +5528,8 @@ export const sectorsData: Sector[] = [
     "slug": "paris-19",
     "name": "Paris 19e",
     "type": "local",
-    "seoTitle": "Déménagement Paris 19e | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Paris 19e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Paris 19e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 19e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 19e, avec une organisation adaptée aux logements, bureaux, accès d'immeubles et contraintes de l'est parisien.",
     "introParagraphs": [
@@ -5601,8 +5601,8 @@ export const sectorsData: Sector[] = [
     "slug": "paris-20",
     "name": "Paris 20e",
     "type": "local",
-    "seoTitle": "Déménagement Paris 20e | Marne Transdem",
-    "seoDescription": "Déménagement Paris 20e : retrouvez Marne Transdem au 43 rue des Maraîchers. Préparez vos accès, choisissez vos prestations et demandez un devis gratuit.",
+    "seoTitle": "Déménagement Paris 20e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 20e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
     "seoImage": null,
     "heroSubtitle": "Basée rue des Maraîchers, Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 20e, dans les arrondissements voisins et en Île-de-France.",
     "introParagraphs": [
@@ -5688,8 +5688,8 @@ export const sectorsData: Sector[] = [
     "slug": "paris-9",
     "name": "Paris 9e",
     "type": "local",
-    "seoTitle": "Déménagement Paris 9e | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Paris 9e avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Paris 9e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 9e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 9e, avec une organisation adaptée aux appartements, bureaux, commerces et contraintes d’accès du centre parisien.",
     "introParagraphs": [
@@ -7414,7 +7414,6 @@ export const sectorsData: Sector[] = [
       }
     ]
   },
-
   {
     "slug": "val-d-oise",
     "name": "Val-d’Oise",
@@ -9560,5 +9559,245 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-paris-rennes"
       }
     ]
+  },
+  {
+    "slug": "paris-1",
+    "name": "Paris 1er",
+    "type": "local",
+    "seoTitle": "Déménagement Paris 1er : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 1er : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
+    "seoImage": "/images/demenagement-paris.webp",
+    "heroSubtitle": "Halles et Palais-Royal : préparez les accès, le volume et les prestations de votre déménagement à Paris 1er.",
+    "introParagraphs": [
+      "Dans le secteur des Halles ou du Palais-Royal, indiquez l’entrée réellement utilisée pour le chargement : une adresse postale ne suffit pas à localiser une porte sur cour ou un accès de service. Photographiez le chemin entre cette entrée et le point de stationnement envisagé.",
+      "Pour un appartement donnant sur une cour, mesurez le porche et les changements de direction. Un monte-meuble doit pouvoir atteindre la façade concernée : une fenêtre visible depuis la cour ne signifie pas que le matériel peut y entrer.",
+      "Pour le stationnement, consultez les <a href=\"https://www.paris.fr/pages/faq-demenagements-4404\" class=\"underline\">modalités de déménagement de la Ville de Paris</a>. Faites confirmer les conditions applicables à votre adresse et précisez au devis qui effectue la démarche et prend en charge les frais.",
+      "Préparez votre <a href=\"/calculateur-volume\" class=\"underline\">inventaire et votre cubage</a>, puis comparez les <a href=\"/formules-demenagement\" class=\"underline\">formules de déménagement</a>. Transmettez les deux adresses, votre période souhaitée et les photographies des accès pour <a href=\"/demande-de-devis\" class=\"underline\">demander un devis personnalisé</a>."
+    ],
+    "faqs": [
+      {
+        "q": "Que faut-il vérifier pour déménager à Paris 1er ?",
+        "a": "Dans le secteur des Halles ou du Palais-Royal, indiquez l’entrée réellement utilisée pour le chargement : une adresse postale ne suffit pas à localiser une porte sur cour ou un accès de service. Photographiez le chemin entre cette entrée et le point de stationnement envisagé. Pour un appartement donnant sur une cour, mesurez le porche et les changements de direction. Un monte-meuble doit pouvoir atteindre la façade concernée : une fenêtre visible depuis la cour ne signifie pas que le matériel peut y entrer."
+      },
+      {
+        "q": "Comment est calculé le prix d’un déménagement à Paris 1er ?",
+        "a": "Le volume, le trajet, la période, les étages, le portage et les prestations retenues déterminent le devis. Un prix au m³ seul ne décrit pas ces contraintes. Indiquez les cartons, les meubles à démonter et les biens fragiles pour obtenir une estimation adaptée."
+      },
+      {
+        "q": "Qui prépare le stationnement du camion ?",
+        "a": "Précisez avec Marne Transdem la personne chargée des démarches et les frais éventuels. Consultez les modalités actuelles de la Ville de Paris et faites confirmer les conditions applicables à votre adresse avant l’intervention."
+      }
+    ],
+    "nearbySectors": []
+  },
+  {
+    "slug": "paris-2",
+    "name": "Paris 2e",
+    "type": "local",
+    "seoTitle": "Déménagement Paris 2e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 2e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
+    "seoImage": "/images/demenagement-paris.webp",
+    "heroSubtitle": "Sentier et Bourse : préparez les accès, le volume et les prestations de votre déménagement à Paris 2e.",
+    "introParagraphs": [
+      "Pour un départ dans le Sentier ou près de la Bourse, distinguez les biens du logement et ceux du local professionnel si vous partagez les espaces. Un inventaire séparé des bureaux, cartons de dossiers et meubles domestiques facilite la préparation des prestations.",
+      "Si le chargement passe par une entrée utilisée par des commerces, convenez des horaires avec les occupants. Indiquez la largeur du passage libre, les portes à maintenir ouvertes et la distance de portage, sans présumer qu’une livraison peut bloquer l’accès.",
+      "Pour le stationnement, consultez les <a href=\"https://www.paris.fr/pages/faq-demenagements-4404\" class=\"underline\">modalités de déménagement de la Ville de Paris</a>. Faites confirmer les conditions applicables à votre adresse et précisez au devis qui effectue la démarche et prend en charge les frais.",
+      "Préparez votre <a href=\"/calculateur-volume\" class=\"underline\">inventaire et votre cubage</a>, puis comparez les <a href=\"/formules-demenagement\" class=\"underline\">formules de déménagement</a>. Transmettez les deux adresses, votre période souhaitée et les photographies des accès pour <a href=\"/demande-de-devis\" class=\"underline\">demander un devis personnalisé</a>."
+    ],
+    "faqs": [
+      {
+        "q": "Que faut-il vérifier pour déménager à Paris 2e ?",
+        "a": "Pour un départ dans le Sentier ou près de la Bourse, distinguez les biens du logement et ceux du local professionnel si vous partagez les espaces. Un inventaire séparé des bureaux, cartons de dossiers et meubles domestiques facilite la préparation des prestations. Si le chargement passe par une entrée utilisée par des commerces, convenez des horaires avec les occupants. Indiquez la largeur du passage libre, les portes à maintenir ouvertes et la distance de portage, sans présumer qu’une livraison peut bloquer l’accès."
+      },
+      {
+        "q": "Comment est calculé le prix d’un déménagement à Paris 2e ?",
+        "a": "Le volume, le trajet, la période, les étages, le portage et les prestations retenues déterminent le devis. Un prix au m³ seul ne décrit pas ces contraintes. Indiquez les cartons, les meubles à démonter et les biens fragiles pour obtenir une estimation adaptée."
+      },
+      {
+        "q": "Qui prépare le stationnement du camion ?",
+        "a": "Précisez avec Marne Transdem la personne chargée des démarches et les frais éventuels. Consultez les modalités actuelles de la Ville de Paris et faites confirmer les conditions applicables à votre adresse avant l’intervention."
+      }
+    ],
+    "nearbySectors": []
+  },
+  {
+    "slug": "paris-3",
+    "name": "Paris 3e",
+    "type": "local",
+    "seoTitle": "Déménagement Paris 3e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 3e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
+    "seoImage": "/images/demenagement-paris.webp",
+    "heroSubtitle": "Temple et Arts-et-Métiers : préparez les accès, le volume et les prestations de votre déménagement à Paris 3e.",
+    "introParagraphs": [
+      "Autour du Temple ou des Arts-et-Métiers, préparez le relevé des passages du logement jusqu’à la rue : porte, escalier, palier et éventuelle cour. Pour une armoire ou une bibliothèque, les dimensions des virages comptent autant que la largeur de l’escalier.",
+      "Si vous transportez des tableaux, miroirs ou vitrines, listez leurs dimensions et les protections nécessaires. Faites préciser au devis l’emballage du fragile et le démontage éventuel ; ces prestations ne se déduisent pas du seul volume en m³.",
+      "Pour le stationnement, consultez les <a href=\"https://www.paris.fr/pages/faq-demenagements-4404\" class=\"underline\">modalités de déménagement de la Ville de Paris</a>. Faites confirmer les conditions applicables à votre adresse et précisez au devis qui effectue la démarche et prend en charge les frais.",
+      "Préparez votre <a href=\"/calculateur-volume\" class=\"underline\">inventaire et votre cubage</a>, puis comparez les <a href=\"/formules-demenagement\" class=\"underline\">formules de déménagement</a>. Transmettez les deux adresses, votre période souhaitée et les photographies des accès pour <a href=\"/demande-de-devis\" class=\"underline\">demander un devis personnalisé</a>."
+    ],
+    "faqs": [
+      {
+        "q": "Que faut-il vérifier pour déménager à Paris 3e ?",
+        "a": "Autour du Temple ou des Arts-et-Métiers, préparez le relevé des passages du logement jusqu’à la rue : porte, escalier, palier et éventuelle cour. Pour une armoire ou une bibliothèque, les dimensions des virages comptent autant que la largeur de l’escalier. Si vous transportez des tableaux, miroirs ou vitrines, listez leurs dimensions et les protections nécessaires. Faites préciser au devis l’emballage du fragile et le démontage éventuel ; ces prestations ne se déduisent pas du seul volume en m³."
+      },
+      {
+        "q": "Comment est calculé le prix d’un déménagement à Paris 3e ?",
+        "a": "Le volume, le trajet, la période, les étages, le portage et les prestations retenues déterminent le devis. Un prix au m³ seul ne décrit pas ces contraintes. Indiquez les cartons, les meubles à démonter et les biens fragiles pour obtenir une estimation adaptée."
+      },
+      {
+        "q": "Qui prépare le stationnement du camion ?",
+        "a": "Précisez avec Marne Transdem la personne chargée des démarches et les frais éventuels. Consultez les modalités actuelles de la Ville de Paris et faites confirmer les conditions applicables à votre adresse avant l’intervention."
+      }
+    ],
+    "nearbySectors": []
+  },
+  {
+    "slug": "paris-4",
+    "name": "Paris 4e",
+    "type": "local",
+    "seoTitle": "Déménagement Paris 4e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 4e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
+    "seoImage": "/images/demenagement-paris.webp",
+    "heroSubtitle": "Marais et île Saint-Louis : préparez les accès, le volume et les prestations de votre déménagement à Paris 4e.",
+    "introParagraphs": [
+      "Pour un déménagement dans le Marais ou sur l’île Saint-Louis, transmettez l’adresse exacte et l’emplacement de l’entrée. Faites vérifier l’itinéraire du véhicule, les accès autorisés et le point de chargement avant de fixer l’organisation du transport.",
+      "Si un meuble doit sortir par une fenêtre, photographiez la façade et l’espace disponible au sol. Les passages piétons, le mobilier urbain et les accès des riverains doivent rester pris en compte dans l’étude du monte-meuble.",
+      "Pour le stationnement, consultez les <a href=\"https://www.paris.fr/pages/faq-demenagements-4404\" class=\"underline\">modalités de déménagement de la Ville de Paris</a>. Faites confirmer les conditions applicables à votre adresse et précisez au devis qui effectue la démarche et prend en charge les frais.",
+      "Préparez votre <a href=\"/calculateur-volume\" class=\"underline\">inventaire et votre cubage</a>, puis comparez les <a href=\"/formules-demenagement\" class=\"underline\">formules de déménagement</a>. Transmettez les deux adresses, votre période souhaitée et les photographies des accès pour <a href=\"/demande-de-devis\" class=\"underline\">demander un devis personnalisé</a>."
+    ],
+    "faqs": [
+      {
+        "q": "Que faut-il vérifier pour déménager à Paris 4e ?",
+        "a": "Pour un déménagement dans le Marais ou sur l’île Saint-Louis, transmettez l’adresse exacte et l’emplacement de l’entrée. Faites vérifier l’itinéraire du véhicule, les accès autorisés et le point de chargement avant de fixer l’organisation du transport. Si un meuble doit sortir par une fenêtre, photographiez la façade et l’espace disponible au sol. Les passages piétons, le mobilier urbain et les accès des riverains doivent rester pris en compte dans l’étude du monte-meuble."
+      },
+      {
+        "q": "Comment est calculé le prix d’un déménagement à Paris 4e ?",
+        "a": "Le volume, le trajet, la période, les étages, le portage et les prestations retenues déterminent le devis. Un prix au m³ seul ne décrit pas ces contraintes. Indiquez les cartons, les meubles à démonter et les biens fragiles pour obtenir une estimation adaptée."
+      },
+      {
+        "q": "Qui prépare le stationnement du camion ?",
+        "a": "Précisez avec Marne Transdem la personne chargée des démarches et les frais éventuels. Consultez les modalités actuelles de la Ville de Paris et faites confirmer les conditions applicables à votre adresse avant l’intervention."
+      }
+    ],
+    "nearbySectors": []
+  },
+  {
+    "slug": "paris-5",
+    "name": "Paris 5e",
+    "type": "local",
+    "seoTitle": "Déménagement Paris 5e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 5e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
+    "seoImage": "/images/demenagement-paris.webp",
+    "heroSubtitle": "Quartier latin et Jardin des Plantes : préparez les accès, le volume et les prestations de votre déménagement à Paris 5e.",
+    "introParagraphs": [
+      "Dans le Quartier latin ou près du Jardin des Plantes, un petit logement peut demander une manutention importante si les biens sont répartis entre l’étage et une cave. Ajoutez ces espaces à votre inventaire, avec leur accès et le nombre de marches.",
+      "Pour les livres, prévoyez plusieurs petits cartons plutôt que des contenants trop lourds. Signalez aussi les mezzanines, lits démontables et bureaux : un faible cubage ne dispense pas de vérifier les dimensions des escaliers et des portes.",
+      "Pour le stationnement, consultez les <a href=\"https://www.paris.fr/pages/faq-demenagements-4404\" class=\"underline\">modalités de déménagement de la Ville de Paris</a>. Faites confirmer les conditions applicables à votre adresse et précisez au devis qui effectue la démarche et prend en charge les frais.",
+      "Préparez votre <a href=\"/calculateur-volume\" class=\"underline\">inventaire et votre cubage</a>, puis comparez les <a href=\"/formules-demenagement\" class=\"underline\">formules de déménagement</a>. Transmettez les deux adresses, votre période souhaitée et les photographies des accès pour <a href=\"/demande-de-devis\" class=\"underline\">demander un devis personnalisé</a>."
+    ],
+    "faqs": [
+      {
+        "q": "Que faut-il vérifier pour déménager à Paris 5e ?",
+        "a": "Dans le Quartier latin ou près du Jardin des Plantes, un petit logement peut demander une manutention importante si les biens sont répartis entre l’étage et une cave. Ajoutez ces espaces à votre inventaire, avec leur accès et le nombre de marches. Pour les livres, prévoyez plusieurs petits cartons plutôt que des contenants trop lourds. Signalez aussi les mezzanines, lits démontables et bureaux : un faible cubage ne dispense pas de vérifier les dimensions des escaliers et des portes."
+      },
+      {
+        "q": "Comment est calculé le prix d’un déménagement à Paris 5e ?",
+        "a": "Le volume, le trajet, la période, les étages, le portage et les prestations retenues déterminent le devis. Un prix au m³ seul ne décrit pas ces contraintes. Indiquez les cartons, les meubles à démonter et les biens fragiles pour obtenir une estimation adaptée."
+      },
+      {
+        "q": "Qui prépare le stationnement du camion ?",
+        "a": "Précisez avec Marne Transdem la personne chargée des démarches et les frais éventuels. Consultez les modalités actuelles de la Ville de Paris et faites confirmer les conditions applicables à votre adresse avant l’intervention."
+      }
+    ],
+    "nearbySectors": []
+  },
+  {
+    "slug": "paris-6",
+    "name": "Paris 6e",
+    "type": "local",
+    "seoTitle": "Déménagement Paris 6e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 6e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
+    "seoImage": "/images/demenagement-paris.webp",
+    "heroSubtitle": "Odéon et Luxembourg : préparez les accès, le volume et les prestations de votre déménagement à Paris 6e.",
+    "introParagraphs": [
+      "Pour quitter un logement près de l’Odéon ou du Luxembourg, repérez les deux adresses dès la préparation du devis. Si la remise des clés et la libération du logement ne coïncident pas, indiquez le décalage pour étudier un stockage temporaire.",
+      "Pour les meubles anciens ou les pièces fragiles, communiquez des photographies et les dimensions. Précisez les éléments démontables et ceux qui doivent voyager d’un seul tenant afin de comparer l’emballage et les moyens de manutention proposés.",
+      "Pour le stationnement, consultez les <a href=\"https://www.paris.fr/pages/faq-demenagements-4404\" class=\"underline\">modalités de déménagement de la Ville de Paris</a>. Faites confirmer les conditions applicables à votre adresse et précisez au devis qui effectue la démarche et prend en charge les frais.",
+      "Préparez votre <a href=\"/calculateur-volume\" class=\"underline\">inventaire et votre cubage</a>, puis comparez les <a href=\"/formules-demenagement\" class=\"underline\">formules de déménagement</a>. Transmettez les deux adresses, votre période souhaitée et les photographies des accès pour <a href=\"/demande-de-devis\" class=\"underline\">demander un devis personnalisé</a>."
+    ],
+    "faqs": [
+      {
+        "q": "Que faut-il vérifier pour déménager à Paris 6e ?",
+        "a": "Pour quitter un logement près de l’Odéon ou du Luxembourg, repérez les deux adresses dès la préparation du devis. Si la remise des clés et la libération du logement ne coïncident pas, indiquez le décalage pour étudier un stockage temporaire. Pour les meubles anciens ou les pièces fragiles, communiquez des photographies et les dimensions. Précisez les éléments démontables et ceux qui doivent voyager d’un seul tenant afin de comparer l’emballage et les moyens de manutention proposés."
+      },
+      {
+        "q": "Comment est calculé le prix d’un déménagement à Paris 6e ?",
+        "a": "Le volume, le trajet, la période, les étages, le portage et les prestations retenues déterminent le devis. Un prix au m³ seul ne décrit pas ces contraintes. Indiquez les cartons, les meubles à démonter et les biens fragiles pour obtenir une estimation adaptée."
+      },
+      {
+        "q": "Qui prépare le stationnement du camion ?",
+        "a": "Précisez avec Marne Transdem la personne chargée des démarches et les frais éventuels. Consultez les modalités actuelles de la Ville de Paris et faites confirmer les conditions applicables à votre adresse avant l’intervention."
+      }
+    ],
+    "nearbySectors": []
+  },
+  {
+    "slug": "paris-7",
+    "name": "Paris 7e",
+    "type": "local",
+    "seoTitle": "Déménagement Paris 7e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 7e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
+    "seoImage": "/images/demenagement-paris.webp",
+    "heroSubtitle": "Invalides et Gros-Caillou : préparez les accès, le volume et les prestations de votre déménagement à Paris 7e.",
+    "introParagraphs": [
+      "Dans le secteur des Invalides ou du Gros-Caillou, indiquez si l’entrée donne directement sur rue ou nécessite de traverser une cour. Mesurez la distance jusqu’au véhicule : elle compte dans l’organisation même lorsque le logement dispose d’un ascenseur.",
+      "Vérifiez auprès du gardien ou du syndic les conditions d’utilisation de l’ascenseur et les protections des parties communes. Pour les meubles volumineux, relevez la cabine et la porte de l’ascenseur avant de retenir un passage intérieur.",
+      "Pour le stationnement, consultez les <a href=\"https://www.paris.fr/pages/faq-demenagements-4404\" class=\"underline\">modalités de déménagement de la Ville de Paris</a>. Faites confirmer les conditions applicables à votre adresse et précisez au devis qui effectue la démarche et prend en charge les frais.",
+      "Préparez votre <a href=\"/calculateur-volume\" class=\"underline\">inventaire et votre cubage</a>, puis comparez les <a href=\"/formules-demenagement\" class=\"underline\">formules de déménagement</a>. Transmettez les deux adresses, votre période souhaitée et les photographies des accès pour <a href=\"/demande-de-devis\" class=\"underline\">demander un devis personnalisé</a>."
+    ],
+    "faqs": [
+      {
+        "q": "Que faut-il vérifier pour déménager à Paris 7e ?",
+        "a": "Dans le secteur des Invalides ou du Gros-Caillou, indiquez si l’entrée donne directement sur rue ou nécessite de traverser une cour. Mesurez la distance jusqu’au véhicule : elle compte dans l’organisation même lorsque le logement dispose d’un ascenseur. Vérifiez auprès du gardien ou du syndic les conditions d’utilisation de l’ascenseur et les protections des parties communes. Pour les meubles volumineux, relevez la cabine et la porte de l’ascenseur avant de retenir un passage intérieur."
+      },
+      {
+        "q": "Comment est calculé le prix d’un déménagement à Paris 7e ?",
+        "a": "Le volume, le trajet, la période, les étages, le portage et les prestations retenues déterminent le devis. Un prix au m³ seul ne décrit pas ces contraintes. Indiquez les cartons, les meubles à démonter et les biens fragiles pour obtenir une estimation adaptée."
+      },
+      {
+        "q": "Qui prépare le stationnement du camion ?",
+        "a": "Précisez avec Marne Transdem la personne chargée des démarches et les frais éventuels. Consultez les modalités actuelles de la Ville de Paris et faites confirmer les conditions applicables à votre adresse avant l’intervention."
+      }
+    ],
+    "nearbySectors": []
+  },
+  {
+    "slug": "paris-8",
+    "name": "Paris 8e",
+    "type": "local",
+    "seoTitle": "Déménagement Paris 8e : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Paris 8e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
+    "seoImage": "/images/demenagement-paris.webp",
+    "heroSubtitle": "Madeleine et Europe : préparez les accès, le volume et les prestations de votre déménagement à Paris 8e.",
+    "introParagraphs": [
+      "Pour un transfert de bureaux près de la Madeleine ou dans le quartier de l’Europe, séparez l’inventaire par poste de travail et identifiez la destination de chaque carton. Précisez les accès de livraison de l’immeuble au départ et à l’arrivée.",
+      "Pour un logement comme pour un bureau, faites confirmer le créneau d’accès, les règles de copropriété et l’utilisation éventuelle d’un ascenseur de service. Les branchements informatiques et la remise en service doivent être attribués explicitement aux intervenants concernés.",
+      "Pour le stationnement, consultez les <a href=\"https://www.paris.fr/pages/faq-demenagements-4404\" class=\"underline\">modalités de déménagement de la Ville de Paris</a>. Faites confirmer les conditions applicables à votre adresse et précisez au devis qui effectue la démarche et prend en charge les frais.",
+      "Préparez votre <a href=\"/calculateur-volume\" class=\"underline\">inventaire et votre cubage</a>, puis comparez les <a href=\"/formules-demenagement\" class=\"underline\">formules de déménagement</a>. Transmettez les deux adresses, votre période souhaitée et les photographies des accès pour <a href=\"/demande-de-devis\" class=\"underline\">demander un devis personnalisé</a>."
+    ],
+    "faqs": [
+      {
+        "q": "Que faut-il vérifier pour déménager à Paris 8e ?",
+        "a": "Pour un transfert de bureaux près de la Madeleine ou dans le quartier de l’Europe, séparez l’inventaire par poste de travail et identifiez la destination de chaque carton. Précisez les accès de livraison de l’immeuble au départ et à l’arrivée. Pour un logement comme pour un bureau, faites confirmer le créneau d’accès, les règles de copropriété et l’utilisation éventuelle d’un ascenseur de service. Les branchements informatiques et la remise en service doivent être attribués explicitement aux intervenants concernés."
+      },
+      {
+        "q": "Comment est calculé le prix d’un déménagement à Paris 8e ?",
+        "a": "Le volume, le trajet, la période, les étages, le portage et les prestations retenues déterminent le devis. Un prix au m³ seul ne décrit pas ces contraintes. Indiquez les cartons, les meubles à démonter et les biens fragiles pour obtenir une estimation adaptée."
+      },
+      {
+        "q": "Qui prépare le stationnement du camion ?",
+        "a": "Précisez avec Marne Transdem la personne chargée des démarches et les frais éventuels. Consultez les modalités actuelles de la Ville de Paris et faites confirmer les conditions applicables à votre adresse avant l’intervention."
+      }
+    ],
+    "nearbySectors": []
   }
 ];

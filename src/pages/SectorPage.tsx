@@ -6,15 +6,17 @@ import {
   Truck, Ruler, Calendar, ClipboardCheck, HelpCircle, Zap, Home, Globe, 
   Briefcase, Info, ShieldCheck, Clock, Quote, Star, ChevronRight
 } from 'lucide-react';
+import { SITE_URL } from '../lib/seo-routes';
 import { SEO } from '../components/SEO';
 import { CONTACT } from '../constants';
-import { getFAQSchema, getBreadcrumbSchema } from '../lib/schema';
+import { getFAQSchema, getBreadcrumbSchema, getServiceSchema } from '../lib/schema';
 import type { Sector } from '../constants/sectorsData';
 import NotFound from './NotFound';
 import { ResponsiveImage } from '../components/common/ResponsiveImage';
 import { RegionalMovingGuide } from '../components/common/RegionalMovingGuide';
 import { ValDeMarneGuide } from '../components/common/ValDeMarneGuide';
 import { getSectorLabel } from '../lib/sector-label';
+import { LocalMovingLinks } from '../components/common/LocalMovingLinks';
 import { departmentCityGroups } from '../constants/departmentCities';
 
 const departmentLocations: Record<string, string> = {
@@ -46,7 +48,7 @@ export const SectorPage: React.FC = () => {
     return <NotFound />;
   }
 
-  if (resolvedSlug === 'paris' || resolvedSlug === 'paris-8') {
+  if (resolvedSlug === 'paris') {
     return <Navigate to="/secteurs-desservis" replace />;
   }
 
@@ -103,6 +105,7 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
         description={sector.seoDescription || `Préparez votre déménagement ${sectorLocation} avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées et devis gratuit.`}
         canonical={path}
         schema={[
+          { ...getServiceSchema(`Déménagement ${sector.name}`, sector.seoDescription), '@id': `${SITE_URL}${path}#service`, url: `${SITE_URL}${path}`, areaServed: { '@type': 'Place', name: sector.name } },
           getFAQSchema(sector.faqs),
           getBreadcrumbSchema(breadcrumbs)
         ]}
@@ -544,6 +547,8 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
           </div>
         </section>
       )}
+
+      <LocalMovingLinks slug={resolvedSlug} />
 
       {/* 12. Neighbouring sectors Section */}
       {sector.nearbySectors && sector.nearbySectors.length > 0 && (

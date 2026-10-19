@@ -13,6 +13,15 @@ for (const legacyPath of ['/demenagement-luxe', '/demenagement-luxe/']) {
 }
 const sitemap = getSitemapXml();
 const publicRoutes = new Set(getPublicCanonicalRoutes());
+for (let n = 1; n <= 20; n++) {
+  const path = `/demenagement-paris-${n}`;
+  assert.ok(publicRoutes.has(path), `Missing Paris arrondissement: ${n}`);
+  assert.equal(getCanonicalPath(path), path, `Unexpected arrondissement redirect: ${n}`);
+  const local = getSeoRoute(path);
+  assert.equal(local.status, 200);
+  assert.ok(local.title.length >= 50 && local.title.length <= 60, `${path}: title length`);
+  assert.ok(local.description.length >= 140 && local.description.length <= 155, `${path}: description length`);
+}
 for (const [path, date] of Object.entries(contentUpdatedAt)) {
   assert.ok(publicRoutes.has(path), `Unknown content update route: ${path}`);
   assert.match(date, /^\d{4}-\d{2}-\d{2}$/);

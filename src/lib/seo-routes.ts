@@ -63,7 +63,6 @@ export const CANONICAL_ALIASES: Record<string, string> = {
   '/blog/estimer-volume-demenagement': '/blog/comment-estimer-volume-demenagement',
   '/blog/demenagement-entreprise-paris': '/blog/demenagement-entreprise-paris-checklist',
   '/demenagement-paris': '/secteurs-desservis',
-  '/demenagement-paris-8': '/secteurs-desservis',
 };
 
 const MAIN_ROUTES = [
@@ -100,6 +99,15 @@ const MAIN_ROUTES = [
 ];
 
 const LOCAL_ROUTES = [
+  '/demenagement-paris-1',
+  '/demenagement-paris-2',
+  '/demenagement-paris-3',
+  '/demenagement-paris-4',
+  '/demenagement-paris-5',
+  '/demenagement-paris-6',
+  '/demenagement-paris-7',
+  '/demenagement-paris-8',
+
   '/demenagement-paris-20',
   '/demenagement-paris-19',
   '/demenagement-paris-18',
@@ -595,7 +603,9 @@ export function getRobotsTxt(): string {
   return [
     'User-agent: *',
     'Allow: /',
+    'Disallow: /admin$',
     'Disallow: /admin/',
+    'Disallow: /api/',
     'Disallow: /login',
     '',
     `Sitemap: ${SITE_URL}/sitemap.xml`,

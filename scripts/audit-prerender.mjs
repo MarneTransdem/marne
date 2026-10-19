@@ -7,6 +7,8 @@ const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(x => new URL(x[1]))
 const paths = new Set(urls.map(x => x.pathname));
 const errors = [];
 const pages = [];
+const seenTitles = new Map();
+const seenDescriptions = new Map();
 for (const url of urls) {
   const html = await fs.readFile(path.join('dist', url.pathname === '/' ? 'index.html' : url.pathname.slice(1) + '.html'), 'utf8');
   const canonicals = [...html.matchAll(/<link\b[^>]*rel="canonical"[^>]*href="([^"]+)"[^>]*>/g)].map(x => x[1]);
@@ -14,6 +16,12 @@ for (const url of urls) {
   const h1 = [...html.matchAll(/<h1\b/g)].length;
   if (canonicals.length !== 1 || new URL(canonicals[0]).href !== url.href) errors.push(`${url.pathname}: canonical ${canonicals.join(', ')}`);
   if (titles.length !== 1 || h1 !== 1) errors.push(`${url.pathname}: ${titles.length} titles, ${h1} h1`);
+  const description = html.match(/<meta\b[^>]*name="description"[^>]*content="([^"]*)"/);
+  for (const [value, seen, label] of [[titles[0]?.[1], seenTitles, 'title'], [description?.[1], seenDescriptions, 'description']]) {
+    if (!value?.trim()) errors.push(`${url.pathname}: missing ${label}`);
+    else if (seen.has(value)) errors.push(`${url.pathname}: duplicate ${label} with ${seen.get(value)}`);
+    else seen.set(value, url.pathname);
+  }
   if (/name="robots" content="noindex/.test(html)) errors.push(`${url.pathname}: noindex`);
   if (/<link\b[^>]*\bto\s*=/i.test(html)) errors.push(`${url.pathname}: React Link markup rendered as HTML instead of a crawlable anchor`);
   const links = [...html.matchAll(/<a\b[^>]*href="([^"]*)"/g)].map(x => x[1].replaceAll('&amp;', '&'));
