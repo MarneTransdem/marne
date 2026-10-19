@@ -1,3 +1,4 @@
+import { ServiceAreaLinks } from '../components/common/ServiceAreaLinks';
 import { ServiceDecisionGuide } from '../components/common/ServiceDecisionGuide';
 import React from 'react';
 import { motion } from 'motion/react';
@@ -252,6 +253,7 @@ const TransfertBureaux: React.FC = () => {
           </div>
         </div>
       </section>
+      <ServiceAreaLinks service="bureaux" />
     </div>
   );
 };

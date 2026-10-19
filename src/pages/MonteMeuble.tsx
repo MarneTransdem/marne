@@ -1,3 +1,4 @@
+import { ServiceAreaLinks } from '../components/common/ServiceAreaLinks';
 import { ServiceDecisionGuide } from '../components/common/ServiceDecisionGuide';
 import React from 'react';
 import { motion } from 'motion/react';
@@ -420,6 +421,7 @@ const MonteMeuble: React.FC = () => {
            </div>
         </div>
       </section>
+      <ServiceAreaLinks service="monteMeuble" />
     </div>
   );
 };

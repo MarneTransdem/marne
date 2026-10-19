@@ -55,6 +55,11 @@ for (const url of urls) {
       errors.push(`${url.pathname}: unresolved Service provider`);
     }
     if (!internal.includes('/demande-de-devis')) errors.push(`${url.pathname}: missing crawlable quote link`);
+    const serviceAreas = html.match(/<nav\b[^>]*aria-label="Secteurs pour cette prestation"[^>]*>([\s\S]*?)<\/nav>/)?.[1] ?? '';
+    const areaLinks = [...serviceAreas.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map(match => match[1]);
+    for (const target of ['/secteurs-desservis', '/demenagement-hauts-de-seine', '/demenagement-seine-saint-denis', '/demenagement-val-de-marne']) {
+      if (!areaLinks.includes(target)) errors.push(`${url.pathname}: missing contextual area link to ${target}`);
+    }
   }
   if (links.length <= 4) errors.push(`${url.pathname}: incomplete HTML`);
   pages.push({ path: url.pathname, links: internal, bytes: Buffer.byteLength(html) });

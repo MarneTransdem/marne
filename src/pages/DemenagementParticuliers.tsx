@@ -1,3 +1,4 @@
+import { ServiceAreaLinks } from '../components/common/ServiceAreaLinks';
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Phone, CheckCircle2, Home, Users, Zap, ShieldCheck, Box, Truck, MapPin, Info, Settings, Star } from 'lucide-react';
@@ -407,6 +408,7 @@ const DemenagementParticuliers: React.FC = () => {
            </div>
         </div>
       </section>
+      <ServiceAreaLinks service="particuliers" />
     </div>
   );
 };
