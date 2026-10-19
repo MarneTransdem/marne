@@ -455,34 +455,42 @@ export const sectorsData: Sector[] = [
     "slug": "bobigny",
     "name": "Bobigny",
     "type": "local",
-    "seoTitle": "Déménagement Bobigny | Administratif & Logements Collectifs | Marne Transdem",
-    "seoDescription": "Besoin d'un déménageur à Bobigny (93000) ? Marne Transdem offre son expertise pour les déménagements administratifs et logements collectifs. Devis Gratuit.",
+    "seoTitle": "Déménagement Bobigny (93000) : devis | Marne Transdem",
+    "seoDescription": "Votre déménagement à Bobigny : préparez les accès de la résidence, le volume et le stationnement. Demandez un devis gratuit pour votre logement ou bureau.",
     "seoImage": null,
-    "heroSubtitle": "Expertise pour les déménagements administratifs et les logements collectifs à Bobigny. Une logistique pensée pour la précision et la sérénité.",
+    "heroSubtitle": "Pour un logement ou des bureaux à Bobigny, préparons les accès, le volume et les créneaux de manutention aux deux adresses avant de chiffrer votre projet.",
     "introParagraphs": [
-      "Capitale administrative dynamique de la Seine-Saint-Denis, Bobigny se caractérise par son urbanisme dense, ses nombreux centres de décision et des quartiers résidentiels composés majoritairement de logements collectifs.",
-      "Ces spécificités exigent une logistique de déménagement maîtrisée, capable d'intervenir dans des environnements contraints, qu'il s'agisse de transférer des services administratifs sensibles ou de déménager des familles dans des immeubles résidentiels.",
-      "<strong>Marne Transdem</strong> déploie à Bobigny des équipes rompues aux exigences de mobilité urbaine. Nous optimisons chaque intervention : des accès sécurisés pour les bureaux aux monte-meubles d'extérieur pour les étages élevés des logements collectifs, garantissant la sécurité de vos biens et le respect des délais convenus."
+      "Pour votre <strong>déménagement à Bobigny (93000)</strong>, décrivez le chemin entre l’emplacement possible du camion et votre logement. Dans une résidence, précisez le bâtiment, l’entrée, l’étage, les marches et les dimensions de l’ascenseur. Un parking souterrain ou une voie privée peut présenter une limite de hauteur, une barrière ou des horaires d’ouverture : faites vérifier ces points par le gardien ou le gestionnaire. Ajoutez la distance de portage à votre demande, même si le camion semble pouvoir stationner près de la résidence.",
+      "Pour le stationnement sur la rue, la Ville publie une <a href=\"https://www.bobigny.fr/fileadmin/images/Actualite/2022/Janvier/procedure_de_rappel_demande_d_arrete_v2017.pdf\" class=\"text-accent hover:underline\">notice de demande d’arrêté de circulation ou de stationnement (PDF)</a>. Ce document général porte sur les travaux et interventions sur le domaine public : <strong>faites confirmer son application à votre déménagement</strong>, ainsi que la procédure actuelle, les délais et les pièces, auprès du service municipal compétent. Dans une résidence privée, vérifiez séparément l’accord du gestionnaire. Les démarches, les frais et l’éventuelle signalisation doivent être précisés dans le devis ; une autorisation ne permet pas de promettre un accès automatiquement libéré le jour J.",
+      "Pour un <a href=\"/transfert-bureaux-paris\" class=\"text-accent hover:underline\">transfert de bureaux</a>, préparez un inventaire par pièce et repérez la destination du mobilier et des cartons. Signalez les règles d’accès aux locaux et les consignes de manutention des archives, sans communiquer de documents confidentiels dans votre demande initiale. Pour un logement, notre <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume</a> aide à compléter l’inventaire. Si vous rejoignez <a href=\"/demenagement-pantin\" class=\"text-accent hover:underline\">Pantin</a> ou <a href=\"/demenagement-noisy-le-sec\" class=\"text-accent hover:underline\">Noisy-le-Sec</a>, renseignez aussi les accès à l’arrivée. Retrouvez les autres communes de <a href=\"/demenagement-seine-saint-denis\" class=\"text-accent hover:underline\">Seine-Saint-Denis</a> et <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">préparez votre devis de déménagement à Bobigny</a>."
     ],
     "faqs": [
       {
-        "q": "Quelles sont les spécificités des déménagements administratifs à Bobigny ?",
-        "a": "Bobigny concentre de nombreuses administrations. Marne Transdem possède une expertise dans le transfert de bureaux et services publics, avec une logistique minutieuse pour limiter l'interruption de service, gérer les accès sécurisés et transporter le matériel sensible."
+        "q": "Quelles informations fournir pour déménager dans une résidence à Bobigny ?",
+        "a": "Précisez le bâtiment, l’entrée, l’étage, les dimensions de l’ascenseur et les marches sur le parcours. Signalez les barrières, les horaires d’accès et la distance entre le camion et le logement. Vérifiez les consignes du gardien ou du gestionnaire pour la protection des parties communes."
       },
       {
-        "q": "Comment gérez-vous le stationnement pour les logements collectifs à Bobigny ?",
-        "a": "Pour les grands ensembles et logements collectifs, l'accès au pied de l'immeuble est crucial. Nous effectuons pour vous la demande d'Autorisation d'Occupation Temporaire (AOT) à la Mairie de Bobigny et installons la signalétique 48h avant pour garantir un accès libéré le jour J."
+        "q": "Qui prépare les démarches de stationnement à Bobigny ?",
+        "a": "La personne chargée des démarches doit être identifiée lors de la préparation du devis. La Ville publie une notice générale pour les arrêtés de circulation et de stationnement liés aux travaux et interventions sur le domaine public. Faites confirmer la procédure actuelle applicable à votre déménagement, les délais et les frais auprès du service compétent."
       },
       {
-        "q": "Proposez-vous des services adaptés aux particuliers emménageant à Bobigny ?",
-        "a": "Absolument. Que vous emménagiez dans une résidence récente ou un immeuble plus ancien, nous adaptons nos moyens (monte-meubles, camions de gabarits différents) et protégeons vos biens avec le plus grand soin pour une installation sereine."
+        "q": "Une autorisation sur la rue donne-t-elle accès au parking privé de la résidence ?",
+        "a": "Ne supposez pas qu’elle suffit. Vérifiez séparément avec le gestionnaire l’accès à la propriété, la hauteur disponible, les horaires et les règles de circulation. Si le véhicule doit rester à l’extérieur, indiquez le parcours et la distance de portage pour adapter l’organisation."
       },
       {
-        "q": "Comment réserver une estimation gratuite avec Marne Transdem à Bobigny ?",
-        "a": "Contactez Marne Transdem par téléphone ou via le formulaire de demande de devis pour votre projet à Bobigny. Indiquez les adresses de départ et d’arrivée, la période envisagée, le volume estimé, les accès et les prestations souhaitées. Si une visite est nécessaire, ses modalités sont à convenir avec l’équipe. Demandez également le délai de remise du devis selon les informations restant à préciser."
+        "q": "Comment préparer un transfert de bureaux à Bobigny ?",
+        "a": "Inventoriez mobilier, postes et cartons par espace, puis indiquez leur destination. Précisez les créneaux autorisés, les conditions d’accès et les consignes relatives aux archives ou au matériel particulier. L’emballage, le démontage et les opérations informatiques doivent être définis dans le devis."
+      },
+      {
+        "q": "Un étage élevé impose-t-il un monte-meuble à Bobigny ?",
+        "a": "Non. La décision dépend du passage des meubles dans l’ascenseur ou l’escalier et de la configuration extérieure. L’ouverture, les obstacles, l’espace au sol, la hauteur et la charge à déplacer doivent être examinés. Les autorisations et les accords nécessaires sont vérifiés avant de confirmer ce moyen de manutention."
       }
     ],
     "nearbySectors": [
+      {
+        "n": "Seine-Saint-Denis",
+        "l": "/demenagement-seine-saint-denis"
+      },
       {
         "n": "Drancy",
         "l": "/demenagement-drancy"
@@ -500,12 +508,8 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-pantin"
       },
       {
-        "n": "Aulnay-sous-Bois",
-        "l": "/demenagement-aulnay-sous-bois"
-      },
-      {
-        "n": "Seine-Saint-Denis (93)",
-        "l": "/demenagement-seine-saint-denis"
+        "n": "Romainville",
+        "l": "/demenagement-romainville"
       }
     ]
   },
@@ -513,45 +517,45 @@ export const sectorsData: Sector[] = [
     "slug": "bondy",
     "name": "Bondy",
     "type": "local",
-    "seoTitle": "Déménagement Bondy | Accompagnement Projets | Marne Transdem",
-    "seoDescription": "Besoin d'un déménageur à Bondy (93140) ? Marne Transdem accompagne vos projets de déménagement en centre-ville et pavillons. Devis Gratuit.",
+    "seoTitle": "Déménagement Bondy (93140) : devis gratuit | Marne Transdem",
+    "seoDescription": "Préparez votre déménagement à Bondy : inventaire, accès à la maison ou à la résidence et stationnement. Demandez un devis gratuit adapté à votre projet.",
     "seoImage": null,
-    "heroSubtitle": "Accompagnement sur-mesure pour vos projets de déménagement au cœur de Bondy. Expertise logistique pour simplifier chaque étape de votre transition.",
+    "heroSubtitle": "Maison, appartement ou départ vers une autre région : préparez votre inventaire, les passages et les conditions de stationnement pour votre déménagement à Bondy.",
     "introParagraphs": [
-      "Située au cœur du département de la Seine-Saint-Denis, Bondy est une ville dynamique qui offre une grande diversité d'habitats, allant des secteurs pavillonnaires calmes aux résidences collectives plus centrales. Cette variété de typologies implique des besoins de déménagement spécifiques.",
-      "Qu'il s'agisse d'emménager dans une maison familiale ou de changer d'appartement de standing, notre mission est de sécuriser chaque étape de votre projet.",
-      "<strong>Marne Transdem</strong> met à votre disposition des équipes de professionnels aguerris, équipés de matériel de pointe pour manipuler avec soin vos effets personnels, que ce soit pour une opération en centre-ville ou dans les zones plus résidentielles."
+      "Pour préparer votre <strong>déménagement à Bondy (93140)</strong>, faites l’inventaire de toutes les pièces et des annexes concernées : cave, garage, abri ou dépendance. Pour une maison, mesurez le portail, repérez les marches et indiquez la distance entre la rue et l’entrée. Pour un appartement, relevez les dimensions des portes et de l’ascenseur. Ces informations complètent le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">volume estimé en m³</a> et permettent d’étudier le démontage des meubles ou le portage nécessaire, au départ comme à l’arrivée.",
+      "La page <a href=\"https://www.ville-bondy.fr/demarche-administrative/stationnement-dans-la-ville/\" class=\"text-accent hover:underline\">stationnement de la Ville de Bondy</a> présente notamment les zones orange et verte et leurs conditions d’utilisation. Elle renseigne sur le stationnement courant, <strong>pas sur une réservation déjà acquise pour votre camion</strong>. Avant de fixer l’organisation, demandez à la mairie les modalités applicables à l’emplacement envisagé et à un éventuel monte-meuble. Précisez avec notre équipe qui effectue les démarches et quels frais figurent dans le devis, puis faites confirmer les conditions de signalisation si elles sont requises.",
+      "Si votre départ de Bondy concerne un <a href=\"/demenagement-longue-distance\" class=\"text-accent hover:underline\">déménagement longue distance</a>, indiquez les dates de remise des clés, la destination et vos éventuelles contraintes de livraison. Signalez un besoin de <a href=\"/garde-meuble-paris\" class=\"text-accent hover:underline\">stockage temporaire</a> dès le chiffrage si les deux logements ne sont pas disponibles au même moment. Pour un trajet vers <a href=\"/demenagement-bobigny\" class=\"text-accent hover:underline\">Bobigny</a> ou <a href=\"/demenagement-aulnay-sous-bois\" class=\"text-accent hover:underline\">Aulnay-sous-Bois</a>, la préparation des accès aux deux adresses reste nécessaire. Comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">formules de déménagement</a>, consultez les communes desservies en <a href=\"/demenagement-seine-saint-denis\" class=\"text-accent hover:underline\">Seine-Saint-Denis</a> et <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">demandez votre devis pour Bondy</a>."
     ],
     "faqs": [
       {
-        "q": "Quelles sont les spécificités d'un déménagement à Bondy ?",
-        "a": "Bondy est une ville étendue offrant une mixité de zones pavillonnaires et de quartiers résidentiels plus denses. La gestion du stationnement est une étape clé. Marne Transdem réalise une visite technique pour évaluer les accès, la largeur des rues et valider la possibilité de stationner nos camions en toute sécurité."
+        "q": "Le stationnement payant à Bondy réserve-t-il une place pour le camion ?",
+        "a": "Le paiement du stationnement courant ne doit pas être considéré comme une réservation pour votre déménagement. La page municipale présente les zones et leurs conditions. Faites confirmer par la mairie les démarches nécessaires pour l’emplacement, la durée et le matériel envisagés."
       },
       {
-        "q": "Dois-je gérer les autorisations de stationnement pour mon déménagement ?",
-        "a": "Non, Marne Transdem se charge de tout. Nous effectuons une demande d'Autorisation d'Occupation Temporaire (AOT) auprès des services de voirie de la Mairie de Bondy. Nous déposons le dossier, payons les redevances et posons la signalétique nécessaire 48 heures avant votre emménagement ou déménagement."
+        "q": "Les frais et la signalisation sont-ils toujours pris en charge par Marne Transdem ?",
+        "a": "Ces éléments doivent être précisés dans le devis. Définissez avec l’équipe qui dépose la demande, qui règle les éventuels frais et comment la signalisation sera organisée si elle est requise. Ne supposez pas que toutes ces opérations sont comprises sans confirmation."
       },
       {
-        "q": "Proposez-vous des formules pour les déménagements longue distance au départ de Bondy ?",
-        "a": "Absolument. Nous accompagnons les projets de déménagement premium depuis Bondy vers toute la France et l'Europe, en utilisant des moyens de transport dédiés ou partagés selon vos besoins, tout en garantissant une protection maximale de vos biens fragiles."
+        "q": "Comment préparer le déménagement d’une maison avec garage à Bondy ?",
+        "a": "Incluez le garage et les autres annexes concernées dans l’inventaire. Relevez la largeur et la hauteur du portail, les marches et la distance jusqu’au camion. Listez les biens lourds ou encombrants et signalez les objets nécessitant une prise en charge particulière avant l’établissement du devis."
       },
       {
-        "q": "Comment réserver une estimation gratuite pour mon déménagement à Bondy ?",
-        "a": "Contactez Marne Transdem par téléphone ou via le formulaire de demande de devis pour votre projet à Bondy. Indiquez les adresses de départ et d’arrivée, la période envisagée, le volume estimé, les accès et les prestations souhaitées. Si une visite est nécessaire, ses modalités sont à convenir avec l’équipe. Demandez également le délai de remise du devis selon les informations restant à préciser."
+        "q": "Que préciser pour un départ de Bondy vers une autre région ?",
+        "a": "Indiquez l’adresse de destination, les dates souhaitées et la disponibilité des deux logements. Décrivez aussi les accès à l’arrivée, les biens à démonter et les contraintes de livraison. L’organisation du transport et les prestations retenues seront précisées dans la proposition."
+      },
+      {
+        "q": "Que faire si le nouveau logement est disponible après le départ de Bondy ?",
+        "a": "Signalez le décalage dès la demande de devis. Un stockage temporaire peut être étudié selon les biens, la durée et les conditions d’accès souhaitées. Faites préciser les opérations de départ, le stockage et la livraison finale pour comparer les prestations sur une même base."
       }
     ],
     "nearbySectors": [
       {
+        "n": "Seine-Saint-Denis",
+        "l": "/demenagement-seine-saint-denis"
+      },
+      {
         "n": "Noisy-le-Sec",
         "l": "/demenagement-noisy-le-sec"
-      },
-      {
-        "n": "Les Lilas",
-        "l": "/demenagement-les-lilas"
-      },
-      {
-        "n": "Pantin",
-        "l": "/demenagement-pantin"
       },
       {
         "n": "Bobigny",
