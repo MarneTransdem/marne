@@ -68,7 +68,7 @@ const TransfertBureaux: React.FC = () => {
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">Expertise Tertiaire & Bureaux</span>
             </motion.div>
 
-            <h1 className="text-5xl md:text-8xl font-black mb-8 leading-[1.1] tracking-tight italic">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[1.1] tracking-tight italic">
               Transfert <br/>
               <span className="text-accent italic underline decoration-accent/20 underline-offset-8 transition-all hover:text-white italic uppercase font-sans">de bureaux à Paris</span>
             </h1>
@@ -127,7 +127,7 @@ const TransfertBureaux: React.FC = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-accent/20 rounded-full blur-[100px] -z-0 italic"></div>
+              <div aria-hidden="true" className="absolute -bottom-10 right-0 w-64 h-64 bg-accent/20 rounded-full blur-[100px] -z-0 italic"></div>
             </div>
           </div>
         </div>
