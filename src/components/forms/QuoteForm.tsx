@@ -8,6 +8,7 @@ import { handleFirestoreError, OperationType } from '../../lib/firestore-errors'
 import { useMapsLibrary } from '@vis.gl/react-google-maps';
 import { getVisitAttribution, trackConversion } from '../../lib/public-analytics';
 import { isPlausiblePhone } from '../../lib/quote-validation';
+import { getEstimateFields, parseQuoteEstimate, removeEstimateFields, shouldRestoreEstimate, type QuoteEstimate } from '../../lib/quote-estimate';
 
 interface FormData {
   // Section A: Coordonnées
@@ -84,7 +85,7 @@ export const QuoteForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [estimate, setEstimate] = useState<any>(null);
+  const [estimate, setEstimate] = useState<QuoteEstimate | null>(null);
   
   const [formData, setFormData] = useState<FormData>(INITIAL_DATA);
   const [searchParams] = useSearchParams();
@@ -191,37 +192,26 @@ export const QuoteForm: React.FC = () => {
   }, [searchParams]);
 
   useEffect(() => {
+    if (!shouldRestoreEstimate(searchParams)) return;
     let saved: string | null = null;
     try { saved = localStorage.getItem(LOCAL_STORAGE_KEY); } catch { return; }
     if (saved) {
-      try {
-        const data = JSON.parse(saved);
-        setEstimate(data);
-        
-        // Auto-fill fields if estimate exists
-        setFormData(prev => ({
-          ...prev,
-          volume: `${data.estimatedVolume} m³`,
-          message: prev.message || `Volume estimé via le calculateur : ${data.estimatedVolume} m³.
-Nombre de cartons estimé : ${data.cartonsCount}.
-Nombre d’objets estimé : ${data.itemsCount}.
-Pièces renseignées : ${data.rooms.map((r: any) => r.name).join(', ')}.
-Cette estimation est indicative et pourra être affinée selon les accès et les caractéristiques de votre projet.`
-        }));
-      } catch (e) {
-        console.error("Failed to parse estimate", e);
-      }
+      const data = parseQuoteEstimate(saved);
+      if (!data) return;
+      const imported = getEstimateFields(data);
+      setEstimate(data);
+      setFormData(prev => ({
+        ...prev,
+        volume: prev.volume || imported.volume,
+        message: prev.message || imported.message,
+      }));
     }
   }, []);
 
   const clearEstimate = () => {
     try { localStorage.removeItem(LOCAL_STORAGE_KEY); } catch { /* Storage is optional. */ }
+    if (estimate) setFormData(prev => removeEstimateFields(prev, estimate));
     setEstimate(null);
-    setFormData(prev => ({
-      ...prev,
-      volume: '',
-      message: ''
-    }));
   };
 
   const validateForm = () => {
