@@ -1216,83 +1216,57 @@ export const sectorsData: Sector[] = [
     "slug": "clichy",
     "name": "Clichy",
     "type": "local",
-    "seoTitle": "Déménagement Clichy | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Clichy avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Clichy (92110) : devis | Marne Transdem",
+    "seoDescription": "Préparez votre déménagement à Clichy : inventaire, accès et réservation du stationnement. Demandez un devis gratuit pour votre logement ou vos bureaux.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Clichy, avec une organisation adaptée aux appartements, résidences, bureaux, commerces et contraintes d’accès du nord-ouest parisien.",
+    "heroSubtitle": "À Clichy, préparons le passage des meubles, le stationnement du camion et les prestations utiles à votre logement ou à vos locaux.",
     "introParagraphs": [
-      "Que vous emménagiez dans un <span className=\"font-bold text-slate-700\">appartement</span>, un <span className=\"font-bold text-slate-700\">studio</span> ou une <span className=\"font-bold text-slate-700\">résidence</span> familiale, ou que vous transfériez vos <span className=\"font-bold text-slate-700\">bureaux</span>, <span className=\"font-bold text-slate-700\">sièges d'agences</span>, <span className=\"font-bold text-slate-700\">commerces</span> ou <span className=\"font-bold text-slate-700\">cabinets professionnels</span>, nous gérons chaque aspect logistique. Nous intervenons également vers <span className=\"font-bold text-slate-700\">Levallois-Perret</span>, <span className=\"font-bold text-slate-700\">Saint-Ouen-sur-Seine</span>, <span className=\"font-bold text-slate-700\">Asnières-sur-Seine</span> et <span className=\"font-bold text-slate-700\">Gennevilliers</span>. Nous anticipons les <span className=\"font-bold text-slate-700\">accès d'immeubles</span> (ascenseurs, escaliers), les contraintes de <span className=\"font-bold text-slate-700\">stationnement</span> et l'estimation rigoureuse du <span className=\"font-bold text-slate-700\">volume</span> pour une <span className=\"font-bold text-slate-700\">demande de devis</span> sur-mesure."
+      "Votre <strong>déménagement à Clichy (92110)</strong> demande de décrire les accès aux deux adresses. Relevez les dimensions des portes, des paliers et de l’ascenseur, puis les marches et la distance entre le camion et l’entrée. Signalez une cour, une cave ou un accès de livraison différent de l’adresse postale. Notre <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> aide à dresser l’inventaire ; ajoutez les meubles à démonter et les dimensions des objets encombrants pour compléter la préparation du transport.",
+      "La <a href=\"https://www.ville-clichy.fr/527-stationnement-pour-demenagement.htm\" class=\"text-accent hover:underline\">procédure municipale de stationnement pour déménagement à Clichy</a> comprend un formulaire en ligne et une redevance d’occupation. La Ville demande de recevoir le dossier au minimum 15 jours avant l’intervention. Le formulaire prévoit notamment l’adresse précise des emplacements et l’utilisation éventuelle d’un monte-meuble. Pour les demandes acceptées, la page indique une pose de la signalisation par les services municipaux. Vérifiez les modalités à jour, puis précisez avec notre équipe les démarches et frais prévus dans votre devis.",
+      "Comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">prestations d’emballage et de démontage</a> selon les tâches que vous souhaitez déléguer. Un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> nécessite une étude de la façade, des obstacles et de l’emplacement au sol. Pour un <a href=\"/demenagement-entreprises-paris\" class=\"text-accent hover:underline\">transfert de bureaux ou de commerce</a>, identifiez les équipements et archives à préparer, les accès de livraison et les créneaux du gestionnaire. Vers <a href=\"/demenagement-levallois-perret\" class=\"text-accent hover:underline\">Levallois-Perret</a>, <a href=\"/demenagement-saint-ouen\" class=\"text-accent hover:underline\">Saint-Ouen-sur-Seine</a> ou <a href=\"/demenagement-paris-17\" class=\"text-accent hover:underline\">Paris 17e</a>, renseignez aussi l’arrivée. Consultez les communes des <a href=\"/demenagement-hauts-de-seine\" class=\"text-accent hover:underline\">Hauts-de-Seine</a> et <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">préparez votre devis à Clichy</a>."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Clichy ?",
-        "a": "Un déménagement à Clichy demande d’anticiper le volume, les accès, les étages, les éventuels ascenseurs, le stationnement et la préparation des cartons. Marne Transdem vous accompagne pour définir une organisation adaptée à votre logement, à vos biens et au niveau d’accompagnement souhaité."
+        "q": "Quand préparer la réservation de stationnement pour déménager à Clichy ?",
+        "a": "La page municipale indique que la demande doit être reçue au minimum 15 jours avant l’intervention. Utilisez son formulaire et vérifiez les conditions à jour. Convenez avec l’équipe de la personne chargée de la démarche ; le dépôt ne garantit pas l’acceptation de l’emplacement demandé."
       },
       {
-        "q": "Marne Transdem intervient-elle à Clichy et dans les villes proches ?",
-        "a": "Oui, Marne Transdem accompagne les projets de déménagement à Clichy et dans les secteurs proches comme Paris 17e, Paris 18e, Levallois-Perret, Neuilly-sur-Seine, Saint-Ouen-sur-Seine, Asnières-sur-Seine et plus largement dans les Hauts-de-Seine selon les besoins du projet."
+        "q": "Que faut-il renseigner pour l’emplacement du camion à Clichy ?",
+        "a": "Le formulaire municipal demande notamment l’adresse précise des emplacements, les dates et heures de réservation, le nombre de places et l’utilisation éventuelle d’un monte-meuble. Préparez ces informations avec l’équipe pour décrire l’occupation envisagée et les accès au logement ou aux locaux."
       },
       {
-        "q": "Peut-on demander un monte-meuble à Clichy ?",
-        "a": "Oui, un monte-meuble peut être envisagé lorsque les meubles volumineux ne passent pas facilement par l’escalier ou l’ascenseur. Sa mise en place dépend de la configuration de la rue, de la façade, des accès et de la faisabilité technique."
+        "q": "Qui installe la signalisation après une demande acceptée ?",
+        "a": "La page de Clichy indique une installation par les services techniques municipaux pour les demandes favorables. Vérifiez les prescriptions de votre autorisation et les conditions de règlement. La répartition des démarches et des frais doit être convenue lors de la préparation du devis."
       },
       {
-        "q": "Quelle formule choisir pour un déménagement à Clichy ?",
-        "a": "La formule dépend de votre budget, du temps disponible pour préparer vos cartons et du niveau d’accompagnement souhaité. La formule Économique convient si vous préparez une grande partie de vos affaires, la formule Standard offre un équilibre entre autonomie et accompagnement, et la formule Luxe permet de déléguer davantage selon la prestation choisie."
+        "q": "Comment préparer un meuble qui ne passe pas dans l’ascenseur ?",
+        "a": "Mesurez le meuble et les passages, puis indiquez s’il peut être démonté. Envoyez des photos de l’escalier, de la façade et de l’espace extérieur si un monte-meuble est envisagé. L’équipe doit étudier les possibilités techniques et les autorisations avant de retenir une solution."
       },
       {
-        "q": "Comment obtenir un devis pour un déménagement à Clichy ?",
-        "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L’estimation prend en compte le volume, les adresses, les accès, les étages, la formule souhaitée et les besoins spécifiques comme l’emballage, le garde-meuble ou le monte-meuble."
+        "q": "Quelles informations rendent mon devis à Clichy plus précis ?",
+        "a": "Indiquez l’inventaire, les deux adresses, la période et les accès, avec les marches et la distance de portage. Précisez les tâches d’emballage et de démontage souhaitées ainsi que les biens lourds, fragiles ou particuliers. Ajoutez les éventuels besoins de levage ou de stockage."
       }
     ],
     "nearbySectors": [
       {
-        "n": "Paris 17e",
-        "l": "/demenagement-paris-17"
+        "n": "Hauts-de-Seine",
+        "l": "/demenagement-hauts-de-seine"
       },
       {
         "n": "Levallois-Perret",
         "l": "/demenagement-levallois-perret"
       },
       {
-        "n": "Neuilly-sur-Seine",
-        "l": "/demenagement-neuilly-sur-seine"
+        "n": "Saint-Ouen-sur-Seine",
+        "l": "/demenagement-saint-ouen"
       },
       {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
+        "n": "Paris 17e",
+        "l": "/demenagement-paris-17"
       },
       {
-        "n": "Hauts-de-Seine",
-        "l": "/demenagement-hauts-de-seine"
-      },
-      {
-        "n": "Île-de-France",
-        "l": "/demenagement-ile-de-france"
-      },
-      {
-        "n": "Courbevoie",
-        "l": "/demenagement-courbevoie"
-      },
-      {
-        "n": "Puteaux",
-        "l": "/demenagement-puteaux"
-      },
-      {
-        "n": "Nanterre",
-        "l": "/demenagement-nanterre"
-      },
-      {
-        "n": "Suresnes",
-        "l": "/demenagement-suresnes"
-      },
-      {
-        "n": "Rueil-Malmaison",
-        "l": "/demenagement-rueil-malmaison"
-      },
-      {
-        "n": "Vaucresson",
-        "l": "/demenagement-vaucresson"
+        "n": "Paris 18e",
+        "l": "/demenagement-paris-18"
       }
     ]
   },
