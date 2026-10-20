@@ -3350,55 +3350,45 @@ export const sectorsData: Sector[] = [
     "slug": "levallois-perret",
     "name": "Levallois-Perret",
     "type": "local",
-    "seoTitle": "Déménagement Levallois-Perret | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Levallois-Perret avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Levallois-Perret : devis | Marne Transdem",
+    "seoDescription": "Votre déménagement à Levallois-Perret : préparez les accès, le volume et le stationnement. Demandez un devis gratuit pour votre logement ou vos bureaux.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Levallois-Perret, avec une organisation adaptée aux appartements, résidences, bureaux, commerces et contraintes d’accès de l’ouest parisien.",
+    "heroSubtitle": "À Levallois-Perret, préparons le passage des meubles, l’emplacement du camion et les prestations adaptées à votre logement ou vos bureaux.",
     "introParagraphs": [
-      "Que vous emménagiez dans un <span className=\"font-bold text-slate-700\">appartement</span>, un <span className=\"font-bold text-slate-700\">studio</span> ou une <span className=\"font-bold text-slate-700\">résidence</span> familiale, ou que vous transfériez vos <span className=\"font-bold text-slate-700\">bureaux</span>, <span className=\"font-bold text-slate-700\">commerces</span> ou <span className=\"font-bold text-slate-700\">cabinets professionnels</span>, nous maîtrisons les spécificités logistiques locales. Nous anticipons les <span className=\"font-bold text-slate-700\">accès d'immeubles</span> (ascenseurs, escaliers, cours), les contraintes de <span className=\"font-bold text-slate-700\">stationnement</span> et l'estimation rigoureuse des <span className=\"font-bold text-slate-700\">volumes</span> pour une <span className=\"font-bold text-slate-700\">demande de devis</span> sur-mesure. Notre zone d'influence couvre égaltement <span className=\"font-bold text-slate-700\">Courbevoie</span> et le quartier de <span className=\"font-bold text-slate-700\">La Défense</span>."
+      "Pour votre <strong>déménagement à Levallois-Perret (92300)</strong>, décrivez le chemin des meubles du logement à la rue : portes, paliers, ascenseur, cour et marches éventuelles. Relevez les dimensions des passages et la distance jusqu’à l’emplacement envisagé pour le camion. Pour des bureaux, ajoutez les consignes de livraison et les créneaux du gestionnaire de l’immeuble. Notre <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> aide à préparer l’inventaire ; complétez-le avec les meubles à démonter et les objets lourds ou fragiles.",
+      "La <a href=\"https://www.ville-levallois.fr/services/e-demarches/demenagement-emmenagement/\" class=\"text-accent hover:underline\">procédure municipale Déménagement & Emménagement</a> prévoit un dépôt via le téléservice au minimum 15 jours avant l’opération. Pour un monte-meuble, une photo de la fenêtre d’accès en façade doit être jointe. La page distingue la pose habituelle des panneaux par les services municipaux du cas des autorisations spéciales sur voie de circulation, où la signalisation relève de l’entreprise. Consultez les conditions à jour et précisez avec notre équipe les démarches et responsabilités applicables à votre emplacement.",
+      "Comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">prestations d’emballage et de démontage</a> selon les tâches que vous souhaitez déléguer. Un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> nécessite aussi une étude de la façade, de la hauteur, des obstacles et de l’espace au sol. Pour un <a href=\"/demenagement-entreprises-paris\" class=\"text-accent hover:underline\">transfert de bureaux</a>, identifiez les archives et équipements particuliers et les opérations de préparation à organiser. Vers <a href=\"/demenagement-neuilly-sur-seine\" class=\"text-accent hover:underline\">Neuilly-sur-Seine</a>, <a href=\"/demenagement-clichy\" class=\"text-accent hover:underline\">Clichy</a> ou <a href=\"/demenagement-paris-17\" class=\"text-accent hover:underline\">Paris 17e</a>, renseignez l’arrivée avec la même précision que le départ. Retrouvez les communes des <a href=\"/demenagement-hauts-de-seine\" class=\"text-accent hover:underline\">Hauts-de-Seine</a> et <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">préparez votre devis à Levallois-Perret</a>."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Levallois-Perret ?",
-        "a": "Un déménagement à Levallois-Perret demande d’anticiper le volume, les accès, les étages, les éventuels ascenseurs, le stationnement et la préparation des cartons. Marne Transdem vous accompagne pour définir une organisation adaptée à votre logement, à vos biens et au niveau d’accompagnement souhaité."
+        "q": "Comment préparer la réservation du camion à Levallois-Perret ?",
+        "a": "La Ville prévoit un téléservice et annonce un minimum de 15 jours avant l’opération. Consultez sa page dédiée pour les conditions et jours applicables, puis précisez la date, l’adresse et le matériel envisagé. Convenez avec l’équipe de la personne chargée de la demande ; le dépôt ne vaut pas autorisation."
       },
       {
-        "q": "Marne Transdem intervient-elle à Levallois-Perret et dans les villes proches ?",
-        "a": "Oui, Marne Transdem accompagne les projets de déménagement à Levallois-Perret et dans les secteurs proches comme Paris 17e, Paris 8e, Neuilly-sur-Seine, Clichy, Courbevoie, Puteaux et plus largement dans les Hauts-de-Seine selon les besoins du projet."
+        "q": "Quelle photo fournir pour un monte-meuble à Levallois-Perret ?",
+        "a": "La procédure municipale demande une photo de la fenêtre d’accès en façade. Pour l’étude technique avec l’équipe, ajoutez des vues de l’emplacement au sol, les obstacles visibles, l’étage et les dimensions des meubles. Les autorisations et la faisabilité doivent être vérifiées avant de retenir l’appareil."
       },
       {
-        "q": "Peut-on demander un monte-meuble à Levallois-Perret ?",
-        "a": "Oui, un monte-meuble peut être envisagé lorsque les meubles volumineux ne passent pas facilement par l’escalier ou l’ascenseur. Sa mise en place dépend de la configuration de la rue, de la façade, des accès et de la faisabilité technique."
+        "q": "Qui organise la signalisation pour un déménagement à Levallois-Perret ?",
+        "a": "La page municipale distingue la pose habituelle des panneaux par ses services du cas des autorisations spéciales sur voie de circulation, qui prévoit une intervention de l’entreprise. Vérifiez les prescriptions de votre autorisation et convenez de la répartition des tâches avant le déménagement."
       },
       {
-        "q": "Quelle formule choisir pour un déménagement à Levallois-Perret ?",
-        "a": "La formule dépend de votre budget, du temps disponible pour préparer vos cartons et du niveau d’accompagnement souhaité. La formule Économique convient si vous préparez une grande partie de vos affaires, la formule Standard offre un équilibre entre autonomie et accompagnement, et la formule Luxe permet de déléguer davantage selon la prestation choisie."
+        "q": "Quels accès relever dans mon immeuble avant le devis ?",
+        "a": "Mesurez les portes, les paliers et l’ascenseur, puis indiquez les marches et la distance depuis le camion. Signalez une cour ou une entrée de livraison différente de l’adresse postale. Demandez au gestionnaire les consignes de protection des parties communes et les créneaux utilisables."
       },
       {
-        "q": "Comment obtenir un devis pour un déménagement à Levallois-Perret ?",
-        "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L’estimation prend en compte le volume, les adresses, les accès, les étages, la formule souhaitée et les besoins spécifiques comme l’emballage, le garde-meuble ou le monte-meuble."
+        "q": "Comment comparer les prestations pour mon projet à Levallois-Perret ?",
+        "a": "Distinguez les cartons que vous préparerez, les biens fragiles et les meubles à démonter. Pour des bureaux, ajoutez les archives et équipements à préparer. Le devis doit détailler les tâches retenues, les accès, le trajet et les besoins particuliers de levage ou de stockage."
       }
     ],
     "nearbySectors": [
-      {
-        "n": "Paris 17e",
-        "l": "/demenagement-paris-17"
-      },
-      {
-        "n": "Neuilly-sur-Seine",
-        "l": "/demenagement-neuilly-sur-seine"
-      },
-      {
-        "n": "Boulogne-Billancourt",
-        "l": "/demenagement-boulogne-billancourt"
-      },
       {
         "n": "Hauts-de-Seine",
         "l": "/demenagement-hauts-de-seine"
       },
       {
-        "n": "Île-de-France",
-        "l": "/demenagement-ile-de-france"
+        "n": "Neuilly-sur-Seine",
+        "l": "/demenagement-neuilly-sur-seine"
       },
       {
         "n": "Clichy",
@@ -3409,24 +3399,8 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-courbevoie"
       },
       {
-        "n": "Puteaux",
-        "l": "/demenagement-puteaux"
-      },
-      {
-        "n": "Nanterre",
-        "l": "/demenagement-nanterre"
-      },
-      {
-        "n": "Suresnes",
-        "l": "/demenagement-suresnes"
-      },
-      {
-        "n": "Rueil-Malmaison",
-        "l": "/demenagement-rueil-malmaison"
-      },
-      {
-        "n": "Vaucresson",
-        "l": "/demenagement-vaucresson"
+        "n": "Paris 17e",
+        "l": "/demenagement-paris-17"
       }
     ]
   },
