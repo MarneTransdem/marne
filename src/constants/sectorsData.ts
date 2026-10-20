@@ -4272,63 +4272,41 @@ export const sectorsData: Sector[] = [
     "slug": "neuilly-sur-seine",
     "name": "Neuilly-sur-Seine",
     "type": "local",
-    "seoTitle": "Déménagement Neuilly-sur-Seine | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Neuilly-sur-Seine avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Neuilly-sur-Seine : devis | Marne Transdem",
+    "seoDescription": "Préparez votre déménagement à Neuilly-sur-Seine : accès, inventaire et réservation du stationnement. Demandez un devis gratuit adapté à votre projet.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Neuilly-sur-Seine, avec une organisation adaptée aux appartements, résidences, bureaux, cabinets professionnels et contraintes d’accès de l’ouest parisien.",
+    "heroSubtitle": "À Neuilly-sur-Seine, préparons les accès de votre immeuble, le transport de vos biens et les démarches de stationnement pour votre devis.",
     "introParagraphs": [
-      "Que vous prépariez le transfert de vos <span className=\"font-bold text-slate-700\">bureaux</span> à proximité de <span className=\"font-bold text-slate-700\">La Défense</span>, <span className=\"font-bold text-slate-700\">Courbevoie</span> ou <span className=\"font-bold text-slate-700\">Puteaux</span>, ou que vous emménagiez dans un <span className=\"font-bold text-slate-700\">appartement</span> de standing, nous gérons chaque aspect logistique. Des <span className=\"font-bold text-slate-700\">résidences</span> familiales aux <span className=\"font-bold text-slate-700\">cabinets professionnels</span> et <span className=\"font-bold text-slate-700\">professions libérales</span>, nous anticipons les contraintes d'<span className=\"font-bold text-slate-700\">accès d'immeubles</span> (ascenseurs, escaliers, halls) et de <span className=\"font-bold text-slate-700\">stationnement</span>. Notre estimation rigoureuse du <span className=\"font-bold text-slate-700\">volume</span> est le point de départ d'une <span className=\"font-bold text-slate-700\">demande de devis</span> personnalisée."
+      "Votre <strong>déménagement à Neuilly-sur-Seine (92200)</strong> se prépare à partir de l’inventaire et du passage des meubles. Mesurez les portes, les paliers et l’ascenseur, puis relevez la distance entre l’emplacement envisagé et l’entrée. Demandez au gardien ou au gestionnaire les consignes de protection des parties communes et les créneaux utilisables. Le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> aide à recenser mobilier et cartons ; complétez-le avec les dimensions des objets encombrants et les annexes concernées, comme la cave.",
+      "La <a href=\"https://www.neuillysurseine.fr/pre-demarche/reserver-un-emplacement-pour-un-camion-de-demenagement\" class=\"text-accent hover:underline\">démarche municipale de réservation pour un camion de déménagement</a> indique un dépôt au moins 10 jours à l’avance et exclut les réservations les dimanches et jours fériés. La Ville vérifie la disponibilité de l’emplacement avant d’établir l’arrêté. <strong>Signalez l’utilisation d’un monte-meuble dès la demande</strong>. Consultez les conditions à jour et faites confirmer les frais applicables ; convenez avec notre équipe de la personne chargée des démarches et de l’organisation de la signalisation.",
+      "Pour un <a href=\"/demenagement-entreprises-paris\" class=\"text-accent hover:underline\">transfert de bureaux ou de cabinet professionnel</a>, identifiez les postes, archives et équipements particuliers, les accès de livraison et les opérations de préparation à organiser. Pour un logement, comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">prestations d’emballage et de démontage</a> souhaitées. Un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> nécessite aussi une étude de la façade, des obstacles et de l’espace au sol. Pour rejoindre <a href=\"/demenagement-courbevoie\" class=\"text-accent hover:underline\">Courbevoie</a>, <a href=\"/demenagement-levallois-perret\" class=\"text-accent hover:underline\">Levallois-Perret</a> ou <a href=\"/demenagement-paris-17\" class=\"text-accent hover:underline\">Paris 17e</a>, décrivez les accès à l’arrivée avec la même précision. Retrouvez les communes des <a href=\"/demenagement-hauts-de-seine\" class=\"text-accent hover:underline\">Hauts-de-Seine</a> et <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">préparez votre devis à Neuilly-sur-Seine</a>."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Neuilly-sur-Seine ?",
-        "a": "Un déménagement à Neuilly-sur-Seine demande d’anticiper le volume, les accès, les étages, les éventuels ascenseurs, le stationnement et la préparation des cartons. Marne Transdem vous accompagne pour définir une organisation adaptée à votre logement, à vos biens et au niveau d’accompagnement souhaité."
+        "q": "Quand demander une réservation de stationnement à Neuilly-sur-Seine ?",
+        "a": "La page municipale demande un dépôt au moins 10 jours à l’avance. La Ville doit vérifier la disponibilité de l’emplacement avant d’établir l’arrêté. Consultez les conditions à jour et convenez avec l’équipe de la personne chargée de la démarche ; le dépôt ne vaut pas confirmation de réservation."
       },
       {
-        "q": "Marne Transdem intervient-elle à Neuilly-sur-Seine et dans les villes proches ?",
-        "a": "Oui, Marne Transdem accompagne les projets de déménagement à Neuilly-sur-Seine et dans les secteurs proches comme Paris 16e, Paris 17e, Levallois-Perret, Courbevoie, Puteaux, Clichy et plus largement dans les Hauts-de-Seine selon les besoins du projet."
+        "q": "Peut-on réserver un emplacement le dimanche ou un jour férié ?",
+        "a": "La procédure municipale exclut ces jours pour la réservation d’un emplacement de déménagement. Vérifiez le calendrier applicable avant de fixer la date et faites confirmer l’organisation avec l’équipe. Cette règle concerne la réservation municipale, sans garantir la disponibilité d’une autre solution."
       },
       {
-        "q": "Peut-on demander un monte-meuble à Neuilly-sur-Seine ?",
-        "a": "Oui, un monte-meuble peut être envisagé lorsque les meubles volumineux ne passent pas facilement par l’escalier ou l’ascenseur. Sa mise en place dépend de la configuration de la rue, de la façade, des accès et de la faisabilité technique."
+        "q": "Faut-il déclarer un monte-meuble lors de la réservation ?",
+        "a": "Oui, la Ville demande de signaler l’utilisation d’un monte-meuble sur le domaine public dès l’enregistrement de la demande. L’équipe doit aussi vérifier la faisabilité technique : façade, hauteur, obstacles, dimensions des biens et espace disponible au sol."
       },
       {
-        "q": "Quelle formule choisir pour un déménagement à Neuilly-sur-Seine ?",
-        "a": "La formule dépend de votre budget, du temps disponible pour préparer vos cartons et du niveau d’accompagnement souhaité. La formule Économique convient si vous préparez une grande partie de vos affaires, la formule Standard offre un équilibre entre autonomie et accompagnement, et la formule Luxe permet de déléguer davantage selon la prestation choisie."
+        "q": "Comment préparer les accès d’un appartement à Neuilly-sur-Seine ?",
+        "a": "Mesurez les portes, les paliers et l’ascenseur, puis indiquez l’étage et la distance depuis l’emplacement du camion. Demandez au gestionnaire les consignes des parties communes. Signalez les meubles à démonter, les objets fragiles et les biens de cave ou d’annexes concernés."
       },
       {
-        "q": "Comment obtenir un devis pour un déménagement à Neuilly-sur-Seine ?",
-        "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L’estimation prend en compte le volume, les adresses, les accès, les étages, la formule souhaitée et les besoins spécifiques comme l’emballage, le garde-meuble ou le monte-meuble."
+        "q": "Quels éléments comparer dans mon devis à Neuilly-sur-Seine ?",
+        "a": "Comparez le volume retenu, le trajet, la période, les accès et les tâches d’emballage et de démontage prévues. Ajoutez les éventuels besoins de levage ou de stockage. Faites préciser les démarches et frais de stationnement applicables à votre projet, ainsi que les responsabilités convenues."
       }
     ],
     "nearbySectors": [
       {
-        "n": "Paris 16e",
-        "l": "/demenagement-paris-16"
-      },
-      {
-        "n": "Paris 17e",
-        "l": "/demenagement-paris-17"
-      },
-      {
-        "n": "Boulogne-Billancourt",
-        "l": "/demenagement-boulogne-billancourt"
-      },
-      {
         "n": "Hauts-de-Seine",
         "l": "/demenagement-hauts-de-seine"
-      },
-      {
-        "n": "Île-de-France",
-        "l": "/demenagement-ile-de-france"
-      },
-      {
-        "n": "Levallois-Perret",
-        "l": "/demenagement-levallois-perret"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
       },
       {
         "n": "Courbevoie",
@@ -4339,24 +4317,16 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-puteaux"
       },
       {
-        "n": "Nanterre",
-        "l": "/demenagement-nanterre"
+        "n": "Levallois-Perret",
+        "l": "/demenagement-levallois-perret"
       },
       {
-        "n": "Suresnes",
-        "l": "/demenagement-suresnes"
+        "n": "Paris 16e",
+        "l": "/demenagement-paris-16"
       },
       {
-        "n": "Rueil-Malmaison",
-        "l": "/demenagement-rueil-malmaison"
-      },
-      {
-        "n": "Vaucresson",
-        "l": "/demenagement-vaucresson"
-      },
-      {
-        "n": "Clichy",
-        "l": "/demenagement-clichy"
+        "n": "Paris 17e",
+        "l": "/demenagement-paris-17"
       }
     ]
   },
