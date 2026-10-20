@@ -6252,49 +6252,57 @@ export const sectorsData: Sector[] = [
     "slug": "saint-ouen",
     "name": "Saint-Ouen-sur-Seine",
     "type": "local",
-    "seoTitle": "Déménagement Saint-Ouen-sur-Seine (93400) | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Saint-Ouen-sur-Seine (93400) : volume, accès, prestations pour particuliers et entreprises, et demande de devis personnalisé.",
+    "seoTitle": "Déménagement Saint-Ouen-sur-Seine : devis | Marne Transdem",
+    "seoDescription": "Préparez votre déménagement à Saint-Ouen-sur-Seine : volume, accès et stationnement pour votre logement ou vos bureaux. Demandez votre devis gratuit.",
     "seoImage": null,
-    "heroSubtitle": "Vous préparez un déménagement à Saint-Ouen-sur-Seine (93400) ? Indiquez votre inventaire, les accès aux deux adresses et les prestations souhaitées pour étudier votre projet avec Marne Transdem.",
+    "heroSubtitle": "À Saint-Ouen-sur-Seine, préparons les accès, les biens à transporter et le stationnement pour définir les prestations utiles à votre projet.",
     "introParagraphs": [
-      "Saint-Ouen est une ville en pleine mutation, offrant un cadre de vie dynamique au portes de Paris. Qu'il s'agisse de quartiers historiques, de nouveaux éco-quartiers ou de zones d'activités, votre déménagement dans cette ville exige une préparation rigoureuse.",
-      "Chez <strong>Marne Transdem</strong>, nous connaissons Saint-Ouen sur le bout des doigts. Nous anticipons les contraintes d'accès propres à chaque adresse pour vous proposer des solutions de déménagement personnalisées : véhicules adaptés aux rues étroites, usage de monte-meubles, gestion administrative du stationnement.",
-      "Que vous soyez un particulier emménageant dans un nouvel appartement ou une entreprise transférant ses bureaux, nos équipes assurent une transition sans faille, de l'emballage sécurisé à l'installation finale."
+      "Votre <strong>déménagement à Saint-Ouen-sur-Seine (93400)</strong> se prépare à partir des accès réels aux deux adresses. Mesurez les portes, les paliers et l’ascenseur, puis indiquez les marches et la distance entre le camion et l’entrée. Dans une résidence, demandez au gestionnaire les créneaux et les consignes pour les parties communes. Le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> aide à dresser l’inventaire ; ajoutez les meubles à démonter et les dimensions des biens encombrants, ainsi que les caves ou annexes concernées.",
+      "La <a href=\"https://www.saint-ouen.fr/vie-quotidienne/transport-et-stationnement/le-stationnement-sur-voirie/\" class=\"text-accent hover:underline\">page municipale du stationnement à Saint-Ouen-sur-Seine</a> distingue les zones verte, orange et Puces. Repérez votre adresse sur la carte et vérifiez la signalisation. Ces règles concernent le stationnement courant et ne constituent pas une réservation pour le déménagement. Faites confirmer les démarches, délais et conditions applicables au camion et à un éventuel appareil de levage par le service compétent. Convenez avec notre équipe de la répartition des demandes, de la signalisation et des frais dans le devis.",
+      "Un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> peut être étudié si le mobilier ne passe pas par l’intérieur, selon la façade, les obstacles, l’espace au sol et les autorisations. Pour un <a href=\"/demenagement-entreprises-paris\" class=\"text-accent hover:underline\">transfert de bureaux ou de commerce</a>, identifiez les postes, archives et équipements à préparer avec les créneaux d’accès aux locaux. Comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">prestations d’emballage et de démontage</a>. Vers <a href=\"/demenagement-clichy\" class=\"text-accent hover:underline\">Clichy</a>, <a href=\"/demenagement-saint-denis\" class=\"text-accent hover:underline\">Saint-Denis</a> ou <a href=\"/demenagement-paris-18\" class=\"text-accent hover:underline\">Paris 18e</a>, décrivez également les accès à l’arrivée. Retrouvez les communes de <a href=\"/demenagement-seine-saint-denis\" class=\"text-accent hover:underline\">Seine-Saint-Denis</a> et <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">préparez votre devis à Saint-Ouen-sur-Seine</a>."
     ],
     "faqs": [
       {
-        "q": "Quelles sont les spécificités d'un déménagement à Saint-Ouen ?",
-        "a": "Saint-Ouen est une ville en pleine mutation, alliant quartiers historiques, zones industrielles réhabilitées et nouveaux quartiers résidentiels. Nous adaptons notre logistique en fonction de l'accessibilité de votre adresse (stationnement, accès aux étages, passage de mobilier) lors de notre visite technique."
+        "q": "Quel stationnement vérifier pour déménager à Saint-Ouen-sur-Seine ?",
+        "a": "La page municipale distingue les zones verte, orange et Puces. Consultez la carte et la signalisation à votre adresse, puis faites confirmer les modalités propres au camion et au matériel utilisé. Le stationnement courant ou un abonnement ne doivent pas être considérés comme une réservation d’emplacement pour le déménagement."
       },
       {
-        "q": "Comment Marne Transdem gère le stationnement à Saint-Ouen (93400) ?",
-        "a": "Nous effectuons les démarches pour l'Autorisation d'Occupation Temporaire (AOT) auprès de la Mairie de Saint-Ouen et posons la signalétique 48h à l'avance pour garantir l'emplacement de nos véhicules."
+        "q": "La pose de panneaux 48 heures avant est-elle systématique à Saint-Ouen-sur-Seine ?",
+        "a": "Ne présumez pas d’un délai ni d’une prestation automatique. Faites confirmer les prescriptions applicables à votre occupation auprès du service compétent. Le devis doit préciser la répartition des démarches, de la signalisation et des frais, sans garantir qu’un emplacement sera libre sur la seule base d’une pose de panneaux."
       },
       {
-        "q": "Proposez-vous des services pour le transfert de locaux professionnels à Saint-Ouen ?",
-        "a": "Oui, tout à fait. Nous accompagnons le transfert d'entreprises, de bureaux et de commerces à Saint-Ouen avec une logistique rigoureuse pour minimiser l'interruption de votre activité."
+        "q": "Une visite technique est-elle toujours prévue avant le devis ?",
+        "a": "Les modalités d’évaluation sont convenues avec l’équipe selon les informations disponibles et la complexité du projet. Préparez l’inventaire, les dimensions des meubles et des photos des accès. Si une visite est nécessaire, son organisation doit être confirmée lors des échanges."
       },
       {
-        "q": "Comment planifier mon chiffrage gratuit pour un projet à Saint-Ouen ?",
-        "a": "Contactez Marne Transdem par téléphone ou via le formulaire de demande de devis pour votre projet à Saint Ouen. Indiquez les adresses de départ et d’arrivée, la période envisagée, le volume estimé, les accès et les prestations souhaitées. Si une visite est nécessaire, ses modalités sont à convenir avec l’équipe. Demandez également le délai de remise du devis selon les informations restant à préciser."
+        "q": "Comment étudier le passage d’un meuble encombrant ?",
+        "a": "Mesurez le meuble, les portes, les paliers et l’ascenseur, puis précisez les possibilités de démontage. Si un monte-meuble est envisagé, ajoutez des photos de la façade et de l’emplacement extérieur, l’étage et les obstacles visibles. La solution dépend de l’étude technique et des autorisations."
+      },
+      {
+        "q": "Que préparer pour un transfert de locaux à Saint-Ouen-sur-Seine ?",
+        "a": "Dressez un inventaire par poste ou par service avec les archives et les équipements particuliers. Indiquez les accès de livraison, les créneaux et les opérations de préparation ou de déconnexion. Convenez du planning, du périmètre des prestations et des responsabilités avant l’intervention."
       }
     ],
     "nearbySectors": [
       {
-        "n": "Saint-Denis",
-        "l": "/demenagement-saint-denis"
+        "n": "Seine-Saint-Denis",
+        "l": "/demenagement-seine-saint-denis"
       },
       {
         "n": "Clichy",
         "l": "/demenagement-clichy"
       },
       {
-        "n": "Pantin",
-        "l": "/demenagement-pantin"
+        "n": "Saint-Denis",
+        "l": "/demenagement-saint-denis"
       },
       {
-        "n": "Seine-Saint-Denis (93)",
-        "l": "/demenagement-seine-saint-denis"
+        "n": "Paris 18e",
+        "l": "/demenagement-paris-18"
+      },
+      {
+        "n": "Paris 17e",
+        "l": "/demenagement-paris-17"
       }
     ]
   },
