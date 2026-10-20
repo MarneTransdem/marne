@@ -394,64 +394,57 @@ export const sectorsData: Sector[] = [
     "slug": "bagnolet",
     "name": "Bagnolet",
     "type": "local",
-    "seoTitle": "Déménagement Bagnolet | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Bagnolet avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement à Bagnolet : devis gratuit | Marne Transdem",
+    "seoDescription": "Préparez votre déménagement à Bagnolet : volume, étages, accès et réservation de stationnement. Décrivez votre projet et demandez votre devis gratuit.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Bagnolet, avec une organisation adaptée aux appartements, résidences, bureaux, commerces et contraintes d'accès de l'est parisien.",
+    "heroSubtitle": "À Bagnolet, préparons les accès, le stationnement et les prestations pour votre logement ou vos locaux professionnels.",
     "introParagraphs": [
-      "Située en bordure immédiate de <span className=\"font-bold text-slate-700\">Paris 20e</span>, Bagnolet est une ville dynamique de la petite couronne. Sa proximité avec <span className=\"font-bold text-slate-700\">Montreuil</span>, <span className=\"font-bold text-slate-700\">Les Lilas</span>, <span className=\"font-bold text-slate-700\">Romainville</span> et <span className=\"font-bold text-slate-700\">Pantin</span> en fait un secteur stratégique pour l'est francilien.",
-      "Qu'il s'agisse d'<span className=\"font-bold text-slate-700\">appartements</span> dans des <span className=\"font-bold text-slate-700\">résidences</span> modernes, de <span className=\"font-bold text-slate-700\">logements familiaux</span> ou de <span className=\"font-bold text-slate-700\">maisons</span>, Marne Transdem gère chaque projet avec soin. Nous intervenons également pour les <span className=\"font-bold text-slate-700\">bureaux</span>, <span className=\"font-bold text-slate-700 font-bold\">commerces</span> et <span className=\"font-bold text-slate-700\">locaux professionnels</span>. De l'estimation du <span className=\"font-bold text-slate-700\">volume</span> à la gestion des <span className=\"font-bold text-slate-700 text-slate-700\">accès d'immeubles</span>, <span className=\"font-bold text-slate-700\">ascenseurs</span>, <span className=\"font-bold text-slate-700\">escaliers</span> et <span className=\"font-bold text-slate-700\">stationnement</span>, nous élaborons une <span className=\"font-bold text-slate-700\">demande de devis</span> adaptée à votre situation."
+      "Votre <strong>déménagement à Bagnolet (93170)</strong> se prépare aux deux adresses : étages, dimensions de l’ascenseur, passages des meubles et distance entre le camion et l’entrée. Dans une résidence, demandez au gestionnaire les consignes pour les parties communes et les créneaux de manutention. Le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> permet de préparer un inventaire ; ajoutez les meubles à démonter, les objets fragiles et les biens situés dans une cave ou une annexe.",
+      "Pour réserver un emplacement, la <a href=\"https://www.ville-bagnolet.fr/decouvrez-bagnolet/visiter-bagnolet/se-deplacer/stationnement\" class=\"text-accent hover:underline\">page municipale du stationnement à Bagnolet</a> demande de contacter la voirie au moins trois semaines avant le déménagement. Préparez l’adresse, la date et, si possible, la longueur du camion. Consultez aussi la <a href=\"https://ville-bagnolet.fr/infos-services-pratiques-autres/occupation-du-domaine-public\" class=\"text-accent hover:underline\">démarche d’occupation du domaine public</a>. Faites confirmer les prescriptions de signalisation, les frais et les conditions pour le matériel envisagé ; la personne chargée des démarches doit être précisée dans le devis. Un abonnement de stationnement courant ne remplace pas cette préparation.",
+      "Comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">formules de déménagement</a> pour répartir l’emballage, le démontage et la remise en place. Un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> peut être étudié si le passage intérieur est insuffisant, selon la façade, l’espace disponible et les autorisations. Pour des <a href=\"/demenagement-entreprises-paris\" class=\"text-accent hover:underline\">bureaux ou un commerce</a>, précisez les accès de livraison et le planning souhaité. Vers <a href=\"/demenagement-paris-20\" class=\"text-accent hover:underline\">Paris 20e</a> ou <a href=\"/demenagement-montreuil\" class=\"text-accent hover:underline\">Montreuil</a>, décrivez également les contraintes à l’arrivée. Retrouvez nos secteurs de <a href=\"/demenagement-seine-saint-denis\" class=\"text-accent hover:underline\">Seine-Saint-Denis</a> ou <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">préparez votre demande de devis à Bagnolet</a>."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Bagnolet ?",
-        "a": "Un déménagement à Bagnolet demande d'anticiper le volume, les accès, les étages, les éventuels ascenseurs, le stationnement et la préparation des cartons. Marne Transdem vous accompagne pour définir une organisation adaptée à votre logement, à vos biens et au niveau d'accompagnement souhaité."
+        "q": "Quand demander un emplacement de déménagement à Bagnolet ?",
+        "a": "La Ville demande de contacter le service voirie au moins trois semaines avant le déménagement pour la réservation d’un emplacement. Préparez l’adresse, la date et, si possible, la longueur du camion. Faites confirmer les conditions applicables à votre emplacement et les frais avant de finaliser l’organisation."
       },
       {
-        "q": "Marne Transdem intervient-elle à Bagnolet et dans les villes proches ?",
-        "a": "Oui, Marne Transdem accompagne les projets de déménagement à Bagnolet et dans les secteurs proches comme Paris 20e, Paris 19e, Montreuil, Les Lilas, Romainville, Pantin et plus largement en Île-de-France selon les besoins du projet."
+        "q": "Qui s’occupe de la signalisation et des démarches à Bagnolet ?",
+        "a": "La répartition des demandes, de la signalisation et des frais doit être convenue avec l’équipe et précisée dans le devis. Faites confirmer par le service voirie les prescriptions et le calendrier d’affichage propres à votre autorisation ; ne présumez pas d’un délai de pose ou d’une prestation automatique."
       },
       {
-        "q": "Peut-on demander un monte-meuble à Bagnolet ?",
-        "a": "Oui, un monte-meuble peut être envisagé lorsque les meubles volumineux ne passent pas facilement par l'escalier ou l'ascenseur. Sa mise en place dépend de la configuration de la rue, de la façade, des accès et de la faisabilité technique."
+        "q": "Peut-on installer un monte-meuble pour un logement à Bagnolet ?",
+        "a": "Cette solution peut être étudiée si le mobilier ne passe pas par l’escalier ou l’ascenseur. Transmettez les dimensions des meubles et ouvertures, l’étage et des photos de la façade, des obstacles et de l’emplacement extérieur. L’installation dépend de la faisabilité technique et des autorisations applicables."
       },
       {
-        "q": "Quelle formule choisir pour un déménagement à Bagnolet ?",
-        "a": "La formule dépend de votre budget, du temps disponible pour préparer vos cartons et du niveau d'accompagnement souhaité. La formule Économique convient si vous préparez une grande partie de vos affaires, la formule Standard offre un équilibre entre autonomie et accompagnement, et la formule Luxe permet de déléguer davantage selon la prestation choisie."
+        "q": "Comment choisir les prestations de déménagement à Bagnolet ?",
+        "a": "Dressez la liste des cartons, du mobilier et des objets fragiles, puis indiquez ce que vous souhaitez préparer vous-même. Comparez les formules pour répartir l’emballage, le démontage et la remise en place. Les fournitures, les tâches et les éventuels besoins de stockage doivent être confirmés dans votre devis."
       },
       {
-        "q": "Comment obtenir un devis pour un déménagement à Bagnolet ?",
-        "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L'estimation prend en compte le volume, les adresses, les accès, les étages, la formule souhaitée et les besoins spécifiques comme l'emballage, le garde-meuble ou le monte-meuble."
+        "q": "Quelles informations fournir pour déménager des bureaux à Bagnolet ?",
+        "a": "Préparez un inventaire par poste ou par service avec les archives et les équipements particuliers. Décrivez les accès de livraison, les créneaux disponibles et les étapes de reprise souhaitées. La préparation du matériel, les déconnexions et les responsabilités de chaque intervenant sont à convenir avant l’intervention."
       }
     ],
     "nearbySectors": [
       {
-        "n": "Paris 20e",
-        "l": "/demenagement-paris-20"
+        "n": "Seine-Saint-Denis",
+        "l": "/demenagement-seine-saint-denis"
       },
       {
-        "n": "Paris 19e",
-        "l": "/demenagement-paris-19"
+        "n": "Paris 20e",
+        "l": "/demenagement-paris-20"
       },
       {
         "n": "Montreuil",
         "l": "/demenagement-montreuil"
       },
       {
+        "n": "Romainville",
+        "l": "/demenagement-romainville"
+      },
+      {
         "n": "Pantin",
         "l": "/demenagement-pantin"
-      },
-      {
-        "n": "Vincennes",
-        "l": "/demenagement-vincennes"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
-      },
-      {
-        "n": "Île-de-France",
-        "l": "/demenagement-ile-de-france"
       }
     ]
   },
