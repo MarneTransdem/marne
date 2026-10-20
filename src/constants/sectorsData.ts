@@ -5656,57 +5656,57 @@ export const sectorsData: Sector[] = [
     "slug": "romainville",
     "name": "Romainville",
     "type": "local",
-    "seoTitle": "Déménagement Romainville | Nouveaux Quartiers & Familles | Marne Transdem",
-    "seoDescription": "Besoin d'un déménageur à Romainville (93230) ? Marne Transdem propose une logistique adaptée aux nouveaux quartiers résidentiels et logements familiaux. Devis Gratuit.",
+    "seoTitle": "Déménagement Romainville : devis gratuit | Marne Transdem",
+    "seoDescription": "Préparez votre déménagement à Romainville : volume, accès, stationnement et prestations pour votre logement ou vos bureaux. Demandez votre devis gratuit.",
     "seoImage": null,
-    "heroSubtitle": "Logistique adaptée aux nouveaux quartiers résidentiels et aux logements familiaux à Romainville. Un service dédié pour une transition sereine en famille.",
+    "heroSubtitle": "À Romainville, préparons les accès, le volume et les prestations pour votre logement ou vos locaux professionnels.",
     "introParagraphs": [
-      "Romainville connaît aujourd'hui une transformation profonde, avec l'émergence de nouveaux quartiers résidentiels modernes qui attirent de nombreuses familles en quête de confort et de qualité de vie en proche couronne.",
-      "Ce renouveau urbain implique des défis logistiques spécifiques : rues en pleine restructuration, gestion des accès dans les résidences récentes et nécessité d'une organisation sans faille pour éviter tout désagrément le jour J.",
-      "<strong>Marne Transdem</strong> apporte son savoir-faire pour garantir une réussite totale à votre déménagement. Nos équipes sont formées pour intervenir efficacement dans ces nouveaux environnements, en optimisant les trajets et en assurant une protection exemplaire de vos meubles et cartons, quel que soit le type de logement familial que vous intégrez."
+      "Pour préparer votre <strong>déménagement à Romainville (93230)</strong>, décrivez les accès aux deux adresses : étages, ascenseurs, portes et distance de portage entre le véhicule et l’entrée. Dans une résidence, demandez au gestionnaire les consignes de protection des parties communes et les créneaux disponibles. Le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> aide à préparer l’inventaire ; ajoutez les dimensions des meubles encombrants, les possibilités de démontage et les biens entreposés dans une cave ou une annexe.",
+      "La <a href=\"https://www.ville-romainville.fr/979-occupation-du-domaine-public.htm\" class=\"text-accent hover:underline\">démarche municipale d’occupation du domaine public</a> donne accès au formulaire de déménagement. Celui-ci demande un dépôt au moins quatre semaines avant l’occupation et un affichage des arrêtés au moins sept jours avant l’utilisation de l’emplacement, à la charge de l’entreprise exécutante ou du demandeur. Le dépôt ne vaut pas autorisation : attendez la validation et faites préciser dans le devis qui réalise les démarches et la pose. Indiquez aussi le matériel de levage envisagé et faites confirmer les redevances applicables.",
+      "Choisissez les tâches que vous souhaitez déléguer en consultant les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">formules de déménagement</a>. L’<a href=\"/emballage-protection-demenagement\" class=\"text-accent hover:underline\">emballage des objets fragiles</a> et le démontage du mobilier sont à définir selon votre inventaire. Un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> peut être étudié selon les ouvertures, la façade, les obstacles et les autorisations. Pour un <a href=\"/demenagement-entreprises-paris\" class=\"text-accent hover:underline\">transfert de bureaux</a>, préparez les accès de livraison et le planning souhaité. Vers <a href=\"/demenagement-bagnolet\" class=\"text-accent hover:underline\">Bagnolet</a> ou <a href=\"/demenagement-noisy-le-sec\" class=\"text-accent hover:underline\">Noisy-le-Sec</a>, décrivez aussi l’arrivée. Retrouvez les secteurs de <a href=\"/demenagement-seine-saint-denis\" class=\"text-accent hover:underline\">Seine-Saint-Denis</a> ou <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">demandez votre devis à Romainville</a>."
     ],
     "faqs": [
       {
-        "q": "Quelles sont les spécificités d'un déménagement à Romainville ?",
-        "a": "Romainville connaît un fort développement avec de nouveaux quartiers résidentiels. Ces projets récents nécessitent une logistique bien préparée, notamment pour le stationnement. Marne Transdem anticipe ces contraintes grâce à une visite technique pour valider les accès et définir les besoins logistiques."
+        "q": "Quand déposer la demande de voirie pour un déménagement à Romainville ?",
+        "a": "Le formulaire de déménagement actuellement lié depuis la page municipale demande un dépôt au moins quatre semaines avant l’utilisation de la voie publique. Préparez l’adresse de réservation, les dates, les horaires et les véhicules. Le dépôt constitue une demande : l’autorisation doit être validée avant l’occupation."
       },
       {
-        "q": "Comment gérer le stationnement pour mon emménagement à Romainville ?",
-        "a": "Pour tout stationnement de camion ou usage de monte-meuble, nous effectuons pour vous la demande d'Autorisation d'Occupation Temporaire (AOT) auprès de la Mairie de Romainville, et installons la signalétique requise 48 heures avant l'opération."
+        "q": "Qui prévoit l’affichage des arrêtés à Romainville ?",
+        "a": "Le formulaire municipal indique un affichage au moins sept jours avant l’utilisation de l’emplacement, à la charge de l’entreprise exécutante ou du demandeur. Convenez avec l’équipe de la personne chargée de la pose et faites préciser les démarches et les frais dans le devis, selon les prescriptions de l’autorisation."
       },
       {
-        "q": "Proposez-vous des services spécifiques pour les familles emménageant à Romainville ?",
-        "a": "Oui, notre logistique est pensée pour accompagner les familles avec une attention particulière à la sécurisation des accès et à la protection optimale de vos biens personnels dans le respect des plannings de livraison."
+        "q": "Que vérifier pour déménager depuis une résidence à Romainville ?",
+        "a": "Demandez les consignes du gestionnaire pour les créneaux, l’ascenseur et la protection des parties communes. Mesurez les portes et paliers, signalez les marches et estimez la distance entre le camion et l’entrée. Ajoutez ces informations à votre inventaire afin de préparer les moyens de manutention."
       },
       {
-        "q": "Comment obtenir un devis gratuit pour mon déménagement à Romainville ?",
-        "a": "Contactez Marne Transdem par téléphone ou via le formulaire de demande de devis pour votre projet à Romainville. Indiquez les adresses de départ et d’arrivée, la période envisagée, le volume estimé, les accès et les prestations souhaitées. Si une visite est nécessaire, ses modalités sont à convenir avec l’équipe. Demandez également le délai de remise du devis selon les informations restant à préciser."
+        "q": "Peut-on prévoir un monte-meuble à Romainville ?",
+        "a": "Un monte-meuble peut être étudié lorsque le mobilier ne passe pas par les accès intérieurs. Transmettez l’étage, les dimensions des ouvertures et des meubles, ainsi que des photos de la façade et de l’emplacement extérieur. Sa mise en place dépend de l’étude technique et des autorisations ; les prestations et frais retenus doivent être confirmés."
+      },
+      {
+        "q": "Quelles informations transmettre pour un devis à Romainville ?",
+        "a": "Indiquez les deux adresses, la période envisagée, le volume estimé et les contraintes d’accès. Précisez les objets fragiles, le mobilier à démonter et vos besoins d’emballage ou de stockage. Pour des bureaux, ajoutez l’inventaire par poste et les créneaux de livraison. Les modalités d’évaluation, dont une éventuelle visite, sont à convenir avec l’équipe."
       }
     ],
     "nearbySectors": [
       {
-        "n": "Les Lilas",
-        "l": "/demenagement-les-lilas"
-      },
-      {
-        "n": "Pantin",
-        "l": "/demenagement-pantin"
+        "n": "Seine-Saint-Denis",
+        "l": "/demenagement-seine-saint-denis"
       },
       {
         "n": "Bagnolet",
         "l": "/demenagement-bagnolet"
       },
       {
-        "n": "Montreuil",
-        "l": "/demenagement-montreuil"
-      },
-      {
         "n": "Noisy-le-Sec",
         "l": "/demenagement-noisy-le-sec"
       },
       {
-        "n": "Seine-Saint-Denis (93)",
-        "l": "/demenagement-seine-saint-denis"
+        "n": "Montreuil",
+        "l": "/demenagement-montreuil"
+      },
+      {
+        "n": "Pantin",
+        "l": "/demenagement-pantin"
       }
     ]
   },
