@@ -5853,49 +5853,53 @@ export const sectorsData: Sector[] = [
     "slug": "saint-denis",
     "name": "Saint-Denis",
     "type": "local",
-    "seoTitle": "Déménagement Saint-Denis | Bureaux & Locaux Pros | Marne Transdem",
-    "seoDescription": "Besoin d'un déménageur à Saint-Denis (93200) ? Marne Transdem gère vos déménagements de bureaux et locaux professionnels avec expertise. Devis Gratuit.",
+    "seoTitle": "Déménagement Saint-Denis : devis gratuit | Marne Transdem",
+    "seoDescription": "Préparez votre déménagement à Saint-Denis : logement, bureaux, volume et accès au centre piéton. Décrivez votre projet et demandez votre devis gratuit.",
     "seoImage": null,
-    "heroSubtitle": "Déménagements de bureaux et locaux professionnels à Saint-Denis. Expertise logistique pour gérer le volume et sécuriser vos accès en toute sérénité.",
+    "heroSubtitle": "Logement ou locaux professionnels à Saint-Denis : préparons le volume, les accès et les démarches pour un devis adapté à votre projet.",
     "introParagraphs": [
-      "Ville en pleine transformation, Saint-Denis est un pôle majeur de l'économie francilienne, avec une forte densité de bureaux, d'activités commerciales et un riche tissu résidentiel.",
-      "Réussir son déménagement à Saint-Denis exige une parfaite connaissance du terrain : anticipation des zones de circulation réglementées, gestion des stationnements lors des grands événements, et sécurisation des accès pour les immeubles tertiaires ou résidentiels.",
-      "<strong>Marne Transdem</strong> met à votre service son expertise des déménagements de bureaux et de particuliers. Nous étudions avec minutie le volume et les accès spécifiques de votre site pour vous proposer une solution de transport sécurisée, rapide et optimisée."
+      "Pour votre <strong>déménagement à Saint-Denis</strong>, précisez les adresses, les étages et la distance entre le véhicule et chaque entrée. Dans le centre piéton, l’accès du camion doit être préparé avant de fixer les créneaux de manutention. Dans une résidence ou un immeuble de bureaux, vérifiez aussi les consignes du gestionnaire. Le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> aide à recenser les meubles et cartons ; complétez cet inventaire avec les dimensions des objets encombrants et des passages.",
+      "La Ville détaille les <a href=\"https://www.saintdenis.fr/acceder-centre-ville-pieton\" class=\"text-accent hover:underline\">conditions d’accès au centre-ville piéton</a>. Pour un camion de déménagement intervenant hors des horaires de livraison autorisés, elle prévoit une demande d’accès auprès du service territorial voirie de Plaine Commune au moins trois jours ouvrables avant la date. Ce délai concerne ce cas d’accès précis : il ne vaut ni réservation de place ni délai général pour un monte-meuble. Faites confirmer les autorisations, la signalisation et les frais propres à votre emplacement, ainsi que leur répartition dans le devis.",
+      "Pour un <a href=\"/demenagement-entreprises-paris\" class=\"text-accent hover:underline\">transfert de bureaux à Saint-Denis</a>, préparez un inventaire par poste, les accès de livraison et le planning de reprise souhaité. Pour un logement, comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">formules et tâches d’emballage</a> selon ce que vous souhaitez préparer vous-même. Un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> peut être étudié selon les ouvertures, la façade et l’espace disponible. Vers <a href=\"/demenagement-saint-ouen\" class=\"text-accent hover:underline\">Saint-Ouen-sur-Seine</a> ou <a href=\"/demenagement-paris-18\" class=\"text-accent hover:underline\">Paris 18e</a>, décrivez aussi les accès à l’arrivée. Retrouvez les secteurs de <a href=\"/demenagement-seine-saint-denis\" class=\"text-accent hover:underline\">Seine-Saint-Denis</a> ou <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">demandez votre devis personnalisé</a>."
     ],
     "faqs": [
       {
-        "q": "Comment Marne Transdem gère-t-elle les accès complexes à Saint-Denis ?",
-        "a": "Saint-Denis présente une grande diversité architecturale, des résidences modernes avec ascenseurs aux secteurs anciens avec escaliers étroits ou rues piétonnes. Nos équipes réalisent une visite technique d'estimation gratuite pour valider les accès, anticiper les interdictions de stationnement en centre-ville et définir si l'usage d'un monte-meuble est requis pour sécuriser votre déménagement."
+        "q": "Comment prévoir l’accès du camion au centre piéton de Saint-Denis ?",
+        "a": "Pour un déménagement hors des horaires de livraison autorisés, la Ville prévoit une demande d’autorisation d’accès au service territorial voirie de Plaine Commune au moins trois jours ouvrables avant la date. Faites confirmer les conditions à votre adresse. Cette autorisation d’accès ne doit pas être confondue avec une réservation de stationnement."
       },
       {
-        "q": "Quelle est la procédure pour l'autorisation de stationnement à Saint-Denis (93200) ?",
-        "a": "L'occupation de la voirie (camion et/ou monte-meuble) nécessite une Autorisation d'Occupation Temporaire (AOT) délivrée par les services de voirie de la Mairie de Saint-Denis. Cette demande doit être déposée dans un délai suffisant (souvent 10 à 15 jours). Marne Transdem prend en charge l'intégralité du dossier administratif et installe la signalétique réglementaire 48h avant votre opération."
+        "q": "Quel délai prévoir pour le stationnement ou un monte-meuble à Saint-Denis ?",
+        "a": "Le délai de trois jours ouvrables publié pour l’accès au centre piéton hors horaires de livraison ne constitue pas un délai général de stationnement ou de levage. Décrivez l’emplacement et le matériel envisagés au service compétent. Les prescriptions, les frais et la personne chargée des démarches doivent être confirmés avant l’intervention et précisés dans le devis."
       },
       {
-        "q": "Proposez-vous des services de transfert pour les bureaux et locaux professionnels à Saint-Denis ?",
-        "a": "Tout à fait. Nous sommes spécialisés dans le transfert de bureaux, commerces et locaux industriels à Saint-Denis. Nous adaptons la logistique pour garantir une continuité d'activité, en planifiant les interventions sur vos horaires de fermeture ou en week-end si nécessaire, avec une protection spécifique pour votre matériel informatique et mobilier professionnel."
+        "q": "Une visite est-elle systématique avant le devis de déménagement ?",
+        "a": "Les modalités d’évaluation sont convenues avec l’équipe selon votre inventaire et les accès. Préparez les dimensions des meubles, les étages, les ascenseurs et des photos des passages difficiles. Si une visite est nécessaire, son organisation doit être confirmée lors des échanges."
       },
       {
-        "q": "Comment obtenir un devis gratuit pour mon projet de déménagement à Saint-Denis ?",
-        "a": "Contactez Marne Transdem par téléphone ou via le formulaire de demande de devis pour votre projet à Saint Denis. Indiquez les adresses de départ et d’arrivée, la période envisagée, le volume estimé, les accès et les prestations souhaitées. Si une visite est nécessaire, ses modalités sont à convenir avec l’équipe. Demandez également le délai de remise du devis selon les informations restant à préciser."
+        "q": "Comment préparer un transfert de bureaux à Saint-Denis ?",
+        "a": "Recensez le mobilier, les postes et les archives par service. Précisez les créneaux de livraison, les contraintes du bâtiment et les étapes de reprise souhaitées. La préparation des équipements, leur déconnexion et les interventions en horaires particuliers sont à convenir dans le devis ; la continuité d’activité ne peut pas être présumée."
+      },
+      {
+        "q": "Quelles informations transmettre pour un devis à Saint-Denis ?",
+        "a": "Indiquez les deux adresses, la période envisagée, le volume estimé, les étages, les ascenseurs et les distances de portage. Signalez un secteur piéton ou un accès réglementé, les meubles à démonter et vos besoins d’emballage ou de stockage. Les prestations et les frais retenus doivent figurer dans le devis personnalisé."
       }
     ],
     "nearbySectors": [
       {
-        "n": "Paris 18e",
-        "l": "/demenagement-paris-18"
+        "n": "Seine-Saint-Denis",
+        "l": "/demenagement-seine-saint-denis"
       },
       {
         "n": "Saint-Ouen-sur-Seine",
         "l": "/demenagement-saint-ouen"
       },
       {
-        "n": "Pantin",
-        "l": "/demenagement-pantin"
+        "n": "Paris 18e",
+        "l": "/demenagement-paris-18"
       },
       {
-        "n": "Seine-Saint-Denis (93)",
-        "l": "/demenagement-seine-saint-denis"
+        "n": "Pantin",
+        "l": "/demenagement-pantin"
       }
     ]
   },
