@@ -5866,112 +5866,65 @@ export const sectorsData: Sector[] = [
     "slug": "rueil-malmaison",
     "name": "Rueil-Malmaison",
     "type": "local",
-    "seoTitle": "Déménagement Rueil-Malmaison | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Rueil-Malmaison avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Rueil-Malmaison : devis | Marne Transdem",
+    "seoDescription": "Déménagement à Rueil-Malmaison : inventaire, accès aux logements et organisation du stationnement. Demandez un devis gratuit adapté à votre trajet.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Rueil-Malmaison, avec une organisation adaptée aux maisons, appartements, résidences, bureaux, commerces et contraintes d’accès de l’ouest francilien.",
+    "heroSubtitle": "Maison, appartement ou locaux à Rueil-Malmaison : précisez vos biens et les accès aux deux adresses pour préparer une organisation adaptée.",
     "introParagraphs": [
-      "Notre intervention s'étend à toute la commune et bénéficie de notre expertise dans les secteurs proches comme <span className=\"font-bold text-slate-700\">Nanterre</span>, <span className=\"font-bold text-slate-700\">Suresnes</span>, <span className=\"font-bold text-slate-700\">Saint-Cloud</span>, <span className=\"font-bold text-slate-700\">Garches</span>, <span className=\"font-bold text-slate-700\">Vaucresson</span>, <span className=\"font-bold text-slate-700\">La Défense</span>, ainsi que vers <span className=\"font-bold text-slate-700\">Chatou</span> et <span className=\"font-bold text-slate-700\">Croissy-sur-Seine</span>.",
-      "Que vous habitiez une <span className=\"font-bold text-slate-700\">maison</span> familiale, un <span className=\"font-bold text-slate-700\">appartement</span>, un <span className=\"font-bold text-slate-700\">studio</span> ou une <span className=\"font-bold text-slate-700\">résidence</span>, notre équipe maîtrise les contraintes d'accès propres à la ville. Pour les professionnels, nous organisons le transfert de <span className=\"font-bold text-slate-700\">bureaux</span>, <span className=\"font-bold text-slate-700\">entreprises</span>, <span className=\"font-bold text-slate-700\">commerces</span>, <span className=\"font-bold text-slate-700\">cabinets professionnels</span>, <span className=\"font-bold text-slate-700\">agences</span> ou <span className=\"font-bold text-slate-700\">locaux professionnels</span>. Chaque projet fait l'objet d'une <span className=\"font-bold text-slate-700\">estimation du volume</span> précise et d'une <span className=\"font-bold text-slate-700\">demande de devis</span> personnalisée."
+      "Votre <strong>déménagement à Rueil-Malmaison (92500)</strong> commence par un inventaire complet : mobilier, cartons et biens des annexes concernées, comme le garage ou la cave. Pour une maison, décrivez le portail et l’allée ; en immeuble, mesurez l’ascenseur et les passages jusqu’au logement. Signalez les meubles lourds ou difficiles à démonter. Le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume</a> donne une première estimation, à compléter avec les dimensions des objets particuliers et les informations sur les accès.",
+      "La page municipale <a href=\"https://www.villederueil.fr/vos-services/vie-quotidienne/se-deplacer/circuler-et-stationner-a-rueil/stationner-a-rueil/\" class=\"text-accent hover:underline\">Stationner à Rueil</a> présente les zones tarifaires et le stationnement alterné, avec des exceptions signalées sur place. Vérifiez donc le côté de la rue et les conditions applicables à la date prévue. <strong>Le stationnement courant ne constitue pas une réservation pour le camion.</strong> Faites confirmer auprès du service compétent la démarche adaptée à votre déménagement, les délais et la signalisation. Définissez avec notre équipe les demandes et frais à inclure dans le devis.",
+      "Si les passages intérieurs sont insuffisants, un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> peut être étudié selon la façade, l’espace au sol et les autorisations. Si vos dates de départ et d’arrivée ne coïncident pas, précisez votre besoin de <a href=\"/garde-meuble-paris\" class=\"text-accent hover:underline\">garde-meuble</a>. Comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">prestations d’emballage et de démontage</a>, puis renseignez l’arrivée à <a href=\"/demenagement-nanterre\" class=\"text-accent hover:underline\">Nanterre</a>, <a href=\"/demenagement-suresnes\" class=\"text-accent hover:underline\">Suresnes</a> ou <a href=\"/demenagement-chatou\" class=\"text-accent hover:underline\">Chatou</a> avec la même précision que le départ. Consultez les communes des <a href=\"/demenagement-hauts-de-seine\" class=\"text-accent hover:underline\">Hauts-de-Seine</a> et <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">demandez votre devis à Rueil-Malmaison</a>."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Rueil-Malmaison ?",
-        "a": "Un déménagement à Rueil-Malmaison demande d’anticiper le volume, les accès, les étages, les éventuels ascenseurs, le stationnement et la préparation des cartons. Pour une maison ou un logement familial, il est important d’évaluer précisément les meubles, les cartons, les caves, les garages et les accès. Marne Transdem vous accompagne pour définir une organisation adaptée à votre logement, à vos biens et au niveau d’accompagnement souhaité."
+        "q": "Faut-il vérifier le stationnement alterné avant de déménager à Rueil-Malmaison ?",
+        "a": "Oui, vérifiez les règles et la signalisation à votre adresse pour la date prévue. La page municipale présente le stationnement alterné et ses exceptions. Faites confirmer l’emplacement adapté au camion dans le cadre de la préparation du déménagement."
       },
       {
-        "q": "Marne Transdem intervient-elle à Rueil-Malmaison et dans les villes proches ?",
-        "a": "Oui, Marne Transdem accompagne les projets de déménagement à Rueil-Malmaison et dans les secteurs proches comme Nanterre, Suresnes, Saint-Cloud, Garches, Vaucresson, Chatou, Croissy-sur-Seine, Puteaux, La Défense et plus largement dans les Hauts-de-Seine selon les besoins du projet."
+        "q": "Une place payante ou un droit résidentiel réserve-t-il mon déménagement ?",
+        "a": "Ne les considérez pas comme une réservation d’emplacement pour le camion ou un appareil de levage. Faites préciser par le service compétent les démarches propres à votre occupation, puis convenez avec l’équipe de leur prise en charge et des frais et de la signalisation à prévoir."
       },
       {
-        "q": "Peut-on demander un monte-meuble à Rueil-Malmaison ?",
-        "a": "Oui, un monte-meuble peut être envisagé lorsque les meubles volumineux ne passent pas facilement par l’escalier ou l’ascenseur. Sa mise en place dépend de la configuration de la rue, de la façade, des accès et de la faisabilité technique."
+        "q": "Comment préparer l’inventaire d’une maison à Rueil-Malmaison ?",
+        "a": "Listez les meubles et cartons pièce par pièce, puis ajoutez les biens du garage, de la cave et des dépendances concernés. Mesurez les objets encombrants et signalez les biens lourds ou fragiles. Décrivez le portail, les marches et la distance jusqu’à l’emplacement envisagé pour le camion."
       },
       {
-        "q": "Quelle formule choisir pour un déménagement à Rueil-Malmaison ?",
-        "a": "La formule dépend de votre budget, du temps disponible pour préparer vos cartons et du niveau d’accompagnement souhaité. La formule Économique convient si vous préparez une grande partie de vos affaires, la formule Standard offre un équilibre entre autonomie et accompagnement, et la formule Luxe permet de déléguer davantage selon la prestation choisie."
+        "q": "Que faire si les dates des deux logements ne correspondent pas ?",
+        "a": "Indiquez vos dates envisagées et la durée de stockage souhaitée dès la demande. Précisez les biens à stocker et votre éventuel besoin d’accès pendant cette période. Les conditions de garde-meuble et les transports nécessaires sont à étudier avec l’équipe avant confirmation."
       },
       {
-        "q": "Comment obtenir un devis pour un déménagement à Rueil-Malmaison ?",
-        "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L’estimation prend en compte le volume, les adresses, les accès, les étages, la formule souhaitée et les besoins spécifiques comme l’emballage, le garde-meuble ou le monte-meuble."
+        "q": "Comment obtenir un devis adapté à mon projet à Rueil-Malmaison ?",
+        "a": "Transmettez les adresses, la période envisagée, l’inventaire et les informations sur les accès aux deux sites. Indiquez vos besoins d’emballage, de démontage, de levage ou de stockage. Le devis précise les prestations retenues et les responsabilités convenues selon votre situation."
       }
     ],
     "nearbySectors": [
       {
-        "n": "Nanterre",
-        "l": "/demenagement-nanterre"
+        "n": "Hauts-de-Seine",
+        "l": "/demenagement-hauts-de-seine"
       },
       {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
+        "n": "Nanterre",
+        "l": "/demenagement-nanterre"
       },
       {
         "n": "Suresnes",
         "l": "/demenagement-suresnes"
       },
       {
-        "n": "Puteaux",
-        "l": "/demenagement-puteaux"
-      },
-      {
-        "n": "Courbevoie",
-        "l": "/demenagement-courbevoie"
-      },
-      {
-        "n": "Hauts-de-Seine",
-        "l": "/demenagement-hauts-de-seine"
-      },
-      {
-        "n": "Île-de-France",
-        "l": "/demenagement-ile-de-france"
-      },
-      {
-        "n": "Saint-Cloud",
-        "l": "/demenagement-saint-cloud"
+        "n": "Garches",
+        "l": "/demenagement-garches"
       },
       {
         "n": "Chatou",
         "l": "/demenagement-chatou"
       },
       {
-        "n": "Le Vésinet",
-        "l": "/demenagement-le-vesinet"
-      },
-      {
-        "n": "Marly-le-Roi",
-        "l": "/demenagement-marly-le-roi"
-      },
-      {
-        "n": "Le Pecq",
-        "l": "/demenagement-le-pecq"
-      },
-      {
-        "n": "Garches",
-        "l": "/demenagement-garches"
-      },
-      {
-        "n": "Vaucresson",
-        "l": "/demenagement-vaucresson"
+        "n": "Croissy-sur-Seine",
+        "l": "/demenagement-croissy-sur-seine"
       },
       {
         "n": "Bougival",
         "l": "/demenagement-bougival"
-      },
-      {
-        "n": "La Celle-Saint-Cloud",
-        "l": "/demenagement-la-celle-saint-cloud"
-      },
-      {
-        "n": "Louveciennes",
-        "l": "/demenagement-louveciennes"
-      },
-      {
-        "n": "Le Chesnay-Rocquencourt",
-        "l": "/demenagement-le-chesnay-rocquencourt"
-      },
-      {
-        "n": "Marnes-la-Coquette",
-        "l": "/demenagement-marnes-la-coquette"
       }
     ]
   },
@@ -6808,37 +6761,42 @@ export const sectorsData: Sector[] = [
     "slug": "suresnes",
     "name": "Suresnes",
     "type": "local",
-    "seoTitle": "Déménagement Suresnes | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Suresnes avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Suresnes (92150) : devis | Marne Transdem",
+    "seoDescription": "Votre déménagement à Suresnes : préparez accès, volume et stationnement pour votre appartement, maison ou vos bureaux. Demandez un devis gratuit adapté.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Suresnes, avec une organisation adaptée aux appartements, maisons, résidences, bureaux, commerces et contraintes d’accès de l’ouest parisien.",
+    "heroSubtitle": "À Suresnes, préparons le chemin entre le logement et le camion, les biens à transporter et les prestations à prévoir dans votre devis.",
     "introParagraphs": [
-      "Notre proximité avec <span className=\"font-bold text-slate-700\">Puteaux</span>, <span className=\"font-bold text-slate-700\">Nanterre</span>, <span className=\"font-bold text-slate-700\">Saint-Cloud</span>, <span className=\"font-bold text-slate-700\">Rueil-Malmaison</span>, <span className=\"font-bold text-slate-700\">Boulogne-Billancourt</span>, <span className=\"font-bold text-slate-700\">Paris 16e</span> et <span className=\"font-bold text-slate-700\">La Défense</span> nous permet d'organiser des interventions expertes dans tout ce secteur dynamique de l'Île-de-France.",
-      "Qu'il s'agisse d'un <span className=\"font-bold text-slate-700\">appartement</span>, d'un <span className=\"font-bold text-slate-700\">studio</span>, d'une <span className=\"font-bold text-slate-700\">maison</span> ou d'une <span className=\"font-bold text-slate-700\">résidence</span> familiale, ou du transfert de <span className=\"font-bold text-slate-700\">bureaux</span>, <span className=\"font-bold text-slate-700\">commerces</span>, <span className=\"font-bold text-slate-700\">cabinets professionnels</span> ou <span className=\"font-bold text-slate-700\">agences</span>, nous maîtrisons les spécificités logistiques de Suresnes. Nous anticipons les <span className=\"font-bold text-slate-700\">accès d'immeubles</span> (ascenseurs, escaliers), les zones de <span className=\"font-bold text-slate-700\">stationnement</span> et l'estimation rigoureuse du <span className=\"font-bold text-slate-700\">volume</span> pour une <span className=\"font-bold text-slate-700\">demande de devis</span> sur-mesure."
+      "Pour votre <strong>déménagement à Suresnes (92150)</strong>, indiquez l’adresse, l’étage et le chemin à parcourir entre le camion et l’entrée. Mesurez les portes, les paliers et l’ascenseur ; signalez une pente, des marches ou une cour intérieure si votre logement est concerné. Distinguez les meubles démontables des pièces qui doivent passer en un seul bloc. Notre <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> vous aide à dresser l’inventaire, à compléter avec les dimensions des biens atypiques.",
+      "Le <a href=\"https://www.suresnes.fr/actualites/detail/stationnement-a-suresnes-ce-qui-change-depuis-le-1er-aout\" class=\"text-accent hover:underline\">plan de stationnement publié par la Ville de Suresnes</a> présente les zones verte, orange et rouge, avec des changements entrés en vigueur en octobre 2026. Consultez le plan à jour et la signalisation de votre rue. Ces règles de stationnement courant ne réservent pas un emplacement pour le déménagement : faites confirmer les démarches applicables au camion et à un éventuel <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a>. Précisez avec notre équipe qui effectue les demandes et comment les frais et la signalisation sont prévus.",
+      "Pour des bureaux, recensez les postes de travail, les archives et les équipements qui demandent une préparation particulière. Ajoutez les créneaux autorisés par le gestionnaire des locaux. Pour un logement, comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">formules de déménagement</a> selon l’emballage et le démontage souhaités. Un trajet vers <a href=\"/demenagement-puteaux\" class=\"text-accent hover:underline\">Puteaux</a>, <a href=\"/demenagement-nanterre\" class=\"text-accent hover:underline\">Nanterre</a> ou <a href=\"/demenagement-rueil-malmaison\" class=\"text-accent hover:underline\">Rueil-Malmaison</a> nécessite aussi de renseigner les accès à l’arrivée. Retrouvez les secteurs des <a href=\"/demenagement-hauts-de-seine\" class=\"text-accent hover:underline\">Hauts-de-Seine</a> et <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">préparez votre devis à Suresnes</a>."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Suresnes ?",
-        "a": "Un déménagement à Suresnes demande d’anticiper le volume, les accès, les étages, les éventuels ascenseurs, le stationnement et la préparation des cartons. Marne Transdem vous accompagne pour définir une organisation adaptée à votre logement, à vos biens et au niveau d’accompagnement souhaité."
+        "q": "Quel plan de stationnement consulter avant un déménagement à Suresnes ?",
+        "a": "Consultez le plan municipal à jour, qui distingue les zones verte, orange et rouge, puis vérifiez la signalisation à votre adresse. La Ville a annoncé des changements en octobre 2026. Pour le déménagement, faites confirmer les modalités propres à l’emplacement du camion et au matériel utilisé."
       },
       {
-        "q": "Marne Transdem intervient-elle à Suresnes et dans les villes proches ?",
-        "a": "Oui, Marne Transdem accompagne les projets de déménagement à Suresnes et dans les secteurs proches comme Puteaux, Nanterre, Saint-Cloud, Rueil-Malmaison, Boulogne-Billancourt, Courbevoie, La Défense et plus largement dans les Hauts-de-Seine selon les besoins du projet."
+        "q": "Un abonnement de stationnement suffit-il pour réserver le camion ?",
+        "a": "Ne considérez pas un abonnement comme une réservation de place pour le déménagement. Précisez l’adresse, la date, la durée et le matériel prévu auprès du service compétent. La répartition des demandes, des frais et de la signalisation doit être convenue avec l’équipe avant l’intervention."
       },
       {
-        "q": "Peut-on demander un monte-meuble à Suresnes ?",
-        "a": "Oui, un monte-meuble peut être envisagé lorsque les meubles volumineux ne passent pas facilement par l’escalier ou l’ascenseur. Sa mise en place dépend de la configuration de la rue, de la façade, des accès et de la faisabilité technique."
+        "q": "Comment décrire un accès en pente ou avec des marches à Suresnes ?",
+        "a": "Relevez la distance depuis l’emplacement envisagé, le nombre de marches et la largeur des passages. Ajoutez des photos de l’accès et des dimensions pour les meubles encombrants. Ces éléments permettent d’étudier les moyens de manutention et de préparer le devis."
       },
       {
-        "q": "Quelle formule choisir pour un déménagement à Suresnes ?",
-        "a": "La formule dépend de votre budget, du temps disponible pour préparer vos cartons et du niveau d’accompagnement souhaité. La formule Économique convient si vous préparez une grande partie de vos affaires, la formule Standard offre un équilibre entre autonomie et accompagnement, et la formule Luxe permet de déléguer davantage selon la prestation choisie."
+        "q": "Un monte-meuble est-il envisageable pour mon appartement ?",
+        "a": "L’équipe doit étudier la hauteur à atteindre, la façade, les obstacles et l’emplacement au sol. Transmettez des photos et les dimensions des meubles et des ouvertures. La faisabilité technique, les consignes de la copropriété et les autorisations doivent être confirmées avant de retenir cette prestation."
       },
       {
-        "q": "Comment obtenir un devis pour un déménagement à Suresnes ?",
-        "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L’estimation prend en compte le volume, les adresses, les accès, les étages, la formule souhaitée et les besoins spécifiques comme l’emballage, le garde-meuble ou le monte-meuble."
+        "q": "Quelles informations fournir pour un transfert de bureaux à Suresnes ?",
+        "a": "Préparez un inventaire par poste ou par service, en identifiant les archives et les équipements fragiles ou lourds. Précisez les accès de livraison, les ascenseurs et les créneaux disponibles aux deux adresses. Définissez aussi les opérations de préparation ou de déconnexion et les responsabilités de chaque intervenant."
       }
     ],
     "nearbySectors": [
+      {
+        "n": "Hauts-de-Seine",
+        "l": "/demenagement-hauts-de-seine"
+      },
       {
         "n": "Puteaux",
         "l": "/demenagement-puteaux"
@@ -6848,48 +6806,20 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-nanterre"
       },
       {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
-      },
-      {
-        "n": "Boulogne-Billancourt",
-        "l": "/demenagement-boulogne-billancourt"
-      },
-      {
-        "n": "Courbevoie",
-        "l": "/demenagement-courbevoie"
-      },
-      {
-        "n": "Paris 16e",
-        "l": "/demenagement-paris-16"
-      },
-      {
-        "n": "Hauts-de-Seine",
-        "l": "/demenagement-hauts-de-seine"
-      },
-      {
-        "n": "Île-de-France",
-        "l": "/demenagement-ile-de-france"
+        "n": "Rueil-Malmaison",
+        "l": "/demenagement-rueil-malmaison"
       },
       {
         "n": "Saint-Cloud",
         "l": "/demenagement-saint-cloud"
       },
       {
-        "n": "Louveciennes",
-        "l": "/demenagement-louveciennes"
+        "n": "Boulogne-Billancourt",
+        "l": "/demenagement-boulogne-billancourt"
       },
       {
-        "n": "Bougival",
-        "l": "/demenagement-bougival"
-      },
-      {
-        "n": "Rueil-Malmaison",
-        "l": "/demenagement-rueil-malmaison"
-      },
-      {
-        "n": "Vaucresson",
-        "l": "/demenagement-vaucresson"
+        "n": "Paris 16e",
+        "l": "/demenagement-paris-16"
       }
     ]
   },
