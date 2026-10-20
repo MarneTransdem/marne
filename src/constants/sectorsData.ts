@@ -1377,63 +1377,41 @@ export const sectorsData: Sector[] = [
     "slug": "courbevoie",
     "name": "Courbevoie",
     "type": "local",
-    "seoTitle": "Déménagement Courbevoie | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Courbevoie avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Courbevoie (92400) : devis | Marne Transdem",
+    "seoDescription": "Votre déménagement à Courbevoie : préparez les accès, le volume et les démarches de stationnement. Demandez un devis gratuit adapté à votre projet.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Courbevoie, avec une organisation adaptée aux appartements, résidences, bureaux, sièges, commerces et contraintes d’accès de l’ouest parisien.",
+    "heroSubtitle": "À Courbevoie, préparons les accès, les biens à transporter et les démarches de stationnement pour définir votre accompagnement.",
     "introParagraphs": [
-      "Qu'il s'agisse d'un <span className=\"font-bold text-slate-700\">appartement</span>, d'un <span className=\"font-bold text-slate-700\">studio</span> ou d'une <span className=\"font-bold text-slate-700\">résidence</span> familiale récente, ou du transfert de <span className=\"font-bold text-slate-700\">bureaux</span>, <span className=\"font-bold text-slate-700\">sièges d'entreprises</span>, <span className=\"font-bold text-slate-700\">commerces</span> ou <span className=\"font-bold text-slate-700\">cabinets professionnels</span>, nous maîtrisons les spécificités logistiques. Nous anticipons les <span className=\"font-bold text-slate-700\">accès d'immeubles</span> (ascenseurs, escaliers), les contraintes de <span className=\"font-bold text-slate-700\">stationnement</span> et l'estimation rigoureuse du <span className=\"font-bold text-slate-700\">volume</span> pour une <span className=\"font-bold text-slate-700\">demande de devis</span> sur-mesure."
+      "Votre <strong>déménagement à Courbevoie (92400)</strong> commence par le chemin que suivront les meubles entre le logement et le camion. Relevez les portes, paliers, marches et dimensions de l’ascenseur, puis la distance depuis l’emplacement envisagé. Dans une résidence ou des bureaux, demandez au gestionnaire les accès de livraison et les créneaux utilisables. Préparez l’inventaire avec notre <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a>, en ajoutant les meubles encombrants, les archives et les biens fragiles ou lourds concernés.",
+      "La <a href=\"https://www.ville-courbevoie.fr/3111/services-en-ligne/voirie-travaux-et-stationnement/demenagement-et-emmenagement.htm\" class=\"text-accent hover:underline\">procédure municipale de déménagement à Courbevoie</a> prévoit une demande de stationnement au moins 7 jours avant l’intervention. Si l’installation affecte la circulation, la Ville indique une autorisation de chantier à anticiper de 3 semaines. Après accord, elle demande la pose des panneaux et l’affichage de l’arrêté 48 heures à l’avance ; elle ne fournit pas ce matériel. Consultez les conditions à jour et convenez avec notre équipe de la répartition des démarches, de la signalisation et des frais dans le devis.",
+      "Pour un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a>, transmettez des photos de la façade et de l’espace au sol, l’étage et les dimensions des meubles. La réservation de voirie complète l’étude de faisabilité technique. Pour un <a href=\"/demenagement-entreprises-paris\" class=\"text-accent hover:underline\">transfert de bureaux</a>, identifiez les équipements à préparer et les responsabilités de déconnexion. Comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">prestations d’emballage et de démontage</a>, puis décrivez aussi l’arrivée à <a href=\"/demenagement-puteaux\" class=\"text-accent hover:underline\">Puteaux</a>, <a href=\"/demenagement-nanterre\" class=\"text-accent hover:underline\">Nanterre</a> ou <a href=\"/demenagement-neuilly-sur-seine\" class=\"text-accent hover:underline\">Neuilly-sur-Seine</a>. Retrouvez les communes des <a href=\"/demenagement-hauts-de-seine\" class=\"text-accent hover:underline\">Hauts-de-Seine</a> et <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">préparez votre devis à Courbevoie</a>."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Courbevoie ?",
-        "a": "Un déménagement à Courbevoie demande d’anticiper le volume, les accès, les étages, les éventuels ascenseurs, le stationnement et la préparation des cartons. Marne Transdem vous accompagne pour définir une organisation adaptée à votre logement, à vos biens et au niveau d’accompagnement souhaité."
+        "q": "Quel délai prévoir pour demander du stationnement à Courbevoie ?",
+        "a": "La page municipale prévoit au moins 7 jours pour une demande de stationnement de déménagement. Elle indique 3 semaines pour une autorisation de chantier lorsque l’installation affecte la circulation. Vérifiez la procédure applicable à votre emplacement et au matériel envisagé ; déposer une demande ne vaut pas autorisation."
       },
       {
-        "q": "Marne Transdem intervient-elle à Courbevoie et dans les villes proches ?",
-        "a": "Oui, Marne Transdem accompagne les projets de déménagement à Courbevoie et dans les secteurs proches comme La Défense, Puteaux, Neuilly-sur-Seine, Levallois-Perret, Nanterre, Asnières-sur-Seine, Clichy et plus largement dans les Hauts-de-Seine selon les besoins du projet."
+        "q": "Qui fournit les panneaux de stationnement pour mon déménagement ?",
+        "a": "La Ville précise qu’elle ne fournit pas le matériel d’affichage. Après autorisation, panneaux et arrêté doivent être installés 48 heures à l’avance selon sa procédure. Définissez avec l’équipe qui organise cette signalisation et quels frais sont prévus, en respectant les prescriptions de votre arrêté."
       },
       {
-        "q": "Peut-on demander un monte-meuble à Courbevoie ?",
-        "a": "Oui, un monte-meuble peut être envisagé lorsque les meubles volumineux ne passent pas facilement par l’escalier ou l’ascenseur. Sa mise en place dépend de la configuration de la rue, de la façade, des accès et de la faisabilité technique."
+        "q": "L’autorisation suffit-elle pour utiliser un monte-meuble à Courbevoie ?",
+        "a": "L’emplacement et les autorisations ne remplacent pas l’étude technique. Il faut aussi vérifier la façade, la hauteur, les obstacles et l’espace au sol. Envoyez des photos et les dimensions des biens et des ouvertures pour déterminer si cette solution peut être retenue."
       },
       {
-        "q": "Quelle formule choisir pour un déménagement à Courbevoie ?",
-        "a": "La formule dépend de votre budget, du temps disponible pour préparer vos cartons et du niveau d’accompagnement souhaité. La formule Économique convient si vous préparez une grande partie de vos affaires, la formule Standard offre un équilibre entre autonomie et accompagnement, et la formule Luxe permet de déléguer davantage selon la prestation choisie."
+        "q": "Comment préparer un transfert depuis des bureaux à Courbevoie ?",
+        "a": "Recensez les postes de travail, archives et équipements particuliers. Précisez les accès de livraison, les ascenseurs et les créneaux autorisés par les gestionnaires des deux sites. Convenez du planning et des responsabilités de préparation, de déconnexion et de remise en service avant l’intervention."
       },
       {
-        "q": "Comment obtenir un devis pour un déménagement à Courbevoie ?",
-        "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L’estimation prend en compte le volume, les adresses, les accès, les étages, la formule souhaitée et les besoins spécifiques comme l’emballage, le garde-meuble ou le monte-meuble."
+        "q": "Quels renseignements permettent de préparer mon devis à Courbevoie ?",
+        "a": "Indiquez les adresses, la période, l’inventaire et les accès aux deux sites. Précisez les tâches d’emballage ou de démontage souhaitées, les biens atypiques et les éventuels besoins de levage ou de stockage. Le devis détaille les prestations retenues et la répartition des démarches et frais de stationnement."
       }
     ],
     "nearbySectors": [
       {
-        "n": "Neuilly-sur-Seine",
-        "l": "/demenagement-neuilly-sur-seine"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
-      },
-      {
-        "n": "Levallois-Perret",
-        "l": "/demenagement-levallois-perret"
-      },
-      {
-        "n": "Clichy",
-        "l": "/demenagement-clichy"
-      },
-      {
-        "n": "Paris 17e",
-        "l": "/demenagement-paris-17"
-      },
-      {
         "n": "Hauts-de-Seine",
         "l": "/demenagement-hauts-de-seine"
-      },
-      {
-        "n": "Île-de-France",
-        "l": "/demenagement-ile-de-france"
       },
       {
         "n": "Puteaux",
@@ -1444,16 +1422,12 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-nanterre"
       },
       {
-        "n": "Suresnes",
-        "l": "/demenagement-suresnes"
+        "n": "Neuilly-sur-Seine",
+        "l": "/demenagement-neuilly-sur-seine"
       },
       {
-        "n": "Rueil-Malmaison",
-        "l": "/demenagement-rueil-malmaison"
-      },
-      {
-        "n": "Vaucresson",
-        "l": "/demenagement-vaucresson"
+        "n": "Levallois-Perret",
+        "l": "/demenagement-levallois-perret"
       }
     ]
   },
