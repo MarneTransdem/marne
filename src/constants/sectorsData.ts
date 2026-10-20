@@ -4236,80 +4236,61 @@ export const sectorsData: Sector[] = [
     "slug": "nanterre",
     "name": "Nanterre",
     "type": "local",
-    "seoTitle": "Déménagement Nanterre | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Nanterre avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Nanterre (92000) : devis | Marne Transdem",
+    "seoDescription": "Votre déménagement à Nanterre : préparez inventaire, accès et autorisation de stationnement pour votre logement ou vos bureaux. Demandez un devis gratuit.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Nanterre, avec une organisation adaptée aux appartements, maisons, résidences, bureaux, commerces, zones d’activité et contraintes d’accès de l’ouest francilien.",
+    "heroSubtitle": "Pour déménager à Nanterre, préparons les accès aux deux adresses, le stationnement et les prestations adaptées à votre inventaire.",
     "introParagraphs": [
-      "Notre intervention couvre tous les quartiers de la ville : <span className=\"font-bold text-slate-700\">Nanterre-Préfecture</span>, <span className=\"font-bold text-slate-700\">Nanterre-Ville</span>, <span className=\"font-bold text-slate-700\">Nanterre-Université</span>, le <span className=\"font-bold text-slate-700\">Mont-Valérien</span>, le <span className=\"font-bold text-slate-700\">Parc</span> ou encore le <span className=\"font-bold text-slate-700\">Chemin de l’Île</span>. Grâce à notre proximité avec <span className=\"font-bold text-slate-700\">La Défense</span>, <span className=\"font-bold text-slate-700\">Courbevoie</span>, <span className=\"font-bold text-slate-700\">Puteaux</span>, <span className=\"font-bold text-slate-700\">Rueil-Malmaison</span>, <span className=\"font-bold text-slate-700\">Suresnes</span>, <span className=\"font-bold text-slate-700\">Colombes</span> et <span className=\"font-bold text-slate-700\">Bezons</span>, nous garantissons une logistique réactive et adaptée.",
-      "Nous gérons aussi bien les <span className=\"font-bold text-slate-700\">maisons</span> individuelles que les <span className=\"font-bold text-slate-700\">appartements</span>, <span className=\"font-bold text-slate-700\">studios</span> ou <span className=\"font-bold text-slate-700\">résidences</span>. Pour les professionnels, nous organisons le transfert de <span className=\"font-bold text-slate-700\">bureaux</span>, <span className=\"font-bold text-slate-700\">sièges</span>, <span className=\"font-bold text-slate-700\">administrations</span>, <span className=\"font-bold text-slate-700\">commerces</span> et <span className=\"font-bold text-slate-700\">cabinets libéraux</span>, en anticipant chaque <span className=\"font-bold text-slate-700\">accès d'immeuble</span> et contrainte de <span className=\"font-bold text-slate-700\">stationnement</span>."
+      "Pour votre <strong>déménagement à Nanterre (92000)</strong>, indiquez l’adresse complète, le bâtiment et le chemin entre le camion et l’entrée. Pour une résidence, relevez les dimensions de l’ascenseur, les portes et les créneaux d’accès possibles. Pour une maison, ajoutez le portail, les marches et les annexes concernées. Préparez un inventaire avec le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a>, puis signalez les meubles lourds, fragiles ou difficiles à démonter afin de compléter l’étude du transport.",
+      "La <a href=\"https://www.nanterre.fr/annuaires/catalogue-des-demarches/detail/demande-dautorisation-de-stationnement-temporaire\" class=\"text-accent hover:underline\">démarche municipale de stationnement temporaire à Nanterre</a> prévoit un dépôt au minimum trois semaines avant une occupation du domaine public nécessitant un arrêté municipal. Le formulaire doit être complet et signé ; la page officielle précise les modes de transmission. La Ville demande aussi de rendre l’arrêté visible derrière le pare-brise. Consultez les modalités à jour, puis convenez avec notre équipe de la personne chargée des demandes, des frais et de la signalisation prévus pour votre intervention.",
+      "Pour un <a href=\"/demenagement-entreprises-paris\" class=\"text-accent hover:underline\">transfert de bureaux</a>, listez les postes, les archives et les équipements à préparer, avec les conditions de livraison et les créneaux convenus avec le gestionnaire des locaux. Pour un logement, comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">prestations d’emballage et de démontage</a>. Si le passage intérieur pose problème, un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> se prévoit après étude technique et vérification des autorisations. Pour un trajet vers <a href=\"/demenagement-puteaux\" class=\"text-accent hover:underline\">Puteaux</a>, <a href=\"/demenagement-courbevoie\" class=\"text-accent hover:underline\">Courbevoie</a> ou <a href=\"/demenagement-rueil-malmaison\" class=\"text-accent hover:underline\">Rueil-Malmaison</a>, décrivez aussi les accès à l’arrivée. Retrouvez les communes des <a href=\"/demenagement-hauts-de-seine\" class=\"text-accent hover:underline\">Hauts-de-Seine</a> et <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">demandez votre devis à Nanterre</a>."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Nanterre ?",
-        "a": "Un déménagement à Nanterre demande d’anticiper le volume, les accès, les étages, les éventuels ascenseurs, le stationnement et la préparation des cartons. Marne Transdem vous accompagne pour définir une organisation adaptée à votre logement (maison, appartement ou résidence), à vos biens et au niveau d’accompagnement souhaité."
+        "q": "Quand déposer une demande de stationnement pour déménager à Nanterre ?",
+        "a": "La Ville indique un minimum de trois semaines pour une occupation du domaine public nécessitant un arrêté municipal. Consultez sa démarche de stationnement temporaire, remplissez et signez le formulaire et vérifiez les pièces et modalités de transmission à jour. Le dépôt ne vaut pas autorisation."
       },
       {
-        "q": "Marne Transdem intervient-elle à Nanterre et dans les villes proches ?",
-        "a": "Oui, Marne Transdem accompagne les projets de déménagement à Nanterre et dans les secteurs proches comme La Défense, Courbevoie, Puteaux, Rueil-Malmaison, Suresnes, Colombes, Bezons et plus largement dans les Hauts-de-Seine selon les besoins du projet."
+        "q": "Où afficher l’arrêté de stationnement à Nanterre ?",
+        "a": "La page municipale demande de rendre l’arrêté visible derrière le pare-brise. Faites également préciser les prescriptions de signalisation propres à votre intervention. Convenez avec l’équipe de la répartition des démarches et de la préparation de l’emplacement avant le déménagement."
       },
       {
-        "q": "Peut-on demander un monte-meuble à Nanterre ?",
-        "a": "Oui, un monte-meuble peut être envisagé lorsque les meubles volumineux ne passent pas facilement par l’escalier ou l’ascenseur. Sa mise en place dépend de la configuration de la rue, de l'accès à la maison ou à l'appartement, et de la faisabilité technique."
+        "q": "Quels renseignements transmettre pour déménager depuis une résidence ?",
+        "a": "Précisez le bâtiment, l’étage, les dimensions de l’ascenseur et les passages entre le logement et la rue. Notez la distance depuis le camion et les consignes du gestionnaire concernant les créneaux ou la protection des parties communes. Ajoutez les caves et annexes concernées à votre inventaire."
       },
       {
-        "q": "Quelle formule choisir pour un déménagement à Nanterre ?",
-        "a": "La formule dépend de votre budget, du temps disponible pour préparer vos cartons et du niveau d’accompagnement souhaité. La formule Économique convient si vous préparez une grande partie de vos affaires, la formule Standard offre un équilibre entre autonomie et accompagnement, et la formule Luxe permet de déléguer davantage selon la prestation choisie."
+        "q": "Comment préparer un transfert de bureaux à Nanterre ?",
+        "a": "Dressez un inventaire par poste ou par service, en séparant mobilier, archives et équipements particuliers. Identifiez les accès de livraison, les ascenseurs utilisables et les horaires autorisés aux deux sites. Les opérations de déconnexion, le planning et les responsabilités doivent être convenus dans la proposition."
       },
       {
-        "q": "Comment obtenir un devis pour un déménagement à Nanterre ?",
-        "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L’estimation prend en compte le volume, les adresses, les accès, les étages, la formule souhaitée et les besoins spécifiques comme l’emballage, le garde-meuble ou le monte-meuble."
+        "q": "Le volume suffit-il pour établir mon devis à Nanterre ?",
+        "a": "Il constitue une première information à compléter avec le trajet, les dates, les accès et les prestations souhaitées. Précisez les biens atypiques, l’emballage, le démontage et les éventuels besoins de levage ou de stockage. Le chiffrage dépend de l’ensemble du projet."
       }
     ],
     "nearbySectors": [
       {
-        "n": "Courbevoie",
-        "l": "/demenagement-courbevoie"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
+        "n": "Hauts-de-Seine",
+        "l": "/demenagement-hauts-de-seine"
       },
       {
         "n": "Puteaux",
         "l": "/demenagement-puteaux"
       },
       {
-        "n": "Neuilly-sur-Seine",
-        "l": "/demenagement-neuilly-sur-seine"
-      },
-      {
-        "n": "Hauts-de-Seine",
-        "l": "/demenagement-hauts-de-seine"
-      },
-      {
-        "n": "Île-de-France",
-        "l": "/demenagement-ile-de-france"
-      },
-      {
-        "n": "Suresnes",
-        "l": "/demenagement-suresnes"
+        "n": "Courbevoie",
+        "l": "/demenagement-courbevoie"
       },
       {
         "n": "Rueil-Malmaison",
         "l": "/demenagement-rueil-malmaison"
       },
       {
-        "n": "Vaucresson",
-        "l": "/demenagement-vaucresson"
+        "n": "Suresnes",
+        "l": "/demenagement-suresnes"
       },
       {
-        "n": "Saint-Cloud",
-        "l": "/demenagement-saint-cloud"
-      },
-      {
-        "n": "Houilles",
-        "l": "/demenagement-houilles"
+        "n": "Neuilly-sur-Seine",
+        "l": "/demenagement-neuilly-sur-seine"
       }
     ]
   },
@@ -5667,79 +5648,61 @@ export const sectorsData: Sector[] = [
     "slug": "puteaux",
     "name": "Puteaux",
     "type": "local",
-    "seoTitle": "Déménagement Puteaux | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Puteaux avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Puteaux (92800) : devis | Marne Transdem",
+    "seoDescription": "Déménagement à Puteaux : préparez les accès, le stationnement et les prestations pour votre logement ou vos bureaux. Demandez votre devis gratuit.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Puteaux, avec une organisation adaptée aux appartements, résidences, bureaux, sièges, commerces et contraintes d’accès de l’ouest parisien.",
+    "heroSubtitle": "À Puteaux, organisez le passage des meubles, l’accès du camion et la demande de stationnement avec un devis adapté à votre logement ou vos locaux.",
     "introParagraphs": [
-      "Qu'il s'agisse d'un <span className=\"font-bold text-slate-700\">appartement</span>, d'un <span className=\"font-bold text-slate-700\">studio</span> ou d'une <span className=\"font-bold text-slate-700\">résidence</span> familiale, ou du transfert de <span className=\"font-bold text-slate-700\">bureaux</span>, <span className=\"font-bold text-slate-700\">sièges d'entreprises</span>, <span className=\"font-bold text-slate-700\">commerces</span> ou <span className=\"font-bold text-slate-700\">cabinets professionnels</span>, nous maîtrisons les spécificités logistiques locales. Nous anticipons les <span className=\"font-bold text-slate-700\">accès d'immeubles</span> (ascenseurs, escaliers), les zones de <span className=\"font-bold text-slate-700\">stationnement</span> et l'estimation rigoureuse du <span className=\"font-bold text-slate-700\">volume</span> pour une <span className=\"font-bold text-slate-700\">demande de devis</span> sur-mesure."
+      "Votre <strong>déménagement à Puteaux (92800)</strong> se prépare depuis les accès réels de chaque adresse. Pour un appartement, mesurez les portes, l’ascenseur et les paliers ; signalez les marches et la distance entre la rue et l’entrée. Pour des bureaux, précisez le point de livraison autorisé et les consignes du gestionnaire du bâtiment. Utilisez notre <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">outil d’estimation du volume</a>, puis complétez l’inventaire avec les meubles à démonter et les objets dont les dimensions ou le poids demandent une attention particulière.",
+      "La <a href=\"https://www.puteaux.fr/vos-demarches/demenagement/\" class=\"text-accent hover:underline\">page Déménagement de la Ville de Puteaux</a> prévoit une demande au moins trois semaines avant l’intervention pour l’arrêté provisoire de stationnement et de circulation. Elle distingue les formulaires des particuliers et des professionnels et annonce des frais liés à l’occupation, au dossier et aux places payantes réservées. Consultez les conditions à jour avant de déposer la demande. Précisez dans votre devis qui organise les démarches, la signalisation et les éventuels frais, en indiquant aussi le matériel de levage envisagé.",
+      "Comparez nos <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">formules de déménagement</a> selon les cartons que vous préparerez et les tâches d’emballage ou de démontage à confier à l’équipe. Un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> peut être étudié selon la façade, l’espace au sol et les autorisations. Pour un <a href=\"/demenagement-entreprises-paris\" class=\"text-accent hover:underline\">transfert professionnel</a>, définissez les créneaux et la préparation des équipements aux deux sites. Que vous rejoigniez <a href=\"/demenagement-nanterre\" class=\"text-accent hover:underline\">Nanterre</a>, <a href=\"/demenagement-courbevoie\" class=\"text-accent hover:underline\">Courbevoie</a> ou <a href=\"/demenagement-suresnes\" class=\"text-accent hover:underline\">Suresnes</a>, renseignez les accès à l’arrivée. Consultez notre couverture des <a href=\"/demenagement-hauts-de-seine\" class=\"text-accent hover:underline\">Hauts-de-Seine</a> et <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">préparez votre devis à Puteaux</a>."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Puteaux ?",
-        "a": "Un déménagement à Puteaux demande d’anticiper le volume, les accès, les étages, les éventuels ascenseurs, le stationnement et la préparation des cartons. Marne Transdem vous accompagne pour définir une organisation adaptée à votre logement, à vos biens et au niveau d’accompagnement souhaité."
+        "q": "Quand demander du stationnement pour un déménagement à Puteaux ?",
+        "a": "La Ville demande de déposer la demande au moins trois semaines avant le déménagement. Sa page officielle donne accès aux formulaires pour particuliers et professionnels. Vérifiez les modalités actuelles et convenez avec l’équipe de la personne qui réalise les démarches."
       },
       {
-        "q": "Marne Transdem intervient-elle à Puteaux et dans les villes proches ?",
-        "a": "Oui, Marne Transdem accompagne les projets de déménagement à Puteaux et dans les secteurs proches comme La Défense, Courbevoie, Nanterre, Suresnes, Neuilly-sur-Seine, Levallois-Perret et plus largement dans les Hauts-de-Seine selon les besoins du projet."
+        "q": "Quels frais de stationnement prévoir à Puteaux ?",
+        "a": "La page municipale distingue l’occupation et la gestion du dossier, ainsi que les places payantes réservées. Consultez les conditions et tarifs à jour auprès de la Ville pour votre situation. Faites préciser dans le devis la répartition des démarches et des frais, sans supposer leur inclusion automatique."
       },
       {
-        "q": "Peut-on demander un monte-meuble à Puteaux ?",
-        "a": "Oui, un monte-meuble peut être envisagé lorsque les meubles volumineux ne passent pas facilement par l’escalier ou l’ascenseur. Sa mise en place dépend de la configuration de la rue, de la façade, des accès et de la faisabilité technique."
+        "q": "Comment décrire l’accès à des bureaux ou à une résidence à Puteaux ?",
+        "a": "Indiquez l’entrée utilisable pour le chargement, le chemin jusqu’aux locaux et les dimensions des passages et ascenseurs. Demandez au gestionnaire les créneaux et consignes applicables. Signalez une cour, des marches ou un accès de livraison différent de l’adresse postale."
       },
       {
-        "q": "Quelle formule choisir pour un déménagement à Puteaux ?",
-        "a": "La formule dépend de votre budget, du temps disponible pour préparer vos cartons et du niveau d’accompagnement souhaité. La formule Économique convient si vous préparez une grande partie de vos affaires, la formule Standard offre un équilibre entre autonomie et accompagnement, et la formule Luxe permet de déléguer davantage selon la prestation choisie."
+        "q": "Comment choisir les tâches à déléguer avant mon déménagement ?",
+        "a": "Listez les cartons courants, les biens fragiles et les meubles à démonter. Comparez les formules selon le temps de préparation disponible et les tâches que vous souhaitez confier à l’équipe. Les fournitures, l’emballage, le déballage et le démontage retenus doivent être détaillés dans la proposition."
       },
       {
-        "q": "Comment obtenir un devis pour un déménagement à Puteaux ?",
-        "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L’estimation prend en compte le volume, les adresses, les accès, les étages, la formule souhaitée et les besoins spécifiques comme l’emballage, le garde-meuble ou le monte-meuble."
+        "q": "Quelles informations permettent d’étudier un monte-meuble à Puteaux ?",
+        "a": "Transmettez des photos de la façade et de l’emplacement au sol, l’étage et les dimensions des meubles et des ouvertures. Signalez les obstacles visibles et les consignes de la copropriété. La faisabilité et les autorisations doivent être vérifiées avant de retenir l’appareil et ses conditions d’intervention."
       }
     ],
     "nearbySectors": [
       {
+        "n": "Hauts-de-Seine",
+        "l": "/demenagement-hauts-de-seine"
+      },
+      {
         "n": "Courbevoie",
         "l": "/demenagement-courbevoie"
-      },
-      {
-        "n": "Neuilly-sur-Seine",
-        "l": "/demenagement-neuilly-sur-seine"
-      },
-      {
-        "n": "Levallois-Perret",
-        "l": "/demenagement-levallois-perret"
       },
       {
         "n": "Nanterre",
         "l": "/demenagement-nanterre"
       },
       {
-        "n": "Vaucresson",
-        "l": "/demenagement-vaucresson"
-      },
-      {
         "n": "Suresnes",
         "l": "/demenagement-suresnes"
       },
       {
-        "n": "Clichy",
-        "l": "/demenagement-clichy"
+        "n": "Neuilly-sur-Seine",
+        "l": "/demenagement-neuilly-sur-seine"
       },
       {
         "n": "Paris 16e",
         "l": "/demenagement-paris-16"
-      },
-      {
-        "n": "Hauts-de-Seine",
-        "l": "/demenagement-hauts-de-seine"
-      },
-      {
-        "n": "Île-de-France",
-        "l": "/demenagement-ile-de-france"
-      },
-      {
-        "n": "Rueil-Malmaison",
-        "l": "/demenagement-rueil-malmaison"
       }
     ]
   },
