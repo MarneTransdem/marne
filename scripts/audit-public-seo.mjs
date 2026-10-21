@@ -40,6 +40,7 @@ await Promise.all(Array.from({ length: 4 }, async () => {
       if ((html.match(/<h1\b/g) || []).length !== 1) errors.push(`${url.pathname}: expected one H1`);
       if (/\b(noindex|none)\b/i.test([...robots, headers.get('x-robots-tag') || ''].join(','))) errors.push(`${url.pathname}: indexing forbidden`);
       if (!html.includes('data-ssr="true"')) errors.push(`${url.pathname}: missing initial rendered content`);
+      if (/<[a-z][^>]*\sclassName\s*=/i.test(html)) errors.push(`${url.pathname}: JSX className attribute in rendered HTML; use class`);
       const links = [...html.matchAll(/<a\b[^>]*href="([^"]*)"/g)]
         .map(m => new URL(m[1].replaceAll('&amp;', '&'), url))
         .filter(target => target.origin === SITE_URL)

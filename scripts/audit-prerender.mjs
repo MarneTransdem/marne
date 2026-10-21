@@ -31,6 +31,7 @@ for (const url of urls) {
   }
   if (/name="robots" content="noindex/.test(html)) errors.push(`${url.pathname}: noindex`);
   if (/<link\b[^>]*\bto\s*=/i.test(html)) errors.push(`${url.pathname}: React Link markup rendered as HTML instead of a crawlable anchor`);
+  if (/<[a-z][^>]*\sclassName\s*=/i.test(html)) errors.push(`${url.pathname}: JSX className attribute in rendered HTML; use class`);
   const links = [...html.matchAll(/<a\b[^>]*href="([^"]*)"/g)].map(x => x[1].replaceAll('&amp;', '&'));
   const internal = [...new Set(links.filter(x => x.startsWith('/') && !x.startsWith('//')).map(x => new URL(x, url).pathname))];
   // The sitemap is a valid static resource, read and parsed above, not an HTML page.
