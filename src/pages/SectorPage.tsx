@@ -29,6 +29,10 @@ const departmentLocations: Record<string, string> = {
   'yvelines': 'dans les Yvelines',
 };
 
+// Tailwind container widths, px-4 / md:px-6, and lg:grid-cols-2 with gap-20.
+// Keep these slots aligned with the three two-column image/text sections below.
+const sectorContentImageSizes = '(min-width: 1536px) 704px, (min-width: 1280px) 576px, (min-width: 1024px) 448px, (min-width: 768px) 720px, (min-width: 640px) 608px, calc(100vw - 32px)';
+
 // Stable lazy components retain the existing Suspense/SSR behavior on navigation.
 const sectorPages = Object.fromEntries(
   Object.entries(import.meta.glob<{ default: Sector }>('../generated/sectors/*.json')).map(([file, load]) => [
@@ -209,6 +213,7 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-[1.01]">
                 <ResponsiveImage
                   src={introImage} 
+                  sizes={sectorContentImageSizes}
                   alt={`Déménagement haut de gamme ${sectorLocation}`}
                   className="w-full h-full object-cover"
                 />
@@ -352,6 +357,7 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
               <div className="rounded-[3rem] overflow-hidden shadow-2xl relative z-10">
                 <ResponsiveImage
                   src={secondBlockImage} 
+                  sizes={sectorContentImageSizes}
                   alt="Déménagement résidentiel de particulier" 
                   className="w-full h-full object-cover" 
                 />
@@ -406,6 +412,7 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
               <div className="rounded-[3rem] overflow-hidden shadow-2xl relative z-10">
                 <ResponsiveImage
                   src="/images/transfert-bureaux-entreprise-paris.jpg" 
+                  sizes={sectorContentImageSizes}
                   alt="Transfert d'entreprise et bureaux à Paris" 
                   className="w-full h-full object-cover" 
                 />
