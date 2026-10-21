@@ -548,7 +548,9 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
         </section>
       )}
 
-      <LocalMovingLinks slug={resolvedSlug} />
+      <LocalMovingLinks slug={resolvedSlug} city={cityDepartment && ['hauts-de-seine', 'seine-saint-denis', 'val-de-marne'].includes(cityDepartment[0])
+        ? { name: sector.name, departmentSlug: cityDepartment[0], departmentName: cityDepartment[1].name }
+        : undefined} />
 
       {/* 12. Neighbouring sectors Section */}
       {sector.nearbySectors && sector.nearbySectors.length > 0 && (
