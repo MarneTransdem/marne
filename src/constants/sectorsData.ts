@@ -1402,74 +1402,57 @@ export const sectorsData: Sector[] = [
     "slug": "creteil",
     "name": "Créteil",
     "type": "local",
-    "seoTitle": "Déménagement Créteil (94000) | Marne Transdem : Expert Déménageur",
-    "seoDescription": "Besoin d'un déménageur à Créteil ? Marne Transdem offre des solutions sur-mesure pour particuliers et entreprises. Devis gratuit, visite technique et sérénité.",
+    "seoTitle": "Déménagement à Créteil : devis gratuit | Marne Transdem",
+    "seoDescription": "Préparez votre déménagement à Créteil : volume, étages, accès et prestations pour votre logement ou vos bureaux. Décrivez le projet et demandez un devis.",
     "seoImage": null,
-    "heroSubtitle": "Simplifiez votre installation à Créteil avec Marne Transdem. Une logistique maîtrisée, une équipe passionnée et un service premium pour un déménagement sans aucun stress.",
+    "heroSubtitle": "À Créteil, préparons l’inventaire, les accès et les prestations de votre déménagement de logement ou de locaux professionnels.",
     "introParagraphs": [
-      "« Créteil, capitale du Val-de-Marne, mérite un service de déménagement à la hauteur de son dynamisme. »",
-      "Depuis plus de 20 ans, Marne Transdem s'impose comme l'un des leaders du <span className=\"font-bold text-brand-900\">déménagement Créteil</span>. Que vous emménagiez dans une résidence moderne du <span className=\"font-bold text-brand-900\">Front de Lac</span>, un appartement à <span className=\"font-bold text-brand-900\">l'Échat</span> ou une maison en bord de Marne, notre expertise locale est votre meilleur atout.",
-      "Nous comprenons les défis spécifiques de la ville préfecture : accessibilité des grandes résidences, gestion de la circulation et stationnement complexe. Notre <span className=\"font-bold text-brand-900\">entreprise de déménagement Créteil</span> déploie des moyens techniques de pointe, incluant des monte-meubles de dernière génération, pour garantir une efficacité maximale et une protection totale de vos biens.",
-      "Notre mission va au-delà du simple transport. Nous sommes votre partenaire pour chaque étape de votre <span className=\"font-bold text-brand-900\">déménagement appartement Créteil</span> ou maison. De la fourniture de cartons adaptés à la réinstallation complète de votre mobilier, Marne Transdem incarne le savoir-faire artisanal associé à la rigueur d'un grand transporteur."
+      "Pour votre <strong>déménagement à Créteil (94000)</strong>, préparez les informations des deux adresses : étages, dimensions de l’ascenseur, paliers et distance entre le camion et l’entrée. Dans une résidence du Front de Lac ou un immeuble de l’Échat, demandez au gestionnaire les créneaux de manutention, les accès de livraison et les consignes pour les parties communes. Le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> aide à dresser l’inventaire ; ajoutez les caves, les annexes et les dimensions des meubles difficiles à déplacer.",
+      "Le <a href=\"https://demarches.ville-creteil.fr/\" class=\"text-accent hover:underline\">portail officiel de la Ville de Créteil</a> permet de retrouver les démarches et le contact de la mairie. Faites préciser par le service compétent les conditions de stationnement du camion et d’installation d’un éventuel appareil de levage, les délais, les frais et la signalisation pour votre adresse. Les droits résidentiels du Centre ancien ou un abonnement à un parking ne doivent pas être confondus avec une réservation pour déménager. Convenez dans le devis de la personne chargée des demandes et de la pose ; une intervention à 48 heures ne garantit pas à elle seule un emplacement libre.",
+      "Comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">formules de déménagement</a> pour répartir l’emballage, le démontage et la remise en place. Signalez les objets fragiles afin de préciser les <a href=\"/emballage-protection-demenagement\" class=\"text-accent hover:underline\">protections prévues</a> et les conditions de couverture. Pour un <a href=\"/demenagement-entreprises-paris\" class=\"text-accent hover:underline\">transfert de bureaux à Créteil</a>, préparez l’inventaire par poste, les accès et le planning souhaité ; les déconnexions et remises en service doivent être attribuées aux intervenants compétents. Vers <a href=\"/demenagement-maisons-alfort\" class=\"text-accent hover:underline\">Maisons-Alfort</a>, <a href=\"/demenagement-alfortville\" class=\"text-accent hover:underline\">Alfortville</a> ou une destination de <a href=\"/demenagement-longue-distance\" class=\"text-accent hover:underline\">déménagement longue distance</a>, décrivez aussi l’arrivée. Retrouvez les secteurs du <a href=\"/demenagement-val-de-marne\" class=\"text-accent hover:underline\">Val-de-Marne</a> ou <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">demandez votre devis à Créteil</a>."
     ],
     "faqs": [
       {
-        "q": "Comment s'organise le stationnement à Créteil lors d'un déménagement ?",
-        "a": "Créteil est une ville préfecture avec des zones de stationnement très réglementées, notamment près de l'Hôtel de Ville ou du Lac. Marne Transdem prend en charge les demandes d'autorisation d'occupation du domaine public auprès de la mairie de Créteil. Nous sécurisons les emplacements 48h à l'avance pour garantir le bon déroulement du chargement."
+        "q": "Comment préparer le stationnement pour déménager à Créteil ?",
+        "a": "Indiquez l’adresse, les dates et le véhicule ou le matériel envisagés au service compétent de la Ville. Faites confirmer les autorisations, les délais, les frais et les prescriptions de signalisation. Les démarches et la personne chargée de la pose doivent être précisées dans le devis ; un droit résidentiel ou un abonnement à un parking ne doit pas être assimilé à une réservation de déménagement."
       },
       {
-        "q": "Quel est le coût d'un déménagement professionnel à Créteil ?",
-        "a": "Le prix est calculé selon le volume de vos biens, l'accessibilité de vos logements (présence d'ascenseur, étage) et la distance. Nous réalisons une visite technique gratuite à Créteil (quartiers du Port, Front de Lac, Échat...) pour vous fournir un devis ferme, définitif et sans frais cachés."
+        "q": "Qu’est-ce qui détermine le devis d’un déménagement à Créteil ?",
+        "a": "Le volume, le trajet, la période, les accès et les prestations souhaitées servent à préparer le chiffrage. Ajoutez les étages, les dimensions de l’ascenseur, la distance de portage et les biens particuliers. Les modalités d’évaluation, dont une éventuelle visite, sont convenues avec l’équipe. Vérifiez le périmètre, les hypothèses et les conditions de modification du devis avant de le retenir."
       },
       {
-        "q": "Proposez-vous des services de transfert de bureaux à Créteil-Échat ?",
-        "a": "Absolument. Créteil-Échat est un pôle tertiaire majeur. Nous sommes experts en transferts d'entreprises, cabinets médicaux et bureaux administratifs. Nous gérons la logistique informatique, le mobilier de bureau et les archives avec une discrétion absolue."
+        "q": "Que prévoir pour un transfert de bureaux à Créteil-Échat ?",
+        "a": "Dressez un inventaire par poste ou par service avec le mobilier, les archives et les équipements. Précisez les accès de livraison et les étapes de reprise souhaitées. Les sauvegardes, les déconnexions et la remise en service informatique doivent être attribuées aux intervenants compétents ; ces opérations ne doivent pas être supposées incluses dans le transport."
       },
       {
-        "q": "Comment protéger les objets fragiles lors d'un déménagement ?",
-        "a": "Nous utilisons des fournitures de protection professionnelles : bull-pack, valises à verres, cartons penderies et housses capitonnées. Dans nos formules 'Standard' et 'Luxe', nos déménageurs experts se chargent eux-mêmes de l'emballage de vos objets délicats."
+        "q": "Comment signaler des objets fragiles ou de valeur ?",
+        "a": "Fournissez une liste séparée, les dimensions et des photos des biens concernés. Faites préciser les emballages, les protections et les tâches de préparation dans la formule retenue. Demandez les modalités de déclaration de valeur et les conditions de couverture applicables, sans assimiler la protection matérielle à une garantie totale."
       },
       {
-        "q": "Réalisez-vous des déménagements depuis Créteil vers la province ?",
-        "a": "Oui, nous accompagnons les Cristoliens partout en France. Que vous partiez vers Lyon, Bordeaux, Marseille ou toute autre région, nous organisons votre déménagement longue distance avec la même rigueur qu'un transport local dans le Val-de-Marne."
+        "q": "Comment organiser un départ de Créteil vers une autre région ?",
+        "a": "Préparez les accès aux deux adresses, l’inventaire et les dates envisagées. Signalez les contraintes de livraison et les besoins de stockage entre les deux logements. Les créneaux, les prestations, les délais et les frais doivent être confirmés dans le devis selon le trajet et l’organisation retenue."
       }
     ],
     "nearbySectors": [
       {
-        "n": "Vincennes",
-        "l": "/demenagement-vincennes"
-      },
-      {
-        "n": "Saint-Maur-des-Fossés",
-        "l": "/demenagement-saint-maur-des-fosses"
-      },
-      {
-        "n": "Saint-Mandé",
-        "l": "/demenagement-saint-mande"
-      },
-      {
-        "n": "Charenton-le-Pont",
-        "l": "/demenagement-charenton-le-pont"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
-      },
-      {
-        "n": "Joinville-le-Pont",
-        "l": "/demenagement-joinville-le-pont"
+        "n": "Val-de-Marne",
+        "l": "/demenagement-val-de-marne"
       },
       {
         "n": "Maisons-Alfort",
         "l": "/demenagement-maisons-alfort"
       },
       {
-        "n": "Ivry-sur-Seine",
-        "l": "/demenagement-ivry-sur-seine"
+        "n": "Alfortville",
+        "l": "/demenagement-alfortville"
       },
       {
-        "n": "94 - Val-de-Marne",
-        "l": "/demenagement-val-de-marne"
+        "n": "Saint-Maur-des-Fossés",
+        "l": "/demenagement-saint-maur-des-fosses"
+      },
+      {
+        "n": "Joinville-le-Pont",
+        "l": "/demenagement-joinville-le-pont"
       }
     ]
   },
