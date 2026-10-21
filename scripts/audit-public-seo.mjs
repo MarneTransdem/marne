@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import { SITE_URL, getPublicCanonicalRoutes } from '../src/lib/seo-routes.ts';
+import { auditServiceSchemas } from './service-schema-audit.mjs';
 
 // Read-only production audit, deliberately separate from the offline build.
 // Four concurrent requests keep the check gentle on the public server.
@@ -41,12 +42,14 @@ await Promise.all(Array.from({ length: 4 }, async () => {
       if (/\b(noindex|none)\b/i.test([...robots, headers.get('x-robots-tag') || ''].join(','))) errors.push(`${url.pathname}: indexing forbidden`);
       if (!html.includes('data-ssr="true"')) errors.push(`${url.pathname}: missing initial rendered content`);
       if (/<[a-z][^>]*\sclassName\s*=/i.test(html)) errors.push(`${url.pathname}: JSX className attribute in rendered HTML; use class`);
+      const schemas = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]));
+      errors.push(...auditServiceSchemas(schemas, url.href).map(error => `${url.pathname}: ${error}`));
       const links = [...html.matchAll(/<a\b[^>]*href="([^"]*)"/g)]
         .map(m => new URL(m[1].replaceAll('&amp;', '&'), url))
         .filter(target => target.origin === SITE_URL)
         .map(target => ({ path: target.pathname, hash: decodeURIComponent(target.hash.slice(1)) }));
       const ids = [...html.matchAll(/\bid="([^"]*)"/g)].map(m => m[1]);
-      pages.push({ path: url.pathname, status, title: titles[0], description: descriptions[0], links, ids });
+      pages.push({ path: url.pathname, status, title: titles[0], description: descriptions[0], links, ids, serviceCount: schemas.filter(schema => schema['@type'] === 'Service').length });
     } catch (error) { errors.push(`${url.pathname}: ${error.message}`); }
   }
 }));
@@ -75,10 +78,10 @@ for (const page of pages) if (!reachable.has(page.path)) errors.push(`Orphan pag
 
 const report = {
   checkedAt: new Date().toISOString(), site: SITE_URL,
-  sitemapPages: urls.length, checkedPages: pages.length,
+  sitemapPages: urls.length, checkedPages: pages.length, servicePages: pages.filter(page => page.serviceCount > 0).length,
   errors: [...new Set(errors)], pages: pages.sort((a, b) => a.path.localeCompare(b.path)),
 };
 await fs.mkdir('build', { recursive: true });
 await fs.writeFile('build/public-seo-audit.json', JSON.stringify(report, null, 2));
-console.log(JSON.stringify({ checkedAt: report.checkedAt, pages: pages.length, errors: report.errors }, null, 2));
+console.log(JSON.stringify({ checkedAt: report.checkedAt, pages: pages.length, servicePages: report.servicePages, errors: report.errors }, null, 2));
 if (report.errors.length) process.exitCode = 1;

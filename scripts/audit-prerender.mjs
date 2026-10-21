@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { auditBreadcrumbNames } from './breadcrumb-audit.mjs';
+import { auditServiceSchemas } from './service-schema-audit.mjs';
 
 const sitemap = await fs.readFile('dist/sitemap.xml', 'utf8');
 const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(x => new URL(x[1]));
@@ -44,6 +45,7 @@ for (const url of urls) {
       errors.push(...auditBreadcrumbNames(data).map(error => `${url.pathname}: ${error}`));
     } catch { errors.push(`${url.pathname}: invalid JSON-LD`); }
   }
+  errors.push(...auditServiceSchemas(schemas, url.href).map(error => `${url.pathname}: ${error}`));
   if (commercialServices.has(url.pathname)) {
     const services = schemas.filter(schema => schema['@type'] === 'Service');
     const service = services[0];

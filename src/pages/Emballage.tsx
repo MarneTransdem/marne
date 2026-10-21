@@ -47,7 +47,7 @@ const Emballage: React.FC = () => {
         description="Protégez vos meubles, objets fragiles et cartons avec les solutions d’emballage et de protection proposées par Marne Transdem."
         canonical={path}
         schema={[
-          getServiceSchema("Emballage et protection pour déménagement", "Marne Transdem accompagne les particuliers et les entreprises dans la préparation, l’emballage et la protection des biens avant leur transport."),
+          getServiceSchema("Emballage et protection pour déménagement", "Marne Transdem accompagne les particuliers et les entreprises dans la préparation, l’emballage et la protection des biens avant leur transport.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },

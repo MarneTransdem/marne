@@ -35,7 +35,7 @@ const GestionArchives: React.FC = () => {
         description="Transfert d’archives à Paris : préparez le volume, le repérage des boîtes, les accès et la réception. Stockage éventuel et prestations à préciser dans votre devis."
         canonical={path}
         schema={[
-          getServiceSchema("Transfert d’archives", "Préparation du transport des archives d’entreprise à Paris : volume, repérage, accès et modalités de réception à définir au devis."),
+          getServiceSchema("Transfert d’archives", "Préparation du transport des archives d’entreprise à Paris : volume, repérage, accès et modalités de réception à définir au devis.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },

@@ -35,7 +35,7 @@ const DemenagementPetitVolume: React.FC = () => {
         description="Déménagement petit volume à Paris : préparez l'inventaire, les accès et le transport de quelques meubles ou d'un studio. Demandez un devis selon vos prestations."
         canonical={path}
         schema={[
-          getServiceSchema("Déménagement Petit Volume", "Déménagement de petits volumes, studios ou meubles isolés à Paris et en Île-de-France, avec transport et prestations à préciser au devis."),
+          getServiceSchema("Déménagement Petit Volume", "Déménagement de petits volumes, studios ou meubles isolés à Paris et en Île-de-France, avec transport et prestations à préciser au devis.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },

@@ -64,7 +64,7 @@ const Cartons: React.FC = () => {
         description="Cartons de déménagement à Paris : précisez formats, quantités et protections avec Marne Transdem. Disponibilités, prix et remise du matériel à confirmer au devis."
         canonical={path}
         schema={[
-          getServiceSchema("Cartons et matériel de déménagement", "Marne Transdem accompagne les particuliers et les entreprises dans la préparation de leur déménagement avec des cartons, protections et matériels adaptés."),
+          getServiceSchema("Cartons et matériel de déménagement", "Marne Transdem accompagne les particuliers et les entreprises dans la préparation de leur déménagement avec des cartons, protections et matériels adaptés.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },

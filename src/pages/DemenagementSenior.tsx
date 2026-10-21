@@ -35,7 +35,7 @@ const DemenagementSenior: React.FC = () => {
         description="Déménagement senior à Paris et en Île-de-France : préparez le mobilier conservé, les accès en résidence et les prestations d’emballage ou de remontage à préciser au devis."
         canonical={path}
         schema={[
-          getServiceSchema("Déménagement Senior", "Déménagement des seniors à Paris et en Île-de-France, vers un logement ou une résidence, avec prestations d'emballage et d'installation à définir au devis."),
+          getServiceSchema("Déménagement Senior", "Déménagement des seniors à Paris et en Île-de-France, vers un logement ou une résidence, avec prestations d'emballage et d'installation à définir au devis.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },

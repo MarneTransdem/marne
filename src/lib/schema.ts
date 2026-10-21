@@ -65,28 +65,29 @@ export const getBreadcrumbSchema = (items: { name: string, item: string }[]) => 
 });
 
 interface ServiceSchemaOptions {
-  path?: `/${string}`;
+  path: `/${string}`;
   serviceType?: string;
 }
 
-export const getServiceSchema = (name: string, description: string, options: ServiceSchemaOptions = {}) => ({
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "serviceType": options.serviceType ?? name,
-  ...(options.path ? {
-    '@id': `${SITE_URL}${getCanonicalPath(options.path)}#service`,
-    url: `${SITE_URL}${getCanonicalPath(options.path)}`,
-    mainEntityOfPage: `${SITE_URL}${getCanonicalPath(options.path)}`,
-  } : {}),
-  "provider": {
-    "@id": `${SITE_URL}/#organization`,
-    "@type": "MovingCompany",
-    "name": CONTACT.name
-  },
-  "name": name,
-  "description": description,
-  "areaServed": "Île-de-France"
-});
+export const getServiceSchema = (name: string, description: string, options: ServiceSchemaOptions) => {
+  const url = `${SITE_URL}${getCanonicalPath(options.path)}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": options.serviceType ?? name,
+    '@id': `${url}#service`,
+    url,
+    mainEntityOfPage: url,
+    "provider": {
+      "@id": `${SITE_URL}/#organization`,
+      "@type": "MovingCompany",
+      "name": CONTACT.name
+    },
+    "name": name,
+    "description": description,
+    "areaServed": "Île-de-France"
+  };
+};
 
 export const getFAQSchema = (questions: { q: string, a: string }[]) => ({
   "@context": "https://schema.org",

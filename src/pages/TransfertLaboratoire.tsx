@@ -35,7 +35,7 @@ const TransfertLaboratoire: React.FC = () => {
         description="Transfert de laboratoire à Paris : préparez l’inventaire du mobilier et des appareils, les accès et le calendrier pour faire étudier votre demande de devis."
         canonical={path}
         schema={[
-          getServiceSchema("Transfert de Laboratoire", "Préparation d’une demande de transfert de laboratoire à Paris et en Île-de-France : inventaire du mobilier et des appareils, accès, calendrier et prestations à confirmer au devis."),
+          getServiceSchema("Transfert de Laboratoire", "Préparation d’une demande de transfert de laboratoire à Paris et en Île-de-France : inventaire du mobilier et des appareils, accès, calendrier et prestations à confirmer au devis.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },

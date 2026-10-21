@@ -39,7 +39,7 @@ const DemenagementOeuvresArt: React.FC = () => {
         description="Déménagement de tableaux et d’œuvres d’art à Paris : préparez les dimensions, les accès et les besoins de protection pour un devis personnalisé avec Marne Transdem."
         canonical={path}
         schema={[
-          getServiceSchema("Déménagement d'œuvres d'art", "Préparation du transport de tableaux et d’œuvres d’art à Paris : dimensions, accès et besoins de protection à préciser pour un devis personnalisé."),
+          getServiceSchema("Déménagement d'œuvres d'art", "Préparation du transport de tableaux et d’œuvres d’art à Paris : dimensions, accès et besoins de protection à préciser pour un devis personnalisé.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },

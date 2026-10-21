@@ -59,7 +59,7 @@ export const SectorPage: React.FC = () => {
 const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
   const resolvedSlug = sector.slug;
 
-  const path = `/demenagement-${resolvedSlug}`;
+  const path: `/${string}` = `/demenagement-${resolvedSlug}`;
   const sectorLabel = getSectorLabel(sector);
   const isDepartment = Object.hasOwn(departmentLocations, resolvedSlug);
   const sectorLocation = resolvedSlug === 'ile-de-france' ? 'en Île-de-France'
@@ -105,7 +105,7 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
         description={sector.seoDescription || `Préparez votre déménagement ${sectorLocation} avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées et devis gratuit.`}
         canonical={path}
         schema={[
-          { ...getServiceSchema(`Déménagement ${sector.name}`, sector.seoDescription), '@id': `${SITE_URL}${path}#service`, url: `${SITE_URL}${path}`, areaServed: { '@type': 'Place', name: sector.name } },
+          { ...getServiceSchema(`Déménagement ${sector.name}`, sector.seoDescription, { path }), areaServed: { '@type': 'Place', name: sector.name } },
           getFAQSchema(sector.faqs),
           getBreadcrumbSchema(breadcrumbs)
         ]}

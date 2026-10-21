@@ -35,7 +35,7 @@ const DemenagementEtudiant: React.FC = () => {
         description="Préparez votre déménagement étudiant à Paris et en Île-de-France : inventaire, accès en résidence, cartons, petit volume et devis adapté aux prestations choisies."
         canonical={path}
         schema={[
-          getServiceSchema("Déménagement Étudiant", "Déménagement étudiant à Paris et en Île-de-France pour studios, chambres et petits volumes, avec prestations et disponibilités à confirmer au devis."),
+          getServiceSchema("Déménagement Étudiant", "Déménagement étudiant à Paris et en Île-de-France pour studios, chambres et petits volumes, avec prestations et disponibilités à confirmer au devis.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },

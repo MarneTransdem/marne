@@ -35,7 +35,7 @@ const TransfertInformatique: React.FC = () => {
         description="Transfert informatique à Paris : inventaire des équipements, accès, protections et coordination avec votre prestataire informatique. Préparez un devis personnalisé."
         canonical={path}
         schema={[
-          getServiceSchema("Transfert informatique", "Préparation du transport des équipements informatiques à Paris : inventaire, accès et protections à définir au devis, en coordination avec le responsable informatique du client."),
+          getServiceSchema("Transfert informatique", "Préparation du transport des équipements informatiques à Paris : inventaire, accès et protections à définir au devis, en coordination avec le responsable informatique du client.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },

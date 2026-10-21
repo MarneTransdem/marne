@@ -35,7 +35,7 @@ const DemenagementMutation: React.FC = () => {
         description="Préparez votre déménagement pour mutation professionnelle à Paris : volume, accès, calendrier, devis à transmettre à votre employeur et prestations à choisir."
         canonical={path}
         schema={[
-          getServiceSchema("Mutation Professionnelle", "Déménagement pour mutation professionnelle à Paris, en Île-de-France ou longue distance, avec volume, calendrier et prestations à préciser au devis."),
+          getServiceSchema("Mutation Professionnelle", "Déménagement pour mutation professionnelle à Paris, en Île-de-France ou longue distance, avec volume, calendrier et prestations à préciser au devis.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },

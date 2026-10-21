@@ -35,7 +35,7 @@ const TransfertIndustriel: React.FC = () => {
         description="Transfert industriel à Paris : préparez l’inventaire de votre atelier, les accès et le calendrier. Définissez les prestations nécessaires avec un devis adapté."
         canonical={path}
         schema={[
-          getServiceSchema("Transfert Industriel", "Préparez votre projet de transfert d’atelier ou de site industriel : inventaire, accès, calendrier et prestations à confirmer dans un devis adapté."),
+          getServiceSchema("Transfert Industriel", "Préparez votre projet de transfert d’atelier ou de site industriel : inventaire, accès, calendrier et prestations à confirmer dans un devis adapté.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },

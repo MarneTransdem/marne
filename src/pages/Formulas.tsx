@@ -87,7 +87,7 @@ const FormulasPage: React.FC = () => {
         canonical={path}
         schema={[
           getFAQSchema(faqs),
-          getServiceSchema("Formules de déménagement", "Découvrez les formules Économique, Standard et Luxe de Marne Transdem pour organiser votre déménagement à Paris."),
+          getServiceSchema("Formules de déménagement", "Découvrez les formules Économique, Standard et Luxe de Marne Transdem pour organiser votre déménagement à Paris.", { path }),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },
             { name: "Nos formules", item: path }

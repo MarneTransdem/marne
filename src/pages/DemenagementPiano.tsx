@@ -35,7 +35,7 @@ const DemenagementPiano: React.FC = () => {
         description="Déménagement de piano à Paris et en Île-de-France : précisez modèle, dimensions, poids et accès pour étudier le transport et obtenir un devis personnalisé."
         canonical={path}
         schema={[
-          getServiceSchema("Déménagement Piano & Objets Lourds", "Service spécialisé de transport d'instruments de musique, coffres-forts et mobiliers lourds ou encombrants à Paris et IDF."),
+          getServiceSchema("Déménagement Piano & Objets Lourds", "Service spécialisé de transport d'instruments de musique, coffres-forts et mobiliers lourds ou encombrants à Paris et IDF.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },

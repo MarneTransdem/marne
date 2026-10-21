@@ -35,7 +35,7 @@ const DemenagementMilitaire: React.FC = () => {
         description="Préparez votre déménagement militaire à Paris : inventaire, accès, calendrier et devis. Faites confirmer vos droits et la procédure par votre service gestionnaire."
         canonical={path}
         schema={[
-          getServiceSchema("Déménagement Militaire", "Déménagement pour mutation militaire à Paris ou longue distance, avec volume et prestations à préciser au devis et procédure à confirmer auprès du service gestionnaire."),
+          getServiceSchema("Déménagement Militaire", "Déménagement pour mutation militaire à Paris ou longue distance, avec volume et prestations à préciser au devis et procédure à confirmer auprès du service gestionnaire.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },
