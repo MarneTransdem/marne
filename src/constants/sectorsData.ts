@@ -3255,41 +3255,45 @@ export const sectorsData: Sector[] = [
     "slug": "les-lilas",
     "name": "Les Lilas",
     "type": "local",
-    "seoTitle": "Déménagement Les Lilas | Particuliers & Commerces | Marne Transdem",
-    "seoDescription": "Besoin d'un déménageur aux Lilas (93260) ? Marne Transdem propose des solutions de déménagement pour logements familiaux et commerces de proximité. Devis Gratuit.",
+    "seoTitle": "Déménagement aux Lilas : devis gratuit | Marne Transdem",
+    "seoDescription": "Préparez votre déménagement aux Lilas : volume, accès et stationnement pour votre logement ou votre commerce. Décrivez votre projet et demandez un devis.",
     "seoImage": null,
-    "heroSubtitle": "Solutions de déménagement sur-mesure pour vos logements familiaux et vos commerces de proximité aux Lilas. Une logistique pensée pour la sérénité des résidents de l'est parisien.",
+    "heroSubtitle": "Logement ou commerce aux Lilas : préparons votre inventaire, les accès et les prestations pour un devis adapté à votre projet.",
     "introParagraphs": [
-      "Idéalement située aux portes de Paris (20e arrondissement), la ville des Lilas allie la tranquillité d'une vie familiale de banlieue à une proximité immédiate avec la capitale. Les Lilas accueillent aujourd'hui de nombreux jeunes actifs et familles qui apprécient son caractère authentique, ses parcs et son dynamisme commercial.",
-      "Réussir son déménagement ici nécessite une expertise locale. Les rues en pente typiques des quartiers des Lilas, ainsi que la densité de stationnement, exigent une organisation rigoureuse.",
-      "<strong>Marne Transdem</strong> intervient aux Lilas avec tout le matériel professionnel requis : monte-meubles d'extérieur pour les accès difficiles, emballages spécialisés, et une équipe de compagnons formés qui assurent la sécurité de vos biens du début à la fin de la prestation."
+      "Votre <strong>déménagement aux Lilas (93260)</strong> se prépare aux deux adresses. Mesurez les portes, les paliers et l’ascenseur, puis indiquez les étages, les marches et la distance entre le camion et l’entrée. Pour un logement avec cour ou annexe, ajoutez les passages intermédiaires et les biens à y prendre en charge. Le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> aide à constituer l’inventaire ; complétez-le avec les dimensions des meubles encombrants et les possibilités de démontage.",
+      "La <a href=\"https://formulaires.demarches.ville-leslilas.fr/espaces-publics/demande-de-permission-de-voirie-de-stationnement/\" class=\"text-accent hover:underline\">demande municipale de permission de voirie ou de stationnement</a> indique un dépôt au moins quinze jours avant un déménagement. Attendez la décision : le silence pendant l’instruction ne vaut pas accord. Faites confirmer les prescriptions applicables au véhicule, à l’emplacement et à un éventuel appareil de levage. La personne chargée de la demande, de la signalisation et des frais doit être convenue dans le devis ; ne présumez ni d’une pose automatique à 48 heures ni d’un accès garanti.",
+      "Comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">formules de déménagement</a> pour répartir l’emballage, le démontage et la remise en place. Un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> peut être étudié selon la façade, les ouvertures et l’espace extérieur disponible. Pour un <a href=\"/demenagement-entreprises-paris\" class=\"text-accent hover:underline\">commerce ou des bureaux</a>, précisez le mobilier, les équipements, les accès de livraison et le planning souhaité. Vers <a href=\"/demenagement-paris-20\" class=\"text-accent hover:underline\">Paris 20e</a>, <a href=\"/demenagement-bagnolet\" class=\"text-accent hover:underline\">Bagnolet</a> ou <a href=\"/demenagement-romainville\" class=\"text-accent hover:underline\">Romainville</a>, décrivez également l’arrivée. Retrouvez les secteurs de <a href=\"/demenagement-seine-saint-denis\" class=\"text-accent hover:underline\">Seine-Saint-Denis</a> ou <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">préparez votre devis aux Lilas</a>."
     ],
     "faqs": [
       {
-        "q": "Comment s'organise un déménagement dans le centre-ville des Lilas ?",
-        "a": "Le centre des Lilas bénéficie d'une configuration urbaine proche de Paris, avec des rues parfois étroites et une circulation dense. Marne Transdem anticipe ces contraintes en effectuant une visite technique préventive pour analyser les accès (stationnement, rue piétonne, cour intérieure) et définir le type de véhicule le plus adapté (camion capitonné de moyen gabarit ou recours à un monte-meuble si nécessaire)."
+        "q": "Quand déposer la demande de stationnement pour déménager aux Lilas ?",
+        "a": "La démarche municipale de permission de voirie ou de stationnement prévoit un dépôt au moins quinze jours avant un déménagement. Faites confirmer les conditions de votre opération et attendez la décision avant l’occupation. Le délai de deux mois également indiqué sur le portail concerne les travaux, et ne doit pas être confondu avec celui des déménagements."
       },
       {
-        "q": "Quelles sont les formalités de stationnement auprès de la Mairie des Lilas ?",
-        "a": "Pour stationner votre camion de déménagement sur la voie publique aux Lilas, il est obligatoire d'obtenir une autorisation d'occupation temporaire (AOT). Cette demande doit être transmise aux services techniques de la Mairie des Lilas avec un délai minimal de 15 jours avant la date prévue. Marne Transdem gère l'intégralité de cette procédure administrative et la pose des panneaux de stationnement 48h en amont pour vous garantir un accès dégagé le jour J."
+        "q": "Une demande sans réponse permet-elle de déménager sur l’emplacement prévu ?",
+        "a": "Le portail municipal précise que l’absence de réponse pendant la période d’instruction vaut refus. Le dépôt de la demande ne constitue donc pas une autorisation. Faites confirmer la décision et les prescriptions avant de finaliser l’organisation du camion ou du matériel de levage."
       },
       {
-        "q": "Proposez-vous des solutions de déménagement pour les petits commerces des Lilas ?",
-        "a": "Absolument. Nous sommes habitués à accompagner le développement des commerces de proximité aux Lilas. Déménagement de comptoirs, mobilier spécialisé, stockage de marchandise, nous assurons une logistique rapide pour limiter au maximum l'interruption de votre activité, en planifiant les opérations sur des créneaux horaires flexibles."
+        "q": "Qui prépare la signalisation et les démarches aux Lilas ?",
+        "a": "La répartition des tâches doit être convenue avec l’équipe et précisée dans le devis : dépôt, signalisation et frais éventuels. Faites confirmer le calendrier et les prescriptions propres à l’autorisation. Une pose de panneaux à 48 heures ou un emplacement libre ne doivent pas être présumés comme des garanties automatiques."
       },
       {
-        "q": "Comment planifier l'estimation gratuite de mon volume aux Lilas ?",
-        "a": "Contactez Marne Transdem par téléphone ou via le formulaire de demande de devis pour votre projet aux Lilas. Indiquez les adresses de départ et d’arrivée, la période envisagée, le volume estimé, les accès et les prestations souhaitées. Si une visite est nécessaire, ses modalités sont à convenir avec l’équipe. Demandez également le délai de remise du devis selon les informations restant à préciser."
+        "q": "Quelles informations préparer pour un commerce aux Lilas ?",
+        "a": "Recensez le mobilier, les équipements et les biens à transporter, en signalant les objets fragiles ou encombrants. Indiquez les accès de livraison, les créneaux disponibles et le planning de reprise souhaité. Les opérations de préparation, les déconnexions et les responsabilités sont à convenir dans le devis."
+      },
+      {
+        "q": "Comment faire étudier les accès et le volume de mon logement ?",
+        "a": "Préparez l’inventaire, les dimensions des meubles et des passages, les étages et les ascenseurs. Ajoutez des photos des accès difficiles. Si un monte-meuble est envisagé, photographiez aussi la façade et l’emplacement extérieur. Les modalités d’évaluation, dont une éventuelle visite, sont à convenir avec l’équipe selon le projet."
       }
     ],
     "nearbySectors": [
       {
-        "n": "Paris 20e",
-        "l": "/demenagement-paris-20"
+        "n": "Seine-Saint-Denis",
+        "l": "/demenagement-seine-saint-denis"
       },
       {
-        "n": "Paris 19e",
-        "l": "/demenagement-paris-19"
+        "n": "Paris 20e",
+        "l": "/demenagement-paris-20"
       },
       {
         "n": "Bagnolet",
@@ -3302,14 +3306,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Pantin",
         "l": "/demenagement-pantin"
-      },
-      {
-        "n": "Montreuil",
-        "l": "/demenagement-montreuil"
-      },
-      {
-        "n": "Seine-Saint-Denis (93)",
-        "l": "/demenagement-seine-saint-denis"
       }
     ]
   },
