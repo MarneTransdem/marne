@@ -4372,34 +4372,42 @@ export const sectorsData: Sector[] = [
     "slug": "noisy-le-sec",
     "name": "Noisy-le-Sec",
     "type": "local",
-    "seoTitle": "Déménagement Noisy-le-Sec | Bureaux & Appartements | Marne Transdem",
-    "seoDescription": "Besoin d'un déménageur à Noisy-le-Sec (93130) ? Marne Transdem gère vos transferts de bureaux et déménagements d'appartements en zone urbaine. Devis Gratuit.",
+    "seoTitle": "Déménagement Noisy-le-Sec : devis gratuit | Marne Transdem",
+    "seoDescription": "Préparez votre déménagement à Noisy-le-Sec : volume, accès et stationnement pour votre logement ou vos bureaux. Décrivez votre projet et demandez un devis.",
     "seoImage": null,
-    "heroSubtitle": "Transferts de bureaux et déménagements d'appartements en zone urbaine à Noisy-le-Sec. Une expertise terrain pour une transition maitrisée.",
+    "heroSubtitle": "Logement ou bureaux à Noisy-le-Sec : préparons votre inventaire, les accès aux deux adresses et les prestations utiles à votre projet.",
     "introParagraphs": [
-      "Ville dynamique de l'est parisien, Noisy-le-Sec conjugue un habitat résidentiel diversifié et un tissu d'activités tertiaires en pleine évolution. Que vous déménagiez au sein d'un quartier pavillonnaire ou que vous transfériez vos bureaux, cette zone urbaine exige une logistique bien calibrée.",
-      "Réussir son déménagement ici demande d'anticiper la densité de stationnement et d'organiser les accès, particulièrement dans les secteurs les plus urbains.",
-      "<strong>Marne Transdem</strong> met en œuvre un savoir-faire spécifique pour ces opérations : véhicules adaptés aux rues de gabarit variable, monte-meubles d'extérieur si besoin et des équipes formées pour le transfert de mobiliers professionnels et personnels, assurant ainsi une transition sans stress."
+      "Pour votre <strong>déménagement à Noisy-le-Sec (93130)</strong>, repérez les accès avant de choisir les moyens de manutention : dimensions des portes et de l’ascenseur, paliers, marches et distance entre le véhicule et l’entrée. Dans une résidence, demandez les créneaux et les consignes du gestionnaire pour les parties communes. Le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> aide à préparer l’inventaire ; ajoutez les objets fragiles, les meubles à démonter et les biens situés dans une cave ou un local annexe.",
+      "La <a href=\"https://splbalbynoise.fr/stationnement/\" class=\"text-accent hover:underline\">SPL Balbynoise présente le stationnement à Noisy-le-Sec</a> en zones bleue, rouge et orange. Repérez votre adresse sur la carte et vérifiez la signalisation sur place. Ces informations concernent le stationnement courant : elles ne valent pas réservation d’emplacement pour le camion. Contactez la <a href=\"https://lannuaire.service-public.gouv.fr/ile-de-france/seine-saint-denis/6492d223-530f-4f79-9df9-155e3a564f40\" class=\"text-accent hover:underline\">mairie de Noisy-le-Sec</a> pour être orienté vers le service compétent et faire confirmer les démarches, délais et conditions applicables au véhicule ou à un appareil de levage. Convenez dans le devis de la répartition des demandes, de la signalisation et des frais.",
+      "Comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">formules de déménagement</a> pour choisir les tâches d’emballage, de démontage et de remise en place à déléguer. Un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> peut être étudié selon les ouvertures, la façade, les obstacles et les autorisations. Pour un <a href=\"/demenagement-entreprises-paris\" class=\"text-accent hover:underline\">transfert de bureaux</a>, dressez l’inventaire par poste et précisez les accès de livraison ainsi que le planning de reprise souhaité. Vers <a href=\"/demenagement-bondy\" class=\"text-accent hover:underline\">Bondy</a>, <a href=\"/demenagement-romainville\" class=\"text-accent hover:underline\">Romainville</a> ou <a href=\"/demenagement-bobigny\" class=\"text-accent hover:underline\">Bobigny</a>, décrivez aussi les accès à l’arrivée. Retrouvez les secteurs de <a href=\"/demenagement-seine-saint-denis\" class=\"text-accent hover:underline\">Seine-Saint-Denis</a> ou <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">préparez votre devis à Noisy-le-Sec</a>."
     ],
     "faqs": [
       {
-        "q": "Quelles sont les spécificités d'un transfert à Noisy-le-Sec ?",
-        "a": "Noisy-le-Sec offre une diversité de quartiers, des secteurs pavillonnaires aux zones plus denses en centre-ville. Chaque opération nécessite une logistique préparée, notamment pour l'accès aux immeubles et le stationnement, que nous étudions lors de notre visite technique."
+        "q": "Que vérifier pour le stationnement d’un déménagement à Noisy-le-Sec ?",
+        "a": "Repérez la zone et la signalisation à votre adresse, puis faites confirmer par le service compétent les modalités pour le camion et le matériel utilisé. Les informations sur les zones bleue, rouge et orange concernent le stationnement courant. Un paiement ou un abonnement ne doit pas être assimilé à une réservation d’emplacement pour le déménagement."
       },
       {
-        "q": "Comment Marne Transdem gère le stationnement à Noisy-le-Sec (93130) ?",
-        "a": "Nous prenons en charge la totalité de la gestion administrative auprès de la Mairie de Noisy-le-Sec pour obtenir votre Autorisation d'Occupation Temporaire (AOT). Nous posons également la signalétique 48h avant le déménagement pour garantir un emplacement libéré."
+        "q": "La pose de panneaux 48 heures avant garantit-elle une place libre ?",
+        "a": "Ne présumez pas d’un délai de pose ni d’un emplacement disponible sur cette seule base. Les prescriptions de signalisation et les délais doivent être confirmés pour votre opération auprès du service compétent. La personne chargée des démarches, de la pose et des frais doit être précisée dans le devis."
       },
       {
-        "q": "Proposez-vous des services de transfert de bureaux à Noisy-le-Sec ?",
-        "a": "Bien sûr. Nos équipes sont formées pour le transfert de bureaux et locaux professionnels à Noisy-le-Sec, en veillant à minimiser l'interruption de votre activité grâce à une planification rigoureuse et des équipements de protection adaptés."
+        "q": "Comment préparer les accès de mon logement à Noisy-le-Sec ?",
+        "a": "Mesurez les portes, les paliers et l’ascenseur, puis indiquez les étages, les marches et la distance entre le camion et l’entrée. Signalez les meubles encombrants et les possibilités de démontage. Des photos des passages difficiles permettent de compléter les informations ; les modalités d’une éventuelle visite sont à convenir avec l’équipe."
       },
       {
-        "q": "Comment planifier mon estimation à Noisy-le-Sec ?",
-        "a": "Contactez Marne Transdem par téléphone ou via le formulaire de demande de devis pour votre projet à Noisy Le Sec. Indiquez les adresses de départ et d’arrivée, la période envisagée, le volume estimé, les accès et les prestations souhaitées. Si une visite est nécessaire, ses modalités sont à convenir avec l’équipe. Demandez également le délai de remise du devis selon les informations restant à préciser."
+        "q": "Quelles informations fournir pour un transfert de bureaux à Noisy-le-Sec ?",
+        "a": "Préparez un inventaire par poste ou par service avec les archives et les équipements particuliers. Précisez les accès de livraison, les créneaux et les étapes de reprise souhaitées. Les opérations de préparation, les déconnexions et les responsabilités de chaque intervenant sont à convenir dans le devis."
+      },
+      {
+        "q": "Comment demander un devis de déménagement à Noisy-le-Sec ?",
+        "a": "Indiquez les adresses de départ et d’arrivée, la période envisagée, le volume estimé et les contraintes d’accès. Ajoutez vos besoins d’emballage, de démontage ou de stockage. Si un monte-meuble est envisagé, transmettez l’étage et des photos de la façade et de l’emplacement extérieur ; la solution dépend de l’étude technique et des autorisations."
       }
     ],
     "nearbySectors": [
+      {
+        "n": "Seine-Saint-Denis",
+        "l": "/demenagement-seine-saint-denis"
+      },
       {
         "n": "Bondy",
         "l": "/demenagement-bondy"
@@ -4409,20 +4417,12 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-romainville"
       },
       {
-        "n": "Pantin",
-        "l": "/demenagement-pantin"
-      },
-      {
         "n": "Bobigny",
         "l": "/demenagement-bobigny"
       },
       {
-        "n": "Drancy",
-        "l": "/demenagement-drancy"
-      },
-      {
-        "n": "Seine-Saint-Denis (93)",
-        "l": "/demenagement-seine-saint-denis"
+        "n": "Pantin",
+        "l": "/demenagement-pantin"
       }
     ]
   },
