@@ -5268,37 +5268,38 @@ export const sectorsData: Sector[] = [
     "seoTitle": "Déménagement Paris 9e : devis gratuit | Marne Transdem",
     "seoDescription": "Déménagement à Paris 9e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 9e, avec une organisation adaptée aux appartements, bureaux, commerces et contraintes d’accès du centre parisien.",
+    "heroSubtitle": "Un appartement, un studio ou des bureaux à Paris 9e : préparez le volume, les passages et le stationnement pour choisir les prestations utiles à votre déménagement.",
     "introParagraphs": [
-      "Le <span class=\"font-bold text-slate-700\">Paris 9e</span> est un arrondissement central et dynamique, caractérisé par son mélange d’<span class=\"font-bold text-slate-700\">appartements</span> de grand standing, de <span class=\"font-bold text-slate-700\">studios</span> étudiants et de prestigieux <span class=\"font-bold text-slate-700\">immeubles anciens</span>. C'est également un quartier d'affaires essentiel abritant de nombreux <span class=\"font-bold text-slate-700\">bureaux</span>, agences, <span class=\"font-bold text-slate-700\">cabinets professionnels</span> et commerces de proximité.",
-      "Qu'il s'agisse d'un logement familial ou d'un siège social, Marne Transdem maîtrise les spécificités du 9e : <span class=\"font-bold text-slate-700\">escaliers</span> parfois dépourvus d'ascenseurs, rues très fréquentées et gestion du <span class=\"font-bold text-slate-700\">stationnement</span>. Notre proximité avec <span class=\"font-bold text-slate-700\">Paris 8e</span>, <span class=\"font-bold text-slate-700\">10e</span>, <span class=\"font-bold text-slate-700\">17e</span> et <span class=\"font-bold text-slate-700\">18e</span> nous permet d'intervenir avec réactivité pour toute <span class=\"font-bold text-slate-700\">demande de devis</span> ou estimation de volume."
+      "Pour préparer votre <strong>déménagement à Paris 9e (75009)</strong>, décrivez les accès de votre adresse plutôt que de vous limiter à la surface du logement. Dans les secteurs des Grands Boulevards ou de la Nouvelle Athènes, relevez l’étage, les dimensions de l’ascenseur, les passages de l’escalier et la distance entre l’entrée et l’emplacement envisagé pour le camion. Signalez une cour, des marches ou un meuble qui ne passe pas par les accès habituels : ces informations servent à organiser la manutention.",
+      "Faites ensuite l’inventaire des meubles, cartons et biens à préparer. Notre <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> vous aide à établir une première liste, à compléter avec les dimensions des objets encombrants. Un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> peut être étudié si les passages intérieurs sont insuffisants ; sa hauteur disponible ne suffit pas à confirmer l’installation. Il faut également examiner l’accès à la façade, l’emprise au sol et les autorisations nécessaires.",
+      "Pour des <a href=\"/transfert-bureaux-paris\" class=\"text-accent hover:underline\">bureaux à transférer à Paris 9e</a>, ajoutez les créneaux d’accès, les consignes du gestionnaire et l’inventaire des postes de travail et archives. Pour un logement, comparez nos <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">formules Économique, Standard et Luxe</a> selon les tâches que vous souhaitez confier à l’équipe. Renseignez les accès à l’arrivée avec autant de soin, notamment pour un trajet vers <a href=\"/demenagement-paris-8\" class=\"text-accent hover:underline\">Paris 8e</a> ou <a href=\"/demenagement-paris-10\" class=\"text-accent hover:underline\">Paris 10e</a>, puis <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">demandez votre devis pour Paris 9e</a>. Les prestations retenues seront précisées dans votre devis personnalisé."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Paris 9e ?",
-        "a": "Un déménagement dans le 9e arrondissement nécessite une planification rigoureuse en raison de la densité urbaine, des rues très fréquentées et de l’activité commerciale intense. Il est essentiel d'anticiper le stationnement et d'évaluer les accès de l’immeuble (escaliers, ascenseurs, cour). Marne Transdem vous aide à coordonner ces éléments pour une transition fluide."
+        "q": "Quelles informations transmettre pour un devis à Paris 9e ?",
+        "a": "Indiquez les deux adresses, la période envisagée, les étages et les ascenseurs. Ajoutez l’inventaire des meubles et cartons, les dimensions des objets encombrants et les difficultés de passage ou de stationnement. Précisez séparément ce que vous souhaitez déléguer pour l’emballage et le démontage."
       },
       {
-        "q": "Marne Transdem intervient-elle dans tout le 9e arrondissement ?",
-        "a": "Oui, nous accompagnons les particuliers et les entreprises dans tous les quartiers du 9e arrondissement, des Grands Boulevards à la Nouvelle Athènes, ainsi que dans les secteurs adjacents comme les 8e, 10e, 17e et 18e arrondissements."
+        "q": "Comment préparer un déménagement sans ascenseur à Paris 9e ?",
+        "a": "Relevez les dimensions des passages, les virages de l’escalier et les étages à parcourir. Signalez les meubles démontables et ceux qui ne passent pas par l’intérieur. Ces éléments permettent d’étudier la manutention et, si nécessaire, la faisabilité d’un monte-meuble avant de confirmer l’organisation."
       },
       {
-        "q": "Peut-on demander un monte-meuble à Paris 9e ?",
-        "a": "L’utilisation d’un monte-meuble est souvent recommandée à Paris 9e pour les immeubles aux escaliers étroits ou aux ascenseurs exigus. Sa mise en place est possible sous réserve de faisabilité technique liée à la configuration de la rue, de l'espace de stationnement et de l'autorisation nécessaire."
+        "q": "Un monte-meuble peut-il être installé à toutes les adresses ?",
+        "a": "Non. La faisabilité dépend notamment de l’accès à la façade, de l’espace disponible au sol, des obstacles et des autorisations nécessaires. Transmettez des photos et les informations d’accès à l’équipe pour étudier votre adresse ; le nombre d’étages seul ne permet pas de confirmer une installation."
       },
       {
-        "q": "Quelle formule choisir pour un déménagement à Paris 9e ?",
-        "a": "Tout dépend de votre budget et de votre besoin d'accompagnement. La formule Économique est idéale si vous préparez vos cartons. La formule Standard est la plus équilibrée pour déléguer les objets fragiles. La formule Luxe est une solution complète où Marne Transdem prend en charge une grande partie de l'organisation."
+        "q": "Comment choisir les prestations d’emballage et de démontage ?",
+        "a": "Listez les cartons courants, les objets fragiles et les meubles à démonter. Comparez les formules selon les tâches que vous souhaitez réaliser vous-même et celles que vous voulez déléguer. L’emballage, le déballage et le démontage effectivement retenus doivent être précisés dans votre devis."
       },
       {
-        "q": "Comment obtenir un devis pour un déménagement à Paris 9e ?",
-        "a": "Vous pouvez effectuer une demande de devis gratuit via notre formulaire en ligne ou par téléphone. Nous estimerons votre projet en tenant compte du volume, de la distance, des étages et des spécificités d'accès propres au centre de Paris."
+        "q": "Que prévoir pour transférer des bureaux dans le 9e arrondissement ?",
+        "a": "Préparez l’inventaire du mobilier, des postes de travail et des archives, puis communiquez les créneaux d’accès et les consignes du gestionnaire. Désignez qui réalise les sauvegardes, la déconnexion et le rebranchement informatique. Le transport ne doit pas être confondu avec ces opérations techniques."
       }
     ],
     "nearbySectors": [
       {
         "n": "Paris 8e",
-        "l": "/secteurs-desservis"
+        "l": "/demenagement-paris-8"
       },
       {
         "n": "Paris 10e",
