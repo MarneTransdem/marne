@@ -357,7 +357,20 @@ export const QuoteForm: React.FC = () => {
   );
   const uncertain: [string, string][] = [['À préciser', 'À préciser'], ['oui', 'Oui'], ['non', 'Non']];
   const steps = ['Votre trajet', 'Vos besoins', 'Vos coordonnées'];
-  const routeLabel = (side: 'from' | 'to') => [formData[`${side}Address`], formData[`${side}City`], formData[`${side}Zip`]].filter(Boolean).join(' · ') || 'À préciser ensemble';
+  const routeLabel = (side: 'from' | 'to') => {
+    const parts: string[] = [];
+    const normalize = (value: string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('fr').replace(/[^a-z0-9]+/g, ' ').trim();
+    for (const value of [formData[`${side}Address`], formData[`${side}City`], formData[`${side}Zip`]]) {
+      const trimmed = value.trim();
+      const normalized = normalize(trimmed);
+      // Match complete words so a partial name cannot hide a distinct locality.
+      if (normalized && !parts.some(part => ` ${normalize(part)} `.includes(` ${normalized} `))) parts.push(trimmed);
+    }
+    return parts.join(' · ') || 'À préciser ensemble';
+  };
+  // Calculator imports already include their unit; free text can describe an unknown volume.
+  const volumeLabel = /^\d+(?:[.,]\d+)?\s*\+?$/.test(formData.volume.trim())
+    ? `${formData.volume.trim()} m³` : formData.volume.trim() || 'Volume à estimer';
   const formulaLabel = ({economique:'Économique',standard:'Standard',luxe:'Luxe'} as Record<string,string>)[formData.formula] || 'À définir ensemble';
   return (
     <div className="quote-wizard">
@@ -420,7 +433,7 @@ export const QuoteForm: React.FC = () => {
           <div hidden={step !== 3}>
             <div className="quote-recap"><h4>Votre projet en un coup d’œil</h4>
               <div><p><strong>Départ</strong>{routeLabel('from')}<strong>Arrivée</strong>{routeLabel('to')}<strong>Quand ?</strong>{dateMode === 'flexible' ? period || 'Période flexible à préciser' : dateMode === 'date' && formData.date ? formData.date.split('-').reverse().join('/') : 'À préciser ensemble'}</p><button type="button" onClick={() => setStep(1)}>Modifier le trajet</button></div>
-              <div><p><strong>Accompagnement</strong>{formulaLabel} · {formData.volume || 'Volume à estimer'}</p><button type="button" onClick={() => setStep(2)}>Modifier les besoins</button></div>
+              <div><p><strong>Accompagnement</strong>{formulaLabel} · {volumeLabel}</p><button type="button" onClick={() => setStep(2)}>Modifier les besoins</button></div>
             </div>
             {field('fullName','Nom et prénom',{autoComplete:'name',required:true,maxLength:100})}
             <div className="quote-grid">{field('phone','Téléphone',{type:'tel',autoComplete:'tel',required:true,maxLength:25})}{field('email','Email',{type:'email',autoComplete:'email',required:true,maxLength:254})}</div>
