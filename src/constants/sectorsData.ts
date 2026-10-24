@@ -4591,31 +4591,33 @@ export const sectorsData: Sector[] = [
     "seoTitle": "Déménagement Paris 12e : devis gratuit | Marne Transdem",
     "seoDescription": "Déménagement à Paris 12e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 12e, à proximité de Vincennes, Saint-Mandé et des arrondissements voisins.",
+    "heroSubtitle": "Appartement, maison ou bureaux à Paris 12e : préparez votre volume, les accès aux deux adresses et les prestations à confier à Marne Transdem.",
     "introParagraphs": [
-      "Quartier résidentiel et dynamique, le <span class=\"font-bold text-slate-700\">Paris 12e</span> offre un cadre de vie prisé entre la Gare de Lyon et le Bois de Vincennes. Marne Transdem est le partenaire privilégié des familles et des professionnels pour tout projet de mobilité dans ce secteur. Qu'il s'agisse de <span class=\"font-bold text-slate-700\">logements familiaux</span> spacieux ou d'appartements plus typiques, nous maîtrisons chaque aspect logistique.",
-      "Nous intervenons pour les déménagements de <span class=\"font-bold text-slate-700\">particuliers</span> et d'entreprises, en portant une attention particulière aux contraintes d'<span class=\"font-bold text-slate-700\">accès d'immeubles</span>. La gestion des <span class=\"font-bold text-slate-700\">étages</span>, des <span class=\"font-bold text-slate-700\">ascenseurs</span> parfois étroits et du <span class=\"font-bold text-slate-700\">stationnement</span> complexe demande une expertise que nous mettons à votre service. Notre proximité avec <span class=\"font-bold text-slate-700\">Vincennes et Saint-Mandé</span> nous permet une réactivité optimale pour votre <span class=\"font-bold text-slate-700\">demande de devis</span>."
+      "De Bel-Air et Picpus à Bercy et aux Quinze-Vingts, préparez votre <strong>déménagement à Paris 12e</strong> à partir de votre adresse réelle. Précisez le type de logement ou de locaux, la date envisagée et la destination. Une intervention près de la gare de Lyon et un départ depuis une résidence avec cour intérieure ne présentent pas nécessairement les mêmes accès : transmettez les informations sur le bâtiment plutôt que de vous limiter au nom du quartier.",
+      "Pour un <a href=\"/demenagement-particuliers-paris\">déménagement de particulier</a>, listez les meubles, les cartons et les annexes à vider. Indiquez les étages, les dimensions utiles de l’ascenseur, les passages étroits et la distance de portage aux deux adresses. Le <a href=\"/calculateur-volume\">calculateur de volume en m³</a> prépare une première estimation à préciser avec votre inventaire ; la surface du logement ne suffit pas à fixer le volume ou le prix.",
+      "Vous transférez des <strong>bureaux ou des locaux dans le 12e</strong> ? Recensez les postes de travail, le mobilier, les archives et les équipements à transporter. Définissez les horaires d’accès autorisés dans chaque bâtiment, les personnes chargées des clés et badges, ainsi que l’ordre de remise en place. Notre page <a href=\"/transfert-bureaux-paris\">transfert de bureaux à Paris</a> vous aide à préparer ces points avant de convenir du périmètre et du calendrier dans le devis.",
+      "Pour le camion et un éventuel <a href=\"/location-monte-meuble-paris\">monte-meuble</a>, signalez les possibilités de stationnement et les contraintes de passage ou de façade. La faisabilité du matériel et les démarches à prévoir doivent être confirmées pour votre adresse. Comparez ensuite les <a href=\"/formules-demenagement\">formules Économique, Standard et Luxe</a> sur le même inventaire : emballage, démontage, remontage et éventuel stockage doivent être précisés dans votre <a href=\"/demande-de-devis\">demande de devis pour Paris 12e</a>."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Paris 12e ?",
-        "a": "L'organisation d'un déménagement dans le 12e arrondissement demande d'anticiper le volume, les accès (étages, ascenseurs) et les autorisations de stationnement. Marne Transdem vous accompagne dès la visite technique pour planifier chaque étape en toute sérénité."
+        "q": "Quelles informations fournir pour un devis de déménagement à Paris 12e ?",
+        "a": "Indiquez les adresses de départ et d’arrivée, la date ou la période souhaitée, les meubles et cartons à transporter, les annexes et les accès des deux bâtiments. Précisez les étages, ascenseurs, distances de portage et prestations souhaitées. Ces informations permettent de préparer un devis adapté plutôt qu’un montant fondé sur la seule surface."
       },
       {
-        "q": "Marne Transdem intervient-elle dans tout le 12e arrondissement ?",
-        "a": "Oui, nous intervenons dans tous les quartiers du 12e : de Bel-Air à Picpus, en passant par Bercy et les Quinze-Vingts, ainsi qu'à proximité de la gare de Lyon et du bois de Vincennes."
+        "q": "Intervenez-vous à Bel-Air, Picpus, Bercy et aux Quinze-Vingts ?",
+        "a": "Oui, Marne Transdem accompagne les projets dans les quartiers du 12e arrondissement. Lors de votre demande, donnez l’adresse exacte et les contraintes du bâtiment ; le quartier seul ne permet pas de déterminer les accès, les moyens nécessaires ou les disponibilités à votre date."
       },
       {
-        "q": "Peut-on demander un monte-meuble à Paris 12e ?",
-        "a": "Absolument. Selon la configuration de votre immeuble et la faisabilité technique, nous pouvons mettre à disposition un monte-meuble pour faciliter le passage de mobilier volumineux par les fenêtres."
+        "q": "Comment préparer un transfert de bureaux dans Paris 12e ?",
+        "a": "Recensez le mobilier, les postes de travail, les archives et les équipements. Convenez des horaires d’accès, des contacts sur place, des clés ou badges nécessaires et de l’ordre de réinstallation. Définissez avec l’équipe les tâches prises en charge et le calendrier dans le devis, sans supposer une interruption d’activité nulle."
       },
       {
-        "q": "Quelle formule choisir pour un déménagement à Paris 12e ?",
-        "a": "Le choix dépend de votre budget et du temps dont vous disposez. Nous proposons trois formules : Économique (essentiel), Standard (équilibre avec emballage fragile) et Luxe (clé en main)."
+        "q": "Un monte-meuble est-il possible pour mon immeuble dans le 12e ?",
+        "a": "Il faut étudier l’accès à la façade, l’emplacement au sol, l’étage, les ouvertures et les meubles concernés. Signalez les contraintes de stationnement et de passage. Le choix du matériel et les démarches nécessaires sont à confirmer après étude ; la présence d’une fenêtre ou d’un balcon ne suffit pas à garantir son utilisation."
       },
       {
-        "q": "Comment obtenir un devis pour un déménagement à Paris 12e ?",
-        "a": "Vous pouvez remplir notre formulaire en ligne ou nous appeler directement. Nous réalisons une estimation gratuite et sans engagement basée sur votre volume et vos contraintes spécifiques."
+        "q": "Comment choisir la formule de déménagement pour un appartement à Paris 12e ?",
+        "a": "Précisez ce que vous préparez vous-même et ce que vous souhaitez confier à l’équipe : cartons, objets fragiles, démontage, remontage et installation. Comparez Économique, Standard et Luxe avec le même inventaire et les mêmes accès. La liste des prestations retenues dans le devis fait référence pour votre projet."
       }
     ],
     "nearbySectors": [
