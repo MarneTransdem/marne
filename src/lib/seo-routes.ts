@@ -34,6 +34,8 @@ export type SeoRoute = {
 };
 
 export const CANONICAL_ALIASES: Record<string, string> = {
+  '/demenagement-entreprise-sans-interruptions': '/demenagement-entreprises-paris',
+  '/blog/demenagement-bureaux-paris': '/blog/demenagement-entreprise-paris-checklist',
   // Legacy URLs observed in production request logs (October 2026).
   '/demenagement-sans-stress-paris-region-parisienne': '/blog/10-conseils-demenagement-sans-stress-paris',
   '/images/PDF/formule-luxe.pdf': '/formules-demenagement',

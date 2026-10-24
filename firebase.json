@@ -23,6 +23,8 @@
       }
     ],
     "redirects": [
+      {"source":"/demenagement-entreprise-sans-interruptions","destination":"/demenagement-entreprises-paris","type":301},
+      {"source":"/blog/demenagement-bureaux-paris","destination":"/blog/demenagement-entreprise-paris-checklist","type":301},
       {"source":"/demenagement-sans-stress-paris-region-parisienne","destination":"/blog/10-conseils-demenagement-sans-stress-paris","type":301},
       {"source":"/images/PDF/formule-luxe.pdf","destination":"/formules-demenagement","type":301},
       {"source":"/formules-de-demenagement","destination":"/formules-demenagement","type":301},
