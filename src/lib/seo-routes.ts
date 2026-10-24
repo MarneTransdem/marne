@@ -252,10 +252,10 @@ export const BLOG_POST_ROUTES: Array<Omit<SeoRoute, 'canonicalPath' | 'status'>>
   },
   {
     path: '/blog/combien-coute-demenagement-paris',
-    title: 'Combien coûte un déménagement à Paris ? Prix, critères et devis | Marne Transdem',
-    h1: 'Combien coûte un déménagement à Paris ? Budget et comparaison des devis',
+    title: 'Prix déménagement Paris : studio et devis | Marne Transdem',
+    h1: 'Prix d’un déménagement à Paris : studio et appartement',
     description:
-      'Prix d’un déménagement à Paris : repères de budget, volume, accès et prestations. Découvrez les points à vérifier pour comparer vos devis à service égal.',
+      'Quel budget pour déménager un studio ou un appartement à Paris ? Comparez les fourchettes, le volume et les accès, puis préparez votre devis personnalisé.',
   },
   {
     path: '/blog/comment-estimer-volume-demenagement',

@@ -440,12 +440,12 @@ const posts: Record<string, BlogPostData> = {
   },
   'combien-coute-demenagement-paris': {
     slug: 'combien-coute-demenagement-paris',
-    title: 'Combien coûte un déménagement à Paris ? Budget et comparaison des devis',
+    title: 'Prix d’un déménagement à Paris : studio et appartement',
     excerpt:
       'Volume, accès, trajet et prestations : comprenez les critères du prix et utilisez notre grille pour comparer les devis de déménagement à Paris.',
-    metaTitle: 'Combien coûte un déménagement à Paris ? Prix, critères et devis | Marne Transdem',
+    metaTitle: 'Prix déménagement Paris : studio et devis | Marne Transdem',
     metaDesc:
-      'Prix d’un déménagement à Paris : repères de budget, volume, accès et prestations. Découvrez les points à vérifier pour comparer vos devis à service égal.',
+      'Quel budget pour déménager un studio ou un appartement à Paris ? Comparez les fourchettes, le volume et les accès, puis préparez votre devis personnalisé.',
     keywords:
       'prix déménagement Paris, tarif déménagement Paris, devis déménagement Paris, combien coûte un déménagement à Paris, prix déménageur Paris, coût déménagement appartement Paris, déménagement Paris pas cher, devis déménagement appartement Paris, prix déménagement m3',
     date: '18 mai 2026',
@@ -498,6 +498,10 @@ const posts: Record<string, BlogPostData> = {
     content: `
       <p class="lead">Le prix d’un déménagement à Paris peut varier fortement d’un logement à l’autre. Deux appartements de même surface ne coûteront pas forcément le même prix à déménager. Pourquoi ? Parce qu’un déménagement ne dépend pas seulement du volume à transporter. Il dépend aussi de l’étage, de l’ascenseur, de la distance de portage, du stationnement, de la période choisie, de la formule souhaitée, du besoin éventuel d’un monte-meuble et des contraintes propres aux immeubles parisiens.</p>
 
+      <h2 id="prix-studio" class="scroll-mt-32">Quel prix pour déménager un studio à Paris ?</h2>
+      <p>Pour un premier repère, le tableau de ce guide indique <strong>400 à 800 € pour une chambre ou un petit studio de 8 à 12 m³</strong>, et <strong>500 à 900 € pour un studio équipé de 10 à 15 m³</strong>. Ces fourchettes sont indicatives : elles ne constituent ni un tarif Marne Transdem, ni un minimum garanti, ni un plafond. Le volume doit être confirmé à partir des meubles, des cartons et des éventuelles annexes, plutôt que de la seule surface du logement.</p>
+      <p>Le montant de votre devis dépend ensuite du trajet, des accès aux deux adresses, de la saison et des prestations retenues. Un étage sans ascenseur, une longue distance de portage, un meuble à démonter ou un monte-meuble peuvent modifier le budget. Consultez le <a href="#budget-volume">tableau des budgets selon le volume</a>, puis <a href="/demande-de-devis">demandez un devis pour votre studio</a> en précisant ces contraintes. Si vous hésitez sur le cubage, préparez votre inventaire avec le <a href="/calculateur-volume">calculateur de volume en m³</a>.</p>
+
       <p>Un studio au rez-de-chaussée avec stationnement facile ne représente pas la même organisation qu’un appartement familial au 5e étage sans ascenseur, situé dans une rue étroite du 11e, du 12e, du 15e ou du 20e arrondissement. À Paris, la logistique compte autant que le volume.</p>
 
       <p>Pour comparer deux devis, partez du même inventaire, des mêmes accès et du même niveau de service. Demandez que le montant TTC, les options et les éventuels frais de stationnement soient explicités. Une estimation générale ne remplace pas l’étude de votre projet.</p>
@@ -509,6 +513,7 @@ const posts: Record<string, BlogPostData> = {
       <nav aria-label="Sommaire du guide des prix" class="not-prose my-8 rounded-2xl bg-slate-50 p-6 border border-slate-200">
         <p class="font-bold text-brand-900 mb-3">Dans ce guide</p>
         <ul class="grid gap-3 text-sm sm:grid-cols-2">
+          <li><a href="#prix-studio" class="underline">Prix d’un studio à Paris</a></li>
           <li><a href="#budget-volume" class="underline">Budget et volume</a></li>
           <li><a href="#situations" class="underline">Situations à faire chiffrer</a></li>
           <li><a href="#comparer-devis" class="underline">Grille de comparaison des devis</a></li>

@@ -101,7 +101,7 @@ const posts: BlogPost[] = [
   {
     id: 'combien-coute-demenagement-paris',
     slug: 'combien-coute-demenagement-paris',
-    title: 'Combien coûte un déménagement à Paris ? Budget et comparaison des devis',
+    title: 'Prix d’un déménagement à Paris : studio et appartement',
     excerpt:
       'Volume, étage, ascenseur, stationnement, monte-meuble, distance et formule choisie : découvrez les critères qui influencent le prix d’un déménagement à Paris.',
     date: '18 mai 2026',
