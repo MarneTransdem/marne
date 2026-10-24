@@ -182,7 +182,7 @@ export const sectorsData: Sector[] = [
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Antony, avec une organisation adaptée aux appartements, maisons, résidences et bureaux du sud des Hauts-de-Seine.",
     "introParagraphs": [
       "Antony est une ville importante, résidentielle et familiale du sud des Hauts-de-Seine, idéalement située à proximité de Sceaux, Bourg-la-Reine, Châtenay-Malabry, Massy, Fresnes, Verrières-le-Buisson et Rungis.",
-      "Pour les professionnels, nous organisons les transferts de bureaux, commerces, cabinets et agences à Antony, avec une logistique adaptée pour assurer la continuité de votre activité au cœur des Hauts-de-Seine."
+      "Pour un transfert de bureaux à Antony, recensez les postes de travail, les archives et les équipements particuliers. Repérez leur destination dans les nouveaux locaux et indiquez les créneaux de livraison autorisés. Le planning et la répartition des opérations de préparation sont à convenir avant l’intervention."
     ],
     "faqs": [
       {
@@ -706,7 +706,7 @@ export const sectorsData: Sector[] = [
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Bourg-la-Reine, avec une organisation adaptée aux appartements, maisons et bureaux du sud des Hauts-de-Seine.",
     "introParagraphs": [
       "Bourg-la-Reine est une ville résidentielle, familiale et recherchée des Hauts-de-Seine, bénéficiant d'une proximité privilégiée avec Sceaux, Antony, Bagneux, Cachan, L’Haÿ-les-Roses, Fontenay-aux-Roses, Arcueil et Paris sud.",
-      "Pour les professionnels, nous organisons les transferts de bureaux, commerces, cabinets et agences à Bourg-la-Reine, avec une logistique adaptée pour assurer la continuité de votre activité au cœur des Hauts-de-Seine."
+      "Pour déplacer un cabinet, une agence ou des bureaux à Bourg-la-Reine, distinguez le mobilier, les archives et les équipements à préparer. Signalez les contraintes d’accès aux deux locaux et les dates souhaitées. L’emballage, le démontage et les responsabilités de chaque intervenant doivent être précisés dans le devis."
     ],
     "faqs": [
       {
@@ -919,7 +919,7 @@ export const sectorsData: Sector[] = [
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Châtenay-Malabry, avec une organisation adaptée aux appartements, maisons, résidences et bureaux du sud des Hauts-de-Seine.",
     "introParagraphs": [
       "Châtenay-Malabry est une ville résidentielle, familiale et verdoyante des Hauts-de-Seine, bénéficiant d'une proximité immédiate avec Antony, Sceaux, Le Plessis-Robinson, Fontenay-aux-Roses, Clamart et Massy.",
-      "Pour les professionnels, nous organisons les transferts de bureaux, commerces, cabinets et agences à Châtenay-Malabry, avec une logistique adaptée pour assurer la continuité de votre activité au sud de Paris."
+      "Pour un transfert professionnel à Châtenay-Malabry, préparez un inventaire par pièce ou par service et identifiez les biens qui demandent un conditionnement particulier. Indiquez les accès de chargement et de livraison ainsi que les créneaux autorisés. Les étapes du transfert et de la remise en place sont à définir avec votre entreprise."
     ],
     "faqs": [
       {
@@ -980,7 +980,7 @@ export const sectorsData: Sector[] = [
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Châtillon, avec une organisation adaptée aux appartements, maisons et commerces du sud parisien.",
     "introParagraphs": [
       "Châtillon est une ville résidentielle, urbaine et familiale des Hauts-de-Seine, située à proximité immédiate de Montrouge, Malakoff, Clamart, Bagneux, Fontenay-aux-Roses, Vanves, Paris 14e et Paris 15e. Ce secteur dense du sud parisien demande une préparation rigoureuse des accès et de la logistique.",
-      "Pour les professionnels, nous organisons les transferts de bureaux, commerces, cabinets et agences de professions libérales à Châtillon, avec une rigueur garantissant la continuité de votre activité locale."
+      "Pour déménager des bureaux ou un commerce à Châtillon, précisez les horaires d’accès aux locaux et la disponibilité des ascenseurs ou monte-charges lorsqu’ils existent. Identifiez le mobilier à démonter et les équipements dont la déconnexion relève d’un intervenant dédié. Convenez du calendrier et des prestations avant de confirmer le transfert."
     ],
     "faqs": [
       {
@@ -1699,7 +1699,7 @@ export const sectorsData: Sector[] = [
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Fontenay-aux-Roses, avec une organisation adaptée aux appartements, maisons et résidences du sud des Hauts-de-Seine.",
     "introParagraphs": [
       "Fontenay-aux-Roses est une ville résidentielle, familiale et calme des Hauts-de-Seine, profitant d'une proximité immédiate avec Bagneux, Châtillon, Clamart, Sceaux, Bourg-la-Reine, Le Plessis-Robinson et Paris sud.",
-      "Pour les professionnels, nous organisons les transferts de bureaux, commerces, cabinets et agences de professions libérales à Fontenay-aux-Roses, avec une rigueur garantissant la continuité de votre activité au cœur d'un environnement préservé."
+      "Pour votre transfert professionnel à Fontenay-aux-Roses, classez le mobilier et les archives par destination afin de préparer leur remise en place. Signalez les objets fragiles et les conditions d’accès aux deux sites. Les tâches d’emballage, de démontage et de préparation des équipements sont à répartir dans le devis."
     ],
     "faqs": [
       {
@@ -2690,7 +2690,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "q": "Proposez-vous des prestations de transfert d'entreprises ou de bureaux à Joinville-le-Pont ?",
-        "a": "Parfaitement. Joinville-le-Pont profite d'un tissu économique actif, notamment autour du quartier d'affaires de Palissy ou de la zone industrielle. Nous accompagnons les professionnels, commerces et libéraux locaux avec des formules de transfert de bureaux prêtes à l'emploi : emballage méthodique des archives, étiquetage précis des postes de travail, conditionnement étanche et antistatique du parc informatique, et manutention de charges lourdes. Pour garantir votre continuité opérationnelle, nos équipes interviennent volontiers de nuit ou durant le week-end."
+        "a": "Oui, nous accompagnons les transferts de bureaux et de locaux professionnels à Joinville-le-Pont. Préparez un inventaire du mobilier, des archives et des équipements, avec leur destination dans les nouveaux locaux. Indiquez les accès et les créneaux souhaités aux deux adresses. Les protections particulières, les opérations sur le matériel informatique et les horaires spécifiques doivent être étudiés et convenus dans le devis."
       },
       {
         "q": "Quelles garanties offrez-vous pour la sécurité de mon mobilier précieux ?",
@@ -3177,7 +3177,7 @@ export const sectorsData: Sector[] = [
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement au Plessis-Robinson, avec une organisation adaptée aux appartements, maisons, résidences et bureaux du sud des Hauts-de-Seine.",
     "introParagraphs": [
       "Le Plessis-Robinson est une ville résidentielle, familiale et recherchée des Hauts-de-Seine, offrant une qualité de vie remarquable à proximité de Châtenay-Malabry, Clamart, Fontenay-aux-Roses, Sceaux, Antony, Meudon et Vélizy-Villacoublay.",
-      "Pour les professionnels, nous organisons les transferts de bureaux, commerces, cabinets et agences au Plessis-Robinson ou vers Paris sud, avec une logistique adaptée pour garantir la continuité de votre activité locale."
+      "Pour déplacer des bureaux, commerces ou cabinets au Plessis-Robinson, indiquez les biens à transporter et les espaces prévus à destination. Les horaires de livraison, les passages et les moyens de manutention disponibles doivent être examinés aux deux adresses. Le planning est à convenir selon les prestations retenues et les contraintes de votre entreprise."
     ],
     "faqs": [
       {
@@ -3635,7 +3635,7 @@ export const sectorsData: Sector[] = [
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Malakoff, avec une organisation adaptée aux appartements, résidences et locaux professionnels du sud parisien.",
     "introParagraphs": [
       "Malakoff est une ville dense, résidentielle et urbaine des Hauts-de-Seine, profitant d'une proximité immédiate avec Paris 14e, Paris 15e, Vanves, Montrouge, Châtillon et Clamart. Ce secteur du sud parisien est particulièrement dynamique et prisé.",
-      "Pour les professionnels, nous organisons les transferts de bureaux, commerces, cabinets et agences libérales à Malakoff, avec une rigueur garantissant la continuité de votre activité au cœur des Hauts-de-Seine."
+      "Pour un déménagement professionnel à Malakoff, identifiez les postes, le mobilier et les archives à transférer. Précisez qui prépare et déconnecte les équipements, puis signalez les accès et les créneaux autorisés aux deux sites. Un repérage des biens par bureau ou par service aide à organiser leur remise en place."
     ],
     "faqs": [
       {
@@ -5962,7 +5962,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "q": "Proposez-vous des formules adaptées pour les professionnels proches d'Enghien-Soisy ?",
-        "a": "Tout à fait. Nous offrons des solutions sur-mesure de transfert de bureaux, commerces et administrations à Saint-Gratien et sur l'ensemble du pôle Enghien-Soisy. Nos équipes planifient précisément le déménagement, parfois en dehors des heures de bureau habituelles, pour garantir une parfaite continuité de votre activité."
+        "a": "Oui, un transfert de bureaux, commerce ou local professionnel à Saint-Gratien peut être étudié selon votre inventaire et les accès aux deux sites. Précisez les prestations d’emballage, de démontage et de remise en place souhaitées. Les créneaux particuliers et le calendrier sont à convenir avec votre entreprise ; ils ne doivent pas être présumés disponibles avant confirmation."
       },
       {
         "q": "Comment obtenir un devis gratuit pour déménager à Saint-Gratien ?",
@@ -6355,7 +6355,7 @@ export const sectorsData: Sector[] = [
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Sceaux, avec une organisation adaptée aux appartements, maisons et résidences du sud des Hauts-de-Seine.",
     "introParagraphs": [
       "Sceaux est une ville résidentielle, familiale et recherchée des Hauts-de-Seine, profitant d'une proximité directe avec Bourg-la-Reine, Fontenay-aux-Roses, Antony, Châtenay-Malabry, Bagneux, Le Plessis-Robinson, Cachan et Paris sud.",
-      "Pour les professionnels, nous organisons les transferts de bureaux, commerces, cabinets et agences de professions libérales à Sceaux, avec une logistique soignée garantissant la continuité de votre activité au cœur d'un environnement privilégié."
+      "Pour transférer un cabinet, une agence ou des bureaux à Sceaux, préparez un inventaire des meubles et des documents à déplacer. Identifiez les archives nécessitant une organisation particulière et les équipements à préparer séparément. Le calendrier, les accès et les responsabilités de chaque intervenant doivent être convenus avant le déménagement."
     ],
     "faqs": [
       {
@@ -6897,7 +6897,7 @@ export const sectorsData: Sector[] = [
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Vanves, avec une organisation adaptée aux appartements, studios, résidences et commerces du sud-ouest parisien.",
     "introParagraphs": [
       "Ville dense, dynamique et idéalement située dans les Hauts-de-Seine, Vanves profite d'une proximité immédiate avec Paris 15e, Issy-les-Moulineaux, Malakoff, Montrouge et Clamart. Ce secteur du sud-ouest parisien est particulièrement prisé par les familles, les actifs et les étudiants.",
-      "Pour les professionnels, nous organisons les transferts de bureaux, commerces, cabinets et agences de professions libérales à Vanves, avec une rigueur garantissant la continuité de votre activité locale."
+      "Pour votre transfert de bureaux ou de commerce à Vanves, indiquez les créneaux d’accès au départ et à l’arrivée, les possibilités de chargement et les biens à démonter. Repérez la destination des cartons et des postes de travail. Les opérations informatiques et la remise en service doivent être organisées avec les intervenants concernés."
     ],
     "faqs": [
       {
@@ -6954,7 +6954,7 @@ export const sectorsData: Sector[] = [
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Vaucresson, avec une organisation adaptée aux maisons, appartements et résidences de l'ouest parisien.",
     "introParagraphs": [
       "Vaucresson est une ville résidentielle, familiale et calme des Hauts-de-Seine, idéalement située à proximité de Garches, Marnes-la-Coquette, Ville-d’Avray et Saint-Cloud. Ce cadre privilégié de l'ouest parisien est prisé pour ses maisons spacieuses, ses pavillons et ses résidences de standing.",
-      "Pour les professionnels, nous organisons les transferts de bureaux, commerces, cabinets et professions libérales (Le Chesnay-Rocquencourt, Versailles, Rueil-Malmaison) avec une méthodologie rigoureuse assurant la continuité de votre activité."
+      "Pour un transfert professionnel depuis ou vers Vaucresson, décrivez les accès des deux bâtiments et les horaires autorisés pour la manutention. Inventoriez le mobilier, les archives et les équipements, puis précisez les prestations de préparation attendues. Le devis doit définir le périmètre du transport et les responsabilités avant et après celui-ci."
     ],
     "faqs": [
       {
@@ -7027,7 +7027,7 @@ export const sectorsData: Sector[] = [
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Vélizy-Villacoublay, avec une organisation adaptée aux appartements, maisons, bureaux et zones d'activité du sud-ouest francilien.",
     "introParagraphs": [
       "Vélizy-Villacoublay est une ville dynamique des Yvelines, stratégiquement située aux portes des Hauts-de-Seine. À proximité immédiate de Meudon, Clamart, Le Plessis-Robinson, Châtenay-Malabry, Versailles et Paris sud-ouest, elle offre un cadre de vie apprécié et un pôle économique majeur.",
-      "Pour les professionnels, nous organisons les transferts de bureaux, commerces, cabinets et agences avec une logistique adaptée pour garantir la continuité de votre activité dans ce secteur tertiaire dynamique."
+      "Pour déplacer des bureaux ou des locaux professionnels à Vélizy-Villacoublay, identifiez les interlocuteurs des deux sites et les conditions d’accès aux zones de livraison. Recensez séparément mobilier, archives et matériel informatique. Les créneaux, l’emballage et les étapes de remise en place sont à convenir dans la préparation du devis."
     ],
     "faqs": [
       {
@@ -7165,7 +7165,7 @@ export const sectorsData: Sector[] = [
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Ville-d’Avray, avec une organisation adaptée aux appartements, maisons et résidences de l'ouest parisien.",
     "introParagraphs": [
       "Ville-d’Avray est une ville résidentielle, familiale et verdoyante des Hauts-de-Seine, idéalement située à proximité de Saint-Cloud, Sèvres, Chaville, Versailles, Le Chesnay-Rocquencourt et Viroflay. Ce cadre privilégié de l'ouest parisien attire de nombreuses familles et cadres en quête de calme et de nature.",
-      "Pour les professionnels, nous organisons les transferts de bureaux, cabinets, agences et commerces locaux (Garches, Vaucresson, Marnes-la-Coquette) avec une organisation rigoureuse garantissant votre continuité d'activité."
+      "Pour un transfert de bureaux, cabinet ou commerce à Ville-d’Avray, précisez le mobilier, les archives et les équipements concernés. Signalez les contraintes de passage et de stationnement aux deux adresses, ainsi que les créneaux d’intervention souhaités. Convenez des tâches de préparation et des responsabilités de déconnexion avant de fixer l’organisation."
     ],
     "faqs": [
       {
@@ -7409,7 +7409,7 @@ export const sectorsData: Sector[] = [
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Viroflay, avec une organisation adaptée aux appartements, maisons, résidences et contraintes d'accès de l'ouest francilien.",
     "introParagraphs": [
       "Viroflay est une ville résidentielle et familiale prisée des Yvelines, idéalement située entre Versailles et Chaville. À proximité immédiate de Vélizy-Villacoublay, Sèvres, Meudon, Jouy-en-Josas, Ville-d’Avray, Saint-Cloud et Paris ouest, elle offre un cadre de vie verdoyant et dynamique.",
-      "Pour les professionnels, nous organisons les transferts de bureaux, commerces, agences et cabinets libéraux avec une logistique adaptée pour garantir la continuité de votre activité dans ce secteur de l'Île-de-France."
+      "Pour votre déménagement professionnel à Viroflay, dressez un inventaire par service et indiquez la destination des meubles et cartons dans les nouveaux locaux. Précisez les horaires de livraison et les accès utilisables. L’emballage des archives, le démontage et les opérations sur les équipements sont à répartir entre les intervenants avant le transfert."
     ],
     "faqs": [
       {
