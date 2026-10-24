@@ -34,6 +34,12 @@ export type SeoRoute = {
 };
 
 export const CANONICAL_ALIASES: Record<string, string> = {
+  // Legacy URLs observed in production request logs (October 2026).
+  '/formules-de-demenagement': '/formules-demenagement',
+  '/contact-demenageur': '/contact',
+  '/conseils-demenagement': '/blog',
+  '/demenagement-longue-distance-paris-service-marne-transdem': '/demenagement-longue-distance',
+  '/devis-demenagement-en-ligne-obtention-estimation-precise-marne-transdem': '/demande-de-devis',
   '/societe-demenagement-paris': '/',
   '/demenagement-particuliers': '/demenagement-particuliers-paris',
   '/services-demenagement': '/services',

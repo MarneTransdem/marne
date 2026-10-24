@@ -23,6 +23,11 @@
       }
     ],
     "redirects": [
+      {"source":"/formules-de-demenagement","destination":"/formules-demenagement","type":301},
+      {"source":"/contact-demenageur","destination":"/contact","type":301},
+      {"source":"/conseils-demenagement","destination":"/blog","type":301},
+      {"source":"/demenagement-longue-distance-paris-service-marne-transdem","destination":"/demenagement-longue-distance","type":301},
+      {"source":"/devis-demenagement-en-ligne-obtention-estimation-precise-marne-transdem","destination":"/demande-de-devis","type":301},
       {"source":"/societe-demenagement-paris","destination":"/","type":301},
       {"source":"/demenagement-particuliers","destination":"/demenagement-particuliers-paris","type":301},
       {"source":"/services-demenagement","destination":"/services","type":301},
