@@ -333,34 +333,35 @@ export const sectorsData: Sector[] = [
     "slug": "bagneux",
     "name": "Bagneux",
     "type": "local",
-    "seoTitle": "Déménagement Bagneux | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Bagneux avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Bagneux : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Bagneux : volume, accès et stationnement étudiés avec Marne Transdem. Demandez un devis gratuit selon vos besoins et votre trajet.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Bagneux, avec une organisation adaptée aux appartements, maisons et bureaux du sud parisien.",
+    "heroSubtitle": "À Bagneux, préparons les accès de votre résidence, le transport de vos biens et les prestations adaptées à votre projet.",
     "introParagraphs": [
-      "Bagneux est une ville résidentielle et urbaine dynamique des Hauts-de-Seine, idéalement située à proximité de Montrouge, Châtillon, Fontenay-aux-Roses, Bourg-la-Reine, Arcueil, Cachan, Malakoff, Clamart et de la Porte d'Orléans à Paris.",
-      "Pour les professionnels, nous organisons les transferts de bureaux, commerces, cabinets et agences de professions libérales à Bagneux, avec une rigueur garantissant la continuité de votre activité locale dans le sud parisien."
+      "Pour préparer votre déménagement à Bagneux, décrivez le trajet des meubles entre le logement et le camion : hall, ascenseur, portes et éventuelles marches. Si vos biens sont en cave ou dans un parking, précisez les horaires d’accès, la hauteur limitée et la distance de portage. Recensez séparément les objets volumineux avec notre <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume</a>.",
+      "La ville de Bagneux prévoit une demande d’arrêté pour l’occupation temporaire de la voie publique, notamment lors d’un déménagement ou de l’installation d’un appareil de levage. Consultez la <a href=\"https://www.bagneux92.fr/412/ma-mairie/demarches/urbanisme/demande-d-occupation-de-la-voie-publique.htm\" class=\"text-accent hover:underline\">démarche municipale d’occupation de la voie publique</a> et faites confirmer le délai adapté à votre projet. Précisez l’adresse, les places concernées et les conséquences sur la circulation ; joignez un plan ou des photos si possible.",
+      "Pour un transfert de bureaux, distinguez mobilier, archives et équipements informatiques, puis convenez des créneaux d’accès aux deux sites et des tâches de déconnexion. Pour un logement, comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">prestations d’emballage et de démontage</a>. Un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> reste soumis à une étude de faisabilité. Retrouvez nos secteurs des <a href=\"/demenagement-hauts-de-seine\" class=\"text-accent hover:underline\">Hauts-de-Seine</a> et <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">préparez votre devis à Bagneux</a> avec les contraintes des deux adresses."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Bagneux ?",
-        "a": "Un déménagement à Bagneux demande d'anticiper le volume, les accès, les étages, les éventuels ascenseurs, le stationnement et la préparation des cartons. Dans une ville proche de Paris sud, il est important d'évaluer les accès de l'immeuble, les caves, les parkings, les garages et les meubles volumineux. Marne Transdem vous accompagne pour définir une organisation adaptée à votre logement, à vos biens et au niveau d'accompagnement souhaité."
+        "q": "Quelle démarche prévoir pour le stationnement à Bagneux ?",
+        "a": "La mairie propose une demande d’occupation temporaire de la voie publique pour les déménagements. Consultez le formulaire municipal et confirmez le délai applicable à votre situation. L’organisation doit tenir compte de l’autorisation effectivement accordée."
       },
       {
-        "q": "Marne Transdem intervient-elle à Bagneux et dans les villes proches ?",
-        "a": "Oui, Marne Transdem accompagne les projets de déménagement à Bagneux et dans les secteurs proches comme Montrouge, Châtillon, Fontenay-aux-Roses, Bourg-la-Reine, Arcueil, Cachan, Malakoff, Clamart, Paris 14e et plus largement dans les Hauts-de-Seine selon les besoins du projet."
+        "q": "Que préciser pour les accès d’une résidence à Bagneux ?",
+        "a": "Signalez les marches du hall, les dimensions de l’ascenseur, les portes étroites et la distance jusqu’au camion. Pour un parking ou une cave, ajoutez les restrictions de hauteur, les horaires et les moyens d’ouverture nécessaires."
       },
       {
-        "q": "Peut-on demander un monte-meuble à Bagneux ?",
-        "a": "Oui, un monte-meuble peut être envisagé lorsque les meubles volumineux ne passent pas facilement par l'escalier ou l'ascenseur. Sa mise en place dépend de la configuration de la rue, de la façade, des accès et de la faisabilité technique."
+        "q": "Peut-on prévoir un monte-meuble pour un étage élevé ?",
+        "a": "L’étage est un premier renseignement, mais il faut aussi examiner les ouvertures, la façade, les obstacles et l’emplacement au sol. L’installation dépend de la faisabilité technique et des autorisations, notamment lorsque l’appareil occupe la voie publique."
       },
       {
-        "q": "Quelle formule choisir pour un déménagement à Bagneux ?",
-        "a": "La formule dépend de votre budget, du temps disponible pour préparer vos cartons et du niveau d'accompagnement souhaité. La formule Économique convient si vous préparez une grande partie de vos affaires, la formule Standard offre un équilibre entre autonomie et accompagnement, et la formule Luxe permet de déléguer davantage selon la prestation choisie."
+        "q": "Comment préparer un transfert de bureaux à Bagneux ?",
+        "a": "Dressez un inventaire du mobilier, des archives et du matériel informatique. Identifiez les créneaux d’accès et les interlocuteurs des deux sites. Définissez qui prépare, déconnecte et reconnecte les équipements : ces responsabilités doivent être convenues avant le transfert."
       },
       {
-        "q": "Comment obtenir un devis pour un déménagement à Bagneux ?",
-        "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L'estimation prend en compte le volume, les adresses, les accès, les étages, la formule souhaitée et les besoins spécifiques comme l'emballage, le garde-meuble ou le monte-meuble."
+        "q": "Comment obtenir un devis adapté à mon déménagement à Bagneux ?",
+        "a": "Indiquez le volume, les adresses, la période souhaitée et les accès aux deux logements ou locaux. Précisez vos besoins d’emballage, de démontage et de stockage. Le devis personnalisé tient compte de ces paramètres et des prestations choisies."
       }
     ],
     "nearbySectors": [
@@ -383,10 +384,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Clamart",
         "l": "/demenagement-clamart"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
       }
     ]
   },
@@ -1913,34 +1910,35 @@ export const sectorsData: Sector[] = [
     "slug": "garches",
     "name": "Garches",
     "type": "local",
-    "seoTitle": "Déménagement Garches | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Garches avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Garches : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Garches : préparez le volume, les accès et le stationnement avec Marne Transdem. Demandez votre devis gratuit adapté à votre projet.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Garches, avec une organisation adaptée aux maisons, appartements, résidences, bureaux, commerces et contraintes d’accès de l’ouest parisien.",
+    "heroSubtitle": "Maison ou appartement à Garches : préparons le volume, les accès et les prestations nécessaires à votre déménagement.",
     "introParagraphs": [
-      "Garches est une ville résidentielle, familiale et recherchée des Hauts-de-Seine, offrant un cadre de vie privilégié en Île-de-France. Située à proximité immédiate de Saint-Cloud, Vaucresson, Marnes-la-Coquette, Le Chesnay-Rocquencourt et Ville-d’Avray, elle est également proche de Rueil-Malmaison, Suresnes, La Celle-Saint-Cloud et Bougival, tout en restant facilement accessible depuis Paris ouest.",
-      "Nos équipes assurent une prestation complète : estimation du volume, protection des meubles, emballage soigné et gestion rigoureuse des accès d'immeubles, ascenseurs, escaliers et stationnement. Que vous déménagiez vers une autre ville des Hauts-de-Seine ou que vous prépariez une installation à Garches, nous vous proposons un devis personnalisé adapté à vos besoins."
+      "Pour déménager une maison à Garches, ajoutez au mobilier les biens du garage, de la cave et du jardin. Mesurez le portail et précisez la distance entre le camion et la porte : un accès privé ne permet pas toujours au véhicule de rejoindre le logement. En appartement, indiquez les étages, les dimensions de l’ascenseur et les passages étroits. Notre <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> aide à préparer cet inventaire.",
+      "La mairie de Garches prévoit une autorisation pour les déménagements et emménagements. Sa page des <a href=\"https://garches.fr/mes-demarches/services-techniques/\" class=\"text-accent hover:underline\">services techniques de Garches</a> indique que la demande doit parvenir au service au moins 20 jours avant l’occupation. Anticipez cette démarche et faites confirmer les conditions applicables à votre adresse ; une demande ne vaut pas autorisation.",
+      "Pour les meubles qui ne passent pas dans les parties communes, étudions la faisabilité d’un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> selon la façade, l’espace au sol et les autorisations. Comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">formules de déménagement</a> pour préciser qui emballe et démonte les biens. Pour un trajet dans les <a href=\"/demenagement-hauts-de-seine\" class=\"text-accent hover:underline\">Hauts-de-Seine</a> ou au-delà, décrivez aussi les accès à destination et <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">demandez votre devis à Garches</a>."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Garches ?",
-        "a": "Un déménagement à Garches demande d’anticiper le volume, les accès, les étages, les éventuels ascenseurs, le stationnement et la préparation des cartons. Selon qu’il s’agit d’une maison, d’un appartement ou d’un local professionnel, il est important d’évaluer les caves, garages, parkings, jardins, accès de chargement, meubles volumineux et objets fragiles. Marne Transdem vous accompagne pour définir une organisation adaptée à votre logement, à vos biens et au niveau d’accompagnement souhaité."
+        "q": "Quand préparer l’autorisation de déménagement à Garches ?",
+        "a": "La page municipale des services techniques indique un délai de réception d’au moins 20 jours avant l’occupation pour les déménagements et emménagements. Vérifiez les modalités en vigueur auprès de la mairie avant de fixer l’organisation du camion."
       },
       {
-        "q": "Marne Transdem intervient-elle à Garches et dans les villes proches ?",
-        "a": "Oui, Marne Transdem accompagne les projets de déménagement à Garches et dans les secteurs proches comme Saint-Cloud, Vaucresson, Marnes-la-Coquette, Ville-d’Avray, Le Chesnay-Rocquencourt, Rueil-Malmaison, Suresnes, La Celle-Saint-Cloud, Bougival, Boulogne-Billancourt et plus largement en Île-de-France selon les besoins du projet."
+        "q": "Que signaler pour déménager une maison à Garches ?",
+        "a": "Recensez aussi les affaires du garage, de la cave et du jardin. Précisez la largeur du portail, les marches, la distance de portage et les possibilités de stationnement. Des photos permettent de préparer l’étude des accès sans supposer que le camion peut entrer sur la propriété."
       },
       {
-        "q": "Peut-on demander un monte-meuble à Garches ?",
-        "a": "Oui, un monte-meuble peut être envisagé lorsque les meubles volumineux ne passent pas facilement par l’escalier ou l’ascenseur. Sa mise en place dépend de la configuration de la rue, de la façade, des accès et de la faisabilité technique."
+        "q": "Un monte-meuble peut-il être installé devant mon logement ?",
+        "a": "Cela dépend de la façade, des ouvertures, des obstacles, de la place disponible au sol et des autorisations nécessaires. Indiquez l’étage et les dimensions des meubles concernés : la hauteur seule ne suffit pas à confirmer la faisabilité."
       },
       {
-        "q": "Quelle formule choisir pour un déménagement à Garches ?",
-        "a": "La formule dépend de votre budget, du temps disponible pour préparer vos cartons et du niveau d’accompagnement souhaité. La formule Économique convient si vous préparez une grande partie de vos affaires, la formule Standard offre un équilibre entre autonomie et accompagnement, et la formule Luxe permet de déléguer davantage selon la prestation choisie."
+        "q": "Comment choisir les prestations d’emballage et de démontage ?",
+        "a": "Indiquez les cartons que vous préparez, les objets fragiles et les meubles à démonter. Comparez les formules, puis vérifiez que le devis précise les tâches confiées à notre équipe et celles qui restent à votre charge."
       },
       {
-        "q": "Comment obtenir un devis pour un déménagement à Garches ?",
-        "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L’estimation prend en compte le volume, les adresses, les accès, les étages, la formule souhaitée et les besoins spécifiques comme l’emballage, le garde-meuble ou le monte-meuble."
+        "q": "Quelles informations fournir pour un devis à Garches ?",
+        "a": "Renseignez les deux adresses, la date envisagée, le volume estimé, les étages et les ascenseurs. Ajoutez les distances de portage et les biens particuliers. Le chiffrage dépend de ces éléments, des prestations retenues et de la période souhaitée."
       }
     ],
     "nearbySectors": [
@@ -1979,10 +1977,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Île-de-France",
         "l": "/demenagement-ile-de-france"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
       }
     ]
   },
