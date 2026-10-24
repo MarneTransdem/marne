@@ -4067,34 +4067,35 @@ export const sectorsData: Sector[] = [
     "slug": "montrouge",
     "name": "Montrouge",
     "type": "local",
-    "seoTitle": "Déménagement Montrouge | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Montrouge avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Montrouge : devis gratuit | Marne Transdem",
+    "seoDescription": "Déménagement à Montrouge : préparez le stationnement, les accès et votre inventaire avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Montrouge, aux portes de Paris, avec une logistique adaptée aux environnements urbains denses.",
+    "heroSubtitle": "À Montrouge, préparons l’emplacement du camion, le passage des meubles et les prestations utiles à votre logement ou à vos bureaux.",
     "introParagraphs": [
-      "Montrouge est une ville dense, urbaine et très dynamique des Hauts-de-Seine, située aux portes de Paris. Sa proximité immédiate avec Paris 14e, Malakoff, Châtillon, Bagneux, Arcueil, Gentilly et Vanves en fait un secteur stratégique du sud parisien.",
-      "Pour les professionnels, nous organisons les transferts de bureaux, commerces, cabinets et agences libérales à Montrouge, avec une rigueur garantissant la continuité de votre activité locale."
+      "Pour votre déménagement à Montrouge, distinguez le volume à transporter de la place nécessaire au véhicule. Un petit appartement peut contenir un meuble qui impose un démontage ou un passage particulier. Mesurez les portes, les paliers et l’ascenseur ; ajoutez les caves et les biens encombrants à votre inventaire. Notre <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> fournit une première estimation, à compléter avec les dimensions des objets atypiques et la distance entre l’entrée et le camion.",
+      "La <a href=\"https://www.ville-montrouge.fr/893-emmenager-demenager.htm\" class=\"text-accent hover:underline\">démarche municipale pour emménager ou déménager à Montrouge</a> indique de remettre le formulaire trois semaines avant la date prévue. Elle précise aussi que la neutralisation des emplacements est à la charge du demandeur. Convenez donc de la personne chargée du dossier et de la signalisation, puis vérifiez les prescriptions de l’arrêté accordé. Le nombre de places se prépare selon les dimensions du véhicule retenu ; ne le déduisez pas du seul volume de vos affaires.",
+      "Un trajet vers <a href=\"/demenagement-paris-14\" class=\"text-accent hover:underline\">Paris 14e</a>, <a href=\"/demenagement-malakoff\" class=\"text-accent hover:underline\">Malakoff</a> ou <a href=\"/demenagement-bagneux\" class=\"text-accent hover:underline\">Bagneux</a> demande aussi de préparer les accès à destination. Comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">formules d’accompagnement</a> pour répartir l’emballage et le démontage. Pour des bureaux à Montrouge, identifiez les archives et équipements, les créneaux d’accès aux deux sites et les responsabilités de déconnexion avant de convenir du planning. Retrouvez les secteurs des <a href=\"/demenagement-hauts-de-seine\" class=\"text-accent hover:underline\">Hauts-de-Seine</a> et <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">demandez votre devis de déménagement à Montrouge</a>."
     ],
     "faqs": [
       {
-        "q": "Comment organiser un déménagement à Montrouge ?",
-        "a": "Un déménagement à Montrouge demande d'anticiper le volume, les accès, les étages, les éventuels ascenseurs, le stationnement et la préparation des cartons. Dans une ville dense située aux portes de Paris, il est important d'évaluer les accès de l'immeuble, les caves, les parkings et les meubles volumineux. Marne Transdem vous accompagne pour définir une organisation adaptée à votre logement, à vos biens et au niveau d'accompagnement souhaité."
+        "q": "Quand déposer la demande de stationnement à Montrouge ?",
+        "a": "Le formulaire municipal est à remettre trois semaines avant la date prévue. Consultez les instructions en vigueur et faites confirmer les pièces nécessaires. Le dépôt du dossier ne vaut pas autorisation."
       },
       {
-        "q": "Marne Transdem intervient-elle à Montrouge et dans les villes proches ?",
-        "a": "Oui, Marne Transdem accompagne les projets de déménagement à Montrouge et dans les secteurs proches comme Paris 14e, Malakoff, Châtillon, Bagneux, Arcueil, Gentilly, Vanves, Clamart et plus largement dans les Hauts-de-Seine selon les besoins du projet."
+        "q": "Qui neutralise les places pour le camion à Montrouge ?",
+        "a": "La mairie désigne le demandeur comme responsable. Convenez avec notre équipe de la répartition du dossier, de la signalisation et du suivi des prescriptions de l’arrêté avant le déménagement."
       },
       {
-        "q": "Peut-on demander un monte-meuble à Montrouge ?",
-        "a": "Oui, un monte-meuble peut être envisagé lorsque les meubles volumineux ne passent pas facilement par l'escalier ou l'ascenseur. Sa mise en place dépend de la configuration de la rue, de la façade, des accès et de la faisabilité technique."
+        "q": "Combien de places prévoir pour mon déménagement ?",
+        "a": "Le besoin dépend des dimensions du véhicule et des conditions d’installation. Le volume de vos meubles ne permet pas, à lui seul, de fixer le nombre de places. Faites préciser le véhicule envisagé avant de préparer la demande et vérifiez l’espace nécessaire si un monte-meuble est étudié."
       },
       {
-        "q": "Quelle formule choisir pour un déménagement à Montrouge ?",
-        "a": "La formule dépend de votre budget, du temps disponible pour préparer vos cartons et du niveau d'accompagnement souhaité. La formule Économique convient si vous préparez une grande partie de vos affaires, la formule Standard offre un équilibre entre autonomie et accompagnement, et la formule Luxe permet de déléguer davantage selon la prestation choisie."
+        "q": "Un trajet Montrouge–Paris 14e demande-t-il moins de préparation ?",
+        "a": "Une courte distance ne supprime pas la manutention. Il faut examiner les étages, les ascenseurs, le stationnement et le portage à chacune des deux adresses, puis vérifier le passage des meubles et les démarches applicables de part et d’autre."
       },
       {
-        "q": "Comment obtenir un devis pour un déménagement à Montrouge ?",
-        "a": "Vous pouvez remplir le formulaire de demande de devis ou contacter Marne Transdem par téléphone. L'estimation prend en compte le volume, les adresses, les accès, les étages, la formule souhaitée et les besoins spécifiques comme l'emballage, le garde-meuble ou le monte-meuble."
+        "q": "Quelles informations fournir pour un transfert de bureaux à Montrouge ?",
+        "a": "Préparez un inventaire par poste ou par service, avec les archives et les équipements particuliers. Indiquez les horaires d’accès aux deux sites et les étapes souhaitées. Convenez des opérations d’emballage, de déconnexion et de remise en place ainsi que des responsabilités avant de confirmer le planning."
       }
     ],
     "nearbySectors": [
@@ -4117,6 +4118,10 @@ export const sectorsData: Sector[] = [
       {
         "n": "Châtillon",
         "l": "/demenagement-chatillon"
+      },
+      {
+        "n": "Bagneux",
+        "l": "/demenagement-bagneux"
       }
     ]
   },
