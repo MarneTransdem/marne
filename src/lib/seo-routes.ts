@@ -284,7 +284,7 @@ export const BLOG_POST_ROUTES: Array<Omit<SeoRoute, 'canonicalPath' | 'status'>>
 
 const EXPLICIT_ROUTES: Record<string, Omit<SeoRoute, 'path' | 'canonicalPath'>> = {
   '/': {
-    title: 'Déménageur à Paris et en Île-de-France | Marne Transdem',
+    title: 'Déménageur Paris et IDF : devis gratuit | Marne Transdem',
     h1: 'Entreprise de déménagement à Paris',
     description:
       'Appartement, maison ou locaux professionnels : Marne Transdem organise votre déménagement à Paris et en Île-de-France. Demandez votre devis gratuit.',

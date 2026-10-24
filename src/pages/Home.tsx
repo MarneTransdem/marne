@@ -59,7 +59,7 @@ const Home: React.FC = () => {
   return (
     <div className="home-premium home-refined">
       <SEO 
-        title="Déménagement Paris et Île-de-France | Marne Transdem"
+        title="Déménageur Paris et IDF : devis gratuit | Marne Transdem"
         description="Appartement, maison ou bureaux : déménagez à Paris et en Île-de-France avec Marne Transdem. Comparez nos formules et demandez votre devis gratuit et personnalisé."
         canonical="/"
         schema={[
