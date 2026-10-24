@@ -35,6 +35,8 @@ export type SeoRoute = {
 
 export const CANONICAL_ALIASES: Record<string, string> = {
   // Legacy URLs observed in production request logs (October 2026).
+  '/demenagement-sans-stress-paris-region-parisienne': '/blog/10-conseils-demenagement-sans-stress-paris',
+  '/images/PDF/formule-luxe.pdf': '/formules-demenagement',
   '/formules-de-demenagement': '/formules-demenagement',
   '/contact-demenageur': '/contact',
   '/conseils-demenagement': '/blog',
