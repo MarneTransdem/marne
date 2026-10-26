@@ -12,6 +12,10 @@ export function render(url: string): Promise<string> {
     output.on('end', () => { if (!failed) resolve(Buffer.concat(chunks).toString('utf8')); });
     output.on('error', reject);
     const stream = renderToPipeableStream(<App initialUrl={url} />, {
+      // Static pages must inline completed Suspense content, including large pages.
+      // React's default chunk threshold can otherwise leave a loading shell and
+      // hidden segments that require an inline script to become visible.
+      progressiveChunkSize: Number.MAX_SAFE_INTEGER,
       onAllReady() { clearTimeout(timeout); stream.pipe(output); },
       onError(error) { failed = true; clearTimeout(timeout); reject(error); },
     });

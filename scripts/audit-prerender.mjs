@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { auditBreadcrumbNames } from './breadcrumb-audit.mjs';
 import { auditServiceSchemas } from './service-schema-audit.mjs';
+import { auditInitialHtml } from './initial-html-audit.mjs';
 
 const sitemap = await fs.readFile('dist/sitemap.xml', 'utf8');
 const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(x => new URL(x[1]));
@@ -19,6 +20,7 @@ const commercialServices = new Map([
 ]);
 for (const url of urls) {
   const html = await fs.readFile(path.join('dist', url.pathname === '/' ? 'index.html' : url.pathname.slice(1) + '.html'), 'utf8');
+  errors.push(...auditInitialHtml(html).map(error => `${url.pathname}: ${error}`));
   const canonicals = [...html.matchAll(/<link\b[^>]*rel="canonical"[^>]*href="([^"]+)"[^>]*>/g)].map(x => x[1]);
   const titles = [...html.matchAll(/<title[^>]*>(.*?)<\/title>/g)];
   const h1 = [...html.matchAll(/<h1\b/g)].length;

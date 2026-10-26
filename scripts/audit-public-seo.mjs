@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import { SITE_URL, getPublicCanonicalRoutes } from '../src/lib/seo-routes.ts';
 import { auditServiceSchemas } from './service-schema-audit.mjs';
+import { auditInitialHtml } from './initial-html-audit.mjs';
 
 // Read-only production audit, deliberately separate from the offline build.
 // Four concurrent requests keep the check gentle on the public server.
@@ -41,6 +42,7 @@ await Promise.all(Array.from({ length: 4 }, async () => {
       if ((html.match(/<h1\b/g) || []).length !== 1) errors.push(`${url.pathname}: expected one H1`);
       if (/\b(noindex|none)\b/i.test([...robots, headers.get('x-robots-tag') || ''].join(','))) errors.push(`${url.pathname}: indexing forbidden`);
       if (!html.includes('data-ssr="true"')) errors.push(`${url.pathname}: missing initial rendered content`);
+      errors.push(...auditInitialHtml(html).map(error => `${url.pathname}: ${error}`));
       if (/<[a-z][^>]*\sclassName\s*=/i.test(html)) errors.push(`${url.pathname}: JSX className attribute in rendered HTML; use class`);
       const schemas = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]));
       errors.push(...auditServiceSchemas(schemas, url.href).map(error => `${url.pathname}: ${error}`));
