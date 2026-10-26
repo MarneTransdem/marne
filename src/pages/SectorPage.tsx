@@ -17,6 +17,7 @@ import { RegionalMovingGuide } from '../components/common/RegionalMovingGuide';
 import { ValDeMarneGuide } from '../components/common/ValDeMarneGuide';
 import { getSectorLabel } from '../lib/sector-label';
 import { LocalMovingLinks } from '../components/common/LocalMovingLinks';
+import { NearbySectorLinks } from '../components/common/NearbySectorLinks';
 import { departmentCityGroups } from '../constants/departmentCities';
 
 const departmentLocations: Record<string, string> = {
@@ -560,26 +561,7 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
         : undefined} />
 
       {/* 12. Neighbouring sectors Section */}
-      {sector.nearbySectors && sector.nearbySectors.length > 0 && (
-        <section className="py-12 bg-slate-50 border-t border-slate-100">
-          <div className="container mx-auto px-4 md:px-6">
-            <div className="text-center mb-8">
-              <h2 className="text-sm font-black uppercase tracking-widest text-brand-900/30">Autres secteurs à proximité</h2>
-            </div>
-            <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-center">
-              {sector.nearbySectors.map((ns, idx) => (
-                <Link 
-                  key={idx} 
-                  to={ns.l} 
-                  className="text-slate-400 hover:text-accent font-bold text-xs transition-colors italic uppercase tracking-wider"
-                >
-                  Déménagement {ns.n}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      <NearbySectorLinks sectors={sector.nearbySectors} />
     </div>
   );
 };
