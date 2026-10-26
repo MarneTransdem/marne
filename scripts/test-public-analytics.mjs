@@ -22,6 +22,14 @@ h.api.trackConversion('quote_form_submit',{},'q1');
 assert.equal(h.scripts.length,0);
 assert.equal(h.calls().length,0);
 assert.equal(h.api.getVisitAttribution(),null);
+for (const origin of ['http://localhost:4188', 'http://127.0.0.1:4188', 'https://marne--marnetransdem20.europe-west4.hosted.app']) {
+  const preview=harness();
+  preview.window.location=new URL(origin+'/demande-de-devis');
+  await preview.api.trackEvent('quote_form_start');
+  preview.api.trackConversion('quote_form_submit',{},'preview-id');
+  assert.equal(preview.scripts.length,0,'preview must not load production analytics');
+  assert.equal(preview.calls().length,0,'preview must not send GA4 or Ads events');
+}
 h=harness();
 const pending=h.api.trackEvent('page_view',{from_city:'PRIVATE',subject:'PRIVATE',page_location:'PRIVATE',placement:'hero'});
 assert.equal(h.scripts.length,1);
@@ -56,21 +64,57 @@ h=harness(); h.window.localStorage.getItem=()=>{throw Error('blocked storage');}
 await h.api.trackEvent('page_view'); assert.equal(h.scripts.length,0);
 console.log('Analytics: consent, revocation, single dispatch, deduplication, URL privacy and attribution passed.');
 
+// A form attempt never stores field content or replays pre-consent interactions.
+const progressBuild=await build({entryPoints:['src/lib/quote-progress.ts'],bundle:true,write:false,platform:'node',format:'cjs'});
+const progressContext={module:{exports:{}},exports:{},Set};
+vm.runInNewContext(progressBuild.outputFiles[0].text,progressContext);
+let progressConsent=false;
+const progressCalls=[];
+const progressTracker=progressContext.module.exports.createQuoteProgressTracker({hasConsent:()=>progressConsent,send:event=>progressCalls.push(event)});
+progressTracker.start(); progressTracker.reachStep(2);
+assert.equal(progressCalls.length,0);
+progressConsent=true;
+progressTracker.start(); progressTracker.start(); progressTracker.reachStep(2); progressTracker.reachStep(3); progressTracker.reachStep(2);
+assert.deepEqual(progressCalls,['quote_form_start','quote_step_2_view','quote_step_3_view']);
+progressConsent=false;
+const laterTracker=progressContext.module.exports.createQuoteProgressTracker({hasConsent:()=>progressConsent,send:event=>progressCalls.push(event)});
+laterTracker.start(); laterTracker.reachStep(3);
+assert.equal(progressCalls.length,3);
+progressConsent=true;
+laterTracker.reachStep(0); laterTracker.reachStep(4);
+assert.equal(progressCalls.length,3);
+laterTracker.start(); laterTracker.reachStep(3);
+assert.deepEqual(progressCalls.slice(3),['quote_form_start','quote_step_3_view'],'a late grant must not invent an unseen step 2');
+const unavailableTracker=progressContext.module.exports.createQuoteProgressTracker({hasConsent:()=>{throw Error('storage unavailable');},send:()=>assert.fail('must not send')});
+assert.doesNotThrow(()=>unavailableTracker.start());
+console.log('Quote progress: consent, step deduplication, late grant, no replay and unavailable analytics passed.');
+
 // Exercise the actual form submit handler with mocked persistence and notification.
-const realFormHelpers = new Set(['../../lib/quote-validation', '../../lib/quote-estimate']);
+const realFormHelpers = new Set(['../../lib/quote-validation', '../../lib/quote-estimate', '../../lib/quote-progress']);
 const formBuild=await build({entryPoints:['src/components/forms/QuoteForm.tsx'],bundle:true,write:false,platform:'node',format:'cjs',plugins:[{name:'mock-imports',setup(b){b.onResolve({filter:/.*/},a=>a.kind==='entry-point'||realFormHelpers.has(a.path)?undefined:{path:a.path,external:true});}}]});
-async function checkForm({failSave=false,failEmail=false,activeStep=3,invalid=false}={}) {
+async function checkForm({failSave=false,failEmail=false,activeStep=3,invalid=false,progressOnly=false}={}) {
+  const progressEvents=[];
   let saves=0,emails=0,leads=0,errors=0;
   let resolveSave;
   const waitSave=new Promise(r=>resolveSave=r);
   const react={useState:initial=>[initial?.consent===false?{...initial,fullName:'Test User',phone:invalid?'':'0100000000',email:'test@example.test',consent:!invalid,date:'2026-10-20'}:initial === 1 ? activeStep : initial,()=>{}],useEffect(){},useRef:v=>({current:v}),createElement:(type,props,...children)=>({type,props,children})};
-  const mocks={react,'motion/react':{motion:{div:'div'},AnimatePresence:'div'},'lucide-react':{},'react-router-dom':{Link:'a',useSearchParams:()=>[new URLSearchParams()]},'../../lib/firebase':{db:{}},'firebase/firestore':{collection:()=>({}),serverTimestamp:()=>0,addDoc:async(collection,data)=>{assert.equal(data.date,'','an unconfirmed date must not reach the CRM');assert.equal(data.fromElevator,'À préciser');assert.equal(data.needsPacking,'À préciser');saves++;await waitSave;if(failSave)throw Error('save failed');return{id:'saved-id'};}},'../../lib/firestore-errors':{OperationType:{CREATE:'create'},handleFirestoreError:()=>errors++},'@vis.gl/react-google-maps':{useMapsLibrary:()=>null},'../../lib/public-analytics':{getVisitAttribution:()=>null,trackConversion:(action,params,id)=>{assert.equal(id,'saved-id');leads++;}}};
+  const mocks={react,'motion/react':{motion:{div:'div'},AnimatePresence:'div'},'lucide-react':{},'react-router-dom':{Link:'a',useSearchParams:()=>[new URLSearchParams()]},'../../lib/firebase':{db:{}},'firebase/firestore':{collection:()=>({}),serverTimestamp:()=>0,addDoc:async(collection,data)=>{assert.equal(data.date,'','an unconfirmed date must not reach the CRM');assert.equal(data.fromElevator,'À préciser');assert.equal(data.needsPacking,'À préciser');saves++;await waitSave;if(failSave)throw Error('save failed');return{id:'saved-id'};}},'../../lib/firestore-errors':{OperationType:{CREATE:'create'},handleFirestoreError:()=>errors++},'@vis.gl/react-google-maps':{useMapsLibrary:()=>null},'../../lib/public-analytics':{getVisitAttribution:()=>null,hasAnalyticsConsent:()=>progressOnly,trackEvent:(name,params)=>progressEvents.push({name,params}),trackConversion:(action,params,id)=>{assert.equal(id,'saved-id');leads++;}}};
   const context={module:{exports:{}},exports:{},require:n=>{if(!(n in mocks))throw Error(n);return mocks[n];},console:{warn(){},error(){}},window:{scrollTo(){}},document:{querySelector:()=>null},localStorage:{removeItem(){}},fetch:async()=>{emails++;if(failEmail)throw Error('notification offline');return{ok:true};},URLSearchParams};
   mocks['react/jsx-runtime']={jsx:(type,props)=>({type,props,children:[props?.children]}),jsxs:(type,props)=>({type,props,children:[props?.children]})};
   vm.runInNewContext(formBuild.outputFiles[0].text,context);
   const tree=context.module.exports.QuoteForm();
   const find=node=>{if(!node||typeof node!=='object')return null;if(node.type==='form')return node;for(const child of (node.children||[]).flat(Infinity)){const found=find(child);if(found)return found;}return null;};
   const form=find(tree);assert(form);
+  if (progressOnly) {
+    form.props.onChangeCapture({target:{name:'website',value:'PRIVATE'}});
+    assert.equal(progressEvents.length,0,'honeypot is not a user start');
+    form.props.onChangeCapture({target:{name:'fromAddress',value:'PRIVATE'}});
+    form.props.onChangeCapture({target:{name:'email',value:'PRIVATE'}});
+    assert.deepEqual(progressEvents.map(x=>x.name),['quote_form_start','quote_step_2_view']);
+    assert(!JSON.stringify(progressEvents).includes('PRIVATE'));
+    assert.equal(saves,0); assert.equal(emails,0); assert.equal(leads,0);
+    return;
+  }
   const first=form.props.onSubmit({preventDefault(){}});
   await form.props.onSubmit({preventDefault(){}});
   if (activeStep < 3 || invalid) { assert.equal(saves,0); assert.equal(emails,0); assert.equal(leads,0); return; }
@@ -80,6 +124,7 @@ async function checkForm({failSave=false,failEmail=false,activeStep=3,invalid=fa
 }
 await checkForm({activeStep:1}); await checkForm({activeStep:2}); await checkForm({invalid:true});
 await checkForm(); await checkForm({failEmail:true}); await checkForm({failSave:true});
+await checkForm({activeStep:2,progressOnly:true});
 console.log('Quote handler: confirmed save, failed save, notification failure and concurrent submit passed.');
 
 // Exercise URL prefill through the actual component effects without submitting a lead.

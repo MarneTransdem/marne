@@ -6,7 +6,8 @@ import { db } from '../../lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { handleFirestoreError, OperationType } from '../../lib/firestore-errors';
 import { useMapsLibrary } from '@vis.gl/react-google-maps';
-import { getVisitAttribution, trackConversion } from '../../lib/public-analytics';
+import { getVisitAttribution, hasAnalyticsConsent, trackConversion, trackEvent } from '../../lib/public-analytics';
+import { createQuoteProgressTracker } from '../../lib/quote-progress';
 import { isPlausiblePhone } from '../../lib/quote-validation';
 import { getEstimateFields, parseQuoteEstimate, removeEstimateFields, shouldRestoreEstimate, type QuoteEstimate } from '../../lib/quote-estimate';
 
@@ -97,6 +98,22 @@ export const QuoteForm: React.FC = () => {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const previousStep = useRef(step);
+  const progress = useRef<ReturnType<typeof createQuoteProgressTracker> | null>(null);
+  if (!progress.current) {
+    progress.current = createQuoteProgressTracker({
+      hasConsent: () => hasAnalyticsConsent(),
+      send: event => { void trackEvent(event, { placement: 'quote_form' }); },
+    });
+  }
+  const recordInteraction = () => {
+    progress.current?.start();
+    progress.current?.reachStep(step);
+  };
+  const advanceStep = () => {
+    recordInteraction();
+    setStep(step + 1);
+  };
+  useEffect(() => { progress.current?.reachStep(step); }, [step]);
   useEffect(() => {
     if (previousStep.current === step) return;
     previousStep.current = step;
@@ -247,7 +264,8 @@ export const QuoteForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (submissionPending.current) return;
-    if (step < 3) { setStep(step + 1); return; }
+    if (step < 3) { advanceStep(); return; }
+    recordInteraction();
     setSubmitError('');
     if (!validateForm()) {
       return;
@@ -383,7 +401,9 @@ export const QuoteForm: React.FC = () => {
         <p className="quote-step-count" aria-live="polite">Étape {step} sur 3</p>
         <h3 ref={headingRef} tabIndex={-1} className="quote-step-heading">{['D’où partez-vous, où allez-vous ?', 'Quel accompagnement souhaitez-vous ?', 'À qui envoyer votre devis ?'][step - 1]}</h3>
         <p className="quote-step-help">{step === 3 ? 'Les champs marqués * sont nécessaires pour vous recontacter.' : 'Renseignez ce que vous connaissez. Nous préciserons le reste ensemble.'}</p>
-        <form ref={formRef} onSubmit={handleSubmit} noValidate aria-busy={isSubmitting}>
+        <form ref={formRef} onSubmit={handleSubmit} onChangeCapture={event => {
+          if ((event.target as HTMLInputElement).name !== 'website') recordInteraction();
+        }} noValidate aria-busy={isSubmitting}>
           <div hidden aria-hidden="true"><input name="website" value={formData.website} onChange={handleChange} tabIndex={-1} autoComplete="off" /></div>
           <fieldset disabled={isSubmitting} className="quote-fields-root">
           <div hidden={step !== 1}>
@@ -446,7 +466,7 @@ export const QuoteForm: React.FC = () => {
           {submitError && <p className="quote-error quote-send-error" role="alert">{submitError}</p>}
           <div className="quote-navigation">
             {step > 1 && <button className="quote-back" type="button" disabled={isSubmitting} onClick={() => setStep(step - 1)}><ChevronLeft size={17} />Retour</button>}
-            {step < 3 ? <button key="continue" className="quote-next" type="button" onClick={e => { e.preventDefault(); setStep(step + 1); }}>Continuer <ArrowRight size={18} /></button> :
+            {step < 3 ? <button key="continue" className="quote-next" type="button" onClick={e => { e.preventDefault(); advanceStep(); }}>Continuer <ArrowRight size={18} /></button> :
               <button key="send" className="quote-next" type="submit" disabled={isSubmitting}>{isSubmitting ? <><Loader2 size={18} className="animate-spin" />Envoi en cours…</> : <>Envoyer ma demande <ArrowRight size={18} /></>}</button>}
           </div>
           <p className="quote-footer-note">{step < 3 ? 'Vos réponses sont conservées lorsque vous changez d’étape.' : 'Votre demande est adressée directement à Marne Transdem.'}</p>

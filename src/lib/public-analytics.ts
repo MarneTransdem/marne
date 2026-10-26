@@ -55,6 +55,9 @@ function isBrowser() {
 
 export function hasAnalyticsConsent() {
   if (!isBrowser()) return false;
+  // Preview builds use the production measurement ID too: keep QA out of GA4/Ads.
+  const publicHost = new URL(SITE_URL).hostname;
+  if (![publicHost, publicHost.replace(/^www\./, '')].includes(window.location.hostname)) return false;
   try { return window.localStorage.getItem(CONSENT_STORAGE_KEY) === 'accepted'; } catch { return false; }
 }
 
