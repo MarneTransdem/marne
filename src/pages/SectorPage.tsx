@@ -62,6 +62,7 @@ export const SectorPage: React.FC = () => {
 };
 
 const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
+  const quoteFormHref = '/demande-de-devis#formulaire-devis';
   const resolvedSlug = sector.slug;
 
   const path: `/${string}` = `/demenagement-${resolvedSlug}`;
@@ -171,7 +172,7 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-5">
-              <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover shadow-xl flex items-center justify-center gap-3 group transition-all italic">
+              <Link to={quoteFormHref} className="bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover shadow-xl flex items-center justify-center gap-3 group transition-all italic">
                 Demander un devis gratuit
                 <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -376,7 +377,7 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
                 </p>
               </div>
               <Link 
-                to="/demande-de-devis" 
+                to={quoteFormHref}
                 className="inline-flex bg-brand-900 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-brand-hover shadow-xl transition-all group"
               >
                 Demander mon devis
@@ -402,7 +403,7 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
                 </p>
               </div>
               <Link 
-                to="/demande-de-devis" 
+                to={quoteFormHref}
                 className="inline-flex bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover shadow-xl transition-all group"
               >
                 Organiser un transfert professionnel
@@ -518,7 +519,7 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
             Obtenez rapidement une offre tarifaire chiffrée adaptée à vos besoins et contraintes d'accès.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <Link to="/demande-de-devis" className="bg-brand-900 text-white px-12 py-5 rounded-full font-bold text-xl hover:bg-brand-hover transition-all flex items-center gap-3 shadow-2xl">
+            <Link to={quoteFormHref} className="bg-brand-900 text-white px-12 py-5 rounded-full font-bold text-xl hover:bg-brand-hover transition-all flex items-center gap-3 shadow-2xl">
               Demander mon devis gratuit
               <ArrowRight size={24} />
             </Link>
