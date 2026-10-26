@@ -164,6 +164,7 @@ const VOLUME_FAQS = [
   { q: 'À quoi sert la marge de 10 % ?', a: 'Cette option augmente de 10 % le total calculé pour prévoir une réserve de volume. Elle ne remplace pas un inventaire complet. Le volume conseillé est ensuite arrondi au mètre cube supérieur ; ce n’est pas une capacité de camion garantie.' },
   { q: 'Le volume estimé est-il définitif ?', a: 'Non. Les dimensions réelles, les protections, le démontage et le rangement dans le camion peuvent modifier le volume occupé. L’équipe pourra affiner votre estimation avant de confirmer la prestation.' },
   { q: 'Puis-je transmettre mon estimation dans le devis ?', a: 'Oui. Après avoir renseigné votre inventaire, utilisez « Continuer vers le devis ». Le volume et le récapitulatif sont repris dans le formulaire sur ce navigateur. Vous pouvez les vérifier avant d’envoyer votre demande.' },
+  { q: 'Comment estimer le volume d’un transfert de bureaux ?', a: 'Créez des pièces « Bureau » ou « Local professionnel », puis ajoutez les meubles, les équipements et les cartons par quantité. Pour les objets absents du catalogue, renseignez un volume personnalisé. Distinguez les archives et les biens atypiques, puis signalez les accès et les conditions de manutention dans votre demande. Le résultat reste une estimation, pas une validation du véhicule ou du transfert.' },
 ];
 
 const EXAMPLE_ITEMS = ['sofa2', 'coffee-table', 'box-std'].map((id) => {
@@ -567,8 +568,8 @@ const VolumeCalculator: React.FC = () => {
   return (
     <div className="bg-white min-h-screen">
       <SEO 
-        title="Calculateur de volume déménagement | Marne Transdem" 
-        description="Estimez le volume de votre déménagement avec le calculateur Marne Transdem. Ajoutez vos meubles, cartons et objets puis demandez un devis personnalisé."
+        title="Calculateur de volume déménagement en m³ | Marne Transdem"
+        description="Calculez votre volume de déménagement en m³ : ajoutez meubles et cartons pièce par pièce, vérifiez votre estimation et transmettez-la dans votre devis."
         canonical="/calculateur-volume"
         schema={[
           getBreadcrumbSchema([
@@ -602,16 +603,13 @@ const VolumeCalculator: React.FC = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-             <button 
-              onClick={() => {
-                const el = document.getElementById('calculator-main');
-                el?.scrollIntoView({ behavior: 'smooth' });
-              }}
+             <a
+              href="#calculator-main"
               className="bg-accent text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-accent/90 transition-all flex items-center justify-center gap-3"
             >
               Commencer l'estimation
               <ChevronRight size={20} />
-            </button>
+            </a>
             <Link to="/demande-de-devis" className="bg-white/10 text-white border border-white/20 px-10 py-5 rounded-full font-bold text-lg hover:bg-white/20 transition-all">
               Demander un devis directement
             </Link>
@@ -682,7 +680,7 @@ const VolumeCalculator: React.FC = () => {
       </div>
 
       {/* Main Calculator UI */}
-      <section id="calculator-main" className="py-16 bg-slate-50">
+      <section id="calculator-main" className="scroll-mt-24 py-16 bg-slate-50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:items-start">
             
@@ -1457,6 +1455,8 @@ const VolumeCalculator: React.FC = () => {
           </ul>
           <p className="mt-6 text-slate-600 leading-relaxed">La surface en m² ne suffit pas à déterminer le volume à transporter. Notre <Link to="/blog/comment-estimer-volume-demenagement" className="underline font-medium text-brand-900">guide pour estimer le volume d’un déménagement</Link> explique les limites des approximations et la préparation de l’inventaire.</p>
           <p className="mt-4 text-slate-600 leading-relaxed">Un résultat en m³ n’est pas un prix. La distance, les accès et les <Link to="/formules-demenagement" className="underline font-medium text-brand-900">prestations choisies</Link> interviennent aussi. Consultez le <Link to="/blog/combien-coute-demenagement-paris" className="underline font-medium text-brand-900">guide des critères de prix</Link> avant de comparer les devis.</p>
+          <h3 className="text-xl font-bold text-brand-900 mt-8 mb-4">Estimer le volume d’un transfert de bureaux</h3>
+          <p className="text-slate-600 leading-relaxed">Ajoutez des pièces « Bureau » ou « Local professionnel » pour organiser le mobilier et les équipements par espace. Renseignez les quantités et les volumes personnalisés des objets absents du catalogue, sans oublier les cartons d’archives. Le cubage aide à préparer l’inventaire ; les accès de livraison, la préparation des équipements et leur déconnexion doivent être précisés séparément. Notre page <Link to="/transfert-bureaux-paris" className="underline font-medium text-brand-900">transfert de bureaux à Paris</Link> vous aide à préparer ces informations pour le devis.</p>
         </div>
       </section>
 
@@ -1466,7 +1466,7 @@ const VolumeCalculator: React.FC = () => {
           <div className="space-y-6">
             {VOLUME_FAQS.map((faq, i) => (
               <div key={i} className="p-8 bg-slate-50 stay-light-section rounded-[2.5rem] border border-slate-100">
-                <h4 className="font-black text-brand-900 stay-dark text-lg mb-4">{faq.q}</h4>
+                <h3 className="font-black text-brand-900 stay-dark text-lg mb-4">{faq.q}</h3>
                 <p className="text-slate-500 stay-dark font-light leading-relaxed opacity-80">{faq.a}</p>
               </div>
             ))}

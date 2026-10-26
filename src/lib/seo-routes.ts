@@ -364,7 +364,7 @@ const SERVICE_TITLES: Record<string, string> = {
   '/location-monte-meuble-paris': 'Monte-meuble à Paris : location sur devis | Marne Transdem',
   '/emballage-protection-demenagement': 'Emballage et protection déménagement | Marne Transdem',
   '/cartons-demenagement-paris': 'Cartons déménagement Paris | Marne Transdem',
-  '/calculateur-volume': 'Calculateur de volume déménagement | Marne Transdem',
+  '/calculateur-volume': 'Calculateur de volume déménagement en m³ | Marne Transdem',
   '/formules-demenagement': 'Formules de déménagement | Marne Transdem',
   '/demenagement-longue-distance': 'Déménagement longue distance depuis Paris | Marne Transdem',
   '/demenagement-oeuvres-art': 'Déménagement œuvres d’art | Marne Transdem',
@@ -436,6 +436,7 @@ function labelFromDemenagementPath(pathname: string): string {
 
 // Reviewed descriptions shared by SSR metadata and client navigation.
 const SERVICE_DESCRIPTIONS: Record<string, string> = {
+  '/calculateur-volume': 'Calculez votre volume de déménagement en m³ : ajoutez meubles et cartons pièce par pièce, vérifiez votre estimation et transmettez-la dans votre devis.',
   "/transfert-laboratoire-paris": "Transfert de laboratoire à Paris : préparez l’inventaire du mobilier et des appareils, les accès et le calendrier pour faire étudier votre demande de devis.",
   "/demenagement-piano-objets-lourds": "Déménagement de piano à Paris et en Île-de-France : précisez modèle, dimensions, poids et accès pour étudier le transport et obtenir un devis personnalisé.",
   "/demenagement-senior": "Déménagement senior à Paris et en Île-de-France : préparez le mobilier conservé, les accès en résidence et les prestations d’emballage ou de remontage à préciser au devis.",
