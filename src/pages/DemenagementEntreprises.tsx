@@ -1,4 +1,6 @@
 import { ServiceAreaLinks } from '../components/common/ServiceAreaLinks';
+import { ResponsiveImage } from '../components/common/ResponsiveImage';
+import { TWO_COLUMN_IMAGE_SIZES } from '../lib/responsive-image-sizes';
 import { ServiceDecisionGuide } from '../components/common/ServiceDecisionGuide';
 import React from 'react';
 import { motion } from 'motion/react';
@@ -171,7 +173,7 @@ const DemenagementEntreprises: React.FC = () => {
             </div>
             <div className="relative">
               <div className="aspect-video rounded-[3rem] bg-slate-200 overflow-hidden shadow-2xl">
-                <img src="/images/transfert-bureau-hauts-de-seine.webp" width="1200" height="1600" loading="lazy" decoding="async" alt="Bureaux professionnels" className="w-full h-full object-cover" />
+                <ResponsiveImage src="/images/transfert-bureau-hauts-de-seine.webp" sizes={TWO_COLUMN_IMAGE_SIZES} width="1200" height="1600" loading="lazy" decoding="async" alt="Bureaux professionnels" className="w-full h-full object-cover" />
               </div>
               <div className="absolute -bottom-6 -left-6 bg-brand-900 text-white p-8 rounded-2xl shadow-xl max-w-xs hidden md:block border border-white/10">
                 <p className="text-lg font-bold italic mb-2">"Maîtrise & Sérénité"</p>
@@ -285,7 +287,7 @@ const DemenagementEntreprises: React.FC = () => {
               </div>
             </div>
             <div className="aspect-video bg-slate-200 rounded-[2.5rem] overflow-hidden shadow-xl">
-               <img src="/images/transfert-bureau-hauts-de-seine.webp" width="1200" height="1600" loading="lazy" decoding="async" alt="Bureau Parisien" className="w-full h-full object-cover" />
+               <ResponsiveImage src="/images/transfert-bureau-hauts-de-seine.webp" sizes={TWO_COLUMN_IMAGE_SIZES} width="1200" height="1600" loading="lazy" decoding="async" alt="Bureau Parisien" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>

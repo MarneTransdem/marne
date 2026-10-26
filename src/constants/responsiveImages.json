@@ -46,5 +46,17 @@
     "height": 2017,
     "avif": "/images/transfert-bureaux-entreprise-paris-480.avif 480w, /images/transfert-bureaux-entreprise-paris-800.avif 800w, /images/transfert-bureaux-entreprise-paris-1200.avif 1200w, /images/transfert-bureaux-entreprise-paris-1513.avif 1513w",
     "webp": "/images/transfert-bureaux-entreprise-paris-480.webp 480w, /images/transfert-bureaux-entreprise-paris-800.webp 800w, /images/transfert-bureaux-entreprise-paris-1200.webp 1200w, /images/transfert-bureaux-entreprise-paris-1513.webp 1513w"
+  },
+  "/images/bureau-marne-transdem.webp": {
+    "width": 1360,
+    "height": 1020,
+    "avif": "/images/bureau-marne-transdem-480.avif 480w, /images/bureau-marne-transdem-800.avif 800w, /images/bureau-marne-transdem-1200.avif 1200w, /images/bureau-marne-transdem-1360.avif 1360w",
+    "webp": "/images/bureau-marne-transdem-480.webp 480w, /images/bureau-marne-transdem-800.webp 800w, /images/bureau-marne-transdem-1200.webp 1200w, /images/bureau-marne-transdem-1360.webp 1360w"
+  },
+  "/images/transfert-bureau-hauts-de-seine.webp": {
+    "width": 1200,
+    "height": 1600,
+    "avif": "/images/transfert-bureau-hauts-de-seine-480.avif 480w, /images/transfert-bureau-hauts-de-seine-800.avif 800w, /images/transfert-bureau-hauts-de-seine-1200.avif 1200w",
+    "webp": "/images/transfert-bureau-hauts-de-seine-480.webp 480w, /images/transfert-bureau-hauts-de-seine-800.webp 800w, /images/transfert-bureau-hauts-de-seine-1200.webp 1200w"
   }
 }

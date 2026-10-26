@@ -4,6 +4,8 @@ import { ArrowRight, Phone, CheckCircle2, ShieldCheck, Zap, Truck, Files, Databa
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
 import { BreadcrumbTrail } from '../components/common/BreadcrumbTrail';
+import { ResponsiveImage } from '../components/common/ResponsiveImage';
+import { TWO_COLUMN_IMAGE_SIZES } from '../lib/responsive-image-sizes';
 import { CONTACT } from '../constants';
 import { getServiceSchema, getFAQSchema, getBreadcrumbSchema } from '../lib/schema';
 
@@ -114,7 +116,7 @@ const GestionArchives: React.FC = () => {
             </div>
             <div className="relative italic transition-all grayscale-0 shadow-none italic font-sans italic">
                <div className="rounded-[4rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 hover:scale-[1.02] italic grayscale-0">
-                  <img width={1360} height={1020} loading="lazy" decoding="async" src="/images/bureau-marne-transdem.webp" alt="Gestion d'archives Marne Transdem" className="w-full h-full object-cover italic transition-all" />
+                  <ResponsiveImage width={1360} height={1020} sizes={TWO_COLUMN_IMAGE_SIZES} loading="lazy" decoding="async" src="/images/bureau-marne-transdem.webp" alt="Gestion d'archives Marne Transdem" className="w-full h-full object-cover italic transition-all" />
                </div>
               <div aria-hidden="true" className="absolute -bottom-10 right-0 w-64 h-64 bg-accent/20 rounded-full blur-[100px] -z-0 italic transition-all"></div>
             </div>
