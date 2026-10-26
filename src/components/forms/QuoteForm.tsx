@@ -96,6 +96,7 @@ export const QuoteForm: React.FC = () => {
   const [dateMode, setDateMode] = useState('unknown');
   const [period, setPeriod] = useState('');
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const successHeadingRef = useRef<HTMLHeadingElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const previousStep = useRef(step);
   const progress = useRef<ReturnType<typeof createQuoteProgressTracker> | null>(null);
@@ -123,6 +124,11 @@ export const QuoteForm: React.FC = () => {
   useEffect(() => {
     if (Object.keys(errors).length) formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
   }, [errors]);
+  useEffect(() => {
+    if (!isSuccess) return;
+    successHeadingRef.current?.focus({ preventScroll: true });
+    successHeadingRef.current?.closest('[data-quote-success]')?.scrollIntoView({ block: 'start' });
+  }, [isSuccess]);
   
   const mapsLib = useMapsLibrary('places');
   const fromAutocompleteRef = useRef<HTMLInputElement>(null);
@@ -309,7 +315,6 @@ export const QuoteForm: React.FC = () => {
         has_volume: Boolean(cleanData.volume),
         has_pre_estimate: Boolean(estimate),
       }, savedQuote.id);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
       try { localStorage.removeItem(LOCAL_STORAGE_KEY); } catch { /* Optional local draft. */ }
 
       // Send Email Notification
@@ -336,14 +341,15 @@ export const QuoteForm: React.FC = () => {
   if (isSuccess) {
     return (
       <motion.div 
+        data-quote-success
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white dark:bg-slate-900 p-10 md:p-16 rounded-3xl shadow-2xl text-center border border-slate-100 dark:border-slate-800"
+        className="scroll-mt-32 bg-white dark:bg-slate-900 p-10 md:p-16 rounded-3xl shadow-2xl text-center border border-slate-100 dark:border-slate-800"
       >
         <div className="w-24 h-24 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner">
           <Check size={48} strokeWidth={3} />
         </div>
-        <h2 className="text-3xl md:text-4xl font-bold text-brand-900 dark:text-white mb-4">Demande envoyée !</h2>
+        <h2 ref={successHeadingRef} tabIndex={-1} className="text-3xl md:text-4xl font-bold text-brand-900 dark:text-white mb-4">Demande envoyée !</h2>
         <p className="text-slate-600 dark:text-slate-400 mb-10 text-lg max-w-md mx-auto leading-relaxed">
           Votre demande a bien été envoyée. L’équipe Marne Transdem vous recontactera dans les meilleurs délais.
         </p>

@@ -97,9 +97,11 @@ async function checkForm({failSave=false,failEmail=false,activeStep=3,invalid=fa
   let saves=0,emails=0,leads=0,errors=0;
   let resolveSave;
   const waitSave=new Promise(r=>resolveSave=r);
-  const react={useState:initial=>[initial?.consent===false?{...initial,fullName:'Test User',phone:invalid?'':'0100000000',email:'test@example.test',consent:!invalid,date:'2026-10-20'}:initial === 1 ? activeStep : initial,()=>{}],useEffect(){},useRef:v=>({current:v}),createElement:(type,props,...children)=>({type,props,children})};
+  const states=[], refs=[], effects=[];
+  let stateIndex=0,refIndex=0,focused=0,scrolled=0;
+  const react={useState(initial){const index=stateIndex++;if(!(index in states))states[index]=initial?.consent===false?{...initial,fullName:'Test User',phone:invalid?'':'0100000000',email:'test@example.test',consent:!invalid,date:'2026-10-20'}:initial === 1 ? activeStep : initial;return[states[index],update=>{states[index]=typeof update==='function'?update(states[index]):update;}];},useEffect(effect){effects.push(effect);},useRef(value){const index=refIndex++;return refs[index]??=( {current:value} );},createElement:(type,props,...children)=>({type,props,children})};
   const mocks={react,'motion/react':{motion:{div:'div'},AnimatePresence:'div'},'lucide-react':{},'react-router-dom':{Link:'a',useSearchParams:()=>[new URLSearchParams()]},'../../lib/firebase':{db:{}},'firebase/firestore':{collection:()=>({}),serverTimestamp:()=>0,addDoc:async(collection,data)=>{assert.equal(data.date,'','an unconfirmed date must not reach the CRM');assert.equal(data.fromElevator,'À préciser');assert.equal(data.needsPacking,'À préciser');saves++;await waitSave;if(failSave)throw Error('save failed');return{id:'saved-id'};}},'../../lib/firestore-errors':{OperationType:{CREATE:'create'},handleFirestoreError:()=>errors++},'@vis.gl/react-google-maps':{useMapsLibrary:()=>null},'../../lib/public-analytics':{getVisitAttribution:()=>null,hasAnalyticsConsent:()=>progressOnly,trackEvent:(name,params)=>progressEvents.push({name,params}),trackConversion:(action,params,id)=>{assert.equal(id,'saved-id');leads++;}}};
-  const context={module:{exports:{}},exports:{},require:n=>{if(!(n in mocks))throw Error(n);return mocks[n];},console:{warn(){},error(){}},window:{scrollTo(){}},document:{querySelector:()=>null},localStorage:{removeItem(){}},fetch:async()=>{emails++;if(failEmail)throw Error('notification offline');return{ok:true};},URLSearchParams};
+  const context={module:{exports:{}},exports:{},require:n=>{if(!(n in mocks))throw Error(n);return mocks[n];},console:{warn(){},error(){}},window:{scrollTo(){assert.fail('confirmation must not send the user back to the page top');}},document:{querySelector:()=>null},localStorage:{getItem:()=>null,removeItem(){}},fetch:async()=>{emails++;if(failEmail)throw Error('notification offline');return{ok:true};},URLSearchParams};
   mocks['react/jsx-runtime']={jsx:(type,props)=>({type,props,children:[props?.children]}),jsxs:(type,props)=>({type,props,children:[props?.children]})};
   vm.runInNewContext(formBuild.outputFiles[0].text,context);
   const tree=context.module.exports.QuoteForm();
@@ -121,6 +123,18 @@ async function checkForm({failSave=false,failEmail=false,activeStep=3,invalid=fa
   assert.equal(saves,1,'concurrent submit must not create a second record');
   resolveSave(); await first;
   assert.equal(leads,failSave?0:1); assert.equal(emails,failSave?0:1); assert.equal(errors,failSave?1:0);
+  stateIndex=0;refIndex=0;effects.length=0;
+  const result=context.module.exports.QuoteForm();
+  const findHeading=node=>{if(!node||typeof node!=='object')return null;if(node.type==='h2')return node;for(const child of(node.children||[]).flat(Infinity)){const found=findHeading(child);if(found)return found;}return null;};
+  const confirmation=findHeading(result);
+  assert.equal(Boolean(confirmation),!failSave,'only a saved request displays confirmation');
+  if(confirmation){
+    assert.equal(confirmation.props.tabIndex,-1);
+    confirmation.props.ref.current={focus(options){assert.equal(options.preventScroll,true);focused++;},closest(){return{scrollIntoView(options){assert.equal(options.block,'start');scrolled++;}};}};
+  }
+  effects.forEach(effect=>effect());
+  assert.equal(focused,failSave?0:1,'saved confirmation receives keyboard focus, including after email failure');
+  assert.equal(scrolled,failSave?0:1,'saved confirmation is brought into view');
 }
 await checkForm({activeStep:1}); await checkForm({activeStep:2}); await checkForm({invalid:true});
 await checkForm(); await checkForm({failEmail:true}); await checkForm({failSave:true});
