@@ -1,4 +1,6 @@
 import { ServiceAreaLinks } from '../components/common/ServiceAreaLinks';
+import { ResponsiveImage } from '../components/common/ResponsiveImage';
+import { STORAGE_IMAGE_SIZES } from '../lib/responsive-image-sizes';
 import { ServiceDecisionGuide } from '../components/common/ServiceDecisionGuide';
 import React from 'react';
 import { motion } from 'motion/react';
@@ -281,7 +283,7 @@ const GardeMeuble: React.FC = () => {
               </p>
             </div>
             <div className="aspect-square bg-slate-100 rounded-[3rem] overflow-hidden shadow-2xl relative group">
-              <img width={765} height={1020} loading="lazy" decoding="async" 
+              <ResponsiveImage width={765} height={1020} loading="lazy" decoding="async" sizes={STORAGE_IMAGE_SIZES}
                 src="/images/garde-meuble.webp" 
                 alt="Box de stockage Marne Transdem" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"

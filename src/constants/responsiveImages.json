@@ -58,5 +58,29 @@
     "height": 1600,
     "avif": "/images/transfert-bureau-hauts-de-seine-480.avif 480w, /images/transfert-bureau-hauts-de-seine-800.avif 800w, /images/transfert-bureau-hauts-de-seine-1200.avif 1200w",
     "webp": "/images/transfert-bureau-hauts-de-seine-480.webp 480w, /images/transfert-bureau-hauts-de-seine-800.webp 800w, /images/transfert-bureau-hauts-de-seine-1200.webp 1200w"
+  },
+  "/images/garde-meuble.webp": {
+    "width": 765,
+    "height": 1020,
+    "avif": "/images/garde-meuble-480.avif 480w, /images/garde-meuble-765.avif 765w",
+    "webp": "/images/garde-meuble-480.webp 480w, /images/garde-meuble-765.webp 765w"
+  },
+  "/images/monte-meuble-demenagement.webp": {
+    "width": 765,
+    "height": 1020,
+    "avif": "/images/monte-meuble-demenagement-480.avif 480w, /images/monte-meuble-demenagement-765.avif 765w",
+    "webp": "/images/monte-meuble-demenagement-480.webp 480w, /images/monte-meuble-demenagement-765.webp 765w"
+  },
+  "/images/demenagement-appartement-92.webp": {
+    "width": 1200,
+    "height": 1600,
+    "avif": "/images/demenagement-appartement-92-480.avif 480w, /images/demenagement-appartement-92-800.avif 800w, /images/demenagement-appartement-92-1200.avif 1200w",
+    "webp": "/images/demenagement-appartement-92-480.webp 480w, /images/demenagement-appartement-92-800.webp 800w, /images/demenagement-appartement-92-1200.webp 1200w"
+  },
+  "/images/demenagement-paris-intra-muros.webp": {
+    "width": 1200,
+    "height": 1600,
+    "avif": "/images/demenagement-paris-intra-muros-480.avif 480w, /images/demenagement-paris-intra-muros-800.avif 800w, /images/demenagement-paris-intra-muros-1200.avif 1200w",
+    "webp": "/images/demenagement-paris-intra-muros-480.webp 480w, /images/demenagement-paris-intra-muros-800.webp 800w, /images/demenagement-paris-intra-muros-1200.webp 1200w"
   }
 }

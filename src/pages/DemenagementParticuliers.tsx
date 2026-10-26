@@ -1,4 +1,6 @@
 import { ServiceAreaLinks } from '../components/common/ServiceAreaLinks';
+import { ResponsiveImage } from '../components/common/ResponsiveImage';
+import { TWO_COLUMN_IMAGE_SIZES } from '../lib/responsive-image-sizes';
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Phone, CheckCircle2, Home, Users, Zap, ShieldCheck, Box, Truck, MapPin, Info, Settings, Star } from 'lucide-react';
@@ -159,7 +161,7 @@ const DemenagementParticuliers: React.FC = () => {
             </div>
             <div className="relative">
               <div className="aspect-[4/5] rounded-[3rem] bg-slate-200 overflow-hidden shadow-2xl">
-                <img src="/images/demenagement-appartement-92.webp" width="1200" height="1600" loading="lazy" decoding="async" alt="Déménageur Marne Transdem pour particuliers" className="w-full h-full object-cover" />
+                <ResponsiveImage src="/images/demenagement-appartement-92.webp" sizes={TWO_COLUMN_IMAGE_SIZES} width="1200" height="1600" loading="lazy" decoding="async" alt="Déménageur Marne Transdem pour particuliers" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
@@ -304,7 +306,7 @@ const DemenagementParticuliers: React.FC = () => {
               </div>
             </div>
             <div className="aspect-video bg-slate-200 rounded-[2.5rem] overflow-hidden shadow-xl">
-               <img src="/images/demenagement-paris-intra-muros.webp" width="1200" height="1600" loading="lazy" decoding="async" alt="Déménagement en milieu urbain à Paris" className="w-full h-full object-cover" />
+               <ResponsiveImage src="/images/demenagement-paris-intra-muros.webp" sizes={TWO_COLUMN_IMAGE_SIZES} width="1200" height="1600" loading="lazy" decoding="async" alt="Déménagement en milieu urbain à Paris" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>

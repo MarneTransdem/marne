@@ -22,7 +22,22 @@ for (const filename of await fs.readdir(sectorDirectory)) {
   }
 }
 await fs.writeFile('src/constants/sectorMetadata.json', JSON.stringify(data.map(({slug,name,type,seoTitle,seoDescription,seoImage}) => ({slug,name,type,seoTitle,seoDescription,seoImage})), null, 2) + '\n');
-const images = ['demenagement-paris.webp','demenagement-charenton-le-pont.webp','demenagement-longue-distance-camion.jpg','demenagement-longue-distance.webp','demenagement-appartement-93.jpg','equipe-demenageur-longue-distance.jpg','equipe-demenagement-93.jpg','transfert-bureaux-entreprise-paris.jpg','bureau-marne-transdem.webp','transfert-bureau-hauts-de-seine.webp'];
+const images = [
+  'demenagement-paris.webp',
+  'demenagement-charenton-le-pont.webp',
+  'demenagement-longue-distance-camion.jpg',
+  'demenagement-longue-distance.webp',
+  'demenagement-appartement-93.jpg',
+  'equipe-demenageur-longue-distance.jpg',
+  'equipe-demenagement-93.jpg',
+  'transfert-bureaux-entreprise-paris.jpg',
+  'bureau-marne-transdem.webp',
+  'transfert-bureau-hauts-de-seine.webp',
+  'garde-meuble.webp',
+  'monte-meuble-demenagement.webp',
+  'demenagement-appartement-92.webp',
+  'demenagement-paris-intra-muros.webp',
+];
 const manifest = {};
 for (const name of images) {
   const input = 'public/images/' + name;

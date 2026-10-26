@@ -1,4 +1,6 @@
 import { ServiceAreaLinks } from '../components/common/ServiceAreaLinks';
+import { ResponsiveImage } from '../components/common/ResponsiveImage';
+import { LIFT_IMAGE_SIZES } from '../lib/responsive-image-sizes';
 import { ServiceDecisionGuide } from '../components/common/ServiceDecisionGuide';
 import React from 'react';
 import { motion } from 'motion/react';
@@ -152,7 +154,7 @@ const MonteMeuble: React.FC = () => {
 
           <div className="max-w-4xl mx-auto mb-20">
             <div className="aspect-[16/9] rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100">
-              <img width={765} height={1020} loading="lazy" decoding="async"
+              <ResponsiveImage width={765} height={1020} loading="lazy" decoding="async" sizes={LIFT_IMAGE_SIZES}
                 src="/images/monte-meuble-demenagement.webp"
                 alt="Location Monte-meuble Marne Transdem Paris"
                 className="w-full h-full object-cover"
