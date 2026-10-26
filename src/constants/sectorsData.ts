@@ -226,10 +226,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Bagneux",
         "l": "/demenagement-bagneux"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
       }
     ]
   },
@@ -623,10 +619,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Versailles",
         "l": "/demenagement-versailles"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
       }
     ]
   },
@@ -750,10 +742,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Fontenay-aux-Roses",
         "l": "/demenagement-fontenay-aux-roses"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
       }
     ]
   },
@@ -963,10 +951,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Bourg-la-Reine",
         "l": "/demenagement-bourg-la-reine"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
       }
     ]
   },
@@ -1024,10 +1008,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Issy-les-Moulineaux",
         "l": "/demenagement-issy-les-moulineaux"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
       }
     ]
   },
@@ -1154,10 +1134,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Louveciennes",
         "l": "/demenagement-louveciennes"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
       }
     ]
   },
@@ -1195,10 +1171,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Paris 15e",
         "l": "/demenagement-paris-15"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
       }
     ]
   },
@@ -1510,10 +1482,6 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-rueil-malmaison"
       },
       {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
-      },
-      {
         "n": "La Celle-Saint-Cloud",
         "l": "/demenagement-la-celle-saint-cloud"
       }
@@ -1743,10 +1711,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Clamart",
         "l": "/demenagement-clamart"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
       }
     ]
   },
@@ -2928,10 +2892,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Vaucresson",
         "l": "/demenagement-vaucresson"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
       }
     ]
   },
@@ -2993,10 +2953,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Garches",
         "l": "/demenagement-garches"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
       }
     ]
   },
@@ -3058,10 +3014,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Versailles",
         "l": "/demenagement-versailles"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
       }
     ]
   },
@@ -3221,10 +3173,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Sceaux",
         "l": "/demenagement-sceaux"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
       }
     ]
   },
