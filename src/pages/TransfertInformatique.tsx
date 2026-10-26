@@ -3,11 +3,17 @@ import { motion } from 'motion/react';
 import { ArrowRight, Phone, CheckCircle2, Zap, Monitor, Cpu, Server, ShieldCheck, Truck, ClipboardCheck, Info, HelpCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
+import { BreadcrumbTrail } from '../components/common/BreadcrumbTrail';
 import { CONTACT } from '../constants';
 import { getServiceSchema, getFAQSchema, getBreadcrumbSchema } from '../lib/schema';
 
 const TransfertInformatique: React.FC = () => {
   const path = "/transfert-informatique-paris";
+  const breadcrumbs = [
+    { name: 'Accueil', item: '/' },
+    { name: 'Déménagement d’entreprises', item: '/demenagement-entreprises-paris' },
+    { name: 'Transfert informatique', item: path },
+  ];
 
   const faqs = [
     { 
@@ -37,10 +43,7 @@ const TransfertInformatique: React.FC = () => {
         schema={[
           getServiceSchema("Transfert informatique", "Préparation du transport des équipements informatiques à Paris : inventaire, accès et protections à définir au devis, en coordination avec le responsable informatique du client.", { path }),
           getFAQSchema(faqs),
-          getBreadcrumbSchema([
-            { name: "Accueil", item: "/" },
-            { name: "Transfert Informatique", item: path }
-          ])
+          getBreadcrumbSchema(breadcrumbs)
         ]}
       />
 
@@ -49,6 +52,7 @@ const TransfertInformatique: React.FC = () => {
         <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 -skew-x-12 translate-x-1/2 pointer-events-none"></div>
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl">
+            <BreadcrumbTrail items={breadcrumbs} />
             <motion.div
               initial={false}
               animate={{ opacity: 1, y: 0 }}

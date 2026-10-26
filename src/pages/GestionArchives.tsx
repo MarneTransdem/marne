@@ -3,11 +3,17 @@ import { motion } from 'motion/react';
 import { ArrowRight, Phone, CheckCircle2, ShieldCheck, Zap, Truck, Files, Database, Search, ClipboardCheck, Info, HelpCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
+import { BreadcrumbTrail } from '../components/common/BreadcrumbTrail';
 import { CONTACT } from '../constants';
 import { getServiceSchema, getFAQSchema, getBreadcrumbSchema } from '../lib/schema';
 
 const GestionArchives: React.FC = () => {
   const path = "/gestion-archives-paris";
+  const breadcrumbs = [
+    { name: 'Accueil', item: '/' },
+    { name: 'Déménagement d’entreprises', item: '/demenagement-entreprises-paris' },
+    { name: 'Transfert d’archives', item: path },
+  ];
 
   const faqs = [
     { 
@@ -37,10 +43,7 @@ const GestionArchives: React.FC = () => {
         schema={[
           getServiceSchema("Transfert d’archives", "Préparation du transport des archives d’entreprise à Paris : volume, repérage, accès et modalités de réception à définir au devis.", { path }),
           getFAQSchema(faqs),
-          getBreadcrumbSchema([
-            { name: "Accueil", item: "/" },
-            { name: "Gestion d'Archives", item: path }
-          ])
+          getBreadcrumbSchema(breadcrumbs)
         ]}
       />
 
@@ -49,6 +52,7 @@ const GestionArchives: React.FC = () => {
         <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 -skew-x-12 translate-x-1/2 pointer-events-none"></div>
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl">
+            <BreadcrumbTrail items={breadcrumbs} />
             <motion.div
               initial={false}
               animate={{ opacity: 1, y: 0 }}
@@ -112,7 +116,7 @@ const GestionArchives: React.FC = () => {
                <div className="rounded-[4rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 hover:scale-[1.02] italic grayscale-0">
                   <img width={1360} height={1020} loading="lazy" decoding="async" src="/images/bureau-marne-transdem.webp" alt="Gestion d'archives Marne Transdem" className="w-full h-full object-cover italic transition-all" />
                </div>
-               <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-accent/20 rounded-full blur-[100px] -z-0 italic transition-all"></div>
+              <div aria-hidden="true" className="absolute -bottom-10 right-0 w-64 h-64 bg-accent/20 rounded-full blur-[100px] -z-0 italic transition-all"></div>
             </div>
           </div>
         </div>
