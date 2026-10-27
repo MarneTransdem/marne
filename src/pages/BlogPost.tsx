@@ -243,12 +243,12 @@ const posts: Record<string, BlogPostData> = {
   },
   'formalites-administratives-demenagement': {
     slug: 'formalites-administratives-demenagement',
-    title: 'Les formalités administratives indispensables avant un déménagement',
+    title: 'Déménagement : démarches et organismes à prévenir',
     excerpt:
-      'Un déménagement ne se limite pas aux cartons. Électricité, gaz, internet, impôts, CAF : découvrez toutes les formalités administratives à faire avant et après votre départ.',
-    metaTitle: 'Formalités déménagement : organismes à prévenir et démarches indispensables | Marne Transdem',
+      'Qui prévenir et à quel moment ? Retrouvez les organismes concernés, les démarches en ligne et les points à vérifier avant et après votre déménagement.',
+    metaTitle: 'Formalités déménagement : qui prévenir ? | Marne Transdem',
     metaDesc:
-      'Électricité, gaz, internet, assurance, impôts, CAF, CPAM, banque, carte grise, courrier : découvrez toutes les formalités administratives à faire avant et après un déménagement.',
+      'Formalités de déménagement : organismes à prévenir, énergie, CAF, carte grise et stationnement à Paris. Suivez les étapes avant et après le départ.',
     keywords:
       'formalités administratives déménagement, organismes à prévenir déménagement, changement adresse déménagement, démarches déménagement, liste formalités déménagement, changement adresse impôts, réexpédition courrier déménagement, déménagement électricité gaz internet, changement adresse carte grise',
     date: '18 mai 2026',
@@ -263,7 +263,7 @@ const posts: Record<string, BlogPostData> = {
       },
       {
         question: 'Quand faut-il faire son changement d’adresse ?',
-        answer: 'L’idéal est de commencer les démarches 3 à 4 semaines avant le déménagement. Certaines formalités doivent être faites avant le départ, comme l’énergie, l’assurance habitation, internet, le courrier et les démarches liées au logement.'
+        answer: 'Anticipez les démarches dès que votre date est connue, en tenant compte du préavis du logement et des délais de vos prestataires. Préparez les contrats du nouveau logement avant l’arrivée. Pour la carte grise, le délai est d’un mois après le déménagement ; une demande d’AOT à Paris se dépose au moins 15 jours avant l’intervention.'
       },
       {
         question: 'Comment faire suivre son courrier après un déménagement ?',
@@ -279,7 +279,11 @@ const posts: Record<string, BlogPostData> = {
       },
       {
         question: 'Faut-il une autorisation de stationnement pour déménager à Paris ?',
-        answer: 'Dans de nombreux cas, oui. À Paris, une AOT de déménagement peut être nécessaire, notamment pour stationner en dehors des places classiques, stationner longtemps ou utiliser un monte-meuble.'
+        answer: 'Une AOT est notamment nécessaire pour un monte-meuble, un stationnement hors de la bande payante ou plus de six heures consécutives au même emplacement. La Ville demande un dépôt au moins 15 jours avant le déménagement. L’autorisation ne réserve pas une place et deux adresses parisiennes nécessitent deux demandes distinctes.'
+      },
+      {
+        question: 'Le changement d’adresse à la CAF suffit-il pour mon aide au logement ?',
+        answer: 'Non. La CAF demande de déclarer votre nouvelle adresse et de déposer une nouvelle demande d’aide au logement pour cette adresse, même si vous bénéficiez déjà d’une aide. Effectuez cette demande dès l’entrée dans les lieux, puis suivez son traitement dans votre espace personnel.'
       }
     ],
     related: [
@@ -299,30 +303,44 @@ const posts: Record<string, BlogPostData> = {
       }
     ],
     content: `
-      <p class="lead">Un déménagement ne se limite pas aux cartons, au camion et au transport des meubles. Pour qu’un changement de logement se déroule sans stress, il faut aussi anticiper toutes les démarches administratives qui accompagnent le départ : énergie, assurance, courrier, impôts, CAF, CPAM, banque, internet, carte grise, école des enfants, abonnements, employeur, syndic ou encore autorisation de stationnement.</p>
+      <p class="lead">Pour votre déménagement, prévenez les organismes qui gèrent vos droits et vos contrats : impôts, assurance maladie, CAF si vous êtes allocataire, fournisseurs d’énergie, assurance habitation, banque et opérateur internet. Ajoutez votre employeur, l’école et vos abonnements selon votre situation.</p>
+      <p>Préparez ces déclarations en parallèle du transport et des accès aux deux logements. Marne Transdem organise la partie matérielle de votre <a href="/demenagement-particuliers-paris">déménagement de particulier</a> à Paris et en <a href="/demenagement-ile-de-france">Île-de-France</a> ; les déclarations personnelles se réalisent auprès des organismes concernés.</p>
 
-      <p>Ces formalités sont parfois perçues comme secondaires. Pourtant, un oubli peut entraîner des complications très concrètes : courrier perdu, facture envoyée à l’ancienne adresse, contrat d’électricité non résilié, retard d’ouverture internet, problème d’assurance habitation, aide au logement bloquée ou difficulté avec la carte grise.</p>
-
-      <p>La bonne méthode consiste à préparer ces démarches progressivement, idéalement plusieurs semaines avant le jour J. Le site Service-Public rappelle d’ailleurs qu’un déménagement implique des démarches avant et après le départ auprès d’organismes publics et privés, notamment la CAF, la banque, l’assurance, les fournisseurs d’énergie ou encore la mairie pour les listes électorales.</p>
-
-      <p>Chez Marne Transdem, nous accompagnons les particuliers et les professionnels dans leurs déménagements à Paris, en <a href="/demenagement-ile-de-france">Île-de-France</a> et vers toute la France. Notre rôle est de vous aider à organiser votre déménagement de manière claire, efficace et sereine. Voici la checklist complète des formalités à ne pas oublier.</p>
+      <section class="not-prose my-10 rounded-2xl border border-slate-200 bg-slate-50 p-6 md:p-8" aria-labelledby="formalites-organismes">
+        <h2 id="formalites-organismes" class="text-2xl font-bold text-brand-900">Qui prévenir en cas de déménagement ?</h2>
+        <ul class="mt-5 space-y-3 text-slate-700">
+          <li><strong>Administrations et organismes sociaux :</strong> impôts, CPAM, CAF ou MSA, retraite et France Travail si vous êtes concerné.</li>
+          <li><strong>Contrats du logement :</strong> bailleur ou agence, électricité, gaz, assurance habitation, internet et réexpédition du courrier si souhaitée.</li>
+          <li><strong>Interlocuteurs à contacter séparément :</strong> banque, mutuelle, employeur, école, syndic et abonnements privés.</li>
+        </ul>
+        <p class="mt-5 leading-relaxed text-slate-700">Le <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/R11193" class="underline underline-offset-4">téléservice gratuit de déclaration de changement d’adresse</a> permet de prévenir plusieurs organismes. Sélectionnez ceux qui vous concernent et gardez les confirmations : il ne remplace pas toutes vos démarches.</p>
+        <nav class="mt-6" aria-label="Accès aux démarches du déménagement">
+          <ul class="grid gap-2 sm:grid-cols-2">
+            <li><a href="#formalites-changement-adresse" class="flex min-h-11 items-center rounded-lg bg-white p-3 text-brand-900 underline underline-offset-4">Déclaration en ligne</a></li>
+            <li><a href="#formalites-caf" class="flex min-h-11 items-center rounded-lg bg-white p-3 text-brand-900 underline underline-offset-4">CAF et aide au logement</a></li>
+            <li><a href="#formalites-carte-grise" class="flex min-h-11 items-center rounded-lg bg-white p-3 text-brand-900 underline underline-offset-4">Carte grise</a></li>
+            <li><a href="#formalites-stationnement" class="flex min-h-11 items-center rounded-lg bg-white p-3 text-brand-900 underline underline-offset-4">Stationnement à Paris</a></li>
+            <li><a href="#formalites-calendrier" class="flex min-h-11 items-center rounded-lg bg-white p-3 text-brand-900 underline underline-offset-4">Calendrier des démarches</a></li>
+          </ul>
+        </nav>
+      </section>
 
       <h2>1. Prévenir son propriétaire ou son bailleur</h2>
       <p>Si vous êtes locataire, la première formalité consiste à donner congé à votre propriétaire ou à votre agence immobilière. Selon votre situation et votre logement, le préavis peut être de 1 ou 3 mois. Il faut également prévoir l’état des lieux de sortie et communiquer votre nouvelle adresse au bailleur à cette occasion.</p>
       <p>Cette étape est importante pour plusieurs raisons : elle fixe officiellement votre date de départ, elle permet d’organiser l’état des lieux, elle évite de payer un loyer plus longtemps que nécessaire, elle permet de préparer la restitution du dépôt de garantie et elle donne un calendrier clair pour organiser le déménagement.</p>
       <p>Avant l’état des lieux, pensez à vérifier les petits travaux éventuels : trous dans les murs, joints, nettoyage, ampoules, clés, badge d’accès, cave, boîte aux lettres, place de parking ou télécommande de portail. Un logement rendu propre, complet et conforme facilite la clôture du dossier.</p>
 
-      <h2>2. Résilier ou transférer les contrats d’électricité et de gaz</h2>
+      <h2>2. Résilier l’ancien contrat d’énergie et souscrire pour le nouveau logement</h2>
       <p>L’énergie fait partie des démarches prioritaires. Il faut éviter deux situations : continuer à payer l’électricité ou le gaz de l’ancien logement, ou arriver dans le nouveau sans contrat actif.</p>
-      <p>Pour l’électricité, Enedis indique qu’en cas de déménagement, il faut résilier son contrat auprès de son fournisseur environ une semaine avant le départ afin de relever les consommations et clôturer le contrat à la date souhaitée. Pour le nouveau logement, la mise en service peut souvent être faite à distance si l’électricité est présente, en communiquant l’index du compteur ou une photo du compteur selon la situation.</p>
-      <p>À prévoir avant le déménagement : relever les compteurs de l’ancien logement, contacter le fournisseur d’électricité, résilier le contrat à la bonne date, souscrire un contrat pour le nouveau logement, transmettre les index de consommation et conserver les confirmations de résiliation et de souscription. Le même principe s’applique au gaz, avec une attention particulière si le logement nécessite une intervention technique.</p>
+      <p>Le <a href="https://www.energie-info.fr/fiche_pratique/je-demenage-jemmenage-les-demarches-pour-lelectricite-et-le-gaz-naturel/">médiateur national de l’énergie</a> distingue deux démarches : demander au fournisseur de clôturer l’ancien contrat à la date du départ et souscrire un contrat pour la nouvelle adresse. Un simple changement d’adresse ne remplace pas ces opérations, même si vous gardez le même fournisseur.</p>
+      <p>Le médiateur recommande de contacter le fournisseur du nouveau logement au moins 15 jours avant l’emménagement. Faites confirmer la date de mise en service et l’éventuelle nécessité d’un rendez-vous. Le jour du déménagement, relevez les compteurs aux deux adresses, transmettez les index aux fournisseurs concernés et conservez les confirmations.</p>
 
       <h2>3. Organiser le changement d’adresse postal</h2>
       <p>Même si beaucoup de démarches sont aujourd’hui dématérialisées, le courrier reste important. Certaines administrations, banques, assurances, mutuelles, organismes sociaux ou entreprises peuvent encore envoyer des documents par voie postale.</p>
       <p>La Poste propose des offres de réexpédition définitive pour transférer le courrier vers la nouvelle adresse, généralement pour 6 ou 12 mois selon la formule choisie. Ce service peut être très utile pendant la période de transition, notamment si vous n’êtes pas certain d’avoir prévenu tous les organismes.</p>
       <p>La réexpédition du courrier ne remplace pas le changement d’adresse auprès des organismes. Elle sert plutôt de filet de sécurité. À faire idéalement 2 à 3 semaines avant le départ : activer la réexpédition du courrier, mettre à jour son adresse auprès des organismes essentiels, prévenir les services qui envoient encore des documents papier et vérifier que le nom est bien présent sur la nouvelle boîte aux lettres.</p>
 
-      <h2>4. Utiliser le service officiel de changement d’adresse en ligne</h2>
+      <h2 id="formalites-changement-adresse" class="scroll-mt-32">4. Utiliser le service officiel de changement d’adresse en ligne</h2>
       <p>Pour gagner du temps, il est possible de déclarer son changement d’adresse en ligne auprès de plusieurs organismes à la fois. Service-Public propose un téléservice permettant de transmettre les nouvelles coordonnées simultanément à plusieurs services administratifs et à certains organismes privés. Celui-ci peut notamment concerner la CPAM, les impôts, EDF, France Travail ou la CAF selon les situations.</p>
       <p>C’est une démarche très utile, car elle évite de faire plusieurs déclarations séparées. Cependant, il ne faut pas croire qu’elle couvre absolument tout. Certains organismes doivent encore être prévenus directement : banque, assurance, mutuelle, employeur, école, syndic, abonnements privés, opérateur internet, salle de sport, journaux, plateformes professionnelles, etc.</p>
 
@@ -330,9 +348,9 @@ const posts: Record<string, BlogPostData> = {
       <p>Le changement d’adresse doit être signalé aux impôts afin d’assurer le suivi de votre dossier fiscal et la bonne réception des documents. L’administration fiscale indique que le changement de coordonnées doit être signalé pour permettre le suivi du dossier et le bon établissement des impôts. Service-Public rappelle également que si vous avez déménagé, vous devez en informer les services des impôts et l’indiquer sur votre déclaration de revenus.</p>
       <p>Cette démarche permet d’éviter l’envoi d’avis d’imposition à l’ancienne adresse, des erreurs de rattachement fiscal, des difficultés avec la taxe foncière ou la taxe d’habitation sur résidence secondaire et des retards dans les échanges avec l’administration.</p>
 
-      <h2>6. Prévenir la CAF si vous êtes allocataire</h2>
+      <h2 id="formalites-caf" class="scroll-mt-32">6. Déclarer votre adresse à la CAF et demander l’aide au nouveau logement</h2>
       <p>Si vous bénéficiez d’une aide de la CAF, le changement d’adresse est indispensable. La CAF indique qu’il faut déclarer immédiatement son changement d’adresse dans l’espace “Mon Compte”, rubrique “Déclarer un changement”.</p>
-      <p>Un déménagement peut modifier certains droits. Si vous perceviez une aide au logement, une nouvelle demande peut être nécessaire pour le nouveau logement selon la situation. Il est donc préférable de faire la mise à jour dès l’entrée dans les lieux, pour éviter un décalage dans le traitement du dossier.</p>
+      <p>Pour demander une aide au nouveau logement, la <a href="https://caf.fr/allocataires/aides-et-demarches/ma-situation/logement/je-demenage">CAF prévoit une nouvelle demande dès l’entrée dans les lieux</a>, y compris si vous percevez déjà cette prestation. La déclaration de votre adresse et la demande d’aide sont donc deux démarches distinctes. Vérifiez ensuite les messages et les pièces demandées dans votre espace personnel.</p>
 
       <h2>7. Mettre à jour la CPAM, la mutuelle et les organismes de santé</h2>
       <p>Le changement d’adresse doit aussi être signalé à l’Assurance Maladie et à votre mutuelle. Cela permet de continuer à recevoir les courriers, attestations, relevés ou demandes complémentaires. En cas de changement de département, il peut être utile de vérifier si votre caisse ou certains droits nécessitent une mise à jour particulière.</p>
@@ -343,8 +361,8 @@ const posts: Record<string, BlogPostData> = {
       <h2>9. Prévenir la banque, les organismes financiers et les assurances</h2>
       <p>Votre banque doit connaître votre nouvelle adresse pour l’envoi des documents, cartes, relevés, moyens de paiement ou courriers réglementaires. Prévenez également vos organismes de crédit, votre assurance auto, votre assurance santé, votre assurance scolaire, votre assurance professionnelle, vos contrats d’épargne et votre courtier si vous en avez un.</p>
 
-      <h2>10. Mettre à jour la carte grise du véhicule</h2>
-      <p>Si vous possédez un véhicule, le changement d’adresse sur le certificat d’immatriculation est obligatoire. Service-Public indique que vous disposez d’un délai d’un mois pour faire modifier l’adresse sur la carte grise après un déménagement. La démarche se fait en ligne via l’ANTS ou FranceConnect.</p>
+      <h2 id="formalites-carte-grise" class="scroll-mt-32">10. Mettre à jour la carte grise du véhicule</h2>
+      <p>La <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F12118">fiche officielle sur le changement d’adresse du certificat d’immatriculation</a> indique un délai d’un mois après le déménagement. La démarche peut être réalisée en ligne ou auprès d’un professionnel habilité. Pour un véhicule en location longue durée ou en leasing, contactez l’organisme propriétaire, qui doit effectuer la modification.</p>
 
       <h2>11. Prévenir l’opérateur internet et mobile</h2>
       <p>Internet doit être anticipé, surtout si vous télétravaillez ou si vous avez besoin d’une connexion dès l’arrivée dans le nouveau logement. Contactez votre opérateur plusieurs semaines avant le déménagement pour vérifier l’éligibilité, le délai d’activation et le transfert ou la résiliation du contrat.</p>
@@ -353,7 +371,7 @@ const posts: Record<string, BlogPostData> = {
       <p>Votre employeur doit connaître votre nouvelle adresse pour les documents administratifs. Si vous êtes inscrit à France Travail, le changement d’adresse doit également être déclaré. Pour les indépendants, il peut aussi être nécessaire de mettre à jour l’adresse de l’entreprise, l’URSSAF ou les caisses de retraite.</p>
 
       <h2>13. Prévoir les démarches scolaires des enfants</h2>
-      <p>Si vous avez des enfants, les démarches scolaires doivent être anticipées. Pour une école maternelle ou élémentaire, Service-Public indique qu’après un déménagement, l’enfant doit être inscrit dans un établissement scolaire dans les 8 jours suivant le changement de domicile.</p>
+      <p>Si votre enfant doit changer d’école, contactez l’ancien établissement et la mairie ou la nouvelle école pour préparer le dossier. Pour un enfant de plus de trois ans, <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F1881">Service-Public indique une inscription dans les huit jours suivant le changement de domicile</a>. La poursuite de l’année dans l’ancien établissement reste possible sous conditions : vérifiez la situation avant de demander la radiation.</p>
 
       <h2>14. Mettre à jour l’inscription sur les listes électorales</h2>
       <p>Un déménagement peut avoir un impact sur votre bureau de vote. Si vous changez de commune ou d’arrondissement, il peut être nécessaire de vous inscrire sur les listes électorales de votre nouvelle adresse. C’est une formalité souvent négligée, mais elle permet de voter dans la bonne commune ou le bon arrondissement.</p>
@@ -361,11 +379,11 @@ const posts: Record<string, BlogPostData> = {
       <h2>15. Prévenir les abonnements, services et comptes du quotidien</h2>
       <p>Au-delà des organismes administratifs, de nombreux services privés doivent être mis à jour : abonnements de transport, salle de sport, journaux, plateformes de livraison, sites e-commerce, vétérinaire, associations, etc. La meilleure méthode consiste à consulter vos prélèvements bancaires des trois derniers mois.</p>
 
-      <h2>16. Organiser l’autorisation de stationnement à Paris</h2>
-      <p>Pour un déménagement à Paris, la question du stationnement est essentielle. Le camion doit pouvoir se positionner au plus près de l’immeuble afin de limiter le portage, sécuriser les biens et réduire la durée d’intervention. La Ville de Paris précise que l’AOT de déménagement correspond à l’accord de la Ville sur les modalités de stationnement liées au déménagement. Elle est notamment indispensable pour stationner en dehors de la bande de stationnement payant, stationner plus de six heures ou utiliser un monte-meubles.</p>
+      <h2 id="formalites-stationnement" class="scroll-mt-32">16. Organiser l’autorisation de stationnement à Paris</h2>
+      <p>La <a href="https://www.paris.fr/pages/faq-demenagements-4404">procédure de déménagement de la Ville de Paris</a> demande un dépôt au moins 15 jours à l’avance pour l’AOT. Cette autorisation est notamment nécessaire pour utiliser un <a href="/location-monte-meuble-paris">monte-meuble</a>, stationner hors de la bande payante ou rester plus de six heures consécutives au même emplacement. Elle ne réserve pas une place. Pour un départ et une arrivée à Paris, préparez deux demandes distinctes et précisez avec l’équipe qui réalise les démarches et règle les frais.</p>
       <p>Si vous déménagez en proche banlieue, comme à <a href="/demenagement-boulogne-billancourt">Boulogne-Billancourt</a>, <a href="/demenagement-saint-maur-des-fosses">Saint-Maur-des-Fossés</a> ou encore <a href="/demenagement-vincennes">Vincennes</a>, veillez également à anticiper les demandes d’autorisation d'occupation temporaire de voirie auprès de la mairie concernée.</p>
 
-      <h2>17. Prévoyez une checklist chronologique</h2>
+      <h2 id="formalites-calendrier" class="scroll-mt-32">17. Prévoyez une checklist chronologique</h2>
       
       <h3>1 à 3 mois avant le déménagement</h3>
       <ul>
@@ -382,8 +400,8 @@ const posts: Record<string, BlogPostData> = {
       <ul>
         <li>souscrire ou transférer internet ;</li>
         <li>organiser la réexpédition du courrier ;</li>
-        <li>déclarer le changement d’adresse aux organismes ;</li>
-        <li>prévenir la CAF, CPAM, impôts, banque, mutuelle ;</li>
+        <li>préparer les déclarations de changement d’adresse et les identifiants des organismes ;</li>
+        <li>contacter le fournisseur du nouveau logement pour anticiper le contrat d’énergie ;</li>
         <li>contacter l’assurance habitation ;</li>
         <li>prévoir l’autorisation de stationnement si nécessaire ;</li>
         <li>planifier le monte-meuble si besoin.</li>
@@ -391,7 +409,7 @@ const posts: Record<string, BlogPostData> = {
 
       <h3>1 semaine avant</h3>
       <ul>
-        <li>résilier ou transférer les contrats d’énergie ;</li>
+        <li>confirmer les dates de résiliation de l’ancien contrat d’énergie et de mise en service à la nouvelle adresse ;</li>
         <li>confirmer l’heure d’intervention ;</li>
         <li>vérifier les accès ;</li>
         <li>préparer les cartons essentiels ;</li>
@@ -411,6 +429,7 @@ const posts: Record<string, BlogPostData> = {
 
       <h3>Après l’emménagement</h3>
       <ul>
+        <li>déclarer la nouvelle adresse à la CAF si concerné et déposer la demande d’aide au nouveau logement ;</li>
         <li>mettre à jour la carte grise ;</li>
         <li>vérifier la réception du courrier ;</li>
         <li>confirmer les changements d’adresse ;</li>
@@ -1494,7 +1513,6 @@ const BlogPost: React.FC = () => {
                 {post.excerpt}
               </p>
               {updatedDate && <p className="mt-4 text-sm text-slate-600">Mis à jour le <time dateTime={updatedDate}>{updatedLabel}</time>.</p>}
-              {post.slug === 'formalites-administratives-demenagement' && <p className="mt-5 text-slate-600">Le <a className="underline" href="https://www.service-public.gouv.fr/particuliers/vosdroits/R11193">téléservice officiel de changement d’adresse</a> permet de prévenir plusieurs organismes. Vérifiez ceux couverts par votre déclaration et contactez séparément les autres interlocuteurs. Ce service est gratuit.</p>}
             </header>
 
             <figure className="relative mb-16 aspect-[21/9] overflow-hidden rounded-[3rem] shadow-2xl">

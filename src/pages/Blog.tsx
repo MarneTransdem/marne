@@ -126,11 +126,11 @@ const posts: BlogPost[] = [
   {
     id: 'formalites-administratives-demenagement',
     slug: 'formalites-administratives-demenagement',
-    title: 'Les formalités administratives indispensables avant un déménagement',
+    title: 'Déménagement : démarches et organismes à prévenir',
     excerpt:
-      'Énergie, courrier, assurance, impôts, CAF, CPAM, carte grise, internet : la checklist complète des organismes à prévenir avant de changer d’adresse.',
-    date: '12 mai 2026',
-    readTime: '14 min',
+      'Organismes à prévenir, déclaration en ligne, énergie, CAF, carte grise et stationnement à Paris : préparez vos démarches avant et après le départ.',
+    date: '18 mai 2026',
+    readTime: '15 min',
     image: '/images/cartons-preparation-demenagement.jpg',
     imageAlt: 'Documents administratifs et checklist de changement d’adresse avant un déménagement',
     category: 'Réglementation',

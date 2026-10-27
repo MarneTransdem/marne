@@ -268,10 +268,10 @@ export const BLOG_POST_ROUTES: Array<Omit<SeoRoute, 'canonicalPath' | 'status'>>
   },
   {
     path: '/blog/formalites-administratives-demenagement',
-    title: 'Formalités déménagement : organismes à prévenir et démarches indispensables | Marne Transdem',
-    h1: 'Les formalités administratives indispensables avant un déménagement',
+    title: 'Formalités déménagement : qui prévenir ? | Marne Transdem',
+    h1: 'Déménagement : démarches et organismes à prévenir',
     description:
-      'Électricité, gaz, internet, assurance, impôts, CAF, CPAM, banque, carte grise et courrier : découvrez toutes les formalités administratives à faire avant et après un déménagement.',
+      'Formalités de déménagement : organismes à prévenir, énergie, CAF, carte grise et stationnement à Paris. Suivez les étapes avant et après le départ.',
   },
   {
     path: '/blog/10-conseils-demenagement-sans-stress-paris',
