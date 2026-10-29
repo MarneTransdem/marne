@@ -37,6 +37,7 @@ const images = [
   'monte-meuble-demenagement.webp',
   'demenagement-appartement-92.webp',
   'demenagement-paris-intra-muros.webp',
+  'cartons-demenagement-paris.jpg',
 ];
 const manifest = {};
 for (const name of images) {

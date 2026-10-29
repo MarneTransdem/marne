@@ -82,5 +82,11 @@
     "height": 1600,
     "avif": "/images/demenagement-paris-intra-muros-480.avif 480w, /images/demenagement-paris-intra-muros-800.avif 800w, /images/demenagement-paris-intra-muros-1200.avif 1200w",
     "webp": "/images/demenagement-paris-intra-muros-480.webp 480w, /images/demenagement-paris-intra-muros-800.webp 800w, /images/demenagement-paris-intra-muros-1200.webp 1200w"
+  },
+  "/images/cartons-demenagement-paris.jpg": {
+    "width": 1897,
+    "height": 1423,
+    "avif": "/images/cartons-demenagement-paris-480.avif 480w, /images/cartons-demenagement-paris-800.avif 800w, /images/cartons-demenagement-paris-1200.avif 1200w, /images/cartons-demenagement-paris-1600.avif 1600w",
+    "webp": "/images/cartons-demenagement-paris-480.webp 480w, /images/cartons-demenagement-paris-800.webp 800w, /images/cartons-demenagement-paris-1200.webp 1200w, /images/cartons-demenagement-paris-1600.webp 1600w"
   }
 }
