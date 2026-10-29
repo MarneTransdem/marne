@@ -14,6 +14,9 @@ import {
   Tag,
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
+import { ResponsiveImage } from '../components/common/ResponsiveImage';
+import { BLOG_CARD_IMAGE_SIZES, BLOG_FEATURE_IMAGE_SIZES } from '../lib/responsive-image-sizes';
+import { getArticleImageAlt } from '../lib/article-image';
 import { CONTACT } from '../constants';
 import { MovingChecklist } from '../components/conseils/MovingChecklist';
 
@@ -42,7 +45,7 @@ type BlogPost = {
 };
 
 const imageDimensions: Record<string, { width: number; height: number }> = {
-  '/images/monte-meuble-paris-haussmannien.jpg': { width: 1152, height: 2048 },
+  '/images/monte-meuble-demenagement.webp': { width: 765, height: 1020 },
   '/images/transfert-bureaux-entreprise-paris.jpg': { width: 1513, height: 2017 },
   '/images/camion-demenagement-stationnement-paris.jpg': { width: 1152, height: 2048 },
   '/images/cartons-demenagement-paris.jpg': { width: 1897, height: 1423 },
@@ -78,7 +81,7 @@ const posts: BlogPost[] = [
       'Étage élevé, ascenseur trop petit, escalier étroit, meuble volumineux ou copropriété exigeante : découvrez quand le monte-meuble devient la solution la plus sûre pour déménager à Paris.',
     date: '18 mai 2026',
     readTime: '15 min',
-    image: '/images/monte-meuble-paris-haussmannien.jpg',
+    image: '/images/monte-meuble-demenagement.webp',
     imageAlt: 'Monte-meuble extérieur utilisé pour un déménagement dans un immeuble parisien',
     category: 'Guide',
     featured: true,
@@ -261,9 +264,10 @@ const Blog: React.FC = () => {
             <article className="group overflow-hidden rounded-[3rem] border border-slate-100 bg-slate-50 shadow-2xl md:rounded-[4rem]">
               <div className="grid grid-cols-1 lg:grid-cols-2">
                 <Link to={`/blog/${featuredPost.slug}`} className="relative min-h-[320px] overflow-hidden lg:min-h-[520px]">
-                  <img
+                  <ResponsiveImage
                     src={featuredPost.image}
-                    alt={featuredPost.imageAlt}
+                    sizes={BLOG_FEATURE_IMAGE_SIZES}
+                    alt={getArticleImageAlt(featuredPost.image, featuredPost.imageAlt)}
                     width={featuredImageDimensions.width}
                     height={featuredImageDimensions.height}
                     className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110"
@@ -424,9 +428,10 @@ const Blog: React.FC = () => {
                   to={`/blog/${post.slug}`}
                   className="relative mb-8 block aspect-[4/3] overflow-hidden rounded-[3rem] shadow-xl transition-all duration-700 hover:shadow-2xl"
                 >
-                  <img
+                  <ResponsiveImage
                     src={post.image}
-                    alt={post.imageAlt}
+                    sizes={BLOG_CARD_IMAGE_SIZES}
+                    alt={getArticleImageAlt(post.image, post.imageAlt)}
                     width={dimensions.width}
                     height={dimensions.height}
                     loading="lazy"

@@ -38,6 +38,13 @@ const images = [
   'demenagement-appartement-92.webp',
   'demenagement-paris-intra-muros.webp',
   'cartons-demenagement-paris.jpg',
+  'equipe-demenageurs-marne-transdem.jpg',
+  'cartons-preparation-demenagement.jpg',
+  'camion-demenagement-stationnement-paris.jpg',
+  'transfert-entreprise-78-yvelines.jpg',
+  'emballage-demenagement.webp',
+  'transfert-entreprise-essonne.jpg',
+  'camion-marne-transdem-93.jpg',
 ];
 const manifest = {};
 for (const name of images) {

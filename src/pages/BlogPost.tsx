@@ -14,6 +14,9 @@ import {
 import NotFound from './NotFound';
 import { SEO } from '../components/SEO';
 import { BlogServiceLinks } from '../components/common/BlogServiceLinks';
+import { ResponsiveImage } from '../components/common/ResponsiveImage';
+import { ARTICLE_HERO_IMAGE_SIZES } from '../lib/responsive-image-sizes';
+import { articleImage, getArticleImageAlt } from '../lib/article-image';
 import { CONTACT } from '../constants';
 import { SITE_URL } from '../lib/seo-routes';
 import contentUpdatedAt from '../constants/contentUpdatedAt.json';
@@ -54,7 +57,7 @@ const imageDimensions: Record<string, { width: number; height: number }> = {
   '/images/transfert-bureaux-entreprise-paris.jpg': { width: 1513, height: 2017 },
   '/images/cartons-preparation-demenagement.jpg': { width: 1152, height: 2048 },
   '/images/camion-demenagement-stationnement-paris.jpg': { width: 1152, height: 2048 },
-  '/images/monte-meuble-paris-haussmannien.jpg': { width: 1152, height: 2048 },
+  '/images/monte-meuble-demenagement.webp': { width: 765, height: 1020 },
   '/images/transfert-entreprise-78-yvelines.jpg': { width: 1897, height: 1423 },
 };
 
@@ -937,7 +940,7 @@ const posts: Record<string, BlogPostData> = {
     date: '24 mai 2026',
     readTime: '16 min',
     category: 'Guide',
-    image: '/images/monte-meuble-paris-haussmannien.jpg',
+    image: '/images/monte-meuble-demenagement.webp',
     imageAlt: 'Monte-meuble extérieur utilisé pour un déménagement dans un immeuble parisien',
     related: [
       {
@@ -1201,7 +1204,7 @@ const posts: Record<string, BlogPostData> = {
       <p>Plus l’entreprise est structurée, plus le déménagement doit être planifié.</p>
 
       <div class="not-prose my-12 overflow-hidden rounded-[2rem] shadow-2xl">
-        <img src="/images/transfert-entreprise-78-yvelines.jpg" alt="déménagement entreprise Paris transfert de bureaux" width="1897" height="1423" loading="lazy" decoding="async" class="w-full object-cover aspect-video" referrerPolicy="no-referrer" />
+        ${articleImage('/images/transfert-entreprise-78-yvelines.jpg', 1897, 1423)}
       </div>
 
       <h2>1. Désigner un responsable de projet interne</h2>
@@ -1218,7 +1221,7 @@ const posts: Record<string, BlogPostData> = {
       <p>Cet inventaire permet d’estimer le volume, le nombre de cartons, le nombre de déménageurs, la taille du camion et le temps d’intervention. Il permet aussi d’identifier les éléments sensibles : matériel informatique, archives confidentielles, mobilier fragile, objets lourds, équipements à démonter ou biens à évacuer. Un devis professionnel fiable repose toujours sur une vision précise du volume et des contraintes.</p>
 
       <div class="not-prose my-12 overflow-hidden rounded-[2rem] shadow-2xl">
-        <img src="/images/equipe-demenagement-93.jpg" alt="déménageurs professionnels transportant du mobilier de bureau" width="1897" height="2529" loading="lazy" decoding="async" class="w-full object-cover aspect-video" referrerPolicy="no-referrer" />
+        ${articleImage('/images/equipe-demenagement-93.jpg', 1897, 2529)}
       </div>
 
       <h2>4. Trier avant de transférer les bureaux</h2>
@@ -1229,7 +1232,7 @@ const posts: Record<string, BlogPostData> = {
       <p>Chaque poste doit être identifié avant le déménagement. Une méthode efficace consiste à attribuer un code ou une étiquette à chaque collaborateur, service ou zone d’arrivée. Par exemple : Service commercial, Comptabilité, Direction, Accueil, Salle de réunion, Open space, Bureau 1, Bureau 2, Stockage, Archives. Chaque carton, écran, unité centrale, caisson et fauteuil peut être étiqueté avec la zone de destination. Cette méthode permet aux déménageurs de déposer directement les éléments au bon endroit dans les nouveaux locaux. Elle évite les cartons perdus, les meubles mal répartis et les collaborateurs qui cherchent leur matériel pendant plusieurs heures. Dans un déménagement d’entreprise, l’étiquetage n’est pas un détail. C’est un outil de continuité d’activité.</p>
 
       <div class="not-prose my-12 overflow-hidden rounded-[2rem] shadow-2xl">
-        <img src="/images/emballage-demenagement.webp" alt="cartons étiquetés pour un déménagement de bureaux" width="765" height="1020" loading="lazy" decoding="async" class="w-full object-cover aspect-video" referrerPolicy="no-referrer" />
+        ${articleImage('/images/emballage-demenagement.webp', 765, 1020)}
       </div>
 
       <h2>6. Anticiper le transfert informatique</h2>
@@ -1256,7 +1259,7 @@ const posts: Record<string, BlogPostData> = {
       <p>Un changement de bureaux doit être communiqué aux personnes concernées : clients, fournisseurs, partenaires, banque, assurance, expert-comptable, administration, organismes sociaux, prestataires, opérateur téléphonique et services de livraison. Si le siège social de la société change, des formalités juridiques peuvent être nécessaires. Service-Public rappelle que le transfert d’un siège social nécessite plusieurs formalités. Pour une entreprise individuelle, certaines modifications doivent également être enregistrées au registre concerné.</p>
 
       <div class="not-prose my-12 overflow-hidden rounded-[2rem] shadow-2xl">
-        <img src="/images/transfert-entreprise-essonne.jpg" alt="transfert de postes informatiques lors d’un déménagement professionnel" width="1897" height="2529" loading="lazy" decoding="async" class="w-full object-cover aspect-video" referrerPolicy="no-referrer" />
+        ${articleImage('/images/transfert-entreprise-essonne.jpg', 1897, 2529)}
       </div>
 
       <h2>13. Mettre à jour les supports de communication</h2>
@@ -1317,7 +1320,7 @@ const posts: Record<string, BlogPostData> = {
       <p>Notre prestation de <a href="/transfert-bureaux-paris">transfert de bureaux à Paris</a> peut comprendre l’évaluation du volume, l’analyse des accès, le transport du mobilier et des cartons, ainsi que le démontage et le remontage prévus au devis. L’emballage, les protections et le recours éventuel à un monte-meuble sont à préciser selon les biens et la faisabilité. Les sauvegardes, la reconnexion et les tests informatiques sont à coordonner avec votre responsable ou votre prestataire informatique.</p>
 
       <div class="not-prose my-12 overflow-hidden rounded-[2rem] shadow-2xl">
-        <img src="/images/camion-marne-transdem-93.jpg" alt="camion de déménagement devant un immeuble de bureaux à Paris" width="1897" height="2529" loading="lazy" decoding="async" class="w-full object-cover aspect-video" referrerPolicy="no-referrer" />
+        ${articleImage('/images/camion-marne-transdem-93.jpg', 1897, 2529)}
       </div>
 
       <h2>Besoin d’un devis pour votre déménagement d’entreprise à Paris ?</h2>
@@ -1516,9 +1519,10 @@ const BlogPost: React.FC = () => {
             </header>
 
             <figure className="relative mb-16 aspect-[21/9] overflow-hidden rounded-[3rem] shadow-2xl">
-              <img
+              <ResponsiveImage
                 src={post.image}
-                alt={post.imageAlt}
+                sizes={ARTICLE_HERO_IMAGE_SIZES}
+                alt={getArticleImageAlt(post.image, post.imageAlt)}
                 width={postImageDimensions.width}
                 height={postImageDimensions.height}
                 className="h-full w-full object-cover"
@@ -1628,15 +1632,18 @@ const BlogPost: React.FC = () => {
                   to={`/blog/${relatedPost.slug}`}
                   className="group flex items-center gap-8 rounded-[3rem] border border-slate-100 bg-white p-8 shadow-sm transition-all hover:border-accent hover:shadow-xl"
                 >
-                  <img
-                    src={relatedPost.image}
-                    alt={relatedPost.imageAlt}
-                    width={dimensions.width}
-                    height={dimensions.height}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-24 w-24 shrink-0 rounded-2xl object-cover"
-                  />
+                  <div className="h-24 w-24 shrink-0">
+                    <ResponsiveImage
+                      src={relatedPost.image}
+                      sizes="96px"
+                      alt={getArticleImageAlt(relatedPost.image, relatedPost.imageAlt)}
+                      width={dimensions.width}
+                      height={dimensions.height}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-24 w-24 shrink-0 rounded-2xl object-cover"
+                    />
+                  </div>
                   <div>
                     <span className="mb-3 block text-[10px] font-black uppercase tracking-widest text-slate-400">
                       {relatedPost.label}

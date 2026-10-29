@@ -88,5 +88,47 @@
     "height": 1423,
     "avif": "/images/cartons-demenagement-paris-480.avif 480w, /images/cartons-demenagement-paris-800.avif 800w, /images/cartons-demenagement-paris-1200.avif 1200w, /images/cartons-demenagement-paris-1600.avif 1600w",
     "webp": "/images/cartons-demenagement-paris-480.webp 480w, /images/cartons-demenagement-paris-800.webp 800w, /images/cartons-demenagement-paris-1200.webp 1200w, /images/cartons-demenagement-paris-1600.webp 1600w"
+  },
+  "/images/equipe-demenageurs-marne-transdem.jpg": {
+    "width": 1513,
+    "height": 2017,
+    "avif": "/images/equipe-demenageurs-marne-transdem-480.avif 480w, /images/equipe-demenageurs-marne-transdem-800.avif 800w, /images/equipe-demenageurs-marne-transdem-1200.avif 1200w, /images/equipe-demenageurs-marne-transdem-1513.avif 1513w",
+    "webp": "/images/equipe-demenageurs-marne-transdem-480.webp 480w, /images/equipe-demenageurs-marne-transdem-800.webp 800w, /images/equipe-demenageurs-marne-transdem-1200.webp 1200w, /images/equipe-demenageurs-marne-transdem-1513.webp 1513w"
+  },
+  "/images/cartons-preparation-demenagement.jpg": {
+    "width": 1152,
+    "height": 2048,
+    "avif": "/images/cartons-preparation-demenagement-480.avif 480w, /images/cartons-preparation-demenagement-800.avif 800w, /images/cartons-preparation-demenagement-1152.avif 1152w",
+    "webp": "/images/cartons-preparation-demenagement-480.webp 480w, /images/cartons-preparation-demenagement-800.webp 800w, /images/cartons-preparation-demenagement-1152.webp 1152w"
+  },
+  "/images/camion-demenagement-stationnement-paris.jpg": {
+    "width": 1152,
+    "height": 2048,
+    "avif": "/images/camion-demenagement-stationnement-paris-480.avif 480w, /images/camion-demenagement-stationnement-paris-800.avif 800w, /images/camion-demenagement-stationnement-paris-1152.avif 1152w",
+    "webp": "/images/camion-demenagement-stationnement-paris-480.webp 480w, /images/camion-demenagement-stationnement-paris-800.webp 800w, /images/camion-demenagement-stationnement-paris-1152.webp 1152w"
+  },
+  "/images/transfert-entreprise-78-yvelines.jpg": {
+    "width": 1897,
+    "height": 1423,
+    "avif": "/images/transfert-entreprise-78-yvelines-480.avif 480w, /images/transfert-entreprise-78-yvelines-800.avif 800w, /images/transfert-entreprise-78-yvelines-1200.avif 1200w, /images/transfert-entreprise-78-yvelines-1600.avif 1600w",
+    "webp": "/images/transfert-entreprise-78-yvelines-480.webp 480w, /images/transfert-entreprise-78-yvelines-800.webp 800w, /images/transfert-entreprise-78-yvelines-1200.webp 1200w, /images/transfert-entreprise-78-yvelines-1600.webp 1600w"
+  },
+  "/images/emballage-demenagement.webp": {
+    "width": 765,
+    "height": 1020,
+    "avif": "/images/emballage-demenagement-480.avif 480w, /images/emballage-demenagement-765.avif 765w",
+    "webp": "/images/emballage-demenagement-480.webp 480w, /images/emballage-demenagement-765.webp 765w"
+  },
+  "/images/transfert-entreprise-essonne.jpg": {
+    "width": 1897,
+    "height": 2529,
+    "avif": "/images/transfert-entreprise-essonne-480.avif 480w, /images/transfert-entreprise-essonne-800.avif 800w, /images/transfert-entreprise-essonne-1200.avif 1200w, /images/transfert-entreprise-essonne-1600.avif 1600w",
+    "webp": "/images/transfert-entreprise-essonne-480.webp 480w, /images/transfert-entreprise-essonne-800.webp 800w, /images/transfert-entreprise-essonne-1200.webp 1200w, /images/transfert-entreprise-essonne-1600.webp 1600w"
+  },
+  "/images/camion-marne-transdem-93.jpg": {
+    "width": 1897,
+    "height": 2529,
+    "avif": "/images/camion-marne-transdem-93-480.avif 480w, /images/camion-marne-transdem-93-800.avif 800w, /images/camion-marne-transdem-93-1200.avif 1200w, /images/camion-marne-transdem-93-1600.avif 1600w",
+    "webp": "/images/camion-marne-transdem-93-480.webp 480w, /images/camion-marne-transdem-93-800.webp 800w, /images/camion-marne-transdem-93-1200.webp 1200w, /images/camion-marne-transdem-93-1600.webp 1600w"
   }
 }
