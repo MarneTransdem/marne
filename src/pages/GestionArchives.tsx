@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Phone, CheckCircle2, ShieldCheck, Zap, Truck, Files, Database, Search, ClipboardCheck, Info, HelpCircle } from 'lucide-react';
+import { ArrowRight, Phone, ShieldCheck, Zap, Files, Database, Search, HelpCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
 import { BreadcrumbTrail } from '../components/common/BreadcrumbTrail';
@@ -19,7 +19,7 @@ const GestionArchives: React.FC = () => {
 
   const faqs = [
     { 
-      q: "Proposez-vous le stockage sécurisé des archives ?", 
+      q: "Comment prévoir un stockage entre deux locaux ?",
       a: "Si votre projet nécessite du stockage, indiquez le volume d’archives, la durée envisagée et la fréquence des retraits. Faites confirmer le lieu, les conditions de conservation, les modalités d’accès et les garanties avant de retenir une solution."
     },
     { 
@@ -33,14 +33,18 @@ const GestionArchives: React.FC = () => {
     { 
       q: "Que faut-il préciser dans un devis de transfert d’archives ?",
       a: "Indiquez le nombre de boîtes ou le volume estimé, les adresses, les accès, le calendrier et le plan de rangement souhaité. Faites distinguer l’emballage, le transport, la manutention et le stockage éventuel. Signalez les documents qui doivent rester accessibles pendant le transfert."
+    },
+    {
+      q: "Comment estimer le volume des archives à déménager ?",
+      a: "Comptez les boîtes par format et relevez leurs dimensions extérieures. Pour des boîtes identiques, multipliez leur nombre par la longueur, la largeur et la hauteur en mètres pour obtenir leur volume en m³. Ajoutez séparément les armoires et rayonnages à déplacer, puis signalez les escaliers et les distances de portage. Ce volume géométrique prépare l’échange ; les moyens de transport et de manutention restent à confirmer selon le chargement et les accès."
     }
   ];
 
   return (
     <div className="bg-white">
       <SEO 
-        title="Gestion & Transfert d'Archives Paris | Marne Transdem"
-        description="Transfert d’archives à Paris : préparez le volume, le repérage des boîtes, les accès et la réception. Stockage éventuel et prestations à préciser dans votre devis."
+        title="Transfert d’archives à Paris : devis | Marne Transdem"
+        description="Préparez votre transfert d’archives à Paris : inventaire des boîtes, accès et réception. Décrivez votre volume et demandez un devis adapté à votre projet."
         canonical={path}
         schema={[
           getServiceSchema("Transfert d’archives", "Préparation du transport des archives d’entreprise à Paris : volume, repérage, accès et modalités de réception à définir au devis.", { path }),
@@ -74,9 +78,9 @@ const GestionArchives: React.FC = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-5">
-              <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover shadow-xl flex items-center justify-center gap-3 group transition-all italic underline-none">
-                Devis archivage pro
-                <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
+              <Link to="/demande-de-devis#formulaire-devis" className="bg-accent text-brand-900 px-6 sm:px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover shadow-xl flex items-center justify-center gap-3 group transition-all italic underline-none">
+                Préparer mon devis de transfert
+                <ArrowRight size={22} aria-hidden="true" className="shrink-0 group-hover:translate-x-1 transition-transform" />
               </Link>
               <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white/10 text-white border border-white/20 px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-brand-900 transition-all flex items-center justify-center gap-3 shadow-sm backdrop-blur-sm italic">
                 <Phone size={22} className="text-accent" />
@@ -128,7 +132,7 @@ const GestionArchives: React.FC = () => {
       <section className="py-24 bg-slate-50 border-y border-slate-100 font-sans italic underline-none transition-all grayscale-0">
         <div className="container mx-auto px-4 md:px-6 italic transition-all">
           <div className="text-center mb-16 italic font-sans italic transition-all underline decoration-accent/20 underline-offset-8">
-            <h2 className="text-3xl md:text-5xl font-black text-brand-900 uppercase italic tracking-tight font-sans italic">Expertise <span className="text-accent italic tracking-tight">Documentaire</span></h2>
+            <h2 className="text-3xl md:text-5xl font-black text-brand-900 uppercase italic tracking-tight font-sans italic">Préparer le <span className="text-accent italic tracking-tight">transfert d’archives</span></h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 italic font-sans transition-all">
             {[
@@ -147,6 +151,19 @@ const GestionArchives: React.FC = () => {
         </div>
       </section>
 
+      <section aria-labelledby="inventaire-archives" className="py-16 bg-white">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
+          <h2 id="inventaire-archives" className="text-3xl font-bold text-brand-900">Un inventaire utilisable au départ et à la réception</h2>
+          <p className="text-slate-600 leading-relaxed">Attribuez un identifiant à chaque boîte et préparez un exemplaire de la liste pour le départ, un autre pour l’arrivée. Une référence neutre permet de rapprocher les colis sans afficher le nom des clients, salariés ou dossiers sur les étiquettes.</p>
+          <ol className="space-y-4 text-slate-600 leading-relaxed list-decimal pl-6 marker:font-bold marker:text-brand-900">
+            <li><strong className="text-brand-900">Avant l’emballage :</strong> relevez le nombre de boîtes par format, leurs dimensions et les meubles de rangement à déplacer. Distinguez les dossiers qui doivent rester disponibles jusqu’au dernier moment.</li>
+            <li><strong className="text-brand-900">Sur la liste de transfert :</strong> indiquez la référence du colis, son service, sa pièce et son emplacement d’arrivée. Par exemple : « ADM-01 — Administration — pièce B — étagère 2 ». Conservez la description détaillée du contenu dans votre organisation.</li>
+            <li><strong className="text-brand-900">À l’arrivée :</strong> rapprochez les références reçues de la liste, vérifiez les emplacements et signalez les boîtes manquantes ou abîmées au référent et à l’équipe de transfert.</li>
+          </ol>
+          <p className="text-slate-600 leading-relaxed">Pour le devis, communiquez les quantités, les dimensions, les accès et les consignes de manutention. Il n’est pas nécessaire de joindre les documents archivés ni leur contenu confidentiel au formulaire.</p>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="py-16 bg-slate-50">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
@@ -158,7 +175,7 @@ const GestionArchives: React.FC = () => {
       <section className="py-24 font-sans italic underline-none transition-all grayscale-0 italic transition-all">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl italic transition-all">
            <div className="text-center mb-16 italic font-sans italic transition-all italic underline decoration-accent/10 underline-offset-8 transition-all">
-             <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-4 uppercase italic tracking-tight underline-none italic transition-all">FAQ <span className="text-accent italic tracking-tight font-sans italic transition-all italic transition-all underline-none grayscale-0">Archivage</span></h2>
+             <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-4 uppercase italic tracking-tight underline-none italic transition-all">Questions sur le <span className="text-accent italic tracking-tight font-sans italic transition-all italic transition-all underline-none grayscale-0">transfert d’archives</span></h2>
            </div>
            <div className="space-y-6 italic font-sans transition-all italic underline-none grayscale-0 italic transition-all shadow-none italic font-sans italic transition-all underline-none italic transition-all">
              {faqs.map((faq, i) => (

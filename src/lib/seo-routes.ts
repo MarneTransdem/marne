@@ -378,7 +378,7 @@ const SERVICE_TITLES: Record<string, string> = {
   '/transfert-informatique-paris': 'Transfert informatique Paris | Marne Transdem',
   '/transfert-industriel-paris': 'Transfert industriel Paris | Marne Transdem',
   '/transfert-laboratoire-paris': 'Transfert de laboratoire Paris | Marne Transdem',
-  '/gestion-archives-paris': 'Gestion d’archives Paris | Marne Transdem',
+  '/gestion-archives-paris': 'Transfert d’archives à Paris : devis | Marne Transdem',
 };
 
 function normalizePath(pathname: string): string {
@@ -450,7 +450,7 @@ const SERVICE_DESCRIPTIONS: Record<string, string> = {
   "/emballage-protection-demenagement": "Protégez vos meubles, objets fragiles et cartons avec les solutions d’emballage et de protection proposées par Marne Transdem.",
   "/formules-demenagement": "Découvrez les formules Économique, Standard et Luxe de Marne Transdem pour organiser votre déménagement à Paris selon votre budget et vos besoins.",
   "/garde-meuble-paris": "Besoin de stocker vos meubles entre deux logements à Paris ? Précisez volume, durée et accès pour un devis de garde-meuble adapté à votre projet.",
-  "/gestion-archives-paris": "Transfert d’archives à Paris : préparez le volume, le repérage des boîtes, les accès et la réception. Stockage éventuel et prestations à préciser dans votre devis.",
+  "/gestion-archives-paris": "Préparez votre transfert d’archives à Paris : inventaire des boîtes, accès et réception. Décrivez votre volume et demandez un devis adapté à votre projet.",
   "/location-monte-meuble-paris": "Monte-meuble à Paris : trois équipements de 18 à 30 m pour vos meubles et accès difficiles. Demandez un devis après étude des accès et de la faisabilité.",
   "/transfert-bureaux-paris": "Transfert de bureaux à Paris : préparez mobilier, postes de travail, accès et planning avec Marne Transdem. Demandez un devis adapté à votre activité.",
   "/transfert-industriel-paris": "Transfert industriel à Paris : préparez l’inventaire de votre atelier, les accès et le calendrier. Définissez les prestations nécessaires avec un devis adapté.",
