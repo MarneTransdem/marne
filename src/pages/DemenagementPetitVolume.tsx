@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Phone, CheckCircle2, Box, Zap, Wallet, Home, Truck, Package, Calculator, Clock, HelpCircle, LayoutGrid } from 'lucide-react';
+import { ArrowRight, Phone, CheckCircle2, Box, Zap, Wallet, Truck, Clock, HelpCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
 import { CONTACT } from '../constants';
@@ -31,8 +31,8 @@ const DemenagementPetitVolume: React.FC = () => {
   return (
     <div className="bg-white">
       <SEO 
-        title="Déménagement Petit Volume Paris & IDF | Marne Transdem"
-        description="Déménagement petit volume à Paris : préparez l'inventaire, les accès et le transport de quelques meubles ou d'un studio. Demandez un devis selon vos prestations."
+        title="Déménagement petit volume à Paris : devis | Marne Transdem"
+        description="Un meuble, des cartons ou un studio à déménager à Paris et en Île-de-France ? Préparez votre inventaire et vos accès pour demander un devis personnalisé."
         canonical={path}
         schema={[
           getServiceSchema("Déménagement Petit Volume", "Déménagement de petits volumes, studios ou meubles isolés à Paris et en Île-de-France, avec transport et prestations à préciser au devis.", { path }),
@@ -58,19 +58,19 @@ const DemenagementPetitVolume: React.FC = () => {
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">Meubles, cartons & studios</span>
             </motion.div>
 
-            <h1 className="text-5xl md:text-8xl font-black mb-8 leading-[1.1] tracking-tight italic">
+            <h1 className="text-4xl sm:text-5xl md:text-8xl font-black mb-8 leading-[1.1] tracking-tight italic">
               Déménagement <br/>
-              <span className="text-accent italic underline decoration-accent/20 underline-offset-8 transition-all hover:text-white italic uppercase">petit volume</span>
+              <span className="text-accent italic underline decoration-accent/20 underline-offset-8 transition-all hover:text-white italic uppercase">petit volume</span> à Paris
             </h1>
 
             <p className="text-xl md:text-2xl text-slate-300 mb-12 leading-relaxed font-light max-w-3xl italic">
-              Quelques cartons, un canapé ou un studio complet : Marne Transdem propose des formules intelligentes pour vos petits déménagements à Paris et en Île-de-France.
+              Un meuble isolé, quelques cartons ou les affaires d’un studio : préparez votre petit déménagement à Paris et en Île-de-France avec Marne Transdem. Le devis précise le transport, la manutention et les prestations retenues selon votre inventaire et vos accès.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-5">
-              <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover shadow-xl flex items-center justify-center gap-3 group transition-all italic underline-none">
+              <Link to="/demande-de-devis#formulaire-devis" className="bg-accent text-brand-900 px-6 sm:px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover shadow-xl flex items-center justify-center gap-3 group transition-all italic underline-none">
                 Devis petit volume gratuit
-                <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
+                <ArrowRight size={22} aria-hidden="true" className="shrink-0 group-hover:translate-x-1 transition-transform" />
               </Link>
               <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white/10 text-white border border-white/20 px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-brand-900 transition-all flex items-center justify-center gap-3 shadow-sm backdrop-blur-sm italic">
                 <Phone size={22} className="text-accent" />
@@ -91,17 +91,17 @@ const DemenagementPetitVolume: React.FC = () => {
               </h2>
               <div className="space-y-6 text-slate-500 text-lg font-light leading-relaxed italic text-justify">
                 <p>
-                  Ce n'est pas parce que vous n'avez que quelques mètres cubes à transporter que vous devez renoncer à la qualité d'une entreprise de déménagement professionnelle. Marne Transdem a développé une expertise spécifique pour le <span className="font-bold text-brand-900">déménagement de petits volumes</span> à Paris.
+                  Pour un <span className="font-bold text-brand-900">déménagement de petit volume</span>, commencez par ce qui doit réellement partir : mobilier, cartons et objets particuliers. Un logement de même surface peut contenir des quantités très différentes ; la liste des biens est plus utile qu’une estimation fondée uniquement sur les mètres carrés.
                 </p>
                 <p>
                   Pour préparer le devis, listez les meubles et cartons, puis indiquez les étages, les ascenseurs et la distance entre le véhicule et les accès. Un canapé volumineux ou un piano demande une évaluation spécifique, même si le reste de l'inventaire est limité.
                 </p>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-6 italic">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 italic">
               {[
                 { icon: <Wallet size={24} />, t: "Devis détaillé", d: "Volume, accès et prestations à préciser." },
-                { icon: <Clock size={24} />, t: "Rapidité", d: "Intervention fluide et efficace." },
+                { icon: <Clock size={24} />, t: "Organisation", d: "Créneaux de chargement et de livraison à convenir." },
                 { icon: <Truck size={24} />, t: "Accès à préparer", d: "Signalez les rues et escaliers étroits." },
                 { icon: <Zap size={24} />, t: "Calendrier", d: "Dates à confirmer selon les disponibilités." }
               ].map((box, i) => (
@@ -113,6 +113,35 @@ const DemenagementPetitVolume: React.FC = () => {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="petit-volume-inventaire" className="py-16 bg-slate-50">
+        <div className="container mx-auto px-4 md:px-6 max-w-5xl space-y-6">
+          <h2 id="petit-volume-inventaire" className="text-3xl font-bold text-brand-900">Que faut-il prévoir pour votre petit déménagement ?</h2>
+          <p className="text-slate-600 leading-relaxed">Préparez la liste des biens aux deux adresses avant de choisir les prestations. Voici les informations utiles selon votre situation, sans volume ni tarif forfaitaire supposés.</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { title: 'Un meuble isolé', text: 'Relevez sa longueur, sa largeur et sa hauteur. Précisez les parties démontables, les matériaux fragiles et les passages à vérifier : portes, palier, ascenseur et escalier.' },
+              { title: 'Quelques meubles et cartons', text: 'Listez chaque meuble et comptez les cartons par format. Signalez les biens lourds ou fragiles, ainsi que ce que vous pouvez emballer ou démonter avant le chargement.' },
+              { title: 'Une chambre ou un studio', text: 'N’oubliez pas la literie, les vêtements, la vaisselle et les petits appareils. Indiquez le mobilier conservé, vendu ou laissé sur place pour ne compter que ce qui part.' },
+            ].map(item => (
+              <div key={item.title} className="rounded-3xl bg-white p-6 border border-slate-200">
+                <h3 className="text-xl font-bold text-brand-900 mb-3">{item.title}</h3>
+                <p className="text-slate-600 leading-relaxed">{item.text}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-slate-600 leading-relaxed">Utilisez le <Link to="/calculateur-volume" className="underline underline-offset-4 font-semibold text-brand-900">calculateur de volume en m³</Link> pour préparer votre estimation. À chaque adresse, ajoutez les étages, les dimensions de l’ascenseur et la distance de portage. Un faible volume ne garantit pas le passage d’un canapé dans un escalier étroit.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="petit-volume-prix" className="py-16 bg-white">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
+          <h2 id="petit-volume-prix" className="text-3xl font-bold text-brand-900">Comment se prépare le prix d’un petit déménagement à Paris ?</h2>
+          <p className="text-slate-600 leading-relaxed">Le devis dépend du volume, du trajet et des opérations nécessaires : protection, démontage, manutention dans les étages et installation à l’arrivée. La saison, la date retenue, le stationnement et les accès peuvent aussi modifier l’organisation, même pour quelques meubles.</p>
+          <p className="text-slate-600 leading-relaxed">Pour préparer votre budget, le <Link to="/blog/combien-coute-demenagement-paris" className="underline underline-offset-4 font-semibold text-brand-900">guide des prix d’un déménagement à Paris</Link> présente des repères indicatifs, notamment pour un studio. Comparez ensuite des devis établis pour le même inventaire, les mêmes accès et la même répartition des tâches.</p>
+          <p className="text-slate-600 leading-relaxed">Vous avez des dates souples ? Indiquez votre période et votre trajet pour faire étudier les possibilités d’organisation, dont un éventuel groupage. Les disponibilités, délais et conditions doivent être confirmés avant réservation.</p>
         </div>
       </section>
 
@@ -142,14 +171,14 @@ const DemenagementPetitVolume: React.FC = () => {
       {/* Steps guiding the client to book a small move */}
       <section className="py-24 font-sans italic transition-all italic underline-none italic">
         <div className="container mx-auto px-4 md:px-6 italic">
-          <div className="max-w-5xl mx-auto bg-slate-50 p-12 lg:p-20 rounded-[4rem] border border-slate-100 flex flex-col lg:flex-row items-center gap-20 italic shadow-sm">
+          <div className="max-w-5xl mx-auto bg-slate-50 p-6 sm:p-12 lg:p-20 rounded-[2rem] sm:rounded-[4rem] border border-slate-100 flex flex-col lg:flex-row items-center gap-8 lg:gap-20 italic shadow-sm">
              <div className="lg:w-1/2 space-y-8 italic">
                 <h2 className="text-3xl md:text-5xl font-black text-brand-900 tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">Préparez votre <span className="text-accent italic">demande de devis</span></h2>
                 <p className="text-slate-500 text-lg font-light leading-relaxed italic text-justify italic">
                   Estimez vos meubles et cartons avec le calculateur, puis précisez les accès et les objets difficiles à manipuler. Le devis doit indiquer le transport, l'emballage et le démontage retenus. La réservation intervient après accord sur les prestations, le prix et les dates.
                 </p>
                 <div className="flex flex-wrap gap-4 pt-4 italic">
-                  <Link to="/demande-de-devis" className="bg-brand-900 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all italic">Demander mon devis</Link>
+                  <Link to="/demande-de-devis#formulaire-devis" className="bg-brand-900 text-white px-6 sm:px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all italic">Demander mon devis</Link>
                   <Link to="/calculateur-volume" className="bg-white text-brand-900 border border-slate-200 px-8 py-4 rounded-full font-bold hover:bg-slate-50 transition-all italic">Calculer mon volume</Link>
                 </div>
              </div>
@@ -180,9 +209,9 @@ const DemenagementPetitVolume: React.FC = () => {
 
       <section aria-labelledby="small-move-example" className="py-16 bg-slate-50">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl">
-          <p className="text-sm font-semibold text-brand-900 mb-3">Projet prévu en septembre 2026</p>
+          <p className="text-sm font-semibold text-brand-900 mb-3">Exemple de préparation — septembre 2026</p>
           <h2 id="small-move-example" className="scroll-mt-40 text-3xl font-bold text-brand-900 mb-6">Un déménagement de 20 m³ de Paris 12e à Paris 4e</h2>
-          <p className="text-slate-600 leading-relaxed mb-6">Ce projet confié à Marne Transdem prévoit le transport d’un volume estimé à 20 m³. Au départ, les biens se trouvent au premier étage et dans un garage, avec un ascenseur disponible. À l’arrivée, le logement se situe au cinquième étage, avec ascenseur et monte-meubles prévu. L’organisation reste soumise à un portage inférieur à 20 mètres.</p>
+          <p className="text-slate-600 leading-relaxed mb-6">Le document de préparation de ce projet confié à Marne Transdem indiquait un volume estimé à 20 m³. Au départ, les biens étaient répartis entre le premier étage et un garage, avec ascenseur disponible. À l’arrivée, le logement était situé au cinquième étage, avec ascenseur et monte-meubles prévu. L’organisation était soumise à un portage inférieur à 20 mètres.</p>
           <div className="grid md:grid-cols-2 gap-8 mb-6">
             <div>
               <h3 className="text-xl font-bold text-brand-900 mb-3">Ce que notre équipe prépare</h3>
@@ -204,9 +233,9 @@ const DemenagementPetitVolume: React.FC = () => {
               </ul>
             </div>
           </div>
-          <p className="text-slate-600 leading-relaxed mb-6">Cet exemple présente la préparation d’une intervention à venir. Le volume seul ne définit pas la prestation : les accès et la répartition des tâches sont également précisés au devis. Consultez nos <Link to="/formules-demenagement" className="underline underline-offset-4 font-semibold text-brand-900">formules de déménagement</Link> pour préparer votre propre demande.</p>
+          <p className="text-slate-600 leading-relaxed mb-6">Cet exemple décrit les prestations prévues dans le document de préparation, sans constituer un compte rendu d’exécution. Le volume seul ne définit pas la prestation : les accès et la répartition des tâches sont également précisés au devis. Consultez nos <Link to="/formules-demenagement" className="underline underline-offset-4 font-semibold text-brand-900">formules de déménagement</Link> pour préparer votre propre demande.</p>
           <p className="text-slate-600 leading-relaxed mb-6">Vous préparez vous aussi un départ depuis ce secteur ? Consultez les informations sur le <Link to="/demenagement-paris-12" className="underline underline-offset-4 font-semibold text-brand-900">déménagement dans le 12e arrondissement</Link> pour compléter votre préparation.</p>
-          <Link to="/demande-de-devis" className="inline-flex items-center gap-3 rounded-xl bg-brand-900 px-6 py-4 font-bold text-white">Demander un devis pour mon petit déménagement <ArrowRight size={20} aria-hidden="true" className="shrink-0" /></Link>
+          <Link to="/demande-de-devis#formulaire-devis" className="inline-flex items-center gap-3 rounded-xl bg-brand-900 px-6 py-4 font-bold text-white">Demander un devis pour mon petit déménagement <ArrowRight size={20} aria-hidden="true" className="shrink-0" /></Link>
         </div>
       </section>
 
