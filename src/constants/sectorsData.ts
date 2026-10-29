@@ -4801,34 +4801,44 @@ export const sectorsData: Sector[] = [
     "slug": "paris-16",
     "name": "Paris 16e",
     "type": "local",
-    "seoTitle": "Déménagement Paris 16e : devis gratuit | Marne Transdem",
-    "seoDescription": "Déménagement à Paris 16e : préparez votre volume, vos accès et les prestations utiles avec Marne Transdem. Demandez votre devis gratuit et personnalisé.",
+    "seoTitle": "Déménageur Paris 16e : devis gratuit | Marne Transdem",
+    "seoDescription": "Votre déménagement à Paris 16e : inventaire, accès, stationnement et prestations à préciser avec Marne Transdem. Préparez votre devis gratuit personnalisé.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 16e, avec une organisation adaptée aux appartements familiaux, résidences, bureaux et contraintes d'accès de l'ouest parisien.",
+    "heroSubtitle": "Un studio à Auteuil, un appartement à Passy ou des bureaux à Chaillot : préparez votre déménagement à Paris 16e avec un inventaire précis, les accès aux deux adresses et des prestations définies dans votre devis.",
     "introParagraphs": [
-      "Arrondissement résidentiel et familial par excellence, le <span class=\"font-bold text-slate-700\">Paris 16e</span> se compose de <span class=\"font-bold text-slate-700\">logements spacieux</span>, d'<span class=\"font-bold text-slate-700\">appartements familiaux</span> et d'<span class=\"font-bold text-slate-700\">immeubles de standing</span>. Marne Transdem met tout son savoir-faire au service des <span class=\"font-bold text-slate-700\">particuliers</span> et des <span class=\"font-bold text-slate-700\">entreprises</span>. Que vous résidiez dans une <span class=\"font-bold text-slate-700\">résidence</span> prestigieuse vers l'avenue Foch ou un cabinet professionnel à Passy, nous adaptons notre logistique à vos impératifs.",
-      "Notre expertise dans l'ouest parisien et notre proximité avec le <span class=\"font-bold text-slate-700\">Paris 17e</span>, <span class=\"font-bold text-slate-700\">15e</span>, <span class=\"font-bold text-slate-700\">8e</span>, <span class=\"font-bold text-slate-700\">Neuilly-sur-Seine</span> et <span class=\"font-bold text-slate-700\">Boulogne-Billancourt</span> nous permettent de gérer chaque projet avec réactivité. Nous analysons rigoureusement les conditions d'<span class=\"font-bold text-slate-700\">accès</span> (étages, halls vastes, ascenseurs, cours intérieures) et les besoins en <span class=\"font-bold text-slate-700\">stationnement</span> dès la phase d'<span class=\"font-bold text-slate-700\">estimation du volume</span> et jusqu'au dépôt de votre <span class=\"font-bold text-slate-700\">demande de devis</span>."
+      "Pour votre <strong>déménagement à Paris 16e</strong>, transmettez l’adresse complète et précisez quelle entrée dessert les biens : bâtiment sur rue ou sur cour, étage, sous-sol et accès au garage éventuel. À Auteuil, Passy, la Muette, Dauphine ou Chaillot, ne déduisez pas la facilité d’accès du seul quartier. Mesurez les portes, les paliers et l’ascenseur, puis vérifiez les horaires et protections des parties communes avec le gardien ou le syndic.",
+      "Le stationnement se prépare au départ comme à l’arrivée. La Ville de Paris demande de déposer une <strong>autorisation d’occupation temporaire au moins 15 jours avant</strong> lorsqu’elle est nécessaire, notamment pour utiliser un monte-meuble sur l’espace public, dépasser six heures sur un même emplacement ou stationner hors de la bande payante. L’AOT ne réserve pas une place. Consultez les <a href=\"https://www.paris.fr/pages/faq-demenagements-4404\" class=\"text-accent hover:underline\">règles de stationnement pour un déménagement à Paris</a> et convenez au devis de la personne chargée des démarches et des frais éventuels.",
+      "Listez le mobilier, les cartons et les objets fragiles avant de choisir votre accompagnement. Le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> prépare une estimation ; ajoutez les dimensions des meubles difficiles à sortir et la distance entre le véhicule et chaque entrée. Comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">prestations des formules de déménagement</a> en précisant qui emballe, démonte et remonte. Pour un cabinet ou des locaux professionnels, préparez aussi le plan d’implantation et les contraintes de reprise avec notre page <a href=\"/transfert-bureaux-paris\" class=\"text-accent hover:underline\">transfert de bureaux à Paris</a>.",
+      "Si un canapé, une bibliothèque ou une armoire ne passe pas par les accès intérieurs, faites étudier un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble à Paris</a> : dimensions de l’ouverture, étage, emplacement au sol et obstacles devant la façade. Sa faisabilité et les autorisations restent à confirmer. Rassemblez ces informations dans votre <a href=\"/demande-de-devis#formulaire-devis\" class=\"text-accent hover:underline\">demande de devis pour Paris 16e</a>, en distinguant la date souhaitée des contraintes impératives de remise des clés."
     ],
     "faqs": [
       {
         "q": "Comment organiser un déménagement à Paris 16e ?",
-        "a": "L'organisation d'un déménagement dans le 16e arrondissement nécessite d'anticiper les volumes souvent importants des appartements familiaux et les accès parfois complexes des immeubles de standing (halls vastes, ascenseurs à protéger, stationnement). Marne Transdem organise une visite technique pour évaluer vos besoins précis, vos objets fragiles et mobilier volumineux."
+        "a": "Commencez par l’inventaire, les deux adresses et les dates envisagées. Relevez les étages, les dimensions des portes et de l’ascenseur, les passages sur cour et la distance de portage. Vérifiez avec le gardien ou le syndic les horaires et les protections des parties communes. Les modalités d’une visite technique sont à convenir selon votre projet."
       },
       {
         "q": "Marne Transdem intervient-elle dans tout le 16e arrondissement ?",
-        "a": "Oui, nous couvrons l'intégralité du 16e : Auteuil, Passy, Chaillot, la porte Dauphine, ainsi que les secteurs autour du Trocadéro, de la Muette et du bois de Boulogne."
+        "a": "Marne Transdem accompagne les projets de déménagement dans le 16e, notamment à Auteuil, Passy, la Muette, Dauphine et Chaillot. Précisez l’adresse exacte et les accès : un même quartier peut réunir des configurations de logements très différentes. La date et les prestations sont à confirmer lors de l’étude du devis."
       },
       {
         "q": "Peut-on demander un monte-meuble à Paris 16e ?",
-        "a": "Absolument. Selon la configuration de votre rue (notamment sur les grands boulevards ou les rues plus étroites d'Auteuil) et la faisabilité technique sur votre façade, nous étudions l'utilisation d'un monte-meuble pour préserver vos intérieurs et les parties communes."
+        "a": "Signalez les meubles qui ne passent pas dans les escaliers ou l’ascenseur et transmettez leurs dimensions. L’étude porte aussi sur l’ouverture en façade, l’étage, les obstacles et l’espace disponible au sol. Le monte-meuble n’est retenu qu’après vérification de la faisabilité et des autorisations applicables ; son coût doit être précisé au devis."
       },
       {
         "q": "Quelle formule choisir pour un déménagement à Paris 16e ?",
-        "a": "Pour les logements spacieux du 16e, nous recommandons souvent les formules Standard ou Luxe. La formule Luxe est idéale pour déléguer l'intégralité de la mise en cartons et bénéficier d'une prestation clé en main, particulièrement appréciée pour les objets fragiles et le mobilier délicat."
+        "a": "Choisissez selon les tâches que vous souhaitez préparer vous-même, et non selon la seule surface du logement. Comparez l’emballage du fragile et du non-fragile, le démontage, le remontage et les fournitures prévues. Les prestations retenues dans une formule Économique, Standard ou Luxe doivent être détaillées dans votre devis."
       },
       {
         "q": "Comment obtenir un devis pour un déménagement à Paris 16e ?",
-        "a": "Vous pouvez remplir notre formulaire en ligne ou nous contacter par téléphone. Nous planifions une estimation gratuite de votre volume et des contraintes d'accès pour vous fournir un devis personnalisé et détaillé."
+        "a": "Décrivez votre projet dans le formulaire ou contactez l’équipe par téléphone. Indiquez le mobilier et les cartons, les accès aux deux adresses, la période souhaitée et les tâches à déléguer. Signalez les objets lourds, les besoins de stockage et les contraintes de stationnement pour préparer une proposition adaptée."
+      },
+      {
+        "q": "Quel délai prévoir pour le stationnement du déménagement ?",
+        "a": "La Ville de Paris annonce au moins 15 jours avant le déménagement pour déposer une demande d’AOT. Cette autorisation ne constitue pas une réservation de place. Définissez avec le déménageur qui effectue la démarche et les frais retenus au devis ; vérifiez les règles municipales pour chacune des deux adresses."
+      },
+      {
+        "q": "Quels éléments font varier le prix d’un déménagement à Paris 16e ?",
+        "a": "Le volume, le trajet, la saison, la date, les étages, la distance de portage et les prestations d’emballage ou de démontage influencent l’organisation. Une adresse dans le 16e ne suffit pas à fixer un tarif. Comparez des devis sur le même inventaire, les mêmes accès et les mêmes tâches, en faisant préciser les options de levage ou de stockage éventuelles."
       }
     ],
     "nearbySectors": [
@@ -4839,10 +4849,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Paris 17e",
         "l": "/demenagement-paris-17"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
       },
       {
         "n": "Boulogne-Billancourt",
@@ -4878,7 +4884,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris 8e",
-        "l": "/secteurs-desservis"
+        "l": "/demenagement-paris-8"
       },
       {
         "n": "Hauts-de-Seine",
