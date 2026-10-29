@@ -2,6 +2,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import sharp, { type Metadata } from 'sharp';
+import { sectorsData } from '../src/constants/sectorsData.ts';
 import {
   DEFAULT_OG_IMAGE,
   DEFAULT_OG_IMAGE_ALT,
@@ -82,6 +83,25 @@ function getTrackedFiles() {
 
 const canonicalRoutes = getPublicCanonicalRoutes();
 const uniqueRoutes = new Set(canonicalRoutes);
+// Only exact, unambiguous place labels imply a dedicated destination.
+// Journey labels and generic regional copy are deliberately left out.
+const normalizePlaceLabel = (label: string) => label.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+const namedDestinations = new Map<string, Set<string>>();
+for (const sector of sectorsData.filter(sector => sector.name && sector.type !== 'longue-distance')) {
+  const label = normalizePlaceLabel(sector.name);
+  const destinations = namedDestinations.get(label) ?? new Set<string>();
+  destinations.add(`/demenagement-${sector.slug}`);
+  namedDestinations.set(label, destinations);
+}
+const mislabeledSectorLinks = sectorsData.flatMap(sector => sector.nearbySectors.flatMap(link => {
+  const destinations = namedDestinations.get(normalizePlaceLabel(link.n));
+  if (!destinations || destinations.size !== 1) return [];
+  const expected = [...destinations][0];
+  return new URL(link.l, SITE_URL).href === `${SITE_URL}${expected}` ? [] : [`${sector.slug}: ${link.n} -> ${link.l} (expected ${expected})`];
+}));
+addCheck('named sector links', mislabeledSectorLinks.length === 0, mislabeledSectorLinks.length
+  ? mislabeledSectorLinks.slice(0, 8).join('; ')
+  : 'all unambiguous place labels lead to their dedicated page');
 addCheck(
   'canonical routes',
   canonicalRoutes.length === uniqueRoutes.size && canonicalRoutes.length > 0,

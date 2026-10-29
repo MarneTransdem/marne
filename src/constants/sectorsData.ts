@@ -4964,7 +4964,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "n": "Paris 8e",
-        "l": "/secteurs-desservis"
+        "l": "/demenagement-paris-8"
       },
       {
         "n": "Paris 9e",
