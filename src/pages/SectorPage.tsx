@@ -69,7 +69,9 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
   const path: `/${string}` = `/demenagement-${resolvedSlug}`;
   const sectorLabel = getSectorLabel(sector);
   const isDepartment = Object.hasOwn(departmentLocations, resolvedSlug);
-  const sectorLocation = resolvedSlug === 'ile-de-france' ? 'en Île-de-France'
+  const sectorLocation = sector.type === 'longue-distance'
+    ? resolvedSlug === 'longue-distance' ? 'au départ de Paris et de l’Île-de-France' : `sur le trajet ${sectorLabel}`
+    : resolvedSlug === 'ile-de-france' ? 'en Île-de-France'
     : departmentLocations[resolvedSlug] || `à ${sector.name}`;
   const departmentCities = departmentCityGroups[resolvedSlug]?.cities || [];
   const cityDepartment = Object.entries(departmentCityGroups).find(
@@ -112,7 +114,7 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
         description={sector.seoDescription || `Préparez votre déménagement ${sectorLocation} avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées et devis gratuit.`}
         canonical={path}
         schema={[
-          { ...getServiceSchema(`Déménagement ${sector.name}`, sector.seoDescription, { path }), areaServed: { '@type': 'Place', name: sector.name } },
+          { ...getServiceSchema(`Déménagement ${sectorLabel}`, sector.seoDescription, { path }), areaServed: sector.type === 'longue-distance' ? { '@type': 'Country', name: 'France' } : { '@type': 'Place', name: sector.name } },
           getFAQSchema(sector.faqs),
           getBreadcrumbSchema(breadcrumbs)
         ]}
@@ -217,7 +219,7 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
                 <ResponsiveImage
                   src={introImage} 
                   sizes={sectorContentImageSizes}
-                  alt={`Déménagement haut de gamme ${sectorLocation}`}
+                  alt={sector.type === 'longue-distance' ? `Préparation d’un déménagement ${sectorLocation}` : `Déménagement haut de gamme ${sectorLocation}`}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -260,7 +262,9 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
             </h2>
             <p className="text-slate-500 text-lg font-light leading-relaxed">
               {sector.type === 'longue-distance' 
-                ? `La coordination et la protection des biens sont les piliers de notre accompagnement longue distance vers ${sector.name}.`
+                ? resolvedSlug === 'longue-distance'
+                  ? 'La coordination du chargement et de la livraison se prépare aux deux adresses, depuis Paris ou l’Île-de-France vers votre destination en France.'
+                  : `La coordination du chargement et de la livraison se prépare aux deux adresses sur le trajet ${sectorLabel}.`
                 : `Une organisation rigoureuse permet de surmonter les contraintes de stationnement et d'accès aux étages dans la région.`}
             </p>
           </div>
@@ -539,7 +543,7 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
         <section className="py-24 bg-white">
           <div className="container mx-auto px-4 md:px-6 max-w-4xl">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-6">FAQ Déménagement {sector.name}</h2>
+              <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-6">FAQ Déménagement {sectorLabel}</h2>
               <p className="text-slate-500 font-light italic opacity-70">Les questions fréquentes sur la logistique de votre projet.</p>
             </div>
 
@@ -565,7 +569,7 @@ const SectorContent: React.FC<{ sector: Sector }> = ({ sector }) => {
         : undefined} />
 
       {/* 12. Neighbouring sectors Section */}
-      <NearbySectorLinks sectors={sector.nearbySectors} />
+      <NearbySectorLinks sectors={sector.nearbySectors} title={sector.type === 'longue-distance' ? 'Trajets et secteurs pour préparer votre déménagement' : undefined} />
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { Sector } from '../../constants/sectorsData';
 
-export function NearbySectorLinks({ sectors }: { sectors: Sector['nearbySectors'] }) {
+export function NearbySectorLinks({ sectors, title = 'Autres secteurs à proximité' }: { sectors: Sector['nearbySectors']; title?: string }) {
   if (sectors.length === 0) return null;
 
   return (
@@ -10,7 +10,7 @@ export function NearbySectorLinks({ sectors }: { sectors: Sector['nearbySectors'
       <div className="container mx-auto max-w-6xl px-4 md:px-6">
         <div className="mb-7 max-w-2xl">
           <span aria-hidden="true" className="mb-4 block h-1 w-10 rounded-full bg-accent" />
-          <h2 id="nearby-sectors-title" className="text-2xl md:text-3xl font-bold text-brand-900 stay-dark">Autres secteurs à proximité</h2>
+          <h2 id="nearby-sectors-title" className="text-2xl md:text-3xl font-bold text-brand-900 stay-dark">{title}</h2>
           <p className="mt-3 text-base leading-relaxed text-slate-600">Consultez les informations utiles pour préparer les accès et le déménagement à chaque adresse de votre trajet.</p>
         </div>
         <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
