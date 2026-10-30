@@ -20,7 +20,7 @@ const DemenagementPetitVolume: React.FC = () => {
     },
     { 
       q: "Proposez-vous du groupage pour les petits volumes ?", 
-      a: "Indiquez votre trajet et votre souplesse sur les dates pour vérifier si une solution de groupage est disponible. Faites confirmer les créneaux de chargement et de livraison ainsi que le prix proposé avant de réserver. La disponibilité dépend de l'organisation du transport."
+      a: "Non, Marne Transdem ne propose pas de groupage. Pour quelques meubles ou cartons, demandez un devis adapté à votre inventaire, au trajet et aux accès des deux adresses. Indiquez votre période de déménagement pour préparer l’organisation de votre projet."
     },
     { 
       q: "Peut-on déménager une seule armoire ou un seul canapé ?", 
@@ -141,7 +141,7 @@ const DemenagementPetitVolume: React.FC = () => {
           <h2 id="petit-volume-prix" className="text-3xl font-bold text-brand-900">Comment se prépare le prix d’un petit déménagement à Paris ?</h2>
           <p className="text-slate-600 leading-relaxed">Le devis dépend du volume, du trajet et des opérations nécessaires : protection, démontage, manutention dans les étages et installation à l’arrivée. La saison, la date retenue, le stationnement et les accès peuvent aussi modifier l’organisation, même pour quelques meubles.</p>
           <p className="text-slate-600 leading-relaxed">Pour préparer votre budget, le <Link to="/blog/combien-coute-demenagement-paris" className="underline underline-offset-4 font-semibold text-brand-900">guide des prix d’un déménagement à Paris</Link> présente des repères indicatifs, notamment pour un studio. Comparez ensuite des devis établis pour le même inventaire, les mêmes accès et la même répartition des tâches.</p>
-          <p className="text-slate-600 leading-relaxed">Vous avez des dates souples ? Indiquez votre période et votre trajet pour faire étudier les possibilités d’organisation, dont un éventuel groupage. Les disponibilités, délais et conditions doivent être confirmés avant réservation.</p>
+          <p className="text-slate-600 leading-relaxed">Vous avez des dates souples ? Indiquez votre période et votre trajet pour préparer l’organisation de votre petit déménagement. Marne Transdem ne propose pas de groupage ; le devis est établi selon les biens à transporter, les accès et les prestations souhaitées.</p>
         </div>
       </section>
 
