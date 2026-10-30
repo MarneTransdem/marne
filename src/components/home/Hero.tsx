@@ -7,17 +7,17 @@ import type { SelectedHomeAddress } from './HomeAddressAutocomplete';
 
 const HomeAddressAutocomplete = React.lazy(() => import('./HomeAddressAutocomplete'));
 
-// Public Google Maps listing checked on 20 September 2026. This is the
+// Public Google Maps listing checked on 30 October 2026. This is the
 // establishment-wide rating, not an average of the five imported testimonials.
-const GOOGLE_RATING = { score: 4.9, count: 508, verifiedAt: '2026-09-20' };
+const GOOGLE_RATING = { score: 4.9, count: 511, verifiedAt: '2026-10-30' };
 const GoogleBadge = () => (
   <a className="home-google-rating" href="https://maps.app.goo.gl/mgKeWdoyH5Mpt8xJ9" target="_blank" rel="noopener noreferrer"
     onClick={() => trackConversion('google_business_profile_click', { placement: 'hero_badge' })}
-    aria-label="Google Maps : 4,9 sur 5, 508 avis. Vérifié le 20 septembre 2026. Consulter les avis (nouvel onglet).">
+    aria-label="Google Maps : 4,9 sur 5, 511 avis. Vérifié le 30 octobre 2026. Consulter les avis (nouvel onglet).">
     <img src="/images/google-maps-attribution.svg" alt="Google Maps" height="18" width="90" className="home-google-logo" />
     <span className="home-google-score"><strong>{GOOGLE_RATING.score.toLocaleString('fr-FR')}</strong><span>/ 5</span><span className="home-google-stars" aria-hidden="true"><span>★★★★★</span><span style={{ width: `${GOOGLE_RATING.score / 5 * 100}%` }}>★★★★★</span></span></span>
     <span className="home-google-count">{GOOGLE_RATING.count} avis · Consulter les avis <ArrowRight size={13} aria-hidden="true" /></span>
-    <span className="home-google-date">Vérifié le <time dateTime={GOOGLE_RATING.verifiedAt}>20/09/2026</time></span>
+    <span className="home-google-date">Vérifié le <time dateTime={GOOGLE_RATING.verifiedAt}>30/10/2026</time></span>
   </a>
 );
 
