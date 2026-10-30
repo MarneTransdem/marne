@@ -130,5 +130,11 @@
     "height": 2529,
     "avif": "/images/camion-marne-transdem-93-480.avif 480w, /images/camion-marne-transdem-93-800.avif 800w, /images/camion-marne-transdem-93-1200.avif 1200w, /images/camion-marne-transdem-93-1600.avif 1600w",
     "webp": "/images/camion-marne-transdem-93-480.webp 480w, /images/camion-marne-transdem-93-800.webp 800w, /images/camion-marne-transdem-93-1200.webp 1200w, /images/camion-marne-transdem-93-1600.webp 1600w"
+  },
+  "/images/preparation-demenagement.webp": {
+    "width": 800,
+    "height": 600,
+    "avif": "/images/preparation-demenagement-480.avif 480w, /images/preparation-demenagement-800.avif 800w",
+    "webp": "/images/preparation-demenagement-480.webp 480w, /images/preparation-demenagement-800.webp 800w"
   }
 }

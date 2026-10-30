@@ -45,6 +45,7 @@ const images = [
   'emballage-demenagement.webp',
   'transfert-entreprise-essonne.jpg',
   'camion-marne-transdem-93.jpg',
+  'preparation-demenagement.webp',
 ];
 const manifest = {};
 for (const name of images) {

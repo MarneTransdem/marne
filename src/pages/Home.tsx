@@ -15,6 +15,8 @@ const FAQ = React.lazy(() => import('../components/home/FAQ').then(m => ({ defau
 import { ArrowRight, CheckCircle, Quote, Phone, ShieldCheck, MapPin, Check } from 'lucide-react';
 import { FAQ_ITEMS, CONTACT } from '../constants';
 import { SEO } from '../components/SEO';
+import { ResponsiveImage } from '../components/common/ResponsiveImage';
+import { HOME_ADVICE_IMAGE_SIZES } from '../lib/responsive-image-sizes';
 import { getOrganizationSchema, getLocalBusinessSchema, getFAQSchema } from '../lib/schema';
 
 const DeferredGoogleReviews: React.FC = () => {
@@ -194,9 +196,10 @@ const Home: React.FC = () => {
             <div className="lg:w-1/2 relative">
                <div className="absolute -inset-10 bg-accent/10 rounded-full blur-3xl opacity-50"></div>
                <div className="relative bg-brand-900 rounded-[3rem] p-4 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-700">
-                  <img 
+                  <ResponsiveImage
                     src="/images/preparation-demenagement.webp" 
-                    alt="Préparation de déménagement à Paris : cartons, emballage et checklist Marne Transdem" 
+                    sizes={HOME_ADVICE_IMAGE_SIZES}
+                    alt="Un déménageur Marne Transdem porte un carton vers le camion ouvert"
                     width="800"
                     height="600"
                     loading="lazy"
