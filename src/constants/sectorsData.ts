@@ -4520,14 +4520,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Paris 20e",
         "l": "/demenagement-paris-20"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
-      },
-      {
-        "n": "Île-de-France",
-        "l": "/demenagement-ile-de-france"
       }
     ]
   },
@@ -4585,24 +4577,8 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-vincennes"
       },
       {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
-      },
-      {
         "n": "Saint-Mandé",
         "l": "/demenagement-saint-mande"
-      },
-      {
-        "n": "Val-de-Marne",
-        "l": "/demenagement-val-de-marne"
-      },
-      {
-        "n": "Seine-et-Marne",
-        "l": "/demenagement-seine-et-marne"
-      },
-      {
-        "n": "Île-de-France",
-        "l": "/demenagement-ile-de-france"
       }
     ]
   },
@@ -5094,10 +5070,6 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-paris-20"
       },
       {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
-      },
-      {
         "n": "Paris 18e",
         "l": "/demenagement-paris-18"
       },
@@ -5114,16 +5086,8 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-pantin"
       },
       {
-        "n": "Seine-Saint-Denis",
-        "l": "/demenagement-seine-saint-denis"
-      },
-      {
         "n": "Montreuil",
         "l": "/demenagement-montreuil"
-      },
-      {
-        "n": "Île-de-France",
-        "l": "/demenagement-ile-de-france"
       }
     ]
   },
@@ -5190,32 +5154,12 @@ export const sectorsData: Sector[] = [
         "l": "/demenagement-bagnolet"
       },
       {
-        "n": "Seine-Saint-Denis",
-        "l": "/demenagement-seine-saint-denis"
-      },
-      {
         "n": "Vincennes",
         "l": "/demenagement-vincennes"
       },
       {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
-      },
-      {
         "n": "Saint-Mandé",
         "l": "/demenagement-saint-mande"
-      },
-      {
-        "n": "Val-de-Marne",
-        "l": "/demenagement-val-de-marne"
-      },
-      {
-        "n": "Seine-et-Marne",
-        "l": "/demenagement-seine-et-marne"
-      },
-      {
-        "n": "Île-de-France",
-        "l": "/demenagement-ile-de-france"
       }
     ]
   },
