@@ -1437,7 +1437,7 @@ function getShareUrl(platform: 'facebook' | 'linkedin', post: BlogPostData) {
 const BlogPost: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const post = id ? posts[id] : undefined;
+  const post = id && Object.hasOwn(posts, id) ? posts[id] : undefined;
 
   const schema = useMemo(() => post ? buildJsonLd(post) : null, [post]);
   if (!post) return <NotFound />;
