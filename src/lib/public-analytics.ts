@@ -1,5 +1,5 @@
 import firebaseConfig from '../../firebase-applet-config.json';
-import { analyticsPath, classifyVisit, type VisitAttribution } from './analytics-attribution';
+import { analyticsPath, analyticsSearchReferrer, classifyVisit, type VisitAttribution } from './analytics-attribution';
 import { SITE_URL, getSeoRoute } from './seo-routes';
 
 type AnalyticsParams = Record<string, string | number | boolean | null | undefined>;
@@ -92,7 +92,7 @@ function loadGtag() {
       window.dataLayer?.push(arguments);
     };
     window.gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
-    window.gtag('set', { page_location: `${SITE_URL}${analyticsPath(window.location.pathname) || '/'}`, page_referrer: '', allow_google_signals: false, allow_ad_personalization_signals: false });
+    window.gtag('set', { page_location: `${SITE_URL}${analyticsPath(window.location.pathname) || '/'}`, page_referrer: analyticsSearchReferrer(getVisitAttribution()), allow_google_signals: false, allow_ad_personalization_signals: false });
 
     if (document.querySelector(`script[src*="${GA_MEASUREMENT_ID}"]`)) {
       resolve();
@@ -119,7 +119,8 @@ export async function trackEvent(eventName: string, params: AnalyticsParams = {}
   const pagePath = analyticsPath(eventName === 'web_vital' && typeof params.page_path === 'string' ? params.page_path : window.location.pathname);
   if (!pagePath) return;
   const version = consentVersion;
-  const payload = { ...cleanParams(params), ...getVisitAttribution(), page_path: pagePath, page_location: `${SITE_URL}${pagePath}`, page_referrer: '', page_title: getSeoRoute(pagePath).title };
+  const attribution = getVisitAttribution();
+  const payload = { ...cleanParams(params), ...attribution, page_path: pagePath, page_location: `${SITE_URL}${pagePath}`, page_referrer: analyticsSearchReferrer(attribution), page_title: getSeoRoute(pagePath).title };
 
   try {
     await loadGtag();

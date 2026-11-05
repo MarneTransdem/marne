@@ -9,6 +9,21 @@ export function analyticsPath(value: string): string | null {
 }
 
 export type VisitAttribution = { landing_page: string; acquisition_channel: string; acquisition_source: string };
+
+const searchReferrers = new Map([
+  ['google', 'https://www.google.com/'],
+  ['bing', 'https://www.bing.com/'],
+  ['duckduckgo', 'https://duckduckgo.com/'],
+  ['yahoo', 'https://search.yahoo.com/'],
+  ['ecosia', 'https://www.ecosia.org/'],
+]);
+
+export function analyticsSearchReferrer(attribution: VisitAttribution | null): string {
+  if (attribution?.acquisition_channel !== 'organic_search') return '';
+  // Fixed engine origins let GA4 classify search without receiving the raw URL.
+  return searchReferrers.get(attribution.acquisition_source) || '';
+}
+
 export function classifyVisit(href: string, referrer: string): VisitAttribution | null {
   const landing_page = analyticsPath(href);
   if (!landing_page) return null;

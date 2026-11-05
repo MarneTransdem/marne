@@ -38,6 +38,8 @@ assert.equal(h.calls().filter(c=>c[0]==='event'&&c[1]==='page_view').length,1);
 assert(!JSON.stringify(h.calls()).includes('PRIVATE'));
 assert(!JSON.stringify(h.calls()).includes('search?q'));
 assert.equal(h.api.getVisitAttribution().acquisition_channel,'organic_search');
+assert.equal(h.calls().find(call => call[0] === 'set')[1].page_referrer, 'https://www.google.com/');
+assert.equal(h.calls().find(call => call[1] === 'page_view')[2].page_referrer, 'https://www.google.com/');
 h.window.location=new URL('https://www.devisdemenagement-paris.com/demande-de-devis?email=PRIVATE');
 assert.equal(h.api.getVisitAttribution().landing_page,'/calculateur-volume');
 h.api.trackConversion('phone_click');
@@ -46,6 +48,7 @@ h.api.trackConversion('quote_form_submit',{},'q1');
 await new Promise(r=>setImmediate(r));
 assert.equal(h.calls().filter(c=>c[1]==='generate_lead').length,1);
 assert.equal(h.calls().filter(c=>c[1]==='conversion').length,1);
+assert.equal(h.calls().find(call => call[1] === 'generate_lead')[2].page_referrer, 'https://www.google.com/');
 const count=h.calls().filter(c=>c[0]==='event').length;
 h.api.setAnalyticsConsent('declined');
 await h.api.trackEvent('page_view');
@@ -63,6 +66,47 @@ assert(!JSON.stringify([...h.session]).includes('PRIVATE'));
 h=harness(); h.window.localStorage.getItem=()=>{throw Error('blocked storage');};
 await h.api.trackEvent('page_view'); assert.equal(h.scripts.length,0);
 console.log('Analytics: consent, revocation, single dispatch, deduplication, URL privacy and attribution passed.');
+
+// Native GA4 attribution receives only fixed origins for recognised organic search.
+for (const [referrer, expected] of [
+  ['https://www.google.fr/search?q=PRIVATE#PRIVATE', 'https://www.google.com/'],
+  ['https://www.bing.com/search?q=PRIVATE', 'https://www.bing.com/'],
+  ['https://duckduckgo.com/?q=PRIVATE', 'https://duckduckgo.com/'],
+  ['https://fr.search.yahoo.com/search?p=PRIVATE', 'https://search.yahoo.com/'],
+  ['https://www.ecosia.org/search?q=PRIVATE', 'https://www.ecosia.org/'],
+  ['https://www.google.com.attacker.test/PRIVATE', ''],
+  ['https://partner.example.test/PRIVATE?email=PRIVATE', ''],
+  ['https://www.devisdemenagement-paris.com/demande-de-devis?email=PRIVATE', ''],
+  ['invalid PRIVATE', ''],
+  ['', ''],
+]) {
+  const visit = harness('accepted', referrer);
+  const event = visit.api.trackEvent('page_view');
+  visit.scripts[0].onload();
+  await event;
+  assert.equal(visit.calls().find(call => call[0] === 'set')[1].page_referrer, expected);
+  assert.equal(visit.calls().find(call => call[1] === 'page_view')[2].page_referrer, expected);
+  assert(!JSON.stringify(visit.calls()).includes('PRIVATE'));
+}
+const restoredVisit = harness('accepted', '');
+restoredVisit.session.set('marne:visit-attribution:v1', JSON.stringify({
+  landing_page: '/calculateur-volume', acquisition_channel: 'organic_search',
+  acquisition_source: 'google', touched: Date.now(),
+}));
+const restoredEvent = restoredVisit.api.trackEvent('page_view');
+restoredVisit.scripts[0].onload();
+await restoredEvent;
+assert.equal(restoredVisit.calls().find(call => call[1] === 'page_view')[2].page_referrer, 'https://www.google.com/');
+for (const query of ['?gclid=PRIVATE', '?utm_source=PRIVATE&utm_medium=cpc', '?utm_source=PRIVATE&utm_medium=email']) {
+  const campaign = harness();
+  campaign.window.location = new URL(`https://www.devisdemenagement-paris.com/${query}`);
+  const event = campaign.api.trackEvent('page_view');
+  campaign.scripts[0].onload();
+  await event;
+  assert.equal(campaign.calls().find(call => call[1] === 'page_view')[2].page_referrer, '');
+  assert(!JSON.stringify(campaign.calls()).includes('PRIVATE'));
+}
+console.log('Native search attribution: fixed engine origins, navigation persistence and campaign privacy passed.');
 
 // A form attempt never stores field content or replays pre-consent interactions.
 const progressBuild=await build({entryPoints:['src/lib/quote-progress.ts'],bundle:true,write:false,platform:'node',format:'cjs'});
