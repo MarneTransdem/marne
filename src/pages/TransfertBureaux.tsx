@@ -49,8 +49,8 @@ const TransfertBureaux: React.FC = () => {
   return (
     <div className="bg-white">
       <SEO 
-        title="Transfert de bureaux Paris | Marne Transdem"
-        description="Transfert de bureaux à Paris et en Île-de-France : inventaire, accès, mobilier et planning. Préparez votre déménagement avec un devis personnalisé."
+        title="Déménagement de bureaux à Paris : devis | Marne Transdem"
+        description="Déménagement de bureaux à Paris : mobilier, postes de travail, accès et planning. Précisez vos besoins et demandez un devis personnalisé à Marne Transdem."
         canonical={path}
         schema={[
           getServiceSchema("Transfert de bureaux à Paris", "Préparation du déménagement de bureaux à Paris et en Île-de-France : inventaire, accès, protection du mobilier et planning définis selon le projet.", { path }),
@@ -84,7 +84,7 @@ const TransfertBureaux: React.FC = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-5">
-              <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover shadow-xl flex items-center justify-center gap-3 group transition-all italic underline-none">
+              <Link to="/demande-de-devis#formulaire-devis" className="bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover shadow-xl flex items-center justify-center gap-3 group transition-all italic underline-none">
                 Devis transfert de bureaux
                 <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -106,12 +106,15 @@ const TransfertBureaux: React.FC = () => {
               <h2 className="text-3xl md:text-5xl font-black text-brand-900 leading-tight tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">
                 Préparer votre <span className="text-accent italic">reprise d'activité</span>
               </h2>
-              <div className="space-y-6 text-slate-500 text-lg font-light leading-relaxed italic text-justify grayscale-0 italic transition-all">
+              <div className="space-y-6 text-slate-500 text-lg font-light leading-relaxed italic text-left md:text-justify grayscale-0 italic transition-all">
                 <p>
                   Un <span className="font-bold text-brand-900 underline decoration-accent/10 italic">transfert de bureaux</span> se prépare avec les personnes qui utilisent les locaux. Identifiez les postes prioritaires, les documents à conserver à portée de main et les équipements nécessaires à la reprise. Le planning doit intégrer le transport, l’installation et vos vérifications internes.
                 </p>
                 <p>
                   Aux deux adresses, précisez les étages, les dimensions des ascenseurs, les accès de livraison et les règles de l’immeuble. L’inventaire et le plan d’implantation permettent de définir les tâches confiées aux déménageurs, celles de vos équipes et les interventions de vos autres prestataires.
+                </p>
+                <p>
+                  Pour cadrer le périmètre global et les intervenants, consultez notre accompagnement du <Link to="/demenagement-entreprises-paris" className="font-semibold text-brand-900 underline underline-offset-4">déménagement d’entreprise à Paris</Link>. Le transfert de bureaux détaille ici la préparation physique des postes, du mobilier et des cartons jusqu’à leur emplacement d’arrivée ; les opérations informatiques et les besoins documentaires doivent être précisés avec les référents concernés.
                 </p>
               </div>
               <div className="flex flex-wrap gap-4 pt-4 italic">
@@ -127,9 +130,9 @@ const TransfertBureaux: React.FC = () => {
             </div>
             <div className="relative group italic">
               <div className="rounded-[4rem] overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:scale-105 grayscale-0">
-                <ResponsiveImage width={1513} height={2017} loading="lazy" decoding="async" sizes={TWO_COLUMN_IMAGE_SIZES}
-                  src="/images/transfert-bureaux-entreprise-paris.jpg" 
-                  alt="Déménagement de bureaux Marne Transdem" 
+                <ResponsiveImage width={1360} height={1020} loading="lazy" decoding="async" sizes={TWO_COLUMN_IMAGE_SIZES}
+                  src="/images/bureau-marne-transdem.webp" 
+                  alt="Façade de l’agence Marne Transdem, 43 rue des Maraîchers à Paris" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -214,7 +217,7 @@ const TransfertBureaux: React.FC = () => {
             Communiquez votre inventaire, vos adresses et vos dates souhaitées pour recevoir un devis personnalisé pour votre transfert de bureaux.
           </p>
           <div className="flex flex-wrap justify-center gap-6 italic">
-            <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-12 py-5 rounded-full font-bold text-lg hover:shadow-2xl transition-all italic underline-none">
+            <Link to="/demande-de-devis#formulaire-devis" className="bg-accent text-brand-900 px-12 py-5 rounded-full font-bold text-lg hover:shadow-2xl transition-all italic underline-none">
               Demander un devis gratuit
             </Link>
             <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="bg-white/10 text-white border border-white/20 px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-brand-900 transition-all flex items-center justify-center gap-3 backdrop-blur-sm italic">
@@ -229,7 +232,7 @@ const TransfertBureaux: React.FC = () => {
       <section className="py-24 bg-slate-50 font-sans italic underline-none">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl italic">
            <div className="text-center mb-16 italic underline decoration-accent/10 underline-offset-8">
-             <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-4 uppercase italic tracking-tight">FAQ <span className="text-accent italic font-sans italic">Entreprise</span></h2>
+             <h2 className="text-3xl md:text-5xl font-black text-brand-900 mb-4 uppercase italic tracking-tight">FAQ <span className="text-accent italic font-sans italic">Transfert de bureaux</span></h2>
            </div>
            <div className="space-y-6 italic">
              {faqs.map((faq, i) => (
@@ -253,7 +256,7 @@ const TransfertBureaux: React.FC = () => {
           <div className="flex flex-wrap justify-center gap-x-10 gap-y-6 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 italic">
             <Link to="/transfert-informatique-paris" className="hover:text-accent transition-all italic">Transfert informatique</Link>
             <Link to="/demenagement-entreprises-paris" className="hover:text-accent transition-all italic underline decoration-accent/30 decoration-2 italic">Déménagement d’entreprise</Link>
-            <Link to="/gestion-archives-paris" className="hover:text-accent transition-all italic">Gestion Archives</Link>
+            <Link to="/gestion-archives-paris" className="hover:text-accent transition-all italic">Transfert d’archives</Link>
             <Link to="/garde-meuble-paris" className="hover:text-accent transition-all italic">Stockage Mobilier Pro</Link>
             <Link to="/contact" className="hover:text-accent transition-all italic">Contacter Marne Transdem</Link>
           </div>

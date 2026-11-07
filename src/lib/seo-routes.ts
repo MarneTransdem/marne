@@ -374,7 +374,7 @@ const SERVICE_TITLES: Record<string, string> = {
   '/demenagement-mutation-professionnelle': 'Déménagement mutation professionnelle | Marne Transdem',
   '/demenagement-petit-volume': 'Déménagement petit volume à Paris : devis | Marne Transdem',
   '/demenagement-piano-objets-lourds': 'Déménagement piano et objets lourds | Marne Transdem',
-  '/transfert-bureaux-paris': 'Transfert de bureaux à Paris : devis | Marne Transdem',
+  '/transfert-bureaux-paris': 'Déménagement de bureaux à Paris : devis | Marne Transdem',
   '/transfert-informatique-paris': 'Transfert informatique Paris | Marne Transdem',
   '/transfert-industriel-paris': 'Transfert industriel Paris | Marne Transdem',
   '/transfert-laboratoire-paris': 'Transfert de laboratoire Paris | Marne Transdem',
@@ -452,7 +452,7 @@ const SERVICE_DESCRIPTIONS: Record<string, string> = {
   "/garde-meuble-paris": "Besoin de stocker vos meubles entre deux logements à Paris ? Précisez volume, durée et accès pour un devis de garde-meuble adapté à votre projet.",
   "/gestion-archives-paris": "Préparez votre transfert d’archives à Paris : inventaire des boîtes, accès et réception. Décrivez votre volume et demandez un devis adapté à votre projet.",
   "/location-monte-meuble-paris": "Monte-meuble à Paris : trois équipements de 18 à 30 m pour vos meubles et accès difficiles. Demandez un devis après étude des accès et de la faisabilité.",
-  "/transfert-bureaux-paris": "Transfert de bureaux à Paris : préparez mobilier, postes de travail, accès et planning avec Marne Transdem. Demandez un devis adapté à votre activité.",
+  "/transfert-bureaux-paris": "Déménagement de bureaux à Paris : mobilier, postes de travail, accès et planning. Précisez vos besoins et demandez un devis personnalisé à Marne Transdem.",
   "/transfert-industriel-paris": "Transfert industriel à Paris : préparez l’inventaire de votre atelier, les accès et le calendrier. Définissez les prestations nécessaires avec un devis adapté.",
   "/transfert-informatique-paris": "Transfert informatique à Paris : inventaire des équipements, accès, protections et coordination avec votre prestataire informatique. Préparez un devis personnalisé.",
   "/demenagement-oeuvres-art": "Déménagement de tableaux et d’œuvres d’art à Paris : préparez les dimensions, les accès et les besoins de protection pour un devis personnalisé avec Marne Transdem."
