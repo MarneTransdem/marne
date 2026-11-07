@@ -3358,15 +3358,21 @@ export const sectorsData: Sector[] = [
     "slug": "louveciennes",
     "name": "Louveciennes",
     "type": "local",
-    "seoTitle": "Déménagement Louveciennes | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Louveciennes avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement à Louveciennes : devis | Marne Transdem",
+    "seoDescription": "Déménagement à Louveciennes : préparez les accès, le stationnement et votre inventaire avec Marne Transdem. Demandez un devis personnalisé pour votre trajet.",
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Louveciennes, avec une organisation adaptée aux appartements, maisons, résidences, bureaux, commerces et contraintes d'accès de l'ouest francilien.",
     "introParagraphs": [
-      "Sa proximité avec Bougival, La Celle-Saint-Cloud, Croissy-sur-Seine, Le Port-Marly, Marly-le-Roi, Le Chesnay-Rocquencourt, Versailles, Rueil-Malmaison et Saint-Germain-en-Laye en fait un secteur d'intervention privilégié pour nos équipes. Nous maîtrisons les spécificités des quartiers résidentiels de Louveciennes, qu'il s'agisse de maisons anciennes, de pavillons contemporains ou d'appartements en résidence avec halls, ascenseurs et accès parfois contraints.",
-      "Qu'il s'agisse d'un déménagement de particuliers, de familles, de cadres ou de professionnels (bureaux, cabinets, agences), chaque projet bénéficie d'une attention particulière. De l'estimation précise du volume à la demande de devis, nous analysons vos besoins en tenant compte de la configuration de votre adresse : stationnement, étages, accès aux jardins, caves, parkings ou garages."
+      "Pour votre <strong>déménagement à Louveciennes</strong>, commencez par distinguer les meubles et cartons à transporter de ceux qui restent sur place. Pour une maison, ajoutez les affaires de la cave, du garage et du jardin ; pour un appartement, précisez l’étage, les dimensions de l’ascenseur et les passages à vérifier. Préparez l’inventaire avec le <a href=\"/calculateur-volume\">calculateur de volume en m³</a>, puis signalez les meubles encombrants et les objets fragiles.",
+      "Le <strong>stationnement du camion à Louveciennes</strong> se prépare avec la police municipale. La <a href=\"https://www.louveciennes.fr/Demande-d-autorisation/994/\">page officielle des demandes d’autorisation</a> indique un dépôt au moins 15 jours avant l’occupation et distingue les formulaires pour une intervention réalisée par un particulier ou par un professionnel. Pour le formulaire professionnel, préparez notamment les dates et horaires, l’adresse et les caractéristiques des camions : longueur, largeur et PTAC. Signalez aussi le monte-meuble envisagé. Convenez avec notre équipe de la personne chargée de la demande et faites confirmer les frais applicables.",
+      "Le choix des moyens dépend des accès réels : décrivez le portail et l’allée d’une maison, les marches, les portes et la distance de portage depuis l’emplacement prévu. Si un meuble ne passe pas par l’intérieur, l’utilisation d’un <a href=\"/location-monte-meuble-paris\">monte-meuble</a> doit être étudiée selon la façade, l’espace au sol et les autorisations. Choisissez les tâches à déléguer en comparant les <a href=\"/formules-demenagement\">formules de déménagement</a> ; les opérations d’emballage, de démontage et de remontage retenues doivent figurer au devis.",
+      "Vous rejoignez <a href=\"/demenagement-marly-le-roi\">Marly-le-Roi</a>, <a href=\"/demenagement-rueil-malmaison\">Rueil-Malmaison</a> ou Paris ? Décrivez aussi les accès et les horaires à l’arrivée, même pour une courte distance. Pour des bureaux ou un cabinet, recensez les équipements et documents à part et préparez les responsabilités avec notre page <a href=\"/transfert-bureaux-paris\">transfert de bureaux</a>. Retrouvez les secteurs des <a href=\"/demenagement-yvelines\">Yvelines</a>, puis transmettez le trajet, l’inventaire et la date souhaitée dans votre <a href=\"/demande-de-devis#formulaire-devis\">demande de devis à Louveciennes</a>."
     ],
     "faqs": [
+      {
+        "q": "Quelle démarche de stationnement préparer pour un déménagement à Louveciennes ?",
+        "a": "Consultez la page municipale des demandes d’autorisation et le formulaire correspondant à une intervention par un professionnel. Préparez l’adresse, les dates et horaires ainsi que les caractéristiques des véhicules. Faites confirmer avec notre équipe la répartition des démarches et des frais avant l’intervention."
+      },
       {
         "q": "Comment organiser un déménagement à Louveciennes ?",
         "a": "Un déménagement à Louveciennes demande d’anticiper le volume, les accès, les étages, les éventuels ascenseurs, le stationnement et la préparation des cartons. Selon qu’il s’agit d’un appartement, d’une maison ou d’un local professionnel, il est important d’évaluer les caves, garages, parkings, jardins, accès de chargement, meubles volumineux et objets fragiles. Marne Transdem vous accompagne pour définir une organisation adaptée à votre logement, à vos biens et au niveau d’accompagnement souhaité."
@@ -7501,7 +7507,7 @@ export const sectorsData: Sector[] = [
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement dans les Yvelines, avec une organisation adaptée aux maisons, appartements et bureaux du 78.",
     "introParagraphs": [
       "Pour préparer un déménagement dans les Yvelines, rassemblez l’inventaire et les informations sur les deux adresses : étages, ascenseurs, largeur des passages, accès du véhicule et distance de portage. Pour une maison, précisez aussi les annexes, le mobilier extérieur et la configuration de l’allée ou du portail lorsqu’ils sont concernés.",
-      "Vous partez ou vous installez à <a href=\"/demenagement-marly-le-roi\" class=\"underline\">Marly-le-Roi (78160)</a> ? Retrouvez les points de préparation de votre déménagement sur la page de la commune. Signalez les pentes, les escaliers et les meubles dont le passage doit être vérifié, puis faites préciser les moyens de manutention retenus dans votre devis."
+      "Vous partez ou vous installez à <a href=\"/demenagement-marly-le-roi\" class=\"underline\">Marly-le-Roi (78160)</a> ou <a href=\"/demenagement-louveciennes\" class=\"underline\">Louveciennes</a> ? Retrouvez les points de préparation de votre déménagement sur la page de la commune. Signalez les pentes, les escaliers et les meubles dont le passage doit être vérifié, puis faites préciser les moyens de manutention retenus dans votre devis."
     ],
     "faqs": [
       {
