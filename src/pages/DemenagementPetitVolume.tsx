@@ -10,6 +10,10 @@ const DemenagementPetitVolume: React.FC = () => {
   const path = "/demenagement-petit-volume";
 
   const faqs = [
+    {
+      q: "Que comprend la prestation pour un petit déménagement ?",
+      a: "Le devis précise les biens à transporter, la manutention au départ et à l’arrivée, le transport et les prestations retenues. Faites indiquer qui fournit les cartons, emballe les objets fragiles, démonte les meubles et les remonte. Signalez les accès difficiles pour étudier les moyens nécessaires avant de convenir du prix et des dates."
+    },
     { 
       q: "Qu'est-ce qu'un déménagement 'petit volume' ?", 
       a: "Cette prestation concerne notamment quelques meubles et cartons, une chambre ou un studio. Préparez un inventaire avec les dimensions des objets : la surface du logement ne suffit pas à déterminer le volume à transporter."
@@ -140,8 +144,21 @@ const DemenagementPetitVolume: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
           <h2 id="petit-volume-prix" className="text-3xl font-bold text-brand-900">Comment se prépare le prix d’un petit déménagement à Paris ?</h2>
           <p className="text-slate-600 leading-relaxed">Le devis dépend du volume, du trajet et des opérations nécessaires : protection, démontage, manutention dans les étages et installation à l’arrivée. La saison, la date retenue, le stationnement et les accès peuvent aussi modifier l’organisation, même pour quelques meubles.</p>
-          <p className="text-slate-600 leading-relaxed">Pour préparer votre budget, le <Link to="/blog/combien-coute-demenagement-paris" className="underline underline-offset-4 font-semibold text-brand-900">guide des prix d’un déménagement à Paris</Link> présente des repères indicatifs, notamment pour un studio. Comparez ensuite des devis établis pour le même inventaire, les mêmes accès et la même répartition des tâches.</p>
+          <p className="text-slate-600 leading-relaxed">Pour préparer votre budget, le <Link to="/blog/combien-coute-demenagement-paris#prix-studio" className="underline underline-offset-4 font-semibold text-brand-900">guide des prix d’un déménagement à Paris</Link> présente des repères indicatifs, notamment pour un studio. Comparez ensuite des devis établis pour le même inventaire, les mêmes accès et la même répartition des tâches.</p>
           <p className="text-slate-600 leading-relaxed">Vous avez des dates souples ? Indiquez votre période et votre trajet pour préparer l’organisation de votre petit déménagement. Marne Transdem ne propose pas de groupage ; le devis est établi selon les biens à transporter, les accès et les prestations souhaitées.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="petit-volume-prestation" className="py-16 bg-slate-50">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
+          <h2 id="petit-volume-prestation" className="text-3xl font-bold text-brand-900">Comment se déroule votre petit déménagement avec notre équipe ?</h2>
+          <p className="text-slate-600 leading-relaxed">Pour un meuble isolé, quelques cartons ou un studio, définissez avec Marne Transdem les biens à déplacer et les tâches à confier. Le transport s’organise avec la manutention et les protections prévues au devis, selon les accès au chargement et à la livraison.</p>
+          <ol className="list-decimal pl-6 space-y-4 text-slate-600 leading-relaxed">
+            <li><strong className="text-brand-900">Avant le transport :</strong> transmettez l’inventaire, les dimensions utiles et les contraintes des deux adresses. Convenez de la fourniture des cartons, de l’emballage du fragile et du démontage des meubles identifiés.</li>
+            <li><strong className="text-brand-900">Au chargement :</strong> prévoyez la présence de la personne qui donne accès aux biens. Indiquez le mobilier à emporter et les éléments qui restent sur place ; les protections et la manutention sont réalisées selon les prestations convenues.</li>
+            <li><strong className="text-brand-900">À l’arrivée :</strong> préparez l’accès au logement et indiquez les pièces de destination. Faites préciser au devis le remontage et les opérations d’installation souhaitées pour les meubles concernés.</li>
+          </ol>
+          <p className="text-slate-600 leading-relaxed">Pour choisir votre répartition des tâches, comparez les <Link to="/formules-demenagement" className="underline underline-offset-4 font-semibold text-brand-900">prestations des formules de déménagement</Link>. Décrivez ensuite votre inventaire et votre trajet dans la <Link to="/demande-de-devis#formulaire-devis" className="underline underline-offset-4 font-semibold text-brand-900">demande de devis petit volume</Link>.</p>
         </div>
       </section>
 
@@ -154,7 +171,7 @@ const DemenagementPetitVolume: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 italic transition-all italic underline-none italic">
             {[
               { t: "Déménagement Étudiant", d: "Idéal pour une chambre ou un studio universitaire.", l: "/demenagement-etudiant" },
-              { t: "Meuble Isolé", d: "Transport d'une pièce massive : piano, buffet, canapé d'angle.", l: "/demenagement-piano-objets-lourds" },
+              { t: "Piano et objets lourds", d: "Un piano ou un meuble particulièrement lourd demande une étude de manutention spécifique.", l: "/demenagement-piano-objets-lourds" },
               { t: "Stockage temporaire", d: "Conserver une partie du mobilier entre deux logements.", l: "/garde-meuble-paris" }
             ].map((item, i) => (
               <div key={i} className="bg-white/5 p-10 rounded-[2.5rem] border border-white/10 hover:border-accent transition-all group italic">
@@ -212,6 +229,7 @@ const DemenagementPetitVolume: React.FC = () => {
           <p className="text-sm font-semibold text-brand-900 mb-3">Exemple de préparation — septembre 2026</p>
           <h2 id="small-move-example" className="scroll-mt-40 text-3xl font-bold text-brand-900 mb-6">Un déménagement de 20 m³ de Paris 12e à Paris 4e</h2>
           <p className="text-slate-600 leading-relaxed mb-6">Le document de préparation de ce projet confié à Marne Transdem indiquait un volume estimé à 20 m³. Au départ, les biens étaient répartis entre le premier étage et un garage, avec ascenseur disponible. À l’arrivée, le logement était situé au cinquième étage, avec ascenseur et monte-meubles prévu. L’organisation était soumise à un portage inférieur à 20 mètres.</p>
+          <p className="text-slate-600 leading-relaxed mb-6">Pour préparer les accès de votre propre trajet, consultez les informations sur le <Link to="/demenagement-paris-12" className="underline font-semibold text-brand-900">déménagement à Paris 12e</Link> et le <Link to="/demenagement-paris-4" className="underline font-semibold text-brand-900">déménagement à Paris 4e</Link>. L’organisation reste à adapter à vos adresses et à vos biens.</p>
           <div className="grid md:grid-cols-2 gap-8 mb-6">
             <div>
               <h3 className="text-xl font-bold text-brand-900 mb-3">Ce que notre équipe prépare</h3>
