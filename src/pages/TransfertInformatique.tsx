@@ -145,6 +145,13 @@ const TransfertInformatique: React.FC = () => {
         </div>
       </section>
 
+      <section aria-labelledby="informatique-archives" className="py-16 bg-slate-50">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
+          <h2 id="informatique-archives" className="text-3xl font-bold text-brand-900">Des dossiers papier accompagnent votre matériel informatique ?</h2>
+          <p className="text-slate-600 leading-relaxed">Distinguez les boîtes d’archives des équipements et indiquez leurs pièces de destination. Préparez les références des colis et les personnes chargées de leur réception avec notre page <Link to="/gestion-archives-paris" className="underline underline-offset-4 font-semibold text-brand-900">transfert d’archives d’entreprise</Link>. Les dossiers à garder accessibles et les créneaux de réception doivent être coordonnés avec votre calendrier de déménagement.</p>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
@@ -181,7 +188,7 @@ const TransfertInformatique: React.FC = () => {
             <Link to="/transfert-bureaux-paris" className="hover:text-accent transition-all italic">Transfert de Bureaux</Link>
             <Link to="/demenagement-entreprises-paris" className="hover:text-accent transition-all italic underline decoration-accent/30 decoration-2 italic font-sans italic transition-all italic">Solutions Globales Pro</Link>
             <Link to="/transfert-laboratoire-paris" className="hover:text-accent transition-all italic">Transfert Médical</Link>
-            <Link to="/gestion-archives-paris" className="hover:text-accent transition-all italic">Archivage Sécurisé</Link>
+            <Link to="/gestion-archives-paris" className="hover:text-accent transition-all italic">Transfert d’archives</Link>
             <Link to="/contact" className="hover:text-accent transition-all italic">Préparer votre projet</Link>
           </div>
         </div>

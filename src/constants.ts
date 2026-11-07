@@ -170,7 +170,7 @@ export const SERVICES = [
   },
   {
     id: 'gestion-archives',
-    title: "Gestion d'Archives",
+    title: "Transfert d’archives",
     description: "Préparation du transfert de vos archives : volume, repérage des boîtes, accès et réception.",
     icon: Files,
     path: '/gestion-archives-paris'

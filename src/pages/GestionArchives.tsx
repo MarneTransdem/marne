@@ -43,7 +43,7 @@ const GestionArchives: React.FC = () => {
   return (
     <div className="bg-white">
       <SEO 
-        title="Transfert d’archives à Paris : devis | Marne Transdem"
+        title="Déménagement d’archives à Paris : devis | Marne Transdem"
         description="Préparez votre transfert d’archives à Paris : inventaire des boîtes, accès et réception. Décrivez votre volume et demandez un devis adapté à votre projet."
         canonical={path}
         schema={[
@@ -148,6 +148,18 @@ const GestionArchives: React.FC = () => {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="perimetre-archives" className="py-16 bg-slate-50">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
+          <h2 id="perimetre-archives" className="text-3xl font-bold text-brand-900">Déménagement d’archives : distinguer le transport et les besoins d’archivage</h2>
+          <p className="text-slate-600 leading-relaxed">Vous cherchez une solution pour déplacer vos dossiers papier à Paris ou en Île-de-France ? Cette page concerne la préparation de leur transfert : boîtes à emporter, manutention, trajet et rangement à l’arrivée selon les prestations convenues. Précisez si les archives rejoignent vos nouveaux bureaux ou un lieu de stockage.</p>
+          <h3 className="text-xl font-bold text-brand-900">Un besoin de stockage d’archives à Paris ?</h3>
+          <p className="text-slate-600 leading-relaxed">Indiquez la durée envisagée et les dossiers à consulter pendant cette période. Avant de retenir une solution, faites confirmer les conditions de conservation, l’accès aux boîtes, les délais de restitution et les garanties adaptées à vos documents. La page <Link to="/garde-meuble-paris" className="underline underline-offset-4 font-semibold text-brand-900">garde-meuble et stockage</Link> présente les informations à préparer ; un besoin d’archivage physique spécialisé demande une validation distincte des conditions du simple transport.</p>
+          <h3 className="text-xl font-bold text-brand-900">Des opérations documentaires à définir séparément</h3>
+          <p className="text-slate-600 leading-relaxed">Le classement du contenu des dossiers, la gestion documentaire, la numérisation et la destruction ne sont pas à considérer comme inclus dans un devis de déménagement. Décrivez ces besoins séparément et faites confirmer leur prise en charge avant tout accord. Pour le transfert, communiquez les références et quantités des boîtes, sans joindre les documents confidentiels à votre demande.</p>
+          <p className="text-slate-600 leading-relaxed">Si le projet concerne aussi les postes de travail et le mobilier, préparez le calendrier avec notre page <Link to="/transfert-bureaux-paris" className="underline underline-offset-4 font-semibold text-brand-900">transfert de bureaux à Paris</Link>, puis précisez le périmètre dans votre <Link to="/demande-de-devis#formulaire-devis" className="underline underline-offset-4 font-semibold text-brand-900">demande de devis de déménagement d’archives</Link>.</p>
         </div>
       </section>
 

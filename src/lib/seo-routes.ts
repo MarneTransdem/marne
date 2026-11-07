@@ -378,7 +378,7 @@ const SERVICE_TITLES: Record<string, string> = {
   '/transfert-informatique-paris': 'Transfert informatique Paris | Marne Transdem',
   '/transfert-industriel-paris': 'Transfert industriel Paris | Marne Transdem',
   '/transfert-laboratoire-paris': 'Transfert de laboratoire Paris | Marne Transdem',
-  '/gestion-archives-paris': 'Transfert d’archives à Paris : devis | Marne Transdem',
+  '/gestion-archives-paris': 'Déménagement d’archives à Paris : devis | Marne Transdem',
 };
 
 function normalizePath(pathname: string): string {
