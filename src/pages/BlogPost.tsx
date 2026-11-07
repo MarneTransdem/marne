@@ -477,6 +477,10 @@ const posts: Record<string, BlogPostData> = {
     imageAlt: 'prix déménagement Paris avec camion et cartons',
     faqs: [
       {
+        question: 'Un déménagement en Île-de-France coûte-t-il moins cher qu’à Paris ?',
+        answer: 'Le département ne suffit pas à déterminer le prix. Un trajet court peut demander beaucoup de manutention selon les étages, le portage, le mobilier et les prestations. Pour comparer Paris et la banlieue, utilisez le même inventaire et décrivez les accès aux deux adresses. Les fourchettes du guide restent indicatives ; seul le devis précise le montant adapté à votre projet.'
+      },
+      {
         question: 'Quel est le prix moyen d’un déménagement à Paris ?',
         answer: 'Ce guide ne fournit pas de moyenne statistique des prix pratiqués à Paris. Ses repères de budget sont indicatifs et ne constituent pas une grille tarifaire Marne Transdem. Pour chiffrer votre projet, il faut examiner le volume, le trajet, les accès, la date et les prestations retenues dans un devis personnalisé.'
       },
@@ -524,6 +528,14 @@ const posts: Record<string, BlogPostData> = {
       <p>Pour un premier repère, le tableau de ce guide indique <strong>400 à 800 € pour une chambre ou un petit studio de 8 à 12 m³</strong>, et <strong>500 à 900 € pour un studio équipé de 10 à 15 m³</strong>. Ces fourchettes sont indicatives : elles ne constituent ni un tarif Marne Transdem, ni un minimum garanti, ni un plafond. Le volume doit être confirmé à partir des meubles, des cartons et des éventuelles annexes, plutôt que de la seule surface du logement.</p>
       <p>Le montant de votre devis dépend ensuite du trajet, des accès aux deux adresses, de la saison et des prestations retenues. Un étage sans ascenseur, une longue distance de portage, un meuble à démonter ou un monte-meuble peuvent modifier le budget. Consultez le <a href="#budget-volume">tableau des budgets selon le volume</a>, puis <a href="/demande-de-devis">demandez un devis pour votre studio</a> en précisant ces contraintes. Si vous hésitez sur le cubage, préparez votre inventaire avec le <a href="/calculateur-volume">calculateur de volume en m³</a>.</p>
 
+      <h3>Les informations à réunir pour le devis d’un studio</h3>
+      <ul>
+        <li><strong>Le mobilier réel :</strong> lit, canapé, bureau, électroménager et nombre de cartons ; ajoutez la cave ou le box et signalez les meubles à démonter.</li>
+        <li><strong>Les deux accès :</strong> étage, dimensions de l’ascenseur, escalier, cour et distance entre le camion et la porte, au départ comme à l’arrivée.</li>
+        <li><strong>La préparation :</strong> indiquez si vos cartons sont prêts, qui emballe le fragile et quels meubles doivent être remontés.</li>
+      </ul>
+      <p>Si votre projet porte sur quelques meubles et cartons, consultez notre service de <a href="/demenagement-petit-volume">déménagement de petit volume</a>. Un studio peu meublé et un studio avec une bibliothèque ou une cave peuvent nécessiter des moyens différents : comparez les budgets après inventaire, plutôt qu’avec la seule surface en m².</p>
+
       <p>Un studio au rez-de-chaussée avec stationnement facile ne représente pas la même organisation qu’un appartement familial au 5e étage sans ascenseur, situé dans une rue étroite du 11e, du 12e, du 15e ou du 20e arrondissement. À Paris, la logistique compte autant que le volume.</p>
 
       <p>Pour comparer deux devis, partez du même inventaire, des mêmes accès et du même niveau de service. Demandez que le montant TTC, les options et les éventuels frais de stationnement soient explicités. Une estimation générale ne remplace pas l’étude de votre projet.</p>
@@ -537,6 +549,7 @@ const posts: Record<string, BlogPostData> = {
         <ul class="grid gap-3 text-sm sm:grid-cols-2">
           <li><a href="#prix-studio" class="underline">Prix d’un studio à Paris</a></li>
           <li><a href="#budget-volume" class="underline">Budget et volume</a></li>
+          <li><a href="#prix-ile-de-france" class="underline">Prix en Île-de-France et proche banlieue</a></li>
           <li><a href="#situations" class="underline">Situations à faire chiffrer</a></li>
           <li><a href="#comparer-devis" class="underline">Grille de comparaison des devis</a></li>
           <li><a href="#preparer-devis" class="underline">Préparer votre demande</a></li>
@@ -574,6 +587,13 @@ const posts: Record<string, BlogPostData> = {
         </table>
       </div>
       <p>Ces fourchettes ne constituent ni un prix minimum garanti ni un plafond. Le budget dépend notamment des accès, de la distance, des objets lourds et des prestations d’emballage. Pour obtenir un montant applicable à votre projet, transmettez votre inventaire et les contraintes des deux adresses.</p>
+
+      <h2 id="prix-ile-de-france" class="scroll-mt-32">Quel prix pour un déménagement en Île-de-France ou en proche banlieue ?</h2>
+      <p>Un déménagement de Paris vers la Seine-Saint-Denis ou le Val-de-Marne ne se chiffre pas à partir du seul département. Les fourchettes de ce guide restent des repères : faites préciser les deux adresses, le volume, les accès, la date et la formule avant de retenir un budget pour votre trajet.</p>
+      <h3>Dans la même ville : une courte distance ne résume pas le coût</h3>
+      <p>Pour quelques rues à parcourir, la protection du mobilier, le chargement et le déchargement restent nécessaires. Un départ sans ascenseur, un passage par une cour ou une armoire à démonter peut mobiliser davantage de temps qu’un trajet plus long avec des accès directs. Décrivez les conditions des deux logements pour comparer des devis établis sur la même prestation.</p>
+      <h3>Entre Paris et la banlieue : préparer chaque adresse</h3>
+      <p>Indiquez les possibilités de stationnement, les règles d’accès de la résidence et les créneaux autorisés dans chaque bâtiment. Les démarches de stationnement sont à examiner pour chaque commune. Retrouvez les points à préparer pour un <a href="/demenagement-seine-saint-denis">déménagement en Seine-Saint-Denis</a> ou un <a href="/demenagement-val-de-marne">déménagement dans le Val-de-Marne</a>, puis transmettez votre trajet dans la <a href="/demande-de-devis">demande de devis personnalisé</a>.</p>
 
       <h2>Le volume : le premier critère du prix</h2>
       <p>Le volume est la base du calcul. Il correspond à l’espace occupé par vos meubles, cartons, appareils électroménagers et objets divers dans le camion. Plus le volume est élevé, plus il faut un camion adapté, davantage de cartons, plus de temps de chargement, plus de manutention, parfois plus de déménageurs et une organisation plus précise.</p>
