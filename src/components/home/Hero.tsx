@@ -69,7 +69,7 @@ export const Hero: React.FC = () => {
             <h1 id="home-hero-heading">Entreprise de <span>déménagement à Paris</span></h1>
             <p className="home-hero-description">Un appartement à Paris, une maison en Île-de-France ou des bureaux à transférer : Marne Transdem prépare votre déménagement selon vos accès, votre volume et les prestations que vous souhaitez déléguer.</p>
             <div className="home-hero-actions">
-              <Link to="/demande-de-devis" onClick={() => trackConversion('quote_cta_click', { placement: 'hero_primary' })} className="home-button home-button-primary">Demander mon devis gratuit <ArrowRight size={20} aria-hidden="true" /></Link>
+              <Link to="/demande-de-devis#formulaire-devis" onClick={() => trackConversion('quote_cta_click', { placement: 'hero_primary' })} className="home-button home-button-primary">Demander mon devis gratuit <ArrowRight size={20} aria-hidden="true" /></Link>
               <a href={'tel:' + CONTACT.phone.split(' ').join('')} onClick={() => trackConversion('phone_click', { placement: 'hero_primary' })} className="home-button home-button-secondary"><Phone size={18} aria-hidden="true" /> Appeler</a>
             </div>
             <div className="home-hero-review"><GoogleBadge /><span>Une équipe à votre écoute,<br />au cœur de Paris 20e.</span></div>

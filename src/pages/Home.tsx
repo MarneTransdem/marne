@@ -1,3 +1,4 @@
+import { HOME_METADATA } from '../constants/publicPageMetadata';
 import React from 'react';
 import '../styles/home-premium.css';
 import '../styles/home-editorial.css';
@@ -61,8 +62,8 @@ const Home: React.FC = () => {
   return (
     <div className="home-premium home-refined">
       <SEO 
-        title="Déménageur Paris et IDF : devis gratuit | Marne Transdem"
-        description="Appartement, maison ou bureaux : déménagez à Paris et en Île-de-France avec Marne Transdem. Comparez nos formules et demandez votre devis gratuit et personnalisé."
+        title={HOME_METADATA.title}
+        description={HOME_METADATA.description}
         canonical="/"
         schema={[
           getOrganizationSchema(), 
@@ -263,7 +264,7 @@ const Home: React.FC = () => {
               <p className="text-slate-500 stay-dark mb-12 max-w-2xl mx-auto font-light italic text-lg opacity-80">Demandez une estimation personnalisée ou contactez directement notre équipe.</p><address className="home-office-address">43 rue des Maraîchers, 75020 Paris<br /><span>Accueil au bureau et téléphone : lun.–ven. 9 h–19 h · sam. 10 h–16 h</span></address>
               
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <Link to="/demande-de-devis" className="bg-brand-900 text-white px-10 py-5 rounded-full font-bold text-xl hover:bg-brand-800 transition-all flex items-center gap-3 shadow-xl group">
+                <Link to="/demande-de-devis#formulaire-devis" className="bg-brand-900 text-white px-10 py-5 rounded-full font-bold text-xl hover:bg-brand-800 transition-all flex items-center gap-3 shadow-xl group">
                   Demander mon devis gratuit
                   <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform text-accent" />
                 </Link>

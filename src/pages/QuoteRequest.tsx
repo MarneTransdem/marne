@@ -1,3 +1,4 @@
+import { QUOTE_METADATA } from '../constants/publicPageMetadata';
 import '../styles/quote-wizard.css';
 import React from 'react';
 import { QuoteGuide } from '../components/common/QuoteGuide';
@@ -14,8 +15,8 @@ const QuoteRequest: React.FC = () => {
   return (
     <div className="quote-page bg-slate-50 dark:bg-slate-950 min-h-screen transition-colors duration-300">
       <SEO 
-        title="Devis déménagement Paris et Île-de-France | Marne Transdem"
-        description="Préparez votre devis de déménagement à Paris et en Île-de-France : trajet, volume, accès et prestations. Décrivez votre projet à Marne Transdem."
+        title={QUOTE_METADATA.title}
+        description={QUOTE_METADATA.description}
         canonical={path}
         schema={getBreadcrumbSchema([
           { name: "Accueil", item: "/" },
@@ -28,8 +29,8 @@ const QuoteRequest: React.FC = () => {
           <header className="quote-page-intro">
             <p className="quote-kicker">Un nouveau départ, bien accompagné</p>
             <h1>Votre devis de déménagement <em>à Paris et en Île-de-France</em></h1>
-            <p>Quelques informations suffisent pour commencer. Décrivez votre projet à votre rythme ; notre équipe vous accompagne pour préciser la suite.</p>
-            <div className="quote-reassurance"><span><ShieldCheck size={17} /> Devis personnalisé</span><span><UserCheck size={17} /> Une équipe à votre écoute</span><a href="tel:0144935486" onClick={() => trackConversion('phone_click', { placement: 'quote_hero' })}>01 44 93 54 86</a></div>
+            <p>Demandez votre devis gratuit et personnalisé. Indiquez votre trajet, les biens à transporter et les accès ; notre équipe vous recontacte pour préciser les prestations et préparer votre proposition.</p>
+            <div className="quote-reassurance"><span><ShieldCheck size={17} /> Devis gratuit et personnalisé</span><span><UserCheck size={17} /> Une équipe à votre écoute</span><a href="tel:0144935486" onClick={() => trackConversion('phone_click', { placement: 'quote_hero' })}>01 44 93 54 86</a></div>
           </header>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">

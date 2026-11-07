@@ -1,3 +1,4 @@
+import { HOME_METADATA, QUOTE_METADATA } from '../constants/publicPageMetadata.ts';
 import sectorsData from '../constants/sectorMetadata.json' with { type: 'json' };
 import contentUpdatedAt from '../constants/contentUpdatedAt.json' with { type: 'json' };
 import { getSectorLabel } from './sector-label.ts';
@@ -284,10 +285,9 @@ export const BLOG_POST_ROUTES: Array<Omit<SeoRoute, 'canonicalPath' | 'status'>>
 
 const EXPLICIT_ROUTES: Record<string, Omit<SeoRoute, 'path' | 'canonicalPath'>> = {
   '/': {
-    title: 'Déménageur Paris et IDF : devis gratuit | Marne Transdem',
+    title: HOME_METADATA.title,
     h1: 'Entreprise de déménagement à Paris',
-    description:
-      'Appartement, maison ou locaux professionnels : Marne Transdem organise votre déménagement à Paris et en Île-de-France. Demandez votre devis gratuit.',
+    description: HOME_METADATA.description,
     priority: '1.0',
     changefreq: 'weekly',
   },
@@ -299,10 +299,9 @@ const EXPLICIT_ROUTES: Record<string, Omit<SeoRoute, 'path' | 'canonicalPath'>> 
     priority: '0.8',
   },
   '/demande-de-devis': {
-    title: 'Devis déménagement Paris et Île-de-France | Marne Transdem',
+    title: QUOTE_METADATA.title,
     h1: 'Demande de devis déménagement à Paris',
-    description:
-      'Demandez votre devis gratuit de déménagement à Paris et en Île-de-France. Indiquez trajet, volume, accès et prestations pour une proposition adaptée.',
+    description: QUOTE_METADATA.description,
     priority: '0.9',
     changefreq: 'weekly',
   },
