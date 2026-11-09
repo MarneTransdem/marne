@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Check } from 'lucide-react';
 import { FORMULAS } from '../../constants';
+import { trackConversion } from '../../lib/public-analytics';
 
 const formulaKeys = ['economique', 'standard', 'luxe'];
 
@@ -19,7 +20,7 @@ export function HomeFormulas() {
               <h3 id={'home-formula-' + formulaKeys[index]} className="stay-dark">{formula.name}</h3>
               <p className="home-formula-description">{formula.description}</p>
               <ul>{formula.features.map(feature => <li key={feature}><Check size={17} aria-hidden="true" /><span>{feature}</span></li>)}</ul>
-              <Link to={'/demande-de-devis?formula=' + formulaKeys[index]} className="home-formula-select">Choisir la formule {formula.name}<ArrowRight size={18} aria-hidden="true" /></Link>
+              <Link to={'/demande-de-devis?formula=' + formulaKeys[index]} onClick={() => trackConversion('quote_cta_click', { placement: `home_formula_${formulaKeys[index]}` })} className="home-formula-select">Choisir la formule {formula.name}<ArrowRight size={18} aria-hidden="true" /></Link>
             </article>
           ))}
         </div>

@@ -18,6 +18,8 @@ const menuId = (name: string) => `navigation-${name.toLowerCase()}`;
 export const Header: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const { pathname } = useLocation();
+  const isHome = pathname === '/';
+  const [heroPassed, setHeroPassed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
   const [desktopOpen, setDesktopOpen] = useState<string | null>(null);
@@ -29,6 +31,30 @@ export const Header: React.FC = () => {
   const close = () => { setMobileOpen(false); setExpanded(null); setDesktopOpen(null); };
 
   useEffect(() => { close(); }, [pathname]);
+  useEffect(() => {
+    setHeroPassed(false);
+    if (!isHome) return;
+
+    const viewport = new IntersectionObserver(([entry]) => {
+      setHeroPassed(!entry.isIntersecting && entry.boundingClientRect.bottom <= 0);
+    });
+    const watchHero = () => {
+      const hero = document.querySelector('.home-hero');
+      if (!hero) return;
+      viewport.observe(hero);
+      pendingHero.disconnect();
+    };
+    // Home and the header load independently. Observe the hero as soon as it mounts.
+    const pendingHero = new MutationObserver(watchHero);
+    const main = document.querySelector('main');
+    if (main) pendingHero.observe(main, { childList: true, subtree: true });
+    watchHero();
+
+    return () => {
+      pendingHero.disconnect();
+      viewport.disconnect();
+    };
+  }, [isHome]);
   useEffect(() => {
     const outside = (event: PointerEvent) => {
       if (!headerRef.current?.contains(event.target as Node)) setDesktopOpen(null);
@@ -63,7 +89,7 @@ export const Header: React.FC = () => {
 
   const themeButton = <button type="button" className="premium-theme" onClick={toggleTheme} aria-label="Changer de thème">{theme === 'light' ? <Moon size={19} /> : <Sun size={19} />}</button>;
   return <>
-    <header ref={headerRef} className={'premium-header' + (pathname === '/' ? ' home-site-header' : '')}>
+    <header ref={headerRef} className={'premium-header' + (isHome ? ' home-site-header' : '')}>
       <div className="premium-header-inner">
         <Link to="/" className="premium-logo" onClick={close}><Logo height="h-12 md:h-14" /></Link>
         <nav className="premium-desktop-nav" aria-label="Navigation principale">
@@ -88,7 +114,15 @@ export const Header: React.FC = () => {
             </div> : <Link key={item.path} className={'premium-nav-direct' + (active ? ' is-active' : '')} to={item.path} onClick={close} aria-current={active ? 'page' : undefined}>{item.name}</Link>;
           })}
         </nav>
-        <div className="premium-header-actions">{themeButton}<a className="premium-header-phone" href={phone} onClick={() => trackConversion('phone_click', { placement: 'header_desktop' })}><span>Conseil & devis</span>{CONTACT.phone}</a><Link className="premium-header-quote" to="/demande-de-devis" onClick={() => { trackConversion('quote_cta_click', { placement: 'header_desktop' }); close(); }}>Obtenir mon devis <ArrowRight size={16} aria-hidden="true" /></Link><button ref={toggleRef} type="button" className="premium-mobile-toggle" onClick={() => setMobileOpen(true)} aria-label="Ouvrir le menu" aria-expanded={mobileOpen} aria-controls="premium-mobile-navigation"><Menu size={25} /></button></div>
+        <div className="premium-header-actions">
+          {themeButton}
+          <a className="premium-header-phone" href={phone} onClick={() => trackConversion('phone_click', { placement: 'header_desktop' })}><span>Conseil & devis</span>{CONTACT.phone}</a>
+          <Link className="premium-header-quote" to="/demande-de-devis" onClick={() => { trackConversion('quote_cta_click', { placement: 'header_desktop' }); close(); }}>Obtenir mon devis <ArrowRight size={16} aria-hidden="true" /></Link>
+          {isHome && heroPassed && (
+            <Link className="premium-mobile-quote" to="/demande-de-devis#formulaire-devis" onClick={() => trackConversion('quote_cta_click', { placement: 'home_mobile_header' })}>Devis gratuit</Link>
+          )}
+          <button ref={toggleRef} type="button" className="premium-mobile-toggle" onClick={() => setMobileOpen(true)} aria-label="Ouvrir le menu" aria-expanded={mobileOpen} aria-controls="premium-mobile-navigation"><Menu size={25} /></button>
+        </div>
       </div>
     </header>
     {mobileOpen && <div className="premium-mobile-layer"><div className="premium-mobile-backdrop" onClick={close} aria-hidden="true" /><div ref={drawerRef} id="premium-mobile-navigation" className="premium-drawer" role="dialog" aria-modal="true" aria-labelledby="premium-navigation-title">

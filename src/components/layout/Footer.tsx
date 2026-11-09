@@ -3,6 +3,7 @@ import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
 import { Logo } from '../ui/Logo';
 import { CONTACT, NAVIGATION, SERVICES } from '../../constants';
 import { BusinessHours } from '../common/BusinessHours';
+import { trackConversion } from '../../lib/public-analytics';
 import './footer-premium.css';
 
 const areas = [
@@ -38,7 +39,7 @@ export const Footer = () => (
           <h2>Explorer le site</h2>
           <ul>{NAVIGATION.filter(item => !['Particuliers', 'Entreprises', 'Services'].includes(item.name)).map(item => <li key={item.path}><Link to={item.path}>{item.name}</Link></li>)}
             <li><Link to="/calculateur-volume">Calculateur de volume</Link></li>
-            <li><Link to="/demande-de-devis" className="premium-footer-quote">Demander un devis <ArrowRight size={15} aria-hidden="true" /></Link></li>
+            <li><Link to="/demande-de-devis" onClick={() => trackConversion('quote_cta_click', { placement: 'footer' })} className="premium-footer-quote">Demander un devis <ArrowRight size={15} aria-hidden="true" /></Link></li>
           </ul>
         </nav>
         <nav aria-label="Secteurs clés">

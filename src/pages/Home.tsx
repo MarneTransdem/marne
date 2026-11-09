@@ -16,6 +16,7 @@ const FAQ = React.lazy(() => import('../components/home/FAQ').then(m => ({ defau
 import { ArrowRight, CheckCircle, Quote, Phone, ShieldCheck, MapPin, Check } from 'lucide-react';
 import { FAQ_ITEMS, CONTACT } from '../constants';
 import { SEO } from '../components/SEO';
+import { trackConversion } from '../lib/public-analytics';
 import { ResponsiveImage } from '../components/common/ResponsiveImage';
 import { HOME_ADVICE_IMAGE_SIZES } from '../lib/responsive-image-sizes';
 import { getOrganizationSchema, getLocalBusinessSchema, getFAQSchema } from '../lib/schema';
@@ -264,7 +265,7 @@ const Home: React.FC = () => {
               <p className="text-slate-500 stay-dark mb-12 max-w-2xl mx-auto font-light italic text-lg opacity-80">Demandez une estimation personnalisée ou contactez directement notre équipe.</p><address className="home-office-address">43 rue des Maraîchers, 75020 Paris<br /><span>Accueil au bureau et téléphone : lun.–ven. 9 h–19 h · sam. 10 h–16 h</span></address>
               
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <Link to="/demande-de-devis#formulaire-devis" className="bg-brand-900 text-white px-10 py-5 rounded-full font-bold text-xl hover:bg-brand-800 transition-all flex items-center gap-3 shadow-xl group">
+                <Link to="/demande-de-devis#formulaire-devis" onClick={() => trackConversion('quote_cta_click', { placement: 'home_final' })} className="bg-brand-900 text-white px-10 py-5 rounded-full font-bold text-xl hover:bg-brand-800 transition-all flex items-center gap-3 shadow-xl group">
                   Demander mon devis gratuit
                   <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform text-accent" />
                 </Link>

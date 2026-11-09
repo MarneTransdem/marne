@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { getCanonicalPath } from '../../lib/seo-routes';
+import { trackConversion } from '../../lib/public-analytics';
 
 const guides = {
   price: { path: '/blog/combien-coute-demenagement-paris', label: 'Comprendre le prix et comparer les devis' },
@@ -51,7 +52,7 @@ export function RelatedResources() {
       <h2 className="text-2xl font-bold mb-4">Pour préparer votre projet</h2>
       <p className="text-slate-600 dark:text-slate-300 mb-6">{resourceGroup.description}</p>
       <ul className="grid md:grid-cols-3 gap-4">{links.map(link => <li key={link.path}><Link className="block rounded-xl border border-slate-200 dark:border-slate-700 p-5 underline underline-offset-4 hover:text-amber-700" to={link.path}>{link.label}</Link></li>)}</ul>
-      <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-3">{actions.map(link => <li key={link.path}><Link to={link.path} className="underline underline-offset-4">{link.label}</Link></li>)}</ul>
+      <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-3">{actions.map(link => <li key={link.path}><Link to={link.path} onClick={link === guides.quote ? () => trackConversion('quote_cta_click', { placement: 'related_resources' }) : undefined} className="underline underline-offset-4">{link.label}</Link></li>)}</ul>
     </div>
   </aside>;
 }
