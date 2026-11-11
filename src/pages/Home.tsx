@@ -146,7 +146,7 @@ const Home: React.FC = () => {
             <div className="lg:w-7/12 relative z-10">
               <h2 className="text-4xl md:text-6xl font-black text-brand-900 stay-dark mb-8 tracking-tighter uppercase italic">Zones <br/><span className="text-accent italic underline decoration-accent/10 underline-offset-8 transition-all font-sans italic">d'intervention</span></h2>
               <p className="text-slate-500 text-lg mb-12 font-light italic leading-relaxed max-w-2xl stay-dark opacity-70">
-                De notre base au <span className="font-bold text-slate-700 stay-dark">coeur de Paris 20e</span>, nous couvrons un large territoire pour vos mobilités.
+                Notre équipe est basée rue des Maraîchers. Pour un <Link to="/demenagement-paris-20" className="font-bold text-slate-700 stay-dark underline underline-offset-4">déménagement à Paris 20e</Link>, retrouvez nos conseils sur les accès et le stationnement avant de demander votre devis. Nous intervenons aussi dans les autres arrondissements et en Île-de-France.
               </p>
               
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
