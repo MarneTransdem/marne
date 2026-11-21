@@ -148,6 +148,32 @@ const DemenagementEntreprises: React.FC = () => {
         </div>
       </section>
 
+      <section className="py-16 bg-slate-50" aria-labelledby="locaux-professionnels-boutiques">
+        <div className="container mx-auto px-4 md:px-6 max-w-5xl">
+          <div className="max-w-3xl space-y-5 mb-8">
+            <p className="text-sm font-bold text-amber-800 uppercase tracking-widest">Locaux professionnels et commerces</p>
+            <h2 id="locaux-professionnels-boutiques" className="text-3xl md:text-4xl font-bold text-brand-900">Déménager vos locaux professionnels ou votre boutique à Paris</h2>
+            <p className="text-slate-600 leading-relaxed">Le départ d’une boutique ou d’un local professionnel demande de distinguer ce qui doit être transporté de ce qui reste dans les lieux. À Paris comme en Île-de-France, préparez un inventaire par zone : accueil, espace de vente et réserve. Décrivez les biens et les contraintes pour faire confirmer les prestations adaptées à votre projet.</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4">
+              <h3 className="text-xl font-bold text-brand-900">Mobilier, présentoirs et biens à déplacer</h3>
+              <p className="text-slate-600 leading-relaxed">Listez les comptoirs, étagères, présentoirs et cartons à transférer, avec leurs quantités et dimensions. Signalez les vitrines, éléments fragiles ou pièces encombrantes. Indiquez les fixations et les démontages envisagés : leur faisabilité et les opérations retenues doivent être confirmées au devis.</p>
+              <p className="text-slate-600 leading-relaxed">Précisez qui prépare et identifie les cartons, ainsi que les emballages disponibles. Les besoins d’<Link to="/emballage-protection-demenagement" className="underline underline-offset-4 font-semibold text-brand-900">emballage et de protection du mobilier</Link> se définissent selon les biens à transporter. Signalez tout bien soumis à des conditions particulières pour faire vérifier sa prise en charge.</p>
+            </div>
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4">
+              <h3 className="text-xl font-bold text-brand-900">Enlèvement, livraison et réception des lots</h3>
+              <p className="text-slate-600 leading-relaxed">Communiquez la largeur des portes, les marches, les étages et la distance entre le véhicule et le local aux deux adresses. Confirmez les zones de livraison et les créneaux autorisés avec les gestionnaires concernés ; signalez une rue piétonne ou un accès partagé.</p>
+              <p className="text-slate-600 leading-relaxed">Distinguez la date de libération de l’ancien local, celle de disponibilité du nouveau et votre objectif de réouverture. Désignez la personne chargée de réceptionner les lots et leurs emplacements. Les phases du transfert et les éventuels besoins de stockage sont à étudier avant de confirmer le calendrier.</p>
+            </div>
+          </div>
+          <div className="mt-8 border-l-4 border-accent pl-5 space-y-4">
+            <p className="text-slate-600 leading-relaxed">Pour votre <Link to="/demande-de-devis" className="underline underline-offset-4 font-semibold text-brand-900">devis de déménagement de locaux professionnels</Link>, transmettez les deux adresses, les dates, l’inventaire, les accès et les tâches à confier à l’équipe. Les travaux d’aménagement et les raccordements techniques ne doivent pas être supposés inclus dans le transport.</p>
+            <p className="text-slate-600 leading-relaxed">Votre projet concerne surtout des postes de travail et du mobilier de bureau ? La page <Link to="/transfert-bureaux-paris" className="underline underline-offset-4 font-semibold text-brand-900">transfert de bureaux à Paris</Link> détaille la préparation des lots et leur destination dans les nouveaux espaces.</p>
+          </div>
+        </div>
+      </section>
+
       {/* 4. Section “Un transfert d’entreprise bien organisé” */}
       <section className="py-24 bg-slate-50">
         <div className="container mx-auto px-4 md:px-6">
