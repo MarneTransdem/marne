@@ -199,6 +199,7 @@ const TransfertBureaux: React.FC = () => {
           <h2 className="text-3xl font-bold text-brand-900 mb-6">Préparer le devis et les prestations complémentaires</h2>
           <p className="text-slate-600 leading-relaxed mb-4">
             Pour comparer les propositions, transmettez le même inventaire et les mêmes contraintes à chaque prestataire.
+            Pour les dossiers papier, préparez le nombre de cartons, leur repérage et les pièces de réception avec notre page <Link to="/gestion-archives-paris#transport-archives" className="text-brand-900 underline">transport et transfert d’archives</Link>.
             Notre <Link to="/blog/demenagement-entreprise-paris-checklist" className="text-brand-900 underline">checklist de déménagement d’entreprise</Link> vous aide à organiser les étapes avec vos équipes.
           </p>
           <p className="text-slate-600 leading-relaxed">

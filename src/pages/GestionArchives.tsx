@@ -163,6 +163,15 @@ const GestionArchives: React.FC = () => {
         </div>
       </section>
 
+      <section aria-labelledby="transport-archives" className="py-16 bg-white">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
+          <h2 id="transport-archives" className="text-3xl font-bold text-brand-900">Organiser le transport des boîtes d’archives</h2>
+          <p className="text-slate-600 leading-relaxed">Avant le chargement, indiquez le nombre de boîtes par format, leurs dimensions et les contenants qui demandent une manutention particulière. Signalez les cartons abîmés ou trop chargés pour convenir d’un reconditionnement. Définissez qui ferme et étiquette les boîtes, puis précisez les escaliers, ascenseurs et distances entre le camion et les locaux aux deux adresses.</p>
+          <p className="text-slate-600 leading-relaxed">Pour un transfert par étapes, distinguez les dossiers qui doivent rester disponibles et les lots à réceptionner en priorité. Préparez un plan de destination par service, pièce et étagère. À la livraison, une personne désignée rapproche les références reçues de l’inventaire et signale les écarts à l’équipe.</p>
+          <p className="text-slate-600 leading-relaxed">Si le transport accompagne des équipements, coordonnez les lots avec le <Link to="/transfert-informatique-paris" className="underline underline-offset-4 font-semibold text-brand-900">transfert informatique</Link>. Transmettez les quantités, les accès et les dates dans votre <Link to="/demande-de-devis" className="underline underline-offset-4 font-semibold text-brand-900">demande de devis pour le transport d’archives</Link> pour faire préciser l’emballage, la manutention et la réception.</p>
+        </div>
+      </section>
+
       <section aria-labelledby="inventaire-archives" className="py-16 bg-white">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
           <h2 id="inventaire-archives" className="text-3xl font-bold text-brand-900">Un inventaire utilisable au départ et à la réception</h2>
