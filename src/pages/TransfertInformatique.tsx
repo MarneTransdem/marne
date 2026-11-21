@@ -37,8 +37,8 @@ const TransfertInformatique: React.FC = () => {
   return (
     <div className="bg-white">
       <SEO 
-        title="Transfert informatique Paris | Marne Transdem"
-        description="Transfert informatique à Paris : inventaire des équipements, accès, protections et coordination avec votre prestataire informatique. Préparez un devis personnalisé."
+        title="Déménagement informatique à Paris : devis et transfert"
+        description="Déménagement informatique à Paris : préparez le transport des postes, écrans et périphériques, les accès et les protections. Demandez votre devis personnalisé."
         canonical={path}
         schema={[
           getServiceSchema("Transfert informatique", "Préparation du transport des équipements informatiques à Paris : inventaire, accès et protections à définir au devis, en coordination avec le responsable informatique du client.", { path }),
@@ -63,12 +63,12 @@ const TransfertInformatique: React.FC = () => {
             </motion.div>
 
             <h1 className="text-5xl md:text-8xl font-black mb-8 leading-[1.1] tracking-tight italic">
-              Transfert <br/>
+              Déménagement <br/>
               <span className="text-accent italic underline decoration-accent/20 underline-offset-8 transition-all hover:text-white italic uppercase font-sans">informatique</span> à Paris
             </h1>
 
             <p className="text-xl md:text-2xl text-slate-300 mb-12 leading-relaxed font-light max-w-3xl italic">
-              Préparez le transport de vos équipements informatiques à Paris avec un inventaire clair, des protections adaptées et un calendrier coordonné avec votre responsable informatique.
+              Organisez le déménagement de vos postes, écrans et périphériques à Paris. Préparez le transport physique du matériel avec notre équipe et coordonnez les opérations informatiques avec votre référent IT.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-5">
@@ -117,6 +117,20 @@ const TransfertInformatique: React.FC = () => {
                ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="transport-postes-informatiques" className="py-16 bg-slate-50">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
+          <h2 id="transport-postes-informatiques" className="text-3xl md:text-4xl font-bold text-brand-900">Transport des postes, écrans et périphériques : préparer chaque lot</h2>
+          <p className="text-slate-600 leading-relaxed">Un déménagement informatique ne se prépare pas uniquement en comptant les bureaux. Distinguez les unités centrales, ordinateurs portables, écrans, imprimantes et accessoires. Pour chaque famille de matériel, communiquez les quantités, les dimensions et les contraintes de manipulation ; signalez séparément les équipements lourds ou fragiles.</p>
+          <ol className="space-y-6 list-decimal pl-6 text-slate-600 leading-relaxed">
+            <li><h3 className="font-semibold text-brand-900">Avant l’enlèvement : inventaire et répartition des tâches</h3><p>Associez chaque poste à sa pièce de destination et identifiez ses accessoires. Votre référent informatique prépare les sauvegardes, l’arrêt et la déconnexion. Convenez au devis de la personne chargée de l’emballage, de l’étiquetage et des fournitures ; les emballages d’origine disponibles et les consignes du fabricant doivent être signalés.</p></li>
+            <li><h3 className="font-semibold text-brand-900">Pour le transport : protections et accès à confirmer</h3><p>Précisez les dimensions des écrans, les supports démontables, les étages et les possibilités d’ascenseur aux deux adresses. Les besoins d’<Link to="/emballage-protection-demenagement" className="underline underline-offset-4 font-semibold text-brand-900">emballage et de protection du matériel</Link> ainsi que les opérations de manutention sont définis selon l’inventaire et inscrits au devis.</p></li>
+            <li><h3 className="font-semibold text-brand-900">À l’arrivée : réception des lots et reprise informatique</h3><p>Préparez le plan de destination et désignez la personne qui réceptionne les équipements. Signalez les postes à rendre disponibles en priorité pour organiser le calendrier. La reconnexion, le réseau et les tests de fonctionnement restent à planifier avec votre responsable ou prestataire informatique.</p></li>
+          </ol>
+          <p className="text-slate-600 leading-relaxed">Serveurs, baies et équipements particuliers nécessitent une étude préalable de faisabilité. Le transport du matériel ne constitue pas une prestation de migration des données ou de configuration informatique.</p>
+          <p className="text-slate-600 leading-relaxed">Indiquez les quantités par type de matériel, les deux adresses, les accès, la date et les tâches souhaitées dans votre <Link to="/demande-de-devis" className="underline underline-offset-4 font-semibold text-brand-900">demande de devis de déménagement informatique</Link>. Pour le mobilier et l’organisation globale, préparez aussi votre <Link to="/transfert-bureaux-paris" className="underline underline-offset-4 font-semibold text-brand-900">transfert de bureaux</Link>.</p>
         </div>
       </section>
 

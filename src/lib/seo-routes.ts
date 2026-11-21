@@ -374,7 +374,7 @@ const SERVICE_TITLES: Record<string, string> = {
   '/demenagement-petit-volume': 'Déménagement petit volume à Paris : devis | Marne Transdem',
   '/demenagement-piano-objets-lourds': 'Déménagement piano et objets lourds | Marne Transdem',
   '/transfert-bureaux-paris': 'Déménagement de bureaux à Paris : devis | Marne Transdem',
-  '/transfert-informatique-paris': 'Transfert informatique Paris | Marne Transdem',
+  '/transfert-informatique-paris': 'Déménagement informatique à Paris : devis et transfert',
   '/transfert-industriel-paris': 'Transfert industriel Paris | Marne Transdem',
   '/transfert-laboratoire-paris': 'Transfert de laboratoire Paris | Marne Transdem',
   '/gestion-archives-paris': 'Déménagement d’archives à Paris : devis | Marne Transdem',
@@ -453,7 +453,7 @@ const SERVICE_DESCRIPTIONS: Record<string, string> = {
   "/location-monte-meuble-paris": "Monte-meuble à Paris : trois équipements de 18 à 30 m pour vos meubles et accès difficiles. Demandez un devis après étude des accès et de la faisabilité.",
   "/transfert-bureaux-paris": "Déménagement de bureaux à Paris : mobilier, postes de travail, accès et planning. Précisez vos besoins et demandez un devis personnalisé à Marne Transdem.",
   "/transfert-industriel-paris": "Transfert industriel à Paris : préparez l’inventaire de votre atelier, les accès et le calendrier. Définissez les prestations nécessaires avec un devis adapté.",
-  "/transfert-informatique-paris": "Transfert informatique à Paris : inventaire des équipements, accès, protections et coordination avec votre prestataire informatique. Préparez un devis personnalisé.",
+  "/transfert-informatique-paris": "Déménagement informatique à Paris : préparez le transport des postes, écrans et périphériques, les accès et les protections. Demandez votre devis personnalisé.",
   "/demenagement-oeuvres-art": "Déménagement de tableaux et d’œuvres d’art à Paris : préparez les dimensions, les accès et les besoins de protection pour un devis personnalisé avec Marne Transdem."
 };
 
