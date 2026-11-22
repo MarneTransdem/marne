@@ -49,12 +49,24 @@ const FormulasPage: React.FC = () => {
     { label: "Emballage du non fragile", eco: "À votre charge", std: "À votre charge", lux: "À notre charge" },
     { label: "Déballage du non fragile", eco: "À votre charge", std: "À votre charge", lux: "À la demande / selon projet" },
     { label: "Démontage et remontage du mobilier", eco: "À votre charge", std: "À notre charge", lux: "À notre charge" },
-    { label: "Aide à la déconnexion et reconnexion des appareils", eco: "À notre charge", std: "À notre charge", lux: "À notre charge" },
-    { label: "Aide à la dépose des éléments fixés", eco: "À notre charge", std: "À notre charge", lux: "À notre charge" },
+    { label: "Déconnexion et reconnexion des appareils électriques et des fluides", eco: "À votre charge", std: "À votre charge", lux: "À votre charge" },
+    { label: "Dépose sans repose des éléments fixés aux murs et plafonds", eco: "À notre charge", std: "À notre charge", lux: "À notre charge" },
     { label: "Remise en place des effets selon instructions", eco: "À notre charge", std: "À notre charge", lux: "À notre charge" },
     { label: "Demande administrative pour autorisation de stationnement", eco: "À notre charge", std: "À notre charge", lux: "À notre charge" },
-    { label: "Mise à disposition du monte-meuble si possibilité de mise en place", eco: "Offert", std: "Offert", lux: "Offert" }
+    { label: "Monte-meuble après étude de faisabilité", eco: "Selon projet / au devis", std: "Selon projet / au devis", lux: "Selon projet / au devis" }
   ];
+
+  const quickComparison = [
+    { label: 'Fragile : emballage et déballage', row: comparisonData.find(row => row.label === 'Emballage et déballage du fragile')! },
+    { label: 'Non fragile : emballage', row: comparisonData.find(row => row.label === 'Emballage du non fragile')! },
+    { label: 'Non fragile : déballage', row: comparisonData.find(row => row.label === 'Déballage du non fragile')! },
+    { label: 'Mobilier : démontage et remontage', row: comparisonData.find(row => row.label === 'Démontage et remontage du mobilier')! },
+  ];
+  const formulaChoices = [
+    { name: 'Économique', key: 'eco', value: 'economique' },
+    { name: 'Standard', key: 'std', value: 'standard' },
+    { name: 'Luxe', key: 'lux', value: 'luxe' },
+  ] as const;
 
   const StatusBadge: React.FC<{ status: string }> = ({ status }) => {
     let styles = "";
@@ -121,9 +133,10 @@ const FormulasPage: React.FC = () => {
             </h1>
             
             <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
-              Découvrez les détails de nos formules pour choisir le niveau d’accompagnement le plus adapté à votre projet, votre budget et votre disponibilité.
+              Comparez qui emballe, démonte, remonte et déballe vos affaires avec les formules Économique, Standard et Luxe. Les biens concernés et les prestations retenues sont précisés dans votre devis.
             </p>
             
+            <p className="mb-6"><a href="#comparatif-formules" className="inline-flex items-center justify-center gap-2 text-accent underline underline-offset-4 font-bold">Comparer les prestations<ArrowRight size={18} aria-hidden="true" /></a></p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link to="/demande-de-devis" className="bg-accent text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-accent/90 transition-all flex items-center justify-center gap-3 shadow-lg shadow-accent/20">
                 Demander un devis gratuit
@@ -138,20 +151,19 @@ const FormulasPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 2. Introduction */}
-      <section className="py-24 dark:bg-slate-950">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-brand-900 dark:text-white mb-8">Découvrez les détails de nos formules</h2>
-            <div className="space-y-6 text-slate-600 dark:text-white leading-relaxed text-lg font-light">
-              <p>
-                Nous proposons des formules soigneusement conçues pour répondre à différents besoins en matière de temps, de budget et de niveau d’accompagnement. Que vous souhaitiez participer activement à la préparation de votre déménagement ou déléguer une grande partie de l’organisation, nos formules vous permettent de choisir la solution la plus adaptée à votre situation.
-              </p>
-              <p>
-                Avant de choisir votre formule, prenez le temps de comparer les prestations incluses afin de mieux comprendre les avantages de chaque niveau d’accompagnement.
-              </p>
-            </div>
+      <section className="py-12 sm:py-16 bg-slate-50 dark:bg-slate-950" aria-labelledby="formules-en-bref">
+        <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+          <h2 id="formules-en-bref" className="text-3xl font-bold text-brand-900 dark:text-white mb-5">Les différences entre nos trois formules, en bref</h2>
+          <p className="text-slate-600 dark:text-slate-300 mb-8">Commencez par les tâches que vous souhaitez garder ou déléguer. Le choix reste modifiable dans votre demande de devis.</p>
+          <div className="grid md:grid-cols-3 gap-5">
+            {formulaChoices.map(formula => <div key={formula.key} className="rounded-2xl border border-slate-200 bg-white dark:bg-slate-900 p-5 sm:p-6 flex flex-col">
+              <h3 className="text-xl font-bold text-brand-900 dark:text-white mb-5">{formula.name}</h3>
+              <dl className="space-y-4 mb-6 flex-1">{quickComparison.map(item => <div key={item.label}><dt className="text-sm text-slate-600 dark:text-slate-300">{item.label}</dt><dd className="font-semibold text-brand-900 dark:text-white">{item.row[formula.key]}</dd></div>)}</dl>
+              <Link to={`/demande-de-devis?formula=${formula.value}`} className="inline-flex justify-center items-center bg-accent text-brand-900 font-bold rounded-xl px-4 py-3 text-center hover:bg-accent/90">Choisir {formula.name}</Link>
+            </div>)}
           </div>
+          <p className="mt-6 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">La déconnexion et la reconnexion des appareils électriques et des fluides restent à votre charge. La dépose des éléments fixés est prévue sans repose. Les éventuels frais de stationnement sont à préciser au devis. Le monte-meuble nécessite une étude de faisabilité et un chiffrage adapté.</p>
+          <p className="mt-5"><a href="#comparatif-formules" className="underline underline-offset-4 font-semibold text-brand-900 dark:text-white">Voir le tableau comparatif complet</a></p>
         </div>
       </section>
 
@@ -288,7 +300,7 @@ const FormulasPage: React.FC = () => {
       <section className="py-24 bg-white dark:bg-slate-950">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-black text-brand-900 mb-6 tracking-tight">Tableau comparatif des formules</h2>
+            <h2 id="comparatif-formules" className="scroll-mt-40 text-3xl lg:text-5xl font-black text-brand-900 mb-6 tracking-tight">Tableau comparatif des formules</h2>
             <p className="text-slate-500 font-light text-lg">Comparez les prestations pour choisir le niveau d’accompagnement idéal.</p>
           </div>
 
