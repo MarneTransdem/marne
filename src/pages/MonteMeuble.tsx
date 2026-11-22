@@ -1,7 +1,6 @@
 import { ServiceAreaLinks } from '../components/common/ServiceAreaLinks';
 import { ResponsiveImage } from '../components/common/ResponsiveImage';
 import { LIFT_IMAGE_SIZES } from '../lib/responsive-image-sizes';
-import { ServiceDecisionGuide } from '../components/common/ServiceDecisionGuide';
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Phone, CheckCircle2, MoveUp, Shield, Info, Zap, Building2, User, ClipboardCheck, LayoutGrid, Package, Calculator, Truck, Box } from 'lucide-react';
@@ -40,7 +39,7 @@ const MonteMeuble: React.FC = () => {
     },
     {
       q: "Quels éléments déterminent le prix d’un monte-meuble ?",
-      a: "Le devis dépend notamment de la configuration des accès, de l’appareil nécessaire, des biens à déplacer, de la durée prévue et des prestations de manutention. Faites préciser les frais de déplacement, les autorisations et les conditions applicables si l’intervention doit être prolongée ou reportée."
+      a: "Le prix est établi selon les accès, les biens, la durée et les prestations retenues. Le bloc « Votre intervention de monte-meuble sur devis » rassemble les éléments à faire préciser pour comparer le périmètre et le coût de l’intervention."
     },
     {
       q: "Un étage ou un poids maximum peut-il être confirmé à distance ?",
@@ -96,7 +95,30 @@ const MonteMeuble: React.FC = () => {
           </div>
         </div>
       </section>
-      <ServiceDecisionGuide />
+      <section className="py-12 sm:py-16 bg-slate-50" aria-labelledby="location-monte-meuble-devis">
+        <div className="container mx-auto px-4 md:px-6 max-w-5xl space-y-7">
+          <h2 id="location-monte-meuble-devis" className="text-3xl md:text-4xl font-bold text-brand-900">Votre intervention de monte-meuble sur devis</h2>
+          <p className="text-slate-600 leading-relaxed">Votre besoin concerne-t-il le passage de quelques biens ou un déménagement plus complet ? Précisez le périmètre souhaité dès votre demande. L’appareil, l’installation et les prestations retenues sont à confirmer après étude des accès ; la seule mention « location » ne définit pas ce qui est inclus.</p>
+          <dl className="grid sm:grid-cols-2 gap-5">
+            {[
+              ['Appareil et technicien', 'Faites préciser le monte-meuble retenu, la durée prévue et l’intervention du technicien. L’étage et les capacités maximales ne suffisent pas à confirmer la faisabilité.'],
+              ['Manutention et protections', 'Indiquez qui prépare les biens et les présente au passage. Faites détailler la manutention, l’emballage et les protections confiés à l’équipe.'],
+              ['Déplacement et démarches', 'Vérifiez les frais de déplacement et qui prend en charge les autorisations ou frais de stationnement nécessaires à votre projet.'],
+              ['Prolongation ou report', 'Demandez les conditions applicables si la durée change ou si l’intervention doit être reportée. Le coût dépend des accès, des biens et des prestations retenues.']
+            ].map(([title, text]) => <div key={title} className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6"><dt className="font-bold text-brand-900 mb-3">{title}</dt><dd className="text-slate-600 leading-relaxed">{text}</dd></div>)}
+          </dl>
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-8 space-y-5">
+          <h3 className="text-2xl font-bold text-brand-900">Les informations pour votre demande</h3>
+          <ul className="list-disc pl-6 space-y-3 text-slate-600 leading-relaxed">
+            <li><strong>Les biens :</strong> listez les meubles, leurs dimensions et leur poids lorsqu’il est connu. Signalez les objets fragiles et les éléments démontables.</li>
+            <li><strong>Les accès :</strong> indiquez l’adresse, l’étage, les dimensions de l’ouverture et les obstacles visibles devant la façade. Des photos prises depuis un endroit accessible peuvent aider à préparer l’étude ; elles ne remplacent pas la vérification technique.</li>
+            <li><strong>L’organisation :</strong> précisez la date souhaitée, l’enlèvement ou la livraison concernés et les prestations attendues : manutention, emballage ou transport.</li>
+          </ul>
+            <Link to="/demande-de-devis" className="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-accent text-brand-900 px-6 py-4 rounded-xl font-bold hover:bg-accent-hover">Préparer mon devis de monte-meuble<ArrowRight size={20} aria-hidden="true" className="shrink-0" /></Link>
+            <p className="text-sm text-slate-600 leading-relaxed">Consultez les <a href="#parc-monte-meubles" className="underline underline-offset-4 font-semibold text-brand-900">capacités de nos trois monte-meubles</a> et les <a href="#autorisation-monte-meuble" className="underline underline-offset-4 font-semibold text-brand-900">points à vérifier pour l’emplacement et l’autorisation</a>. Le choix de l’appareil reste soumis à la configuration réelle.</p>
+          </div>
+        </div>
+      </section>
 
       <section className="py-16 bg-white" aria-labelledby="parc-monte-meubles">
         <div className="container mx-auto px-4 md:px-6 max-w-6xl">
@@ -312,13 +334,7 @@ const MonteMeuble: React.FC = () => {
       {/* 9. CTA Intermédiaire */}
       <section className="py-16 bg-slate-50">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
-          <h2 className="text-3xl font-bold text-brand-900">Préparer votre devis de monte-meuble à Paris</h2>
-          <ul className="list-disc pl-6 space-y-3 text-slate-600 leading-relaxed">
-            <li><strong>Les biens :</strong> listez les meubles, leurs dimensions et leur poids lorsqu’il est connu. Signalez les objets fragiles et les éléments démontables.</li>
-            <li><strong>Les accès :</strong> indiquez l’adresse, l’étage, les dimensions de l’ouverture et les obstacles visibles devant la façade. Des photos prises depuis un endroit accessible peuvent aider à préparer l’étude ; elles ne remplacent pas la vérification technique.</li>
-            <li><strong>L’organisation :</strong> précisez la date souhaitée, l’enlèvement ou la livraison concernés et les prestations attendues : manutention, emballage ou transport.</li>
-          </ul>
-          <h3 className="text-2xl font-bold text-brand-900">Anticiper l’autorisation et l’emplacement de l’appareil</h3>
+          <h2 id="autorisation-monte-meuble" className="scroll-mt-40 text-3xl font-bold text-brand-900">Anticiper l’autorisation et l’emplacement de l’appareil</h2>
           <p className="text-slate-600 leading-relaxed">À Paris, une autorisation d’occupation temporaire de déménagement est nécessaire pour utiliser un monte-meuble sur l’espace public. Consultez les <a href="https://www.paris.fr/pages/faq-demenagements-4404" className="underline text-brand-900">modalités officielles de la Ville de Paris</a> et précisez avec notre équipe qui effectue la démarche. L’autorisation ne remplace pas l’étude de faisabilité technique.</p>
           <p className="text-slate-600 leading-relaxed">Pour préparer les objets, consultez nos conseils d’<Link to="/emballage-protection-demenagement" className="underline text-brand-900">emballage et protection</Link>. Notre <Link to="/blog/demenagement-monte-meuble-paris" className="underline text-brand-900">guide du déménagement avec monte-meuble</Link> complète cette préparation. Transmettez ensuite les informations dans votre <Link to="/demande-de-devis" className="underline text-brand-900">demande de devis de monte-meuble</Link>.</p>
         </div>
