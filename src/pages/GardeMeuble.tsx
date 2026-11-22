@@ -1,7 +1,6 @@
 import { ServiceAreaLinks } from '../components/common/ServiceAreaLinks';
 import { ResponsiveImage } from '../components/common/ResponsiveImage';
 import { STORAGE_IMAGE_SIZES } from '../lib/responsive-image-sizes';
-import { ServiceDecisionGuide } from '../components/common/ServiceDecisionGuide';
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Phone, CheckCircle2, Warehouse, Shield, Info, Zap, MapPin, Building2, User, ClipboardCheck, Clock, Package, Truck, ArrowUpDown, Star } from 'lucide-react';
@@ -133,7 +132,35 @@ const GardeMeuble: React.FC = () => {
           </div>
         </div>
       </section>
-      <ServiceDecisionGuide />
+      <section className="py-12 sm:py-16 bg-slate-50" aria-labelledby="parcours-garde-meuble">
+        <div className="container mx-auto px-4 md:px-6 max-w-5xl">
+          <h2 id="parcours-garde-meuble" className="text-3xl md:text-4xl font-bold text-brand-900 mb-5">De l’enlèvement à la restitution, un parcours à préparer ensemble</h2>
+          <p className="text-slate-600 leading-relaxed mb-8">Précisez les trois étapes dans un même projet : le transport vers le stockage, la période de garde-meuble et la livraison finale. Les prestations retenues et leurs conditions doivent figurer au devis.</p>
+          <ol className="grid md:grid-cols-3 gap-5 mb-8">
+            {[
+              { title: 'Enlèvement', text: 'Indiquez les biens à emporter, la date souhaitée et les accès au départ. Emballage et manutention sont à définir selon votre inventaire.' },
+              { title: 'Stockage', text: 'Précisez la durée envisagée et les affaires à récupérer en cours de contrat. Lieu, disponibilité, modalités d’accès et facturation sont à confirmer avant votre accord.' },
+              { title: 'Restitution', text: 'Communiquez la date, l’adresse et les accès de livraison dès qu’ils sont connus. Préavis, prolongation et transport de retour sont à convenir selon les conditions du contrat.' }
+            ].map((step, index) => (
+              <li key={step.title} className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
+                <span aria-hidden="true" className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-brand-900 text-accent font-bold mb-4">{index + 1}</span>
+                <h3 className="text-xl font-bold text-brand-900 mb-3">{step.title}</h3>
+                <p className="text-slate-600 leading-relaxed">{step.text}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-8 space-y-5">
+            <h3 className="text-2xl font-bold text-brand-900">Préparer les informations pour votre devis de garde-meuble</h3>
+            <ul className="list-disc pl-6 space-y-3 text-slate-600 leading-relaxed">
+              <li><strong>Inventaire :</strong> listez les meubles pièce par pièce, le nombre estimé de cartons et les dimensions des éléments volumineux. Précisez ce qui peut être démonté et les objets nécessitant une protection particulière.</li>
+              <li><strong>Adresses et accès :</strong> indiquez les communes de départ et de retour, les étages, les ascenseurs et les possibilités de stationnement. Si l’adresse de retour est inconnue, signalez-le pour que cette partie du transport reste à préciser.</li>
+              <li><strong>Calendrier et retraits :</strong> donnez la date d’enlèvement, la durée estimée et les affaires que vous pourriez devoir récupérer. Gardez cette liste séparée de l’inventaire des biens qui resteront stockés jusqu’à la livraison finale.</li>
+            </ul>
+            <Link to="/demande-de-devis" className="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-accent text-brand-900 rounded-xl px-6 py-4 font-bold hover:bg-accent-hover">Préparer mon devis de garde-meuble<ArrowRight size={20} aria-hidden="true" className="shrink-0" /></Link>
+            <p className="text-sm text-slate-600 leading-relaxed">Pour un premier inventaire, utilisez le <Link to="/calculateur-volume" className="underline underline-offset-4 font-semibold text-brand-900">calculateur de volume à stocker</Link>. Les horaires du bureau ne définissent pas l’accès aux biens stockés.</p>
+          </div>
+        </div>
+      </section>
 
       {/* 2. Bloc de réassurance */}
       <section className="bg-slate-50 py-12 border-b border-slate-100">
@@ -246,29 +273,6 @@ const GardeMeuble: React.FC = () => {
         </div>
       </section>
 
-      {/* 7. Notre méthode en 4 étapes */}
-      <section className="py-24 bg-slate-50">
-        <div className="container mx-auto px-4 md:px-6 text-center">
-          <h2 className="text-3xl font-bold text-brand-900 mb-16">Notre méthode en 4 étapes</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {[
-              { t: "Analyse de votre besoin", d: "Étude personnalisée de votre projet de stockage." },
-              { t: "Estimation du volume", d: "Calcul précis de l'espace nécessaire pour vos biens." },
-              { t: "Préparation et transport", d: "Chargement et acheminement professionnel de vos affaires." },
-              { t: "Stockage et restitution", d: "Stockage organisé et restitution selon votre projet." }
-            ].map((step, i) => (
-              <div key={i} className="group">
-                <div className="w-16 h-16 bg-brand-900 text-accent rounded-2xl flex items-center justify-center text-2xl font-black mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                  {i + 1}
-                </div>
-                <h3 className="text-lg font-bold text-brand-900 mb-4 tracking-tight">{step.t}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed font-light">{step.d}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* 8. Section Locale */}
       <section className="py-24">
         <div className="container mx-auto px-4 md:px-6">
@@ -305,13 +309,7 @@ const GardeMeuble: React.FC = () => {
             <li><strong>Fin ou prolongation :</strong> faites préciser le préavis et les conditions de restitution, puis confirmez les accès du logement où les biens seront livrés.</li>
           </ul>
           <p className="text-slate-600 leading-relaxed">Pour préparer les biens, consultez notre page <Link to="/emballage-protection-demenagement" className="underline text-brand-900">emballage et protection</Link>. Si vous ne conservez que quelques meubles, indiquez-le dans votre demande et consultez les conseils pour un <Link to="/demenagement-petit-volume" className="underline text-brand-900">transport de petit volume</Link>.</p>
-          <h3 className="text-2xl font-bold text-brand-900">Préparer les informations pour votre devis de garde-meuble</h3>
-          <ul className="list-disc pl-6 space-y-3 text-slate-600 leading-relaxed">
-            <li><strong>Inventaire :</strong> listez les meubles pièce par pièce, le nombre estimé de cartons et les dimensions des éléments volumineux. Précisez ce qui peut être démonté et les objets nécessitant une protection particulière.</li>
-            <li><strong>Adresses et accès :</strong> indiquez les communes de départ et de retour, les étages, les ascenseurs et les possibilités de stationnement. Si l’adresse de retour est inconnue, signalez-le pour que cette partie du transport reste à préciser.</li>
-            <li><strong>Calendrier et retraits :</strong> donnez la date d’enlèvement, la durée estimée et les affaires que vous pourriez devoir récupérer. Gardez cette liste séparée de l’inventaire des biens qui resteront stockés jusqu’à la livraison finale.</li>
-          </ul>
-          <p className="text-slate-600 leading-relaxed">Reportez ces éléments dans votre <Link to="/demande-de-devis" className="underline text-brand-900">demande de devis de garde-meuble</Link> pour préparer l’échange avec notre équipe.</p>
+
         </div>
       </section>
       <section className="py-20 bg-brand-900 text-white relative overflow-hidden">
