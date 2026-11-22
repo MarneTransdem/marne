@@ -29,7 +29,7 @@ const DemenagementParticuliers: React.FC = () => {
         description="Préparez votre déménagement particulier à Paris avec Marne Transdem. Formules adaptées, protection des biens et devis personnalisé. Expert local 75020."
         canonical={path}
         schema={[
-          getServiceSchema("Déménagement particuliers à Paris", "Marne Transdem accompagne les particuliers pour organiser leur déménagement à Paris, en Île-de-France ou longue distance, avec méthode, soin et accompagnement.", { path }),
+          getServiceSchema("Déménagement particuliers à Paris", "Marne Transdem prépare le transport de vos meubles et cartons pour votre déménagement d’appartement ou de maison, à Paris, en Île-de-France ou longue distance. Choisissez les tâches à déléguer selon votre logement et les prestations retenues au devis.", { path }),
           getFAQSchema(faqs),
           getBreadcrumbSchema([
             { name: "Accueil", item: "/" },
@@ -51,13 +51,22 @@ const DemenagementParticuliers: React.FC = () => {
               <Home size={16} className="text-accent" />
               <span className="text-xs font-bold uppercase tracking-widest text-brand-900">Expertise Particuliers</span>
             </motion.div>
-            <h1 className="text-4xl md:text-7xl font-black text-brand-900 mb-8 leading-tight tracking-tight">
-              Déménagement <br/>
-              <span className="text-accent">particuliers</span> à Paris
+            <h1 className="text-4xl md:text-6xl font-black text-brand-900 mb-8 leading-tight tracking-tight">
+              Déménagement <span className="text-accent">d’appartement ou de maison</span> à Paris
             </h1>
-            <p className="text-xl text-slate-500 mb-12 leading-relaxed font-light max-w-2xl">
-              Marne Transdem accompagne les particuliers pour organiser leur déménagement à Paris, en Île-de-France ou longue distance, avec méthode, soin et accompagnement.
+            <p className="text-xl text-slate-600 mb-8 leading-relaxed font-light max-w-3xl mx-auto lg:mx-0">
+              Marne Transdem prépare le transport de vos meubles et cartons pour votre déménagement d’appartement ou de maison, à Paris, en Île-de-France ou longue distance. Choisissez les tâches à déléguer selon votre logement et les prestations retenues au devis.
             </p>
+            <div aria-labelledby="devis-particuliers-informations" className="mb-8 text-left">
+              <h2 id="devis-particuliers-informations" className="text-lg font-bold text-brand-900 mb-4">Pour préparer votre devis</h2>
+              <dl className="grid sm:grid-cols-3 gap-4">
+                {[
+                  ['Vos biens', 'Listez meubles et cartons, avec la cave, le balcon ou le garage. Signalez les objets lourds ou fragiles.'],
+                  ['Votre trajet et vos accès', 'Indiquez les deux adresses, la date, les étages, l’ascenseur et les passages ou distances de portage.'],
+                  ['Les tâches à déléguer', 'Précisez vos besoins d’emballage, de démontage et de remontage. Les fournitures et opérations retenues sont à confirmer au devis.']
+                ].map(([label, text]) => <div key={label} className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5"><dt className="font-bold text-brand-900 mb-2">{label}</dt><dd className="text-sm text-slate-600 leading-relaxed">{text}</dd></div>)}
+              </dl>
+            </div>
             <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
               <Link to="/demande-de-devis" className="bg-brand-900 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-brand-hover transition-all flex items-center justify-center gap-3 shadow-lg shadow-brand-900/20">
                 Demander mon devis
@@ -68,6 +77,7 @@ const DemenagementParticuliers: React.FC = () => {
                 {CONTACT.phone}
               </a>
             </div>
+            <p className="mt-5 text-sm text-slate-600 leading-relaxed">Pour vous aider : <Link to="/calculateur-volume" className="underline underline-offset-4 font-semibold text-brand-900">estimer votre volume</Link> ou <Link to="/formules-demenagement" className="underline underline-offset-4 font-semibold text-brand-900">comparer les formules</Link>.</p>
           </div>
         </div>
       </section>
@@ -99,9 +109,7 @@ const DemenagementParticuliers: React.FC = () => {
             <p className="text-slate-600 leading-relaxed text-lg font-light mb-6">
               Déménager à Paris est un défi de taille. Entre les rues étroites de la capitale, les immeubles anciens sans ascenseur et les difficultés de stationnement, organiser son changement d'adresse demande une logistique sans faille. Que vous viviez dans un studio, un appartement familial ou une maison en Île-de-France, Marne Transdem met son savoir-faire à votre service.
             </p>
-            <p className="text-slate-600 leading-relaxed font-light">
-              Commencez par lister le mobilier et les cartons, sans oublier la cave, le balcon ou le garage. Le <Link to="/calculateur-volume" className="underline font-medium text-brand-900">calculateur de volume</Link> vous aide à préparer une première estimation. Précisez ensuite les accès au départ et à l’arrivée : étages, ascenseur, escaliers, cour intérieure et distance entre le camion et l’entrée.
-            </p>
+
             <p className="text-slate-600 leading-relaxed font-light mt-6">
               Le budget dépend aussi du trajet et des tâches confiées à l’équipe. Notre <Link to="/blog/combien-coute-demenagement-paris" className="underline font-medium text-brand-900">guide du prix d’un déménagement à Paris</Link> explique ces critères et les points à comparer entre deux devis. L’inventaire et les contraintes de votre logement permettent de préciser la prestation adaptée.
             </p>
