@@ -73,7 +73,7 @@ const Emballage: React.FC = () => {
               <span className="text-accent">protection</span> pour déménagement
             </h1>
             <p className="text-xl text-slate-300 mb-10 leading-relaxed font-light">
-              Marne Transdem accompagne les particuliers et les entreprises dans la préparation, l’emballage et la protection des biens avant leur transport à Paris et en Île-de-France.
+              Marne Transdem accompagne les particuliers et les entreprises pour préparer et protéger leurs biens à Paris et en Île-de-France. Selon votre formule, confiez aussi à notre équipe l’emballage et le déballage prévus dans votre déménagement.
             </p>
             <div className="flex flex-col sm:flex-row gap-6">
               <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover transition-all flex items-center justify-center gap-3 shadow-lg shadow-accent/20">
@@ -84,6 +84,16 @@ const Emballage: React.FC = () => {
                 <Phone size={20} className="text-accent" />
                 {CONTACT.phone}
               </a>
+            </div>
+            <div id="emballage-selon-formule" className="scroll-mt-28 mt-8 rounded-2xl border border-white/20 bg-white/5 p-5 sm:p-6">
+              <h2 className="text-xl font-bold text-white mb-4">Emballage et déballage : qui fait quoi ?</h2>
+              <dl className="space-y-4 text-sm leading-relaxed text-slate-200">
+                <div><dt className="font-bold text-accent">Économique</dt><dd>Vous emballez et déballez vos affaires, fragiles et non fragiles. Notre équipe protège votre mobilier pour le transport.</dd></div>
+                <div><dt className="font-bold text-accent">Standard</dt><dd>Notre équipe emballe et déballe le fragile. Vous préparez et déballez le non fragile.</dd></div>
+                <div><dt className="font-bold text-accent">Luxe</dt><dd>Notre équipe emballe le fragile et le non fragile, et déballe le fragile. Le déballage du non fragile se prévoit à la demande.</dd></div>
+              </dl>
+              <p className="mt-4 text-sm leading-relaxed text-slate-300">Les biens concernés, les fournitures et les tâches à l’arrivée sont précisés dans votre devis de déménagement.</p>
+              <Link to="/formules-demenagement#comparatif-formules" className="mt-4 inline-flex items-center gap-2 text-accent font-bold underline underline-offset-4">Comparer les prestations des formules<ArrowRight size={16} aria-hidden="true" /></Link>
             </div>
           </div>
         </div>
@@ -264,8 +274,8 @@ const Emballage: React.FC = () => {
 
       <section className="py-16 bg-slate-50">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
-          <h2 className="text-3xl font-bold text-brand-900">Qui prépare quoi avant le déménagement ?</h2>
-          <p className="text-slate-600 leading-relaxed">Comparez les <Link to="/formules-demenagement" className="underline text-brand-900">formules de déménagement</Link> et faites préciser l'emballage, les fournitures, le démontage et le déballage au devis. Une formule ne dispense pas de signaler les objets qui nécessitent une préparation particulière.</p>
+          <h2 className="text-3xl font-bold text-brand-900">Préparer les biens qui restent à votre charge</h2>
+          <p className="text-slate-600 leading-relaxed">Pour les affaires que vous préparez vous-même, adaptez les cartons et les protections à chaque objet. Signalez à l’équipe les biens nécessitant une préparation particulière.</p>
           <ul className="list-disc pl-6 space-y-3 text-slate-600 leading-relaxed">
             <li><strong>Vaisselle et objets fragiles :</strong> séparez les pièces, protégez-les individuellement et calez les espaces pour limiter les mouvements. Signalez les objets dont vous souhaitez confier l'emballage.</li>
             <li><strong>Livres et objets denses :</strong> répartissez-les dans des cartons faciles à porter et vérifiez la fermeture du fond.</li>
