@@ -522,11 +522,55 @@ const posts: Record<string, BlogPostData> = {
       }
     ],
     content: `
-      <p class="lead">Le prix d’un déménagement à Paris peut varier fortement d’un logement à l’autre. Deux appartements de même surface ne coûteront pas forcément le même prix à déménager. Pourquoi ? Parce qu’un déménagement ne dépend pas seulement du volume à transporter. Il dépend aussi de l’étage, de l’ascenseur, de la distance de portage, du stationnement, de la période choisie, de la formule souhaitée, du besoin éventuel d’un monte-meuble et des contraintes propres aux immeubles parisiens.</p>
+      <p class="lead">Pour préparer le prix de votre déménagement à Paris, partez du volume de vos biens, puis précisez le trajet, les accès, la date et les prestations souhaitées. Retrouvez ci-dessous les fourchettes indicatives avant de faire chiffrer votre projet.</p>
+
+      <nav aria-label="Sommaire du guide des prix" class="not-prose my-8 rounded-2xl bg-slate-50 p-6 border border-slate-200">
+        <p class="font-bold text-brand-900 mb-3">Dans ce guide</p>
+        <ul class="grid gap-3 text-sm sm:grid-cols-2">
+          <li><a href="#budget-volume" class="underline">Budget et volume</a></li>
+          <li><a href="#prix-studio" class="underline">Prix d’un studio à Paris</a></li>
+          <li><a href="#prix-ile-de-france" class="underline">Prix en Île-de-France et proche banlieue</a></li>
+          <li><a href="#situations" class="underline">Situations à faire chiffrer</a></li>
+          <li><a href="#comparer-devis" class="underline">Grille de comparaison des devis</a></li>
+          <li><a href="#preparer-devis" class="underline">Préparer votre demande</a></li>
+        </ul>
+      </nav>
+
+      <h2 id="budget-volume" class="scroll-mt-32">Budget indicatif selon le volume</h2>
+      <p>Les montants ci-dessous sont des repères indicatifs, pas une grille tarifaire Marne Transdem. Pour les comparer à votre projet, faites préciser la distance, les accès, la formule et le montant TTC dans un devis personnalisé.</p>
+      <div class="overflow-x-auto my-8" role="region" aria-label="Fourchettes de budget selon le volume" tabindex="0">
+        <table class="w-full text-sm text-left border-collapse">
+          <thead class="bg-slate-50 text-brand-900 font-bold uppercase text-[10px] tracking-widest border-b border-slate-200">
+            <tr>
+              <th class="px-3 sm:px-6 py-4">Type de logement</th>
+              <th class="px-3 sm:px-6 py-4">Volume estimé</th>
+              <th class="px-3 sm:px-6 py-4">Prix indicatif (Paris)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr><td class="px-3 sm:px-6 py-4">Chambre ou petit studio</td><td class="px-3 sm:px-6 py-4">8 à 12 m³</td><td class="px-3 sm:px-6 py-4">400 à 800 €</td></tr>
+            <tr><td class="px-3 sm:px-6 py-4">Studio équipé</td><td class="px-3 sm:px-6 py-4">10 à 15 m³</td><td class="px-3 sm:px-6 py-4">500 à 900 €</td></tr>
+            <tr><td class="px-3 sm:px-6 py-4">Appartement 2 pièces</td><td class="px-3 sm:px-6 py-4">15 à 25 m³</td><td class="px-3 sm:px-6 py-4">700 à 1 300 €</td></tr>
+            <tr><td class="px-3 sm:px-6 py-4">Appartement 3 pièces</td><td class="px-3 sm:px-6 py-4">25 à 35 m³</td><td class="px-3 sm:px-6 py-4">900 à 1 800 €</td></tr>
+            <tr><td class="px-3 sm:px-6 py-4">Appartement 4 pièces</td><td class="px-3 sm:px-6 py-4">35 à 45 m³</td><td class="px-3 sm:px-6 py-4">1 300 à 2 400 €</td></tr>
+            <tr><td class="px-3 sm:px-6 py-4">Appartement familial 5 pièces</td><td class="px-3 sm:px-6 py-4">45 à 60 m³</td><td class="px-3 sm:px-6 py-4">1 800 à 3 200 €</td></tr>
+            <tr><td class="px-3 sm:px-6 py-4">Maison ou grand logement</td><td class="px-3 sm:px-6 py-4">60 m³ et plus</td><td class="px-3 sm:px-6 py-4">2 500 € et plus</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Ces fourchettes ne constituent ni un prix minimum garanti ni un plafond. Le budget dépend notamment des accès, de la distance, des objets lourds et des prestations d’emballage. Pour obtenir un montant applicable à votre projet, transmettez votre inventaire et les contraintes des deux adresses.</p>
+
+      <div id="outils-budget" class="not-prose my-8 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+        <p class="font-bold text-brand-900 mb-3">Passer du budget indicatif à votre projet</p>
+        <div class="flex flex-col sm:flex-row flex-wrap gap-3">
+          <a href="/calculateur-volume" class="inline-flex items-center justify-center rounded-xl border border-brand-900 px-5 py-3 font-bold text-brand-900">Estimer mon volume en m³</a>
+          <a href="/demande-de-devis" class="inline-flex items-center justify-center rounded-xl bg-brand-900 px-5 py-3 font-bold text-white">Demander mon devis personnalisé</a>
+        </div>
+      </div>
 
       <h2 id="prix-studio" class="scroll-mt-32">Quel prix pour déménager un studio à Paris ?</h2>
-      <p>Pour un premier repère, le tableau de ce guide indique <strong>400 à 800 € pour une chambre ou un petit studio de 8 à 12 m³</strong>, et <strong>500 à 900 € pour un studio équipé de 10 à 15 m³</strong>. Ces fourchettes sont indicatives : elles ne constituent ni un tarif Marne Transdem, ni un minimum garanti, ni un plafond. Le volume doit être confirmé à partir des meubles, des cartons et des éventuelles annexes, plutôt que de la seule surface du logement.</p>
-      <p>Le montant de votre devis dépend ensuite du trajet, des accès aux deux adresses, de la saison et des prestations retenues. Un étage sans ascenseur, une longue distance de portage, un meuble à démonter ou un monte-meuble peuvent modifier le budget. Consultez le <a href="#budget-volume">tableau des budgets selon le volume</a>, puis <a href="/demande-de-devis">demandez un devis pour votre studio</a> en précisant ces contraintes. Si vous hésitez sur le cubage, préparez votre inventaire avec le <a href="/calculateur-volume">calculateur de volume en m³</a>.</p>
+      <p>Les lignes studio du <a href="#budget-volume">tableau des budgets</a> distinguent une chambre ou un petit studio de 8 à 12 m³ d’un studio équipé de 10 à 15 m³. Confirmez le volume à partir des meubles, des cartons et des éventuelles annexes, plutôt que de la seule surface du logement.</p>
+      <p>Le montant de votre devis dépend ensuite du trajet, des accès aux deux adresses, de la saison et des prestations retenues. Un étage sans ascenseur, une longue distance de portage, un meuble à démonter ou un monte-meuble peuvent modifier le budget. Précisez ces contraintes lorsque vous <a href="/demande-de-devis">demandez un devis pour votre studio</a>.</p>
 
       <h3>Les informations à réunir pour le devis d’un studio</h3>
       <ul>
@@ -536,57 +580,7 @@ const posts: Record<string, BlogPostData> = {
       </ul>
       <p>Si votre projet porte sur quelques meubles et cartons, consultez notre service de <a href="/demenagement-petit-volume">déménagement de petit volume</a>. Un studio peu meublé et un studio avec une bibliothèque ou une cave peuvent nécessiter des moyens différents : comparez les budgets après inventaire, plutôt qu’avec la seule surface en m².</p>
 
-      <p>Un studio au rez-de-chaussée avec stationnement facile ne représente pas la même organisation qu’un appartement familial au 5e étage sans ascenseur, situé dans une rue étroite du 11e, du 12e, du 15e ou du 20e arrondissement. À Paris, la logistique compte autant que le volume.</p>
-
-      <p>Pour comparer deux devis, partez du même inventaire, des mêmes accès et du même niveau de service. Demandez que le montant TTC, les options et les éventuels frais de stationnement soient explicités. Une estimation générale ne remplace pas l’étude de votre projet.</p>
-
-      <p>Chez Marne Transdem, nous accompagnons les <a href="/demenagement-particuliers-paris">particuliers pour leur changement de logement</a> et les <a href="/demenagement-entreprises-paris">entreprises pour leur déménagement professionnel</a> à Paris, en Île-de-France et vers toute la France. Notre objectif est simple : vous proposer un devis clair, réaliste et adapté à votre situation réelle.</p>
-
-      <p>Voici les critères à connaître pour comprendre le prix d’un déménagement à Paris et éviter les mauvaises surprises.</p>
-
-      <nav aria-label="Sommaire du guide des prix" class="not-prose my-8 rounded-2xl bg-slate-50 p-6 border border-slate-200">
-        <p class="font-bold text-brand-900 mb-3">Dans ce guide</p>
-        <ul class="grid gap-3 text-sm sm:grid-cols-2">
-          <li><a href="#prix-studio" class="underline">Prix d’un studio à Paris</a></li>
-          <li><a href="#budget-volume" class="underline">Budget et volume</a></li>
-          <li><a href="#prix-ile-de-france" class="underline">Prix en Île-de-France et proche banlieue</a></li>
-          <li><a href="#situations" class="underline">Situations à faire chiffrer</a></li>
-          <li><a href="#comparer-devis" class="underline">Grille de comparaison des devis</a></li>
-          <li><a href="#preparer-devis" class="underline">Préparer votre demande</a></li>
-        </ul>
-        <p class="mt-5 text-sm">Vous connaissez déjà votre projet ? <a href="/demande-de-devis" class="font-bold underline">Demandez votre devis personnalisé</a>.</p>
-      </nav>
-
-      <h2>Pourquoi le prix d’un déménagement à Paris varie autant ?</h2>
-      <p>Le déménagement est une prestation sur mesure. Le prix ne se calcule pas uniquement au kilomètre ou au mètre cube. Il dépend de l’ensemble des conditions d’intervention.</p>
-      <p>À Paris, plusieurs facteurs peuvent compliquer l’organisation : rues étroites, stationnement difficile, immeubles anciens, escaliers exigus, ascenseurs trop petits, étages élevés, cours intérieures, caves encombrées, accès réglementés, horaires imposés par la copropriété, besoin d’un monte-meuble et distance importante entre le camion et l’entrée.</p>
-      <p>C’est pour cette raison qu’un devis sérieux doit toujours analyser la réalité du terrain. Un prix annoncé trop vite, sans tenir compte de ces éléments, peut être incomplet.</p>
-      <p>Un bon devis doit répondre à plusieurs questions : Quel volume faut-il transporter ? Quelle est la distance entre les deux adresses ? Le camion peut-il stationner devant l’immeuble ? Y a-t-il un ascenseur ? Les meubles passent-ils par l’escalier ? Faut-il démonter certains meubles ? Faut-il prévoir un monte-meuble ? Quelle formule le client souhaite-t-il ? Y a-t-il des objets fragiles, lourds ou spécifiques ? Le déménagement se fait-il en semaine, le week-end, en fin de mois ou en période chargée ?</p>
-      <p>Plus ces informations sont précises, plus le prix est fiable.</p>
-
-      <h2 id="budget-volume" class="scroll-mt-32">Budget indicatif selon le volume</h2>
-      <p>Les montants ci-dessous sont des repères indicatifs, pas une grille tarifaire Marne Transdem. Pour les comparer à votre projet, faites préciser la distance, les accès, la formule et le montant TTC dans un devis personnalisé.</p>
-      <div class="overflow-x-auto my-8">
-        <table class="w-full text-sm text-left border-collapse">
-          <thead class="bg-slate-50 text-brand-900 font-bold uppercase text-[10px] tracking-widest border-b border-slate-200">
-            <tr>
-              <th class="px-6 py-4">Type de logement</th>
-              <th class="px-6 py-4">Volume estimé</th>
-              <th class="px-6 py-4">Prix indicatif (Paris)</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-100">
-            <tr><td class="px-6 py-4">Chambre ou petit studio</td><td class="px-6 py-4">8 à 12 m³</td><td class="px-6 py-4">400 à 800 €</td></tr>
-            <tr><td class="px-6 py-4">Studio équipé</td><td class="px-6 py-4">10 à 15 m³</td><td class="px-6 py-4">500 à 900 €</td></tr>
-            <tr><td class="px-6 py-4">Appartement 2 pièces</td><td class="px-6 py-4">15 à 25 m³</td><td class="px-6 py-4">700 à 1 300 €</td></tr>
-            <tr><td class="px-6 py-4">Appartement 3 pièces</td><td class="px-6 py-4">25 à 35 m³</td><td class="px-6 py-4">900 à 1 800 €</td></tr>
-            <tr><td class="px-6 py-4">Appartement 4 pièces</td><td class="px-6 py-4">35 à 45 m³</td><td class="px-6 py-4">1 300 à 2 400 €</td></tr>
-            <tr><td class="px-6 py-4">Appartement familial 5 pièces</td><td class="px-6 py-4">45 à 60 m³</td><td class="px-6 py-4">1 800 à 3 200 €</td></tr>
-            <tr><td class="px-6 py-4">Maison ou grand logement</td><td class="px-6 py-4">60 m³ et plus</td><td class="px-6 py-4">2 500 € et plus</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p>Ces fourchettes ne constituent ni un prix minimum garanti ni un plafond. Le budget dépend notamment des accès, de la distance, des objets lourds et des prestations d’emballage. Pour obtenir un montant applicable à votre projet, transmettez votre inventaire et les contraintes des deux adresses.</p>
+      <p>Retrouvez notre accompagnement pour les <a href="/demenagement-particuliers-paris">déménagements de particuliers</a> et les <a href="/demenagement-entreprises-paris">déménagements d’entreprises</a>.</p>
 
       <h2 id="prix-ile-de-france" class="scroll-mt-32">Quel prix pour un déménagement en Île-de-France ou en proche banlieue ?</h2>
       <p>Un déménagement de Paris vers la Seine-Saint-Denis ou le Val-de-Marne ne se chiffre pas à partir du seul département. Les fourchettes de ce guide restent des repères : faites préciser les deux adresses, le volume, les accès, la date et la formule avant de retenir un budget pour votre trajet.</p>
