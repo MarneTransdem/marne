@@ -17,3 +17,10 @@ const appended = { ...imported, message: imported.message + '\nUn piano à trans
 assert.deepEqual(removeEstimateFields(appended, saved), { ...appended, volume: '' });
 assert.deepEqual(removeEstimateFields({ ...imported, volume: '30 m³' }, saved), { volume: '30 m³', message: '' });
 console.log('Quote estimate: explicit volume wins; removing a draft preserves customer edits; invalid storage is ignored.');
+
+const detailed = { ...saved, rooms: [{ name: 'Salon', items: [{ name: 'Canapé 2 places', quantity: 1, volume: 1.2 }] }] };
+assert.deepEqual(parseQuoteEstimate(JSON.stringify(detailed)), detailed, 'Detailed inventory must survive import');
+for (const item of [null, { name: 'Canapé', quantity: -1, volume: 1.2 }, { name: 'Canapé', quantity: 1, volume: '1.2' }]) {
+  assert.equal(parseQuoteEstimate(JSON.stringify({ ...saved, rooms: [{ name: 'Salon', items: [item] }] })), null);
+}
+console.log('Detailed inventory is retained; malformed item details are rejected; legacy room-only drafts remain supported.');

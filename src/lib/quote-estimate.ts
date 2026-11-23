@@ -1,8 +1,14 @@
+export interface QuoteEstimateItem {
+  name: string;
+  quantity: number;
+  volume: number;
+}
+
 export interface QuoteEstimate {
   estimatedVolume: number;
   cartonsCount: number;
   itemsCount: number;
-  rooms: { name: string }[];
+  rooms: { name: string; items?: QuoteEstimateItem[] }[];
   [key: string]: unknown;
 }
 
@@ -15,7 +21,17 @@ export function parseQuoteEstimate(saved: string): QuoteEstimate | null {
       || !Number.isFinite(data.cartonsCount) || data.cartonsCount < 0
       || !Number.isFinite(data.itemsCount) || data.itemsCount < 0
       || !Array.isArray(data.rooms)
-      || !data.rooms.every((room: unknown) => room && typeof room === 'object' && 'name' in room && typeof room.name === 'string')) return null;
+      || !data.rooms.every((room: unknown) => {
+        if (!room || typeof room !== 'object' || !('name' in room) || typeof room.name !== 'string') return false;
+        if (!('items' in room)) return true; // Older drafts may contain only room names.
+        return Array.isArray(room.items) && room.items.every((item: unknown) => {
+          if (!item || typeof item !== 'object') return false;
+          const value = item as Partial<QuoteEstimateItem>;
+          return typeof value.name === 'string' && value.name.trim().length > 0
+            && typeof value.quantity === 'number' && Number.isInteger(value.quantity) && value.quantity > 0
+            && typeof value.volume === 'number' && Number.isFinite(value.volume) && value.volume > 0;
+        });
+      })) return null;
     return data;
   } catch { return null; }
 }

@@ -107,3 +107,10 @@
  .quote-navigation button { padding:14px 12px; font-size:13px; }
  .quote-choices label { font-size:12px; }
 }
+
+.quote-imported-estimate { margin-bottom:22px; min-width:0; }
+.quote-imported-estimate .quote-estimate { margin-bottom:0; }
+.quote-imported-estimate .quote-estimate>svg { flex-shrink:0; }
+.quote-imported-estimate .quote-details { margin-top:8px; }
+.quote-imported-room { padding:0 0 12px; font-size:13px; line-height:1.6; overflow-wrap:anywhere; }
+.quote-imported-room ul { list-style:disc; padding-left:20px; }

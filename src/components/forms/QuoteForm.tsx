@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
-import { Check, ArrowRight, Loader2, ChevronLeft, Calculator, RotateCcw } from 'lucide-react';
+import { Check, ArrowRight, Loader2, ChevronLeft } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { db } from '../../lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -9,6 +9,7 @@ import { useMapsLibrary } from '@vis.gl/react-google-maps';
 import { getVisitAttribution, hasAnalyticsConsent, trackConversion, trackEvent } from '../../lib/public-analytics';
 import { createQuoteProgressTracker } from '../../lib/quote-progress';
 import { isPlausiblePhone } from '../../lib/quote-validation';
+import { QuoteEstimateSummary } from './QuoteEstimateSummary';
 import { getEstimateFields, parseQuoteEstimate, removeEstimateFields, shouldRestoreEstimate, type QuoteEstimate } from '../../lib/quote-estimate';
 
 interface FormData {
@@ -412,6 +413,7 @@ export const QuoteForm: React.FC = () => {
         }} noValidate aria-busy={isSubmitting}>
           <div hidden aria-hidden="true"><input name="website" value={formData.website} onChange={handleChange} tabIndex={-1} autoComplete="off" /></div>
           <fieldset disabled={isSubmitting} className="quote-fields-root">
+          {estimate && <QuoteEstimateSummary estimate={estimate} onRemove={clearEstimate} />}
           <div hidden={step !== 1}>
             <div className="quote-route-grid">{(['from', 'to'] as const).map((side, index) => (
               <div className="quote-route" key={side}>
@@ -439,7 +441,6 @@ export const QuoteForm: React.FC = () => {
             {dateMode === 'flexible' && <div className="quote-field"><label htmlFor="quote-period">Période envisagée, si connue</label><input id="quote-period" value={period} onChange={e => setPeriod(e.target.value)} maxLength={100} placeholder="Par exemple : fin octobre, dates flexibles" /></div>}
           </div>
           <div hidden={step !== 2}>
-            {estimate && <div className="quote-estimate"><Calculator size={22} /><p>Votre estimation : <strong>{estimate.estimatedVolume} m³</strong></p><button type="button" onClick={clearEstimate} aria-label="Retirer l’estimation du calculateur"><RotateCcw size={18} /></button></div>}
             <div className="quote-grid">
               {select('housingType','Votre logement ou vos locaux',[['','À préciser'],['appartement','Appartement'],['maison','Maison'],['bureaux','Bureaux / Entreprise']])}
               {field('volume','Volume estimé, si connu',{placeholder:'Ex. : 20 m³'})}
