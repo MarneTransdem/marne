@@ -134,7 +134,7 @@ assert.doesNotThrow(()=>unavailableTracker.start());
 console.log('Quote progress: consent, step deduplication, late grant, no replay and unavailable analytics passed.');
 
 // Exercise the actual form submit handler with mocked persistence and notification.
-const realFormHelpers = new Set(['../../lib/quote-validation', '../../lib/quote-estimate', '../../lib/quote-progress']);
+const realFormHelpers = new Set(['./QuoteEstimateSummary', '../../lib/quote-validation', '../../lib/quote-estimate', '../../lib/quote-progress']);
 const formBuild=await build({entryPoints:['src/components/forms/QuoteForm.tsx'],bundle:true,write:false,platform:'node',format:'cjs',plugins:[{name:'mock-imports',setup(b){b.onResolve({filter:/.*/},a=>a.kind==='entry-point'||realFormHelpers.has(a.path)?undefined:{path:a.path,external:true});}}]});
 async function checkForm({failSave=false,failEmail=false,activeStep=3,invalid=false,progressOnly=false}={}) {
   const progressEvents=[];
