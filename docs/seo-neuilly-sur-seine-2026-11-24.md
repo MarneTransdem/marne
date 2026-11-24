@@ -12,4 +12,4 @@
 - Pas de nouvelles règles municipales : la source existante https://www.neuillysurseine.fr/pre-demarche/reserver-un-emplacement-pour-un-camion-de-demenagement était inaccessible (403 / connexion fermée). Les indications antérieures n'ont pas pu être revérifiées aujourd'hui.
 
 ## Validation
-Compilation TypeScript, build avec audits de prérendu, contrôle HTML initial et vérification publique à effectuer avant clôture. Ne pas inclure le sitemap déjà modifié avant cette intervention dans le commit.
+TypeScript, build, audit de santé et audits des 161 pages réussis. HTML initial vérifié : héros corrigé, responsabilités, un H1 et canonique absolue. Commit 87529fc poussé, CI GitHub réussie. Publication vérifiée en HTTP 200 et dans le navigateur : héros et responsabilités actualisés ; redirection sans www en 301. Contrôle visuel bureau effectué. Aperçu local inaccessible et changement de viewport sans effet (1280 px constatés malgré la demande de 390 px) : validation mobile non confirmée. Ne pas inclure le sitemap déjà modifié avant cette intervention dans le commit.
