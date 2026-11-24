@@ -4150,16 +4150,16 @@ export const sectorsData: Sector[] = [
     "seoTitle": "Déménagement Neuilly-sur-Seine : devis | Marne Transdem",
     "seoDescription": "Préparez votre déménagement à Neuilly-sur-Seine : accès, inventaire et réservation du stationnement. Demandez un devis gratuit adapté à votre projet.",
     "seoImage": null,
-    "heroSubtitle": "À Neuilly-sur-Seine, préparons les accès de votre immeuble, le transport de vos biens et les démarches de stationnement pour votre devis.",
+    "heroSubtitle": "Votre déménageur à Neuilly-sur-Seine (92200), dans les Hauts-de-Seine : appartement, maison ou locaux professionnels. Précisez le volume, les accès et la date pour un devis gratuit adapté.",
     "introParagraphs": [
       "Votre <strong>déménagement à Neuilly-sur-Seine (92200)</strong> se prépare à partir de l’inventaire et du passage des meubles. Mesurez les portes, les paliers et l’ascenseur, puis relevez la distance entre l’emplacement envisagé et l’entrée. Demandez au gardien ou au gestionnaire les consignes de protection des parties communes et les créneaux utilisables. Le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> aide à recenser mobilier et cartons ; complétez-le avec les dimensions des objets encombrants et les annexes concernées, comme la cave.",
-      "La <a href=\"https://www.neuillysurseine.fr/pre-demarche/reserver-un-emplacement-pour-un-camion-de-demenagement\" class=\"text-accent hover:underline\">démarche municipale de réservation pour un camion de déménagement</a> indique un dépôt au moins 10 jours à l’avance et exclut les réservations les dimanches et jours fériés. La Ville vérifie la disponibilité de l’emplacement avant d’établir l’arrêté. <strong>Signalez l’utilisation d’un monte-meuble dès la demande</strong>. Consultez les conditions à jour et faites confirmer les frais applicables ; convenez avec notre équipe de la personne chargée des démarches et de l’organisation de la signalisation.",
+      "La <a href=\"https://www.neuillysurseine.fr/pre-demarche/reserver-un-emplacement-pour-un-camion-de-demenagement\" class=\"text-accent hover:underline\">démarche municipale de réservation pour un camion de déménagement</a> indique un dépôt au moins 10 jours à l’avance et exclut les réservations les dimanches et jours fériés. La Ville vérifie la disponibilité de l’emplacement avant d’établir l’arrêté. <strong>Signalez l’utilisation d’un monte-meuble dès la demande</strong>. Consultez les conditions à jour et faites confirmer les frais applicables ; Marne Transdem prend en charge la demande administrative de stationnement au chargement et à la livraison. Les frais éventuels et l’organisation de la signalisation sont à préciser dans votre devis.",
       "Pour un <a href=\"/demenagement-entreprises-paris\" class=\"text-accent hover:underline\">transfert de bureaux ou de cabinet professionnel</a>, identifiez les postes, archives et équipements particuliers, les accès de livraison et les opérations de préparation à organiser. Pour un logement, comparez les <a href=\"/formules-demenagement\" class=\"text-accent hover:underline\">prestations d’emballage et de démontage</a> souhaitées. Un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a> nécessite aussi une étude de la façade, des obstacles et de l’espace au sol. Pour rejoindre <a href=\"/demenagement-courbevoie\" class=\"text-accent hover:underline\">Courbevoie</a>, <a href=\"/demenagement-levallois-perret\" class=\"text-accent hover:underline\">Levallois-Perret</a> ou <a href=\"/demenagement-paris-17\" class=\"text-accent hover:underline\">Paris 17e</a>, décrivez les accès à l’arrivée avec la même précision. Retrouvez les communes des <a href=\"/demenagement-hauts-de-seine\" class=\"text-accent hover:underline\">Hauts-de-Seine</a> et <a href=\"/demande-de-devis\" class=\"text-accent hover:underline\">préparez votre devis à Neuilly-sur-Seine</a>."
     ],
     "faqs": [
       {
         "q": "Quand demander une réservation de stationnement à Neuilly-sur-Seine ?",
-        "a": "La page municipale demande un dépôt au moins 10 jours à l’avance. La Ville doit vérifier la disponibilité de l’emplacement avant d’établir l’arrêté. Consultez les conditions à jour et convenez avec l’équipe de la personne chargée de la démarche ; le dépôt ne vaut pas confirmation de réservation."
+        "a": "La page municipale demande un dépôt au moins 10 jours à l’avance. La Ville doit vérifier la disponibilité de l’emplacement avant d’établir l’arrêté. Consultez les conditions à jour : Marne Transdem prend en charge la demande administrative, mais son dépôt ne vaut pas confirmation de réservation. Les frais éventuels et la signalisation sont à préciser au devis."
       },
       {
         "q": "Peut-on réserver un emplacement le dimanche ou un jour férié ?",
@@ -4175,7 +4175,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "q": "Quels éléments comparer dans mon devis à Neuilly-sur-Seine ?",
-        "a": "Comparez le volume retenu, le trajet, la période, les accès et les tâches d’emballage et de démontage prévues. Ajoutez les éventuels besoins de levage ou de stockage. Faites préciser les démarches et frais de stationnement applicables à votre projet, ainsi que les responsabilités convenues."
+        "a": "Comparez le volume retenu, le trajet, la période, les accès et les tâches d’emballage et de démontage prévues. Ajoutez les éventuels besoins de levage ou de stockage. La demande administrative de stationnement est prise en charge par Marne Transdem ; les frais éventuels et les prestations retenues doivent être précisés au devis."
       }
     ],
     "nearbySectors": [
