@@ -366,7 +366,7 @@ const SERVICE_TITLES: Record<string, string> = {
   '/calculateur-volume': 'Calculateur de volume déménagement en m³ | Marne Transdem',
   '/formules-demenagement': 'Formules de déménagement | Marne Transdem',
   '/demenagement-longue-distance': 'Déménagement longue distance depuis Paris | Marne Transdem',
-  '/demenagement-oeuvres-art': 'Déménagement œuvres d’art | Marne Transdem',
+  '/demenagement-oeuvres-art': 'Déménagement de tableaux à Paris | Marne Transdem',
   '/demenagement-etudiant': 'Déménagement étudiant Paris | Marne Transdem',
   '/demenagement-militaire': 'Déménagement militaire et gendarmerie | Marne Transdem',
   '/demenagement-senior': 'Déménagement senior Paris | Marne Transdem',

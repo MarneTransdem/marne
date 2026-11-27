@@ -278,6 +278,7 @@ const Emballage: React.FC = () => {
           <p className="text-slate-600 leading-relaxed">Pour les affaires que vous préparez vous-même, adaptez les cartons et les protections à chaque objet. Signalez à l’équipe les biens nécessitant une préparation particulière.</p>
           <ul className="list-disc pl-6 space-y-3 text-slate-600 leading-relaxed">
             <li><strong>Vaisselle et objets fragiles :</strong> séparez les pièces, protégez-les individuellement et calez les espaces pour limiter les mouvements. Signalez les objets dont vous souhaitez confier l'emballage.</li>
+            <li><strong>Tableaux et objets de valeur :</strong> relevez les cadres, les vitres et les fragilités connues ; consultez les informations à fournir pour le <Link to="/demenagement-oeuvres-art#preparer-tableaux" className="underline text-brand-900">déménagement de tableaux et objets de valeur</Link> avant de confirmer leur protection.</li>
             <li><strong>Livres et objets denses :</strong> répartissez-les dans des cartons faciles à porter et vérifiez la fermeture du fond.</li>
             <li><strong>Écrans et appareils :</strong> gardez les accessoires identifiés et suivez les consignes de préparation du fabricant ; indiquez les appareils dont l'emballage d'origine manque.</li>
             <li><strong>Mobilier :</strong> précisez les meubles à démonter, les surfaces délicates et les passages étroits aux deux adresses.</li>
