@@ -3715,26 +3715,29 @@ export const sectorsData: Sector[] = [
     "slug": "marly-le-roi",
     "name": "Marly-le-Roi",
     "type": "local",
-    "seoTitle": "Déménagement Marly-le-Roi | Marne Transdem",
-    "seoDescription": "Préparez votre déménagement à Marly-le-Roi avec Marne Transdem. Services pour particuliers et entreprises, formules adaptées, monte-meuble, garde-meuble et devis personnalisé.",
+    "seoTitle": "Déménagement Marly-le-Roi : devis | Marne Transdem",
+    "seoDescription": "Déménagement à Marly-le-Roi : préparez le volume, les accès de votre maison ou appartement et vos prestations. Demandez votre devis gratuit et personnalisé.",
     "seoImage": null,
-    "heroSubtitle": "Marne Transdem assure vos projets de déménagement à Marly-le-Roi, la ville royale. Une expertise sur-mesure pour vos maisons de ville, appartements de standing et locaux professionnels dans les Yvelines.",
+    "heroSubtitle": "Préparez votre déménagement à Marly-le-Roi : maison, appartement ou locaux professionnels, avec des moyens étudiés selon vos accès et les prestations retenues.",
     "introParagraphs": [
-      "Qu'il s'agisse des ruelles escarpées du Vieux Marly, des résidences forestières ou des quartiers pavillonnaires plus récents, nous maîtrisons les spécificités logistiques locales. Notre proximité avec Saint-Germain-en-Laye, Louveciennes, Le Pecq et Versailles nous permet d'intervenir avec une grande réactivité.",
-      "Nous prenons en compte les contraintes d'accès (pentes, rues étroites, étages sans ascenseur) et assurons la protection optimale de vos biens les plus précieux, dans le respect du calme et de l'harmonie de votre environnement."
+      "Pour votre <strong>déménagement à Marly-le-Roi (78160)</strong>, dans le Vieux Marly, près du parc de Marly ou dans un secteur résidentiel, décrivez le parcours des meubles aux deux adresses. Pour une maison, ajoutez le garage, la cave et les dépendances à l’inventaire ; pour un appartement, relevez les étages, les dimensions de l’ascenseur et les passages dans l’escalier. Signalez les marches, la pente éventuelle et la distance entre le camion et l’entrée : ces points doivent être vérifiés à votre adresse.",
+      "Le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> aide à recenser les meubles et cartons, sans déduire le cubage de la seule surface du logement. Comparez ensuite les <a href=\"/formules-demenagement#comparatif-formules\" class=\"text-accent hover:underline\">prestations des formules Économique, Standard et Luxe</a> pour répartir l’emballage, le déballage et le démontage. La déconnexion et la reconnexion des appareils électriques et des fluides restent à votre charge.",
+      "Pour le stationnement, Marne Transdem prend en charge la demande administrative au chargement et à la livraison selon la procédure applicable. Les frais éventuels et l’organisation de la signalisation sont à préciser au devis ; la demande ne garantit ni son acceptation ni une place libre. Consultez les <a href=\"https://www.marlyleroi.fr/Travaux-et-informations-sur-la-voirie/25/\" class=\"text-accent hover:underline\">informations municipales sur la voirie</a> et faites confirmer les conditions d’accès pour la date souhaitée.",
+      "Si un meuble ne passe pas par l’escalier ou l’ascenseur, décrivez les ouvertures en façade, le recul disponible et les obstacles pour étudier un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a>. Sa mise en place dépend de la faisabilité technique et des autorisations. Pour des <a href=\"/demenagement-entreprises-paris\" class=\"text-accent hover:underline\">locaux professionnels à déménager</a>, ajoutez les équipements, les consignes de livraison et les créneaux d’accès.",
+      "Vous rejoignez <a href=\"/demenagement-louveciennes\" class=\"text-accent hover:underline\">Louveciennes</a> ou <a href=\"/demenagement-le-pecq\" class=\"text-accent hover:underline\">Le Pecq</a> ? Préparez aussi les accès à destination, même pour une courte distance. Retrouvez nos secteurs dans les <a href=\"/demenagement-yvelines\" class=\"text-accent hover:underline\">Yvelines</a>, puis transmettez les deux adresses, la période souhaitée et l’inventaire pour <a href=\"/demande-de-devis#formulaire-devis\" class=\"text-accent hover:underline\">demander votre devis de déménagement à Marly-le-Roi</a>."
     ],
     "faqs": [
       {
         "q": "Comment préparer un déménagement à Marly-le-Roi ?",
-        "a": "Un déménagement à Marly-le-Roi nécessite d'anticiper les spécificités de la ville : dénivelés, rues étroites du Vieux Marly et accès aux résidences forestières. Il est essentiel d'évaluer le volume, le type d'accès (maison, étage, ascenseur) et le besoin éventuel de stationnement. Marne Transdem vous aide à planifier chaque détail, de la protection de votre mobilier à la logistique du jour J."
+        "a": "Préparez les deux adresses, la période souhaitée et l’inventaire avec les annexes. Mesurez les passages difficiles et signalez les marches, les pentes éventuelles, les étages et la distance de portage. Faites confirmer les consignes de copropriété et les possibilités de stationnement avant de retenir l’organisation."
       },
       {
         "q": "Marne Transdem intervient-elle dans le quartier du Vieux Marly ?",
-        "a": "Oui, nous intervenons dans tout Marly-le-Roi, y compris le cœur historique, les secteurs proches du Parc de Marly et les zones résidentielles plus récentes. Nous adaptons la taille de nos camions et nos équipes selon l'étroitesse des rues et les contraintes d'accès."
+        "a": "Oui, nous accompagnons les projets dans le Vieux Marly et les autres secteurs de Marly-le-Roi. Les moyens sont étudiés selon les accès réels, le volume et les prestations retenues au devis ; une adresse dans le centre historique ne suffit pas à déterminer le véhicule ou la manutention nécessaires."
       },
       {
         "q": "Faut-il une autorisation de stationnement à Marly-le-Roi ?",
-        "a": "Pour garantir l'accès du camion de déménagement et la sécurité des opérations, il est fortement recommandé de réserver des places de stationnement auprès des services municipaux de Marly-le-Roi. Nos conseillers peuvent vous guider dans ces démarches administratives."
+        "a": "Les conditions dépendent de l’emplacement envisagé et de la procédure applicable à votre adresse. Marne Transdem prend en charge la demande administrative au chargement et à la livraison ; les frais éventuels et la signalisation sont à préciser au devis. La demande ne garantit ni son acceptation ni une place libre. Faites confirmer les conditions municipales avant l’intervention."
       },
       {
         "q": "Proposez-vous des formules pour les petits et gros volumes ?",
