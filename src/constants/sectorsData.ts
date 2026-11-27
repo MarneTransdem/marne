@@ -4431,12 +4431,16 @@ export const sectorsData: Sector[] = [
     "seoImage": null,
     "heroSubtitle": "Marne Transdem accompagne les particuliers et les entreprises dans leurs projets de déménagement à Paris 10e, avec une organisation adaptée aux appartements, commerces, bureaux et contraintes d’accès du centre-est parisien.",
     "introParagraphs": [
-      "Le <span class=\"font-bold text-slate-700\">Paris 10e</span> est un arrondissement dense, vivant et très urbain, où se croisent <span class=\"font-bold text-slate-700\">appartements</span>, <span class=\"font-bold text-slate-700\">studios</span>, logements familiaux, <span class=\"font-bold text-slate-700\">immeubles anciens</span>, bureaux, commerces, agences et cabinets professionnels. Un déménagement dans ce secteur demande une organisation attentive, notamment lorsque les accès sont contraints ou que les rues sont très fréquentées."
+      "Pour votre <strong>déménagement à Paris 10e</strong>, près du canal Saint-Martin, de la porte Saint-Denis, de la gare de l’Est ou de la gare du Nord, décrivez le parcours des meubles aux deux adresses. Relevez les étages, les dimensions de l’ascenseur, les paliers, les portes et les éventuels passages par une cour. Indiquez la distance entre le camion et l’entrée : le quartier ne permet pas de déduire les accès réels.",
+      "Pour un appartement ou un studio, recensez les cartons, les meubles à démonter, les biens fragiles et le contenu de la cave ou des annexes. Le <a href=\"/calculateur-volume\" class=\"text-accent hover:underline\">calculateur de volume en m³</a> aide à préparer cet inventaire. Comparez ensuite les <a href=\"/formules-demenagement#comparatif-formules\" class=\"text-accent hover:underline\">prestations des formules Économique, Standard et Luxe</a> pour répartir l’emballage, le déballage et le démontage. La déconnexion et la reconnexion des appareils électriques et des fluides restent à votre charge.",
+      "Si un meuble ne passe pas par l’escalier ou l’ascenseur, décrivez les ouvertures en façade, les obstacles et l’emplacement envisagé pour un <a href=\"/location-monte-meuble-paris\" class=\"text-accent hover:underline\">monte-meuble</a>. Son utilisation dépend de la faisabilité technique et des autorisations. Marne Transdem prend en charge la demande administrative de stationnement au chargement et à la livraison selon la procédure applicable ; les frais éventuels et la signalisation sont à préciser au devis, sans garantie d’autorisation ni de place libre.",
+      "Pour un commerce, une agence ou d’autres <a href=\"/demenagement-entreprises-paris\" class=\"text-accent hover:underline\">locaux professionnels dans le 10e</a>, indiquez le mobilier, les équipements et les consignes de livraison. Pour des <a href=\"/transfert-bureaux-paris\" class=\"text-accent hover:underline\">bureaux à transférer</a>, identifiez les cartons et les postes par destination ; le transport ne comprend pas la configuration informatique ni la remise en service.",
+      "Vous rejoignez <a href=\"/demenagement-paris-9\" class=\"text-accent hover:underline\">Paris 9e</a> ou <a href=\"/demenagement-paris-11\" class=\"text-accent hover:underline\">Paris 11e</a> ? Renseignez les accès à l’arrivée avec autant de précision. Transmettez votre période souhaitée, les deux adresses, l’inventaire et les prestations retenues pour <a href=\"/demande-de-devis#formulaire-devis\" class=\"text-accent hover:underline\">préparer votre devis de déménagement à Paris 10e</a>."
     ],
     "faqs": [
       {
         "q": "Comment organiser un déménagement à Paris 10e ?",
-        "a": "Un déménagement dans le 10e arrondissement demande une bonne préparation des accès, du volume et du stationnement. Les rues fréquentées, les immeubles anciens, les escaliers étroits ou les ascenseurs limités peuvent influencer l’organisation. Marne Transdem vous accompagne pour évaluer les contraintes et choisir la formule la plus adaptée à votre projet."
+        "a": "Préparez l’inventaire avec les annexes, les deux adresses et la période souhaitée. Faites confirmer les créneaux d’accès et les consignes de copropriété ; signalez les marches, passages étroits et distances de portage qui peuvent modifier l’organisation."
       },
       {
         "q": "Marne Transdem intervient-elle dans tout le 10e arrondissement ?",
@@ -4448,7 +4452,11 @@ export const sectorsData: Sector[] = [
       },
       {
         "q": "Quelle formule choisir pour un déménagement à Paris 10e ?",
-        "a": "Le choix de la formule dépend du temps que vous souhaitez consacrer à la préparation, du volume à déménager et de la nature de vos biens. La formule Économique convient si vous préparez vos cartons, la formule Standard offre un équilibre entre autonomie et accompagnement, et la formule Luxe permet de déléguer davantage de préparation selon la prestation choisie."
+        "a": "En Économique, vous préparez et déballez vos cartons et démontez/remontez vos meubles. En Standard, l’équipe prend en charge l’emballage et le déballage du fragile ainsi que le démontage/remontage prévus au devis. En Luxe, l’emballage est complet ; le déballage du non-fragile est sur demande. Les prestations retenues figurent au devis. La déconnexion et la reconnexion des appareils électriques et des fluides restent à votre charge."
+      },
+      {
+        "q": "Qui prépare le stationnement pour déménager à Paris 10e ?",
+        "a": "Marne Transdem prend en charge la demande administrative au chargement et à la livraison selon la procédure applicable. Les frais éventuels et la signalisation sont à préciser au devis. La demande ne garantit ni son acceptation ni une place libre."
       },
       {
         "q": "Comment obtenir un devis pour un déménagement à Paris 10e ?",
@@ -4471,14 +4479,6 @@ export const sectorsData: Sector[] = [
       {
         "n": "Paris 19e",
         "l": "/demenagement-paris-19"
-      },
-      {
-        "n": "Nogent-sur-Marne",
-        "l": "/demenagement-nogent-sur-marne"
-      },
-      {
-        "n": "Île-de-France",
-        "l": "/demenagement-ile-de-france"
       }
     ]
   },
