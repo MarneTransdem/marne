@@ -9104,15 +9104,16 @@ export const sectorsData: Sector[] = [
     "seoImage": "/images/demenagement-paris.webp",
     "heroSubtitle": "Madeleine et Europe : préparez les accès, le volume et les prestations de votre déménagement à Paris 8e.",
     "introParagraphs": [
-      "Pour un <a href=\"/transfert-bureaux-paris\" class=\"underline\">transfert de bureaux</a> près de la Madeleine ou dans le quartier de l’Europe, séparez l’inventaire par poste de travail et identifiez la destination de chaque carton. Précisez les accès de livraison de l’immeuble au départ et à l’arrivée.",
-      "Pour un logement comme pour un bureau, faites confirmer le créneau d’accès, les règles de copropriété et l’utilisation éventuelle d’un ascenseur de service. Les branchements informatiques et la remise en service doivent être attribués explicitement aux intervenants concernés.",
-      "Pour le stationnement, consultez les <a href=\"https://www.paris.fr/pages/faq-demenagements-4404\" class=\"underline\">modalités de déménagement de la Ville de Paris</a>. Faites confirmer les conditions applicables à votre adresse et précisez au devis qui effectue la démarche et prend en charge les frais.",
-      "Préparez votre <a href=\"/calculateur-volume\" class=\"underline\">inventaire et votre cubage</a>, puis comparez les <a href=\"/formules-demenagement\" class=\"underline\">formules de déménagement</a>. Transmettez les deux adresses, votre période souhaitée et les photographies des accès pour <a href=\"/demande-de-devis\" class=\"underline\">demander un devis personnalisé</a>."
+      "Vous cherchez un déménageur à Paris 8e pour un appartement, une maison ou des locaux professionnels ? À la Madeleine, dans le quartier de l’Europe, vers les Champs-Élysées ou le Faubourg-du-Roule, décrivez les deux adresses et le parcours des meubles jusqu’au camion. Le quartier ne permet pas de déduire les accès : relevez les étages, les dimensions de l’ascenseur, les paliers, les passages par une cour et la distance de portage.",
+      "Préparez l’inventaire du logement, avec la cave ou les autres annexes, les biens fragiles et les meubles à démonter. Notre <a href=\"/calculateur-volume\" class=\"underline\">calculateur de volume en m³</a> aide à préparer le cubage. Comparez ensuite les <a href=\"/formules-demenagement#comparatif-formules\" class=\"underline\">prestations des formules Économique, Standard et Luxe</a> pour répartir l’emballage, le déballage et le démontage. La déconnexion et la reconnexion des appareils électriques et des fluides restent à votre charge.",
+      "Pour des <a href=\"/transfert-bureaux-paris\" class=\"underline\">bureaux à transférer près de la Madeleine ou de l’Europe</a>, séparez l’inventaire par poste de travail et identifiez la destination des cartons. Faites confirmer les créneaux de livraison et les règles du gestionnaire. Le transport des équipements ne comprend pas leur configuration informatique ni leur remise en service.",
+      "Pour le stationnement, consultez les <a href=\"https://www.paris.fr/pages/faq-demenagements-4404\" class=\"underline\">modalités de déménagement de la Ville de Paris</a>. Marne Transdem prend en charge la demande administrative au chargement et à la livraison selon la procédure applicable. Les frais éventuels et l’organisation de la signalisation sont à préciser au devis ; la demande ne garantit ni son acceptation ni une place libre. Faites également confirmer l’utilisation éventuelle d’un ascenseur de service et les consignes de copropriété.",
+      "Transmettez les deux adresses, votre période souhaitée, l’inventaire et les photographies des passages pour <a href=\"/demande-de-devis#formulaire-devis\" class=\"underline\">préparer votre devis de déménagement à Paris 8e</a>. Pour un trajet vers <a href=\"/demenagement-paris-9\" class=\"underline\">Paris 9e</a> ou <a href=\"/demenagement-paris-17\" class=\"underline\">Paris 17e</a>, renseignez les accès à l’arrivée avec autant de précision."
     ],
     "faqs": [
       {
         "q": "Que faut-il vérifier pour déménager à Paris 8e ?",
-        "a": "Pour un transfert de bureaux près de la Madeleine ou dans le quartier de l’Europe, séparez l’inventaire par poste de travail et identifiez la destination de chaque carton. Précisez les accès de livraison de l’immeuble au départ et à l’arrivée. Pour un logement comme pour un bureau, faites confirmer le créneau d’accès, les règles de copropriété et l’utilisation éventuelle d’un ascenseur de service. Les branchements informatiques et la remise en service doivent être attribués explicitement aux intervenants concernés."
+        "a": "Relevez les étages, les dimensions de l’ascenseur et des passages, les règles de copropriété, les créneaux de livraison et la distance entre le camion et l’entrée aux deux adresses. Ajoutez la cave ou les autres annexes à l’inventaire et signalez les meubles qui ne passent pas par l’escalier."
       },
       {
         "q": "Comment est calculé le prix d’un déménagement à Paris 8e ?",
@@ -9120,7 +9121,7 @@ export const sectorsData: Sector[] = [
       },
       {
         "q": "Qui prépare le stationnement du camion ?",
-        "a": "Précisez avec Marne Transdem la personne chargée des démarches et les frais éventuels. Consultez les modalités actuelles de la Ville de Paris et faites confirmer les conditions applicables à votre adresse avant l’intervention."
+        "a": "Marne Transdem prend en charge la demande administrative au chargement et à la livraison selon la procédure applicable. Les frais éventuels et la signalisation sont à préciser au devis. Une demande ne garantit ni son acceptation ni une place libre ; consultez les modalités actuelles de la Ville de Paris pour votre adresse."
       }
     ],
     "nearbySectors": []
