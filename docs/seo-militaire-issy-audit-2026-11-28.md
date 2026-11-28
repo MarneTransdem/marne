@@ -1,0 +1,9 @@
+# Audit Déménagement militaire — 28 novembre 2026
+
+Search Console Web, 30 octobre–26 novembre : 25 impressions, 0 clic, position 18,4. Requêtes affichées : déménagement militaire issy-les-moulineaux (14 / 0 / 24,1), demenageur pour militaire (1 / 0 / 24,0). Les requêtes affichées ne couvrent pas toutes les impressions.
+Index Google : indexée, dernier crawl 27 août 2026 à 03:19:07, smartphone, récupération réussie et exploration/indexation autorisées. Copie ancienne : canonique déclarée sans www, Google choisit l’URL inspectée avec www. Origine Particuliers ; erreur temporaire sitemap affichée, ne prouve pas un défaut actuel.
+
+Corrections : lien contextuel Militaire vers Issy pour les accès locaux, retour Issy vers Militaire uniquement pour une mutation militaire ; comparatif rapproché de l’inventaire, responsabilités électriques et fluides client, CTA directs vers l’ancre formulaire. Ancre « Dossier Mutation » remplacée pour distinguer la demande commerciale d’un dossier administratif. Titre React aligné sur le registre SEO existant. Intitulé « expertise » remplacé par la préparation du transport.
+Les réserves administratives existantes sont conservées : service gestionnaire décide des droits et procédures. Aucun agrément, remboursement garanti, barème ou financement annoncé. Aucun nouveau détail municipal ajouté à Issy.
+Impact attendu : meilleure pertinence pour la requête locale et parcours de préparation plus direct ; aucun classement garanti.
+Validation : TypeScript, audit:site et compilation réussis ; 161 pages prérendues et auditées, 126 fragments vérifiés. Contrôle ciblé des deux HTML : liens réciproques, H1 unique, titre synchronisé, canonique avec www, comparatif et formulaire, réserves administratives et responsabilités présents. Ancres cibles vérifiées. Sitemap et sectorMetadata préexistants exclus du commit.

@@ -31,7 +31,7 @@ const DemenagementMilitaire: React.FC = () => {
   return (
     <div className="bg-white">
       <SEO 
-        title="Déménagement Militaire & Gendarmerie | Marne Transdem"
+        title="Déménagement militaire et gendarmerie | Marne Transdem"
         description="Préparez votre déménagement militaire à Paris : inventaire, accès, calendrier et devis. Faites confirmer vos droits et la procédure par votre service gestionnaire."
         canonical={path}
         schema={[
@@ -68,7 +68,7 @@ const DemenagementMilitaire: React.FC = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-5">
-              <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover shadow-xl flex items-center justify-center gap-3 group transition-all italic underline-none">
+              <Link to="/demande-de-devis#formulaire-devis" className="bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover shadow-xl flex items-center justify-center gap-3 group transition-all italic underline-none">
                 Demander un devis déménagement
                 <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -87,7 +87,7 @@ const DemenagementMilitaire: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center italic">
             <div className="space-y-8 italic">
               <h2 className="text-3xl md:text-5xl font-black text-brand-900 leading-tight tracking-tight uppercase italic underline decoration-accent/20 underline-offset-8">
-                L'expertise <span className="text-accent italic">au service de votre mutation</span>
+                Préparer <span className="text-accent italic">le transport pour votre mutation</span>
               </h2>
               <div className="space-y-6 text-slate-500 text-lg font-light leading-relaxed italic text-justify grayscale-[20%]">
                 <p>
@@ -95,6 +95,16 @@ const DemenagementMilitaire: React.FC = () => {
                 </p>
                 <p>
                   Indiquez les meubles à emporter, les étages, les ascenseurs et les contraintes de livraison. Le <Link to="/calculateur-volume" className="underline text-brand-900">calculateur de volume</Link> aide à préparer l'inventaire ; il ne calcule pas vos droits administratifs. Pour un trajet entre régions, consultez les informations sur le <Link to="/demenagement-longue-distance" className="underline text-brand-900">déménagement longue distance</Link>.
+                </p>
+                <p>
+                  Pour un départ ou une arrivée à <Link to="/demenagement-issy-les-moulineaux" className="underline text-brand-900">Issy-les-Moulineaux</Link>,
+                  préparez les étages, les dimensions des passages, la distance entre le camion et l’entrée et les consignes de copropriété.
+                  La page locale vous aide à examiner les accès et les démarches de stationnement ; elle ne détermine pas vos droits administratifs.
+                </p>
+                <p>
+                  Comparez les <Link to="/formules-demenagement#comparatif-formules" className="underline text-brand-900">prestations Économique, Standard et Luxe</Link>
+                  selon l’emballage, le déballage et le démontage à déléguer. Les tâches retenues figurent au devis.
+                  La déconnexion et la reconnexion des appareils électriques et des fluides restent à votre charge.
                 </p>
               </div>
               <div className="flex flex-wrap gap-4 pt-4 italic">
@@ -153,7 +163,7 @@ const DemenagementMilitaire: React.FC = () => {
                 Le montant du devis et celui pris en charge ne sont pas nécessairement identiques. Faites confirmer votre financement et les prestations concernées avant de vous engager. Si votre date change, contactez le déménageur pour vérifier les disponibilités et les conditions de modification.
               </p>
               <div className="pt-4 italic">
-                <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all inline-flex items-center gap-3 italic">
+                <Link to="/demande-de-devis#formulaire-devis" className="bg-accent text-brand-900 px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all inline-flex items-center gap-3 italic">
                   Préparer mon devis mutation
                   <ArrowRight size={20} />
                 </Link>
@@ -183,7 +193,7 @@ const DemenagementMilitaire: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 max-w-4xl space-y-6">
           <h2 className="text-3xl font-bold text-brand-900">Où vérifier la procédure de changement de résidence ?</h2>
           <p className="text-slate-600 leading-relaxed">Consultez les <a href="https://www.defense.gouv.fr/commissariat/actualites/vous-etes-mutes-demenagez-serenite-grace-pfmd" className="underline text-brand-900">informations du ministère des Armées sur la PFMD</a> et demandez à votre service gestionnaire quel dispositif s'applique à votre mutation. Une demande commerciale sur ce site ne vaut pas validation administrative ni réservation via une plateforme ministérielle.</p>
-          <p className="text-slate-600 leading-relaxed">Pour préparer le transport, comparez les <Link to="/formules-demenagement" className="underline text-brand-900">prestations des formules de déménagement</Link>. Si les dates des logements ne coïncident pas, faites chiffrer séparément le <Link to="/garde-meuble-paris" className="underline text-brand-900">garde-meuble temporaire</Link> et vérifiez sa prise en charge éventuelle avec votre gestionnaire.</p>
+          <p className="text-slate-600 leading-relaxed">Pour préparer le transport, comparez les <Link to="/formules-demenagement#comparatif-formules" className="underline text-brand-900">prestations des formules de déménagement</Link>. Si les dates des logements ne coïncident pas, faites chiffrer séparément le <Link to="/garde-meuble-paris" className="underline text-brand-900">garde-meuble temporaire</Link> et vérifiez sa prise en charge éventuelle avec votre gestionnaire.</p>
         </div>
       </section>
       <section className="py-24 bg-slate-50 font-sans italic transition-all italic underline-none italic">
@@ -211,7 +221,7 @@ const DemenagementMilitaire: React.FC = () => {
       <section className="py-12 border-t border-slate-100 font-sans italic transition-all italic underline-none italic">
         <div className="container mx-auto px-4 md:px-6 italic">
           <div className="flex flex-wrap justify-center gap-6 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 italic font-sans italic transition-all italic">
-            <Link to="/demande-de-devis" className="hover:text-accent transition-colors italic">Dossier Mutation</Link>
+            <Link to="/demande-de-devis#formulaire-devis" className="hover:text-accent transition-colors italic">Demander un devis pour ma mutation</Link>
             <Link to="/calculateur-volume" className="hover:text-accent transition-colors italic">Estimer le volume à transporter</Link>
             <Link to="/demenagement-longue-distance" className="hover:text-accent transition-colors italic">Déménagement National</Link>
             <Link to="/garde-meuble-paris" className="hover:text-accent transition-colors italic">Garde-meuble temporaire</Link>
