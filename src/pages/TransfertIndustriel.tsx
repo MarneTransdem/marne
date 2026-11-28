@@ -31,7 +31,7 @@ const TransfertIndustriel: React.FC = () => {
   return (
     <div className="bg-white">
       <SEO 
-        title="Transfert Industriel & Manutention Lourde Paris | Marne Transdem"
+        title="Transfert industriel Paris : devis | Marne Transdem"
         description="Transfert industriel à Paris : préparez l’inventaire de votre atelier, les accès et le calendrier. Définissez les prestations nécessaires avec un devis adapté."
         canonical={path}
         schema={[
@@ -55,7 +55,7 @@ const TransfertIndustriel: React.FC = () => {
               className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full mb-8 border border-white/10"
             >
               <Factory size={16} className="text-accent" />
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">Logistique & Manutention Industrielle</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">Projet de transfert d’atelier</span>
             </motion.div>
 
             <h1 className="text-5xl md:text-8xl font-black mb-8 leading-[1.1] tracking-tight italic">
@@ -67,8 +67,14 @@ const TransfertIndustriel: React.FC = () => {
               Préparez votre transfert d’atelier ou de site industriel à Paris et en Île-de-France. Décrivez les équipements, les accès et le calendrier pour définir les prestations et les moyens nécessaires à votre projet.
             </p>
 
+            <p className="text-base text-slate-300 mb-8 leading-relaxed max-w-3xl">
+              Votre demande sert à étudier le périmètre du projet. Le levage lourd, le démontage mécanique,
+              les déconnexions techniques, les réglages et la remise en service ne sont pas validés par ce formulaire.
+              Les opérations et les intervenants doivent être confirmés avant tout engagement.
+              Pour le mobilier et les postes de travail, consultez notre <Link to="/transfert-bureaux-paris" className="text-white underline underline-offset-4">offre de transfert de bureaux</Link>.
+            </p>
             <div className="flex flex-col sm:flex-row gap-5">
-              <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover shadow-xl flex items-center justify-center gap-3 group transition-all italic underline-none">
+              <Link to="/demande-de-devis#formulaire-devis" className="bg-accent text-brand-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-accent-hover shadow-xl flex items-center justify-center gap-3 group transition-all italic underline-none">
                 Décrire mon projet
                 <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -97,7 +103,7 @@ const TransfertIndustriel: React.FC = () => {
                   Pour les deux sites, indiquez les accès, les quais, les passages et les créneaux disponibles. Transmettez les informations techniques sur les sols et les contraintes du bâtiment dont vous disposez. Les moyens de manutention et la faisabilité du transfert doivent être confirmés avant de fixer l’intervention.
                 </p>
                 <p>
-                  Si le projet comprend aussi des postes de travail, consultez notre page <Link to="/transfert-bureaux-paris" className="underline font-medium text-brand-900">transfert de bureaux</Link>. La <Link to="/blog/demenagement-entreprise-paris-checklist" className="underline font-medium text-brand-900">checklist du déménagement d’entreprise</Link> vous aide à organiser les interlocuteurs et les étapes du projet.
+                  Pour cadrer le déménagement de vos locaux, consultez notre <Link to="/demenagement-entreprises-paris" className="underline font-medium text-brand-900">offre Entreprises</Link>. Si le projet comprend aussi des postes de travail, consultez notre page <Link to="/transfert-bureaux-paris" className="underline font-medium text-brand-900">transfert de bureaux</Link>. La <Link to="/blog/demenagement-entreprise-paris-checklist" className="underline font-medium text-brand-900">checklist du déménagement d’entreprise</Link> vous aide à organiser les interlocuteurs et les étapes du projet.
                 </p>
               </div>
             </div>
@@ -141,10 +147,10 @@ const TransfertIndustriel: React.FC = () => {
               <div className="lg:w-2/3 space-y-8 relative z-10 italic">
                  <h2 className="text-3xl md:text-5xl font-black uppercase italic tracking-tight underline decoration-accent/20 italic">Sécurité & <br/><span className="text-accent italic">Rigueur Opérationnelle</span></h2>
                  <p className="text-slate-300 text-lg font-light leading-relaxed italic text-justify italic">
-                   Désignez les interlocuteurs des deux sites et communiquez les consignes d’accès et de sécurité. Faites préciser les opérations confiées à chaque intervenant, les documents nécessaires et les créneaux de transfert. Les déconnexions, les contrôles techniques et la remise en service doivent être organisés avec les responsables concernés ; le calendrier de reprise dépend de ces étapes.
+                   Désignez les interlocuteurs des deux sites et communiquez les consignes d’accès et de sécurité. Faites préciser les opérations confiées à chaque intervenant, les documents nécessaires et les créneaux de transfert. Les déconnexions, les contrôles techniques et la remise en service sont à organiser avec vos équipes de maintenance ou vos prestataires spécialisés ; le calendrier de reprise dépend de ces étapes. La déconnexion et la reconnexion des appareils électriques et des fluides restent à votre charge.
                  </p>
                  <div className="pt-4 italic">
-                    <Link to="/demande-de-devis" className="bg-accent text-brand-900 px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all inline-flex items-center gap-3 italic">
+                    <Link to="/demande-de-devis#formulaire-devis" className="bg-accent text-brand-900 px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all inline-flex items-center gap-3 italic">
                       Préparer ma demande de devis
                       <ArrowRight size={20} />
                     </Link>
@@ -199,7 +205,7 @@ const TransfertIndustriel: React.FC = () => {
             <Link to="/demenagement-entreprises-paris" className="hover:text-accent transition-all italic underline decoration-accent/30 decoration-2 italic font-sans italic">Solutions Professionnelles</Link>
             <Link to="/transfert-laboratoire-paris" className="hover:text-accent transition-all italic">Milieux Sensibles</Link>
             <Link to="/gestion-archives-paris" className="hover:text-accent transition-all italic">Transfert d’archives</Link>
-            <Link to="/contact" className="hover:text-accent transition-all italic">Expert Logistique</Link>
+            <Link to="/contact" className="hover:text-accent transition-all italic">Contacter Marne Transdem</Link>
           </div>
         </div>
       </section>

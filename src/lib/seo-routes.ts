@@ -375,7 +375,7 @@ const SERVICE_TITLES: Record<string, string> = {
   '/demenagement-piano-objets-lourds': 'Déménagement piano et objets lourds | Marne Transdem',
   '/transfert-bureaux-paris': 'Déménagement de bureaux à Paris : devis | Marne Transdem',
   '/transfert-informatique-paris': 'Déménagement informatique à Paris : devis et transfert',
-  '/transfert-industriel-paris': 'Transfert industriel Paris | Marne Transdem',
+  '/transfert-industriel-paris': 'Transfert industriel Paris : devis | Marne Transdem',
   '/transfert-laboratoire-paris': 'Transfert de laboratoire Paris | Marne Transdem',
   '/gestion-archives-paris': 'Déménagement d’archives à Paris : devis | Marne Transdem',
 };
